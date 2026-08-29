@@ -16,7 +16,7 @@ const HAZARD_DATA_STATUSES = new Set(["KNOWN", "UNKNOWN"]);
 const HAZARD_OVERLAPS = new Set(["OVERLAP", "NO_OVERLAP", "UNKNOWN"]);
 const OFFICIAL_METADATA_STATUSES = new Set(["OFFICIAL_METADATA_ONLY", "UNKNOWN"]);
 const SOURCE_STATUSES = new Set(["CURRENT_CONFIRMED", "CURRENT_UNVERIFIED", "POSSIBLY_STALE", "SUPERSEDED", "UNKNOWN"]);
-const HAZARD_TYPES = new Set(["EARTHQUAKE", "FLOOD", "TSUNAMI", "UNKNOWN"]);
+const HAZARD_TYPES = new Set(["EARTHQUAKE", "RAIN", "FLOOD", "TSUNAMI", "UNKNOWN"]);
 const KPI_KEYS = new Set(["physically_reachable", "accommodated", "overflow_waiting", "unreachable", "unknown_affected_upper_bound"]);
 
 const REQUIRED_CITY_FIELDS = [

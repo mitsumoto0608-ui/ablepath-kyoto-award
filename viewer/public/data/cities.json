@@ -82,8 +82,8 @@
         {"source_id": "FIXTURE-ARASHIYAMA-UI-001", "data_class": "SYNTHETIC_DEMO", "last_verified_at": "2026-08-30", "status": "UNKNOWN", "note": "UI continuity geometry; not surveyed or official."}
       ],
       "scenarios": [
-        {"scenario_id": "RAIN_NORMAL", "display_name": "平常降雨（固定fixture）", "hazard_type": "FLOOD", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
-        {"scenario_id": "RAIN_HEAVY", "display_name": "大雨（固定fixture）", "hazard_type": "FLOOD", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
+        {"scenario_id": "RAIN_NORMAL", "display_name": "平常降雨（固定fixture）", "hazard_type": "RAIN", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
+        {"scenario_id": "RAIN_HEAVY", "display_name": "大雨（固定fixture）", "hazard_type": "RAIN", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
         {"scenario_id": "FLOOD_DESIGN", "display_name": "洪水計画規模（metadata）", "hazard_type": "FLOOD", "disclaimer": "公式metadataの名称を参照するのみで、ここには公式polygon・深度・閉鎖規則を含みません。"}
       ],
       "kpis": {
