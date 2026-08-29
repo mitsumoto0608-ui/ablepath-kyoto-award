@@ -1,0 +1,12 @@
+{
+  "diff_summary_schema_version": "1.0.0",
+  "base_sha": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+  "product_evidence_sha": "e3c0d03a07c06c5e99af028dd482384f57ff1c6d",
+  "integrated_commits_before_reports": 9,
+  "files_changed_before_reports": 104,
+  "insertions_before_reports": 9566,
+  "deletions_before_reports": 0,
+  "protected_files_changed": [],
+  "main_changed": false,
+  "baseline_tag_changed": false
+}

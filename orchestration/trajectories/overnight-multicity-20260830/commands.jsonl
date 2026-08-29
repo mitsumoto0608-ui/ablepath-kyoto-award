@@ -1,0 +1,10 @@
+{"purpose":"integration collection gate","command":"python -m pytest tests/cities tests/integration --collect-only -q","result":"65 cases collected after repair"}
+{"purpose":"cross-pack contract","command":"python -m pytest tests/integration/test_multicity_integration.py -q","result":"6 passed"}
+{"purpose":"full regression","command":"python -m pytest tests/ -q","result":"314 passed; one known warning"}
+{"purpose":"deterministic runner","command":"python -m src.runner data/","result":"120 runs; repeated twice with identical expected SHA-256"}
+{"purpose":"viewer unit","command":"npm test","working_directory":"viewer","result":"27 passed"}
+{"purpose":"viewer build","command":"npm run build","working_directory":"viewer","result":"PASS"}
+{"purpose":"viewer browser","command":"npm run test:e2e","working_directory":"viewer","result":"17 passed; one project-filtered skip"}
+{"purpose":"trust boundary","command":"python scripts/overnight/verify_repository.py --root .","result":"PASS"}
+{"purpose":"bounded champion replay","command":"python evals/immutable/run_integration_collection_benchmark.py --strategy champion-v1","result":"2/2 expected failure detected; 2/2 post-repair full suites passed"}
+{"purpose":"bounded challenger replay","command":"python evals/immutable/run_integration_collection_benchmark.py --strategy challenger-integration-collect-first-v1","result":"2/2 expected failure detected; 2/2 post-repair full suites passed"}

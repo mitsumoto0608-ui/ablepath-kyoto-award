@@ -1,0 +1,41 @@
+{
+  "benchmark_schema_version": "1.0.0",
+  "benchmark_id": "integration-collection-collision-v1",
+  "description": "Controlled replay of the observed pytest import collision caused by three same-named city-pack test modules without package markers.",
+  "failure_injection": {
+    "type": "REMOVE_PACKAGE_MARKERS_IN_TEMP_COPY",
+    "paths": [
+      "tests/cities/__init__.py",
+      "tests/cities/fujisawa_enoshima/__init__.py",
+      "tests/cities/kyoto_arashiyama/__init__.py",
+      "tests/cities/kyoto_kiyomizu/__init__.py"
+    ],
+    "expected_fingerprint": "import file mismatch"
+  },
+  "strategies": {
+    "champion-v1": ["tests/", "-q"],
+    "challenger-integration-collect-first-v1": [
+      "tests/cities",
+      "tests/integration",
+      "--collect-only",
+      "-q"
+    ]
+  },
+  "repeat_count": 2,
+  "timeout_seconds": 60,
+  "primary_metric": "median_detection_wall_time_seconds",
+  "protected_paths": [
+    "AGENTS.md",
+    "CODEX_OVERNIGHT_TASK.md",
+    "data/constants_registry.yaml",
+    "docs/reference/DESIGN.md",
+    "src/allocate.py"
+  ],
+  "hard_gates": [
+    "failure_detected",
+    "expected_fingerprint_matched",
+    "repository_source_unchanged",
+    "protected_boundaries_unchanged",
+    "full_suite_required_after_repair"
+  ]
+}

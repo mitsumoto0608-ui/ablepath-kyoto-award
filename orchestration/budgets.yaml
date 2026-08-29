@@ -1,0 +1,17 @@
+orchestration_state_version: 1.0.0
+run_started_at: "2026-08-30T03:57:25+09:00"
+hard_deadline: "2026-08-30T09:57:25+09:00"
+integration_reserve_minutes: 45
+self_improvement_max_minutes: 30
+phases:
+  preflight: {start: "03:57:25", end: "04:27:25"}
+  contracts_and_citypacks: {start: "04:27:25", end: "05:57:25"}
+  runner_and_2d_ui: {start: "05:57:25", end: "07:27:25"}
+  hazard_and_evidence_ui: {start: "07:27:25", end: "08:27:25"}
+  optional_3d: {start: "08:27:25", end: "08:57:25"}
+  bounded_self_improvement: {start: "08:57:25", end: "09:12:25"}
+  integration_and_reporting: {start: "09:12:25", end: "09:57:25"}
+cutover_rules:
+  - unfinished optional downloads become BLOCKED or METADATA_ONLY at the data cutover
+  - preserve the last green 2D checkpoint before optional 3D
+  - stop all feature work at integration cutover

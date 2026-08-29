@@ -1,0 +1,10 @@
+benchmark_cases_version: 1.0.0
+cases:
+  - benchmark_id: integration-collection-collision-v1
+    immutable_spec: evals/immutable/integration_collection_benchmark.json
+    failure_injection: remove declared Python package markers in an isolated Git archive
+    expected_fingerprint: import file mismatch
+    protected_source_worktree: read_only
+    repetitions_per_strategy: 2
+    timeout_seconds_per_attempt: 60
+    final_full_suite_required: true

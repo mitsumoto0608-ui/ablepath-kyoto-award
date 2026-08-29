@@ -1,0 +1,13 @@
+{
+  "test_results_schema_version": "1.0.0",
+  "python": {"passed": 314, "warnings": 1, "failed": 0},
+  "viewer_unit": {"passed": 27, "failed": 0},
+  "viewer_e2e": {"passed": 17, "skipped": 1, "failed": 0},
+  "runner": {
+    "runs_each_execution": 120,
+    "executions": 2,
+    "sha256_each": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1"
+  },
+  "allocate_git_blob_sha256": "2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b",
+  "trust_scan": "PASS"
+}

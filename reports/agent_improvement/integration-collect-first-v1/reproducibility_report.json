@@ -1,0 +1,20 @@
+{
+  "report_schema_version": "1.0.0",
+  "proposal_id": "integration-collect-first-v1",
+  "status": "EXPLORATORY_FIXED_REPLAY_PASS",
+  "benchmark_sha256": "484fcd765b0bc8340b9433b4661102f027202bc10764b3947531ce0bb04341f1",
+  "evaluator_sha256": "e733ab245208a3acef9ada115d9fe68ac21eacbad7f79a1f0ddfbc61fc87b4ba",
+  "identical_input_id": "HEAD:4608c4b844d9e7b99b354d5469de4a48dbdb17fa",
+  "repeat_count_per_strategy": 2,
+  "timeout_seconds_per_attempt": 60,
+  "champion_median_seconds": 3.02253,
+  "challenger_median_seconds": 1.063199,
+  "relative_detection_time_reduction_percent": 64.82,
+  "full_suite_results_after_each_replay": [
+    "314 passed, 1 warning in 12.34s",
+    "314 passed, 1 warning in 11.86s",
+    "314 passed, 1 warning in 12.89s",
+    "314 passed, 1 warning in 14.67s"
+  ],
+  "limitations": "One fixed collision benchmark on one Windows environment. Champion attempts ran before challenger attempts, so cache/order bias is not excluded. The result supports this diagnostic ordering only; it is not a general performance claim."
+}

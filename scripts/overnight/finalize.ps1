@@ -37,9 +37,19 @@ if (($degraded.Count -gt 0 -or $degradedTasks.Count -gt 0 -or $failedRestartRequ
     throw "DEGRADED_GREEN tasks/lanes or failed/abandoned restart history require explicit -AllowDegradedGreen."
 }
 $stopPath = Join-Path $root "orchestration\STOP_WATCHDOG"
-Write-AtomicUtf8Text -Path $stopPath -Text ((Get-UtcTimestamp) + "`n")
+$stopRequestedAt = Get-UtcTimestamp
+Write-AtomicUtf8Text -Path $stopPath -Text ($stopRequestedAt + "`n")
 $state.current_phase = "FINALIZED"
 $state.last_checkpoint = Get-UtcTimestamp
+if ($state.PSObject.Properties.Name -contains "watchdog") {
+    $state.watchdog.status = "STOP_REQUESTED"
+    if ($state.watchdog.PSObject.Properties.Name -contains "stop_requested_at") {
+        $state.watchdog.stop_requested_at = $stopRequestedAt
+    }
+    else {
+        $state.watchdog | Add-Member -NotePropertyName stop_requested_at -NotePropertyValue $stopRequestedAt
+    }
+}
 if (-not ($state.PSObject.Properties.Name -contains "finalization")) {
     $state | Add-Member -NotePropertyName finalization -NotePropertyValue ([ordered]@{})
 }

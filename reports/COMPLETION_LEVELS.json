@@ -1,0 +1,18 @@
+{
+  "completion_schema_version": "1.0.0",
+  "ENGINEERING_UI_COMPLETE": true,
+  "DATA_STAGING_COMPLETE": true,
+  "REAL_GEOMETRY_CONNECTED": false,
+  "MODEL_CONNECTED": false,
+  "ADMIN_VALIDATED": false,
+  "DEMO_COMPLETE": false,
+  "overall": "PARTIAL_COMPLETE",
+  "reasons": {
+    "REAL_GEOMETRY_CONNECTED": "All displayed geometry is explicitly SYNTHETIC_DEMO; official and VGI records are metadata-only.",
+    "MODEL_CONNECTED": "Candidate city-pack rows do not enter a real hazard/profile/model pipeline; M6 remains NOT_COMPUTED.",
+    "ADMIN_VALIDATED": "Current facilities, entrances, capacities, operations, field evidence, and authority review are incomplete.",
+    "DEMO_COMPLETE": "The V4 definition requires at least one real source-traceable UI geometry layer in every city."
+  },
+  "three_dimensional_view": "NOT_IMPLEMENTED",
+  "three_dimensional_fallback": "The 2D UI remains available and explicitly states that 3D is unavailable."
+}

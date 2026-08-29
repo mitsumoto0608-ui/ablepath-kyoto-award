@@ -1,0 +1,29 @@
+AblePath overnight multi-city verification
+==========================================
+
+Python full suite: 314 passed, 1 known plaza_status_gating=false warning
+Baseline/M7 pre-existing tests: 182
+Hokonavi contract tests added: 26
+Shared hazard contract tests added: 41 (33 initial + 8 adapter hardening)
+City-pack tests added: 59 (Kiyomizu 18, Arashiyama 18, Fujisawa 23)
+Cross-pack integration tests added: 6
+
+Viewer unit tests: 27 passed
+Viewer production build: PASS
+Viewer E2E: 17 passed, 1 intentional project-filtered screenshot skip
+Desktop screenshots: 3
+
+Runner first execution: 120 runs
+Runner SHA-256 first: 96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1
+Runner second execution: 120 runs
+Runner SHA-256 second: 96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1
+Generated all_runs working/HEAD blob: d569c29ea9cc93b47bac1430bba740f2a12353ed
+Generated summary working/HEAD blob: 2391e756ba749014085cebcdc740bce3a7d94008
+
+src/allocate.py Git-blob SHA-256: 2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b
+Repository trust-boundary scan: PASS
+
+Bounded evaluation: both strategies detected the injected import collision 2/2 times;
+all four post-repair full suites passed 314 tests. Median detection time on this one
+fixed Windows replay was 3.022530 s (champion) vs 1.063199 s (challenger). This is
+diagnostic-order evidence only and is not a general benchmark.

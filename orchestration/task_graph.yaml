@@ -1,0 +1,14 @@
+orchestration_state_version: 1.0.0
+integration_branch: integration/overnight-multicity-20260830
+tasks:
+  preflight: {depends_on: [], owner: ORCHESTRATOR, status: GREEN}
+  ci_bootstrap: {depends_on: [preflight], owner: CI-MAIN, status: GREEN}
+  core: {depends_on: [preflight], owner: CORE-MAIN, status: GREEN}
+  kyoto_kiyomizu: {depends_on: [preflight], owner: KIYOMIZU-MAIN, status: GREEN}
+  kyoto_arashiyama: {depends_on: [preflight], owner: ARASHIYAMA-MAIN, status: GREEN}
+  fujisawa_enoshima: {depends_on: [preflight], owner: FUJISAWA-MAIN, status: GREEN}
+  ui_2d: {depends_on: [core, kyoto_kiyomizu, kyoto_arashiyama, fujisawa_enoshima], owner: UI-MAIN, status: GREEN}
+  optional_3d: {depends_on: [ui_2d], owner: UI-MAIN, status: DEGRADED_GREEN_NOT_IMPLEMENTED}
+  bounded_self_improvement: {depends_on: [ui_2d], owner: ORCHESTRATOR, status: GREEN}
+  integration: {depends_on: [ci_bootstrap, core, kyoto_kiyomizu, kyoto_arashiyama, fujisawa_enoshima, ui_2d], owner: ORCHESTRATOR, status: GREEN}
+  human_gate: {depends_on: [integration], owner: HUMAN, status: PENDING}

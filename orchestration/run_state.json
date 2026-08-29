@@ -1,0 +1,125 @@
+{
+  "orchestration_state_version": "1.0.0",
+  "run_id": "overnight-multicity-20260830",
+  "started_at": "2026-08-30T03:57:25+09:00",
+  "hard_deadline": "2026-08-30T09:57:25+09:00",
+  "integration_cutover": "2026-08-30T09:12:25+09:00",
+  "base_sha": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+  "integration_branch": "integration/overnight-multicity-20260830",
+  "current_phase": "FINALIZED",
+  "tasks": {
+    "preflight": "GREEN",
+    "orchestration_bootstrap": "GREEN",
+    "core": "GREEN",
+    "kyoto_kiyomizu": "GREEN",
+    "kyoto_arashiyama": "GREEN",
+    "fujisawa_enoshima": "GREEN",
+    "ui_2d": "GREEN",
+    "ui_3d": "DEGRADED_GREEN",
+    "ci": "GREEN",
+    "self_improvement": "GREEN",
+    "integration": "GREEN",
+    "final_verification": "GREEN"
+  },
+  "active_workers": [],
+  "completed_tasks": [
+    "preflight",
+    "orchestration_bootstrap",
+    "ci",
+    "core",
+    "kyoto_kiyomizu",
+    "kyoto_arashiyama",
+    "fujisawa_enoshima",
+    "ui_2d",
+    "self_improvement",
+    "integration",
+    "final_verification"
+  ],
+  "blocked_tasks": [],
+  "budgets": {
+    "preflight_end": "2026-08-30T04:27:25+09:00",
+    "contracts_and_citypacks_end": "2026-08-30T05:57:25+09:00",
+    "runner_and_2d_ui_end": "2026-08-30T07:27:25+09:00",
+    "hazard_and_evidence_ui_end": "2026-08-30T08:27:25+09:00",
+    "optional_3d_end": "2026-08-30T08:57:25+09:00",
+    "self_improvement_end": "2026-08-30T09:12:25+09:00",
+    "hard_deadline": "2026-08-30T09:57:25+09:00",
+    "self_improvement_max_minutes": 30,
+    "repair_attempts_per_lane": 6
+  },
+  "last_checkpoint": "2026-08-29T22:15:10.490Z",
+  "resume_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/overnight/resume.ps1",
+  "watchdog": {
+    "status": "STOP_REQUESTED",
+    "process_id": 59320,
+    "started_at": "2026-08-29T20:10:18.089Z",
+    "stop_requested_at": "2026-08-29T22:15:10.458Z"
+  },
+  "finalization": {
+    "finalized_at": "2026-08-29T22:15:10.494Z",
+    "heartbeats": [
+      {
+        "lane": "ci",
+        "status": "GREEN",
+        "reported_status": "GREEN",
+        "phase": "HARDENED",
+        "updated_at": "2026-08-29T20:10:47.789Z",
+        "age_minutes": 124.38,
+        "last_action": "Critical and High zero; UTC resume finalize security archive checks passed",
+        "restart_count": 0,
+        "source": "orchestration/heartbeats/ci.json"
+      },
+      {
+        "lane": "fujisawa_enoshima",
+        "status": "GREEN",
+        "reported_status": "GREEN",
+        "phase": "HARDENED",
+        "updated_at": "2026-08-29T20:10:43.776Z",
+        "age_minutes": 124.44,
+        "last_action": "Shared v1 envelope aligned; 22 narrow and 204 full passed",
+        "restart_count": 0,
+        "source": "orchestration/heartbeats/fujisawa_enoshima.json"
+      },
+      {
+        "lane": "kyoto_arashiyama",
+        "status": "GREEN",
+        "reported_status": "GREEN",
+        "phase": "HARDENED",
+        "updated_at": "2026-08-29T20:10:39.960Z",
+        "age_minutes": 124.51,
+        "last_action": "Shared v1 envelope and mutation gaps closed; 16 narrow and 198 full passed",
+        "restart_count": 0,
+        "source": "orchestration/heartbeats/kyoto_arashiyama.json"
+      },
+      {
+        "lane": "kyoto_kiyomizu",
+        "status": "GREEN",
+        "reported_status": "GREEN",
+        "phase": "HARDENED",
+        "updated_at": "2026-08-29T20:10:35.915Z",
+        "age_minutes": 124.57,
+        "last_action": "Shared v1 envelope and mutation gaps closed; 16 narrow and 198 full passed",
+        "restart_count": 0,
+        "source": "orchestration/heartbeats/kyoto_kiyomizu.json"
+      },
+      {
+        "lane": "orchestrator",
+        "status": "GREEN",
+        "reported_status": "GREEN",
+        "phase": "FINALIZED",
+        "updated_at": "2026-08-29T22:14:15.625Z",
+        "age_minutes": 0.91,
+        "last_action": "final state written",
+        "restart_count": 0,
+        "source": "orchestration/heartbeats/orchestrator.json"
+      }
+    ],
+    "restart_requests": [],
+    "restarted_lanes": [],
+    "stalled_lanes": [],
+    "abandoned_lanes": [],
+    "degraded_green_lanes": [
+      "ui_3d"
+    ]
+  }
+}

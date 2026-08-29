@@ -1,0 +1,49 @@
+{
+  "trajectory_schema_version": "1.0.0",
+  "run_id": "overnight-multicity-20260830",
+  "started_at": "2026-08-30T03:57:25+09:00",
+  "hard_deadline": "2026-08-30T09:57:25+09:00",
+  "integration_reserve_scheduled_at": "2026-08-30T09:12:25+09:00",
+  "base_sha": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+  "integration_branch": "integration/overnight-multicity-20260830",
+  "product_evidence_sha": "e3c0d03a07c06c5e99af028dd482384f57ff1c6d",
+  "agents": {
+    "MAIN": "coordinator, writer, integrator",
+    "LUNA": "contract/evidence/truth auditor",
+    "TERA": "tests/mutation/regression auditor",
+    "support": "read-only final evidence extraction"
+  },
+  "external_repositories_cloned_or_copied": [],
+  "github_push_status": "GITHUB_PUSH_BLOCKED",
+  "budget_evidence": {
+    "status": "PARTIAL_EVIDENCE_NO_KNOWN_OVERRUN",
+    "statement": "No recorded checkpoint crossed its applicable cutover, but a universal no-overrun claim is not made because CI, core, Hokonavi, and UI lack common lane start/finish timestamps.",
+    "unknown_reason": "The first durable watchdog snapshot did not capture a common start and finish for every lane.",
+    "observed_checkpoints": [
+      {
+        "checkpoint": "city_lanes_green",
+        "latest_observed_at": "2026-08-30T05:10:43.776+09:00",
+        "source": "runtime lane heartbeat snapshot retained in finalization evidence",
+        "applicable_cutover": "2026-08-30T05:57:25+09:00"
+      },
+      {
+        "checkpoint": "ui_2d_commit",
+        "observed_at": "2026-08-30T06:26:34+09:00",
+        "source": "Git commit fb296124e9cd53db6721d58033a9712d07653bb1",
+        "applicable_cutover": "2026-08-30T07:27:25+09:00"
+      },
+      {
+        "checkpoint": "product_integration_commit",
+        "observed_at": "2026-08-30T06:33:26+09:00",
+        "source": "Git commit e3c0d03a07c06c5e99af028dd482384f57ff1c6d",
+        "applicable_cutover": "2026-08-30T09:12:25+09:00"
+      },
+      {
+        "checkpoint": "bounded_evaluation_artifacts_complete",
+        "observed_at": "2026-08-30T06:55:22.4285830+09:00",
+        "source": "recorded artifact filesystem timestamp at report assembly",
+        "applicable_cutover": "2026-08-30T09:12:25+09:00"
+      }
+    ]
+  }
+}

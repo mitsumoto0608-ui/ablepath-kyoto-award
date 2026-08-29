@@ -1,0 +1,11 @@
+{"event_id":1,"phase":"preflight","type":"DEGRADED_EXTERNAL_WRITE","result":"GitHub CLI unauthenticated and push blocked; local PR-ready fallback selected","protected_boundary_touched":false}
+{"event_id":2,"phase":"city_lanes","type":"SAFE_HANDOFF","result":"Kiyomizu sibling-worktree write sandbox-blocked; scoped patch handoff integrated by MAIN","protected_boundary_touched":false}
+{"event_id":3,"phase":"shared_adapter","type":"REPAIR","result":"Shared scenario and exact CSV adapter contracts aligned; tests green","protected_boundary_touched":false}
+{"event_id":4,"phase":"integration","type":"REPAIR","result":"Same-named city tests converted to explicit packages after collection collision","protected_boundary_touched":false}
+{"event_id":5,"phase":"integration","type":"REPAIR","result":"Arashiyama RAIN vocabulary aligned across shared runtime and UI closed enum","protected_boundary_touched":false}
+{"event_id":6,"phase":"bounded_evaluation","type":"REVIEW_REPAIR","result":"Literal/HEAD-only hard gates replaced by measured worktree/index/blob/full-suite gates","protected_boundary_touched":false}
+{"event_id":7,"phase":"security","type":"REPAIR","result":"Lexical trust scanner self-fixture collision removed without changing runtime prohibited values","protected_boundary_touched":false}
+{"event_id":8,"phase":"bounded_evaluation","type":"DECISION","result":"Collect-only diagnostic adopted for this run only; permanent promotion human-gated","protected_boundary_touched":false}
+{"event_id":9,"phase":"final_reporting","type":"REVIEW_REPAIR","result":"Completed the nine-file improvement packet, weakened unreproducible timing claims, and separated builder validation from the post-commit archive state","protected_boundary_touched":false}
+{"event_id":10,"phase":"finalization","type":"REPAIR","result":"Persisted watchdog STOP_REQUESTED and stop_requested_at atomically instead of leaving the finalized state marked ACTIVE","protected_boundary_touched":false}
+{"event_id":11,"phase":"finalization","type":"SAFE_RETENTION","result":"After recursive deletion was safety-blocked, runtime-only temp, heartbeat, log, PID, and stop files were moved to a recoverable repository-external non-Dropbox backup","protected_boundary_touched":false}

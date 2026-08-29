@@ -1,0 +1,29 @@
+{
+  "report_schema_version": "1.0.0",
+  "proposal_id": "integration-collect-first-v1",
+  "status": "PASS_FOR_CURRENT_RUN_NON_SAFETY_ORDERING",
+  "measured_evaluator_gates": {
+    "failure_detected": true,
+    "expected_fingerprint_matched": true,
+    "repository_source_unchanged": true,
+    "protected_boundaries_unchanged": true,
+    "full_suite_after_repair": true
+  },
+  "run_level_gates": {
+    "baseline_ancestry": true,
+    "deterministic_output": true,
+    "exact_schema_contracts": true,
+    "unknown_preservation": true,
+    "source_class_separation": true,
+    "main_and_tag_untouched": true
+  },
+  "evidence": {
+    "full_suite": "reports/TEST_REPORT.txt",
+    "deterministic_runner": "reports/TEST_REPORT.txt",
+    "protected_blobs": "reports/agent_improvement/integration-collect-first-v1/champion_score.json and challenger_score.json",
+    "source_and_unknown_contracts": "tests/integration/test_multicity_integration.py",
+    "branch_and_tag_state": "reports/BRANCH_MATRIX.md"
+  },
+  "scope": "Non-safety diagnostic test ordering only",
+  "permanent_promotion": "HUMAN_REVIEW_REQUIRED"
+}

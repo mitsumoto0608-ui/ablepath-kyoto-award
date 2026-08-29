@@ -1,0 +1,117 @@
+{
+  "release_candidate_manifest_version": "1.0.0",
+  "run_id": "overnight-multicity-20260830",
+  "status": "PARTIAL_COMPLETE",
+  "integration_branch": "integration/overnight-multicity-20260830",
+  "base_sha": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+  "product_evidence_sha": "e3c0d03a07c06c5e99af028dd482384f57ff1c6d",
+  "final_source_sha_policy": "The deterministic archive's internal RELEASE_MANIFEST.json records the actual HEAD used to build it. This tracked manifest omits its own containing commit to avoid a self-reference claim.",
+  "archive": {
+    "name_template": "AblePath_overnight_multicity_RC_<shortsha>.zip",
+    "location_policy": "outside the repository, Git tracking, and Dropbox",
+    "builder": "scripts/overnight/build_release.py",
+    "encoding": "UTF-8-safe ZIP member names",
+    "deterministic_member_timestamp": "1980-01-01T00:00:00",
+    "checks": [
+      "absolute and traversal paths rejected",
+      "duplicate members rejected",
+      "raw restricted formats rejected",
+      "per-member and total size ceilings enforced",
+      "SHA256SUMS.txt covers every payload file",
+      "clean-directory extraction and checksum verification required"
+    ],
+    "archive_sha256": null,
+    "archive_sha256_reason": "The archive is built from the final commit after this tracked manifest is committed; its hash is reported in the human handoff."
+  },
+  "required_reports": [
+    "reports/OVERNIGHT_REPORT.md",
+    "reports/BRANCH_MATRIX.md",
+    "reports/DATA_ACQUISITION_SUMMARY.csv",
+    "reports/HAZARD_SOURCE_MATRIX.csv",
+    "reports/TEST_REPORT.txt",
+    "reports/KNOWN_GAPS.md",
+    "reports/THIRD_PARTY_REVIEW.md",
+    "reports/SECURITY_TRUST_BOUNDARY.md",
+    "reports/GEOSPATIAL_QA_SUMMARY.md",
+    "reports/DATA_FRESHNESS_MATRIX.csv",
+    "reports/KPI_READINESS_MATRIX.csv",
+    "reports/ACCESSIBILITY_AUDIT.md",
+    "reports/ENVIRONMENT_MANIFEST.json",
+    "reports/DEPENDENCY_AND_LICENSE_REPORT.md",
+    "reports/ACTION_PINNING_REPORT.md",
+    "reports/COMPLETION_LEVELS.json",
+    "reports/RESUME_AND_WATCHDOG_REPORT.md",
+    "reports/PR_READY.md"
+  ],
+  "screenshots": [
+    {
+      "path": "reports/UI_SCREENSHOTS/kyoto_kiyomizu-2d.png",
+      "bytes": 652273,
+      "sha256": "2b6ef1dc508bb627ba01b4e5599df80152ddd7d5776f6ba7a136ecff06dc09a7"
+    },
+    {
+      "path": "reports/UI_SCREENSHOTS/kyoto_arashiyama-2d.png",
+      "bytes": 641103,
+      "sha256": "9e7052f17d4900a6c26cef6ccb3f74aa0fc9292549638ef3538554c913c69925"
+    },
+    {
+      "path": "reports/UI_SCREENSHOTS/fujisawa_enoshima-2d.png",
+      "bytes": 645829,
+      "sha256": "c47396e19d39aaf817274b53cdde54bf086657c36793dd9f438f6af163765afd"
+    }
+  ],
+  "built_viewer": [
+    {
+      "path": "viewer/dist/index.html",
+      "bytes": 1059,
+      "sha256": "a11c0d637ceda47ca96995fd59c49c2c4403c06fb36d52529ac580250452b093"
+    },
+    {
+      "path": "viewer/dist/assets/index-D7qAzVEN.css",
+      "bytes": 10636,
+      "sha256": "7400cd982bd41dd91eecd382d720bc4724dce6e1cef6b62623410a8a44fd9929"
+    },
+    {
+      "path": "viewer/dist/assets/index-Tnb6CWlI.js",
+      "bytes": 222444,
+      "sha256": "d20046203c94ce8e0cc47db087a15ef11ba554bc75d20d59a5c89027accc3eed"
+    },
+    {
+      "path": "viewer/dist/assets/index-Tnb6CWlI.js.map",
+      "bytes": 913611,
+      "sha256": "ea3db45b6ee5a5e79ebbd98e787151b63eab5046af89df93ccb01bf0a0e6b323"
+    },
+    {
+      "path": "viewer/dist/data/cities.json",
+      "bytes": 16475,
+      "sha256": "5b38f4f0ab1a11fffbe9cce2e869fcbcd64db518931a7ac8bac5753db7e4a330"
+    }
+  ],
+  "verification": {
+    "python_tests": "314 passed, 1 known warning",
+    "ui_unit_tests": "27 passed",
+    "ui_e2e_tests": "17 passed, 1 intentionally skipped",
+    "runner_runs_each_replay": 120,
+    "runner_replays": 2,
+    "all_runs_sha256_replay_1": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "all_runs_sha256_replay_2": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "allocate_py_sha256": "2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b",
+    "trust_boundary_scan": "PASS"
+  },
+  "truth_status": {
+    "ENGINEERING_UI_COMPLETE": true,
+    "DATA_STAGING_COMPLETE": true,
+    "REAL_GEOMETRY_CONNECTED": false,
+    "MODEL_CONNECTED": false,
+    "ADMIN_VALIDATED": false,
+    "DEMO_COMPLETE": false,
+    "three_dimensional_view": "NOT_IMPLEMENTED"
+  },
+  "protected_refs": {
+    "main": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+    "origin_main": "cbb71020da0e52f809445e88e84f0c294ec973cc",
+    "v0.2.0-baseline": "0c3289b9174bf624c95faeaa3c1643664e31c2eb"
+  },
+  "github_push_status": "GITHUB_PUSH_BLOCKED",
+  "human_review_required": true
+}

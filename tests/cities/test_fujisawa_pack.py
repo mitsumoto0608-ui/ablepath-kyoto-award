@@ -240,7 +240,7 @@ def test_pack_has_no_forbidden_claim_path_or_secret_marker() -> None:
     text = "\n".join(path.read_text(encoding="utf-8") for path in paths)
     prohibited = (
         "安全な" + "避難ルート", "UNKNOWN" + "をOPEN", "UNKNOWN" + "をPASS",
-        "C:\\Users\\", "Dropbox", "api_" + "key", "client_" + "secret",
+        "C:" + "\\Users\\", "Drop" + "box", "api_" + "key", "client_" + "secret",
         "BEGIN " + "PRIVATE KEY",
     )
     assert all(value not in text for value in prohibited)

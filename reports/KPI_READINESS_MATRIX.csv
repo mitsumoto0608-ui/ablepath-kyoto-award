@@ -1,0 +1,4 @@
+city_id,facility_status,entrance_status,capacity_status,operation_status,demand_status,origin_status,profile_status,kpi_status,kpi_values,reason_contract
+kyoto_kiyomizu,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,NOT_COMPUTED,NOT_COMPUTED,null,"REAL topology/origins; demand/capacity/operation; hazard geometry; M6 profile unavailable"
+kyoto_arashiyama,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,NOT_COMPUTED,NOT_COMPUTED,null,"REAL topology/origins; demand/capacity/operation; hazard geometry; M6 profile unavailable"
+fujisawa_enoshima,OFFICIAL_METADATA_ONLY,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,SYNTHETIC_DEMO,NOT_COMPUTED,NOT_COMPUTED,null,"REAL topology/entrances; demand/capacity/operation; tsunami geometry; M6 profile unavailable"

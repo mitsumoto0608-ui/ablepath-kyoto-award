@@ -1,0 +1,121 @@
+{
+  "score_schema_version": "1.0.0",
+  "benchmark_id": "integration-collection-collision-v1",
+  "benchmark_sha256": "484fcd765b0bc8340b9433b4661102f027202bc10764b3947531ce0bb04341f1",
+  "strategy_id": "champion-v1",
+  "identical_input_id": "HEAD:4608c4b844d9e7b99b354d5469de4a48dbdb17fa",
+  "repository_state_before": {
+    "head_tree": "4608c4b844d9e7b99b354d5469de4a48dbdb17fa",
+    "index_sha256": "fa65c39736e77434256a0fce4db4c2752312e8f690cae4ec494346d3718249fb",
+    "tracked_worktree_sha256": "7b08b4cef3e566e4b6c0edadd554932a54182bee56cce708723fb0dd9ad33c4f",
+    "protected_paths": {
+      "AGENTS.md": {
+        "tracked": true,
+        "working_blob": "80f13b8c760456c5c986867fee9145bd2528d38c",
+        "head_blob": "80f13b8c760456c5c986867fee9145bd2528d38c",
+        "matches_head": true
+      },
+      "CODEX_OVERNIGHT_TASK.md": {
+        "tracked": false,
+        "working_blob": "3361d3e548191cbb80fb14e7f4af86be750e6132",
+        "head_blob": null,
+        "matches_head": null
+      },
+      "data/constants_registry.yaml": {
+        "tracked": true,
+        "working_blob": "e007298b522de74295d314f0d498e86a3a20f32a",
+        "head_blob": "e007298b522de74295d314f0d498e86a3a20f32a",
+        "matches_head": true
+      },
+      "docs/reference/DESIGN.md": {
+        "tracked": true,
+        "working_blob": "c0c93bb49aecac9f89e7cdac07f609073d21d4d8",
+        "head_blob": "c0c93bb49aecac9f89e7cdac07f609073d21d4d8",
+        "matches_head": true
+      },
+      "src/allocate.py": {
+        "tracked": true,
+        "working_blob": "b2c09d142064a4297fa152b83563107efa5bcaff",
+        "head_blob": "b2c09d142064a4297fa152b83563107efa5bcaff",
+        "matches_head": true
+      }
+    }
+  },
+  "repository_state_after": {
+    "head_tree": "4608c4b844d9e7b99b354d5469de4a48dbdb17fa",
+    "index_sha256": "fa65c39736e77434256a0fce4db4c2752312e8f690cae4ec494346d3718249fb",
+    "tracked_worktree_sha256": "7b08b4cef3e566e4b6c0edadd554932a54182bee56cce708723fb0dd9ad33c4f",
+    "protected_paths": {
+      "AGENTS.md": {
+        "tracked": true,
+        "working_blob": "80f13b8c760456c5c986867fee9145bd2528d38c",
+        "head_blob": "80f13b8c760456c5c986867fee9145bd2528d38c",
+        "matches_head": true
+      },
+      "CODEX_OVERNIGHT_TASK.md": {
+        "tracked": false,
+        "working_blob": "3361d3e548191cbb80fb14e7f4af86be750e6132",
+        "head_blob": null,
+        "matches_head": null
+      },
+      "data/constants_registry.yaml": {
+        "tracked": true,
+        "working_blob": "e007298b522de74295d314f0d498e86a3a20f32a",
+        "head_blob": "e007298b522de74295d314f0d498e86a3a20f32a",
+        "matches_head": true
+      },
+      "docs/reference/DESIGN.md": {
+        "tracked": true,
+        "working_blob": "c0c93bb49aecac9f89e7cdac07f609073d21d4d8",
+        "head_blob": "c0c93bb49aecac9f89e7cdac07f609073d21d4d8",
+        "matches_head": true
+      },
+      "src/allocate.py": {
+        "tracked": true,
+        "working_blob": "b2c09d142064a4297fa152b83563107efa5bcaff",
+        "head_blob": "b2c09d142064a4297fa152b83563107efa5bcaff",
+        "matches_head": true
+      }
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "timeout_seconds_per_attempt": 60,
+  "repeat_count": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 3.079625,
+      "exit_code": 2,
+      "failure_detected": true,
+      "expected_fingerprint_matched": true,
+      "full_suite_after_repair_exit_code": 0,
+      "full_suite_after_repair_passed": true,
+      "full_suite_after_repair_summary": "314 passed, 1 warning in 12.34s",
+      "command_role": "full_suite_diagnostic"
+    },
+    {
+      "attempt": 2,
+      "elapsed_seconds": 2.965434,
+      "exit_code": 2,
+      "failure_detected": true,
+      "expected_fingerprint_matched": true,
+      "full_suite_after_repair_exit_code": 0,
+      "full_suite_after_repair_passed": true,
+      "full_suite_after_repair_summary": "314 passed, 1 warning in 11.86s",
+      "command_role": "full_suite_diagnostic"
+    }
+  ],
+  "median_detection_wall_time_seconds": 3.02253,
+  "hard_gates": {
+    "failure_detected": true,
+    "expected_fingerprint_matched": true,
+    "repository_source_unchanged": true,
+    "protected_boundaries_unchanged": true,
+    "full_suite_required_after_repair": true
+  },
+  "hard_gates_pass": true,
+  "coverage_note": "Final full test suite remains mandatory after repair."
+}

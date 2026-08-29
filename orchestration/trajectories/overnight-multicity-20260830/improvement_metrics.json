@@ -1,0 +1,67 @@
+{
+  "metrics_schema_version": "1.0.0",
+  "run_id": "overnight-multicity-20260830",
+  "metric_snapshot_cutoff": "bounded evaluator and initial final-verification stage; final-report audit repairs are recorded separately in events.jsonl",
+  "first_pass_success_rate": {"value": 0.8571, "numerator": 6, "denominator": 7, "scope": "writer lanes"},
+  "total_repair_attempts": 7,
+  "unique_failure_fingerprints_persisted": 4,
+  "repeated_failure_rate": 0.0,
+  "mean_attempts_per_resolved_failure": 1.0,
+  "redundant_command_count": 0,
+  "full_suite_run_count": {"value": 13, "scope": "documented integration and evaluator runs; additional lane-private reruns excluded"},
+  "wall_time_per_lane_seconds": {
+    "kyoto_kiyomizu_to_degraded_checkpoint": 60.02,
+    "kyoto_arashiyama_to_green": 1380.60,
+    "fujisawa_enoshima_to_green": 1020.46,
+    "ci": null,
+    "core": null,
+    "hokonavi": null,
+    "ui": null,
+    "null_reason": "The first watchdog sample did not capture a common start and finish timestamp for these lanes; no duration was invented."
+  },
+  "lane_completion_rate": {"value": 1.0, "completed": 7, "total": 7},
+  "data_truthfulness_rate": {"value": 1.0, "passing_city_packs": 3, "total_city_packs": 3},
+  "e2e_pass_rate": {"value": 1.0, "passing_gating_cases": 17, "total_gating_cases": 17, "project_filtered_skips": 1},
+  "mutation_kill_rate": {"value": null, "reason": "Lane reports did not share one denominator; a cross-lane percentage was not invented."},
+  "number_of_lessons_reused": 0,
+  "number_of_lessons_created": 2,
+  "number_of_failed_playbooks": 0,
+  "number_of_strategy_changes_tested": 1,
+  "number_of_strategy_changes_adopted": 1,
+  "strategy_adoption_scope": "current-run non-safety diagnostic ordering only",
+  "protected_boundary_violation_count": 0,
+  "BOUNDED_SELF_IMPROVING": true,
+  "permanent_promotion": "HUMAN_REVIEW_REQUIRED",
+  "metric_provenance": {
+    "total_repair_attempts": {
+      "status": "REPORTED_FROM_RUNTIME_LOG_SUMMARY",
+      "reported_value": 7,
+      "scope": "through the metric snapshot cutoff",
+      "directly_recomputable_minimum_from_events_jsonl": 5,
+      "reason": "Lane-private attempts were summarized during integration; not every command transcript is retained because runtime logs are transient and sanitized."
+    },
+    "mean_attempts_per_resolved_failure": {
+      "status": "REPORTED_FROM_RUNTIME_LOG_SUMMARY",
+      "reported_value": 1.0,
+      "scope": "through the metric snapshot cutoff",
+      "reason": "The aggregate was recorded during integration, but per-lane start/attempt series are incomplete in the persistent bundle."
+    },
+    "full_suite_run_count": {
+      "status": "REPORTED_FROM_RUNTIME_LOG_SUMMARY",
+      "reported_value": 13,
+      "scope": "through the metric snapshot cutoff",
+      "directly_recomputable_minimum_from_persistent_reports": 5,
+      "direct_evidence": [
+        "orchestration/trajectories/overnight-multicity-20260830/test_results.json",
+        "reports/agent_improvement/integration-collect-first-v1/champion_score.json",
+        "reports/agent_improvement/integration-collect-first-v1/challenger_score.json"
+      ],
+      "reason": "The retained bundle proves the final full suite plus four evaluator repair suites; earlier lane-private full-suite reruns are aggregate-only."
+    },
+    "post_snapshot_repair_events": {
+      "status": "PERSISTED_IN_EVENTS_JSONL",
+      "event_ids": [9, 10, 11],
+      "aggregate_not_folded_into_snapshot": true
+    }
+  }
+}

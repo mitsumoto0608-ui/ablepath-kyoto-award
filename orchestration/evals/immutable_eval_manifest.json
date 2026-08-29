@@ -1,0 +1,23 @@
+{
+  "manifest_schema_version": "1.0.0",
+  "evaluator_files": [
+    {
+      "path": "evals/immutable/integration_collection_benchmark.json",
+      "sha256": "484fcd765b0bc8340b9433b4661102f027202bc10764b3947531ce0bb04341f1"
+    },
+    {
+      "path": "evals/immutable/run_integration_collection_benchmark.py",
+      "sha256": "e733ab245208a3acef9ada115d9fe68ac21eacbad7f79a1f0ddfbc61fc87b4ba"
+    },
+    {
+      "path": "orchestration/evals/scorecard.schema.json",
+      "sha256": "373820fd758604d8e03b0da2390bc0655b27f23b534d0ae6e3e5ea539af7fe87"
+    },
+    {
+      "path": "orchestration/evals/benchmark_cases.yaml",
+      "sha256": "3e725d5d1d572cee6d5f3a133dcaaa7781de9e0053c0d68430f4d26f8a57b646"
+    }
+  ],
+  "ownership": "EVALUATOR",
+  "mutation_policy": "Human-reviewed change only after this run"
+}

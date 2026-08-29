@@ -1,0 +1,31 @@
+playbook_schema_version: 1.0.0
+playbooks:
+  - playbook_id: collect-only-before-full-v1
+    trigger: multiple independently developed pytest roots are integrated
+    actions:
+      - run collect-only over the newly integrated roots
+      - add explicit package boundaries when module names collide
+      - run the unchanged full suite after repair
+    protected_boundaries: [test_coverage, expected_values, main, baseline_tag]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: cross-pack-schema-gate-v1
+    trigger: UI/static catalog and shared city-pack runtime are integrated
+    actions:
+      - compare source IDs and scenario IDs exactly
+      - compare closed hazard vocabulary exactly
+      - preserve UNKNOWN and metadata-only classes
+      - run unit build and E2E gates
+    protected_boundaries: [UNKNOWN_semantics, official_data_interpretation, exact_schema]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: local-pr-ready-v1
+    trigger: push or PR is unavailable
+    actions:
+      - do not bypass authentication or safety review
+      - finish local verification and release archive
+      - create reports/PR_READY.md
+      - stop for human review
+    protected_boundaries: [credentials, external_writes, main, baseline_tag]
+    confidence: LOW
+    human_approved: false

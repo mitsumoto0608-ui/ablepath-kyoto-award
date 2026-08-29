@@ -1,0 +1,5 @@
+city_id,total_sources,official_metadata_only,vgi_metadata_only,real_geometry,model_derived,synthetic_source_rows,current_confirmed,current_unverified,possibly_stale,unknown_freshness,metadata_only_downloads,gap_count,gap_status_summary
+kyoto_kiyomizu,9,8,1,0,0,0,2,3,1,3,9,10,"OPEN=9;REQUIRES_APPLICATION=1"
+kyoto_arashiyama,11,10,1,0,0,0,5,4,2,0,11,13,OPEN=13
+fujisawa_enoshima,7,6,1,0,0,0,2,2,3,0,7,8,BLOCKED=8
+TOTAL,27,24,3,0,0,0,9,9,6,3,27,31,"OPEN=22;REQUIRES_APPLICATION=1;BLOCKED=8"

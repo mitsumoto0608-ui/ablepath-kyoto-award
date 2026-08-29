@@ -1,0 +1,13 @@
+strategy_id: champion-v1
+task_decomposition_policy: dependency_first
+retry_policy:
+  max_attempts: 6
+  narrow_test_first: true
+context_policy:
+  retrieve_failure_lessons: 3
+checkpoint_policy:
+  before_each_attempt: true
+parallelism:
+  max_active_writers: 3
+  max_read_only_auditors: 2
+protected_boundaries_unchanged: true

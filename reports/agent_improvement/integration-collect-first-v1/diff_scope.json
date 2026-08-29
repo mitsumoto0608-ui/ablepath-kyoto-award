@@ -1,0 +1,20 @@
+{
+  "diff_scope_schema_version": "1.0.0",
+  "proposal_id": "integration-collect-first-v1",
+  "adoption_scope": "current-run non-safety diagnostic ordering only",
+  "product_source_files_changed": [],
+  "test_expectations_changed": [],
+  "protected_files_changed": [],
+  "persistent_artifact_roots": [
+    "evals/immutable/",
+    "orchestration/champion_strategy.yaml",
+    "orchestration/candidate_strategy.yaml",
+    "orchestration/evals/",
+    "orchestration/memory/",
+    "orchestration/proposals/integration-collect-first-v1.md",
+    "orchestration/trajectories/overnight-multicity-20260830/",
+    "reports/agent_improvement/integration-collect-first-v1/"
+  ],
+  "temporary_replay_mutation": "Package marker files were removed only inside a repository-external temporary Git-archive copy and restored there before the mandatory full suite.",
+  "permanent_promotion": "HUMAN_REVIEW_REQUIRED"
+}

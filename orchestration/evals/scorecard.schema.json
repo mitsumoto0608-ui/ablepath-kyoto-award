@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.local/schemas/orchestration-scorecard-1.0.0.json",
+  "title": "AblePath bounded strategy scorecard",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "score_schema_version",
+    "benchmark_id",
+    "strategy_id",
+    "identical_input_id",
+    "repeat_count",
+    "attempts",
+    "median_detection_wall_time_seconds",
+    "hard_gates",
+    "hard_gates_pass"
+  ],
+  "properties": {
+    "score_schema_version": {"const": "1.0.0"},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "strategy_id": {"type": "string", "minLength": 1},
+    "identical_input_id": {"type": "string", "minLength": 1},
+    "repeat_count": {"type": "integer", "minimum": 2},
+    "median_detection_wall_time_seconds": {"type": "number", "minimum": 0},
+    "hard_gates_pass": {"type": "boolean"},
+    "attempts": {"type": "array", "minItems": 2},
+    "hard_gates": {"type": "object"}
+  }
+}

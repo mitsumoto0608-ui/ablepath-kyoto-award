@@ -1,0 +1,20 @@
+{
+  "environment_manifest_version": "1.0.0",
+  "operating_system": "Microsoft Windows NT 10.0.26200.0 x64",
+  "powershell": "7.6.4",
+  "git": "2.53.0.windows.1",
+  "github_cli": "2.97.0",
+  "github_authentication": "NOT_AUTHENTICATED",
+  "python": "3.12.14",
+  "python_environment": "repository-external temporary virtual environment",
+  "pytest": "9.1.1",
+  "node": "24.15.0",
+  "npm": "11.12.1",
+  "playwright": "1.62.1",
+  "free_disk_bytes_at_report_collection": 36492263424,
+  "network_mode": "RESTRICTED",
+  "external_web_policy": "allowlisted official metadata only; all content treated as untrusted data",
+  "github_push_status": "GITHUB_PUSH_BLOCKED",
+  "python_lock": "scripts/overnight/requirements-ci.lock",
+  "node_lock": "viewer/package-lock.json"
+}
