@@ -1,0 +1,29 @@
+{
+  "schema_version":"1.0.0","viewer_data_schema_version":"1.0.0","citypack_schema_version":"1.0.0","hazard_schema_version":"1.0.0",
+  "city_id":"kyoto_arashiyama","display_name":"京都・嵯峨嵐山／渡月橋","data_status":"SYNTHETIC_DEMO","official_metadata_status":"OFFICIAL_METADATA_ONLY","source_verified_at":"2026-08-30","source_verification_date":"2026-08-30",
+  "center":[135.6778,35.0116],"center_data_class":"SYNTHETIC_DEMO","default_zoom":15,
+  "geospatial_contract":{"schema_version":"1.0.0","source_crs":"EPSG:4326","processing_crs":"EPSG:6674","output_crs":"EPSG:4326","horizontal_unit":"degree","vertical_unit":"UNKNOWN","axis_order":"lon_lat","coordinate_precision":6,"transform_history":"NOT_EXECUTED_SYNTHETIC_FIXTURE","geometry_status":"SYNTHETIC_DEMO_CANDIDATE","source_feature_id":"SYNTHETIC_DEMO_ARASHIYAMA_CORRIDOR_V1","stable_feature_id":"KYOTO_ARASHIYAMA_CORRIDOR","revision_id":"r1","lineage":"Viewer center and overlay coordinates are FIXTURE_VALUE"},
+  "scenario_ids":["RAIN_NORMAL","RAIN_HEAVY","FLOOD_DESIGN"],"supported_scenarios":["RAIN_NORMAL","RAIN_HEAVY","FLOOD_DESIGN"],"default_scenario_id":"RAIN_NORMAL","default_scenario":"RAIN_NORMAL",
+  "profile_selector":{"status":"NOT_COMPUTED","enabled":false,"reason":"M6/profile rules are not connected to this city pack"},
+  "evidence_policy_selector":{"status":"NOT_COMPUTED","enabled":false,"reason":"All candidate edge states remain UNKNOWN; no strict/optimistic KPI is computed"},
+  "readiness":{"facility_status":"UNKNOWN","entrance_status":"UNKNOWN","capacity_status":"UNKNOWN","operation_status":"UNKNOWN","demand_status":"UNKNOWN","origin_status":"UNKNOWN","profile_status":"NOT_COMPUTED","kpi_status":"NOT_COMPUTED","m6_status":"NOT_COMPUTED"},
+  "kpis":{
+    "physically_reachable":{"value":null,"reason":"Real topology and destination entrances are unavailable"},
+    "accommodated":{"value":null,"reason":"Facility capacity and operation are UNKNOWN"},
+    "overflow_waiting":{"value":null,"reason":"Demand and facility capacity are UNKNOWN"},
+    "unreachable":{"value":null,"reason":"Demand and profile-specific topology evaluation are NOT_COMPUTED"},
+    "unknown_affected_upper_bound":{"value":null,"reason":"Demand and official hazard geometry are unavailable"}
+  },
+  "layers":[
+    {"id":"synthetic_walk_graph","status":"SYNTHETIC_DEMO","default_visible":true,"source_ids":[]},
+    {"id":"official_flood_metadata","status":"OFFICIAL_METADATA_ONLY","default_visible":false,"source_ids":["kyoto_hazard_map_2026","mlit_katsura_maximum","mlit_katsura_multistage"]},
+    {"id":"official_landslide_metadata","status":"OFFICIAL_METADATA_ONLY","default_visible":false,"source_ids":["kyoto_landslide_map"]}
+  ],
+  "attribution":[
+    {"dataset_id":"kyoto_hazard_map_2026","label":"京都市ハザードマップ（metadata only）","status":"OFFICIAL_METADATA_ONLY"},
+    {"dataset_id":"mlit_katsura_maximum","label":"国土交通省 桂川洪水浸水想定区域図（metadata only）","status":"OFFICIAL_METADATA_ONLY"},
+    {"dataset_id":"kyoto_saga_arashiyama_plan","label":"京都市 嵯峨・嵐山地域帰宅困難観光客避難誘導計画（historical metadata）","status":"OFFICIAL_METADATA_ONLY"},
+    {"dataset_id":"osm_arashiyama_candidate","label":"OpenStreetMap contributors（not downloaded）","status":"VGI_METADATA_ONLY"}
+  ],
+  "scenario_disclaimer":"静的な計画比較用デモであり、ライブの安全案内ではありません。洪水域との重複だけから道路閉鎖を推定しません。"
+}

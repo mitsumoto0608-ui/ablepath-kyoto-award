@@ -1,0 +1,57 @@
+schema_version: "1.0.0"
+hazard_schema_version: "1.0.0"
+city_id: kyoto_arashiyama
+geospatial_contract:
+  schema_version: "1.0.0"
+  source_crs: EPSG:4326
+  processing_crs: EPSG:6674
+  output_crs: EPSG:4326
+  horizontal_unit: degree
+  vertical_unit: UNKNOWN
+  axis_order: lon_lat
+  coordinate_precision: 6
+  transform_history: NOT_EXECUTED
+  geometry_status: NOT_COMPUTED
+  source_feature_id: NONE
+  stable_feature_id: KYOTO_ARASHIYAMA_HAZARD_SCENARIOS
+  revision_id: r1
+  lineage: "Scenario metadata references edges but contains no geometry"
+scenario_disclaimer: "固定比較用の合成scenarioです。公式資料は物理曝露のmetadata参照であり、個別edgeの通行可否を決めません。"
+scenarios:
+  - scenario_id: RAIN_NORMAL
+    hazard_type: RAIN
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "固定比較用の合成scenarioです。公式資料は物理曝露のmetadata参照であり、個別edgeの通行可否を決めません。"
+    source_ids: []
+  - scenario_id: RAIN_HEAVY
+    hazard_type: RAIN
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "固定比較用の合成scenarioです。公式資料は物理曝露のmetadata参照であり、個別edgeの通行可否を決めません。"
+    source_ids: [kyoto_hazard_map_2026]
+  - scenario_id: FLOOD_DESIGN
+    hazard_type: FLOOD
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "固定比較用の合成scenarioです。公式資料は物理曝露のmetadata参照であり、個別edgeの通行可否を決めません。"
+    source_ids: [mlit_katsura_multistage, kyoto_hazard_map_2026]
+omitted_scenarios:
+  FLOOD_WORST_CASE: "公式資料の『想定最大規模』を『worst case』へ言い換えず、machine-readable geometryとscopeの契約が確定するまで未提供"
+secondary_layers:
+  - layer_id: LANDSLIDE_OVERLAP
+    data_status: OFFICIAL_METADATA_ONLY
+    geometry_status: UNKNOWN
+    operational_rule_status: UNKNOWN
+    edge_state_effect: UNKNOWN
+    source_dataset_ids: [kyoto_landslide_map]
+    disclaimer: "指定区域metadataは道路閉鎖を意味しない"

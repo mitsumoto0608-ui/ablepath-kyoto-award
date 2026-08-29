@@ -1,0 +1,14 @@
+gap_id,category,required_dataset_or_fact,impact,severity,status,owner,next_action,evidence_dataset_ids
+ARA-GAP-001,geometry,timestamp-fixed OSM extract plus PLATEAU corridor coverage,No real candidate graph or source-traceable geometry,HIGH,OPEN,DATA,Acquire bounded extract outside Git then preserve IDs and run topology QA,osm_arashiyama_candidate;plateau_kyoto_2025
+ARA-GAP-002,hazard,official machine-readable flood and inland-water polygons with version and CRS,Physical overlap and depth cannot be computed,HIGH,OPEN,DATA,Obtain official export or documented API and verify revision,kyoto_hazard_map_2026;mlit_katsura_maximum;mlit_katsura_multistage
+ARA-GAP-003,operation,scenario-specific road closure or restriction rules,Route state must remain UNKNOWN,BLOCKER,OPEN,HUMAN,Confirm rules and issuing authority without inference,kyoto_hazard_map_2026;mlit_katsura_maximum
+ARA-GAP-004,plan,current Saga-Arashiyama tourist evacuation plan revision,Historical plan cannot establish current operation,HIGH,OPEN,HUMAN,Ask Kyoto City for a newer revision or annex,kyoto_saga_arashiyama_plan
+ARA-GAP-005,facility,current facility rows and exact types,Destinations cannot be activated,HIGH,OPEN,DATA,Extract official rows and preserve categories,kyoto_evacuation_facilities
+ARA-GAP-005B,parks,current park rows with verified entrances and legal or operational role,Parks cannot be treated as evacuation destinations,HIGH,OPEN,DATA,Acquire current rows then verify entrance and destination role separately,kyoto_official_parks
+ARA-GAP-006,entrance,verified facility and POI entrances,Centroid connection is forbidden,HIGH,OPEN,FIELD,Confirm entrance geometry with official and field evidence,kyoto_evacuation_facilities;kyoto_public_toilets
+ARA-GAP-007,capacity,current dated capacity evidence,KPI allocation cannot be computed,HIGH,OPEN,HUMAN,Obtain official or facility-manager evidence,kyoto_evacuation_facilities
+ARA-GAP-008,operation,current opening and emergency activation rules,Unknown access cannot be treated as open,BLOCKER,OPEN,HUMAN,Obtain dated confirmation per facility,kyoto_evacuation_facilities
+ARA-GAP-009,demand,current demand and origin evidence,KPI demand values remain null,HIGH,OPEN,HUMAN,Define privacy-safe official or measured protocol,kyoto_saga_arashiyama_plan
+ARA-GAP-010,profile,M6 profile rules connected to citypack,Profile outputs remain NOT_COMPUTED,BLOCKER,OPEN,CORE,Integrate after shared contract and human review,
+ARA-GAP-011,topology,bridge level and grade-separation evidence,Candidate graph cannot pass topology QA,HIGH,OPEN,FIELD,Verify bridge approaches and connectors,osm_arashiyama_candidate;plateau_kyoto_2025
+ARA-GAP-012,secondary_hazard,machine-readable landslide designations and operation,Secondary hazard remains metadata-only,MEDIUM,OPEN,DATA,Acquire official polygons and keep operation separate,kyoto_landslide_map

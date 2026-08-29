@@ -1,0 +1,1 @@
+facility_id,name,facility_type,lon,lat,data_class,facility_status,entrance_status,capacity,capacity_status,operation_status,source_dataset_id,schema_version,source_crs,processing_crs,output_crs,horizontal_unit,vertical_unit,axis_order,coordinate_precision,transform_history,geometry_status,source_feature_id,stable_feature_id,revision_id,lineage

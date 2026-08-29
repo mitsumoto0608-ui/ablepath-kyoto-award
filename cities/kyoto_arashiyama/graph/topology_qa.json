@@ -1,0 +1,10 @@
+{
+  "schema_version":"1.0.0",
+  "graph_status":"CANDIDATE",
+  "data_class":"SYNTHETIC_DEMO",
+  "source_crs":"EPSG:4326","processing_crs":"EPSG:6674","output_crs":"EPSG:4326","horizontal_unit":"degree","vertical_unit":"UNKNOWN","axis_order":"lon_lat","coordinate_precision":6,
+  "transform_history":["NOT_EXECUTED_SYNTHETIC_FIXTURE"],"geometry_status":"SYNTHETIC_DEMO_CANDIDATE","source_feature_id":"SYNTHETIC_DEMO_ARASHIYAMA_EDGES_V1","stable_feature_id":"KYOTO_ARASHIYAMA_EDGESET","revision_id":"r1","lineage":"Deterministic QA over the synthetic fixture only",
+  "counts":{"duplicate_node_ids":0,"duplicate_edge_ids":0,"dangling_endpoint_nodes":2,"self_loops":0,"zero_length_edges":0},
+  "not_computed":{"disconnected_real_destinations":{"status":"NOT_COMPUTED","reason":"No verified entrances or destinations"},"unsplit_hazard_boundaries":{"status":"NOT_COMPUTED","reason":"No official hazard geometry acquired"},"grade_separated_false_intersections":{"status":"NOT_COMPUTED","reason":"Bridge level evidence is UNKNOWN"}},
+  "promotion_blocker":"Real source-traceable geometry and field/topology evidence are required before REVIEWED or VERIFIED"
+}

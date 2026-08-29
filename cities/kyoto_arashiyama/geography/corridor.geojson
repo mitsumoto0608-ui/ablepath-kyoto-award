@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "schema_version": "1.0.0",
+  "source_crs": "EPSG:4326",
+  "processing_crs": "EPSG:6674",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "degree",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": "lon_lat",
+  "coordinate_precision": 6,
+  "transform_history": ["NOT_EXECUTED_SYNTHETIC_FIXTURE"],
+  "geometry_status": "SYNTHETIC_DEMO_CANDIDATE",
+  "source_feature_id": "SYNTHETIC_DEMO_ARASHIYAMA_CORRIDOR_V1",
+  "stable_feature_id": "KYOTO_ARASHIYAMA_CORRIDOR",
+  "revision_id": "r1",
+  "lineage": "Task-defined sequence; coordinates are FIXTURE_VALUE and not official or surveyed geometry",
+  "features": [{
+    "type": "Feature",
+    "id": "KYOTO_ARASHIYAMA_CORRIDOR",
+    "geometry": {"type": "LineString", "coordinates": [[135.678000,35.015000],[135.677500,35.013800],[135.676800,35.012400],[135.677200,35.011300],[135.677800,35.010400],[135.679000,35.010000]]},
+    "properties": {"data_class":"SYNTHETIC_DEMO","source_feature_id":"SYNTHETIC_DEMO_ARASHIYAMA_CORRIDOR_V1","stable_feature_id":"KYOTO_ARASHIYAMA_CORRIDOR","revision_id":"r1","lineage":"FIXTURE_VALUE coordinates for UI continuity","geometry_status":"SYNTHETIC_DEMO_CANDIDATE"}
+  }]
+}

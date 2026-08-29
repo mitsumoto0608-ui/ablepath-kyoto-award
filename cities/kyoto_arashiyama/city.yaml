@@ -1,0 +1,67 @@
+schema_version: "1.0.0"
+citypack_schema_version: "1.0.0"
+hazard_schema_version: "1.0.0"
+viewer_data_schema_version: "1.0.0"
+city_id: kyoto_arashiyama
+display_name: "京都・嵯峨嵐山／渡月橋"
+country: JP
+municipality: "京都市"
+corridor_name: "嵐電嵐山・市営観光駐車場－長辻通－渡月橋北詰－橋／中之島東側（デモ候補回廊）"
+center_lon: 135.6778
+center_lat: 35.0116
+center_data_class: SYNTHETIC_DEMO
+default_zoom: 15
+plateau_city_code: "26100"
+supported_hazards:
+  - RAIN
+  - FLOOD
+data_status: SYNTHETIC_DEMO
+official_metadata_status: OFFICIAL_METADATA_ONLY
+last_verified_at: "2026-08-30"
+source_manifest_path: "cities/kyoto_arashiyama/sources/source_manifest.csv"
+scenario_disclaimer: "公式資料のメタデータと合成候補グラフを分離した静的比較用city packです。個別道路の冠水・通行可否やリアルタイムの安全を示しません。"
+schema_compatibility:
+  supported_major: 1
+  unsupported_major_policy: REJECT_WITH_ACTIONABLE_ERROR
+  migration_policy: RECORD_REQUIRED_MIGRATION_NO_IMPLICIT_CONVERSION
+readiness:
+  facility_status: UNKNOWN
+  entrance_status: UNKNOWN
+  capacity_status: UNKNOWN
+  operation_status: UNKNOWN
+  demand_status: UNKNOWN
+  origin_status: UNKNOWN
+  profile_status: NOT_COMPUTED
+  m6_status: NOT_COMPUTED
+  kpi_status: NOT_COMPUTED
+kpis:
+  physically_reachable: {value: null, reason: REAL_TOPOLOGY_AND_ENTRANCES_UNAVAILABLE}
+  accommodated: {value: null, reason: DEMAND_CAPACITY_AND_OPERATION_UNAVAILABLE}
+  overflow_waiting: {value: null, reason: DEMAND_CAPACITY_AND_OPERATION_UNAVAILABLE}
+  unreachable: {value: null, reason: REAL_TOPOLOGY_AND_PROFILE_NOT_COMPUTED}
+  unknown_affected_upper_bound: {value: null, reason: DEMAND_AND_HAZARD_GEOMETRY_UNAVAILABLE}
+geospatial_contract:
+  schema_version: "1.0.0"
+  source_crs: EPSG:4326
+  processing_crs: EPSG:6674
+  output_crs: EPSG:4326
+  horizontal_unit: degree
+  source_horizontal_unit: degree
+  processing_horizontal_unit: metre
+  output_horizontal_unit: degree
+  vertical_unit: UNKNOWN
+  axis_order: lon_lat
+  coordinate_precision: 6
+  transform_history: "SYNTHETIC_DEMO coordinates only; projected transform NOT_EXECUTED"
+  geometry_status: SYNTHETIC_DEMO_CANDIDATE
+  source_feature_id: SYNTHETIC_DEMO_ARASHIYAMA_CORRIDOR_V1
+  stable_feature_id: KYOTO_ARASHIYAMA_CORRIDOR
+  revision_id: r1
+  lineage: "Task-defined corridor sequence; coordinates are FIXTURE_VALUE, not surveyed or official geometry"
+completion_levels:
+  ENGINEERING_UI_COMPLETE: false
+  DATA_STAGING_COMPLETE: true
+  REAL_GEOMETRY_CONNECTED: false
+  MODEL_CONNECTED: false
+  ADMIN_VALIDATED: false
+  overall: PARTIAL_COMPLETE
