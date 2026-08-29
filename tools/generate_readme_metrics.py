@@ -80,7 +80,7 @@ def update_readme(out: dict, readme: str | Path = README) -> bool:
     new = head + BEGIN + build_block(out) + END + tail
     if new == text:
         return False
-    p.write_text(new, encoding="utf-8")
+    p.write_text(new, encoding="utf-8", newline="\n")
     return True
 
 

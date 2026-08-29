@@ -185,8 +185,8 @@ def main() -> None:
     out = run_all(base, forbid)
     root = Path(__file__).resolve().parents[1]
     (root / "results").mkdir(exist_ok=True)
-    (root / "results" / "all_runs.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-    (root / "results" / "summary.md").write_text(summary_md(out), encoding="utf-8")
+    (root / "results" / "all_runs.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+    (root / "results" / "summary.md").write_text(summary_md(out), encoding="utf-8", newline="\n")
     print(f"OK: {len(out['runs'])} runs -> results/all_runs.json, results/summary.md")
 
 
