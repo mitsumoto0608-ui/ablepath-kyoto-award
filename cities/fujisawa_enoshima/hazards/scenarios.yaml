@@ -1,0 +1,53 @@
+hazard_schema_version: "1.0.0"
+citypack_schema_version: "1.0.0"
+schema_version: "1.0.0"
+source_crs: NOT_APPLICABLE
+processing_crs: EPSG:6677
+output_crs: NOT_APPLICABLE
+horizontal_unit: NOT_APPLICABLE
+vertical_unit: UNKNOWN
+axis_order: NOT_APPLICABLE
+coordinate_precision: null
+transform_history:
+  - NOT_TRANSFORMED_METADATA_ONLY
+geometry_status: UNKNOWN
+source_feature_id: FJ-TSUNAMI-SCENARIOSET
+stable_feature_id: FJ-TSUNAMI-SCENARIOSET
+revision_id: "1"
+lineage:
+  - ABLEPATH_DESIGN_STATIC_SCENARIO_CONTRACT
+evaluation_mode: STATIC_SNAPSHOT_COMPARISON
+temporal_data_status: UNKNOWN
+scenarios:
+  - scenario_id: TSUNAMI_STRICT
+    hazard_type: TSUNAMI
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "No official time-varying or edge-level physical values are connected."
+    source_ids:
+      - FUJISAWA_TSUNAMI_PLAN_WEB
+      - FUJISAWA_ENOSHIMA_MAP_2023
+  - scenario_id: TSUNAMI_OPERATIONAL
+    hazard_type: TSUNAMI
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "Facility operation is not inferred from designation or a static map."
+    source_ids:
+      - FUJISAWA_TSUNAMI_PLAN_WEB
+      - FUJISAWA_TSUNAMI_BUILDINGS_2025
+  - scenario_id: TSUNAMI_SENSITIVITY
+    hazard_type: TSUNAMI
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "No numeric sensitivity parameter is asserted until evidence is registered and reviewed."
+    source_ids:
+      - FUJISAWA_TSUNAMI_PLAN_WEB

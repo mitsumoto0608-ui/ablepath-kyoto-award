@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "citypack_schema_version": "1.0.0",
+  "source_crs": "MIXED_OR_NOT_APPLICABLE",
+  "processing_crs": "EPSG:6677",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "metre_processing",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": "longitude_latitude_output",
+  "coordinate_precision": 6,
+  "transform_history": ["No real geometry transformed in this city pack revision."],
+  "geometry_status": "SYNTHETIC_DEMO",
+  "source_feature_id": "NOT_APPLICABLE_ARTIFACT_MANIFEST",
+  "stable_feature_id": "FJ-ARTIFACT-MANIFEST",
+  "revision_id": "1",
+  "lineage": ["Authored under FUJISAWA lane V4 citypack contract."],
+  "artifacts": [
+    {"path": "city.yaml", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
+    {"path": "sources/source_manifest.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "sources/data_gap_register.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "geography/corridor.metadata.json", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "graph/walk_nodes.geojson", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
+    {"path": "graph/walk_edges.geojson", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
+    {"path": "graph/topology_qa.json", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO_CANDIDATE"},
+    {"path": "facilities/facilities.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "pois/pois.csv", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
+    {"path": "hazards/scenarios.yaml", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "hazards/edge_states.csv", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
+    {"path": "demand/demand_scenarios.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
+    {"path": "viewer/city_config.json", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO_AND_METADATA_ONLY"}
+  ]
+}

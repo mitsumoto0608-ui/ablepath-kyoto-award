@@ -1,0 +1,104 @@
+schema_version: "1.0.0"
+citypack_schema_version: "1.0.0"
+hazard_schema_version: "1.0.0"
+viewer_data_schema_version: "1.0.0"
+city_id: fujisawa_enoshima
+display_name: "藤沢・江の島"
+country: JP
+municipality: "神奈川県藤沢市"
+corridor_name: "片瀬海岸・江の島アプローチ（合成デモ）"
+center_lon: 139.4800
+center_lat: 35.3000
+default_zoom: 14
+plateau_city_code: "14205"
+supported_hazards:
+  - TSUNAMI
+data_status: SYNTHETIC_DEMO
+official_metadata_status: OFFICIAL_METADATA_ONLY
+last_verified_at: "2026-08-30"
+source_manifest_path: sources/source_manifest.csv
+scenario_disclaimer: "静的な計画比較用の合成デモであり、ライブの安全案内、個別地点の被害予測、通行可能性の保証ではありません。"
+schema_compatibility:
+  supported_major: 1
+  unsupported_major_policy: REJECT_WITH_ACTIONABLE_ERROR
+  migration_policy: RECORD_REQUIRED_MIGRATION_NO_IMPLICIT_CONVERSION
+geospatial_contract:
+  schema_version: "1.0.0"
+  source_crs: EPSG:4326
+  processing_crs: EPSG:6677
+  output_crs: EPSG:4326
+  horizontal_unit: degree_output_metre_processing
+  vertical_unit: UNKNOWN
+  axis_order: longitude_latitude
+  coordinate_precision: 6
+  transform_history:
+    - "No transformation executed: all included geometry is SYNTHETIC_DEMO fixture data."
+  geometry_status: SYNTHETIC_DEMO
+  source_feature_id: NOT_APPLICABLE_CITYPACK
+  stable_feature_id: CITY-FUJISAWA-ENOSHIMA
+  revision_id: CITYPACK-1
+  lineage:
+    - "Official sources are metadata/evidence only; they did not supply the committed fixture geometry."
+official_data_targets:
+  plateau_2025:
+    catalog_status: OFFICIAL_METADATA_ONLY
+    dataset_download_status: NOT_ACQUIRED
+    buildings:
+      availability_status: UNKNOWN
+      lod_status: UNKNOWN
+    roads:
+      availability_status: UNKNOWN
+      requested_lod: 3
+      verified_lod: UNKNOWN
+    bridges:
+      availability_status: UNKNOWN
+      requested_lod: 3
+      verified_lod: UNKNOWN
+    terrain:
+      availability_status: UNKNOWN
+    tsunami_hazard:
+      availability_status: UNKNOWN
+    flood_hazard:
+      availability_status: UNKNOWN
+    inland_flood_hazard:
+      availability_status: UNKNOWN
+    storm_surge_hazard:
+      availability_status: UNKNOWN
+    landslide_hazard:
+      availability_status: UNKNOWN
+  osm_pedestrian_graph:
+    acquisition_status: NOT_ACQUIRED
+    topology_status: NOT_EVALUATED
+readiness:
+  facility_status: OFFICIAL_METADATA_ONLY
+  entrance_status: UNKNOWN
+  capacity_status: UNKNOWN
+  operation_status: UNKNOWN
+  demand_status: UNKNOWN
+  origin_status: SYNTHETIC_DEMO
+  profile_status: NOT_COMPUTED
+  kpi_status: NOT_COMPUTED
+  m6_status: NOT_COMPUTED
+kpis:
+  physically_reachable:
+    value: null
+    reason: "Real topology, verified entrances, origins, and M6 profile evaluation are unavailable."
+  accommodated:
+    value: null
+    reason: "Demand, verified facility capacity, and operational state are unavailable."
+  overflow_waiting:
+    value: null
+    reason: "Demand, verified facility capacity, and operational state are unavailable."
+  unreachable:
+    value: null
+    reason: "Real topology, demand origins, and M6 profile evaluation are unavailable."
+  unknown_affected_upper_bound:
+    value: null
+    reason: "Demand and source-traceable tsunami hazard geometry are unavailable."
+completion_levels:
+  ENGINEERING_UI_COMPLETE: false
+  DATA_STAGING_COMPLETE: true
+  REAL_GEOMETRY_CONNECTED: false
+  MODEL_CONNECTED: false
+  ADMIN_VALIDATED: false
+  overall: PARTIAL_COMPLETE

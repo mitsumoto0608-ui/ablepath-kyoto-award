@@ -1,0 +1,28 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "schema_version": "1.0.0",
+    "citypack_schema_version": "1.0.0",
+    "source_crs": "EPSG:4326",
+    "processing_crs": "EPSG:6677",
+    "output_crs": "EPSG:4326",
+    "horizontal_unit": "degree_output_metre_processing",
+    "vertical_unit": "UNKNOWN",
+    "axis_order": "longitude_latitude",
+    "coordinate_precision": 6,
+    "transform_history": ["No transformation executed; coordinates are FIXTURE_VALUE."],
+    "geometry_status": "SYNTHETIC_DEMO",
+    "source_feature_id": "SYNTHETIC-DEMO-EDGESET",
+    "stable_feature_id": "FJ-EDGESET-001",
+    "revision_id": "1",
+    "lineage": ["Hand-authored deterministic fixture; not derived from official maps or OSM."],
+    "topology_status": "CANDIDATE"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "LineString", "coordinates": [[139.480000, 35.300000], [139.481000, 35.301000]]},
+      "properties": {"edge_id": "FJ-SYN-E001", "from_node": "FJ-SYN-N001", "to_node": "FJ-SYN-N002", "data_status": "SYNTHETIC_DEMO", "geometry_status": "SYNTHETIC_DEMO", "source_feature_id": "SYNTHETIC-DEMO-E001", "stable_feature_id": "FJ-SYN-E001", "revision_id": "1", "lineage": ["FIXTURE_VALUE"], "bridge": "UNKNOWN", "tunnel": "UNKNOWN", "level": null, "layer": null, "length_m": null, "topology_status": "CANDIDATE"}
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "viewer_data_schema_version": "1.0.0",
+  "citypack_schema_version": "1.0.0",
+  "schema_version": "1.0.0",
+  "source_crs": "EPSG:4326",
+  "processing_crs": "EPSG:6677",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "degree_output_metre_processing",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": "longitude_latitude",
+  "coordinate_precision": 6,
+  "transform_history": ["No transformation executed; viewer center is SYNTHETIC_DEMO fixture data."],
+  "geometry_status": "SYNTHETIC_DEMO",
+  "source_feature_id": "FJ-VIEWER-CONFIG",
+  "stable_feature_id": "FJ-VIEWER-CONFIG",
+  "revision_id": "1",
+  "lineage": ["Derived only from the citypack display contract; no real geometry."],
+  "city_id": "fujisawa_enoshima",
+  "display_name": "藤沢・江の島",
+  "center": {"lon": 139.48, "lat": 35.3, "status": "SYNTHETIC_DEMO_FIXTURE"},
+  "default_zoom": 14,
+  "supported_scenarios": ["TSUNAMI_STRICT", "TSUNAMI_OPERATIONAL", "TSUNAMI_SENSITIVITY"],
+  "profile_selector": {"enabled": false, "status": "NOT_COMPUTED", "reason": "M6/profile evaluation is not connected."},
+  "kpi_status": "NOT_COMPUTED",
+  "kpis": {
+    "physically_reachable": {"value": null, "reason": "Real topology, verified entrances, origins, and M6 profile evaluation are unavailable."},
+    "accommodated": {"value": null, "reason": "Demand, verified facility capacity, and operational state are unavailable."},
+    "overflow_waiting": {"value": null, "reason": "Demand, verified facility capacity, and operational state are unavailable."},
+    "unreachable": {"value": null, "reason": "Real topology, demand origins, and M6 profile evaluation are unavailable."},
+    "unknown_affected_upper_bound": {"value": null, "reason": "Demand and source-traceable tsunami hazard geometry are unavailable."}
+  },
+  "layers": [
+    {"id": "synthetic_walk_graph", "status": "SYNTHETIC_DEMO", "default_visible": true, "source_ids": []},
+    {"id": "official_tsunami_metadata", "status": "OFFICIAL_METADATA_ONLY", "default_visible": false, "source_ids": ["FUJISAWA_TSUNAMI_PLAN_WEB", "FUJISAWA_ENOSHIMA_MAP_2023"]}
+  ],
+  "scenario_disclaimer": "静的な計画比較用の合成デモです。ライブの安全案内、通行可否、施設利用可否、個別地点の浸水・到達時刻を示しません。"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "citypack_schema_version": "1.0.0",
+  "corridor_id": "FJ-CORRIDOR-001",
+  "name": "片瀬海岸・江の島アプローチ（範囲未確定）",
+  "source_crs": "UNKNOWN",
+  "processing_crs": "EPSG:6677",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "metre_processing",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": "longitude_latitude_output",
+  "coordinate_precision": 6,
+  "transform_history": ["No real corridor geometry acquired or transformed."],
+  "geometry_status": "UNKNOWN",
+  "source_feature_id": "UNKNOWN",
+  "stable_feature_id": "FJ-CORRIDOR-001",
+  "revision_id": "1",
+  "lineage": ["Corridor concept comes from the task brief; spatial boundary remains a registered gap."],
+  "geometry": null,
+  "reason": "No source-traceable corridor polygon is available."
+}
