@@ -7,9 +7,13 @@ M7はprofile非依存の物理層だけを返す。車いす等のprofile別判�
 from __future__ import annotations
 
 from collections.abc import Mapping
+from copy import deepcopy
+import importlib
+import math
 
 import pytest
 
+from tools import registry
 from tools.registry import get_constant, get_entry
 
 
@@ -28,7 +32,8 @@ EXPECTED_PROVENANCE = {
     "doi": "10.1177/8755293019892423",
     "evidence_status": "A2",
     "transfer_status": "ADAPT",
-    "calibration_population": "Mashiki wood-frame buildings",
+    "calibration_population": "Mashiki Town wood-frame buildings",
+    "regression_sample": "Eq.2/3 D>0 regression subset, n=738",
     "kyoto_validation": "NOT_VALIDATED",
 }
 
@@ -92,6 +97,66 @@ def test_moya_registry_contract_and_m7_rejects_m6_width():
         get_constant("WIDTH_REQ_WHEELCHAIR_M", module="M7")
 
 
+@pytest.mark.parametrize(
+    ("variant", "expected_ids", "expected_intrusion", "expected_remaining"),
+    [
+        (
+            "mean_case",
+            ["MOYA_DEBRIS_SLOPE", "MOYA_DEBRIS_INTERCEPT_M"],
+            11.0,
+            89.0,
+        ),
+        (
+            "sensitivity_high_case",
+            [
+                "MOYA_DEBRIS_SLOPE",
+                "MOYA_DEBRIS_INTERCEPT_M",
+                "MOYA_DEBRIS_SIGMA_M",
+            ],
+            16.0,
+            84.0,
+        ),
+    ],
+)
+def test_calculation_uses_m7_registry_constants(
+    monkeypatch,
+    variant,
+    expected_ids,
+    expected_intrusion,
+    expected_remaining,
+):
+    """[source_conformance] sentinel値でregistry実使用とmodule=M7を固定する。"""
+    residual_width = importlib.import_module("src.residual_width")
+    assert residual_width.get_constant is registry.get_constant
+    sentinel_values = {
+        "MOYA_DEBRIS_SLOPE": 2.0,
+        "MOYA_DEBRIS_INTERCEPT_M": 3.0,
+        "MOYA_DEBRIS_SIGMA_M": 5.0,
+    }
+    calls = []
+
+    def sentinel_get_constant(constant_id, module, profile=None, path=None):
+        calls.append((constant_id, module, profile, path))
+        return sentinel_values[constant_id]
+
+    monkeypatch.setattr(residual_width, "get_constant", sentinel_get_constant)
+    result = residual_width.calculate_residual_width(
+        **_inputs(
+            clear_width_m=100.0,
+            left_buildings=[_building(height_m=4.0)],
+            variant=variant,
+        )
+    )
+
+    _assert_widths(
+        result,
+        left=expected_intrusion,
+        right=0.0,
+        remaining=expected_remaining,
+    )
+    assert calls == [(constant_id, "M7", None, None) for constant_id in expected_ids]
+
+
 def test_case_a_one_side_mean_case():
     """[software_correctness] FIXTURE_VALUE A: D=.31*7+1.10=3.27m; 4-3.27=.73m。"""
     result = _calculate(**_inputs(left_buildings=[_building()]))
@@ -144,10 +209,22 @@ def test_debris_absent_has_zero_intrusion():
     _assert_widths(result, left=0.0, right=0.0, remaining=4.0)
 
 
-def test_noncollapsed_building_has_zero_intrusion():
-    """[software_correctness] enum値DAMAGEDはdebris_present=trueでも侵入幅0m。"""
-    result = _calculate(**_inputs(left_buildings=[_building(damage_state="DAMAGED")]))
+def test_damaged_building_without_debris_has_zero_intrusion():
+    """[software_correctness] DAMAGEDかつdebris_present=falseの侵入幅は0m。"""
+    result = _calculate(
+        **_inputs(
+            left_buildings=[_building(damage_state="DAMAGED", debris_present=False)]
+        )
+    )
     _assert_widths(result, left=0.0, right=0.0, remaining=4.0)
+
+
+@pytest.mark.parametrize("side", ["left_buildings", "right_buildings"])
+def test_rejects_damaged_building_with_debris_present(side):
+    """[software_correctness] DAMAGEDとdebris_present=trueの矛盾を黙認しない。"""
+    building = _building(damage_state="DAMAGED", debris_present=True)
+    with pytest.raises((TypeError, ValueError)):
+        _calculate(**_inputs(**{side: [building]}))
 
 
 @pytest.mark.parametrize("setback_m", [3.27, 4.0])
@@ -352,11 +429,43 @@ def test_hazard_status_is_preserved_without_profile_state(hazard_data_status):
         )
 
 
-@pytest.mark.parametrize("bad_value", [None, True, 1, []])
-def test_rejects_nonstring_hazard_status(bad_value):
-    """[software_correctness] v0.3は完全enumを新設せず、hazard statusのstr型だけを検証。"""
+@pytest.mark.parametrize(
+    "bad_value",
+    [None, True, 1, [], "", "known", "unknown", "OPEN", "PASS", "SAFE", "OTHER"],
+)
+def test_rejects_unsupported_hazard_data_status(bad_value):
+    """[software_correctness] hazard_data_statusはKNOWN/UNKNOWN以外を拒否する。"""
     with pytest.raises((TypeError, ValueError)):
         _calculate(**_inputs(hazard_data_status=bad_value))
+
+
+@pytest.mark.parametrize(
+    ("variant", "expected_applied_ids"),
+    [
+        (
+            "mean_case",
+            ["MOYA_DEBRIS_SLOPE", "MOYA_DEBRIS_INTERCEPT_M"],
+        ),
+        (
+            "sensitivity_high_case",
+            [
+                "MOYA_DEBRIS_SLOPE",
+                "MOYA_DEBRIS_INTERCEPT_M",
+                "MOYA_DEBRIS_SIGMA_M",
+            ],
+        ),
+    ],
+)
+def test_output_traces_variant_and_applied_constant_ids(
+    variant,
+    expected_applied_ids,
+):
+    """[source_conformance] 入力variantと実際に適用した定数IDを出力へ保持する。"""
+    result = _calculate(
+        **_inputs(left_buildings=[_building()], variant=variant)
+    )
+    assert result["variant"] == variant
+    assert result["provenance"]["applied_constant_ids"] == expected_applied_ids
 
 
 def test_provenance_declares_adapted_moya_model():
@@ -375,7 +484,7 @@ def test_provenance_declares_adapted_moya_model():
 
 
 def test_result_has_physical_schema_and_no_profile_judgment_fields():
-    """[software_correctness] M7 resultは物理6キーを持ち、profile別判定fieldを持たない。"""
+    """[software_correctness] M7 resultは物理・traceabilityキーを持ちprofile判定を持たない。"""
     result = _calculate(**_inputs())
     assert isinstance(result, Mapping)
     assert {
@@ -384,6 +493,7 @@ def test_result_has_physical_schema_and_no_profile_judgment_fields():
         "remaining_clear_width_m",
         "official_closure",
         "hazard_data_status",
+        "variant",
         "provenance",
     } <= result.keys()
     assert "profile_state" not in result
@@ -401,3 +511,26 @@ def test_identical_inputs_produce_identical_result():
     """[software_correctness] 同じ明示入力に対するmappingは決定的に同一。"""
     kwargs = _inputs(left_buildings=[_building(setback_m=2.0)])
     assert _calculate(**kwargs) == _calculate(**kwargs)
+
+
+def test_does_not_mutate_input_containers_or_buildings():
+    """[software_correctness] pure functionは左右listとbuilding dictを非破壊で扱う。"""
+    kwargs = _inputs(
+        left_buildings=[_building(setback_m=2.0)],
+        right_buildings=[_building(height_m=3.0, debris_present=False)],
+    )
+    before = deepcopy(kwargs)
+    _calculate(**kwargs)
+    assert kwargs == before
+
+
+def test_width_outputs_are_finite_floats():
+    """[software_correctness] 3幅出力はfinite floatのm値として返す。"""
+    result = _calculate(**_inputs(left_buildings=[_building()]))
+    for key in (
+        "debris_intrusion_left_m",
+        "debris_intrusion_right_m",
+        "remaining_clear_width_m",
+    ):
+        assert type(result[key]) is float
+        assert math.isfinite(result[key])

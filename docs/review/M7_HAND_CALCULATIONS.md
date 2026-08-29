@@ -59,7 +59,8 @@ high remaining = 5.00 - 4.38 = 0.62m
 ## SOURCE_FACT
 
 - Moya et al. 2020 Eq.2/3: `D=0.31h+1.10m`、`sigma=1.11m`。
-- Moyaの較正母集団は益城のwood-frame buildings。`n=738`は`D>0`の部分標本。
+- Moya Eq.2/3の対象は益城町木造建物の`D>0`回帰部分標本`n=738`。
+  full sampleの母数はここで断定せず`RESEARCH_LEDGER.md`を参照する。
 - Moya Eq.7: `P[D=0|h, collapse]=1.5*exp(-0.43h)`。
 - Moya定数のevidence statusはA2、京都へのtransfer statusはADAPT。
 - Zhang et al. 2024 Eq.7は残存幅を0未満にしない構造を示す。
@@ -70,6 +71,7 @@ high remaining = 5.00 - 4.38 = 0.62m
 
 - Moya×Zhang×Yu & Gardoniを組み合わせること自体がAblePath独自の簡約である。
 - `debris_present`を明示bool入力としてdamage stateとdebris extentから分離する。
+- `DAMAGED`かつ`debris_present=true`は矛盾入力として停止する。
 - `I_side=max(D-S_side,0)`とし、左右侵入幅を別fieldで保持する。
 - `remaining=max(W_clear-I_left-I_right,0)`をprofile非依存の物理出力にする。
 - `official_closure`と物理残存幅を別fieldで保持する。
@@ -78,10 +80,14 @@ high remaining = 5.00 - 4.38 = 0.62m
 - M7 core v0.3へ渡すeffective buildingはedge分割後のpreselected入力であり、
   各side 0件または1件だけとする。2件以上は集約せず明示エラーにする。
 - `hazard_data_status=UNKNOWN`をOPEN/PASSへ落とさない。
+- `hazard_data_status`を`KNOWN`/`UNKNOWN`の2値enumに限定する。
+- 入力variantを出力へ保持し、実際に適用したregistry定数IDをprovenanceへ保持する。
+- 入力containerを変更せず、3幅値をfinite floatで返す。
 - profile別所要幅との比較はM6に限定する。`WIDTH_REQ_WHEELCHAIR_M`をM7から取得しない。
-- provenanceは論文名／DOI `10.1177/8755293019892423`／3つのMoya constant ID／
-  `Moya et al. 2020 / A2 / ADAPT / Mashiki wood-frame buildings / NOT_VALIDATED`を
-  最低限保持する。
+- provenanceは論文名／DOI `10.1177/8755293019892423`／モデルで利用可能な3つの
+  Moya constant ID／variant別の適用constant ID／`Moya et al. 2020 / A2 / ADAPT /
+  Mashiki Town wood-frame buildings / Eq.2/3 D>0 regression subset, n=738 /
+  NOT_VALIDATED`を最低限保持する。
 
 ## UNRESOLVED
 
@@ -101,7 +107,9 @@ high remaining = 5.00 - 4.38 = 0.62m
 | `max(...,0)`を削除 | CASE B、残存幅下限0 | kill可能 |
 | setbackを減算せず加算 | CASE C | kill可能 |
 | `debris_present=false`でも加算 | debris absentテスト | kill可能 |
-| damage stateを無視 | noncollapsedテスト | kill可能 |
+| registryを迂回して係数を直書き | sentinel registry実使用テスト | kill可能 |
+| damage stateを無視 | DAMAGED/debris falseテスト | kill可能 |
+| DAMAGED/debris trueを0m扱い | 矛盾入力拒否 | kill可能 |
 | `mean+sigma`を`mean-sigma`へ変更 | high感度の`0.62m`固定 | kill可能 |
 | UNKNOWNをOPEN/PASSへ変換 | UNKNOWN保持・profile field不在 | kill可能 |
 | official closureと物理幅を同じ状態へ潰す | closure=trueでもremaining=4m | kill可能 |
@@ -111,7 +119,10 @@ high remaining = 5.00 - 4.38 = 0.62m
 | building必須キー欠落を既定値で補完 | 必須4キー欠落拒否 | kill可能 |
 | unknown damage stateを非倒壊扱い | damage enum拒否 | kill可能 |
 | unsupported variantをmeanへfallback | variant enum拒否 | kill可能 |
-| hazard statusを固定値化・非文字列を黙認 | KNOWN/UNKNOWN保持・str型限定 | kill可能 |
+| hazard statusを固定値化・未知値を黙認 | KNOWN/UNKNOWN保持・enum限定 | kill可能 |
+| variant・適用定数IDを出力しない | traceabilityテスト | kill可能 |
+| 左右list/building dictを変更 | deepcopy非破壊テスト | kill可能 |
+| 非finiteまたは非floatの幅を返す | 3幅出力型テスト | kill可能 |
 | boolを数値mとして受理 | bool-as-number拒否 | kill可能 |
 | 負値入力を許容 | clear/height/setbackのnegative tests | kill可能 |
 | 非決定的な値を混入 | 同一入力mapping完全一致 | 典型変異を検出。実装後はrunner SHA反復でも確認 |
@@ -129,6 +140,7 @@ M7で計算利用禁止のToma `PRESENTATION_ONLY`値、容量超過割当は凍
 - CASE A/B/Cの式・単位・期待値。
 - M7物理層とM6 profile判定層の責任境界。
 - Eq.7から閾値を作らず`debris_present`を明示入力する判断。
-- Moyaの益城較正を京都で`ADAPT / NOT_VALIDATED`とする表現。
+- Moya Eq.2/3の益城町木造建物D>0回帰部分標本n=738を、京都で
+  `ADAPT / NOT_VALIDATED`とする表現。
 - `mean+1sigma`をpercentileや予測と呼ばないこと。
 - edge分割前の複数建物geometryと、京都実データへの接続方法。

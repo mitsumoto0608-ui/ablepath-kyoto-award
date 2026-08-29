@@ -7,7 +7,8 @@ profile非依存物理計算であり、個別建物または個別道路の被�
 
 `calculate_residual_width`はkeyword-onlyのpure deterministic functionとする。
 filesystem、network、clock、random、process stateを読み書きしない。同じ入力には
-値・キー構造とも同じmappingを返す。M7はprofile別判定を行わない。
+値・キー構造とも同じmappingを返す。入力のtop-level mapping、左右list、building dictを
+変更しない。M7はprofile別判定を行わない。
 
 ## 2. Inputs
 
@@ -35,15 +36,18 @@ calculate_residual_width(
 - `variant` enum：`mean_case`, `sensitivity_high_case`。
 - `official_closure`: `True`（公式閉鎖）、`False`（非閉鎖確認）、`None`（未確認）。
   入力値をそのまま保持し、`None`を`False`、OPEN、PASSへ変換しない。
-- `hazard_data_status`: strとして入力し、少なくとも`KNOWN`/`UNKNOWN`を変換せず保持する。
-  v0.3は完全なhazard status enumを新設せず文字列型だけを検証し、非文字列を拒否する。
+- `hazard_data_status` enum：`KNOWN`, `UNKNOWN`のみ。空文字、小文字、OPEN、PASS、SAFE、
+  その他未知値、非文字列を拒否する。
 - `left_buildings`と`right_buildings`は各0件または1件。ここでeffective buildingとは、
   geometry側で影響投影区間ごとにedge分割した後、coreへ渡されるpreselected入力要素を指す。
   リスト長2以上は寄与有無にかかわらず拒否する。
 
 ## 3. Algorithm
 
-定数は必ず`tools.registry.get_constant(..., module="M7")`で取得する。
+定数は各計算時に必ず`tools.registry.get_constant(..., module="M7")`で取得する。
+`src.residual_width`のmodule-level symbol `get_constant`として参照し、テストから
+monkeypatch可能にする。このsymbolは`tools.registry.get_constant`そのものを直接importし、
+local wrapperで置換しない。定数値のmodule内直書き、import時固定cacheは禁止する。
 
 ```text
 mean_case:
@@ -54,7 +58,13 @@ sensitivity_high_case:
         + MOYA_DEBRIS_INTERCEPT_M
         + MOYA_DEBRIS_SIGMA_M
 
-damage_state == DAMAGED or debris_present == false:
+damage_state == DAMAGED and debris_present == true:
+    TypeError or ValueError
+
+damage_state == DAMAGED and debris_present == false:
+    intrusion = 0
+
+damage_state == COLLAPSED and debris_present == false:
     intrusion = 0
 
 damage_state == COLLAPSED and debris_present == true:
@@ -77,7 +87,10 @@ mappingは最低限、次のキーを持つ。
 - `remaining_clear_width_m`: float、m、`>=0`
 - `official_closure`: 入力されたtri-stateを保持
 - `hazard_data_status`: 入力文字列を保持
+- `variant`: 入力enumをそのまま保持
 - `provenance`: 下記の根拠情報
+
+3つの幅値はすべてfiniteな組み込み`float`として返す。
 
 cm表現、profile別state、`profile_state`、`accessibility_state`、PASS/CONDITIONAL/FAILを
 結果へ追加しない。route stateも決定しない。共通4状態のschema接続・派生は後続integration
@@ -92,15 +105,24 @@ taskの責務であり、v0.3 coreの返却対象外とする。
 | `source_model` | `Moya et al. 2020` |
 | `paper` | `Statistical analysis of earthquake debris extent from wood-frame buildings and its use in road networks in Japan` |
 | `doi` | `10.1177/8755293019892423` |
-| `constant_ids` | `MOYA_DEBRIS_SLOPE`, `MOYA_DEBRIS_INTERCEPT_M`, `MOYA_DEBRIS_SIGMA_M` |
+| `constant_ids` | モデルで利用可能な定数群：`MOYA_DEBRIS_SLOPE`, `MOYA_DEBRIS_INTERCEPT_M`, `MOYA_DEBRIS_SIGMA_M` |
+| `applied_constant_ids` | `mean_case`はslope/intercept、`sensitivity_high_case`はslope/intercept/sigma。決定的な上記順序のlist |
 | `evidence_status` | `A2` |
 | `transfer_status` | `ADAPT` |
-| `calibration_population` | `Mashiki wood-frame buildings` |
+| `calibration_population` | `Mashiki Town wood-frame buildings` |
+| `regression_sample` | `Eq.2/3 D>0 regression subset, n=738` |
 | `kyoto_validation` | `NOT_VALIDATED` |
 
-SOURCE_FACTはMoya Eq.2/3/7、益城木造較正値と母集団である。Zhang Eq.7と
-Yu & Gardoniの`C=V-E`は構造上の先行例であり、これらとMoyaを組み合わせた
-左右別侵入・残存幅モデル、明示bool、tri-state保持はABLEPATH_DESIGNである。
+### SOURCE_FACT
+
+Moya Eq.2/3の係数とsigma、益城町木造建物、`D>0`回帰部分標本`n=738`。
+full sampleの母数はここで断定せず`RESEARCH_LEDGER.md`を参照する。Zhang Eq.7と
+Yu & Gardoniの`C=V-E`は構造上の先行例である。
+
+### ABLEPATH_DESIGN
+
+これらとMoyaを組み合わせた左右別侵入・残存幅モデル、明示bool、矛盾入力拒否、
+tri-state保持、variant・適用定数IDのtraceabilityはAblePath独自設計である。
 京都・京町家へは未較正であり、適合基準や個別被害予測を名乗らない。
 
 ## 6. Out of Scope
@@ -118,10 +140,11 @@ Yu & Gardoniの`C=V-E`は構造上の先行例であり、これらとMoyaを組
 
 - 負値、zero height、非有限値、文字列数値、bool-as-number
 - 非bool `debris_present`
+- `DAMAGED`かつ`debris_present=true`の矛盾
 - building dict必須キーの欠落
 - 非listのside入力、非dictのbuilding要素
 - tri-state外の`official_closure`
-- 非文字列の`hazard_data_status`
+- `KNOWN`/`UNKNOWN`以外の`hazard_data_status`
 - 未知`damage_state`、未知`variant`
 - 各sideのbuilding list長2以上
 
@@ -143,7 +166,9 @@ Split the edge by building influence interval before calculation
 | `test_zero_clear_width_is_valid` | clear幅0の受理 |
 | `test_left_and_right_intrusions_are_separate` | 左右別field |
 | `test_debris_absent_has_zero_intrusion` | debris false |
-| `test_noncollapsed_building_has_zero_intrusion` | DAMAGEDは侵入0 |
+| `test_calculation_uses_m7_registry_constants` | sentinelによるregistry実使用・module=M7・直書き防止 |
+| `test_damaged_building_without_debris_has_zero_intrusion` | DAMAGEDかつdebris falseは侵入0 |
+| `test_rejects_damaged_building_with_debris_present` | DAMAGEDかつdebris trueの矛盾拒否 |
 | `test_setback_equal_to_or_exceeding_extent_has_zero_intrusion` | `S=D`と`S>D` |
 | `test_setback_just_below_extent_has_positive_intrusion` | `S<D` |
 | `test_rejects_negative_dimensions` | 負値拒否 |
@@ -163,17 +188,21 @@ Split the edge by building influence interval before calculation
 | `test_rejects_nondict_building_element` | building要素のdict型限定 |
 | `test_rejects_building_missing_required_key` | building必須キー欠落拒否 |
 | `test_hazard_status_is_preserved_without_profile_state` | KNOWN/UNKNOWN保持とUNKNOWN安全契約 |
-| `test_rejects_nonstring_hazard_status` | hazard statusのstr型限定 |
+| `test_rejects_unsupported_hazard_data_status` | hazard statusをKNOWN/UNKNOWNに限定 |
+| `test_output_traces_variant_and_applied_constant_ids` | variantと適用定数IDのtraceability |
 | `test_provenance_declares_adapted_moya_model` | DOI/A2/ADAPT/母集団/京都未検証 |
 | `test_result_has_physical_schema_and_no_profile_judgment_fields` | 物理schemaのみ |
 | `test_identical_inputs_produce_identical_result` | pure deterministic |
+| `test_does_not_mutate_input_containers_or_buildings` | top-level/左右list/building dictの非破壊 |
+| `test_width_outputs_are_finite_floats` | 3幅値のfinite float保証 |
 
 ## 9. Mutation Matrix
 
-M7 mandatory：左右侵入項削除、左右入替、m/cm混同、下限`max`削除、setback加算、
-debris false無視、非bool黙認、damage/variant fallback、mean+sigmaをmean−sigma、
-UNKNOWN→OPEN/PASS、tri-state潰し、closureと物理幅混同、複数building自動集約、
-不正数値受理、非決定性。
+M7 mandatory：registry迂回・定数直書き、左右侵入項削除、左右入替、m/cm混同、
+下限`max`削除、setback加算、debris false無視、DAMAGED/debris true矛盾黙認、
+非bool黙認、damage/variant/hazard fallback、mean+sigmaをmean−sigma、UNKNOWN→OPEN/PASS、
+tri-state潰し、closureと物理幅混同、variant・適用定数ID欠落、複数building自動集約、
+入力破壊、不正数値受理、非finite/non-float出力、非決定性。
 
 `>=`／`>`はM7の`max(D-S,0)`では`S=D`の数値結果が同じためM7 mandatoryから外す。
 `remaining_clear_width_m`と`required_width_m`を比較するM6境界テストへ移管する。
