@@ -3,6 +3,21 @@
 このリポジトリで作業するAI（Codex等）は、コードを書く前に本ファイルを読むこと。
 プロジェクト＝**京都・清水の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2**（合成データ・55テスト・120ラン決定論。まだ行政PoCではない）。
 
+### Execution Efficiency Rule
+
+利用可能なsub-agent機能は積極的に使うこと。
+
+独立可能な調査・テスト設計・監査を直列に処理せず、
+安全に分割可能なら並列実行する。
+
+標準構成:
+- MAIN = coordinator / implementer
+- LUNA = design / evidence / contract auditor
+- TERA = tests / invariants / mutation / regression auditor
+
+ただし同一ファイルへの並列書き込みは禁止。
+速度より安全契約を優先する。
+
 ## 読む順序
 
 1. `README.md`（30秒で動かす・安全契約・KPI4区分）
@@ -56,6 +71,207 @@
 3. **task/kyoto-real-data-import**：`AI_TASKS/01`。清水回廊の実データ変換（広場公式一覧・警戒区域の入手が先行条件＝人間側9/6期限）。
 4. **task/m2-topology-qa**：QAコード8種（BLOCKER/REVIEW_REQUIRED/INFO・自動修正なし・わざと壊したフィクスチャ各1）。
 5. **task/static-viewer**→**task/cesium-viewer**：`AI_TASKS/02`（runner出力を読むだけ。ビューア内で計算しない）。
+
+## Multi-Agent / Sub-Agent Orchestration
+
+本プロジェクトでは、作業時間短縮と品質向上のため、利用可能な場合は
+sub-agent / parallel agent を積極的に使用する。
+
+ただし「並列化そのもの」を目的にしてはならない。
+最優先は、安全契約・再現性・人間レビュー可能性である。
+
+### 基本方針
+
+主エージェントは coordinator / integrator とする。
+
+主エージェントの責任:
+- タスク全体の理解
+- 変更範囲の固定
+- sub-agentへの仕事分割
+- 重複作業の防止
+- 最終diff統合
+- pytest / runner / SHA確認
+- 安全契約確認
+- 人間レビュー項目の明示
+
+利用可能なsub-agentがある場合、
+独立して並列実行できる仕事は原則としてsub-agentへ委譲する。
+
+例:
+- コードベース探索
+- 関連仕様の確認
+- テストケース列挙
+- mutation候補作成
+- 数式の独立再計算
+- provenance確認
+- ドキュメント矛盾検出
+- Git diff監査
+- schema監査
+- regression risk確認
+
+### LUNA
+
+LUNAが利用可能な場合、主に次を担当させる。
+
+- 設計書・AGENTS.md・AI_TASKS・README間の契約照合
+- 論文根拠と実装仕様の対応確認
+- A0/A1/A2・TRANSFER_STATUSの確認
+- 単位、数式、定数ID、provenanceの独立監査
+- unsafe wording / overclaimの検出
+- 未決事項の抽出
+- 実装前レビュー
+- 実装後のdiffレビュー
+
+原則としてLUNAは、
+主エージェントと独立に結論を出し、
+主エージェントの判断を追認するだけの役割にしない。
+
+### TERA
+
+TERAが利用可能な場合、主に次を担当させる。
+
+- pytest / fixture / invariant / mutation設計
+- boundary caseの列挙
+- negative testの設計
+- UNKNOWN / FAIL / CONDITIONAL / PASSの状態遷移監査
+- deterministic output確認
+- SHA-256再現性確認
+- Git差分・生成物差分確認
+- regression risk確認
+- failure injection
+- acceptance gate監査
+
+TERAは可能な限り、
+実装者とは独立してテスト期待値を計算する。
+
+### 並列化ルール
+
+以下は並列化してよい。
+
+- read-only調査
+- 数式の独立再計算
+- test case設計
+- mutation候補作成
+- docs監査
+- provenance監査
+- schema監査
+- Git diff監査
+- regression risk分析
+
+以下は原則として同時編集禁止。
+
+- 同一Pythonファイル
+- 同一schema
+- constants_registry.yaml
+- src/allocate.py
+- 同一テストファイル
+- 同一生成物
+- Git index
+- branch / commit / merge操作
+
+複数agentが同じファイルを編集する必要がある場合、
+主エージェントが順番を決める。
+
+### Writer Ownership
+
+1タスクにつき、各ファイルのwriterは原則1agentだけとする。
+
+例:
+
+MAIN:
+- src/residual_width.py
+
+TERA:
+- tests/test_residual_width.py の設計案のみ
+  （実際の書き込み権限が与えられた場合を除く）
+
+LUNA:
+- docs/review/* の監査
+- 設計との矛盾報告
+
+同じファイルへの同時書き込みは禁止。
+
+### 最短経路の原則
+
+主エージェントは開始時に、
+タスクを以下に分解する。
+
+A. blocker
+B. parallelizable
+C. sequential
+D. human gate
+
+blockerを最初に解消する。
+
+parallelizableはsub-agentへ同時委譲する。
+
+sequentialは依存順に実行する。
+
+human gateが必要な箇所では自動で先へ進まない。
+
+### Sub-Agent Budget
+
+単純な作業ではsub-agentを乱立させない。
+
+原則:
+- 小タスク: 0〜1 sub-agent
+- 中タスク: 2〜3 sub-agent
+- 大タスク: 3〜5 sub-agent
+
+同じ質問を複数agentへ投げる場合は、
+独立検証が目的であることを明示する。
+
+### Mandatory Independent Review
+
+以下は最低1つの独立sub-agentレビューを推奨し、
+利用可能なら必ず実施する。
+
+- 数式追加・変更
+- 単位変換
+- safety boundary変更
+- UNKNOWN処理変更
+- profile判定変更
+- scenario状態変更
+- constants registry追加
+- official data interpretation
+- public-facing numerical claim
+- deterministic output変更
+
+特に高リスク変更では、
+
+Implementer
+→ TERA test/audit
+→ LUNA contract/evidence audit
+→ Main integration
+
+の順を基本とする。
+
+### No Hallucinated Delegation
+
+存在しないagentを「実行した」と報告してはいけない。
+
+LUNA / TERA / sub-agent機能が利用できない環境では、
+主エージェント自身が同じチェックリストを実行し、
+
+"sub-agent unavailable; performed serial self-audit"
+
+と明記する。
+
+### Reporting
+
+終了報告には以下を含める。
+
+- 使用したsub-agent
+- 各agentへ渡した仕事
+- 各agentの結論
+- agent間で意見が割れた点
+- 主エージェントが採用した判断
+- 変更ファイル
+- tests
+- runner
+- SHA-256
+- unresolved issues
+- human review required
 
 ## 人間確認ゲート
 
