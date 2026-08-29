@@ -1,0 +1,157 @@
+{
+  "viewer_data_schema_version": "1.0.0",
+  "citypack_schema_version": "1.0.0",
+  "generated_from": "PRECOMPUTED_SYNTHETIC_DEMO_FIXTURES",
+  "cities": [
+    {
+      "city_id": "kyoto_kiyomizu",
+      "display_name": "清水・祇園",
+      "municipality": "京都市",
+      "corridor_name": "八坂神社前 → 円山公園 → ねねの道 → 二年坂・産寧坂 → 清水坂入口",
+      "data_status": "SYNTHETIC_DEMO",
+      "last_verified_at": "2026-08-30",
+      "official_metadata_status": "OFFICIAL_METADATA_ONLY",
+      "profile_status": "NOT_COMPUTED",
+      "profile_reason": "M6 profile evaluation is not implemented.",
+      "facility_status": "UNKNOWN",
+      "facility_reason": "Verified facility entrance, capacity, and current operation records are unavailable.",
+      "entrance_status": "UNKNOWN",
+      "entrance_reason": "Verified facility entrance records are unavailable.",
+      "capacity_status": "UNKNOWN",
+      "capacity_reason": "Verified facility capacity records are unavailable.",
+      "operation_status": "UNKNOWN",
+      "operation_reason": "Current dated facility operation records are unavailable.",
+      "demand_status": "UNKNOWN",
+      "demand_reason": "A source-traceable demand dataset is unavailable.",
+      "origin_status": "UNKNOWN",
+      "origin_reason": "Verified trip origins are unavailable.",
+      "kpi_status": "NOT_COMPUTED",
+      "source_ids": ["kyoto_kiyomizu_gion_evacuation_plan", "FIXTURE-KIYOMIZU-UI-001"],
+      "sources": [
+        {"source_id": "kyoto_kiyomizu_gion_evacuation_plan", "data_class": "OFFICIAL_METADATA_ONLY", "last_verified_at": "2026-08-30", "status": "POSSIBLY_STALE", "note": "Publication metadata only; no route geometry or live operation imported."},
+        {"source_id": "FIXTURE-KIYOMIZU-UI-001", "data_class": "SYNTHETIC_DEMO", "last_verified_at": "2026-08-30", "status": "UNKNOWN", "note": "UI continuity geometry; not surveyed or official."}
+      ],
+      "scenarios": [
+        {"scenario_id": "EQ_LOW", "display_name": "地震・低（固定fixture）", "hazard_type": "EARTHQUAKE", "disclaimer": "明示した合成damage/debris入力の静的シナリオであり、個別建物の倒壊予測ではありません。"},
+        {"scenario_id": "EQ_MEDIUM", "display_name": "地震・中（固定fixture）", "hazard_type": "EARTHQUAKE", "disclaimer": "明示した合成damage/debris入力の静的シナリオであり、個別建物の倒壊予測ではありません。"},
+        {"scenario_id": "EQ_HIGH", "display_name": "地震・高（固定fixture）", "hazard_type": "EARTHQUAKE", "disclaimer": "明示した合成damage/debris入力の静的シナリオであり、個別建物の倒壊予測ではありません。"}
+      ],
+      "kpis": {
+        "physically_reachable": {"value": null, "reason": "real topology and hazard coverage are incomplete"},
+        "accommodated": {"value": null, "reason": "facility capacity and operation status are unavailable"},
+        "overflow_waiting": {"value": null, "reason": "demand and capacity are unavailable"},
+        "unreachable": {"value": null, "reason": "profile evaluation and real topology are unavailable"},
+        "unknown_affected_upper_bound": {"value": null, "reason": "demand and UNKNOWN exposure counts are unavailable"}
+      },
+      "map": {
+        "geometry_status": "SYNTHETIC_DEMO",
+        "edges": [
+          {"edge_id": "KYS-DEMO-E001", "points": [[80, 500], [270, 430]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width and building scenario input unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "not applicable to earthquake fixture / no verified overlap", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-KIYOMIZU-UI-001"]},
+          {"edge_id": "KYS-DEMO-E002", "points": [[270, 430], [420, 350], [550, 380]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width and building scenario input unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "no verified hazard geometry", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-KIYOMIZU-UI-001"]},
+          {"edge_id": "KYS-DEMO-E003", "points": [[550, 380], [690, 280]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width and building scenario input unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "no verified hazard geometry", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-KIYOMIZU-UI-001"]},
+          {"edge_id": "KYS-DEMO-E004", "points": [[690, 280], [890, 160]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width and building scenario input unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "no verified hazard geometry", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-KIYOMIZU-UI-001"]}
+        ]
+      }
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "display_name": "嵐山・渡月橋",
+      "municipality": "京都市",
+      "corridor_name": "嵐電嵐山・市営観光駐車場 → 長辻通 → 渡月橋北詰 → 中之島東側",
+      "data_status": "SYNTHETIC_DEMO",
+      "last_verified_at": "2026-08-30",
+      "official_metadata_status": "OFFICIAL_METADATA_ONLY",
+      "profile_status": "NOT_COMPUTED",
+      "profile_reason": "M6 profile evaluation is not implemented.",
+      "facility_status": "UNKNOWN",
+      "facility_reason": "Verified facility entrance, capacity, and current operation records are unavailable.",
+      "entrance_status": "UNKNOWN",
+      "entrance_reason": "Verified facility entrance records are unavailable.",
+      "capacity_status": "UNKNOWN",
+      "capacity_reason": "Verified facility capacity records are unavailable.",
+      "operation_status": "UNKNOWN",
+      "operation_reason": "Current dated facility operation records are unavailable.",
+      "demand_status": "UNKNOWN",
+      "demand_reason": "A source-traceable demand dataset is unavailable.",
+      "origin_status": "UNKNOWN",
+      "origin_reason": "Verified trip origins are unavailable.",
+      "kpi_status": "NOT_COMPUTED",
+      "source_ids": ["kyoto_hazard_map_2026", "FIXTURE-ARASHIYAMA-UI-001"],
+      "sources": [
+        {"source_id": "kyoto_hazard_map_2026", "data_class": "OFFICIAL_METADATA_ONLY", "last_verified_at": "2026-08-30", "status": "CURRENT_CONFIRMED", "note": "Layer catalogue metadata only; geometry, depth, and road closure were not imported."},
+        {"source_id": "FIXTURE-ARASHIYAMA-UI-001", "data_class": "SYNTHETIC_DEMO", "last_verified_at": "2026-08-30", "status": "UNKNOWN", "note": "UI continuity geometry; not surveyed or official."}
+      ],
+      "scenarios": [
+        {"scenario_id": "RAIN_NORMAL", "display_name": "平常降雨（固定fixture）", "hazard_type": "FLOOD", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
+        {"scenario_id": "RAIN_HEAVY", "display_name": "大雨（固定fixture）", "hazard_type": "FLOOD", "disclaimer": "静的な合成表示です。浸水overlapを道路閉鎖へ変換せず、運用状態はUNKNOWNのままです。"},
+        {"scenario_id": "FLOOD_DESIGN", "display_name": "洪水計画規模（metadata）", "hazard_type": "FLOOD", "disclaimer": "公式metadataの名称を参照するのみで、ここには公式polygon・深度・閉鎖規則を含みません。"}
+      ],
+      "kpis": {
+        "physically_reachable": {"value": null, "reason": "candidate topology and flood geometry are incomplete"},
+        "accommodated": {"value": null, "reason": "capacity, entrance, and operation status are unavailable"},
+        "overflow_waiting": {"value": null, "reason": "demand and capacity are unavailable"},
+        "unreachable": {"value": null, "reason": "closure rules and profile evaluation are unavailable"},
+        "unknown_affected_upper_bound": {"value": null, "reason": "demand and complete flood coverage are unavailable"}
+      },
+      "map": {
+        "geometry_status": "SYNTHETIC_DEMO",
+        "edges": [
+          {"edge_id": "ARS-DEMO-E001", "points": [[70, 210], [280, 250]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-ARASHIYAMA-UI-001"]},
+          {"edge_id": "ARS-DEMO-E002", "points": [[280, 250], [480, 320]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-ARASHIYAMA-UI-001"]},
+          {"edge_id": "ARS-DEMO-E003", "points": [[480, 320], [650, 405]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "bridge and field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-ARASHIYAMA-UI-001"]},
+          {"edge_id": "ARS-DEMO-E004", "points": [[650, 405], [900, 450]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-ARASHIYAMA-UI-001"]}
+        ]
+      }
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "display_name": "藤沢・江の島",
+      "municipality": "藤沢市",
+      "corridor_name": "片瀬海岸・江の島入口 → 橋梁取付部 → 江の島内避難先候補",
+      "data_status": "SYNTHETIC_DEMO",
+      "last_verified_at": "2026-08-30",
+      "official_metadata_status": "OFFICIAL_METADATA_ONLY",
+      "profile_status": "NOT_COMPUTED",
+      "profile_reason": "M6 profile evaluation is not implemented.",
+      "facility_status": "UNKNOWN",
+      "facility_reason": "Verified facility entrance, capacity, and current operation records are unavailable.",
+      "entrance_status": "UNKNOWN",
+      "entrance_reason": "Verified facility entrance records are unavailable.",
+      "capacity_status": "UNKNOWN",
+      "capacity_reason": "Verified facility capacity records are unavailable.",
+      "operation_status": "UNKNOWN",
+      "operation_reason": "Current dated facility operation records are unavailable.",
+      "demand_status": "UNKNOWN",
+      "demand_reason": "A source-traceable demand dataset is unavailable.",
+      "origin_status": "UNKNOWN",
+      "origin_reason": "Verified trip origins are unavailable.",
+      "kpi_status": "NOT_COMPUTED",
+      "source_ids": ["FUJISAWA_TSUNAMI_PLAN_WEB", "FIXTURE-FUJISAWA-UI-001"],
+      "sources": [
+        {"source_id": "FUJISAWA_TSUNAMI_PLAN_WEB", "data_class": "OFFICIAL_METADATA_ONLY", "last_verified_at": "2026-08-30", "status": "POSSIBLY_STALE", "note": "Plan publication metadata only; no hazard geometry, timing, capacity, or live operation imported."},
+        {"source_id": "FIXTURE-FUJISAWA-UI-001", "data_class": "SYNTHETIC_DEMO", "last_verified_at": "2026-08-30", "status": "UNKNOWN", "note": "UI continuity geometry; not surveyed or official."}
+      ],
+      "scenarios": [
+        {"scenario_id": "TSUNAMI_STRICT", "display_name": "津波・厳格（固定fixture）", "hazard_type": "TSUNAMI", "disclaimer": "時刻・浸水深・閉鎖時刻を捏造しない静的fixtureです。リアルタイム避難判断には使えません。"},
+        {"scenario_id": "TSUNAMI_OPERATIONAL", "display_name": "津波・運用（固定fixture）", "hazard_type": "TSUNAMI", "disclaimer": "施設開設・容量・入口が未確認のため、運用KPIはNOT_COMPUTEDです。"},
+        {"scenario_id": "TSUNAMI_SENSITIVITY", "display_name": "津波・感度（固定fixture）", "hazard_type": "TSUNAMI", "disclaimer": "感度表示は合成比較であり、公式到達時間・深度定数を含みません。"}
+      ],
+      "kpis": {
+        "physically_reachable": {"value": null, "reason": "real bridge/island topology and timing are incomplete"},
+        "accommodated": {"value": null, "reason": "verified facility capacity, entrance, and operation are unavailable"},
+        "overflow_waiting": {"value": null, "reason": "demand and verified capacity are unavailable"},
+        "unreachable": {"value": null, "reason": "time-dependent closure and profile evaluation are unavailable"},
+        "unknown_affected_upper_bound": {"value": null, "reason": "demand and complete exposure coverage are unavailable"}
+      },
+      "map": {
+        "geometry_status": "SYNTHETIC_DEMO",
+        "edges": [
+          {"edge_id": "FJS-DEMO-E001", "points": [[80, 460], [300, 420]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official hazard geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-FUJISAWA-UI-001"]},
+          {"edge_id": "FJS-DEMO-E002", "points": [[300, 420], [500, 330]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "bridge width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official hazard geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-FUJISAWA-UI-001"]},
+          {"edge_id": "FJS-DEMO-E003", "points": [[500, 330], [700, 260]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_left_m": null, "debris_intrusion_right_m": null, "width_reason": "field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official hazard geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-FUJISAWA-UI-001"]},
+          {"edge_id": "FJS-DEMO-E004", "points": [[700, 260], [890, 120]], "display_state": "UNKNOWN", "base_clear_width_m": null, "remaining_clear_width_m": null, "debris_intrusion_right_m": null, "debris_intrusion_left_m": null, "width_reason": "destination entrance and field width unavailable", "hazard_overlap": "UNKNOWN", "max_depth_m": null, "hazard_reason": "official hazard geometry not included", "official_closure": null, "hazard_data_status": "UNKNOWN", "evidence_status": "SYNTHETIC_DEMO", "source_ids": ["FIXTURE-FUJISAWA-UI-001"]}
+        ]
+      }
+    }
+  ]
+}
