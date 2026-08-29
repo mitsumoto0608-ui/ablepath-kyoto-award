@@ -1,0 +1,40 @@
+hazard_schema_version: "1.0.0"
+city_id: kyoto_kiyomizu
+data_status: SYNTHETIC_DEMO
+scenario_contract: "Identifiers only; no official intensity-to-building or building-to-edge mapping is available."
+scenarios:
+  - scenario_id: EQ_LOW
+    hazard_type: EARTHQUAKE
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "比較用ID。個別建物の被害や道路閉塞を予測しない。"
+    source_ids: [kyoto_web_hazard_earthquake]
+  - scenario_id: EQ_MEDIUM
+    hazard_type: EARTHQUAKE
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "比較用ID。個別建物の被害や道路閉塞を予測しない。"
+    source_ids: [kyoto_web_hazard_earthquake]
+  - scenario_id: EQ_HIGH
+    hazard_type: EARTHQUAKE
+    source_status: SYNTHETIC_DEMO
+    official_or_assumption: ABLEPATH_DESIGN
+    elapsed_time_sec: null
+    coverage_complete: false
+    default_edge_state: UNKNOWN
+    disclaimer: "比較用ID。個別建物の被害や道路閉塞を予測しない。"
+    source_ids: [kyoto_web_hazard_earthquake]
+secondary_layers:
+  - layer_id: LANDSLIDE_OVERLAP
+    data_status: OFFICIAL_METADATA_ONLY
+    geometry_status: UNKNOWN
+    operation_rule_status: UNKNOWN
+    edge_state_effect: UNKNOWN
+    source_ids: [kyoto_pref_landslide_designations]
+    disclaimer: "区域重複metadataは道路閉鎖を意味しない。"

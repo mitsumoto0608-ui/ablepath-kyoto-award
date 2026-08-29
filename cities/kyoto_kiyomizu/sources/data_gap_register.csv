@@ -1,0 +1,11 @@
+gap_id,category,required_dataset_or_fact,impact,severity,status,owner,next_action,evidence_ids
+KK-GAP-001,geometry,timestamp固定OSM extractと清水回廊全接続確認,REAL候補graphとtopology QAを開始できない,BLOCKER,OPEN,DATA_AND_FIELD,境界付きqueryを保存してGit外取得し全接続を現地確認,osm_kiyomizu_corridor
+KK-GAP-002,plateau,PLATEAU京都2025 rawとchecksumおよび回廊mesh,建物・道路・地形をREALとして接続できない,HIGH,OPEN,DATA,Git外raw領域へ安全取得しhashと収録範囲を検証,plateau_kyoto_2025_release
+KK-GAP-003,evacuation_plan,避難誘導計画の現行revisionと公式route geometry,既存計画成立性の対象が未固定,BLOCKER,OPEN,HUMAN,京都市へ現行版と機械可読geometryを確認,kyoto_kiyomizu_gion_evacuation_plan
+KK-GAP-004,earthquake,回廊に対応する公式地震layer geometryとscenario-to-building契約,個別damage_stateとdebris_presentを生成できない,BLOCKER,OPEN,HUMAN_AND_DATA,公式layer版CRSを確認し建物別導出は人間契約まで禁止,kyoto_web_hazard_earthquake
+KK-GAP-005,landslide,公示geometryとdesignation IDの回廊照合,土砂重複をedgeへ再現可能に結べない,HIGH,OPEN,HUMAN_AND_DATA,公示図書を確認し概略図を境界確定に使わない,kyoto_pref_landslide_designations
+KK-GAP-006,facility,緊急避難広場の現行一覧・種別・入口,到達先を確定できない,BLOCKER,OPEN,HUMAN,京都市と管理者の現行情報を取得,kyoto_return_support_plazas
+KK-GAP-007,capacity_operation,施設容量・開放条件・管理主体・fire_safe根拠,KPI accommodatedとoverflowを計算できない,BLOCKER,REQUIRES_APPLICATION,HUMAN,施設別管理者回答をdated provenance付きで登録,kyoto_return_support_plazas;kyoto_temporary_stay_facilities
+KK-GAP-008,demand_origin,dated demandとorigin分布,KPI全区分を計算できない,BLOCKER,OPEN,HUMAN,目的・時点・母集団を定義した公式または調査データを取得,
+KK-GAP-009,accessibility,入口・幅・段差・勾配・路面の現地証拠,M6/profile判定を計算できない,BLOCKER,OPEN,FIELD,候補graph後に全接続確認と難所精密測定を実施,
+KK-GAP-010,kpi,REAL topology・需要・容量・profile・運用,KPIはnull+reasonのまま,BLOCKER,OPEN,INTEGRATION,全前提のprovenanceが揃うまでNOT_COMPUTEDを維持,KK-GAP-001;KK-GAP-006;KK-GAP-007;KK-GAP-008;KK-GAP-009

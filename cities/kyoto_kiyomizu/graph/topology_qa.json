@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "graph_status": "CANDIDATE",
+  "data_class": "SYNTHETIC_DEMO",
+  "source_crs": "EPSG:4326",
+  "processing_crs": "EPSG:6674",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "degree",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": ["longitude", "latitude"],
+  "coordinate_precision": 4,
+  "transform_history": ["SYNTHETIC_FIXTURE_DIRECT_OUTPUT"],
+  "geometry_status": "SYNTHETIC_DEMO_CANDIDATE",
+  "source_feature_id": "SYNTHETIC-DEMO-EDGE-COLLECTION",
+  "stable_feature_id": "KK-TOPOLOGY-QA-SYNTHETIC-V1",
+  "revision_id": "fixture-v1",
+  "lineage": ["Deterministic QA over the synthetic fixture only"],
+  "counts": {
+    "duplicate_node_ids": 0,
+    "duplicate_edge_ids": 0,
+    "dangling_endpoint_nodes": 2,
+    "self_loops": 0,
+    "zero_length_edges": 0
+  },
+  "not_computed": {
+    "disconnected_real_destinations": {
+      "status": "NOT_COMPUTED",
+      "reason": "No verified facility entrances or real destinations are available"
+    },
+    "unsplit_hazard_boundaries": {
+      "status": "NOT_COMPUTED",
+      "reason": "No official hazard geometry has been acquired"
+    },
+    "grade_separated_false_intersections": {
+      "status": "NOT_COMPUTED",
+      "reason": "Bridge, tunnel, level, and layer evidence is UNKNOWN"
+    }
+  },
+  "promotion_blocker": "Real source-traceable geometry and field/topology evidence are required before REVIEWED or VERIFIED"
+}

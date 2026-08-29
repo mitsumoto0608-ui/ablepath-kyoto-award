@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "schema_version": "1.0.0",
+  "data_status": "SYNTHETIC_DEMO",
+  "source_crs": "EPSG:4326",
+  "processing_crs": "EPSG:6674",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "degree",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": ["longitude", "latitude"],
+  "coordinate_precision": 4,
+  "transform_history": ["SYNTHETIC_FIXTURE_DIRECT_OUTPUT"],
+  "geometry_status": "SYNTHETIC_DEMO_CANDIDATE",
+  "source_feature_id": "SYNTHETIC-DEMO-NODE-COLLECTION",
+  "stable_feature_id": "KK-NODES-SYNTHETIC-V1",
+  "revision_id": "fixture-v1",
+  "lineage": ["FIXTURE_VALUE", "not derived from official or OSM geometry"],
+  "features": [
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [135.7800, 35.0000]}, "properties": {"schema_version": "1.0.0", "node_id": "KK-SYN-N001", "data_status": "SYNTHETIC_DEMO", "source_crs": "EPSG:4326", "processing_crs": "EPSG:6674", "output_crs": "EPSG:4326", "horizontal_unit": "degree", "vertical_unit": "UNKNOWN", "axis_order": ["longitude", "latitude"], "coordinate_precision": 4, "transform_history": ["SYNTHETIC_FIXTURE_DIRECT_OUTPUT"], "geometry_status": "SYNTHETIC_DEMO_CANDIDATE", "source_feature_id": "SYNTHETIC-DEMO-N001", "stable_feature_id": "KK-SYN-N001", "revision_id": "fixture-v1", "lineage": ["FIXTURE_VALUE"], "level": null, "layer": null}},
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [135.7801, 35.0001]}, "properties": {"schema_version": "1.0.0", "node_id": "KK-SYN-N002", "data_status": "SYNTHETIC_DEMO", "source_crs": "EPSG:4326", "processing_crs": "EPSG:6674", "output_crs": "EPSG:4326", "horizontal_unit": "degree", "vertical_unit": "UNKNOWN", "axis_order": ["longitude", "latitude"], "coordinate_precision": 4, "transform_history": ["SYNTHETIC_FIXTURE_DIRECT_OUTPUT"], "geometry_status": "SYNTHETIC_DEMO_CANDIDATE", "source_feature_id": "SYNTHETIC-DEMO-N002", "stable_feature_id": "KK-SYN-N002", "revision_id": "fixture-v1", "lineage": ["FIXTURE_VALUE"], "level": null, "layer": null}},
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [135.7802, 35.0002]}, "properties": {"schema_version": "1.0.0", "node_id": "KK-SYN-N003", "data_status": "SYNTHETIC_DEMO", "source_crs": "EPSG:4326", "processing_crs": "EPSG:6674", "output_crs": "EPSG:4326", "horizontal_unit": "degree", "vertical_unit": "UNKNOWN", "axis_order": ["longitude", "latitude"], "coordinate_precision": 4, "transform_history": ["SYNTHETIC_FIXTURE_DIRECT_OUTPUT"], "geometry_status": "SYNTHETIC_DEMO_CANDIDATE", "source_feature_id": "SYNTHETIC-DEMO-N003", "stable_feature_id": "KK-SYN-N003", "revision_id": "fixture-v1", "lineage": ["FIXTURE_VALUE"], "level": null, "layer": null}}
+  ]
+}

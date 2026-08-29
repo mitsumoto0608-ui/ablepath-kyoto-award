@@ -1,0 +1,23 @@
+{
+  "viewer_data_schema_version": "1.0.0",
+  "city_id": "kyoto_kiyomizu",
+  "display_name": "清水・祇園",
+  "data_status": "SYNTHETIC_DEMO",
+  "source_verification_date": "2026-08-30",
+  "default_scenario": "EQ_LOW",
+  "supported_scenarios": ["EQ_LOW", "EQ_MEDIUM", "EQ_HIGH"],
+  "profile_selector": {"status": "NOT_COMPUTED", "enabled": false, "reason": "M6_PROFILE_RULES_NOT_CONNECTED"},
+  "kpi_status": "NOT_COMPUTED",
+  "kpis": {
+    "physically_reachable": {"value": null, "reason": "REAL_TOPOLOGY_AND_ORIGINS_UNAVAILABLE"},
+    "accommodated": {"value": null, "reason": "DEMAND_CAPACITY_AND_OPERATION_UNAVAILABLE"},
+    "overflow_waiting": {"value": null, "reason": "DEMAND_CAPACITY_AND_OPERATION_UNAVAILABLE"},
+    "unreachable": {"value": null, "reason": "REAL_TOPOLOGY_AND_PROFILE_NOT_COMPUTED"},
+    "unknown_affected_upper_bound": {"value": null, "reason": "DEMAND_AND_HAZARD_GEOMETRY_UNAVAILABLE"}
+  },
+  "attribution": [
+    {"label": "京都市・京都府・国土交通省: metadata only", "source_manifest": "../sources/source_manifest.csv"},
+    {"label": "OpenStreetMap候補: 未取得", "url": "https://www.openstreetmap.org/copyright"}
+  ],
+  "disclaimer": "SYNTHETIC_DEMOによる固定シナリオの静的比較。ライブの安全案内ではない。"
+}

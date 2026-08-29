@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "city_id": "kyoto_kiyomizu",
+  "corridor_status": "OFFICIAL_METADATA_ONLY",
+  "geometry_status": "UNKNOWN",
+  "source_crs": "UNKNOWN",
+  "processing_crs": "EPSG:6674",
+  "output_crs": "EPSG:4326",
+  "horizontal_unit": "UNKNOWN",
+  "vertical_unit": "UNKNOWN",
+  "axis_order": "UNKNOWN",
+  "coordinate_precision": null,
+  "transform_history": [],
+  "source_feature_id": null,
+  "stable_feature_id": "KYOTO-KIYOMIZU-CORRIDOR-CANDIDATE",
+  "revision_id": "metadata-v1",
+  "lineage": ["AI_TASKS/01_実データと現地調査.md", "kyoto_kiyomizu_gion_evacuation_plan"],
+  "candidate_description": "八坂神社前〜円山公園〜ねねの道〜二年坂・産寧坂〜清水坂入口",
+  "missing_real_data_step": "現行の清水・祇園地域避難誘導計画の公式ルートgeometryを京都市に確認し、timestamp固定OSM候補と現地全接続確認を経てCANDIDATE graphを作成する。",
+  "road_register_data_used": false
+}
