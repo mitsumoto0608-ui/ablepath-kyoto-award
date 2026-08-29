@@ -1,0 +1,152 @@
+name: AblePath quality gates
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ablepath-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  EXPECTED_RUNS_SHA256: 96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1
+  EXPECTED_ALLOCATE_SHA256: 2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b
+
+jobs:
+  python-linux:
+    name: Python 3.12 / Linux
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # actions/checkout v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      # actions/setup-python v5.6.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Install declared Python dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r scripts/overnight/requirements-ci.lock
+          python -m pip install --disable-pip-version-check --no-deps -e .
+      - name: Run Python tests
+        run: python -m pytest tests/ -q
+      - name: Verify frozen allocation engine
+        run: |
+          python -c "import hashlib,subprocess,os; actual=hashlib.sha256(subprocess.check_output(['git','show','HEAD:src/allocate.py'])).hexdigest(); expected=os.environ['EXPECTED_ALLOCATE_SHA256']; print(actual); raise SystemExit(actual != expected)"
+          git diff --exit-code -- src/allocate.py
+      - name: Verify deterministic runner twice
+        run: |
+          python -m src.runner data/
+          python -c "import hashlib,pathlib,os; actual=hashlib.sha256(pathlib.Path('results/all_runs.json').read_bytes()).hexdigest(); expected=os.environ['EXPECTED_RUNS_SHA256']; print(actual); raise SystemExit(actual != expected)"
+          python -m src.runner data/
+          python -c "import hashlib,pathlib,os; actual=hashlib.sha256(pathlib.Path('results/all_runs.json').read_bytes()).hexdigest(); expected=os.environ['EXPECTED_RUNS_SHA256']; print(actual); raise SystemExit(actual != expected)"
+          git diff --exit-code -- results/all_runs.json results/summary.md
+      - name: Trust-boundary and large-file scan
+        run: python scripts/overnight/verify_repository.py --root .
+      # actions/upload-artifact v4.6.2
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: python-linux-reports
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 14
+
+  python-windows:
+    name: Python 3.12 / Windows newline smoke
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      # actions/checkout v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      # actions/setup-python v5.6.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Install declared Python dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r scripts/overnight/requirements-ci.lock
+          python -m pip install --disable-pip-version-check --no-deps -e .
+      - name: Run full tests
+        run: python -m pytest tests/ -q
+      - name: Verify LF-stable runner twice
+        shell: pwsh
+        run: |
+          python -m src.runner data/
+          $first = (Get-FileHash -Algorithm SHA256 results/all_runs.json).Hash.ToLowerInvariant()
+          python -m src.runner data/
+          $second = (Get-FileHash -Algorithm SHA256 results/all_runs.json).Hash.ToLowerInvariant()
+          if ($first -ne $env:EXPECTED_RUNS_SHA256 -or $second -ne $env:EXPECTED_RUNS_SHA256 -or $first -ne $second) {
+            throw "Runner SHA mismatch: first=$first second=$second"
+          }
+          git diff --exit-code -- results/all_runs.json results/summary.md
+          if ($LASTEXITCODE -ne 0) { throw "Generated outputs changed." }
+      - name: Verify frozen allocation engine
+        shell: pwsh
+        run: |
+          python -c "import hashlib,subprocess,os; actual=hashlib.sha256(subprocess.check_output(['git','show','HEAD:src/allocate.py'])).hexdigest(); expected=os.environ['EXPECTED_ALLOCATE_SHA256']; print(actual); raise SystemExit(actual != expected)"
+          git diff --exit-code -- src/allocate.py
+          if ($LASTEXITCODE -ne 0) { throw "allocate.py differs from HEAD." }
+
+  viewer:
+    name: Static viewer / Node 22
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      # actions/checkout v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Detect integrated viewer lockfile
+        id: viewer
+        shell: bash
+        run: |
+          if test -f viewer/package-lock.json; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Viewer is not present on this lane; integration CI will require it."
+          fi
+      # actions/setup-node v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        if: steps.viewer.outputs.present == 'true'
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: viewer/package-lock.json
+      - name: Install locked UI dependencies
+        if: steps.viewer.outputs.present == 'true'
+        working-directory: viewer
+        run: npm ci --ignore-scripts
+      - name: Install deterministic browser
+        if: steps.viewer.outputs.present == 'true'
+        working-directory: viewer
+        run: npx playwright install --with-deps chromium
+      - name: Unit tests and static build
+        if: steps.viewer.outputs.present == 'true'
+        working-directory: viewer
+        run: npm test && npm run build
+      - name: Browser smoke and screenshots
+        if: steps.viewer.outputs.present == 'true'
+        working-directory: viewer
+        run: npm run test:e2e
+      # actions/upload-artifact v4.6.2
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.viewer.outputs.present == 'true'
+        with:
+          name: viewer-artifacts
+          path: |
+            viewer/dist/
+            reports/UI_SCREENSHOTS/
+            viewer/test-results/
+          if-no-files-found: warn
+          retention-days: 14
