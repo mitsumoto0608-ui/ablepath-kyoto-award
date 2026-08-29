@@ -118,14 +118,16 @@ def test_moya_registry_contract_and_m7_rejects_m6_width():
         ),
     ],
 )
-def test_calculation_uses_m7_registry_constants(
+@pytest.mark.parametrize("side", ["left_buildings", "right_buildings"])
+def test_calculation_uses_m7_registry_constants_on_each_side_and_variant(
     monkeypatch,
     variant,
     expected_ids,
     expected_intrusion,
     expected_remaining,
+    side,
 ):
-    """[source_conformance] sentinel値でregistry実使用とmodule=M7を固定する。"""
+    """[source_conformance] 左右×variantのsentinelでregistry実使用とmodule=M7を固定。"""
     residual_width = importlib.import_module("src.residual_width")
     assert residual_width.get_constant is registry.get_constant
     sentinel_values = {
@@ -143,15 +145,15 @@ def test_calculation_uses_m7_registry_constants(
     result = residual_width.calculate_residual_width(
         **_inputs(
             clear_width_m=100.0,
-            left_buildings=[_building(height_m=4.0)],
+            **{side: [_building(height_m=4.0)]},
             variant=variant,
         )
     )
 
     _assert_widths(
         result,
-        left=expected_intrusion,
-        right=0.0,
+        left=expected_intrusion if side == "left_buildings" else 0.0,
+        right=expected_intrusion if side == "right_buildings" else 0.0,
         remaining=expected_remaining,
     )
     assert calls == [(constant_id, "M7", None, None) for constant_id in expected_ids]
@@ -331,14 +333,32 @@ def test_sensitivity_high_never_increases_remaining_width():
     assert high_result["remaining_clear_width_m"] <= mean_result["remaining_clear_width_m"]
 
 
+@pytest.mark.parametrize("hazard_data_status", ["KNOWN", "UNKNOWN"])
 @pytest.mark.parametrize("official_closure", [True, False, None])
-def test_official_closure_tristate_is_preserved_and_separate_from_physical_width(
+def test_case_a_preserves_operational_metadata_without_overwriting_physical_width(
     official_closure,
+    hazard_data_status,
 ):
-    """[software_correctness] True/False/Noneを保持し、物理残存幅4mを上書きしない。"""
-    result = _calculate(**_inputs(official_closure=official_closure))
+    """[software_correctness] CASE Aはclosure×hazard全6組でも3.27/0/.73mを保持。"""
+    result = _calculate(
+        **_inputs(
+            left_buildings=[_building()],
+            official_closure=official_closure,
+            hazard_data_status=hazard_data_status,
+        )
+    )
+    _assert_widths(result, left=3.27, right=0.0, remaining=0.73)
     assert result["official_closure"] is official_closure
-    assert result["remaining_clear_width_m"] == pytest.approx(4.0, abs=ABS_TOL_M)
+    assert result["hazard_data_status"] == hazard_data_status
+    assert set(result) == {
+        "debris_intrusion_left_m",
+        "debris_intrusion_right_m",
+        "remaining_clear_width_m",
+        "official_closure",
+        "hazard_data_status",
+        "variant",
+        "provenance",
+    }
 
 
 @pytest.mark.parametrize("bad_value", [0, 1, "false", []])
@@ -414,19 +434,32 @@ def test_rejects_building_missing_required_key(missing_key):
         _calculate(**_inputs(left_buildings=[building]))
 
 
-@pytest.mark.parametrize("hazard_data_status", ["KNOWN", "UNKNOWN"])
-def test_hazard_status_is_preserved_without_profile_state(hazard_data_status):
-    """[software_correctness] KNOWN/UNKNOWNを保持し、OPEN/PASSやprofile判定を生成しない。"""
-    result = _calculate(**_inputs(hazard_data_status=hazard_data_status))
-    assert result["hazard_data_status"] == hazard_data_status
-    assert "profile_state" not in result
-    assert "accessibility_state" not in result
-    if hazard_data_status == "UNKNOWN":
-        assert not any(
-            value in {"OPEN", "PASS"}
-            for value in result.values()
-            if isinstance(value, str)
-        )
+@pytest.mark.parametrize("side", ["left_buildings", "right_buildings"])
+@pytest.mark.parametrize(
+    "building",
+    [
+        _building(height_m=0.0, debris_present=False),
+        _building(setback_m=-0.1, debris_present=False),
+        _building(damage_state="DAMAGED", height_m=0.0, debris_present=False),
+        _building(damage_state="UNKNOWN", debris_present=False),
+        {
+            "setback_m": 0.0,
+            "damage_state": "COLLAPSED",
+            "debris_present": False,
+        },
+    ],
+    ids=[
+        "collapsed-zero-height",
+        "collapsed-negative-setback",
+        "damaged-zero-height",
+        "unknown-damage",
+        "missing-height",
+    ],
+)
+def test_noncontributing_building_is_fully_validated_before_zero_shortcut(side, building):
+    """[software_correctness] 左右の非寄与buildingも0m分岐前に全fieldを完全検証する。"""
+    with pytest.raises((TypeError, ValueError)):
+        _calculate(**_inputs(**{side: [building]}))
 
 
 @pytest.mark.parametrize(
@@ -487,7 +520,7 @@ def test_result_has_physical_schema_and_no_profile_judgment_fields():
     """[software_correctness] M7 resultは物理・traceabilityキーを持ちprofile判定を持たない。"""
     result = _calculate(**_inputs())
     assert isinstance(result, Mapping)
-    assert {
+    assert set(result) == {
         "debris_intrusion_left_m",
         "debris_intrusion_right_m",
         "remaining_clear_width_m",
@@ -495,16 +528,7 @@ def test_result_has_physical_schema_and_no_profile_judgment_fields():
         "hazard_data_status",
         "variant",
         "provenance",
-    } <= result.keys()
-    assert "profile_state" not in result
-    assert "accessibility_state" not in result
-    assert "route_state" not in result
-    assert not any(key.endswith("_cm") for key in result)
-    assert not any(
-        value in {"PASS", "CONDITIONAL", "FAIL"}
-        for value in result.values()
-        if isinstance(value, str)
-    )
+    }
 
 
 def test_identical_inputs_produce_identical_result():
@@ -524,9 +548,28 @@ def test_does_not_mutate_input_containers_or_buildings():
     assert kwargs == before
 
 
-def test_width_outputs_are_finite_floats():
-    """[software_correctness] 3幅出力はfinite floatのm値として返す。"""
-    result = _calculate(**_inputs(left_buildings=[_building()]))
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        {},
+        {"left_buildings": [_building()], "right_buildings": [_building()]},
+        {"left_buildings": [_building(setback_m=3.27)]},
+        {"left_buildings": [_building(debris_present=False)]},
+        {"right_buildings": [_building(damage_state="DAMAGED", debris_present=False)]},
+        {"right_buildings": [_building()], "variant": "sensitivity_high_case"},
+    ],
+    ids=[
+        "no-building",
+        "case-b-floor-zero",
+        "setback-clamp-zero",
+        "debris-absent-zero",
+        "damaged-noncontributing-zero",
+        "right-high-positive",
+    ],
+)
+def test_width_outputs_are_finite_floats_on_all_physical_paths(overrides):
+    """[software_correctness] zero系・非寄与・右側high正値でも3幅はfinite float。"""
+    result = _calculate(**_inputs(**overrides))
     for key in (
         "debris_intrusion_left_m",
         "debris_intrusion_right_m",

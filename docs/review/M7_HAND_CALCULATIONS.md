@@ -81,8 +81,12 @@ high remaining = 5.00 - 4.38 = 0.62m
   各side 0件または1件だけとする。2件以上は集約せず明示エラーにする。
 - `hazard_data_status=UNKNOWN`をOPEN/PASSへ落とさない。
 - `hazard_data_status`を`KNOWN`/`UNKNOWN`の2値enumに限定する。
+- `official_closure`と`hazard_data_status`は物理計算を省略・上書きしない。
 - 入力variantを出力へ保持し、実際に適用したregistry定数IDをprovenanceへ保持する。
-- 入力containerを変更せず、3幅値をfinite floatで返す。
+- 全building fieldを寄与判定前に検証する。入力containerを変更せず、すべての経路で
+  3幅値をfiniteな組み込みfloatで返す。
+- v0.3 coreのtop-level schemaは物理幅3件、closure、hazard status、variant、provenanceの
+  厳密な7 keysだけとし、共通4状態は後続integrationへ残す。
 - profile別所要幅との比較はM6に限定する。`WIDTH_REQ_WHEELCHAIR_M`をM7から取得しない。
 - provenanceは論文名／DOI `10.1177/8755293019892423`／モデルで利用可能な3つの
   Moya constant ID／variant別の適用constant ID／`Moya et al. 2020 / A2 / ADAPT /
@@ -123,6 +127,12 @@ high remaining = 5.00 - 4.38 = 0.62m
 | variant・適用定数IDを出力しない | traceabilityテスト | kill可能 |
 | 左右list/building dictを変更 | deepcopy非破壊テスト | kill可能 |
 | 非finiteまたは非floatの幅を返す | 3幅出力型テスト | kill可能 |
+| right sideだけMoya定数を直書き | 左右×variant sentinel | kill可能 |
+| official closure=trueで瓦礫計算を省略 | CASE A metadata 6組 | kill可能 |
+| hazard status=UNKNOWNで瓦礫計算を省略 | CASE A metadata 6組 | kill可能 |
+| debris falseでvalidationを早期return | 非寄与building完全validation | kill可能 |
+| clamp時だけinteger 0を返す | 全zero経路のbuilt-in float | kill可能 |
+| KNOWN時だけ`hazard_state=OPEN`を追加 | exact 7 top-level keys | kill可能 |
 | boolを数値mとして受理 | bool-as-number拒否 | kill可能 |
 | 負値入力を許容 | clear/height/setbackのnegative tests | kill可能 |
 | 非決定的な値を混入 | 同一入力mapping完全一致 | 典型変異を検出。実装後はrunner SHA反復でも確認 |

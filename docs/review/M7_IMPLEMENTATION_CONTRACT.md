@@ -41,10 +41,13 @@ calculate_residual_width(
 - `left_buildings`と`right_buildings`は各0件または1件。ここでeffective buildingとは、
   geometry側で影響投影区間ごとにedge分割した後、coreへ渡されるpreselected入力要素を指す。
   リスト長2以上は寄与有無にかかわらず拒否する。
+- 各buildingのcontainer型、必須キー、全数値、enum、boolを、damage/debrisによる寄与判定や
+  侵入幅0のreturnより前に完全検証する。非寄与buildingも検証を省略しない。
 
 ## 3. Algorithm
 
-定数は各計算時に必ず`tools.registry.get_constant(..., module="M7")`で取得する。
+定数は左右共通の計算経路で、各計算時に必ず
+`tools.registry.get_constant(..., module="M7")`から取得する。
 `src.residual_width`のmodule-level symbol `get_constant`として参照し、テストから
 monkeypatch可能にする。このsymbolは`tools.registry.get_constant`そのものを直接importし、
 local wrapperで置換しない。定数値のmodule内直書き、import時固定cacheは禁止する。
@@ -76,11 +79,12 @@ remaining_clear_width_m = max(
 )
 ```
 
-`official_closure`は物理残存幅を上書きしない。
+`official_closure`と`hazard_data_status`は物理計算と直交し、いずれの値でも瓦礫計算を
+省略・上書きしない。入力metadataをそのまま返す。
 
 ## 4. Outputs
 
-mappingは最低限、次のキーを持つ。
+top-level mappingのキーは厳密に次の7件だけとする。
 
 - `debris_intrusion_left_m`: float、m
 - `debris_intrusion_right_m`: float、m
@@ -90,7 +94,8 @@ mappingは最低限、次のキーを持つ。
 - `variant`: 入力enumをそのまま保持
 - `provenance`: 下記の根拠情報
 
-3つの幅値はすべてfiniteな組み込み`float`として返す。
+3つの幅値は、建物なし、残存幅floor、setback clamp、非寄与buildingを含むすべての
+実行経路でfiniteな組み込み`float`として返す。整数`0`を返さない。
 
 cm表現、profile別state、`profile_state`、`accessibility_state`、PASS/CONDITIONAL/FAILを
 結果へ追加しない。route stateも決定しない。共通4状態のschema接続・派生は後続integration
@@ -166,7 +171,7 @@ Split the edge by building influence interval before calculation
 | `test_zero_clear_width_is_valid` | clear幅0の受理 |
 | `test_left_and_right_intrusions_are_separate` | 左右別field |
 | `test_debris_absent_has_zero_intrusion` | debris false |
-| `test_calculation_uses_m7_registry_constants` | sentinelによるregistry実使用・module=M7・直書き防止 |
+| `test_calculation_uses_m7_registry_constants_on_each_side_and_variant` | 左右×variant sentinelによるregistry実使用・module=M7・直書き防止 |
 | `test_damaged_building_without_debris_has_zero_intrusion` | DAMAGEDかつdebris falseは侵入0 |
 | `test_rejects_damaged_building_with_debris_present` | DAMAGEDかつdebris trueの矛盾拒否 |
 | `test_setback_equal_to_or_exceeding_extent_has_zero_intrusion` | `S=D`と`S>D` |
@@ -178,7 +183,7 @@ Split the edge by building influence interval before calculation
 | `test_values_are_metres_without_centimetre_guessing` | m単位・cm推測禁止 |
 | `test_integral_metre_values_are_accepted_as_real_numbers` | bool以外の整数受理 |
 | `test_sensitivity_high_never_increases_remaining_width` | high感度単調性 |
-| `test_official_closure_tristate_is_preserved_and_separate_from_physical_width` | tri-state保持と物理幅分離 |
+| `test_case_a_preserves_operational_metadata_without_overwriting_physical_width` | CASE Aでclosure×hazard全6組と物理幅の直交性 |
 | `test_rejects_nontristate_official_closure` | closure enum拒否 |
 | `test_rejects_nonboolean_debris_present` | debris bool限定 |
 | `test_rejects_unsupported_variant` | variant enum限定 |
@@ -187,22 +192,23 @@ Split the edge by building influence interval before calculation
 | `test_rejects_nonlist_building_container` | side containerのlist型限定 |
 | `test_rejects_nondict_building_element` | building要素のdict型限定 |
 | `test_rejects_building_missing_required_key` | building必須キー欠落拒否 |
-| `test_hazard_status_is_preserved_without_profile_state` | KNOWN/UNKNOWN保持とUNKNOWN安全契約 |
+| `test_noncontributing_building_is_fully_validated_before_zero_shortcut` | 左右の非寄与buildingも分岐前に完全検証 |
 | `test_rejects_unsupported_hazard_data_status` | hazard statusをKNOWN/UNKNOWNに限定 |
 | `test_output_traces_variant_and_applied_constant_ids` | variantと適用定数IDのtraceability |
 | `test_provenance_declares_adapted_moya_model` | DOI/A2/ADAPT/母集団/京都未検証 |
 | `test_result_has_physical_schema_and_no_profile_judgment_fields` | 物理schemaのみ |
 | `test_identical_inputs_produce_identical_result` | pure deterministic |
 | `test_does_not_mutate_input_containers_or_buildings` | top-level/左右list/building dictの非破壊 |
-| `test_width_outputs_are_finite_floats` | 3幅値のfinite float保証 |
+| `test_width_outputs_are_finite_floats_on_all_physical_paths` | zero系・非寄与・右側high正値で3幅値のfinite float保証 |
 
 ## 9. Mutation Matrix
 
-M7 mandatory：registry迂回・定数直書き、左右侵入項削除、左右入替、m/cm混同、
+M7 mandatory：片側だけregistry迂回・定数直書き、左右侵入項削除、左右入替、m/cm混同、
 下限`max`削除、setback加算、debris false無視、DAMAGED/debris true矛盾黙認、
 非bool黙認、damage/variant/hazard fallback、mean+sigmaをmean−sigma、UNKNOWN→OPEN/PASS、
 tri-state潰し、closureと物理幅混同、variant・適用定数ID欠落、複数building自動集約、
-入力破壊、不正数値受理、非finite/non-float出力、非決定性。
+metadataによる物理計算省略、非寄与buildingの検証skip、入力破壊、不正数値受理、
+clamp時のinteger 0、非finite/non-float出力、余分なtop-level state、非決定性。
 
 `>=`／`>`はM7の`max(D-S,0)`では`S=D`の数値結果が同じためM7 mandatoryから外す。
 `remaining_clear_width_m`と`required_width_m`を比較するM6境界テストへ移管する。
