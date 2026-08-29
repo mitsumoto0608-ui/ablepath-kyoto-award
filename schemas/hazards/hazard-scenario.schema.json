@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/hazards/hazard-scenario/1.0.0",
+  "x-ablepath-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scenario_id", "hazard_type", "source_status", "official_or_assumption", "elapsed_time_sec", "coverage_complete", "default_edge_state", "disclaimer", "source_ids"],
+  "properties": {
+    "scenario_id": {"type": "string", "minLength": 1},
+    "hazard_type": {"type": "string", "minLength": 1},
+    "source_status": {"enum": ["REAL", "OFFICIAL_METADATA_ONLY", "MODEL_DERIVED", "SYNTHETIC_DEMO", "UNKNOWN"]},
+    "official_or_assumption": {"enum": ["OFFICIAL", "SOURCE_FACT", "ABLEPATH_DESIGN", "DESIGN_ASSUMPTION", "UNKNOWN"]},
+    "elapsed_time_sec": {"type": ["number", "null"], "minimum": 0},
+    "coverage_complete": {"type": "boolean"},
+    "default_edge_state": {"enum": ["PASS", "CONDITIONAL", "FAIL", "UNKNOWN"]},
+    "disclaimer": {"type": "string", "minLength": 1},
+    "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"official_or_assumption": {"const": "OFFICIAL"}}, "required": ["official_or_assumption"]},
+      "then": {
+        "properties": {
+          "source_status": {"enum": ["REAL", "OFFICIAL_METADATA_ONLY"]},
+          "source_ids": {"minItems": 1}
+        }
+      }
+    }
+  ]
+}

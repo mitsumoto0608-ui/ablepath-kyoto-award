@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/hazards/edge-scenario-physics/1.0.0",
+  "x-ablepath-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["edge_id", "scenario_id", "base_clear_width_m", "remaining_clear_width_m", "physical_values", "provenance"],
+  "properties": {
+    "edge_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "base_clear_width_m": {"type": ["number", "null"], "minimum": 0},
+    "remaining_clear_width_m": {"type": ["number", "null"], "minimum": 0},
+    "physical_values": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "debris_intrusion_left_m": {"type": ["number", "null"], "minimum": 0},
+        "debris_intrusion_right_m": {"type": ["number", "null"], "minimum": 0},
+        "overlap_length_m": {"type": ["number", "null"], "minimum": 0},
+        "max_depth_m": {"type": ["number", "null"], "minimum": 0},
+        "mean_depth_m": {"type": ["number", "null"], "minimum": 0},
+        "arrival_time_sec": {"type": ["number", "null"], "minimum": 0},
+        "elapsed_time_sec": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data_class", "source_ids", "method", "model"],
+      "properties": {
+        "data_class": {"enum": ["REAL", "OFFICIAL_METADATA_ONLY", "MODEL_DERIVED", "SYNTHETIC_DEMO", "UNKNOWN"]},
+        "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "method": {"type": "string", "minLength": 1},
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "not": {"pattern": "(^|[^A-Za-z0-9])([Mm]6|[Pp][Rr][Oo][Ff][Ii][Ll][Ee]|[Aa][Cc][Cc][Ee][Ss][Ss][Ii][Bb][Ii][Ll][Ii][Tt][Yy]|[Rr][Oo][Uu][Tt][Ee]|[Ss][Tt][Aa][Tt][Ee])([^A-Za-z0-9]|$)"}
+        },
+        "applied_constant_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

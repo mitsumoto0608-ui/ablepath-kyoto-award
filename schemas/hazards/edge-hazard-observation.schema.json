@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/hazards/edge-hazard-observation/1.0.0",
+  "x-ablepath-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["edge_id", "scenario_id", "overlap", "overlap_length_m", "max_depth_m", "mean_depth_m", "official_closure", "hazard_data_status", "source_ids"],
+  "properties": {
+    "edge_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "overlap": {"type": ["boolean", "null"]},
+    "overlap_length_m": {"type": ["number", "null"], "minimum": 0},
+    "max_depth_m": {"type": ["number", "null"], "minimum": 0},
+    "mean_depth_m": {"type": ["number", "null"], "minimum": 0},
+    "official_closure": {"type": ["boolean", "null"]},
+    "hazard_data_status": {"enum": ["KNOWN", "UNKNOWN"]},
+    "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"overlap": {"type": "null"}}, "required": ["overlap"]},
+      "then": {"properties": {
+        "overlap_length_m": {"type": "null"},
+        "max_depth_m": {"type": "null"},
+        "mean_depth_m": {"type": "null"}
+      }}
+    },
+    {
+      "if": {"properties": {"overlap": {"const": false}}, "required": ["overlap"]},
+      "then": {"properties": {
+        "overlap_length_m": {"enum": [null, 0]},
+        "max_depth_m": {"enum": [null, 0]},
+        "mean_depth_m": {"enum": [null, 0]}
+      }}
+    },
+    {
+      "if": {"properties": {"hazard_data_status": {"const": "KNOWN"}}, "required": ["hazard_data_status"]},
+      "then": {"anyOf": [
+        {"properties": {"overlap": {"type": "boolean"}}},
+        {"properties": {"overlap_length_m": {"type": "number"}}},
+        {"properties": {"max_depth_m": {"type": "number"}}},
+        {"properties": {"mean_depth_m": {"type": "number"}}}
+      ]}
+    }
+  ],
+  "x-ablepath-runtime-validation": {
+    "authority": "src.hazards.contracts.EdgeHazardObservation.from_mapping",
+    "schema_scope": "STRUCTURAL_SUBSET",
+    "required_rules": ["mean_depth_m must not exceed max_depth_m"]
+  }
+}

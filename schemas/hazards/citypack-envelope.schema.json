@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/citypack-envelope/1.0.0",
+  "x-ablepath-schema-version": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "citypack_schema_version", "hazard_schema_version",
+    "viewer_data_schema_version", "city_id", "data_status",
+    "official_metadata_status", "schema_compatibility", "readiness", "kpis",
+    "geospatial_contract", "completion_levels"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "citypack_schema_version": {"const": "1.0.0"},
+    "hazard_schema_version": {"const": "1.0.0"},
+    "viewer_data_schema_version": {"const": "1.0.0"},
+    "city_id": {"type": "string", "minLength": 1},
+    "display_name": {"type": "string", "minLength": 1},
+    "country": {"type": "string", "minLength": 1},
+    "municipality": {"type": "string", "minLength": 1},
+    "corridor_name": {"type": "string", "minLength": 1},
+    "center_lon": {"type": "number"},
+    "center_lat": {"type": "number"},
+    "center_data_class": {"type": "string", "minLength": 1},
+    "center_value_class": {"type": "string", "minLength": 1},
+    "default_zoom": {"type": "number"},
+    "plateau_city_code": {"type": "string", "minLength": 1},
+    "supported_hazards": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "data_status": {"enum": ["REAL", "OFFICIAL_METADATA_ONLY", "MODEL_DERIVED", "SYNTHETIC_DEMO", "UNKNOWN"]},
+    "official_metadata_status": {"const": "OFFICIAL_METADATA_ONLY"},
+    "last_verified_at": {"type": "string", "minLength": 1},
+    "source_manifest_path": {"type": "string", "minLength": 1},
+    "scenario_disclaimer": {"type": "string", "minLength": 1},
+    "official_data_targets": {"type": "object"},
+    "schema_compatibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["supported_major", "unsupported_major_policy", "migration_policy"],
+      "properties": {
+        "supported_major": {"const": 1},
+        "unsupported_major_policy": {"const": "REJECT_WITH_ACTIONABLE_ERROR"},
+        "migration_policy": {"const": "RECORD_REQUIRED_MIGRATION_NO_IMPLICIT_CONVERSION"}
+      }
+    },
+    "readiness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["facility_status", "entrance_status", "capacity_status", "operation_status", "demand_status", "origin_status", "profile_status", "kpi_status", "m6_status"],
+      "properties": {
+        "facility_status": {"$ref": "#/$defs/readinessStatus"},
+        "entrance_status": {"$ref": "#/$defs/readinessStatus"},
+        "capacity_status": {"$ref": "#/$defs/readinessStatus"},
+        "operation_status": {"$ref": "#/$defs/readinessStatus"},
+        "demand_status": {"$ref": "#/$defs/readinessStatus"},
+        "origin_status": {"$ref": "#/$defs/readinessStatus"},
+        "profile_status": {"const": "NOT_COMPUTED"},
+        "kpi_status": {"const": "NOT_COMPUTED"},
+        "m6_status": {"const": "NOT_COMPUTED"}
+      }
+    },
+    "kpis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["physically_reachable", "accommodated", "overflow_waiting", "unreachable", "unknown_affected_upper_bound"],
+      "properties": {
+        "physically_reachable": {"$ref": "#/$defs/notComputedKpi"},
+        "accommodated": {"$ref": "#/$defs/notComputedKpi"},
+        "overflow_waiting": {"$ref": "#/$defs/notComputedKpi"},
+        "unreachable": {"$ref": "#/$defs/notComputedKpi"},
+        "unknown_affected_upper_bound": {"$ref": "#/$defs/notComputedKpi"}
+      }
+    },
+    "geospatial_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "source_crs", "processing_crs", "output_crs", "horizontal_unit", "vertical_unit", "axis_order", "coordinate_precision", "transform_history", "geometry_status", "source_feature_id", "stable_feature_id", "revision_id", "lineage"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "source_crs": {"type": "string", "minLength": 1},
+        "processing_crs": {"type": "string", "minLength": 1},
+        "output_crs": {"type": "string", "minLength": 1},
+        "horizontal_unit": {"type": "string", "minLength": 1},
+        "vertical_unit": {"type": "string", "minLength": 1},
+        "axis_order": {"$ref": "#/$defs/nonEmptyTextOrList"},
+        "coordinate_precision": {"type": "integer", "minimum": 0},
+        "transform_history": {"$ref": "#/$defs/nonEmptyTextOrList"},
+        "geometry_status": {"type": "string", "minLength": 1},
+        "source_feature_id": {"type": "string", "minLength": 1},
+        "stable_feature_id": {"type": "string", "minLength": 1},
+        "revision_id": {"type": "string", "minLength": 1},
+        "lineage": {"$ref": "#/$defs/nonEmptyTextOrList"},
+        "source_horizontal_unit": {"type": "string", "minLength": 1},
+        "processing_horizontal_unit": {"type": "string", "minLength": 1},
+        "output_horizontal_unit": {"type": "string", "minLength": 1},
+        "processing_axis_order": {"$ref": "#/$defs/nonEmptyTextOrList"},
+        "processing_crs_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "completion_levels": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ENGINEERING_UI_COMPLETE", "DATA_STAGING_COMPLETE", "REAL_GEOMETRY_CONNECTED", "MODEL_CONNECTED", "ADMIN_VALIDATED", "overall"],
+      "properties": {
+        "ENGINEERING_UI_COMPLETE": {"type": "boolean"},
+        "DATA_STAGING_COMPLETE": {"type": "boolean"},
+        "REAL_GEOMETRY_CONNECTED": {"type": "boolean"},
+        "MODEL_CONNECTED": {"type": "boolean"},
+        "ADMIN_VALIDATED": {"type": "boolean"},
+        "overall": {"enum": ["PARTIAL_COMPLETE", "DEMO_COMPLETE"]}
+      }
+    }
+  },
+  "$defs": {
+    "readinessStatus": {
+      "enum": ["REAL", "OFFICIAL_METADATA_ONLY", "MODEL_DERIVED", "SYNTHETIC_DEMO", "UNKNOWN", "NOT_COMPUTED", "READY", "KNOWN"]
+    },
+    "nonEmptyTextOrList": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      ]
+    },
+    "notComputedKpi": {
+      "type": "object", "additionalProperties": false,
+      "required": ["value", "reason"],
+      "properties": {
+        "value": {"type": "null"},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
