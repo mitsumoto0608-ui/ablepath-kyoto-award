@@ -12,5 +12,6 @@ This lane adds only versioned, profile-independent contracts and validation.
 - `load_citypack(..., trusted_root=...)` accepts only packs contained by the caller-selected trusted root and rejects symlinks/reparse points, duplicate YAML keys, aliases, oversized documents, and excessive structure depth/count.
 - Runtime hazard records detach and recursively freeze nested provenance. `physical_values` cannot contain profile, accessibility, route, or state fields.
 - `official_or_assumption` is an explicit evidence-authority enum. An official claim requires an official/real source class and a non-empty source list.
+- `load_edge_observation_table` recognizes only the exact ordered Kiyomizu, Arashiyama, and Fujisawa v1 CSV headers, including duplicate-header rejection and bounded file/row counts. The adapters validate the current dialect semantics, accept only UNKNOWN-only physical rows, and reject populated physical fields; new physical data requires a new reviewed adapter rather than silent coercion. Pack-specific audit columns stay in an immutable raw mapping beside the profile-independent runtime object, so callers retain traceability without promoting audit metadata into physical state.
 
 No allocation, route, UI, facility-operation, or new accessibility threshold is implemented here.

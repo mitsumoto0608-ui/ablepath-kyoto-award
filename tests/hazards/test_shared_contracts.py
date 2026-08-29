@@ -30,6 +30,13 @@ from src.hazards.contracts import (
     HazardScenario,
     validate_dense_observations,
 )
+from src.hazards.tabular import (
+    ARASHIYAMA_EDGE_V1_FIELDS,
+    FUJISAWA_EDGE_V1_FIELDS,
+    KIYOMIZU_EDGE_V1_FIELDS,
+    adapt_edge_observation_row,
+    load_edge_observation_table,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -769,3 +776,208 @@ def test_source_manifest_adapter_rejects_unknown_schema_truth_and_duplicates(
     write(ARASHIYAMA_V1_FIELDS, [base, base])
     with pytest.raises(SourceManifestContractError, match="duplicate.*dataset_id"):
         load_source_manifest(path)
+
+
+def _hazard_row(fields: tuple[str, ...], **updates: str) -> dict[str, str]:
+    row = {name: "" for name in fields}
+    row.update(
+        edge_id="FIXTURE-E1",
+        scenario_id="FIXTURE-S1",
+        source_feature_id="FIXTURE-SOURCE-FEATURE",
+        stable_feature_id="FIXTURE-STABLE",
+        revision_id="r1",
+        lineage="FIXTURE_VALUE",
+    )
+    row.update(updates)
+    return row
+
+
+@pytest.mark.parametrize(
+    ("row", "expected_source_ids"),
+    [
+        (
+            _hazard_row(
+                KIYOMIZU_EDGE_V1_FIELDS,
+                schema_version="1.0.0",
+                data_status="SYNTHETIC_DEMO",
+                damage_state="UNKNOWN",
+                hazard_data_status="UNKNOWN",
+                profile_status="NOT_COMPUTED",
+                reason="PHYSICS_UNAVAILABLE",
+                source_ids="official-metadata-1",
+                revision_id="fixture-v1",
+                lineage="FIXTURE_VALUE|ABLEPATH_DESIGN_SCENARIO_EDGE",
+            ),
+            ("official-metadata-1",),
+        ),
+        (
+            _hazard_row(
+                ARASHIYAMA_EDGE_V1_FIELDS,
+                hazard_type="FLOOD",
+                data_class="SYNTHETIC_DEMO",
+                hazard_overlap_status="NOT_COMPUTED",
+                official_closure="UNKNOWN",
+                operational_rule_status="UNKNOWN",
+                scenario_state="UNKNOWN",
+                source_dataset_ids="official-1;official-2",
+                notes="No physical geometry is connected",
+                source_feature_id="FIXTURE_ARASHIYAMA_EDGE_STATE_V1",
+                lineage="ABLEPATH_DESIGN synthetic scenario-edge matrix",
+            ),
+            ("official-1", "official-2"),
+        ),
+        (
+            _hazard_row(
+                FUJISAWA_EDGE_V1_FIELDS,
+                schema_version="1.0.0",
+                hazard_schema_version="1.0.0",
+                data_status="SYNTHETIC_DEMO",
+                physical_state="UNKNOWN",
+                physical_state_reason="No edge-level geometry",
+                operational_state="UNKNOWN",
+                operational_state_reason="No dated operation source",
+                source_dataset_ids="official-1|official-2",
+                snapshot_mode="STATIC_SNAPSHOT_COMPARISON",
+                source_crs="EPSG:4326",
+                processing_crs="EPSG:6677",
+                output_crs="EPSG:4326",
+                horizontal_unit="degree_output_metre_processing",
+                vertical_unit="UNKNOWN",
+                axis_order="longitude_latitude",
+                coordinate_precision="6",
+                transform_history="NOT_TRANSFORMED_FIXTURE_ONLY",
+                geometry_status="SYNTHETIC_DEMO",
+                revision_id="1",
+                lineage="FIXTURE_VALUE|STATIC_SCENARIO_METADATA_ONLY",
+            ),
+            ("official-1", "official-2"),
+        ),
+    ],
+)
+def test_city_hazard_table_adapters_emit_shared_unknown_observations(
+    row: dict[str, str], expected_source_ids: tuple[str, ...]
+) -> None:
+    """[source_conformance] Exact city dialects preserve UNKNOWN without inventing physics."""
+    adapted = adapt_edge_observation_row(row)
+    observation = adapted.observation
+    assert observation.overlap is None
+    assert observation.max_depth_m is None
+    assert observation.official_closure is None
+    assert observation.hazard_data_status == "UNKNOWN"
+    assert observation.source_ids == expected_source_ids
+    assert dict(adapted.raw) == row
+    with pytest.raises(TypeError):
+        adapted.raw["scenario_id"] = "mutated"  # type: ignore[index]
+
+
+@pytest.mark.parametrize(
+    ("row", "physical_key"),
+    [
+        (
+            _hazard_row(
+                KIYOMIZU_EDGE_V1_FIELDS,
+                schema_version="1.0.0", data_status="SYNTHETIC_DEMO",
+                damage_state="UNKNOWN", hazard_data_status="UNKNOWN",
+                profile_status="NOT_COMPUTED", reason="PHYSICS_UNAVAILABLE",
+                revision_id="fixture-v1",
+                lineage="FIXTURE_VALUE|ABLEPATH_DESIGN_SCENARIO_EDGE",
+            ),
+            "remaining_clear_width_m",
+        ),
+        (
+            _hazard_row(
+                ARASHIYAMA_EDGE_V1_FIELDS,
+                hazard_type="FLOOD", data_class="SYNTHETIC_DEMO",
+                hazard_overlap_status="NOT_COMPUTED", official_closure="UNKNOWN",
+                operational_rule_status="UNKNOWN", scenario_state="UNKNOWN",
+                notes="No physical geometry is connected",
+                source_feature_id="FIXTURE_ARASHIYAMA_EDGE_STATE_V1",
+                lineage="ABLEPATH_DESIGN synthetic scenario-edge matrix",
+            ),
+            "inundation_depth_m",
+        ),
+        (
+            _hazard_row(
+                FUJISAWA_EDGE_V1_FIELDS,
+                schema_version="1.0.0", hazard_schema_version="1.0.0",
+                data_status="SYNTHETIC_DEMO", physical_state="UNKNOWN",
+                physical_state_reason="No edge geometry", operational_state="UNKNOWN",
+                operational_state_reason="No operation source",
+                snapshot_mode="STATIC_SNAPSHOT_COMPARISON", source_crs="EPSG:4326",
+                processing_crs="EPSG:6677", output_crs="EPSG:4326",
+                horizontal_unit="degree_output_metre_processing", vertical_unit="UNKNOWN",
+                axis_order="longitude_latitude", coordinate_precision="6",
+                transform_history="NOT_TRANSFORMED_FIXTURE_ONLY",
+                geometry_status="SYNTHETIC_DEMO", revision_id="1",
+                lineage="FIXTURE_VALUE|STATIC_SCENARIO_METADATA_ONLY",
+            ),
+            "arrival_time_min",
+        ),
+    ],
+)
+def test_city_hazard_table_adapters_reject_new_physical_values(
+    row: dict[str, str], physical_key: str
+) -> None:
+    """[source_conformance] Every v1 dialect rejects newly populated physics."""
+    row[physical_key] = "0"
+    with pytest.raises(HazardContractError, match="new reviewed adapter"):
+        adapt_edge_observation_row(row)
+
+
+def test_city_hazard_table_adapter_rejects_unvalidated_audit_values() -> None:
+    """[source_conformance] Discarded audit fields cannot carry arbitrary semantics."""
+    arashiyama = _hazard_row(
+        ARASHIYAMA_EDGE_V1_FIELDS,
+        hazard_type="BANANA", data_class="SYNTHETIC_DEMO",
+        hazard_overlap_status="NOT_COMPUTED", official_closure="UNKNOWN",
+        operational_rule_status="UNKNOWN", scenario_state="UNKNOWN",
+        notes="No physical geometry is connected",
+        source_feature_id="FIXTURE_ARASHIYAMA_EDGE_STATE_V1",
+        lineage="ABLEPATH_DESIGN synthetic scenario-edge matrix",
+    )
+    with pytest.raises(HazardContractError, match="hazard_type"):
+        adapt_edge_observation_row(arashiyama)
+    fujisawa = _hazard_row(
+        FUJISAWA_EDGE_V1_FIELDS,
+        schema_version="1.0.0", hazard_schema_version="1.0.0",
+        data_status="SYNTHETIC_DEMO", physical_state="UNKNOWN",
+        physical_state_reason="No edge geometry", operational_state="UNKNOWN",
+        operational_state_reason="No operation source",
+        snapshot_mode="STATIC_SNAPSHOT_COMPARISON", source_crs="EPSG:4326",
+        processing_crs="EPSG:6677", output_crs="EPSG:4326",
+        horizontal_unit="degree_output_metre_processing", vertical_unit="UNKNOWN",
+        axis_order="longitude_latitude", coordinate_precision="6",
+        transform_history="NOT_TRANSFORMED_FIXTURE_ONLY",
+        geometry_status="SYNTHETIC_DEMO", revision_id="1",
+        lineage="FIXTURE_VALUE|STATIC_SCENARIO_METADATA_ONLY",
+    )
+    for key, value in (("source_crs", ""), ("processing_crs", "garbage"), ("coordinate_precision", "NaN")):
+        with pytest.raises(HazardContractError, match=key):
+            adapt_edge_observation_row({**fujisawa, key: value})
+
+
+def test_hazard_table_loader_rejects_duplicate_or_reordered_header(tmp_path: Path) -> None:
+    """[software_correctness] CSV header order and uniqueness are checked before DictReader collapse."""
+    path = tmp_path / "hazards.csv"
+    row = _hazard_row(
+        ARASHIYAMA_EDGE_V1_FIELDS,
+        hazard_type="FLOOD", data_class="SYNTHETIC_DEMO",
+        hazard_overlap_status="NOT_COMPUTED", official_closure="UNKNOWN",
+        operational_rule_status="UNKNOWN", scenario_state="UNKNOWN",
+        notes="No physical geometry is connected",
+        source_feature_id="FIXTURE_ARASHIYAMA_EDGE_STATE_V1",
+        lineage="ABLEPATH_DESIGN synthetic scenario-edge matrix",
+    )
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=ARASHIYAMA_EDGE_V1_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerow(row)
+    assert len(load_edge_observation_table(path)) == 1
+    duplicate = ARASHIYAMA_EDGE_V1_FIELDS + (ARASHIYAMA_EDGE_V1_FIELDS[0],)
+    path.write_text(",".join(duplicate) + "\n", encoding="utf-8", newline="\n")
+    with pytest.raises(HazardContractError, match="duplicate hazard table header"):
+        load_edge_observation_table(path)
+    reordered = tuple(reversed(ARASHIYAMA_EDGE_V1_FIELDS))
+    path.write_text(",".join(reordered) + "\n", encoding="utf-8", newline="\n")
+    with pytest.raises(HazardContractError, match="exact order"):
+        load_edge_observation_table(path)
