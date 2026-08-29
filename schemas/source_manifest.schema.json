@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/source_manifest.schema.json",
+  "title": "AblePath official and VGI metadata staging manifest row",
+  "description": "CSV row contract limited to official-source and VGI metadata staging. It does not authorize raw-data use, official interpretation, or inferred safety state. UNKNOWN is explicit and only DOWNLOADED rows may claim local files or hashes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset_id", "title", "issuing_organization", "source_class", "source_url",
+    "published_or_updated_at", "accessed_at", "version", "download_status",
+    "file_name", "local_path", "sha256", "license", "format", "horizontal_crs",
+    "vertical_datum", "geographic_coverage", "official_status", "usable_fields",
+    "missing_fields", "notes", "downloaded_at", "file_hash",
+    "vertical_crs_or_datum", "coordinate_epoch", "axis_order", "horizontal_unit",
+    "vertical_unit", "transformation_method"
+  ],
+  "properties": {
+    "dataset_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$"},
+    "title": {"type": "string", "minLength": 1},
+    "issuing_organization": {"type": "string", "minLength": 1},
+    "source_class": {"type": "string", "enum": ["OFFICIAL", "VGI"]},
+    "source_url": {"type": "string", "pattern": "^https://"},
+    "published_or_updated_at": {"type": "string", "pattern": "^(UNKNOWN|[0-9]{4}-[0-9]{2}-[0-9]{2})$"},
+    "accessed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "version": {"type": "string", "minLength": 1},
+    "download_status": {"type": "string", "enum": ["DOWNLOADED", "METADATA_ONLY", "BLOCKED", "NOT_FOUND", "REQUIRES_APPLICATION"]},
+    "file_name": {"type": "string"},
+    "local_path": {"type": "string"},
+    "sha256": {"type": "string"},
+    "license": {"type": "string", "minLength": 1},
+    "format": {"type": "string", "minLength": 1},
+    "horizontal_crs": {"type": "string", "minLength": 1},
+    "vertical_datum": {"type": "string", "minLength": 1},
+    "geographic_coverage": {"type": "string", "minLength": 1},
+    "official_status": {"type": "string", "enum": ["OFFICIAL_PUBLISHED", "OFFICIAL_CONFIRMATION_REQUIRED", "VGI_NON_OFFICIAL", "UNKNOWN"]},
+    "usable_fields": {"type": "string", "minLength": 1},
+    "missing_fields": {"type": "string", "minLength": 1},
+    "notes": {"type": "string", "minLength": 1},
+    "downloaded_at": {"type": "string"},
+    "file_hash": {"type": "string"},
+    "vertical_crs_or_datum": {"type": "string", "minLength": 1},
+    "coordinate_epoch": {"type": "string", "minLength": 1},
+    "axis_order": {"type": "string", "minLength": 1},
+    "horizontal_unit": {"type": "string", "minLength": 1},
+    "vertical_unit": {"type": "string", "minLength": 1},
+    "transformation_method": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"download_status": {"const": "DOWNLOADED"}}, "required": ["download_status"]},
+      "then": {
+        "properties": {
+          "file_name": {"minLength": 1},
+          "local_path": {"minLength": 1},
+          "sha256": {"pattern": "^[0-9a-f]{64}$"},
+          "downloaded_at": {"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})$"},
+          "file_hash": {"pattern": "^sha256:[0-9a-f]{64}$"}
+        }
+      },
+      "else": {
+        "properties": {
+          "file_name": {"maxLength": 0},
+          "local_path": {"maxLength": 0},
+          "sha256": {"maxLength": 0},
+          "downloaded_at": {"maxLength": 0},
+          "file_hash": {"maxLength": 0}
+        }
+      }
+    }
+  ]
+}

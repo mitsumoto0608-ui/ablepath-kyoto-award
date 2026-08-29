@@ -1,0 +1,13 @@
+attempted_at,dataset_id,action,result,status,http_or_tool_detail,next_action
+2026-08-30T00:00:00+09:00,ALL,agent-reach Exa公式Web検索,backend接続失敗,BLOCKED,ERA_NEGOTIATION_FAILED fetch failed,公式ドメイン限定Web検索へ切替
+2026-08-30T00:05:00+09:00,plateau_kyoto_2023_citygml_archive,PLATEAU・G空間情報センターmetadata確認,2023年度版とresource構成を確認,METADATA_ONLY,公式MLITページおよび公式カタログ横断metadata,Dropbox経路確保後にrawとchecksumを取得
+2026-08-30T00:10:00+09:00,plateau_kyoto_2025_release,PLATEAU公式API照合,city_code 26100・2025・spec 5.0・2700713500 bytes・CityGML URLを確認,METADATA_ONLY,api.plateauview.mlit.go.jp/datacatalog/plateau-datasets,Dropbox経路確保後にraw・size・hash・座標metadataを確認
+2026-08-30T00:15:00+09:00,osm_kiyomizu_corridor,OSM export metadata確認,対象回廊候補ページのみ確認,METADATA_ONLY,OpenStreetMap export view,後続でtimestamp固定extract取得
+2026-08-30T00:20:00+09:00,kyoto_kiyomizu_gion_evacuation_plan,京都市公式計画ページ確認,計画公開ページと概要を確認,METADATA_ONLY,京都市digitalbook page B-55,現行revisionと原本取得
+2026-08-30T00:25:00+09:00,kyoto_return_support_plazas,京都市帰宅支援サイト確認,施設種別と運用説明を確認,METADATA_ONLY,京都市防災ポータル,施設別一覧・入口・開放条件を照会
+2026-08-30T00:30:00+09:00,kyoto_designated_emergency_places,指定避難所等一覧確認,災害種別ごとの施設区分を確認,METADATA_ONLY,京都市防災ポータル更新日2026-08-28,PDF rawとmachine-readable版の有無を確認
+2026-08-30T00:35:00+09:00,kyoto_web_hazard_flood,京都市防災情報マップ確認,洪水・内水・土砂・地震layerを確認,METADATA_ONLY,京都市防災情報マップ,配布geometry・版・CRSを取得
+2026-08-30T00:40:00+09:00,kyoto_pref_landslide_designations,京都府指定箇所ページ確認,東山区8地区65箇所と注意事項を確認,METADATA_ONLY,京都府更新日2026-07-31,公示図書とdesignation IDを確認
+2026-08-30T00:45:00+09:00,kyoto_public_toilet_map,京都市公衆トイレ一覧確認,清水祇園周辺A1からA13等を確認,METADATA_ONLY,京都市更新日2026-03-10,open data rawと設備・入口を照合
+2026-08-30T00:50:00+09:00,hokonavi_kiyomizu_corridor,ほこナビDP公式catalog検索,清水対象datasetを確認できず,NOT_FOUND,国土交通省ほこナビDP catalog,対象有無を照会し別地域データを流用しない
+2026-08-30T00:55:00+09:00,ALL,Dropbox raw保存可否確認,local config・binary upload手段なし,BLOCKED,config/paths.local.toml未設定,人間がGit外設定と保存経路を提供
