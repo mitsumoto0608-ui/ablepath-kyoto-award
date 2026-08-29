@@ -1,0 +1,42 @@
+{
+ "time_slices_sec": [
+  300,
+  600,
+  900,
+  1800
+ ],
+ "guidance_modes": [
+  "nearest",
+  "flow"
+ ],
+ "eta_list": [
+  1.0,
+  0.7
+ ],
+ "edge_unknown_modes": [
+  "strict",
+  "optimistic"
+ ],
+ "narrowed_speed_factor": 0.5,
+ "demand_ids": [
+  "OFFPEAK",
+  "PEAK"
+ ],
+ "scenario_ids": [
+  "NORMAL",
+  "EQ_WEAK",
+  "EQ_MED",
+  "EQ_SEV",
+  "RAIN_L3",
+  "RAIN_L4",
+  "RAIN_L5",
+  "EQF_T10",
+  "EQF_T30",
+  "EQF_T60"
+ ],
+ "plaza_status_gating": false,
+ "tourism_origin_node": "N001",
+ "tourism_dry_scenario": "NORMAL",
+ "tourism_wet_scenario": "RAIN_L3",
+ "notes": "時間断面は分析用であり安全基準ではない。NARROWED=速度半減はv0の設計仮定。"
+}

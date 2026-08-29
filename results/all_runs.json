@@ -1,0 +1,7205 @@
+{
+ "runs": {
+  "OFFPEAK__NORMAL__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__NORMAL__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__NORMAL__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__NORMAL__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__NORMAL__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__NORMAL__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_WEAK__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_MED__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3030.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 2620.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2620.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 770.0,
+     "unreached_or_unserved": 230.0,
+     "rate": 0.77
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 2650.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2650.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 200.0,
+     "rate": 0.8
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1150.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.383
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 2650.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2650.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 200.0,
+     "rate": 0.8
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1150.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.383
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 2620.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1520.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 640.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 2620.0,
+   "overflow_waiting": 640.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 390.0,
+     "unreached_or_unserved": 610.0,
+     "rate": 0.39
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1520.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQ_SEV__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1520.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3230.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3230.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3230.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 970.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.97
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L3__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 3020.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 2620.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 640.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 2620.0,
+   "overflow_waiting": 640.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 770.0,
+     "unreached_or_unserved": 230.0,
+     "rate": 0.77
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2557.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 2620.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 640.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 2620.0,
+   "overflow_waiting": 640.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 770.0,
+     "unreached_or_unserved": 230.0,
+     "rate": 0.77
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L4__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3260.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2557.0,
+    "1800": 3260.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3260.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 1000.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1760.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.587
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 1120.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 1120.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 2140.0,
+   "physically_reachable": 1120.0,
+   "accommodated": 1120.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 1400.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 20.0,
+     "unreached_or_unserved": 40.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 300.0,
+     "unreached_or_unserved": 700.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 1120.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 1120.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 2140.0,
+   "physically_reachable": 1120.0,
+   "accommodated": 1120.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 1400.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 20.0,
+     "unreached_or_unserved": 40.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 300.0,
+     "unreached_or_unserved": 700.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 1120.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1120.0,
+    "1800": 1120.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 2140.0,
+   "physically_reachable": 1120.0,
+   "accommodated": 1120.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 1400.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 20.0,
+     "unreached_or_unserved": 40.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 300.0,
+     "unreached_or_unserved": 700.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 2620.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 2620.0
+   },
+   "unserved_capacity": 30.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2620.0,
+   "overflow_waiting": 30.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 770.0,
+     "unreached_or_unserved": 230.0,
+     "rate": 0.77
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1120.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.373
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 2650.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 2650.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2650.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 200.0,
+     "rate": 0.8
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1150.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.383
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__RAIN_L5__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 2650.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 2620.0,
+    "1800": 2650.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 610.0,
+   "physically_reachable": 2650.0,
+   "accommodated": 2650.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1800.0,
+     "unreached_or_unserved": 400.0,
+     "rate": 0.8182
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 10.0,
+     "rate": 0.8333
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 800.0,
+     "unreached_or_unserved": 200.0,
+     "rate": 0.8
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1150.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.383
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 740.0,
+     "unreached_or_unserved": 260.0,
+     "rate": 0.74
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 740.0,
+     "unreached_or_unserved": 260.0,
+     "rate": 0.74
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T10__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 740.0,
+     "unreached_or_unserved": 260.0,
+     "rate": 0.74
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 60.0,
+     "unreached_or_unserved": 0.0,
+     "rate": 1.0
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 740.0,
+     "unreached_or_unserved": 260.0,
+     "rate": 0.74
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T30__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 260.0,
+   "unreachable": 0.0,
+   "physically_reachable": 3260.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 260.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 175.5,
+     "rate": 0.9202
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 4.8,
+     "rate": 0.9202
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 79.8,
+     "rate": 0.9202
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__strict__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__strict__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__strict__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__optimistic__nearest": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__optimistic__flow__eta1.0": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "OFFPEAK__EQF_T60__optimistic__flow__eta0.7": {
+   "demand_total": 3260.0,
+   "arrived": 1730.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1120.0,
+    "900": 1530.0,
+    "1800": 1730.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 1530.0,
+   "physically_reachable": 1730.0,
+   "accommodated": 1730.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 2200.0,
+     "arrived": 1200.0,
+     "unreached_or_unserved": 1000.0,
+     "rate": 0.5455
+    },
+    "mobility_assisted_wc": {
+     "demand": 60.0,
+     "arrived": 30.0,
+     "unreached_or_unserved": 30.0,
+     "rate": 0.5
+    },
+    "unfamiliar": {
+     "demand": 1000.0,
+     "arrived": 500.0,
+     "unreached_or_unserved": 500.0,
+     "rate": 0.5
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 1730.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.577
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "OFFPEAK"
+   }
+  },
+  "PEAK__NORMAL__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__NORMAL__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__NORMAL__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__NORMAL__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__NORMAL__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__NORMAL__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "NORMAL",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_WEAK__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_WEAK",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_MED__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4350.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_MED",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4300.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 2325.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4300.0,
+   "overflow_waiting": 2325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3500.0,
+     "unreached_or_unserved": 2000.0,
+     "rate": 0.6364
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 2125.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 2125.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 2125.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 2125.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3045.6,
+     "unreached_or_unserved": 2454.4,
+     "rate": 0.5537
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 83.7,
+     "unreached_or_unserved": 66.3,
+     "rate": 0.5583
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1370.7,
+     "unreached_or_unserved": 1129.3,
+     "rate": 0.5483
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4300.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3800.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 3850.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4300.0,
+   "overflow_waiting": 3850.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3500.0,
+     "unreached_or_unserved": 2000.0,
+     "rate": 0.6364
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3600.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQ_SEV__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3100.0,
+    "1800": 4357.7
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3107.7,
+     "unreached_or_unserved": 2392.3,
+     "rate": 0.565
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 84.8,
+     "unreached_or_unserved": 65.2,
+     "rate": 0.565
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1307.6,
+     "unreached_or_unserved": 1192.4,
+     "rate": 0.523
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQ_SEV",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4342.5,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3700.0,
+     "unreached_or_unserved": 1800.0,
+     "rate": 0.6727
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4500.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L3__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 4342.5,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L3",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4300.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 3850.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4300.0,
+   "overflow_waiting": 3850.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3500.0,
+     "unreached_or_unserved": 2000.0,
+     "rate": 0.6364
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4247.5,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3107.7,
+     "unreached_or_unserved": 2392.3,
+     "rate": 0.565
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 84.8,
+     "unreached_or_unserved": 65.2,
+     "rate": 0.565
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1307.6,
+     "unreached_or_unserved": 1192.4,
+     "rate": 0.523
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4300.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 3850.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4300.0,
+   "overflow_waiting": 3850.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3500.0,
+     "unreached_or_unserved": 2000.0,
+     "rate": 0.6364
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L4__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4247.5,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 3650.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 3650.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3107.7,
+     "unreached_or_unserved": 2392.3,
+     "rate": 0.565
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 84.8,
+     "unreached_or_unserved": 65.2,
+     "rate": 0.565
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1307.6,
+     "unreached_or_unserved": 1192.4,
+     "rate": 0.523
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L4",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 2800.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 2800.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 5350.0,
+   "physically_reachable": 2800.0,
+   "accommodated": 2800.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2000.0,
+     "unreached_or_unserved": 3500.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 2800.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 2800.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 5350.0,
+   "physically_reachable": 2800.0,
+   "accommodated": 2800.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2000.0,
+     "unreached_or_unserved": 3500.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 2800.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2800.0,
+    "1800": 2800.0
+   },
+   "unserved_capacity": 0.0,
+   "unreachable": 5350.0,
+   "physically_reachable": 2800.0,
+   "accommodated": 2800.0,
+   "overflow_waiting": 0.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2000.0,
+     "unreached_or_unserved": 3500.0,
+     "rate": 0.3636
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 4300.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4300.0
+   },
+   "unserved_capacity": 2325.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4300.0,
+   "overflow_waiting": 2325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3500.0,
+     "unreached_or_unserved": 2000.0,
+     "rate": 0.6364
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 2800.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 0.933
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 2125.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 2125.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3036.8,
+     "unreached_or_unserved": 2463.2,
+     "rate": 0.5521
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 82.8,
+     "unreached_or_unserved": 67.2,
+     "rate": 0.5521
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1380.4,
+     "unreached_or_unserved": 1119.6,
+     "rate": 0.5521
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__RAIN_L5__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 4500.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 4300.0,
+    "1800": 4500.0
+   },
+   "unserved_capacity": 2125.0,
+   "unreachable": 1525.0,
+   "physically_reachable": 6625.0,
+   "accommodated": 4500.0,
+   "overflow_waiting": 2125.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 3045.6,
+     "unreached_or_unserved": 2454.4,
+     "rate": 0.5537
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 83.7,
+     "unreached_or_unserved": 66.3,
+     "rate": 0.5583
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 1370.7,
+     "unreached_or_unserved": 1129.3,
+     "rate": 0.5483
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 1500.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 1.0
+    }
+   ],
+   "params": {
+    "scenario_id": "RAIN_L5",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1395.0,
+    "900": 1702.5,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T10__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1395.0,
+    "900": 1702.5,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T10",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1395.0,
+    "900": 1702.5,
+    "1800": 1852.5
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T30__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 1395.0,
+    "900": 1702.5,
+    "1800": 1852.5
+   },
+   "unserved_capacity": 5150.0,
+   "unreachable": 0.0,
+   "physically_reachable": 8150.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 5150.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T30",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__strict__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__strict__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__strict__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 2850.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2048.9,
+     "unreached_or_unserved": 3451.1,
+     "rate": 0.3725
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 53.8,
+     "unreached_or_unserved": 96.2,
+     "rate": 0.3589
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 897.2,
+     "unreached_or_unserved": 1602.8,
+     "rate": 0.3589
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "strict",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__optimistic__nearest": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 3000.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2200.0,
+     "unreached_or_unserved": 3300.0,
+     "rate": 0.4
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 50.0,
+     "unreached_or_unserved": 100.0,
+     "rate": 0.3333
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 750.0,
+     "unreached_or_unserved": 1750.0,
+     "rate": 0.3
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "nearest",
+    "eta": null,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__optimistic__flow__eta1.0": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2800.0,
+    "900": 2829.8,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2024.5,
+     "unreached_or_unserved": 3475.5,
+     "rate": 0.3681
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 55.2,
+     "unreached_or_unserved": 94.8,
+     "rate": 0.3681
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 920.2,
+     "unreached_or_unserved": 1579.8,
+     "rate": 0.3681
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 1.0,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  },
+  "PEAK__EQF_T60__optimistic__flow__eta0.7": {
+   "demand_total": 8150.0,
+   "arrived": 3000.0,
+   "arrived_by_slice_sec": {
+    "300": 0.0,
+    "600": 2542.5,
+    "900": 2850.0,
+    "1800": 3000.0
+   },
+   "unserved_capacity": 1325.0,
+   "unreachable": 3825.0,
+   "physically_reachable": 4325.0,
+   "accommodated": 3000.0,
+   "overflow_waiting": 1325.0,
+   "by_profile": {
+    "general": {
+     "demand": 5500.0,
+     "arrived": 2048.9,
+     "unreached_or_unserved": 3451.1,
+     "rate": 0.3725
+    },
+    "mobility_assisted_wc": {
+     "demand": 150.0,
+     "arrived": 53.8,
+     "unreached_or_unserved": 96.2,
+     "rate": 0.3589
+    },
+    "unfamiliar": {
+     "demand": 2500.0,
+     "arrived": 897.2,
+     "unreached_or_unserved": 1602.8,
+     "rate": 0.3589
+    }
+   },
+   "by_plaza": [
+    {
+     "plaza_id": "PZ01",
+     "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+     "assigned": 3000.0,
+     "capacity_nominal": 3000.0,
+     "saturation": 1.0
+    },
+    {
+     "plaza_id": "PZ02",
+     "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+     "assigned": 0.0,
+     "capacity_nominal": 1500.0,
+     "saturation": 0.0
+    }
+   ],
+   "params": {
+    "scenario_id": "EQF_T60",
+    "guidance": "flow",
+    "eta": 0.7,
+    "edge_unknown_mode": "optimistic",
+    "demand_id": "PEAK"
+   }
+  }
+ },
+ "tourism": {
+  "dry": {
+   "scenario_id": "NORMAL",
+   "per_profile": {
+    "general": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1159
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 477
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 624
+     }
+    ],
+    "unfamiliar": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1590
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 690
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 883
+     }
+    ],
+    "mobility_assisted_wc": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1510
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 610
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 797
+     }
+    ]
+   }
+  },
+  "wet": {
+   "scenario_id": "RAIN_L3",
+   "per_profile": {
+    "general": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1165
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 530
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 690
+     }
+    ],
+    "unfamiliar": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1603
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 801
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 1022
+     }
+    ],
+    "mobility_assisted_wc": [
+     {
+      "poi_id": "T101",
+      "name": "清水寺門前",
+      "reachable": true,
+      "time_sec": 1557
+     },
+     {
+      "poi_id": "T102",
+      "name": "高台寺",
+      "reachable": true,
+      "time_sec": 936
+     },
+     {
+      "poi_id": "T103",
+      "name": "公衆トイレ（二年坂）",
+      "reachable": true,
+      "time_sec": 1226
+     }
+    ]
+   }
+  }
+ },
+ "plazas": [
+  {
+   "plaza_id": "PZ01",
+   "name": "円山公園（広場・広域避難場所想定——公式一覧で要確認）",
+   "capacity_nominal": 3000,
+   "status": "OFFICIAL_VERIFIED",
+   "entrance_node": "PZ01",
+   "fire_safe": true,
+   "source": "SYNTHETIC_PLACEHOLDER"
+  },
+  {
+   "plaza_id": "PZ02",
+   "name": "第二広場（学校グラウンド想定・延焼時は不可の想定）",
+   "capacity_nominal": 1500,
+   "status": "OPERATION_UNKNOWN",
+   "entrance_node": "PZ02",
+   "fire_safe": false,
+   "source": "SYNTHETIC_PLACEHOLDER"
+  }
+ ],
+ "origins": [
+  {
+   "origin_id": "O001",
+   "name": "八坂神社前",
+   "node_id": "N001"
+  },
+  {
+   "origin_id": "O002",
+   "name": "祇園白川",
+   "node_id": "N002"
+  },
+  {
+   "origin_id": "O003",
+   "name": "清水坂・門前",
+   "node_id": "N010"
+  }
+ ],
+ "hazards": [
+  {
+   "scenario_id": "NORMAL",
+   "hazard_type": "none",
+   "label": "平常時（晴）",
+   "wet_surface": false,
+   "source": "-"
+  },
+  {
+   "scenario_id": "EQ_WEAK",
+   "hazard_type": "earthquake",
+   "label": "地震・閉塞弱",
+   "wet_surface": false,
+   "source": "京都市第4次地震被害想定に基づく仮scenario（SYNTHETIC）"
+  },
+  {
+   "scenario_id": "EQ_MED",
+   "hazard_type": "earthquake",
+   "label": "地震・閉塞中",
+   "wet_surface": false,
+   "source": "同上"
+  },
+  {
+   "scenario_id": "EQ_SEV",
+   "hazard_type": "earthquake",
+   "label": "地震・閉塞強",
+   "wet_surface": false,
+   "source": "同上"
+  },
+  {
+   "scenario_id": "RAIN_L3",
+   "hazard_type": "heavy_rain",
+   "label": "大雨・警戒レベル3相当（雨天路面のみ）",
+   "wet_surface": true,
+   "source": "気象警戒レベル×警戒区域の仮scenario（SYNTHETIC）"
+  },
+  {
+   "scenario_id": "RAIN_L4",
+   "hazard_type": "heavy_rain",
+   "label": "大雨・警戒レベル4相当（土砂警戒閉塞＋白川増水）",
+   "wet_surface": true,
+   "source": "同上"
+  },
+  {
+   "scenario_id": "RAIN_L5",
+   "hazard_type": "heavy_rain",
+   "label": "大雨・警戒レベル5相当（浸水拡大）",
+   "wet_surface": true,
+   "source": "同上"
+  },
+  {
+   "scenario_id": "EQF_T10",
+   "hazard_type": "earthquake_fire",
+   "label": "地震火災・出火後10分（EQ中閉塞＋出火点周辺）",
+   "wet_surface": false,
+   "source": "被害想定＋延焼シミュ成果を固定フェーズ化する想定（SYNTHETIC）"
+  },
+  {
+   "scenario_id": "EQF_T30",
+   "hazard_type": "earthquake_fire",
+   "label": "地震火災・出火後30分（火面拡大）",
+   "wet_surface": false,
+   "source": "同上"
+  },
+  {
+   "scenario_id": "EQF_T60",
+   "hazard_type": "earthquake_fire",
+   "label": "地震火災・出火後60分（延焼域拡大）",
+   "wet_surface": false,
+   "source": "同上"
+  }
+ ]
+}

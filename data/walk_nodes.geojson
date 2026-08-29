@@ -1,0 +1,245 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7787,
+     35.0037
+    ]
+   },
+   "properties": {
+    "node_id": "N001",
+    "node_type": "origin",
+    "name": "八坂神社前"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7745,
+     35.006
+    ]
+   },
+   "properties": {
+    "node_id": "N002",
+    "node_type": "origin",
+    "name": "祇園白川"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.781,
+     35.0036
+    ]
+   },
+   "properties": {
+    "node_id": "N003",
+    "node_type": "junction",
+    "name": "円山公園入口"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7822,
+     35.0032
+    ]
+   },
+   "properties": {
+    "node_id": "PZ01",
+    "node_type": "plaza",
+    "name": "円山公園（広場想定）"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7805,
+     35.0005
+    ]
+   },
+   "properties": {
+    "node_id": "N004",
+    "node_type": "junction",
+    "name": "ねねの道"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7815,
+     35.0008
+    ]
+   },
+   "properties": {
+    "node_id": "N005",
+    "node_type": "junction",
+    "name": "高台寺前"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.78,
+     34.999
+    ]
+   },
+   "properties": {
+    "node_id": "N006",
+    "node_type": "junction",
+    "name": "二年坂下"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7805,
+     34.9983
+    ]
+   },
+   "properties": {
+    "node_id": "N007",
+    "node_type": "junction",
+    "name": "二年坂上"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7808,
+     34.9975
+    ]
+   },
+   "properties": {
+    "node_id": "N008",
+    "node_type": "junction",
+    "name": "産寧坂下"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7815,
+     34.9968
+    ]
+   },
+   "properties": {
+    "node_id": "N009",
+    "node_type": "junction",
+    "name": "産寧坂上"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7838,
+     34.9955
+    ]
+   },
+   "properties": {
+    "node_id": "N010",
+    "node_type": "origin",
+    "name": "清水坂・門前"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.777,
+     34.996
+    ]
+   },
+   "properties": {
+    "node_id": "N011",
+    "node_type": "junction",
+    "name": "東大路（五条坂下）"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7755,
+     34.9948
+    ]
+   },
+   "properties": {
+    "node_id": "PZ02",
+    "node_type": "plaza",
+    "name": "第二広場（学校グラウンド想定）"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.784,
+     34.9952
+    ]
+   },
+   "properties": {
+    "node_id": "P101",
+    "node_type": "poi",
+    "name": "清水寺門前"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7812,
+     35.0006
+    ]
+   },
+   "properties": {
+    "node_id": "P102",
+    "node_type": "poi",
+    "name": "高台寺"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.7799,
+     34.9992
+    ]
+   },
+   "properties": {
+    "node_id": "P103",
+    "node_type": "poi",
+    "name": "公衆トイレ（二年坂）"
+   }
+  }
+ ]
+}

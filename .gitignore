@@ -1,0 +1,47 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local configuration
+.env
+config/paths.local.toml
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+~$*
+*conflicted copy*
+
+# Raw and large GIS data（原本はDropbox側。stagingは小さな抜粋のみコミット可）
+inputs/raw/
+data/raw/
+*.las
+*.laz
+*.e57
+*.pcd
+*.ply
+*.tif
+*.tiff
+*.gml
+*.zip
+
+# GeoPackage temporary files
+*.gpkg-wal
+*.gpkg-shm
+
+# Original field media
+field/photos_original/
+field/videos_original/
+
+# Temporary outputs
+results/tmp/
+results/debug/
+
+# NOTE: results/all_runs.json と results/summary.md は仕様差分の確認用に
+# 当面Git管理する（.gitignoreに入れない）。安定後に外す判断はFable。

@@ -1,0 +1,4 @@
+profile_id,label,flat_speed_mps,stair_speed_mps,stairs_allowed,slope_speed_factor_per_pct,judgment_delay_sec,wayfinding_time_factor,wet_stone_speed_factor,source_type,source_reference
+general,一般歩行者,1.1,0.6,True,0.005,0,1.0,0.9,scenario,群衆歩行の上限側（要京都値確認）
+unfamiliar,土地不案内の観光客,1.0,0.5,True,0.005,60,1.2,0.85,assumption,判断遅延60秒＋迷い係数1.2（設計仮定・要校正）
+mobility_assisted_wc,移動制約（介助車いす・計算用v0）,0.9,0.3,False,0.03,0,1.0,0.6,literature_reference,雨の石畳の減速は設計仮定（スリップ回避の徐行）

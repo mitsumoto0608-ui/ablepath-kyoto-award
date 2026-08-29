@@ -1,0 +1,6 @@
+# これを config/paths.local.toml にコピーして自分のDropboxパスを設定する。
+# paths.local.toml はGit管理外（.gitignore済み）。コードにDropbox絶対パスを書かない。
+shared_root = "SET_YOUR_DROPBOX_PATH"                       # …/a行政ハッカソン
+raw_data_root = "SET_YOUR_DROPBOX_PATH/02_RAW_DATA"
+field_evidence_root = "SET_YOUR_DROPBOX_PATH/03_FIELD_EVIDENCE"
+release_root = "SET_YOUR_DROPBOX_PATH/05_RELEASES"

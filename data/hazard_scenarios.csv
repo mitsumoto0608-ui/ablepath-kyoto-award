@@ -1,0 +1,11 @@
+scenario_id,hazard_type,label,wet_surface,source
+NORMAL,none,平常時（晴）,False,-
+EQ_WEAK,earthquake,地震・閉塞弱,False,京都市第4次地震被害想定に基づく仮scenario（SYNTHETIC）
+EQ_MED,earthquake,地震・閉塞中,False,同上
+EQ_SEV,earthquake,地震・閉塞強,False,同上
+RAIN_L3,heavy_rain,大雨・警戒レベル3相当（雨天路面のみ）,True,気象警戒レベル×警戒区域の仮scenario（SYNTHETIC）
+RAIN_L4,heavy_rain,大雨・警戒レベル4相当（土砂警戒閉塞＋白川増水）,True,同上
+RAIN_L5,heavy_rain,大雨・警戒レベル5相当（浸水拡大）,True,同上
+EQF_T10,earthquake_fire,地震火災・出火後10分（EQ中閉塞＋出火点周辺）,False,被害想定＋延焼シミュ成果を固定フェーズ化する想定（SYNTHETIC）
+EQF_T30,earthquake_fire,地震火災・出火後30分（火面拡大）,False,同上
+EQF_T60,earthquake_fire,地震火災・出火後60分（延焼域拡大）,False,同上

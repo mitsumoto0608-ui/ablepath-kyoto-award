@@ -1,0 +1,3 @@
+plaza_id,name,capacity_nominal,status,entrance_node,fire_safe,source
+PZ01,円山公園（広場・広域避難場所想定——公式一覧で要確認）,3000,OFFICIAL_VERIFIED,PZ01,True,SYNTHETIC_PLACEHOLDER
+PZ02,第二広場（学校グラウンド想定・延焼時は不可の想定）,1500,OPERATION_UNKNOWN,PZ02,False,SYNTHETIC_PLACEHOLDER

@@ -1,0 +1,184 @@
+# 数値定数レジストリ v1.1（2026-08-29）
+# コードは数値を直書きせず constant_id を参照する。
+# class: EVIDENCE_PARAMETER（論文・法令由来）/ LOCAL_OFFICIAL_PARAMETER（京都市等の現地公式値）
+#        / DESIGN_ASSUMPTION（チーム設定値）/ COMPUTATIONAL_CONSTANT / FIXTURE_VALUE
+# evidence_status: A1-BIB / A1-CLAIM / A1-NUM / A1-EQ / A2（独立二重確認済み）
+#   注意：A1は「原文確認済み」の意味であり、研究の質や京都への移植可能性の等級ではない。
+# transfer_status: DIRECT / ADAPT（京都向け再較正前提） / STRUCTURE_ONLY（式・構造のみ） / PRESENTATION_ONLY / REJECT
+# 2026-08-29: 下記A2印は独立Opus監査で原本ページ再確認済み（監査ログは査読論文A1検証台帳§12）
+
+- constant_id: MOYA_DEBRIS_SLOPE
+  value: 0.31
+  unit: m_per_m_height
+  class: EVIDENCE_PARAMETER
+  source: "Moya et al. 2020, EQ Spectra 36(1), Eq.2 (p.222; 原文記号はμ_h)"
+  evidence_status: A2
+  transfer_status: ADAPT   # 益城の戸建て木造較正。京町家は再較正まで設計仮定
+  allowed_modules: [M7]
+  notes: "n=738はD>0の部分標本（全1,099棟）。Eq.7（0瓦礫確率）と併用しないと過大評価。較正では隣接建物により拡散が妨げられた建物を除外——連担京町家への移植の重要な条件差。damage_state/debris_present/debris_extentを分けてモデル化する"
+- constant_id: MOYA_DEBRIS_INTERCEPT_M
+  value: 1.10
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "同上 Eq.2"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M7]
+- constant_id: MOYA_DEBRIS_SIGMA_M
+  value: 1.11
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "同上 Eq.3 (p.222)"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M7]
+  notes: "mean+1σは『sensitivity_high_case』と呼ぶ。分布形・相当パーセンタイルの確認タスクが未了のため『悲観』と呼ばない"
+- constant_id: MOYA_ZERO_DEBRIS_COEF
+  value: 1.5
+  unit: dimensionless
+  class: EVIDENCE_PARAMETER
+  source: "同上 Eq.7: P[D=0|h,collapse]=1.5·exp(−0.43h) (p.222)"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M7]
+- constant_id: MOYA_ZERO_DEBRIS_DECAY
+  value: 0.43
+  unit: per_m
+  class: EVIDENCE_PARAMETER
+  source: "同上 Eq.7（負号は画像で確認。テキスト抽出は負号脱落）"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M7]
+
+- constant_id: ZHANG_RESIDUAL_WIDTH_FORM
+  value: "W = max(n·d − A − B − C − D, 0)"
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "Zhang et al. 2024, IJDRS 15, Eq.7 (p.943)。n=車線数, d=車線幅, A=建物瓦礫(=L−S), B=高架瓦礫, C=落下物リスク, D=対向側瓦礫"
+  evidence_status: A2
+  transfer_status: STRUCTURE_ONLY
+  allowed_modules: [M7]
+- constant_id: COSTA_BLOCKAGE_RULE
+  value: "瓦礫幅 ≥ セットバック + 道路幅/2 で影響。多車線は1車線のみ喪失"
+  class: EVIDENCE_PARAMETER
+  source: "Costa et al. 2020, EESD 49 (p.1247)"
+  evidence_status: A2
+  transfer_status: STRUCTURE_ONLY
+  allowed_modules: [M7]
+- constant_id: COSTA_COLLAPSE_FRACTION
+  value: 0.20
+  unit: fraction
+  class: EVIDENCE_PARAMETER
+  source: "Costa et al. 2020 (p.1245)：complete damage(D4/D5)のうち実倒壊は平均20%（伊被害DB）"
+  evidence_status: A2
+  transfer_status: PRESENTATION_ONLY   # 伊建物ストック由来。京都のscenario較正の参考値
+  allowed_modules: [M7]
+- constant_id: TOMA_DEBRIS_FLOORS_FACTOR
+  value: 0.6667
+  unit: m_per_floor
+  class: EVIDENCE_PARAMETER
+  source: "Toma-Danila et al. 2020, NHESS 20, Eq.1/Table 1 (p.1428)：Debris area(m)=(2/3)·階数（Moroux et al. 2004由来）"
+  evidence_status: A2
+  transfer_status: PRESENTATION_ONLY   # Moya式と競合。比較・感度用のみ
+  allowed_modules: [M7]
+  notes: "テキスト抽出では(2/3)が『23』に化ける。原文ラベルは『Debris area (m)』。同論文のMC 20回はブカレスト事例で安定化確認済みの値であり一般則ではない——京都で使うなら安定化を自前で確認"
+
+- constant_id: WIDTH_REQ_WHEELCHAIR_M
+  value: 0.90
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "伊 DM236/1989（Treccani et al. 2022 p.497で確認）。参考レンジ：ISO21542=0.80(A0)/香港1.05(Meng p.12)/ADAAG0.92(Wheeler p.8-9)"
+  evidence_status: A2
+  transfer_status: ADAPT   # 日本の道路移動等円滑化基準の原文A1化までの暫定。適合表示には使わない
+  allowed_modules: [M6]
+- constant_id: MENG_WHEELABILITY_WIDTH_ZERO_M
+  value: 1.05
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "Meng et al. 2025 (p.12)：幅<1.05m→ω_w=0（HKArchSD 2004由来）"
+  evidence_status: A2
+  transfer_status: PRESENTATION_ONLY
+  allowed_modules: [M6]
+- constant_id: MENG_WHEELABILITY_WIDTH_FULL_M
+  value: 1.5
+  unit: m
+  class: EVIDENCE_PARAMETER
+  source: "同上：幅>1.5m→ω_w=1"
+  evidence_status: A2
+  transfer_status: PRESENTATION_ONLY
+  allowed_modules: [M6]
+
+- constant_id: OHTSU_SPEED_TABLE_MS
+  value:
+    steep_12_99pct: {rollator: 0.77, transport_chair: 0.85, wheelchair: 0.92}
+    gentle_6_77pct: {rollator: 0.91, transport_chair: 1.14, wheelchair: 1.28}
+    flat:           {rollator: 1.18, transport_chair: 1.58, wheelchair: 1.87}
+    flat_straight:  {rollator: 1.49, transport_chair: 1.79, wheelchair: 2.05}
+    flat_curved:    {rollator: 1.01, transport_chair: 1.42, wheelchair: 1.70}
+  unit: m_per_s
+  class: EVIDENCE_PARAMETER
+  source: "Ohtsu et al. 2020, JAR 3(2) §3.1 (p.224)・Table 2 (p.220)。介助者が押す速度。担架・リヤカーは対象外"
+  evidence_status: A2
+  transfer_status: ADAPT   # 神戸・理想化条件（障害物・群集なし・若い介助者・降雨なし）。混雑・悪路は別係数
+  allowed_modules: [M6]
+  allowed_profiles: [ASSISTED]   # 自走車いす・電動・高齢介助者へ転用しない
+  notes: "急勾配では機種間有意差なし(p.224)。『急坂は車いすが速い』という最適化をしない。UI表示『Ohtsu実験条件を参照した介助移動profile v0・京都未較正』"
+- constant_id: OHTSU_DIRECTION_CHANGE_STOPS
+  value: {rollator: 68, transport_chair: 25, wheelchair: 2}
+  unit: count
+  class: EVIDENCE_PARAMETER
+  source: "Ohtsu et al. 2020, Table 6『Changing direction』行 (p.226)。総停止数は77:32:5（混同注意——2026-08-29の独立監査で77:25:2の誤記を訂正）"
+  evidence_status: A2
+  transfer_status: PRESENTATION_ONLY   # 屈曲ペナルティの方向性の根拠。係数化は現地実測後
+  allowed_modules: [M6]
+
+- constant_id: ISKANDAR_PLAZA_AREA_PER_PERSON_M2
+  value: 2.0
+  unit: m2_per_person
+  class: EVIDENCE_PARAMETER
+  source: "Iskandar et al. 2023, SIMULATION 100(4) (p.365)"
+  evidence_status: A2
+  transfer_status: ADAPT   # 京都の公式容量が得られたら置換
+  allowed_modules: [M10]
+- constant_id: ISKANDAR_DEBRIS_LOW_SPEED_FACTOR
+  value: 0.5
+  unit: fraction
+  class: EVIDENCE_PARAMETER
+  source: "同上：瓦礫高≤1m→速度50%減 (p.365)"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M10]
+- constant_id: ISKANDAR_DEBRIS_HIGH_SPEED_MS
+  value: 0.16
+  unit: m_per_s
+  class: EVIDENCE_PARAMETER
+  source: "同上：瓦礫高>1m→0.16 m/s"
+  evidence_status: A2
+  transfer_status: ADAPT
+  allowed_modules: [M10]
+
+- constant_id: YOKOYA_AGREEMENT_MAX
+  value: 0.788
+  unit: fraction
+  class: EVIDENCE_PARAMETER
+  source: "横屋ほか2024 要約(p.1)：道路区間全長に対し最大78.8%一致"
+  evidence_status: A1-NUM
+  transfer_status: PRESENTATION_ONLY   # 「個別予言をしない」根拠として引用のみ。計算定数ではない
+  allowed_modules: [docs]
+
+# ---- DESIGN_ASSUMPTION（論文由来ではないチーム設定値。README注記とセットで使う）----
+- constant_id: WAYFINDING_TIME_FACTOR
+  value: 1.2
+  class: DESIGN_ASSUMPTION
+  notes: "土地不案内の迷い係数。AWARD期にturn属性で置換"
+- constant_id: JUDGMENT_DELAY_S
+  value: 60
+  class: DESIGN_ASSUMPTION
+- constant_id: WET_STONE_SPEED_FACTOR_WC
+  value: 0.6
+  class: DESIGN_ASSUMPTION
+  notes: "雨天石畳の車いす徐行。乾湿同一区間の実測で置換予定"
+- constant_id: EVIDENCE_POLICY_V0
+  value: {field: 1.0, photo: 0.9, report: 0.5, expiry_h: 48}
+  class: DESIGN_ASSUMPTION
+  notes: "どの論文・標準にも由来しない製品仮定。行政運用者が調整可能"
