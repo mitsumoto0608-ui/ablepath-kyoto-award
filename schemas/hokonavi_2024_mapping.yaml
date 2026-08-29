@@ -1,0 +1,103 @@
+contract_id: HOKONAVI_2024_TO_ABLEPATH_V0
+contract_version: 0.1.0
+title: Hokonavi 2024 reference mapping contract for AblePath
+contract_status: DESIGN_CONTRACT_ONLY
+adapter_implemented: false
+source_specification:
+  title: "歩行空間ネットワークデータ整備仕様"
+  publisher: "国土交通省 政策統括官付"
+  version: "2024年7月"
+  publication_date: "2024-07"
+  official_url: "https://www.mlit.go.jp/sogoseisaku/soukou/content/001757259.pdf"
+  landing_page_url: "https://www.mlit.go.jp/sogoseisaku/soukou/sogoseisaku_soukou_tk_000056.html"
+  accessed_at: "2026-08-30"
+  newer_revision_found: false
+  newer_revision_check_scope: "公式掲載ページを2026-08-30に確認"
+  newer_revision_note: "確認時点の公式掲載ページには、2024年7月版より新しい歩行空間ネットワークデータ整備仕様へのリンクは掲載されていなかった。ページ外の不存在は主張しない。"
+reference_scope: "ほこナビ2024仕様を参照した対応契約"
+mapping_status_enum: [FULL, PARTIAL, SIDECAR_REQUIRED, UNMAPPED, NOT_APPLICABLE]
+mapping_summary:
+  field_count: 40
+  by_status: {FULL: 10, PARTIAL: 18, SIDECAR_REQUIRED: 10, UNMAPPED: 1, NOT_APPLICABLE: 1}
+  by_entity: {node: 8, link: 21, metadata: 2, sidecar: 9}
+crs:
+  source_name: JGD2011
+  coordinate_representation: decimal_degrees
+  axis_order_in_ablepath_geojson: [longitude, latitude]
+  source_section: "2.2"
+  source_document_pages: [4]
+  source_pdf_file_pages: [6]
+unknown_policy:
+  preserve_literal: UNKNOWN
+  source_unknown_code: 99
+  forbidden_coercions: [0, false, OPEN, PASS, safe]
+  unclassified_missing: UNKNOWN
+  semantic_blank_rules_required: true
+  policy_only_examples:
+    start_time: "table 3.2 no.19 example; not counted as a field mapping in this 40-mapping contract"
+in_out_codebook:
+  1: OUTDOOR
+  2: BOUNDARY
+  3: INDOOR
+direction_codebook:
+  1: BIDIRECTIONAL
+  2: FORWARD
+  3: REVERSE
+  99: UNKNOWN
+validation_contract:
+  reject: [duplicate_node_id, duplicate_link_id, node_link_id_collision, dangling_endpoint, mixed_or_unknown_entity]
+  auto_fix_forbidden: true
+width_separation:
+  static_field: clear_width_static_m
+  scenario_field: remaining_clear_width_m
+  overwrite_forbidden: true
+  example:
+    clear_width_static_m: 4.0
+    remaining_clear_width_m: 0.73
+information_loss_report: docs/data/HOKONAVI_2024_INFORMATION_LOSS.md
+fixture_root: tests/fixtures/hokonavi_2024
+
+mappings:
+  - {id: NODE_ID, entity: node, concept: stable_id, direction: BIDIRECTIONAL, hokonavi_fields: [node_id], ablepath_fields: [node_id], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.1; 3.3.4 no.1", document_pages: [33, 34], pdf_file_pages: [35, 36]}, adapter_action: preserve}
+  - {id: NODE_LAT, entity: node, concept: latitude, direction: BIDIRECTIONAL, hokonavi_fields: [lat], ablepath_fields: ["geometry.coordinates[1]"], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.2", document_pages: [33], pdf_file_pages: [35]}, adapter_action: convert_property_geometry}
+  - {id: NODE_LON, entity: node, concept: longitude, direction: BIDIRECTIONAL, hokonavi_fields: [lon], ablepath_fields: ["geometry.coordinates[0]"], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.3", document_pages: [33], pdf_file_pages: [35]}, adapter_action: convert_property_geometry}
+  - {id: NODE_GEOMETRY, entity: node, concept: geometry, direction: BIDIRECTIONAL, hokonavi_fields: [lat, lon], ablepath_fields: [geometry], status: FULL, source_role: SOURCE_FACT, source: {section: "3.4", document_pages: [37], pdf_file_pages: [39]}, adapter_action: encode_geojson_point}
+  - {id: NODE_LEVEL, entity: node, concept: level, direction: BIDIRECTIONAL, hokonavi_fields: [floor], ablepath_fields: [level], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.4; 3.3.4 no.2", document_pages: [33, 35], pdf_file_pages: [35, 37]}, adapter_action: preserve_with_domain_check, loss_id: LOSS-LEVEL-DOMAIN}
+  - {id: NODE_ELEVATION, entity: node, concept: elevation, direction: IMPORT_ONLY, hokonavi_fields: [elevation], ablepath_fields: [elevation_m], status: SIDECAR_REQUIRED, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.5", document_pages: [33], pdf_file_pages: [35]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-CORE-ABSENT}
+  - {id: NODE_TYPE, entity: node, concept: node_type, direction: BIDIRECTIONAL, hokonavi_fields: [in_out], ablepath_fields: [node_type, in_out_code], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.6", document_pages: [33], pdf_file_pages: [35]}, adapter_action: map_and_preserve_source_code, loss_id: LOSS-CODEBOOK-MISMATCH}
+  - {id: NODE_CONNECTED_LINKS, entity: node, concept: connector, direction: BIDIRECTIONAL, hokonavi_fields: ["link{1..99}_id"], ablepath_fields: [incident_edge_ids], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.7", document_pages: [33], pdf_file_pages: [35]}, adapter_action: collect_pattern_derive_and_validate, loss_id: LOSS-CONNECTIVITY-REPRESENTATION}
+
+  - {id: LINK_ID, entity: link, concept: stable_id, direction: BIDIRECTIONAL, hokonavi_fields: [link_id], ablepath_fields: [edge_id], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.1; 3.3.2 no.1", document_pages: [13, 16], pdf_file_pages: [15, 18]}, adapter_action: preserve}
+  - {id: LINK_FROM, entity: link, concept: from_node, direction: BIDIRECTIONAL, hokonavi_fields: [start_id], ablepath_fields: [from_node], status: FULL, source_role: SOURCE_FACT, source: {section: "3.2.2 endpoint orientation; 3.3.1 table 3.2 no.2", document_pages: [5, 13], pdf_file_pages: [7, 15]}, adapter_action: preserve_reference}
+  - {id: LINK_TO, entity: link, concept: to_node, direction: BIDIRECTIONAL, hokonavi_fields: [end_id], ablepath_fields: [to_node], status: FULL, source_role: SOURCE_FACT, source: {section: "3.2.2 endpoint orientation; 3.3.1 table 3.2 no.3", document_pages: [5, 13], pdf_file_pages: [7, 15]}, adapter_action: preserve_reference}
+  - {id: LINK_GEOMETRY, entity: link, concept: geometry, direction: BIDIRECTIONAL, hokonavi_fields: [geometry], ablepath_fields: [geometry], status: FULL, source_role: SOURCE_FACT, source: {section: "3.4", document_pages: [37], pdf_file_pages: [39]}, adapter_action: preserve_geojson_linestring}
+  - {id: LINK_DISTANCE, entity: link, concept: length, direction: BIDIRECTIONAL, hokonavi_fields: [distance], ablepath_fields: [length_m], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.4", document_pages: [13], pdf_file_pages: [15]}, adapter_action: preserve_metres}
+  - {id: LINK_DIRECTION, entity: link, concept: direction, direction: BIDIRECTIONAL, hokonavi_fields: [direction], ablepath_fields: [travel_direction], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.10; 3.3.2 no.10", document_pages: [13, 16], pdf_file_pages: [15, 18]}, adapter_action: map_code_or_unknown, loss_id: LOSS-ABLEPATH-CORE-ABSENT}
+  - {id: ROUTE_STRUCTURE, entity: link, concept: route_path_structure, direction: BIDIRECTIONAL, hokonavi_fields: [rt_struct], ablepath_fields: [route_structure, route_structure_code], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.8", document_pages: [13], pdf_file_pages: [15]}, adapter_action: map_and_preserve_source_code, loss_id: LOSS-CODEBOOK-MISMATCH}
+  - {id: ROUTE_TYPE, entity: link, concept: route_type, direction: BIDIRECTIONAL, hokonavi_fields: [route_type], ablepath_fields: [route_type, route_type_code], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.9", document_pages: [13], pdf_file_pages: [15]}, adapter_action: map_and_preserve_source_code, loss_id: LOSS-CODEBOOK-MISMATCH}
+  - {id: STATIC_WIDTH_CLASS, entity: link, concept: width, direction: IMPORT_ONLY, hokonavi_fields: [width], ablepath_fields: [clear_width_static_class], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.11; 3.3.2 no.11", document_pages: [13, 16], pdf_file_pages: [15, 18]}, adapter_action: preserve_class_not_midpoint, loss_id: LOSS-WIDTH-QUANTIZATION}
+  - {id: STATIC_WIDTH_VALUE, entity: link, concept: width, direction: BIDIRECTIONAL, hokonavi_fields: [w_min], ablepath_fields: [clear_width_static_m], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.25; 3.3.2 no.25", document_pages: [14, 17], pdf_file_pages: [16, 19]}, adapter_action: preserve_static_value, loss_id: LOSS-WIDTH-PRECISION}
+  - {id: LONGITUDINAL_SLOPE_CLASS, entity: link, concept: longitudinal_slope, direction: IMPORT_ONLY, hokonavi_fields: [vtcl_slope], ablepath_fields: [longitudinal_slope_class], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.12; 3.3.2 no.12", document_pages: [13, 17], pdf_file_pages: [15, 19]}, adapter_action: preserve_class_and_direction, loss_id: LOSS-SLOPE-QUANTIZATION}
+  - {id: LONGITUDINAL_SLOPE_VALUE, entity: link, concept: longitudinal_slope, direction: BIDIRECTIONAL, hokonavi_fields: [vSlope_max], ablepath_fields: [slope_estimate_percent], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.2 no.28", document_pages: [18], pdf_file_pages: [20]}, adapter_action: preserve_percent_with_precision_note, loss_id: LOSS-SLOPE-PRECISION}
+  - {id: STEP_CLASS, entity: link, concept: step, direction: IMPORT_ONLY, hokonavi_fields: [lev_diff], ablepath_fields: [step_class], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.13; 3.3.2 no.13", document_pages: [13, 17], pdf_file_pages: [15, 19]}, adapter_action: preserve_class_or_unknown, loss_id: LOSS-STEP-QUANTIZATION}
+  - {id: STEP_VALUE, entity: link, concept: step, direction: BIDIRECTIONAL, hokonavi_fields: [levDif_max], ablepath_fields: [step_height_cm], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.2 no.35", document_pages: [18], pdf_file_pages: [20]}, adapter_action: preserve_centimetres, loss_id: LOSS-STEP-PRECISION}
+  - {id: STAIRS, entity: link, concept: stairs, direction: BIDIRECTIONAL, hokonavi_fields: [route_type, stair], ablepath_fields: [stairs, stair_count], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.9 and no.38", document_pages: [13, 15], pdf_file_pages: [15, 17]}, adapter_action: require_consistent_pair, loss_id: LOSS-CONNECTOR-SEMANTICS}
+  - {id: RAMP, entity: link, concept: ramp, direction: BIDIRECTIONAL, hokonavi_fields: [route_type], ablepath_fields: [is_ramp], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.9", document_pages: [13], pdf_file_pages: [15]}, adapter_action: map_route_type_7, loss_id: LOSS-CONNECTOR-SEMANTICS}
+  - {id: ELEVATOR, entity: link, concept: elevator, direction: BIDIRECTIONAL, hokonavi_fields: [route_type, elevator], ablepath_fields: [is_elevator, elevator_accessibility], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.9 and no.17", document_pages: [13, 14], pdf_file_pages: [15, 16]}, adapter_action: require_consistent_pair, loss_id: LOSS-CONNECTOR-SEMANTICS}
+  - {id: ESCALATOR, entity: link, concept: connector, direction: IMPORT_ONLY, hokonavi_fields: [route_type, direction], ablepath_fields: [connector_type, travel_direction], status: SIDECAR_REQUIRED, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.9 and no.10", document_pages: [13], pdf_file_pages: [15]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-CORE-ABSENT}
+  - {id: RANK, entity: link, concept: accessibility_rank, direction: IMPORT_ONLY, hokonavi_fields: [rank], ablepath_fields: [hokonavi_rank], status: SIDECAR_REQUIRED, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.5; table 3.3", document_pages: [13, 21], pdf_file_pages: [15, 23]}, adapter_action: preserve_sidecar_not_profile_state, loss_id: LOSS-RANK-NOT-PROFILE}
+  - {id: SOURCE_METHOD, entity: link, concept: source_measurement_method, direction: BIDIRECTIONAL, hokonavi_fields: [r_method], ablepath_fields: [source_method.width, source_method.longitudinal_slope, source_method.step, source_sidecar.hokonavi_r_method_raw], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.6; 3.3.2 no.6 and method description", document_pages: [13, 16, 22], pdf_file_pages: [15, 18, 24]}, adapter_action: split_three_positions_and_preserve_raw, loss_id: LOSS-SOURCE-METHOD-GRANULARITY}
+  - {id: UPDATE_DATE, entity: link, concept: validity, direction: BIDIRECTIONAL, hokonavi_fields: [maint_date], ablepath_fields: [validity.observed_or_updated_at], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2 no.7", document_pages: [13], pdf_file_pages: [15]}, adapter_action: preserve_date_without_inventing_expiry, loss_id: LOSS-VALIDITY-SEMANTICS}
+
+  - {id: CRS_METADATA, entity: metadata, concept: crs, direction: BIDIRECTIONAL, hokonavi_fields: [JGD2011], ablepath_fields: [crs], status: FULL, source_role: SOURCE_FACT, source: {section: "2.2", document_pages: [4], pdf_file_pages: [6]}, adapter_action: declare_and_validate}
+  - {id: FACILITY_DATASET, entity: metadata, concept: facility_data, direction: NONE, hokonavi_fields: [], ablepath_fields: [plazas, pois], status: NOT_APPLICABLE, source_role: SOURCE_FACT, source: {section: "1.1 and 1.2", document_pages: [1, 2], pdf_file_pages: [3, 4]}, adapter_action: exclude_from_network_adapter, loss_id: LOSS-FACILITY-OUTSIDE-SCOPE}
+
+  - {id: M7_REMAINING_WIDTH, entity: sidecar, concept: scenario_width, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [remaining_clear_width_m], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/review/M7_IMPLEMENTATION_CONTRACT.md", section: "output schema"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar_never_overwrite_static, loss_id: LOSS-ABLEPATH-SCENARIO}
+  - {id: OBSERVATION, entity: sidecar, concept: observation, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [observation], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "observation/evidence"}, scope_exclusion: {source_role: SOURCE_FACT, section: "4 photo data is separate", document_pages: [38, 39], pdf_file_pages: [40, 41]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-EVIDENCE}
+  - {id: EVIDENCE, entity: sidecar, concept: evidence, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [evidence], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "observation/evidence"}, scope_exclusion: {source_role: SOURCE_FACT, section: "4 photo data is separate", document_pages: [38, 39], pdf_file_pages: [40, 41]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-EVIDENCE}
+  - {id: UNKNOWN_SEMANTICS, entity: sidecar, concept: unknown, direction: BIDIRECTIONAL, hokonavi_fields: [], policy_applies_to: "every declared source field whose codebook defines 99, semantic blank, or missing", ablepath_fields: [UNKNOWN], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2", document_pages: [13, 14, 15], pdf_file_pages: [15, 16, 17]}, adapter_action: preserve_unknown_kind_never_default, loss_id: LOSS-UNKNOWN-ENCODING}
+  - {id: PROFILE_STATE, entity: sidecar, concept: profile, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [profile_id, profile_state], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "profile states"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
+  - {id: SCENARIO_STATE, entity: sidecar, concept: scenario, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [scenario_id, edge_state], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "scenario/state"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
+  - {id: PROVENANCE, entity: sidecar, concept: provenance, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [provenance], status: UNMAPPED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "provenance"}, scope_exclusion: {source_role: SOURCE_FACT, section: "3.4", document_pages: [37], pdf_file_pages: [39]}, adapter_action: reject_or_preserve_external_sidecar, loss_id: LOSS-PROVENANCE-UNMAPPED}
+  - {id: BEFORE_AFTER, entity: sidecar, concept: before_after, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [intervention_phase], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "Before/After"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
+  - {id: OPERATION_STATUS, entity: sidecar, concept: operation_status, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [official_closure, hazard_data_status], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "operation status"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
