@@ -136,6 +136,8 @@ def test_plateau_and_model_readiness_are_truthful() -> None:
         "M6_CONNECTED": False,
         "KPI_CONNECTED": False,
         "ADMIN_VALIDATED": False,
+        "REAL_GEOMETRY_CONNECTED_SCOPE": "CITYPACK_VALIDATED_ARTIFACT_CAPABILITY",
+        "REAL_GEOMETRY_CONNECTED_TO_VIEWER": False,
     }
 
 

@@ -19,11 +19,16 @@ closed by a human.
 - MapLibre is not connected and the SVG remains a synthetic schematic;
 - Cesium/PLATEAU 3D is not connected;
 - M6 is `BLOCKED_CONTRACT` / `NOT_COMPUTED`;
-- city real-data and official-hazard packages still require exact source,
-  license, geometry, and Hosted CI review at final integration;
+- Kiyomizu OSM real artifacts are hash-bound, but ODbL attribution/share-alike
+  still requires human approval; Arashiyama/Fujisawa real artifacts are not
+  integrated in this reviewed checkpoint;
+- the Kiyomizu official-hazard preview is quarantined with its raw source ZIP
+  outside the versioned trust root and is ineligible for analysis/model/viewer;
 - no administrative field validation has occurred;
-- final integration tests, deterministic RC hashes, trust-boundary scan, and
-  draft PR Hosted CI have not yet completed.
+- reviewed checkpoint `048c03a35b4261b77b42b872e393fe34f4c59c4f`
+  passed draft PR #2 Hosted run `33318099447`, but the truth-sync feature HEAD
+  and its deterministic RC still require their own final verification and
+  human review before PR #2 is updated.
 
 ## Release invariants
 

@@ -1,19 +1,28 @@
 {
   "accessed_at": "2026-08-30",
+  "analysis_eligible": false,
   "axis_order": "longitude_latitude",
+  "capability_status": "NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT",
   "city_id": "kyoto_kiyomizu",
   "connection_reason": "The citywide official ZIP is intentionally outside Git; v2 cannot bind contained raw bytes",
   "connection_status": "NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT",
+  "data_class": "REAL",
+  "data_class_scope": "SOURCE_GEOMETRY_NATURE_ONLY_NOT_CAPABILITY_ELIGIBILITY",
+  "data_class_semantics": "REAL describes source geometry nature only; it does not grant validated capability eligibility",
+  "edge_state_effect": "NONE",
   "external_raw_location": "REPOSITORY_EXTERNAL_PATH_NOT_VERSIONED",
   "feature_count": 16,
+  "geometry_status": "SOURCE_TRACEABLE_REAL_PREVIEW",
   "horizontal_unit": "degree",
   "license": "Kyoto City Disaster Prevention Information Map GIS reuse terms",
   "license_terms_url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html",
+  "model_eligible": false,
   "official_closure": null,
   "official_closure_reason": "Zone overlap is not an operation record",
   "output_crs": "EPSG:4326",
   "preview_sha256": "c9cea5f7b874e829c53c3df40c6479a8aa8869607f2928b5ed436b4113c9ad6f",
   "processing_crs": "EPSG:6668",
+  "quarantine_scope": "ALL_FEATURES_IN_COMPANION_PREVIEW",
   "redistribution_status": "PERMITTED_WITH_ATTRIBUTION_AGENT_REVIEWED_HUMAN_PENDING",
   "required_attribution": "出典：京都市防災情報マップ",
   "schema_version": "2.0.0-preview",
@@ -46,6 +55,7 @@
       ".shx": "070aad04c06004752efc26f671d99547b901f84df6f75b1e72d67cb736c38132"
     }
   },
+  "source_class": "OFFICIAL",
   "source_crs": "EPSG:6668",
   "source_id": "kyoto_city_hazard_map_landslide_20260830",
   "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload",
@@ -55,6 +65,8 @@
     "Transformed JGD2011 EPSG:6668 to EPSG:4326 using PROJ always_xy",
     "Did not clip polygon boundaries and did not infer operational closure"
   ],
+  "trust_status": "HASH_REFERENCED_RAW_NOT_IN_TRUST_ROOT",
   "vertical_datum": null,
-  "vertical_datum_reason": "2D polygon dataset"
+  "vertical_datum_reason": "2D polygon dataset",
+  "viewer_eligible": false
 }

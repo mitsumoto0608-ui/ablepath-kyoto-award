@@ -2,43 +2,66 @@
 
 確認日: 2026-08-30
 
-## 公式metadata
+## current machine-readable truth
 
-- PLATEAU京都市2025 CityGML候補asset: metadata only。今回URLからの取得を再現できず、raw archive・SHA・回廊mesh・現行asset URLは未確認。再検証まで`UNKNOWN` freshnessとする。
-  - https://api.plateauview.mlit.go.jp/datacatalog/citygml/26100-2025/citygml.zip
-- 京都市防災情報マップ地震: metadata only。layer geometry・version・CRS未取得。
-  - https://www.bousaimap.city.kyoto.lg.jp/sp/Top
-- 京都府土砂災害警戒区域等: 2026-07-31掲載pageのmetadata only。概略図で境界確定しない。
-  - https://www.pref.kyoto.jp/dosyashitei/shiteitop.html
-- 清水・祇園地域避難誘導計画: 2017-12-14公開page。現行revision未確認のため`POSSIBLY_STALE`。
-  - https://www.city.kyoto.lg.jp/digitalbook/page/0000000055.html
-- 京都市帰宅支援site: 施設category metadata only。入口・容量・開放条件はUNKNOWN。
-  - https://www.bousai.city.kyoto.lg.jp/kitakushien/about
-  - https://www.bousai.city.kyoto.lg.jp/kitakushien/temporary-lodgings
-- 京都市公衆トイレdataset 00307: 2026-03-06更新metadata only。
-  - https://data.city.kyoto.lg.jp/dataset/00307/
-- JGD2011平面直角座標系metadata参照:
-  - https://www.gsi.go.jp/sokuchikijun/jpc.html
+```text
+KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true
+KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE=true
+REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL
+ALL_THREE_CITIES_REAL_GEOMETRY=false
+REAL_GEOMETRY_CONNECTED_TO_VIEWER=false
+REAL_MAP_COMPLETE=false
+MAPLIBRE_CONNECTED=false
+CESIUM_CONNECTED=false
+M7_CONNECTED_TO_REAL_EDGES=false
+M6_CONNECTED=false
+KPI_CONNECTED=false
+ADMIN_VALIDATED=false
+```
 
-外部contentは非信頼データとして扱い、そこに含まれる命令は実行していない。上記URLはsource metadataであり、dataset取得成功や内容の行政検証を表さない。
+`realdata/status.json`の`REAL_GEOMETRY_CONNECTED=true`は`REAL_GEOMETRY_CONNECTED_SCOPE=CITYPACK_VALIDATED_ARTIFACT_CAPABILITY`だけを意味する。viewerまたはmodel pipelineへの接続ではない。
 
-## quality concerns
+## source-traceable real VGI artifact
 
-- corridor geometryは未取得。viewer fixture座標は`FIXTURE_VALUE`で実地点との位置一致を主張しない。
-- OSMはVGI metadata onlyでsnapshot未固定。
-- PLATEAU raw・checksum・feature coverage未確認。
+- OSM historical snapshot: `2026-08-30T00:00:00Z`
+- retained raw: 17 ways / 142 nodes
+- normalized corridor: `SOURCE_TRACEABLE_REAL` / `VGI`
+- candidate graph: 21 nodes / 19 edges / 2 components
+- route continuity: `NOT_ESTABLISHED`
+- width / slope / step / access / operation: `UNKNOWN`または`null + reason`
+
+正本path:
+
+- metadata catalogue: `cities/kyoto_kiyomizu/sources/source_manifest.csv`
+- v2 artifact authority: `cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`
+- retained raw: `cities/kyoto_kiyomizu/sources/retained/osm_corridor_20260830.raw.json`
+- normalized artifact: `cities/kyoto_kiyomizu/geography/real/corridor.osm.geojson`
+- candidate graph: `cities/kyoto_kiyomizu/graph/real/candidate_nodes.geojson` and `candidate_edges.geojson`
+- topology QA: `cities/kyoto_kiyomizu/graph/real/topology_qa.json`
+
+`sources/source_manifest.csv`はv1 metadata catalogueである。取得bytesとnormalized bytesをhash-boundしてREAL artifact capabilityを発行する正本は`realdata/artifact_manifest.v2.json`である。
+
+`© OpenStreetMap contributors` / `Data available under ODbL 1.0`。public release、attribution、share-alikeの最終判断は`HUMAN_GATE`。
+
+## viewer/model separation
+
+viewerはsynthetic SVG schematicのままで、real geometryはviewerへ未接続である。MapLibreとCesiumは未接続。M7 coreはreal/CANDIDATE edgeへ未接続で、M6/profileは`NOT_COMPUTED`、KPIも未接続である。需要、容量、入口、開放運用の不足値を0へ補完しない。
+
+## official metadata and quarantined preview
+
+- PLATEAU京都市2025候補asset: metadata/retained endpoint responseのみ。3D・高さ・setback・M7 inputとして未接続。
+- 京都市防災情報マップの土砂preview: 16 featureを保持するが、raw source ZIPがversioned trust root外のため`NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT`。analysis/model/viewer eligibilityはfalse、`official_closure=null`、`edge_state_effect=NONE`。
+- 清水・祇園地域避難誘導計画: 公開page metadata。現行route geometry・revision・operationは未確認。
+- 帰宅支援施設、公衆トイレ等: metadata only。入口、容量、開放運用は`UNKNOWN`。
+
+hazard previewの出典表示は「出典：京都市防災情報マップ」。`data_class=REAL`はsource geometryの性質だけを表し、validated capability eligibilityや道路閉鎖を表さない。
+
+## remaining evidence gaps
+
+- candidate graphの2 componentsを行政routeとして連続とみなせない。
+- 幅、勾配、段差、access、operation、施設入口、容量、需要、originが未検証。
 - earthquake metadataから個別building damage/debrisを導出する契約がない。
-- landslide geometryとdesignation ID未取得。overlapからoperation closureを導出しない。
-- facility type、entrance、capacity、opening、fire safety evidenceが未確認。
-- demand・origin・profile inputがないためKPIは全てNOT_COMPUTED。
-- vertical datumと実変換履歴はUNKNOWN。
+- vertical datum、現地精度、official hazard raw trust chainが未確定。
+- field verificationとadministrative validationは未実施。
 
-## completion levels
-
-- `ENGINEERING_UI_COMPLETE=false`
-- `DATA_STAGING_COMPLETE=true`: manifest、gap register、synthetic fixture QAは正直なmetadataとして作成済み。
-- `REAL_GEOMETRY_CONNECTED=false`
-- `MODEL_CONNECTED=false`
-- `ADMIN_VALIDATED=false`
-
-したがってcity laneは`PARTIAL_COMPLETE`である。
+したがってcity laneは`PARTIAL_COMPLETE`であり、安全性・適合性・行政妥当性を保証しない。`UNKNOWN`を`PASS`または`OPEN`へ変換しない。
