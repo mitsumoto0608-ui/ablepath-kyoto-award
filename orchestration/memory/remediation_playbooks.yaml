@@ -166,3 +166,19 @@ playbooks:
     protected_boundaries: [runner_semantics, deterministic_hash, main, tags]
     confidence: HIGH
     human_approved: false
+  - playbook_id: authorized-playwright-child-lifecycle-v1
+    trigger: Playwright emits complete passing results but its sandboxed Windows web-server child lifecycle does not terminate
+    actions:
+      - "OBSERVE: capture the complete Playwright result and bound the post-result wait"
+      - "FINGERPRINT: separate child-process exit stall from a test assertion or application failure"
+      - "LESSON search: inspect prior Windows post-result and web-server lifecycle records"
+      - "DIAGNOSE: verify every project result is present and no assertion or server-start error occurred"
+      - "CHECKPOINT: preserve repository state and stop only the stalled command"
+      - "REPAIR: rerun the exact command with permission to manage the Playwright web-server child process"
+      - "TARGETED TEST: confirm the 320px desktop and mobile assertions pass unchanged"
+      - "FULL TEST: confirm the complete E2E suite exits zero with 17 passed and 1 intentional skip"
+      - "REFLECT: confirm no viewport, assertion, skip, dependency, or application change masked the environment fault"
+      - "MEMORY update: retain the environment fingerprint and bounded authorized rerun"
+    protected_boundaries: [test_truth, responsive_layout, dependencies, repository_state]
+    confidence: HIGH
+    human_approved: false
