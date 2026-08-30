@@ -1,8 +1,25 @@
 # PHASE3 MAP UI lane status
 
-- `LANE_STATUS=GREEN`
-- `INTEGRATION_RECOMMENDATION=INTEGRATE`
-- `PUSH_STATUS=BLOCKED_EXPLICIT_ORIGIN_APPROVAL`
+```text
+LANE_ID=MAP
+LANE_STATUS=GREEN
+BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
+HEAD_SHA=bbd6fc989a4ab65e6694d449ad9da32c0416922a
+HEAD_SHA_SCOPE=PRE_ADDENDUM_REPORT_COMMIT; REPORT_BEARING_HEAD_IS_BRANCH_REF
+ALLOWED_PATHS_AUDIT=PASS
+WORKING_TREE_CLEAN=PENDING_CLEAN_VERIFICATION_WORKTREE
+FEATURE_BRANCH_PUSHED=false
+HOSTED_CI=NOT_RUN
+HOSTED_RUN_URL=null
+INTEGRATION_RECOMMENDATION=INTEGRATE
+PUSH_STATUS=AUTHORIZED_BY_COMPLETION_ADDENDUM_PENDING
+HUMAN_GATES=["OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
+```
+
+Git commitは自分自身のSHAをblob内へ保持できないため、`HEAD_SHA`はaddendum適用直前の
+実装・監査済みcheckpointを示す。reportを含む最終headは
+`refs/heads/codex/phase3-map-ui-v1`から解決する。
+
 - branch: `codex/phase3-map-ui-v1`
 - base: `372ce8ec37dcc2a263bd6ae28e565f9c03ed9673`
 - lane: `MAP`
@@ -74,6 +91,50 @@ mutation checksは、artifact/copy/topology/manifest/PLATEAU hash変異、
 `CANDIDATE_REVIEW_REQUIRED→VERIFIED`、`NOT_ESTABLISHED→ESTABLISHED`、
 `PLATEAU_3D_CONNECTED false→true`、UNKNOWN以外のedge、座標軸swap、
 dependency range/CDN import、子tile/render failure listener削除、2D fallback/URL保持削除で落ちる。
+
+## Exact changed files
+
+`BASE_SHA..HEAD_SHA`のMAP allowed-path差分は次の21ファイル。都市data、計算engine、
+constants registry、README、DESIGN、main/tagは含まない。
+
+```text
+reports/PHASE3_MAP_UI_STATUS.md
+tests/ui/dependencies.test.mjs
+tests/ui/map_layers.test.mjs
+viewer/DEPENDENCY_LICENSES.md
+viewer/package-lock.json
+viewer/package.json
+viewer/public/data/maps/kyoto_kiyomizu.candidate_edges.geojson
+viewer/public/data/maps/map-layers.json
+viewer/scripts/build-map-artifacts.mjs
+viewer/scripts/smoke-plateau-url.mjs
+viewer/src/App.jsx
+viewer/src/CesiumPanel.jsx
+viewer/src/CesiumScene.jsx
+viewer/src/MapLibreMap.jsx
+viewer/src/domain.mjs
+viewer/src/main.jsx
+viewer/src/mapAsync.mjs
+viewer/src/mapDomain.mjs
+viewer/src/styles.css
+viewer/tests/viewer.spec.mjs
+viewer/vite.config.js
+```
+
+## Completion integrity audit
+
+- `ALLOWED_PATHS_AUDIT=PASS`: 差分は上記21ファイルだけ。
+- `SOURCE_CLASS_LICENSE_UNKNOWN_TRUTH=PASS`: OSMは`VGI / REAL geometry / ODbL 1.0`、
+  PLATEAUは`OFFICIAL_METADATA_ONLY / PDL1.0`。candidate edgeのaccessibility・operationは全件`UNKNOWN`。
+- `ALLOCATE_SHA256=2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b`。
+- `RUNNER_SHA256_PASS1=96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1`。
+- `RUNNER_SHA256_PASS2=96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1`。
+- `REFERENCE_983476E_UNCHANGED=PASS`: object `983476e323f1bd03005cc9ac6466e32d6f102aea`は解決可能。
+  同commitが変更した`.gitattributes`に本laneの差分はない。指定baseのancestryには同commitを取り込んでいないため、
+  cherry-pick・rewrite・内容変更をしていない。
+- `MAIN_UNCHANGED=PASS`: local `main=112dbe9047d803528ee50dab284f6570de937583`。
+- `TAG_UNCHANGED=PASS`: tag作成・更新・pushなし。
+  observed `v0.2.0-baseline=0c3289b9174bf624c95faeaa3c1643664e31c2eb`。
 
 ## Independent review
 
