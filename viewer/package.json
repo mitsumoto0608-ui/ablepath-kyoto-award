@@ -4,14 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:data": "node scripts/build-map-artifacts.mjs",
+    "prebuild": "npm run build:data",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
+    "smoke:plateau": "node scripts/smoke-plateau-url.mjs",
     "test": "node --test ../tests/ui/*.test.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.1.1",
+    "cesium": "1.144.0",
+    "maplibre-gl": "6.6.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "vite": "8.2.2"

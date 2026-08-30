@@ -1,10 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   formatKpi,
   loadCatalog,
   selectInitialState,
   serializeState,
 } from "./domain.mjs";
+import { CesiumPanel } from "./CesiumPanel.jsx";
+import { MapLibreMap } from "./MapLibreMap.jsx";
+import {
+  loadMapCatalog,
+  mapConfigForCity,
+  selectInitialMapMode,
+} from "./mapDomain.mjs";
 
 const KPI_LABELS = {
   physically_reachable: "物理的に到達可能",
@@ -47,17 +54,21 @@ function Header({ city, catalog }) {
   );
 }
 
-function Controls({ catalog, state, onStateChange }) {
-  const { city, scenario, evidenceMode, phase, view } = state;
+function Controls({ catalog, mapCatalog, state, onStateChange }) {
+  const { city, scenario, evidenceMode, phase, view, mapMode } = state;
   function changeCity(cityId) {
     const nextCity = catalog.cities.find((candidate) => candidate.city_id === cityId);
+    const nextMapConfig = mapConfigForCity(mapCatalog, cityId);
     onStateChange({
       ...state,
       city: nextCity,
       scenario: nextCity.scenarios[0],
       selectedEdge: nextCity.map.edges[0] ?? null,
+      selectedRealEdgeId: null,
+      mapMode: nextMapConfig?.real_2d ? "real" : "synthetic",
     }, `${nextCity.display_name}へ切り替えました`);
   }
+  const realMapAvailable = Boolean(mapConfigForCity(mapCatalog, city.city_id)?.real_2d);
   return (
     <section className="controls" aria-labelledby="controls-title">
       <div className="section-heading">
@@ -114,6 +125,14 @@ function Controls({ catalog, state, onStateChange }) {
         <button type="button" aria-pressed={view === "2d"} onClick={() => onStateChange({ ...state, view: "2d" }, "2D表示へ切り替えました")}>2D</button>
         <button type="button" aria-pressed={view === "3d"} onClick={() => onStateChange({ ...state, view: "3d" }, "3D可用性情報を表示しました")}>3D</button>
       </div>
+      <fieldset className="map-mode-fieldset">
+        <legend>2D geometry layer</legend>
+        <div className="view-tabs" role="group" aria-label="実データと合成データの表示切替">
+          <button type="button" aria-pressed={mapMode === "real"} disabled={!realMapAvailable} onClick={() => onStateChange({ ...state, view: "2d", mapMode: "real" }, "実座標候補graphへ切り替えました")}>実座標 / CANDIDATE</button>
+          <button type="button" aria-pressed={mapMode === "synthetic"} onClick={() => onStateChange({ ...state, view: "2d", mapMode: "synthetic" }, "合成模式図へ切り替えました")}>SYNTHETIC_DEMO</button>
+        </div>
+        {!realMapAvailable && <p>この都市にhash検証済み実座標artifactはありません。合成模式図を明示表示します。</p>}
+      </fieldset>
     </section>
   );
 }
@@ -255,6 +274,31 @@ function EvidencePanel({ city, selectedEdge }) {
   );
 }
 
+function RealLayerPanel({ config }) {
+  return (
+    <aside className="evidence-panel real-layer-panel" aria-labelledby="real-layer-evidence-title">
+      <div className="section-heading">
+        <p className="eyebrow">LAYER-LEVEL PROVENANCE</p>
+        <h2 id="real-layer-evidence-title">実座標layerの証拠</h2>
+      </div>
+      <dl>
+        <div><dt>source ID</dt><dd><code>{config.source_id}</code></dd></div>
+        <div><dt>source class</dt><dd>{config.source_class}</dd></div>
+        <div><dt>data class</dt><dd>{config.data_class}</dd></div>
+        <div><dt>geometry</dt><dd>{config.geometry_status}</dd></div>
+        <div><dt>graph</dt><dd>{config.topology_status}</dd></div>
+        <div><dt>route continuity</dt><dd>{config.route_continuity}</dd></div>
+        <div><dt>snapshot</dt><dd>{config.snapshot_at}</dd></div>
+        <div><dt>edge count</dt><dd>{config.feature_count}</dd></div>
+        <div><dt>artifact SHA</dt><dd><code>{config.artifact_sha256}</code></dd></div>
+        <div><dt>corridor SHA</dt><dd><code>{config.corridor_sha256}</code></dd></div>
+        <div><dt>license</dt><dd>{config.license}</dd></div>
+      </dl>
+      <p className="model-caveat">座標bytesはsource-traceableです。ただし候補graphの連続性・通行可否・幅・運用・M6/M7/KPIは未確認または未計算です。</p>
+    </aside>
+  );
+}
+
 function EdgeTable({ city, selectedEdge, onSelectEdge }) {
   return (
     <section id="edge-table" className="edge-table-section" tabIndex="-1" aria-labelledby="edge-table-title">
@@ -323,18 +367,28 @@ function ErrorState({ message }) {
 
 export function App() {
   const [catalog, setCatalog] = useState(null);
+  const [mapCatalog, setMapCatalog] = useState(null);
   const [state, setState] = useState(null);
   const [error, setError] = useState("");
   const [announcement, setAnnouncement] = useState("起動中");
+  const [fallbackNotice, setFallbackNotice] = useState("");
 
   useEffect(() => {
     let active = true;
-    loadCatalog(fetch, "./data/cities.json", 5000)
-      .then((loaded) => {
+    Promise.all([
+      loadCatalog(fetch, "./data/cities.json", 5000),
+      loadMapCatalog(fetch, "./data/maps/map-layers.json", 5000),
+    ])
+      .then(([loaded, loadedMapCatalog]) => {
         if (!active) return;
+        const initial = selectInitialState(loaded, window.location.search);
         setCatalog(loaded);
-        setState(selectInitialState(loaded, window.location.search));
-        setAnnouncement("precomputed city dataを読み込みました");
+        setMapCatalog(loadedMapCatalog);
+        setState({
+          ...initial,
+          mapMode: selectInitialMapMode(loadedMapCatalog, initial.city.city_id, window.location.search),
+        });
+        setAnnouncement("precomputed city dataとhash検証済みmap catalogを読み込みました");
       })
       .catch((loadError) => active && setError(loadError.message));
     return () => { active = false; };
@@ -347,8 +401,20 @@ export function App() {
   }, [state]);
 
   const sourceCount = useMemo(() => state?.city.source_ids.length ?? 0, [state]);
+  const selectRealEdge = useCallback((edgeId) => {
+    setState((current) => current ? { ...current, selectedRealEdgeId: edgeId } : current);
+  }, []);
+  const announce = useCallback((message) => setAnnouncement(message), []);
+  const fallbackTo2d = useCallback((reason) => {
+    setState((current) => current ? { ...current, view: "2d" } : current);
+    setFallbackNotice(reason);
+    setAnnouncement(`${reason}。2D表示と証拠情報を継続します`);
+  }, []);
   if (error) return <ErrorState message={error} />;
-  if (!catalog || !state) return <Loading />;
+  if (!catalog || !mapCatalog || !state) return <Loading />;
+
+  const cityMapConfig = mapConfigForCity(mapCatalog, state.city.city_id);
+  const realMode = state.mapMode === "real" && Boolean(cityMapConfig?.real_2d);
 
   function updateState(nextState, message) {
     setState(nextState);
@@ -357,27 +423,38 @@ export function App() {
   function selectEdge(edge) {
     updateState({ ...state, selectedEdge: edge }, `${edge.edge_id}の証拠を表示しました`);
   }
-
   return (
     <div className="app-shell">
       <Header city={state.city} catalog={catalog} />
       <div className="disclaimer" role="note"><b>静的スナップショット比較</b><span>シナリオ結果であり、リアルタイムの安全保証・個別建物の倒壊予測・行政判断ではありません。</span></div>
+      {fallbackNotice && <div className="map-fallback-notice" role="status"><b>3Dから2Dへfallback</b><span>{fallbackNotice}。2D表示と証拠情報を継続します。</span></div>}
       <main id="main-content" tabIndex="-1">
         <section className="corridor-intro" aria-labelledby="corridor-title">
           <div><p className="eyebrow">{state.city.municipality} / SCENARIO OUTPUT NOT_COMPUTED</p><h2 id="corridor-title">{state.city.display_name}</h2><p>{state.city.corridor_name}</p></div>
-          <dl><div><dt>公式metadata</dt><dd>{state.city.official_metadata_status}</dd></div><div><dt>geometry</dt><dd>{state.city.map.geometry_status}</dd></div><div><dt>source IDs</dt><dd>{sourceCount}</dd></div></dl>
+          <dl><div><dt>公式metadata</dt><dd>{state.city.official_metadata_status}</dd></div><div><dt>表示geometry</dt><dd>{realMode ? cityMapConfig.real_2d.geometry_status : state.city.map.geometry_status}</dd></div><div><dt>layer</dt><dd>{realMode ? "REAL COORDINATES / CANDIDATE" : "SYNTHETIC_DEMO / SVG"}</dd></div><div><dt>{realMode ? "source ID" : "source IDs"}</dt><dd>{realMode ? <code>{cityMapConfig.real_2d.source_id}</code> : sourceCount}</dd></div></dl>
         </section>
-        <Controls catalog={catalog} state={state} onStateChange={updateState} />
+        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} />
         <KpiGrid city={state.city} />
         <div className="workspace-grid">
           <section className="map-column" role="region" aria-label={state.view === "2d" ? "2D地図" : "3D可用性"}>
-            {state.view === "2d" ? <Map2D city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} /> : <ThreeDNotice onReturn={() => updateState({ ...state, view: "2d" }, "2D表示へ戻りました")} />}
+            {state.view === "2d" ? (
+              realMode ? (
+                <MapLibreMap
+                  config={cityMapConfig.real_2d}
+                  selectedEdgeId={state.selectedRealEdgeId}
+                  onSelectEdge={selectRealEdge}
+                  onAnnouncement={announce}
+                />
+              ) : <Map2D city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />
+            ) : (
+              <CesiumPanel config={cityMapConfig?.cesium ?? null} onFallback={fallbackTo2d} onAnnouncement={announce} />
+            )}
           </section>
-          <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />
+          {realMode ? <RealLayerPanel config={cityMapConfig.real_2d} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
         </div>
-        <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />
+        {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
         <EvidenceTables city={state.city} />
-        <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture。</p></section>
+        <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>
       </main>
       <footer><span>AblePath engineering demo</span><span>Human review required before main merge</span></footer>
       <p className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</p>
