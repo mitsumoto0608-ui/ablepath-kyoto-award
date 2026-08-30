@@ -1,15 +1,37 @@
 # PHASE3 Arashiyama rescue v1
 
+## Common worker completion protocol
+
+```text
+LANE_ID=ARA
+LANE_STATUS=BLOCKED_PROVENANCE
+BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
+HEAD_SHA=002da2d36bd7cbc01a5d870c840409c559108652
+HEAD_SHA_SCOPE=RESCUED_ARTIFACT_COMMIT_BEFORE_COMPLETION_REPORT_ONLY_COMMITS
+ALLOWED_PATHS_AUDIT=PASS
+HOSTED_CI=NOT_RUN
+HOSTED_RUN_URL=null
+INTEGRATION_RECOMMENDATION=REPORT_ONLY
+HUMAN_GATES=[EXPLICIT_REMOTE_PUSH_APPROVAL,A31B_ARCHIVE_REVERIFICATION,OSM_TOPOLOGY_AND_FIELD_QA,LICENSE_AND_REDISTRIBUTION_REVIEW,FACILITY_AND_OPERATION_EVIDENCE,M6_M7_KPI_CONNECTION,ADMIN_VALIDATION]
+WORKTREE_CLEAN=PASS_AT_RECORDED_ARTIFACT_HEAD
+FEATURE_BRANCH_PUSH=NOT_RUN_EXPLICIT_APPROVAL_REQUIRED
+MAIN_CHANGED=false
+TAGS_CHANGED=false
+READ_ONLY_SOURCE_983476E_CHANGED=false
+```
+
+`HEAD_SHA` はcity artifact、test、lane reportの救出内容を固定したartifact commitを指す。この完了プロトコル自体を記録する後続のreport-only commitは自己参照を避けるため同値に含めず、branch tipはGit remoteで確認する。
+
 ```text
 TASK_ID=RECOVER-ARASHIYAMA-FROM-983476E-V1
 REVIEWED_BASE=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
 READ_ONLY_SOURCE=983476e323f1bd03005cc9ac6466e32d6f102aea
 BRANCH=task/phase3-arashiyama-rescue-v1
 WORKTREE=C:\dev\ablepath-arashiyama-rescue
-LANE_STATUS=BLOCKED_PROVENANCE
+LEGACY_TASK_LANE_STATUS=BLOCKED_PROVENANCE
 OSM_CANDIDATE_ARTIFACT_STATUS=GREEN_CITY_ARTIFACT
 HAZARD_PREVIEW_STATUS=PREPARED_NOT_CONNECTED
-INTEGRATION_RECOMMENDATION=REPORT_ONLY
+LEGACY_TASK_INTEGRATION_RECOMMENDATION=REPORT_ONLY
 PUSH_STATUS=BLOCKED_EXPLICIT_REMOTE_APPROVAL_REQUIRED
 PUSH_REMOTE=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award.git
 ```
@@ -38,6 +60,46 @@ A31b洪水previewは、原55 MB archiveがこのbranchのtrust root内になく�
 
 shared `src/`、`schemas/`、`viewer/`、`data/constants_registry.yaml`、凍結`src/allocate.py`は変更していない。
 
+### Exact changed file list (`BASE_SHA..HEAD_SHA`)
+
+```text
+cities/kyoto_arashiyama/.gitattributes
+cities/kyoto_arashiyama/README.md
+cities/kyoto_arashiyama/geography/corridor.real.geojson
+cities/kyoto_arashiyama/graph/graph_provenance.real.json
+cities/kyoto_arashiyama/graph/topology_qa.real.json
+cities/kyoto_arashiyama/graph/walk_edges.real.geojson
+cities/kyoto_arashiyama/graph/walk_nodes.real.geojson
+cities/kyoto_arashiyama/hazards/edge_hazard_overlap.real.csv
+cities/kyoto_arashiyama/hazards/edge_hazard_overlap.real.manifest.json
+cities/kyoto_arashiyama/hazards/flood_a31b_2025.prepared.geojson
+cities/kyoto_arashiyama/hazards/flood_a31b_2025.quarantine.json
+cities/kyoto_arashiyama/realdata_status.json
+cities/kyoto_arashiyama/sources/data_gap_register.csv
+cities/kyoto_arashiyama/sources/flood_a31b_2025.preparation.json
+cities/kyoto_arashiyama/sources/kyoto_inner_flood.metadata.json
+cities/kyoto_arashiyama/sources/optional_preparation_status.json
+cities/kyoto_arashiyama/sources/osm_arashiyama_20260829.overpassql
+cities/kyoto_arashiyama/sources/osm_arashiyama_20260829.raw.json
+cities/kyoto_arashiyama/sources/plateau_kyoto_2025.metadata.json
+cities/kyoto_arashiyama/sources/realdata_fileset.json
+cities/kyoto_arashiyama/sources/realdata_manifest.json
+cities/kyoto_arashiyama/sources/retention_receipt.json
+cities/kyoto_arashiyama/sources/source_manifest.csv
+cities/kyoto_arashiyama/tools/build_realdata.py
+reports/PHASE3_ARASHIYAMA_RESCUE_V1.md
+tests/realdata/arashiyama/test_arashiyama_realdata.py
+```
+
+## Source / class / license / UNKNOWN truth
+
+- OSM corridorは固定時点bounded Overpass responseをexact bytesで保持し、`source_class=VGI`、`data_class=REAL`、`geometry_status=SOURCE_TRACEABLE_REAL`とする。ここで`REAL`はsource追跡可能性のみで、公式性、通行可能性、安全性、アクセシビリティ、現地確認を意味しない。
+- OSM licenseはODbL 1.0、`redistribution_status=PERMITTED_WITH_OBLIGATIONS`、`license_review_status=AGENT_REVIEWED_HUMAN_PENDING`である。公開前にattribution、database/source availability、derived databaseのshare-alike適用範囲を人間が確認する。
+- A31b flood previewは`source_class=OFFICIAL`、`data_class=OFFICIAL_METADATA_ONLY`、CC BY 4.0、`license_review_status=AGENT_REVIEWED_HUMAN_PENDING`のprepared artifactだが、原archive bytesを今回のtrust rootで再検証できない。したがって`PREPARED_NOT_CONNECTED`、道路閉鎖への変換なし、viewer/model接続なしを維持する。
+- 京都市内水、PLATEAU等のofficial sourceはmetadata-onlyで、geometry payload未接続、dataset-specific licenseまたはredistribution statusが未確認のものは`UNKNOWN`を維持する。
+- width、slope、step、capacity、opening、closure、KPIの不足値は0、PASS、OPENへ補完せず、`null`または空値＋reason、`UNKNOWN` / `NOT_COMPUTED`を維持する。
+- `983476e323f1bd03005cc9ac6466e32d6f102aea`、`main`、既存tagは変更していない。
+
 ## 実装判断
 
 - edge stable IDはOSM way ID＋unordered endpoint node pairとした。segment ordinalだけでは、途中node追加で無関係な後続edge IDまでずれるためである。source/revision IDは別に保持する。
@@ -53,6 +115,7 @@ shared `src/`、`schemas/`、`viewer/`、`data/constants_registry.yaml`、凍結
 ```text
 TARGETED: 18 passed
   python -m pytest tests/realdata/arashiyama/test_arashiyama_realdata.py -q
+  completion addendum適用後にも18 passedを再確認
 
 LANE: 42 passed
   python -m pytest tests/cities/kyoto_arashiyama tests/realdata/arashiyama tests/integration/test_multicity_integration.py -q
@@ -179,6 +242,31 @@ A1化要求: なし。新しい外部数値・式・定数は追加していな�
 - ACT/TEST: pushは再試行せず、reportへblocked statusを記録し、commit内容・allowlist・既実行test結果を維持する。
 - REFLECT: 「push」の一般指示だけでretained payloadの送信先を推定しない。remote URLとexport対象をpush前checkpointで提示する。
 
+### F9: completion smoke testのPython起動拒否とbasetemp親欠落
+
+- OBSERVE: sandbox内のPython起動はprocess作成前にaccess denied。その承認付き再実行は18 tests中14 passed / 4 setup errors、`C:\tmp`親が存在せずbasetemp作成失敗。repo changed filesはlane reportのみ、約12秒、Windows managed sandbox。
+- FINGERPRINT: `PYTHON_EXEC_DENIED_THEN_PYTEST_BASETEMP_PARENT_MISSING`。
+- RETRIEVE: F2の利用可能Python＋既存site-packages手順、F5のbasetemp親欠落lesson、今回のtargeted 18 pass履歴。
+- DIAGNOSE: `ENVIRONMENT/PLATFORM`。
+- PLAN: primary=承認済みPythonを使い、存在確認済みworkspace配下の固有basetempへ変更。fallback=既存18 pass evidenceのみを維持（未使用）。allowed paths=一時test directoryのみ。rollback=一時directory削除。
+- CHECKPOINT: 成果物コードは変更せず、同一fingerprintへ同一修正を繰り返さない。
+- ACT/TARGETED TEST: `C:\dev\ablepath-kyoto-award\.pytest_tmp_ara_completion`を固有basetempとして再実行し、18 passed。
+- LANE/FULL TEST: report-only変更のため再実行せず、直前の42 / 517 pass evidenceを維持。TERAも非report object不変なら再実行不要と独立判断。
+- REFLECT: Windowsでは「固有path」だけでなく親directoryの存在を実行前checkpointへ含める。過去lesson F5をコマンド生成前に適用すべきだった。
+- PERSIST: completion smoke testは既存workspace配下の固有basetempを使い、終了後に明示cleanupする。
+
+### F10: test basetemp cleanupのsandbox拒否
+
+- OBSERVE: 検証済みworkspace配下の固有basetempに対する`Remove-Item -Recurse -Force`がaccess denied、directoryは残存、repo tracked filesの変更なし、約6秒。
+- FINGERPRINT: `PYTEST_BASETEMP_CLEANUP_DENIED_IN_MANAGED_SANDBOX`。
+- RETRIEVE: destructive actionのexact target検証規則、F9のrollback宣言、workspace root境界。
+- DIAGNOSE: `ENVIRONMENT/PLATFORM`。
+- PLAN: primary=resolved absolute targetがworkspace配下であることを再検証し、承認付きで同一targetだけを削除。fallback=残存を明記して停止（未使用）。allowed path=`C:\dev\ablepath-kyoto-award\.pytest_tmp_ara_completion`のみ。rollback=一時test outputのため不要。
+- CHECKPOINT: targetはworkspace rootそのものではなく固有child directoryであることを確認。
+- ACT/TEST: 承認付き削除後、`Test-Path=False`を確認。
+- REFLECT: managed sandboxでのrecursive cleanupは、作成前に承認要否まで確認する。
+- PERSIST: repo外または別worktreeへbasetempを置く場合も、作成・cleanup権限をセットで事前確認する。
+
 ## PERSISTED LESSONS
 
 1. 並列laneはbranch確認だけでなく専用worktree確認を最初のcheckpointにする。
@@ -189,3 +277,4 @@ A1化要求: なし。新しい外部数値・式・定数は追加していな�
 6. 実行順はTARGETED→LANE→FULL→runner×2→allowlist→commit/pushとする。
 7. sublane GREENとlane GREENを混同せず、未解消provenanceが一つでもあれば委譲規則どおりlaneはBLOCKEDとする。
 8. retained dataを含むpushは、remote URLとpayload scopeを明示してから承認を得る。
+9. pytest basetempは親directoryの存在とcleanup権限を実行前に確認する。
