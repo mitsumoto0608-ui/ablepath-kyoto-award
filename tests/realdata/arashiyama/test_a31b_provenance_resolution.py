@@ -5,7 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import zipfile
 
 
@@ -28,24 +28,38 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _portable_member_index(source: zipfile.ZipFile) -> dict[str, zipfile.ZipInfo]:
+    """Index members by POSIX-style names and reject separator aliases."""
+
+    members: dict[str, zipfile.ZipInfo] = {}
+    for member in source.infolist():
+        portable_name = member.filename.replace("\\", "/")
+        assert portable_name not in members, (
+            f"ambiguous ZIP members normalize to {portable_name!r}"
+        )
+        members[portable_name] = member
+    return members
+
+
 def test_a31b_staging_archive_is_the_exact_official_download() -> None:
-    """[source_conformance] The raw trust root matches the official URL bytes recorded by the lane."""
+    """[source_conformance] Trust-root and portable member IDs match the official archive."""
 
     assert ARCHIVE.stat().st_size == EXPECTED_ARCHIVE_SIZE
     assert _sha256(ARCHIVE) == EXPECTED_ARCHIVE_SHA256
     with zipfile.ZipFile(ARCHIVE) as source:
-        assert EXPECTED_MEMBER in source.namelist()
-        assert EXPECTED_METADATA_MEMBER in source.namelist()
-        assert all(not Path(name.replace("\\", "/")).is_absolute() for name in source.namelist())
-        assert all(".." not in Path(name.replace("\\", "/")).parts for name in source.namelist())
+        members = _portable_member_index(source)
+        assert EXPECTED_MEMBER in members
+        assert EXPECTED_METADATA_MEMBER in members
+        assert all(not PurePosixPath(name).is_absolute() for name in members)
+        assert all(".." not in PurePosixPath(name).parts for name in members)
         digest = hashlib.sha256()
-        with source.open(EXPECTED_MEMBER) as handle:
+        with source.open(members[EXPECTED_MEMBER]) as handle:
             for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(chunk)
         assert digest.hexdigest() == EXPECTED_MEMBER_SHA256
-        with source.open(EXPECTED_MEMBER) as handle:
+        with source.open(members[EXPECTED_MEMBER]) as handle:
             assert b'"name": "urn:ogc:def:crs:EPSG::6668"' in handle.read(512)
-        metadata = source.read(EXPECTED_METADATA_MEMBER).decode("shift_jis")
+        metadata = source.read(members[EXPECTED_METADATA_MEMBER]).decode("shift_jis")
         assert "JGD2011 / (B,L)" in metadata
         assert "2026-03-06" in metadata
 
