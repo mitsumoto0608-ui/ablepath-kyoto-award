@@ -12,6 +12,7 @@
     "builder": "scripts/overnight/build_release.py",
     "encoding": "UTF-8-safe ZIP member names",
     "deterministic_member_timestamp": "1980-01-01T00:00:00",
+    "cross_platform_storage": "ZIP_STORED with Unix creator metadata; archive bytes do not depend on platform zlib output",
     "checks": [
       "absolute and traversal paths rejected",
       "duplicate members rejected",
@@ -88,7 +89,8 @@
     }
   ],
   "verification": {
-    "python_tests": "314 passed, 1 known warning",
+    "python_tests": "333 passed, 1 known warning",
+    "release_archive_tests": "19 passed, including clean LF/CRLF checkout equivalence, Git symlink/gitlink rejection, and canonical ZIP metadata",
     "ui_unit_tests": "27 passed",
     "ui_e2e_tests": "17 passed, 1 intentionally skipped",
     "runner_runs_each_replay": 120,
@@ -100,6 +102,11 @@
   },
   "truth_status": {
     "ENGINEERING_UI_COMPLETE": true,
+    "ENGINEERING_UI_SHELL_COMPLETE": true,
+    "TWO_D_IMPLEMENTATION": "SYNTHETIC_SVG_SCHEMATIC",
+    "MAPLIBRE_CONNECTED": false,
+    "CESIUM_CONNECTED": false,
+    "REAL_MAP_COMPLETE": false,
     "DATA_STAGING_COMPLETE": true,
     "REAL_GEOMETRY_CONNECTED": false,
     "MODEL_CONNECTED": false,
@@ -112,6 +119,7 @@
     "origin_main": "cbb71020da0e52f809445e88e84f0c294ec973cc",
     "v0.2.0-baseline": "0c3289b9174bf624c95faeaa3c1643664e31c2eb"
   },
-  "github_push_status": "GITHUB_PUSH_BLOCKED",
+  "github_push_status": "PENDING_BRANCH_PUSH_AND_HOSTED_CI",
+  "github_push_status_scope": "Source-commit snapshot only; the draft PR checks are authoritative after push.",
   "human_review_required": true
 }

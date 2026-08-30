@@ -14,6 +14,11 @@ The shared, deterministic 2D multi-city UI is green for 清水・祇園, 嵐山�
 
 ```text
 ENGINEERING_UI_COMPLETE=true
+ENGINEERING_UI_SHELL_COMPLETE=true
+TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC
+MAPLIBRE_CONNECTED=false
+CESIUM_CONNECTED=false
+REAL_MAP_COMPLETE=false
 DATA_STAGING_COMPLETE=true
 REAL_GEOMETRY_CONNECTED=false
 MODEL_CONNECTED=false
@@ -21,6 +26,8 @@ ADMIN_VALIDATED=false
 DEMO_COMPLETE=false
 overall=PARTIAL_COMPLETE
 ```
+
+`ENGINEERING_UI_COMPLETE=true` means that the reviewed engineering UI shell builds and its required tests pass. It does **not** mean that a real map, MapLibre, or Cesium is complete.
 
 M6/profile is not connected. The selector is disabled and reports `NOT_COMPUTED`. All five KPI values are `null` with a reason because demand, capacity, entrance, operation, topology, profile, or hazard evidence is insufficient. Three-dimensional display is `NOT_IMPLEMENTED`; the tested 2D fallback remains usable.
 

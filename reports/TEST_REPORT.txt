@@ -1,12 +1,13 @@
 AblePath overnight multi-city verification
 ==========================================
 
-Python full suite: 314 passed, 1 known plaza_status_gating=false warning
+Python full suite: 333 passed, 1 known plaza_status_gating=false warning
 Baseline/M7 pre-existing tests: 182
 Hokonavi contract tests added: 26
 Shared hazard contract tests added: 41 (33 initial + 8 adapter hardening)
 City-pack tests added: 59 (Kiyomizu 18, Arashiyama 18, Fujisawa 23)
 Cross-pack integration tests added: 6
+Release archive tests added: 19 (HEAD blob payload, LF/CRLF equivalence, dirty-state rejection, Git symlink/gitlink, canonical ZIP metadata, manifest/checksum/path safety)
 
 Viewer unit tests: 27 passed
 Viewer production build: PASS
