@@ -5,11 +5,12 @@ LANE_ID=ARA-A31B-RESOLUTION
 LANE_STATUS=BLOCKED_PROVENANCE
 RESOLUTION_STATUS=READY_FOR_REVIEW
 BASE_SHA=17a7951bd77f737eec4ca7c48cbd3a673e6c59a0
-HEAD_SHA=PENDING_ARTIFACT_COMMIT
-REMOTE_HEAD_SHA=PENDING_PUSH
-WORKTREE_CLEAN=PENDING_COMMIT
-HOSTED_CI=PENDING_PUSH
-HOSTED_RUN_URL=PENDING_PUSH
+HEAD_SHA=fad8935b6ea135a9ff3333cb23de38dd435065e9
+HEAD_SHA_SCOPE=PRE_ATTESTATION_CONTENT_HEAD
+REMOTE_HEAD_SHA=fad8935b6ea135a9ff3333cb23de38dd435065e9
+WORKTREE_CLEAN=PASS_AT_CONTENT_HEAD
+HOSTED_CI=FAIL_LINUX;SUCCESS_WINDOWS_VIEWER
+HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334238649
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
 HUMAN_GATES=[INDEPENDENT_LUNA_TERA_REAUDIT,LICENSE_AND_REDISTRIBUTION_REVIEW,OFFICIAL_DATA_SAFETY_PROMOTION,ADMIN_VALIDATION]
 ```
@@ -69,9 +70,11 @@ threshold, M6/M7 state table, `src/allocate.py`, main, tag, release, or
 - Independent LUNA/TERA re-audit was not started after MASTER CONTROL requested
   immediate handoff; therefore the resolution is `READY_FOR_REVIEW`, not
   `RESOLVED` or GREEN.
+- Hosted run `33334238649` completed with Windows and Viewer success and Linux
+  failure. Per the MASTER CONTROL handoff request, no new diagnosis or repair
+  was started; the lane remains `BLOCKED_PROVENANCE` / `REPORT_ONLY`.
 - ADR gate: data/provenance, test, and report-only change; no architectural
   decision or production behavior change, so no new ADR is required.
 
 `INTEGRATION_RECOMMENDATION=REPORT_ONLY` remains fail-closed until independent
 review. The existing OSM candidate sublane status is unchanged.
-
