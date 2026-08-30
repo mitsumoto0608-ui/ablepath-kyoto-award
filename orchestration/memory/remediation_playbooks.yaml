@@ -182,3 +182,19 @@ playbooks:
     protected_boundaries: [test_truth, responsive_layout, dependencies, repository_state]
     confidence: HIGH
     human_approved: false
+  - playbook_id: sha256sums-path-keyed-inspection-v1
+    trigger: independent RC inspection cannot find a known payload after parsing SHA256SUMS
+    actions:
+      - "OBSERVE: retain the exact lookup error and confirm whether the built-in archive verifier already passed"
+      - "FINGERPRINT: classify inspection-code mapping direction separately from archive checksum failure"
+      - "LESSON search: search release checksum and manifest verification records before changing anything"
+      - "DIAGNOSE: inspect the documented digest double-space path line order and the constructed key direction"
+      - "CHECKPOINT: preserve both archive bytes, their SHA values, the clean repository, and source HEAD"
+      - "REPAIR: parse named digest and path values and construct an explicit path-to-digest mapping"
+      - "TARGETED TEST: inspect one archive and assert source commit plus all_runs membership and digest"
+      - "FULL TEST: run clean extraction verification and all payload manifest comparisons on both archives"
+      - "REFLECT: confirm the archive and builder were unchanged and the failure existed only in ad hoc inspection"
+      - "MEMORY update: retain the path-keyed parsing invariant for future independent RC checks"
+    protected_boundaries: [release_bytes, checksum_truth, source_commit, repository_state]
+    confidence: HIGH
+    human_approved: false
