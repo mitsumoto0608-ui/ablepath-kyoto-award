@@ -101,6 +101,7 @@ test("[ui_regression] desktop captures all three city 2D states", async ({ page 
 
 test("[ui_regression] responsive layout avoids page-level horizontal overflow", async ({ page }) => {
   await page.goto("/");
+  await expect(page.locator(".app-shell")).toBeVisible();
   const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width + 1);
 });
@@ -108,6 +109,7 @@ test("[ui_regression] responsive layout avoids page-level horizontal overflow", 
 test("[ui_regression] 320 CSS-pixel reflow has no page-level horizontal overflow", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 900 });
   await page.goto("/");
+  await expect(page.locator(".app-shell")).toBeVisible();
   const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width + 1);
 });
