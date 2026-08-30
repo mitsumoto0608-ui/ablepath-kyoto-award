@@ -13,7 +13,7 @@ HOSTED_CI=NOT_RUN
 HOSTED_RUN_URL=null
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
 HUMAN_GATES=[EXPLICIT_REMOTE_PUSH_APPROVAL,A31B_ARCHIVE_REVERIFICATION,OSM_TOPOLOGY_AND_FIELD_QA,LICENSE_AND_REDISTRIBUTION_REVIEW,FACILITY_AND_OPERATION_EVIDENCE,M6_M7_KPI_CONNECTION,ADMIN_VALIDATION]
-WORKTREE_CLEAN=PASS_AT_RECORDED_ARTIFACT_HEAD
+WORKTREE_CLEAN=PASS
 FEATURE_BRANCH_PUSH=NOT_RUN_EXPLICIT_APPROVAL_REQUIRED
 MAIN_CHANGED=false
 TAGS_CHANGED=false
@@ -267,6 +267,18 @@ A1化要求: なし。新しい外部数値・式・定数は追加していな�
 - REFLECT: managed sandboxでのrecursive cleanupは、作成前に承認要否まで確認する。
 - PERSIST: repo外または別worktreeへbasetempを置く場合も、作成・cleanup権限をセットで事前確認する。
 
+### F11: addendum適用指示後もremote payload承認不足でpush拒否
+
+- OBSERVE: report-only commit `ed04af1`後の`git push -u origin task/phase3-arashiyama-rescue-v1`はapproval reviewでprocess作成前に拒否。理由はretained OSM raw dataとhazard previewを未検証の外部GitHub destinationへexportする具体的承認不足。stdout/stderrなし、changed filesなし、約7秒、Windows managed sandbox。
+- FINGERPRINT: F8と同じ`PUSH_UNVERIFIED_REMOTE_EXPORT_REJECTED`（attempt 2）。
+- RETRIEVE: F8のremote/payload checkpoint、今回のcompletion addendum、remote=`https://github.com/mitsumoto0608-ui/ablepath-kyoto-award.git`。
+- DIAGNOSE: `GIT/CONTRACT`。
+- PLAN: primary=同じpushを再試行せず、exact remote・branch・payloadを提示してユーザーの明示承認を待つ。fallback=local commits `002da2d` / `ed04af1`とreportをCONTROLへ引き渡す。allowed path=lane reportのみ。rollback=push未実行のため不要。
+- CHECKPOINT: branchはlocal commit済み、remote trackingなし、Hosted CI未実行、`983476e`・main・tagは未変更。
+- ACT/TARGETED/LANE/FULL TEST: remote mutationは行わず、既確認18 / 42 / 517 pass evidenceを維持。
+- REFLECT: 添付addendumの「feature branch push」を成果物へ適用する指示だけでは、特定retained payloadの外部送信承認として扱われなかった。remote/payloadへのyes/noを明示的に取得する必要がある。
+- PERSIST: 同fingerprint attempt 2として記録し、明示承認なしにattempt 3を実行しない。
+
 ## PERSISTED LESSONS
 
 1. 並列laneはbranch確認だけでなく専用worktree確認を最初のcheckpointにする。
@@ -278,3 +290,4 @@ A1化要求: なし。新しい外部数値・式・定数は追加していな�
 7. sublane GREENとlane GREENを混同せず、未解消provenanceが一つでもあれば委譲規則どおりlaneはBLOCKEDとする。
 8. retained dataを含むpushは、remote URLとpayload scopeを明示してから承認を得る。
 9. pytest basetempは親directoryの存在とcleanup権限を実行前に確認する。
+10. retained payloadのpushは、exact remote・branch・payloadを列挙した質問への明示的な承認後だけ再実行する。
