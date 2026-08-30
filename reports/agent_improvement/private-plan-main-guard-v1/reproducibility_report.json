@@ -1,0 +1,16 @@
+{
+  "report_schema_version": "1.0.0",
+  "proposal_id": "private-plan-main-guard-v1",
+  "environment": "Windows PowerShell with disposable local Git repositories",
+  "targeted_command": "python -m pytest tests/overnight/test_pre_push_guard.py -q -p no:cacheprovider --basetemp <external-temp>",
+  "targeted_result": "21 passed",
+  "full_command": "python -m pytest tests/ -q -p no:cacheprovider --basetemp <external-temp>",
+  "full_result": "359 passed, 1 known warning",
+  "install_runs": 2,
+  "status_exit_code": 0,
+  "installed_hook_sha256": "d90b589dc5aa077b6ac7bd03dbd53e39a697d8a3df3f50b28314635f150f4128",
+  "source_and_installed_hash_match": true,
+  "server_api_attempts_in_this_run": 0,
+  "real_main_or_tag_push_tests": 0,
+  "limitations": "Push behavior is verified only in disposable fixtures; no protected ref was pushed."
+}

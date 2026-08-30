@@ -29,3 +29,34 @@ playbooks:
     protected_boundaries: [credentials, external_writes, main, baseline_tag]
     confidence: LOW
     human_approved: false
+  - playbook_id: private-free-plan-main-protection-fallback-v1
+    trigger: GitHub private-plan ruleset or branch-protection capability returns the known HTTP 403 fingerprint
+    actions:
+      - do not retry the same ruleset or classic branch-protection APIs until capability changes
+      - report SERVER_SIDE_BRANCH_PROTECTION=false without implying equivalence
+      - install and verify the versioned local pre-push accident-prevention hook
+      - use isolated worktrees and only task/**, integration/**, or release/** branches
+      - require draft PR, Hosted CI, and human-only main merge
+      - reject main, every tag, deletion, non-fast-forward, malformed, or unavailable-object push locally
+    protected_boundaries: [main, baseline_tag, credentials, server_protection_truth, human_merge_gate]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: recreate-external-venv-from-project-metadata-v1
+    trigger: an external virtualenv launcher is stale or incompatible
+    actions:
+      - discard no repository files and change no dependency metadata
+      - create a new virtualenv outside the repository
+      - install the project from its declared development metadata
+      - run the unchanged tests
+    protected_boundaries: [pyproject, lockfiles, repository_venv, expected_values]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: unique-external-pytest-basetemp-v1
+    trigger: pytest default base temporary directory is inaccessible
+    actions:
+      - select a unique writable base temporary directory outside the repository
+      - disable cacheprovider when cache writes are not required by the acceptance gate
+      - run targeted tests before the unchanged full suite
+    protected_boundaries: [tests, expected_values, repository_files]
+    confidence: MEDIUM
+    human_approved: false

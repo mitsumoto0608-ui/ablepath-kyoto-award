@@ -2,7 +2,7 @@
 
 ```text
 SERVER_SIDE_BRANCH_PROTECTION=false
-LOCAL_MAIN_GUARD=pending_installation
+LOCAL_MAIN_GUARD=true
 PR_ONLY_AGENT_POLICY=true
 HUMAN_MAIN_MERGE_REQUIRED=true
 ```
@@ -18,7 +18,17 @@ another clone, and does not prevent a human with local repository control from
 removing it. Agents are restricted to feature/integration/release branches,
 draft PRs, Hosted CI, and human-only main merge.
 
-After fixture tests pass, `scripts/git-hooks/install.ps1` installs an LF/no-BOM
-normalization of the versioned hook into the shared Git directory. This report
-must be updated to `LOCAL_MAIN_GUARD=true` only after `status.ps1` verifies the
-normalized source bytes, installed bytes, and executable state where applicable.
+The versioned hook was installed twice (initial install plus idempotency check)
+from commit `77be5df`. On this Windows host, `status.ps1` verified normalized
+source/installed byte identity, tracked-clean source, and no effective
+`core.hooksPath` conflict. Both source and installed hook SHA-256 values were:
+
+```text
+d90b589dc5aa077b6ac7bd03dbd53e39a697d8a3df3f50b28314635f150f4128
+```
+
+The disposable Git fixture matrix verified hook invocation and passed 21 tests;
+the repository suite passed 359 tests with the one known warning. No real `main`
+or tag push was used to test the guard. A non-Windows user-execute assertion is
+present in the test suite but was not executed on this Windows host; Hosted Linux
+remains the independent platform gate.

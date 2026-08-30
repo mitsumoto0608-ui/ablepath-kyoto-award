@@ -1,0 +1,20 @@
+{
+  "report_schema_version": "1.0.0",
+  "proposal_id": "private-plan-main-guard-v1",
+  "decision": "ADOPT_FOR_CURRENT_RUN_ONLY",
+  "comparison_scope": "limited local fallback workflow only; not an equivalence comparison with server-side protection",
+  "champion": {
+    "strategy": "retry-server-protection-apis",
+    "result": "NOT_RUN_KNOWN_UNCHANGED_EXTERNAL_CAPABILITY"
+  },
+  "challenger": {
+    "strategy": "limited-local-fallback",
+    "targeted_tests": "21 passed",
+    "full_tests": "359 passed, 1 known warning",
+    "installed_hook_sha256": "d90b589dc5aa077b6ac7bd03dbd53e39a697d8a3df3f50b28314635f150f4128",
+    "status_check": "PASS"
+  },
+  "server_side_branch_protection": false,
+  "local_guard_equivalent_to_server_protection": false,
+  "permanent_promotion": "HUMAN_REVIEW_REQUIRED"
+}
