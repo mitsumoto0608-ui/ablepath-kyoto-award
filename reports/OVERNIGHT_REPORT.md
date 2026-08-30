@@ -150,13 +150,13 @@ Implemented and tested:
 - visible persistent static-planning disclaimer;
 - explicit recoverable `3Dは未接続です` panel.
 
-Built sizes: HTML 1.05 kB, CSS 10.63 kB (gzip 3.29 kB), JS 222.44 kB (gzip 69.14 kB), source map 913.61 kB, city payload 16.48 kB. Screenshots are in `reports/UI_SCREENSHOTS/`.
+Built sizes: HTML 1.05 kB, CSS 10.66 kB (gzip 3.30 kB), JS 222.44 kB (gzip 69.14 kB), source map 913.61 kB, city payload 16.48 kB. Screenshots are in `reports/UI_SCREENSHOTS/`.
 
 Accessibility status is a partial engineering audit, not formal WCAG certification; see `reports/ACCESSIBILITY_AUDIT.md`.
 
 ## Verification
 
-- Python: 314 passed, one known `plaza_status_gating=false` warning.
+- Python: 333 passed, one known `plaza_status_gating=false` warning.
 - Viewer unit: 27 passed.
 - Viewer build: PASS.
 - Viewer E2E: 17 passed, one intentional mobile screenshot skip.
@@ -172,7 +172,9 @@ Final independent review then found an incomplete improvement packet, unsupporte
 
 ## CI and supply chain
 
-`ci.yml` defines Linux Python, Windows Python/newline/determinism, and Node/UI jobs with timeouts, cancellation, read-only permission, locked installs, artifact retention, trust scan, runner SHA, and frozen allocate checks. `codex-autofix.yml` is a read-only manual diagnostic and cannot write. All external actions are pinned to immutable SHAs. Local syntax/command review and equivalent jobs passed; hosted GitHub workflows were not executed because the branch could not be pushed.
+`ci.yml` defines Linux Python, Windows Python/newline/determinism, and Node/UI jobs with timeouts, cancellation, read-only permission, locked installs, artifact retention, trust scan, runner SHA, and frozen allocate checks. `codex-autofix.yml` is a read-only manual diagnostic and cannot write. All external actions are pinned to immutable SHAs. The draft PR is https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1. Hosted pull-request run https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725 passed on product HEAD `f421693c3a5b931e48617b15287f6d1ca90ef2f7`: Linux Python, Windows Python/newline smoke, and Node/UI all succeeded.
+
+The preceding hosted runs exposed one Linux-only responsive defect: at 320 CSS pixels, the off-screen second skip link produced `scrollWidth=322` for `clientWidth=320`. Fingerprint `PLAYWRIGHT_UBUNTU_320_REFLOW_SKIP_MAP_LINK_MIN_CONTENT_2PX_OVERFLOW` was classified as platform-triggered UI code and repaired by using the existing mobile left inset. The overflow assertion, skip-link labels, focus behavior, and keyboard targets were not weakened.
 
 Python and Node locks are committed. Direct dependency purpose and locally reported licenses are in `reports/DEPENDENCY_AND_LICENSE_REPORT.md`. No external repository code was copied; see `docs/reports/OVERNIGHT_GITHUB_ASSET_DECISIONS.md`.
 
@@ -206,7 +208,7 @@ Migration needs are recorded; no implicit conversion is invented.
 
 ## External commands, code, and services
 
-Executed tooling: Git/GitHub CLI status checks, repository-external Python/pytest, locked pip installation, Node/npm locked install, Vite build/preview, Playwright Chromium, PowerShell lifecycle scripts, local SHA/blob checks, and the repository-owned release/evaluator scripts. Official HTTPS pages/metadata were read as untrusted evidence. The optional agent-reach launcher was unavailable, so no unsupported scraping workaround was used. No external repository was cloned, no external binary was executed, no raw official dataset was downloaded into Git, and no GitHub write completed.
+Executed tooling: Git/GitHub CLI status checks, repository-external Python/pytest, locked pip installation, Node/npm locked install, Vite build/preview, Playwright Chromium, PowerShell lifecycle scripts, local SHA/blob checks, and the repository-owned release/evaluator scripts. Official HTTPS pages/metadata were read as untrusted evidence. The optional agent-reach launcher was unavailable, so no unsupported scraping workaround was used. No external repository was cloned, no external binary was executed, and no raw official dataset was downloaded into Git. GitHub writes were limited to the integration branch and draft PR; no main, tag, ready-for-review, auto-merge, or force-push action occurred.
 
 ## Resume/watchdog
 
@@ -223,7 +225,10 @@ At report snapshot:
 - local `main` and `origin/main`: `cbb71020da0e52f809445e88e84f0c294ec973cc`;
 - baseline tag: `0c3289b9174bf624c95faeaa3c1643664e31c2eb`;
 - no main merge, tag move, rebase, amend, branch deletion, or force push;
-- remote status: `GITHUB_PUSH_BLOCKED`;
+- remote status: `DRAFT_PR_HOSTED_GATE_SUCCESS` for product HEAD `f421693c3a5b931e48617b15287f6d1ca90ef2f7`;
+- draft PR: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1;
+- hosted run: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725;
+- `MAIN_MERGED=false`;
 - integration branch only; human review required.
 
 Exact product/data gaps and 8 merge gates are in `reports/KNOWN_GAPS.md`. The run stops here for human review.

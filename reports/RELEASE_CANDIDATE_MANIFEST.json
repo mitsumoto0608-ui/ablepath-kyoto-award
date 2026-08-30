@@ -65,22 +65,22 @@
     {
       "path": "viewer/dist/index.html",
       "bytes": 1059,
-      "sha256": "a11c0d637ceda47ca96995fd59c49c2c4403c06fb36d52529ac580250452b093"
+      "sha256": "ae221d7a299c5605aa97c97023295f8e051c18a79e52faaac452ab6f59f70819"
     },
     {
-      "path": "viewer/dist/assets/index-D7qAzVEN.css",
-      "bytes": 10636,
-      "sha256": "7400cd982bd41dd91eecd382d720bc4724dce6e1cef6b62623410a8a44fd9929"
+      "path": "viewer/dist/assets/index-Dvxk5wUm.css",
+      "bytes": 10661,
+      "sha256": "b477fcc3d4ab2fa4bbe1e76a5db24aafabff8fd2b80bbdc2efefbac07d98f97e"
     },
     {
-      "path": "viewer/dist/assets/index-Tnb6CWlI.js",
+      "path": "viewer/dist/assets/index-CKouptm1.js",
       "bytes": 222444,
-      "sha256": "d20046203c94ce8e0cc47db087a15ef11ba554bc75d20d59a5c89027accc3eed"
+      "sha256": "94491dbbce0bff3fb8118b0a70d4ef116b320c24fe4194dd73d5f7fe060e11e9"
     },
     {
-      "path": "viewer/dist/assets/index-Tnb6CWlI.js.map",
+      "path": "viewer/dist/assets/index-CKouptm1.js.map",
       "bytes": 913611,
-      "sha256": "ea3db45b6ee5a5e79ebbd98e787151b63eab5046af89df93ccb01bf0a0e6b323"
+      "sha256": "8211575e40e18fae08cb1fec52f8a57140e69de6aba5075f878c2671446104c8"
     },
     {
       "path": "viewer/dist/data/cities.json",
@@ -119,7 +119,19 @@
     "origin_main": "cbb71020da0e52f809445e88e84f0c294ec973cc",
     "v0.2.0-baseline": "0c3289b9174bf624c95faeaa3c1643664e31c2eb"
   },
-  "github_push_status": "PENDING_BRANCH_PUSH_AND_HOSTED_CI",
-  "github_push_status_scope": "Source-commit snapshot only; the draft PR checks are authoritative after push.",
+  "hosted_gate": {
+    "draft_pr_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1",
+    "pull_request_run_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725",
+    "verified_product_head": "f421693c3a5b931e48617b15287f6d1ca90ef2f7",
+    "linux_python": "SUCCESS",
+    "windows_python_newline_smoke": "SUCCESS",
+    "static_viewer_node": "SUCCESS",
+    "failure_repairs_used": 1,
+    "failure_fingerprint": "PLAYWRIGHT_UBUNTU_320_REFLOW_SKIP_MAP_LINK_MIN_CONTENT_2PX_OVERFLOW",
+    "final_report_commit_policy": "The report-only commit must pass a new pull_request Hosted Actions run; its SHA and run URL are reported in the human handoff to avoid self-reference."
+  },
+  "github_push_status": "DRAFT_PR_HOSTED_GATE_SUCCESS",
+  "github_push_status_scope": "Product HEAD passed the draft PR workflow; the subsequent report-only HEAD must pass its own hosted gate before final handoff, with its SHA and run URL reported externally to avoid self-reference.",
+  "main_merged": false,
   "human_review_required": true
 }
