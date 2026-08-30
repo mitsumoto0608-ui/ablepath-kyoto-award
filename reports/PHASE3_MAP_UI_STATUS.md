@@ -2,7 +2,7 @@
 
 ```text
 LANE_ID=MAP
-LANE_STATUS=GREEN
+LANE_STATUS=BLOCKED_CONTRACT
 BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
 HEAD_SHA=bbd6fc989a4ab65e6694d449ad9da32c0416922a
 HEAD_SHA_SCOPE=PRE_ADDENDUM_REPORT_COMMIT; REPORT_BEARING_HEAD_IS_BRANCH_REF
@@ -12,9 +12,9 @@ CLEAN_VERIFICATION_HEAD=d910fb1966c40c7c7083e71501daf21beacd3151
 FEATURE_BRANCH_PUSHED=false
 HOSTED_CI=NOT_RUN
 HOSTED_RUN_URL=null
-INTEGRATION_RECOMMENDATION=INTEGRATE
-PUSH_STATUS=AUTHORIZED_BY_COMPLETION_ADDENDUM_PENDING
-HUMAN_GATES=["OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
+INTEGRATION_RECOMMENDATION=REPORT_ONLY
+PUSH_STATUS=BLOCKED_EXACT_ORIGIN_PAYLOAD_APPROVAL
+HUMAN_GATES=["EXACT_ORIGIN_PAYLOAD_PUSH_APPROVAL","OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
 ```
 
 Git commitは自分自身のSHAをblob内へ保持できないため、`HEAD_SHA`はaddendum適用直前の
@@ -223,6 +223,21 @@ viewer/vite.config.js
    - CHECKPOINT: 実装commit `c270c2d`はlocal branchに保存済み。
    - ACT: 同一pushは再試行せず停止。
    - REFLECT: remote destinationをpush前checkpointで提示し、明示承認を先に得る。
+
+9. addendum適用後のexact payload push gate
+   - OBSERVE: clean head `e7bf48dc3532f777bf5dca3de979f827f28e8752`から
+     `git push -u origin codex/phase3-map-ui-v1`を要求したが、specific originへのexact payload公開承認が不足として実行前拒否。exit code/stdout/stderr/changed filesはprocess未生成のためなし。
+   - FINGERPRINT: exact payload + specific destination publication approval required。
+   - RETRIEVE: 直前lesson 8を確認。一般的なfeature push承認では不足する別のauthorization fingerprint。
+   - DIAGNOSE: CONTRACT / PLATFORM authorization。
+   - PLAN: primary fixは人間が
+     `e7bf48dc3532f777bf5dca3de979f827f28e8752`を含む`codex/phase3-map-ui-v1`の全payloadを
+     `https://github.com/mitsumoto0608-ui/ablepath-kyoto-award.git`へpushしてよいと明示承認すること。fallbackなし。
+     allowed refは同feature branchのみ、rollbackはremote branch deletionを自動実行せず人間判断。
+   - CHECKPOINT: local feature headは保存済み。clean detached verification worktreeあり。
+   - ACT: 同一pushを再試行せず停止。
+   - TARGETED/LANE/FULL TEST: code差分なし。直前の39 unit、build、31 E2E pass / 1 skip、499 pytest pass、runner二重SHAを維持。
+   - REFLECT: addendumの一般push要件とspecific destination/payload公開承認を区別して開始時に取得する。
 
 同一fingerprintへ同一修正を反復しておらず、各failureは3attempt以内で解消した。
 
