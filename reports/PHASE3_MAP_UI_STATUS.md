@@ -13,8 +13,9 @@ FEATURE_BRANCH_PUSHED=false
 HOSTED_CI=NOT_RUN
 HOSTED_RUN_URL=null
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
-PUSH_STATUS=BLOCKED_EXACT_ORIGIN_PAYLOAD_APPROVAL
-HUMAN_GATES=["EXACT_ORIGIN_PAYLOAD_PUSH_APPROVAL","OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
+PUSH_STATUS=BLOCKED_LOCAL_GUARD_NAMESPACE_DENIED
+REMOTE_HEAD_SHA=null
+HUMAN_GATES=["FEATURE_BRANCH_NAMESPACE_DECISION","OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
 ```
 
 Git commitは自分自身のSHAをblob内へ保持できないため、`HEAD_SHA`はaddendum適用直前の
@@ -238,6 +239,21 @@ viewer/vite.config.js
    - ACT: 同一pushを再試行せず停止。
    - TARGETED/LANE/FULL TEST: code差分なし。直前の39 unit、build、31 E2E pass / 1 skip、499 pytest pass、runner二重SHAを維持。
    - REFLECT: addendumの一般push要件とspecific destination/payload公開承認を区別して開始時に取得する。
+
+10. local push guard branch namespace denial
+   - OBSERVE: 明示承認後、head `a84c7a4d77cb847643498dddd5c808ed23dc0c17`で
+     `git push -u origin codex/phase3-map-ui-v1`を実行。exit 1。
+     stderrは`LOCAL_GUARD_NAMESPACE_DENIED: only task/**, integration/**, and release/** branches may be pushed by an agent`。
+     stdoutなし、changed filesなし、約5秒、Windows/PowerShell/local repository guard環境。
+   - FINGERPRINT: agent push denied for `codex/**` namespace by local guard。
+   - RETRIEVE: lane lessons 8・9を確認。authorization不足とは異なり、repository branch namespace contractによる拒否。
+   - DIAGNOSE: GIT / CONTRACT。
+   - PLAN: 新しい修復を開始しないというMASTER CONTROL移行指示に従い、primary fix・fallbackとも実行せず、
+     branch namespace判断をorchestratorへ引き継ぐ。allowed pathは本lane reportのみ。rollback不要。
+   - CHECKPOINT: local branchとclean detached verification worktreeに全成果を保存済み。
+   - ACT: pushの再試行、branch rename、別ref pushを行わず停止。
+   - TARGETED/LANE/FULL TEST: code差分なし。直前の全pass結果を維持。Hosted CIはbranch未pushのため`NOT_RUN`。
+   - REFLECT: task開始時にlocal push guardの許可namespaceをbranch命名へ反映する必要がある。
 
 同一fingerprintへ同一修正を反復しておらず、各failureは3attempt以内で解消した。
 
