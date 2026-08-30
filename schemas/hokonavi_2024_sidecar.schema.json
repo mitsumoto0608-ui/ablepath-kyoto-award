@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example/schemas/hokonavi_2024_sidecar-1.0.0.json",
+  "title": "AblePath Hokonavi 2024 prototype sidecar v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_role", "edges"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "source_role": {"const": "ABLEPATH_DESIGN"},
+    "edges": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {"$ref": "#/$defs/edgePayload"}
+      }
+    }
+  },
+  "$defs": {
+    "nullableText": {
+      "type": ["string", "null"]
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "attribute",
+        "raw_value",
+        "unit",
+        "method",
+        "device",
+        "observed_at",
+        "observer_role",
+        "direction",
+        "weather",
+        "photo",
+        "accuracy",
+        "review_status"
+      ],
+      "properties": {
+        "observation_id": {"type": "string", "minLength": 1},
+        "attribute": {"type": "string", "minLength": 1},
+        "raw_value": {"type": ["string", "number", "boolean", "null"]},
+        "unit": {"$ref": "#/$defs/nullableText"},
+        "method": {"type": "string", "minLength": 1},
+        "device": {"$ref": "#/$defs/nullableText"},
+        "observed_at": {"type": "string", "minLength": 1},
+        "observer_role": {"type": "string", "minLength": 1},
+        "direction": {"$ref": "#/$defs/nullableText"},
+        "weather": {"$ref": "#/$defs/nullableText"},
+        "photo": {"$ref": "#/$defs/nullableText"},
+        "accuracy": {"type": ["number", "null"], "minimum": 0},
+        "review_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_class",
+        "acquisition_method",
+        "verification_level",
+        "validity_status",
+        "authority_scope"
+      ],
+      "properties": {
+        "source_class": {
+          "enum": ["OFFICIAL", "VGI", "IMAGE", "MODEL", "FIELD", "OPERATOR"]
+        },
+        "acquisition_method": {
+          "enum": ["DOWNLOAD", "VISUAL_AUDIT", "TAPE", "INCLINOMETER", "LIDAR", "INTERVIEW"]
+        },
+        "verification_level": {
+          "enum": ["UNREVIEWED", "SINGLE_REVIEWED", "DOUBLE_REVIEWED", "ADJUDICATED"]
+        },
+        "validity_status": {
+          "enum": ["CURRENT", "STALE", "EXPIRED", "UNKNOWN"]
+        },
+        "authority_scope": {
+          "enum": ["geometry", "dimension", "operation", "hazard"]
+        }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid_from", "valid_to"],
+      "properties": {
+        "valid_from": {"type": "string", "minLength": 1},
+        "valid_to": {"$ref": "#/$defs/nullableText"}
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "scenario_id", "computation_status", "profile_state"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "scenario_id": {"type": "string", "minLength": 1},
+        "computation_status": {"enum": ["COMPUTED", "NOT_COMPUTED"]},
+        "profile_state": {
+          "type": ["string", "null"],
+          "enum": ["PASS", "CONDITIONAL", "FAIL", "UNKNOWN", null]
+        }
+      },
+      "allOf": [{
+        "if": {
+          "properties": {"computation_status": {"const": "NOT_COMPUTED"}},
+          "required": ["computation_status"]
+        },
+        "then": {"properties": {"profile_state": {"const": null}}},
+        "else": {
+          "properties": {
+            "profile_state": {"enum": ["PASS", "CONDITIONAL", "FAIL", "UNKNOWN"]}
+          }
+        }
+      }]
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scenario_id", "computation_status", "edge_state"],
+      "properties": {
+        "scenario_id": {"type": "string", "minLength": 1},
+        "computation_status": {"enum": ["COMPUTED", "NOT_COMPUTED"]},
+        "edge_state": {
+          "type": ["string", "null"],
+          "enum": ["OPEN", "NARROWED", "CLOSED", "UNKNOWN", null]
+        }
+      },
+      "allOf": [{
+        "if": {
+          "properties": {"computation_status": {"const": "NOT_COMPUTED"}},
+          "required": ["computation_status"]
+        },
+        "then": {"properties": {"edge_state": {"const": null}}},
+        "else": {
+          "properties": {
+            "edge_state": {"enum": ["OPEN", "NARROWED", "CLOSED", "UNKNOWN"]}
+          }
+        }
+      }]
+    },
+    "m7": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "variant",
+        "remaining_clear_width_m",
+        "hazard_data_status",
+        "official_closure",
+        "provenance"
+      ],
+      "properties": {
+        "scenario_id": {"type": "string", "minLength": 1},
+        "variant": {"enum": ["mean_case", "sensitivity_high_case"]},
+        "remaining_clear_width_m": {"type": ["number", "null"], "minimum": 0},
+        "hazard_data_status": {"enum": ["KNOWN", "UNKNOWN"]},
+        "official_closure": {"type": ["boolean", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      },
+      "allOf": [{
+        "if": {
+          "properties": {"hazard_data_status": {"const": "UNKNOWN"}},
+          "required": ["hazard_data_status"]
+        },
+        "then": {
+          "properties": {
+            "remaining_clear_width_m": {"const": null},
+            "official_closure": {"const": null}
+          }
+        },
+        "else": {
+          "properties": {"remaining_clear_width_m": {"type": "number", "minimum": 0}}
+        }
+      }]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_role", "source_id", "crs", "method", "applied_constant_ids"],
+      "properties": {
+        "source_role": {"const": "ABLEPATH_DESIGN"},
+        "source_id": {"type": "string", "minLength": 1},
+        "crs": {"type": "string", "minLength": 1},
+        "method": {"type": "string", "minLength": 1},
+        "applied_constant_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "beforeAfter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intervention_phase"],
+      "properties": {
+        "intervention_phase": {"enum": ["BEFORE", "AFTER"]}
+      }
+    },
+    "operationStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scenario_id", "official_closure", "hazard_data_status"],
+      "properties": {
+        "scenario_id": {"type": "string", "minLength": 1},
+        "official_closure": {"type": ["boolean", "null"]},
+        "hazard_data_status": {"enum": ["KNOWN", "UNKNOWN"]}
+      },
+      "allOf": [{
+        "if": {
+          "properties": {"hazard_data_status": {"const": "UNKNOWN"}},
+          "required": ["hazard_data_status"]
+        },
+        "then": {"properties": {"official_closure": {"const": null}}}
+      }]
+    },
+    "edgePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provenance"],
+      "properties": {
+        "m7": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/m7"}
+        },
+        "observation": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/observation"}
+        },
+        "evidence": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/evidence"}
+        },
+        "validity": {"$ref": "#/$defs/validity"},
+        "profile": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/profile"}
+        },
+        "scenario": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/scenario"}
+        },
+        "provenance": {"$ref": "#/$defs/provenance"},
+        "before_after": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/beforeAfter"}
+        },
+        "operation_status": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/operationStatus"}
+        }
+      }
+    }
+  }
+}

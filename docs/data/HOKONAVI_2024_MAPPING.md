@@ -2,7 +2,9 @@
 
 ## 位置づけ
 
-本書は、AblePath内部データと国土交通省「歩行空間ネットワークデータ整備仕様（2024年7月）」の間を結ぶ、**ほこナビ2024仕様を参照した対応契約**である。adapterの実装、実データの変換、仕様適合の認証を意味しない。機械可読な正本は `schemas/hokonavi_2024_mapping.yaml` とする。
+本書は、AblePath内部データと国土交通省「歩行空間ネットワークデータ整備仕様（2024年7月）」の間を結ぶ、**ほこナビ2024仕様を参照した対応契約**である。`src/hokonavi/`にはこの契約を固定する`SYNTHETIC` fixture限定prototypeがあるが、実データの変換や仕様適合の認証を意味しない。機械可読なmapping正本は `schemas/hokonavi_2024_mapping.yaml`、AblePath独自情報のexact sidecar正本は`schemas/hokonavi_2024_sidecar.schema.json`とする。
+
+`adapter_implemented=false`はfull/real-data adapterが未実装であることを表し、限定prototypeは`adapter_prototype_implemented=true`、`adapter_implementation_scope=SYNTHETIC_FIXTURE_ONLY`として別に表す。
 
 - 公式仕様: https://www.mlit.go.jp/sogoseisaku/soukou/content/001757259.pdf
 - 公式掲載ページ: https://www.mlit.go.jp/sogoseisaku/soukou/sogoseisaku_soukou_tk_000056.html
@@ -74,6 +76,16 @@
 各fieldの原典コード`99`または欠損由来のUNKNOWNは、`0`、`false`、`OPEN`、`PASS`、`safe`へ変換しない。`code_99`という疑似fieldは作らない。原典で空欄が「制限なし」を意味する項目と、`99=不明`、属性欠落を`SOURCE_CODE_99` / `SEMANTIC_BLANK` / `MISSING_ATTRIBUTE`として区別する。`start_time`はこの区別を検証するpolicy-only fixture例であり、40件のfield mappingには数えない。
 
 observation、evidence、validity、profile判定、scenario、provenance、Before/After、operation statusは、2024年版ネットワーク仕様だけでは完全に表せない。`schemas/hokonavi_2024_mapping.yaml`の指示に従いsidecarへ保持し、表現不能な項目を黙ってdropしない。詳細は `HOKONAVI_2024_INFORMATION_LOSS.md` に固定する。
+
+## exact sidecar prototype v1
+
+`schemas/hokonavi_2024_sidecar.schema.json`はversion `1.0.0`を固定し、unknown propertyを拒否する。edgeごとに複数のM7 variant、observation、evidence、profile×scenario、scenario状態、Before/After、operation statusを配列で保持し、edge参照とID重複を検査する。`provenance`は`source_role=ABLEPATH_DESIGN`、source ID、CRS、method、適用constant IDを別欄で保持する。
+
+- profileの4状態とscenarioの`OPEN/NARROWED/CLOSED/UNKNOWN`は別field・別enumであり、相互変換しない。
+- `NOT_COMPUTED`は状態値ではなく`computation_status`として保持し、対応するstateは`null`にする。
+- hazard/operation dataが`UNKNOWN`なら、残存幅とclosureを0/falseにせず`null`にする。
+- M7 recordの`remaining_clear_width_m`はsidecarだけに置き、static networkの`clear_width_static_m`を上書きしない。
+- sidecarを許容しないexportでは、AblePath独自情報が存在すれば停止する。
 
 ## SOURCE_FACTとABLEPATH_DESIGN
 

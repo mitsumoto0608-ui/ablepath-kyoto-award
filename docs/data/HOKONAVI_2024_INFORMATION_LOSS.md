@@ -87,6 +87,8 @@ M7残存幅、profile、scenario、Before/After、operation statusはAblePath独
 
 公式仕様には写真管理ファイルがあるが、AblePathのobservation/evidence/validity全体と同義ではない。写真参照だけでFIELD確認済みに昇格しない。
 
+prototype sidecar v1では`evidence`とvalidity intervalを同じ`LOSS-ABLEPATH-EVIDENCE`対象としてexact schemaに保持する。これは`maint_date`をvalidity intervalへ読み替えることを意味しない。
+
 <!-- LOSS:LOSS-UNKNOWN-ENCODING -->
 ## LOSS-UNKNOWN-ENCODING
 
@@ -104,3 +106,4 @@ AblePath provenance（出典モデル、定数ID、evidence/transfer status等�
 3. `UNMAPPED`は`reject_or_preserve_external_sidecar`、`SIDECAR_REQUIRED`はsidecar保持を要求する。
 4. information lossがある変換をlosslessと表示しない。
 5. `SOURCE_FACT`と`ABLEPATH_DESIGN`を混ぜず、AblePath独自fieldに国土交通省仕様を由来根拠として付けない。
+6. exportはentity別lossに加え、全非`FULL` mapping IDとloss IDの対応を`loss_ids_by_mapping`へ決定論的に出力する。

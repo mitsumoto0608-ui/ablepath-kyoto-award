@@ -1,8 +1,11 @@
 contract_id: HOKONAVI_2024_TO_ABLEPATH_V0
 contract_version: 0.1.0
 title: Hokonavi 2024 reference mapping contract for AblePath
-contract_status: DESIGN_CONTRACT_ONLY
+contract_status: DESIGN_CONTRACT_WITH_BOUNDED_PROTOTYPE
 adapter_implemented: false
+adapter_implemented_semantics: "full or real-data adapter; remains false"
+adapter_prototype_implemented: true
+adapter_implementation_scope: SYNTHETIC_FIXTURE_ONLY
 source_specification:
   title: "歩行空間ネットワークデータ整備仕様"
   publisher: "国土交通省 政策統括官付"
@@ -56,6 +59,10 @@ width_separation:
     remaining_clear_width_m: 0.73
 information_loss_report: docs/data/HOKONAVI_2024_INFORMATION_LOSS.md
 fixture_root: tests/fixtures/hokonavi_2024
+sidecar_schema:
+  path: schemas/hokonavi_2024_sidecar.schema.json
+  version: 1.0.0
+  source_role: ABLEPATH_DESIGN
 
 mappings:
   - {id: NODE_ID, entity: node, concept: stable_id, direction: BIDIRECTIONAL, hokonavi_fields: [node_id], ablepath_fields: [node_id], status: FULL, source_role: SOURCE_FACT, source: {section: "3.3.3 table 3.8 no.1; 3.3.4 no.1", document_pages: [33, 34], pdf_file_pages: [35, 36]}, adapter_action: preserve}
@@ -94,7 +101,7 @@ mappings:
 
   - {id: M7_REMAINING_WIDTH, entity: sidecar, concept: scenario_width, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [remaining_clear_width_m], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/review/M7_IMPLEMENTATION_CONTRACT.md", section: "output schema"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar_never_overwrite_static, loss_id: LOSS-ABLEPATH-SCENARIO}
   - {id: OBSERVATION, entity: sidecar, concept: observation, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [observation], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "observation/evidence"}, scope_exclusion: {source_role: SOURCE_FACT, section: "4 photo data is separate", document_pages: [38, 39], pdf_file_pages: [40, 41]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-EVIDENCE}
-  - {id: EVIDENCE, entity: sidecar, concept: evidence, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [evidence], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "observation/evidence"}, scope_exclusion: {source_role: SOURCE_FACT, section: "4 photo data is separate", document_pages: [38, 39], pdf_file_pages: [40, 41]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-EVIDENCE}
+  - {id: EVIDENCE, entity: sidecar, concept: evidence, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [evidence, validity], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "observation/evidence"}, scope_exclusion: {source_role: SOURCE_FACT, section: "4 photo data is separate", document_pages: [38, 39], pdf_file_pages: [40, 41]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-EVIDENCE}
   - {id: UNKNOWN_SEMANTICS, entity: sidecar, concept: unknown, direction: BIDIRECTIONAL, hokonavi_fields: [], policy_applies_to: "every declared source field whose codebook defines 99, semantic blank, or missing", ablepath_fields: [UNKNOWN], status: PARTIAL, source_role: SOURCE_FACT, source: {section: "3.3.1 table 3.2", document_pages: [13, 14, 15], pdf_file_pages: [15, 16, 17]}, adapter_action: preserve_unknown_kind_never_default, loss_id: LOSS-UNKNOWN-ENCODING}
   - {id: PROFILE_STATE, entity: sidecar, concept: profile, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [profile_id, profile_state], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "profile states"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
   - {id: SCENARIO_STATE, entity: sidecar, concept: scenario, direction: INTERNAL_ONLY, hokonavi_fields: [], ablepath_fields: [scenario_id, edge_state], status: SIDECAR_REQUIRED, source_role: ABLEPATH_DESIGN, source: {document: "docs/reference/DESIGN.md", section: "scenario/state"}, scope_exclusion: {source_role: SOURCE_FACT, section: "1.2", document_pages: [2], pdf_file_pages: [4]}, adapter_action: preserve_sidecar, loss_id: LOSS-ABLEPATH-SCENARIO}
