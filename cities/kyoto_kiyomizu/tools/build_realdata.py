@@ -60,6 +60,78 @@ def _pretty_bytes(value: object) -> bytes:
     ).encode("utf-8")
 
 
+def _pretty_hazard_metadata_bytes(value: object) -> bytes:
+    """Preserve the reviewed hazard-metadata key order and final LF."""
+
+    return (
+        json.dumps(value, ensure_ascii=False, allow_nan=False, sort_keys=False, indent=2)
+        + "\n"
+    ).encode("utf-8")
+
+
+def _build_hazard_preview_metadata(
+    *,
+    feature_count: int,
+    source_zip_sha256: str,
+    component_hashes: dict[str, dict[str, str]],
+    preview_sha256: str,
+) -> dict[str, Any]:
+    """Return the deterministic, non-connectable official-preview contract."""
+
+    normalized_component_hashes = {
+        layer: {
+            extension: component_hashes[layer][extension]
+            for extension in sorted(component_hashes[layer])
+        }
+        for layer in sorted(component_hashes)
+    }
+    return {
+        "accessed_at": ACCESSED_AT,
+        "analysis_eligible": False,
+        "axis_order": "longitude_latitude",
+        "capability_status": "NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT",
+        "city_id": CITY_ID,
+        "connection_reason": "The citywide official ZIP is intentionally outside Git; v2 cannot bind contained raw bytes",
+        "connection_status": "NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT",
+        "data_class": "REAL",
+        "data_class_scope": "SOURCE_GEOMETRY_NATURE_ONLY_NOT_CAPABILITY_ELIGIBILITY",
+        "data_class_semantics": "REAL describes source geometry nature only; it does not grant validated capability eligibility",
+        "edge_state_effect": "NONE",
+        "external_raw_location": "REPOSITORY_EXTERNAL_PATH_NOT_VERSIONED",
+        "feature_count": feature_count,
+        "geometry_status": "SOURCE_TRACEABLE_REAL_PREVIEW",
+        "horizontal_unit": "degree",
+        "license": "Kyoto City Disaster Prevention Information Map GIS reuse terms",
+        "license_terms_url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html",
+        "model_eligible": False,
+        "official_closure": None,
+        "official_closure_reason": "Zone overlap is not an operation record",
+        "output_crs": "EPSG:4326",
+        "preview_sha256": preview_sha256,
+        "processing_crs": "EPSG:6668",
+        "quarantine_scope": "ALL_FEATURES_IN_COMPANION_PREVIEW",
+        "redistribution_status": "PERMITTED_WITH_ATTRIBUTION_AGENT_REVIEWED_HUMAN_PENDING",
+        "required_attribution": "出典：京都市防災情報マップ",
+        "schema_version": "2.0.0-preview",
+        "selection_bbox_epsg4326": list(CORRIDOR_BBOX),
+        "source_component_sha256": normalized_component_hashes,
+        "source_class": "OFFICIAL",
+        "source_crs": "EPSG:6668",
+        "source_id": "kyoto_city_hazard_map_landslide_20260830",
+        "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload",
+        "source_zip_sha256": source_zip_sha256.lower(),
+        "transform_history": [
+            "Selected source polygons whose source bbox intersects the fixed corridor bbox",
+            "Transformed JGD2011 EPSG:6668 to EPSG:4326 using PROJ always_xy",
+            "Did not clip polygon boundaries and did not infer operational closure",
+        ],
+        "trust_status": "HASH_REFERENCED_RAW_NOT_IN_TRUST_ROOT",
+        "vertical_datum": None,
+        "vertical_datum_reason": "2D polygon dataset",
+        "viewer_eligible": False,
+    }
+
+
 def _write(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(payload)
@@ -566,42 +638,15 @@ def build_hazard(pack: Path, hazard_root: Path, vendor_root: Path, source_zip_sh
     preview_path = pack / "hazards" / "official" / "landslide_warning_preview.geojson"
     preview_bytes = _pretty_bytes({"type": "FeatureCollection", "features": features})
     _write(preview_path, preview_bytes)
-    metadata = {
-        "schema_version": "2.0.0-preview",
-        "city_id": CITY_ID,
-        "source_id": "kyoto_city_hazard_map_landslide_20260830",
-        "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload",
-        "license": "Kyoto City Disaster Prevention Information Map GIS reuse terms",
-        "license_terms_url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html",
-        "redistribution_status": "PERMITTED_WITH_ATTRIBUTION_AGENT_REVIEWED_HUMAN_PENDING",
-        "required_attribution": "出典：京都市防災情報マップ",
-        "accessed_at": ACCESSED_AT,
-        "source_crs": "EPSG:6668",
-        "processing_crs": "EPSG:6668",
-        "output_crs": "EPSG:4326",
-        "axis_order": "longitude_latitude",
-        "horizontal_unit": "degree",
-        "vertical_datum": None,
-        "vertical_datum_reason": "2D polygon dataset",
-        "transform_history": [
-            "Selected source polygons whose source bbox intersects the fixed corridor bbox",
-            "Transformed JGD2011 EPSG:6668 to EPSG:4326 using PROJ always_xy",
-            "Did not clip polygon boundaries and did not infer operational closure",
-        ],
-        "selection_bbox_epsg4326": list(CORRIDOR_BBOX),
-        "feature_count": len(features),
-        "source_zip_sha256": source_zip_sha256.lower(),
-        "source_component_sha256": component_hashes,
-        "preview_sha256": _sha256_bytes(preview_bytes),
-        "external_raw_location": "REPOSITORY_EXTERNAL_PATH_NOT_VERSIONED",
-        "connection_status": "NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT",
-        "connection_reason": "The citywide official ZIP is intentionally outside Git; v2 cannot bind contained raw bytes",
-        "official_closure": None,
-        "official_closure_reason": "Zone overlap is not an operation record",
-    }
+    metadata = _build_hazard_preview_metadata(
+        feature_count=len(features),
+        source_zip_sha256=source_zip_sha256,
+        component_hashes=component_hashes,
+        preview_sha256=_sha256_bytes(preview_bytes),
+    )
     _write(
         pack / "hazards" / "official" / "landslide_warning_preview.metadata.json",
-        _pretty_bytes(metadata),
+        _pretty_hazard_metadata_bytes(metadata),
     )
 
 
