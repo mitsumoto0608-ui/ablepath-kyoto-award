@@ -134,3 +134,19 @@ playbooks:
     protected_boundaries: [UNKNOWN_semantics, source_provenance, no_silent_loss, human_gate]
     confidence: HIGH
     human_approved: false
+  - playbook_id: exact-path-hash-bound-lf-checkout-v1
+    trigger: a hash-bound text artifact differs only after a cross-platform Git checkout
+    actions:
+      - "OBSERVE: capture failing manifest expected and raw working SHA values"
+      - "FINGERPRINT: classify checkout byte drift separately from data or calculation drift"
+      - "LESSON search: inspect prior newline and deterministic archive lessons"
+      - "DIAGNOSE: compare raw working bytes, HEAD blob bytes, and LF-normalized working bytes"
+      - "CHECKPOINT: preserve the correct HEAD blobs and manifest expectations"
+      - "REPAIR: add text eol=lf for each reviewed existing text path without directory wildcards, then re-checkout from HEAD"
+      - "TARGETED TEST: verify working HEAD and manifest SHA equality and run the affected city tests"
+      - "FULL TEST: run the unchanged full Python suite"
+      - "REFLECT: confirm no expected SHA, source data, legacy path, other city, or binary policy changed"
+      - "MEMORY update: record exact-path LF as part of future hash-bound text provenance reviews"
+    protected_boundaries: [source_provenance, deterministic_bytes, future_binary_artifacts]
+    confidence: HIGH
+    human_approved: false
