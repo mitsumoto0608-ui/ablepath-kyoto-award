@@ -149,6 +149,7 @@ footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5r
 }
 
 @media (max-width: 680px) {
+  .skip-map-link { left: 1rem; }
   .masthead, .corridor-intro, footer { align-items: flex-start; flex-direction: column; }
   .status-cluster { justify-content: flex-start; }
   .disclaimer { align-items: flex-start; flex-direction: column; }
