@@ -2,23 +2,29 @@
 
 ```text
 LANE_ID=MAP
-LANE_STATUS=BLOCKED_CONTRACT
+LANE_STATUS=GREEN
+RESOLUTION_STATUS=GREEN_FOR_DRAFT_INTEGRATION
 BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
-HEAD_SHA=a84c7a4d77cb847643498dddd5c808ed23dc0c17
-HEAD_SHA_SCOPE=MAP_LANE_PAYLOAD_BEFORE_HOSTED_CI_ATTESTATION_COMMIT
+HEAD_SHA=9e3411b31746be3bd05278318636837a40857392
+HEAD_SHA_SCOPE=MAP_LANE_REMOTE_HEAD_BEFORE_CONTRACT_RESOLUTION_REPORT_COMMIT
 ALLOWED_PATHS_AUDIT=PASS
 WORKING_TREE_CLEAN=PASS
 CLEAN_VERIFICATION_HEAD=d910fb1966c40c7c7083e71501daf21beacd3151
 FEATURE_BRANCH_PUSHED=true
-LOCAL_BRANCH=codex/phase3-map-ui-v1
+LOCAL_BRANCH=task/phase3-map-contract-resolution-v1
 REMOTE_BRANCH=task/phase3-maplibre-cesium-v1
+RESOLUTION_BRANCH=task/phase3-map-contract-resolution-v1
+RESOLUTION_BRANCH_PUSH_STATUS=PENDING_REPORT_COMMIT
 HOSTED_CI=SUCCESS
-HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33333731413
-HOSTED_CI_SCOPE_SHA=a84c7a4d77cb847643498dddd5c808ed23dc0c17
-INTEGRATION_RECOMMENDATION=REPORT_ONLY
+HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334211814
+HOSTED_CI_SCOPE_SHA=9e3411b31746be3bd05278318636837a40857392
+INTEGRATION_RECOMMENDATION=GREEN_FOR_DRAFT_INTEGRATION
+PUBLIC_RELEASE_READY=false
+MAIN_MERGE_READY=false
+LEGAL_CONCLUSION=NOT_MADE_HUMAN_GATE
 PUSH_STATUS=SUCCESS
-REMOTE_HEAD_SHA=a84c7a4d77cb847643498dddd5c808ed23dc0c17
-REMOTE_HEAD_SHA_SCOPE=PRE_ATTESTATION_PAYLOAD
+REMOTE_HEAD_SHA=9e3411b31746be3bd05278318636837a40857392
+REMOTE_HEAD_SHA_SCOPE=PRE_CONTRACT_RESOLUTION_REPORT
 HUMAN_GATES=["OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
 ```
 
@@ -28,6 +34,30 @@ localの`refs/heads/codex/phase3-map-ui-v1`から解決する。local guardは`c
 同一payloadは許可namespaceの`refs/heads/task/phase3-maplibre-cesium-v1`へpushした。
 `HOSTED_CI_SCOPE_SHA`に対するHosted Actions `AblePath quality gates`は、Static viewer / Node 22、
 Python 3.12 / Windows newline smoke、Python 3.12 / Linuxの3ジョブすべて成功した。
+
+## Contract resolution for draft integration
+
+このresolutionは、MAP payloadをstacked **draft** PRへ統合できるかだけを判定する。
+ODbLのdatabase/produced-work区分、public tile利用方針、PLATEAU PDL1.0の最終解釈、
+root code license、公開時のNOTICE/attributionは法的結論を出さず、ownerの人間ゲートに残す。
+
+draft integrationを妨げるCritical/High contract defectは検出しなかった。根拠は次のとおり。
+
+- 清水の実座標layerは`VGI / SOURCE_TRACEABLE_REAL / CANDIDATE`として表示し、
+  accessibility・operationを全件`UNKNOWN`のまま保持する。
+- OSM contributor表示とODbL link、PLATEAU attributionをruntime UIとE2Eで検査する。
+  これはpublic redistributionの許諾判断を代替しない。
+- PLATEAUは`OFFICIAL_METADATA_ONLY`、静的truthは`PLATEAU_3D_CONNECTED=false`のままで、
+  session内のroot tileset読込成功をcity capabilityへ昇格しない。
+- 嵐山・藤沢に存在しないreal layerを補完せず、3都市全体の`REAL_MAP_COMPLETE=false`を維持する。
+- scientific equation、evidence parameter、UNKNOWN semantics、安全判定、city raw/source hashは変更していない。
+- remote head `9e3411b31746be3bd05278318636837a40857392`のHosted CI run
+  `33334211814`は全job成功。先行payload `a84c7a4d77cb847643498dddd5c808ed23dc0c17`の
+  run `33333731413`も成功している。
+
+したがって`GREEN_FOR_DRAFT_INTEGRATION`は、`PUBLIC_RELEASE_READY=false`、
+`MAIN_MERGE_READY=false`、draft PRの`auto-merge=false`を維持する条件付きの統合適格性である。
+global truthの更新要否はintegration diff全体で人間reviewし、main merge・tag・public releaseは自動実行しない。
 
 - branch: `codex/phase3-map-ui-v1`
 - base: `372ce8ec37dcc2a263bd6ae28e565f9c03ed9673`
