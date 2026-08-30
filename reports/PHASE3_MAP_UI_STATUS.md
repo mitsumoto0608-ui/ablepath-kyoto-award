@@ -2,6 +2,7 @@
 
 - `LANE_STATUS=GREEN`
 - `INTEGRATION_RECOMMENDATION=INTEGRATE`
+- `PUSH_STATUS=BLOCKED_EXPLICIT_ORIGIN_APPROVAL`
 - branch: `codex/phase3-map-ui-v1`
 - base: `372ce8ec37dcc2a263bd6ae28e565f9c03ed9673`
 - lane: `MAP`
@@ -147,6 +148,16 @@ dependency range/CDN import、子tile/render failure listener削除、2D fallbac
    - ACT: artifactから実在する2件目IDを選択。
    - RESULT: targeted 2 pass、full E2E 31 pass / 1 skip。
    - REFLECT: fixture IDは推測せず生成artifactから取得する。
+
+8. origin push authorization gate
+   - OBSERVE: `git push -u origin codex/phase3-map-ui-v1`は、未確認originへの公開に対する明示承認不足として実行前に拒否。changed filesなし。
+   - FINGERPRINT: unverified `origin` publication requires explicit destination approval。
+   - RETRIEVE: 一致lessonなし。
+   - DIAGNOSE: PLATFORM / authorization。
+   - PLAN: primary fixは人間が`https://github.com/mitsumoto0608-ui/ablepath-kyoto-award.git`へのpushを明示承認すること。fallbackなし。allowed refは`codex/phase3-map-ui-v1`のみ、main/tagは対象外。
+   - CHECKPOINT: 実装commit `c270c2d`はlocal branchに保存済み。
+   - ACT: 同一pushは再試行せず停止。
+   - REFLECT: remote destinationをpush前checkpointで提示し、明示承認を先に得る。
 
 同一fingerprintへ同一修正を反復しておらず、各failureは3attempt以内で解消した。
 
