@@ -111,6 +111,25 @@ test("[ui_regression] 320 CSS-pixel reflow has no page-level horizontal overflow
   await page.goto("/");
   await expect(page.locator(".app-shell")).toBeVisible();
   const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  const overflowSelectors = [".workspace-grid", ".map-column", ".map-shell", ".map-toolbar", ".evidence-panel"];
+  for (const selector of overflowSelectors) {
+    const element = page.locator(selector);
+    await expect(element).toHaveCount(1);
+    const bounds = await element.evaluate((node) => {
+      const { left, right, width } = node.getBoundingClientRect();
+      return { left, right, width, clientWidth: node.clientWidth, scrollWidth: node.scrollWidth };
+    });
+    const diagnostic = [
+      `selector=${selector}`,
+      `left=${bounds.left}`,
+      `right=${bounds.right}`,
+      `width=${bounds.width}`,
+      `clientWidth=${bounds.clientWidth}`,
+      `scrollWidth=${bounds.scrollWidth}`,
+    ].join(", ");
+    expect(bounds.right, diagnostic).toBeLessThanOrEqual(dimensions.width);
+    expect(bounds.scrollWidth, diagnostic).toBeLessThanOrEqual(bounds.clientWidth + 1);
+  }
   const skipLinkBounds = await page.locator(".skip-link").evaluateAll((links) => links.map((link) => {
     const { left, right } = link.getBoundingClientRect();
     return { left, right };
