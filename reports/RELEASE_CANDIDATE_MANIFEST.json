@@ -65,22 +65,22 @@
     {
       "path": "viewer/dist/index.html",
       "bytes": 1059,
-      "sha256": "ae221d7a299c5605aa97c97023295f8e051c18a79e52faaac452ab6f59f70819"
+      "sha256": "d221270c318aa30ca30e6a6a5c29394be048f4efa4aea4029b73cae08dc1a67b"
     },
     {
-      "path": "viewer/dist/assets/index-Dvxk5wUm.css",
-      "bytes": 10661,
-      "sha256": "b477fcc3d4ab2fa4bbe1e76a5db24aafabff8fd2b80bbdc2efefbac07d98f97e"
+      "path": "viewer/dist/assets/index-DH-inyf0.css",
+      "bytes": 10932,
+      "sha256": "9a4471855636538364bd7860b0e26282151de5837d8d445998b4be28338e24b2"
     },
     {
-      "path": "viewer/dist/assets/index-CKouptm1.js",
+      "path": "viewer/dist/assets/index-B2rZbdXu.js",
       "bytes": 222444,
-      "sha256": "94491dbbce0bff3fb8118b0a70d4ef116b320c24fe4194dd73d5f7fe060e11e9"
+      "sha256": "af98d25f94b0f596dd02b28bd0821e1a0cfa12ded8e6f2ceb0ea640f5a9b1bc5"
     },
     {
-      "path": "viewer/dist/assets/index-CKouptm1.js.map",
+      "path": "viewer/dist/assets/index-B2rZbdXu.js.map",
       "bytes": 913611,
-      "sha256": "8211575e40e18fae08cb1fec52f8a57140e69de6aba5075f878c2671446104c8"
+      "sha256": "4f7985a1f46dc4465ad72e84affc42efd0d1df4a08c0cdf73890bf4dd68a4da7"
     },
     {
       "path": "viewer/dist/data/cities.json",
@@ -121,13 +121,25 @@
   },
   "hosted_gate": {
     "draft_pr_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1",
-    "pull_request_run_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725",
-    "verified_product_head": "f421693c3a5b931e48617b15287f6d1ca90ef2f7",
+    "pull_request_run_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33296386535",
+    "verified_product_head": "96b78af91af3d0b8ab693caf15f1908dd4a82d56",
     "linux_python": "SUCCESS",
     "windows_python_newline_smoke": "SUCCESS",
     "static_viewer_node": "SUCCESS",
-    "failure_repairs_used": 1,
-    "failure_fingerprint": "PLAYWRIGHT_UBUNTU_320_REFLOW_SKIP_MAP_LINK_MIN_CONTENT_2PX_OVERFLOW",
+    "bounded_automatic_repairs_used": 3,
+    "human_authorized_extra_repairs_used": 1,
+    "failure_fingerprint": "PLAYWRIGHT_UBUNTU_320_GRID_MIN_CONTENT_2PX_OVERFLOW",
+    "failure_diagnosis": "Trace bounds ruled out both skip links; the responsive Grid track and horizontal map toolbar retained min-content width at 320 CSS pixels.",
+    "mobile_reflow_after": {
+      "document_client_width": 320,
+      "document_scroll_width": 320,
+      "workspace_grid_right": 304,
+      "workspace_grid_client_width": 288,
+      "workspace_grid_scroll_width": 288,
+      "map_toolbar_right": 303,
+      "map_toolbar_client_width": 286,
+      "map_toolbar_scroll_width": 286
+    },
     "final_report_commit_policy": "The report-only commit must pass a new pull_request Hosted Actions run; its SHA and run URL are reported in the human handoff to avoid self-reference."
   },
   "github_push_status": "DRAFT_PR_HOSTED_GATE_SUCCESS",

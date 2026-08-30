@@ -150,7 +150,7 @@ Implemented and tested:
 - visible persistent static-planning disclaimer;
 - explicit recoverable `3Dは未接続です` panel.
 
-Built sizes: HTML 1.05 kB, CSS 10.66 kB (gzip 3.30 kB), JS 222.44 kB (gzip 69.14 kB), source map 913.61 kB, city payload 16.48 kB. Screenshots are in `reports/UI_SCREENSHOTS/`.
+Built sizes: HTML 1.05 kB, CSS 10.93 kB (gzip 3.35 kB), JS 222.44 kB (gzip 69.14 kB), source map 913.61 kB, city payload 16.48 kB. Screenshots are in `reports/UI_SCREENSHOTS/`.
 
 Accessibility status is a partial engineering audit, not formal WCAG certification; see `reports/ACCESSIBILITY_AUDIT.md`.
 
@@ -172,9 +172,9 @@ Final independent review then found an incomplete improvement packet, unsupporte
 
 ## CI and supply chain
 
-`ci.yml` defines Linux Python, Windows Python/newline/determinism, and Node/UI jobs with timeouts, cancellation, read-only permission, locked installs, artifact retention, trust scan, runner SHA, and frozen allocate checks. `codex-autofix.yml` is a read-only manual diagnostic and cannot write. All external actions are pinned to immutable SHAs. The draft PR is https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1. Hosted pull-request run https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725 passed on product HEAD `f421693c3a5b931e48617b15287f6d1ca90ef2f7`: Linux Python, Windows Python/newline smoke, and Node/UI all succeeded.
+`ci.yml` defines Linux Python, Windows Python/newline/determinism, and Node/UI jobs with timeouts, cancellation, read-only permission, locked installs, artifact retention, trust scan, runner SHA, and frozen allocate checks. `codex-autofix.yml` is a read-only manual diagnostic and cannot write. All external actions are pinned to immutable SHAs. The draft PR is https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1. Hosted pull-request run https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33296386535 passed on product HEAD `96b78af91af3d0b8ab693caf15f1908dd4a82d56`: Linux Python, Windows Python/newline smoke, and Node/UI all succeeded. The Node job included 17 passing E2E cases, one intentional mobile screenshot skip, and successful desktop/mobile execution of the 320 CSS-pixel reflow case.
 
-The preceding hosted runs exposed one Linux-only responsive defect: at 320 CSS pixels, the off-screen second skip link produced `scrollWidth=322` for `clientWidth=320`. Fingerprint `PLAYWRIGHT_UBUNTU_320_REFLOW_SKIP_MAP_LINK_MIN_CONTENT_2PX_OVERFLOW` was classified as platform-triggered UI code and repaired by using the existing mobile left inset. The overflow assertion, skip-link labels, focus behavior, and keyboard targets were not weakened.
+The preceding Hosted Ubuntu runs exposed one responsive defect: at 320 CSS pixels, `scrollWidth=322` for `clientWidth=320`. Initial skip-link and render-timing hypotheses did not eliminate the failure. Artifact/trace review then showed both skip links inside the viewport (`right=132` and `right=252`) and identified the responsive Grid track plus horizontal map toolbar retaining min-content width. After the three bounded automatic attempts, one additional human-authorized repair set the single-column track to `minmax(0, 1fr)`, released grid-item minimum width, and stacked/wrapped the mobile toolbar. Local after-values were document `320/320`; workspace and map column `right=304, clientWidth=288, scrollWidth=288`; map shell `right=304, clientWidth=286, scrollWidth=286`; toolbar `right=303, clientWidth=286, scrollWidth=286`; evidence panel `right=304, clientWidth=286, scrollWidth=286`. The 320/360/375/400px document checks all had `scrollWidth==clientWidth`. No overflow was hidden and no assertion, skip-link behavior, or safety/data contract was weakened.
 
 Python and Node locks are committed. Direct dependency purpose and locally reported licenses are in `reports/DEPENDENCY_AND_LICENSE_REPORT.md`. No external repository code was copied; see `docs/reports/OVERNIGHT_GITHUB_ASSET_DECISIONS.md`.
 
@@ -225,9 +225,9 @@ At report snapshot:
 - local `main` and `origin/main`: `cbb71020da0e52f809445e88e84f0c294ec973cc`;
 - baseline tag: `0c3289b9174bf624c95faeaa3c1643664e31c2eb`;
 - no main merge, tag move, rebase, amend, branch deletion, or force push;
-- remote status: `DRAFT_PR_HOSTED_GATE_SUCCESS` for product HEAD `f421693c3a5b931e48617b15287f6d1ca90ef2f7`;
+- remote status: `DRAFT_PR_HOSTED_GATE_SUCCESS` for product HEAD `96b78af91af3d0b8ab693caf15f1908dd4a82d56`;
 - draft PR: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/1;
-- hosted run: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33293555725;
+- hosted run: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33296386535;
 - `MAIN_MERGED=false`;
 - integration branch only; human review required.
 
