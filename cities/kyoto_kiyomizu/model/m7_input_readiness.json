@@ -1,0 +1,20 @@
+{
+  "building_height_experiment": {
+    "height_status": "UNKNOWN",
+    "reason": "PLATEAU metadata/tileset URL is available but no per-building height or road-side setback extraction is validated",
+    "setback_status": "UNKNOWN",
+    "status": "NOT_COMPUTED"
+  },
+  "city_id": "kyoto_kiyomizu",
+  "damage_state": "UNKNOWN",
+  "debris_present": null,
+  "edge_input_policy": "M7 only when base clear width and both-side debris inputs are traceable",
+  "eligible_edge_count": 0,
+  "ineligible_edge_count": 19,
+  "kpi_connected": false,
+  "m6_connected": false,
+  "m7_connected": false,
+  "m7_connection_reason": "No candidate edge has measured clear width plus validated building height/setback and explicit model scenario inputs",
+  "schema_version": "1.0.0",
+  "source_geometry_artifact_id": "kiyomizu_osm_named_corridor_20260830"
+}

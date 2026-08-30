@@ -1,0 +1,635 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          135.780718,
+          34.9990616
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N1697644482",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 1697644482",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N1697644482",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-1697644482",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N1697644482",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7776743,
+          35.0054866
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N2085443989",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 2085443989",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N2085443989",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-2085443989",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N2085443989",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7771901,
+          34.9987052
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N266605415",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 266605415",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N266605415",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-266605415",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N266605415",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7771926,
+          35.0037491
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N266605718",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 266605718",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N266605718",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-266605718",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N266605718",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7808045,
+          34.9979977
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N266606198",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 266606198",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N266606198",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-266606198",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N266606198",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7807911,
+          34.9961782
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N266606201",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 266606201",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N266606201",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-266606201",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N266606201",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7790096,
+          34.9984353
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365349",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365349",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365349",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365349",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365349",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7807256,
+          34.9962012
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365378",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365378",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365378",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365378",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365378",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7829169,
+          34.9955134
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365447",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365447",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365447",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365447",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365447",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7798442,
+          34.9992641
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365516",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365516",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365516",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365516",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365516",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7808521,
+          34.9981617
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365545",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365545",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365545",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365545",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365545",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7808159,
+          34.9987332
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365550",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365550",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365550",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365550",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365550",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7807044,
+          34.9992677
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N343365555",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 343365555",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N343365555",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-343365555",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N343365555",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7797617,
+          35.0006669
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N3752885643",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 3752885643",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N3752885643",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-3752885643",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N3752885643",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7792838,
+          35.0007312
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N3752885671",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 3752885671",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N3752885671",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-3752885671",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N3752885671",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7795479,
+          35.0007344
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N3752885680",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 3752885680",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N3752885680",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-3752885680",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N3752885680",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7809446,
+          34.9964741
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N5117539281",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 5117539281",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N5117539281",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-5117539281",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N5117539281",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7808078,
+          34.9962092
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N5273686786",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 5273686786",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N5273686786",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-5273686786",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N5273686786",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7808137,
+          34.9980224
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N5315789346",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 5315789346",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N5315789346",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-5315789346",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N5315789346",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.779518,
+          35.0007358
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N6990188568",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 6990188568",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N6990188568",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-6990188568",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N6990188568",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.779544,
+          35.0006815
+        ],
+        "type": "Point"
+      },
+      "id": "KK-OSM-N6990188569",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "entrance_reason": "NO_OFFICIAL_OR_FIELD_ENTRANCE_EVIDENCE",
+        "entrance_status": "UNKNOWN",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "lineage": [
+          "OpenStreetMap node 6990188569",
+          "Referenced endpoint/shared node in snapshot 2026-08-30T00:00:00Z"
+        ],
+        "node_id": "KK-OSM-N6990188569",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-node-6990188569",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "stable_feature_id": "KK-OSM-N6990188569",
+        "topology_status": "CANDIDATE"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}
