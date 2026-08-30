@@ -3,14 +3,15 @@
 ```text
 LANE_ID=ARA-A31B-RESOLUTION
 LANE_STATUS=BLOCKED_PROVENANCE
-RESOLUTION_STATUS=READY_FOR_REVIEW
+RESOLUTION_STATUS=REPORT_ONLY
+TRUST_ROOT_SUBSET_STATUS=CONDITIONAL_GREEN
 BASE_SHA=17a7951bd77f737eec4ca7c48cbd3a673e6c59a0
-HEAD_SHA=fad8935b6ea135a9ff3333cb23de38dd435065e9
+HEAD_SHA=1f90003e43653f4734166247827b63e917186dc0
 HEAD_SHA_SCOPE=PRE_ATTESTATION_CONTENT_HEAD
-REMOTE_HEAD_SHA=fad8935b6ea135a9ff3333cb23de38dd435065e9
+REMOTE_HEAD_SHA=1f90003e43653f4734166247827b63e917186dc0
 WORKTREE_CLEAN=PASS_AT_CONTENT_HEAD
-HOSTED_CI=FAIL_LINUX;SUCCESS_WINDOWS_VIEWER
-HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334238649
+HOSTED_CI=FAIL_TRUST_BOUNDARY_RAW_ARCHIVE;SUCCESS_LINUX_TESTS_WINDOWS_VIEWER
+HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33335592901
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
 HUMAN_GATES=[INDEPENDENT_LUNA_TERA_REAUDIT,LICENSE_AND_REDISTRIBUTION_REVIEW,OFFICIAL_DATA_SAFETY_PROMOTION,ADMIN_VALIDATION]
 ```
@@ -41,6 +42,20 @@ artifacts byte-for-byte:
 The quarantine continues to contain source feature indexes `261953` and
 `262902` as `INVALID_SOURCE_GEOMETRY`; no repair was applied.
 
+## Portability resolution
+
+Hosted Linux exposed that the source archive stores member separators as
+backslashes. Python's Windows ZIP handling had made those names appear with
+forward slashes, so exact member lookup was platform-dependent. Commit
+`1f90003e43653f4734166247827b63e917186dc0` now indexes each raw `ZipInfo` by a
+POSIX-style portable name, rejects separator aliases, and opens the original
+`ZipInfo`. The raw archive bytes, expected archive/member hashes, provenance,
+and production behavior are unchanged.
+
+The original Linux behavior was reproduced as RED. The corrected targeted
+test passes under Linux separator semantics. Removing normalization or adding
+two members that collapse to the same portable name makes the test fail.
+
 ## Safety and licence boundaries
 
 The official catalogue labels the dataset `オープンデータ（CC_BY_4.0）` and
@@ -51,9 +66,24 @@ road-closure capability. The prepared preview remains
 viewer/model connections remain false, closure remains null with a reason, and
 every overlap row retains `scenario_state=UNKNOWN`.
 
+The raw ZIP is report-only and is not eligible for the deterministic release
+candidate. It remains tracked on this provenance-resolution branch, so the
+repository trust-boundary scan correctly rejects it as both a prohibited raw
+extension and a file larger than 10 MiB. Removing, relocating, or changing the
+policy for that archive is outside this portability task. Consequently the
+whole ARA lane remains `BLOCKED_PROVENANCE`; only the hash-pinned trust-root
+verification subset is `CONDITIONAL_GREEN`.
+
 ## Changed paths
 
+The earlier provenance-resolution content at the branch base includes:
+
 - `inputs/staging/ARA-A31B-PROVENANCE-RESOLUTION-V1/**`
+- `tests/realdata/arashiyama/test_a31b_provenance_resolution.py`
+- `reports/PHASE3_ARA_A31B_PROVENANCE_RESOLUTION_V1.md`
+
+The portability repair changes only:
+
 - `tests/realdata/arashiyama/test_a31b_provenance_resolution.py`
 - `reports/PHASE3_ARA_A31B_PROVENANCE_RESOLUTION_V1.md`
 
@@ -63,18 +93,30 @@ threshold, M6/M7 state table, `src/allocate.py`, main, tag, release, or
 
 ## Tests and review state
 
-- TDD RED: 2 missing-staging failures / 1 existing safety assertion pass.
-- Targeted GREEN: `3 passed in 1.91s`.
+- TDD RED: Linux separator semantics could not find the forward-slash member
+  name in the raw backslash-spelled central directory.
+- Targeted GREEN: `3 passed`.
+- Full local suite: `520 passed, 1 warning`.
+- Deterministic runner twice: both `all_runs.json` SHA-256 values were
+  `96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1`.
+- Frozen `src/allocate.py` SHA-256 remained
+  `2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b`.
+- Mutation checks: removing separator normalization was killed; a separator
+  alias collision was rejected fail-closed.
 - Fresh optional preview regeneration: completed once and matched the shipped
   preview/quarantine/preparation bytes exactly.
-- Independent LUNA/TERA re-audit was not started after MASTER CONTROL requested
-  immediate handoff; therefore the resolution is `READY_FOR_REVIEW`, not
-  `RESOLVED` or GREEN.
-- Hosted run `33334238649` completed with Windows and Viewer success and Linux
-  failure. Per the MASTER CONTROL handoff request, no new diagnosis or repair
-  was started; the lane remains `BLOCKED_PROVENANCE` / `REPORT_ONLY`.
+- Portability diff review found no Critical or High issue after path checks
+  were made platform-neutral with `PurePosixPath`. Independent LUNA/TERA
+  re-audit remains an explicit human gate for the overall lane.
+- Hosted run `33335592901` passed the Linux Python suite (`520 passed`), Windows
+  Python job, static viewer/Node job, frozen allocate check, and deterministic
+  runner checks. It then failed the trust-boundary scan on the pre-existing raw
+  `55,502,814` byte ZIP. Local `verify_repository.py` reproduces those same two
+  findings.
 - ADR gate: data/provenance, test, and report-only change; no architectural
   decision or production behavior change, so no new ADR is required.
 
-`INTEGRATION_RECOMMENDATION=REPORT_ONLY` remains fail-closed until independent
-review. The existing OSM candidate sublane status is unchanged.
+`INTEGRATION_RECOMMENDATION=REPORT_ONLY` remains fail-closed. The portability
+fix may be retained as a conditionally green trust-root test subset, but the
+raw ZIP and the ARA lane must remain outside deterministic RC integration. The
+existing OSM candidate sublane status is unchanged.
