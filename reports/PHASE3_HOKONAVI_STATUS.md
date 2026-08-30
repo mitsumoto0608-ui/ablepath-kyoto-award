@@ -3,14 +3,18 @@
 LANE_ID=HOKO
 LANE_STATUS=BLOCKED_CONTRACT
 BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
-HEAD_SHA=PENDING_IMPLEMENTATION_COMMIT
+HEAD_SHA=81bdcec32112dc82bae54b1d8e8fb54868148252
 ALLOWED_PATHS_AUDIT=PASS
-HOSTED_CI=NOT_RUN
-HOSTED_RUN_URL=null
+HOSTED_CI=SUCCESS
+HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33332630217
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
 HUMAN_GATES=["exact sidecar v1 shape", "state/CRS/unit/test expectations", "mapping-contract review required by AI_TASKS/05"]
 
 `HOKONAVI_ADAPTER_PROTOTYPE=true`
+
+`HEAD_SHA` is the implementation commit audited by the Hosted CI run above.
+The branch tip may be a later report-only commit that records this immutable
+result; embedding a commit's own hash inside that same commit is not possible.
 
 This lane provides a deterministic mapping prototype limited to the tracked
 `SYNTHETIC` fixture. It does not ingest a ministry dataset, connect M6/M7 to
