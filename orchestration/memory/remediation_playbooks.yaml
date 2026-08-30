@@ -102,3 +102,35 @@ playbooks:
     protected_boundaries: [source_provenance, temporal_truth]
     confidence: HIGH
     human_approved: false
+  - playbook_id: pytest-post-result-exit-stall-v1
+    trigger: pytest reports complete passing progress but does not terminate under inherited Windows temp or cache state
+    actions:
+      - "OBSERVE: capture the last emitted progress and bound the observation window"
+      - "FINGERPRINT: normalize the post-result exit stall separately from a test assertion failure"
+      - "LESSON search: search memory for the Windows external-temp fingerprint"
+      - "DIAGNOSE: distinguish inherited temp or cache state from repository behavior"
+      - "CHECKPOINT: preserve repository bytes and interrupt only the stalled pytest process"
+      - "REPAIR: select a new external basetemp and disable cacheprovider"
+      - "TARGETED TEST: rerun the unchanged targeted tests"
+      - "FULL TEST: run the unchanged full suite after targeted success"
+      - "REFLECT: confirm no repository test or dependency change masked the environment fault"
+      - "MEMORY update: record the observed presentation and successful environment-only repair"
+    protected_boundaries: [test_truth, dependencies, repository_state]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: exclude-unsafe-hokonavi-prototype-v1
+    trigger: adapter review finds silent source-field loss or an unvalidated semantic sidecar
+    actions:
+      - "OBSERVE: record every lost BIDIRECTIONAL field, UNKNOWN kind, and sidecar validation gap"
+      - "FINGERPRINT: classify the combined round-trip and provenance-boundary failure"
+      - "LESSON search: compare prior provenance capability and no-silent-drop lessons"
+      - "DIAGNOSE: distinguish fixture equality from original-source semantic preservation"
+      - "CHECKPOINT: keep the reviewed mapping contract and exclude the unsafe implementation branch"
+      - "REPAIR: report the adapter as not implemented and preserve the design-only contract"
+      - "TARGETED TEST: retain the existing design-contract tests unchanged"
+      - "FULL TEST: run the integrated full suite without the rejected prototype"
+      - "REFLECT: state that deadline-safe degradation did not satisfy prototype implementation"
+      - "MEMORY update: require exact sidecar schemas and mutation-tested original-source round trips before retry"
+    protected_boundaries: [UNKNOWN_semantics, source_provenance, no_silent_loss, human_gate]
+    confidence: HIGH
+    human_approved: false
