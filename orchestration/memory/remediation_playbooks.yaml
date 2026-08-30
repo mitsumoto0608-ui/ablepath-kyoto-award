@@ -150,3 +150,19 @@ playbooks:
     protected_boundaries: [source_provenance, deterministic_bytes, future_binary_artifacts]
     confidence: HIGH
     human_approved: false
+  - playbook_id: authorized-isolated-worktree-runner-v1
+    trigger: runner output write is denied only because an isolated worktree is outside the sandbox writable root
+    actions:
+      - "OBSERVE: capture the exact denied output path and confirm the runner reached its write step"
+      - "FINGERPRINT: classify sandbox write denial separately from model or data failure"
+      - "LESSON search: inspect prior external-environment and permission fingerprints"
+      - "DIAGNOSE: verify branch, clean inputs, worktree containment, and that no output was partially changed"
+      - "CHECKPOINT: preserve tracked source, expected hashes, main, and tags"
+      - "REPAIR: request approval for only the exact runner command in the authorized isolated worktree"
+      - "TARGETED TEST: run the runner once and verify 120 runs plus baseline SHA"
+      - "FULL TEST: repeat the runner and verify both SHA values and generated-file blob equality"
+      - "REFLECT: confirm no source, expected SHA, dependency, main, or tag change"
+      - "MEMORY update: record sandbox/worktree permission as environment capability state"
+    protected_boundaries: [runner_semantics, deterministic_hash, main, tags]
+    confidence: HIGH
+    human_approved: false

@@ -17,3 +17,6 @@ cities/kyoto_kiyomizu/sources/retained/osm_corridor_20260830.raw.json text eol=l
 cities/kyoto_kiyomizu/sources/retained/plateau_26100_bldg_tileset_20260830.json text eol=lf
 cities/kyoto_kiyomizu/tools/build_realdata.py text eol=lf
 tests/realdata/test_kiyomizu_realdata.py text eol=lf
+
+# The frozen allocator checksum is defined over its LF Git-blob bytes.
+src/allocate.py text eol=lf
