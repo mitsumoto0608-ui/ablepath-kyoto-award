@@ -14,7 +14,11 @@ FEATURE_BRANCH_PUSHED=true
 LOCAL_BRANCH=task/phase3-map-contract-resolution-v1
 REMOTE_BRANCH=task/phase3-maplibre-cesium-v1
 RESOLUTION_BRANCH=task/phase3-map-contract-resolution-v1
-RESOLUTION_BRANCH_PUSH_STATUS=PENDING_REPORT_COMMIT
+RESOLUTION_BRANCH_PUSH_STATUS=SUCCESS
+RESOLUTION_HEAD_SHA=b60b25402e72fd2a3d38d175b5b8bfb26fb961c0
+RESOLUTION_HEAD_SHA_SCOPE=CONTRACT_RESOLUTION_BEFORE_HOSTED_CI_ATTESTATION_COMMIT
+RESOLUTION_HOSTED_CI=SUCCESS
+RESOLUTION_HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334713941
 HOSTED_CI=SUCCESS
 HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334211814
 HOSTED_CI_SCOPE_SHA=9e3411b31746be3bd05278318636837a40857392
@@ -54,6 +58,8 @@ draft integrationを妨げるCritical/High contract defectは検出しなかっ�
 - remote head `9e3411b31746be3bd05278318636837a40857392`のHosted CI run
   `33334211814`は全job成功。先行payload `a84c7a4d77cb847643498dddd5c808ed23dc0c17`の
   run `33333731413`も成功している。
+- contract resolution head `b60b25402e72fd2a3d38d175b5b8bfb26fb961c0`のHosted CI run
+  `33334713941`もLinux、Windows、Static viewer / Node 22の全jobが成功した。
 
 したがって`GREEN_FOR_DRAFT_INTEGRATION`は、`PUBLIC_RELEASE_READY=false`、
 `MAIN_MERGE_READY=false`、draft PRの`auto-merge=false`を維持する条件付きの統合適格性である。
