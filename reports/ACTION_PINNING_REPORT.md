@@ -1,6 +1,6 @@
 # GitHub Actions pinning report
 
-Status at source-commit creation: **official tag verification PASS; hosted execution pending branch push**. The final hosted result is authoritative in the draft PR checks, which occur after this tracked snapshot is committed.
+Status: **official tag verification PASS; pre-governance-sync Hosted execution PASS**. Draft PR #1 run `33296626023` succeeded for commit `aa957e3a024561022e939b4b00579251c9062a42` in all three jobs (Linux Python, Windows Python, static viewer/Node). The governance-sync commit that contains this report still requires its own successful Hosted run; the PR check attached to that commit is authoritative.
 
 Both workflows use minimal `contents: read` permissions, explicit timeouts, concurrency cancellation, non-persistent checkout credentials, and bounded artifact retention.
 
@@ -18,6 +18,6 @@ The exact tag refs were verified against the official GitHub repositories on 202
 - https://github.com/actions/setup-node/releases/tag/v6.5.0
 - https://github.com/actions/upload-artifact/releases/tag/v7.0.1
 
-Official latest releases are currently checkout v7.0.1 and setup-node v7.0.0. This RC deliberately follows the task-authorized v6 scopes for those two actions. Moving them to v7 would add a second major-runtime compatibility change that has not been exercised on this branch; that migration requires a separate hosted-CI result and human gate. The report therefore does not describe checkout v6 or setup-node v6 as the current upstream major.
+As verified on 2026-08-30, the official latest releases were checkout v7.0.1 and setup-node v7.0.0. This RC deliberately follows the task-authorized v6 scopes for those two actions. Moving them to v7 would add a second major-runtime compatibility change that has not been exercised on this branch; that migration requires a separate hosted-CI result and human gate. The report therefore does not describe checkout v6 or setup-node v6 as the current upstream major.
 
 `ci.yml` defines Linux Python, mandatory Windows newline/determinism, and Node/UI jobs. `codex-autofix.yml` is intentionally a manually dispatched, read-only diagnostic artifact producer; it cannot commit, push, open a PR, or grant an external agent write access.

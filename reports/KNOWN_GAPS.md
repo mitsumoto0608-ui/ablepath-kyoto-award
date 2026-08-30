@@ -18,8 +18,9 @@ City gap registers contain 31 records: 清水10 (OPEN 9, REQUIRES_APPLICATION 1)
 
 ## Operational gaps
 
-- GitHub CLI is not authenticated and remote push was blocked: `GITHUB_PUSH_BLOCKED`.
-- GitHub Actions are syntax/statically reviewed only; no hosted workflow run exists for this branch.
+- Current authenticated state: GitHub CLI is authenticated as `mitsumoto0608-ui`; integration commits are pushed to the remote and draft PR #1 targets `main`. Auto-merge is off and `main` remains unmerged.
+- Pre-governance-sync evidence: source commit `aa957e3a024561022e939b4b00579251c9062a42` passed Hosted GitHub Actions run `33296626023` (Linux Python, Windows Python, and static viewer/Node jobs all succeeded). The governance-sync commit requires a new successful Hosted run before review handoff.
+- Historical only: an earlier local snapshot recorded `GITHUB_PUSH_BLOCKED` before human authentication. That condition is resolved and is not the current state.
 - Accessibility has automated/source review evidence, but no formal WCAG certification or assistive-technology user validation.
 - The bounded strategy result is a single fixed Windows collision replay; permanent champion promotion requires human review and broader/alternating-order evidence.
 
@@ -32,4 +33,4 @@ City gap registers contain 31 records: 清水10 (OPEN 9, REQUIRES_APPLICATION 1)
 5. Hokonavi information-loss mapping and the fact that no adapter to production state is connected.
 6. UI safety wording, attribution, accessibility, and 3D fallback.
 7. CI/action pins, dependency/license report, and release archive manifest.
-8. Every commit on the integration branch, then an explicitly authorized push/PR and merge. No fast-forward to `main` has been performed.
+8. Every commit on the integration branch, the final Hosted run, and release ZIP SHA-256. Before public distribution or merge, the owner must decide the root project LICENSE/NOTICE, third-party notices, external-metadata redistribution terms, and RC/version/tag policy. Current versions are `pyproject.toml` 0.2.0 and private viewer 0.1.0; `v0.2.0-baseline` must remain fixed. Push and draft PR creation are complete; merge still requires explicit human authorization. No fast-forward to `main` has been performed.

@@ -1,7 +1,9 @@
 # AGENTS.md — Codex運用規約（AblePath京都）
 
 このリポジトリで作業するAI（Codex等）は、コードを書く前に本ファイルを読むこと。
-プロジェクト＝**京都・清水の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2**（合成データ・55テスト・120ラン決定論。まだ行政PoCではない）。
+プロジェクト＝**京都・清水、京都・嵐山、藤沢・江の島の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2＋M7残存幅コア＋multi-city engineering UI shell**。3都市の表示geometryは`SYNTHETIC_DEMO`、graphは`CANDIDATE`であり、実地図、MapLibre、Cesium、M6/profile統合、行政PoCは未完成。KPIの根拠不足は0ではなく`null`＋reason、M6は`NOT_COMPUTED`として扱う。
+
+Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_COMPLETE=true`、`TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC`、`REAL_GEOMETRY_CONNECTED=false`、`MODEL_CONNECTED=false`、`MAPLIBRE_CONNECTED=false`、`CESIUM_CONNECTED=false`、`ADMIN_VALIDATED=false`。Hosted CIはLinux Python、Windows Python、static viewer/Nodeを検証する。M7 coreは実装済みだが、3都市の実/CANDIDATE edgeには未接続。
 
 ### Execution Efficiency Rule
 
@@ -34,7 +36,7 @@
 
 ## テスト規律
 
-- 受け入れ条件は常に`python -m pytest tests/ -q`全通過（現行55本）。**先にテストを書く**（手計算フィクスチャの期待値と導出式をdocstringに明記）。
+- 受け入れ条件は常に`python -m pytest tests/ -q`全通過。固定テスト本数を正本にせず、対象commitのHosted CI結果とローカル実行結果を報告する。**先にテストを書く**（手計算フィクスチャの期待値と導出式をdocstringに明記）。
 - テスト4分類のラベルをdocstring先頭に付ける：`[software_correctness]` `[source_conformance]` `[target_validation]` `[ui_regression]`。
 - 意味論修正で既存期待値を更新する場合は、docstringに手計算根拠と更新理由を書く。黙って書き換えない。
 - mutation確認（該当モジュールのみ）：片側瓦礫項の削除／m↔cm／≥↔>／UNKNOWN→OPEN／上り下り反転／mean+σ→mean−σ／(2/3)→23／容量超過割当——で必ず落ちることを完了報告に記録。
@@ -58,7 +60,7 @@
 
 ## ブランチ規約
 
-`main`＝常にテストが通る安定版。作業はタスクブランチ：`task/m7-residual-width-tests`／`task/m7-residual-width-core`／`task/m2-topology-qa`／`task/kyoto-real-data-import`／`task/static-viewer`／`task/cesium-viewer`。1ブランチ=1ブリーフ。
+`main`＝常にテストが通る安定版。作業はタスクブランチまたは人間が指定したintegrationブランチで行い、1ブランチ=1ブリーフを原則とする。人間ゲートなしに`main`へmergeしない。
 
 ## 完了報告テンプレ
 
@@ -66,11 +68,14 @@
 
 ## 直近タスクキュー（この順で）
 
-1. **task/m7-residual-width-tests**：`AI_TASKS/03`のフィクスチャ3ケース（片側0.73m／両側0m／後退S=2→2.73m）＋mutation群を**テストだけ**書く（実装しない）。人間承認後に2へ。
-2. **task/m7-residual-width-core**：残存幅ビルダー実装（物理層出力→派生4状態→profile判定層）。model/graph/runner/出力スキーマの変更可（allocate.pyのみ不可）。
-3. **task/kyoto-real-data-import**：`AI_TASKS/01`。清水回廊の実データ変換（広場公式一覧・警戒区域の入手が先行条件＝人間側9/6期限）。
-4. **task/m2-topology-qa**：QAコード8種（BLOCKER/REVIEW_REQUIRED/INFO・自動修正なし・わざと壊したフィクスチャ各1）。
-5. **task/static-viewer**→**task/cesium-viewer**：`AI_TASKS/02`（runner出力を読むだけ。ビューア内で計算しない）。
+1. 3都市のsource-traceableな実geometryを取得・検証・接続する。
+2. MapLibreを用いた実地図2D表示へ接続する。
+3. 公式hazard geometryを取得し、edgeとの重なりを検証する。
+4. 実/CANDIDATE edgeへM7残存幅コアを接続する。
+5. M6/profile判定を実装し、`NOT_COMPUTED`を解消する。
+6. Cesium/PLATEAU 3D表示を実装する。
+7. ほこナビadapterとround-trip・情報損失検証を実装する。
+8. 現地確認と行政レビューで妥当性を検証する。
 
 ## Multi-Agent / Sub-Agent Orchestration
 

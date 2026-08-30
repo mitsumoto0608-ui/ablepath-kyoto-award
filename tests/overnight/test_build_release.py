@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import stat
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
 
@@ -16,6 +18,7 @@ from scripts.overnight import build_release as release
 
 BASELINE_RUNS_SHA256 = "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+SEED_SOURCE_PATHS = ("results/all_runs.json", "results/summary.md")
 
 
 def git(root: Path, *args: str, input_bytes: bytes | None = None) -> bytes:
@@ -28,6 +31,83 @@ def write_bytes(root: Path, relative: str, data: bytes) -> None:
     path.write_bytes(data)
 
 
+def load_seed_payload(root: Path) -> dict[str, bytes]:
+    if (root / ".git").exists():
+        source_commit = git(root, "rev-parse", "--verify", "HEAD^{commit}").decode("ascii").strip()
+        return {
+            relative: git(root, "cat-file", "blob", f"{source_commit}:{relative}")
+            for relative in SEED_SOURCE_PATHS
+        }
+
+    manifest_path = root / "RELEASE_MANIFEST.json"
+    sums_path = root / "SHA256SUMS.txt"
+    if not manifest_path.is_file() or not sums_path.is_file():
+        raise ValueError("non-Git release source requires RELEASE_MANIFEST.json and SHA256SUMS.txt")
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        sums_bytes = sums_path.read_bytes()
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError("invalid release manifest or checksum file") from error
+    if not isinstance(manifest, dict):
+        raise ValueError("release manifest must be a JSON object")
+
+    payload_entries = manifest.get("payload_files")
+    if not isinstance(payload_entries, list):
+        raise ValueError("release manifest payload_files must be a list")
+    payload_by_path: dict[str, dict[str, object]] = {}
+    for entry in payload_entries:
+        if not isinstance(entry, dict) or not isinstance(entry.get("path"), str):
+            raise ValueError("release manifest contains an invalid payload entry")
+        relative = entry["path"]
+        release.safe_git_relative(relative)
+        if relative in payload_by_path:
+            raise ValueError("release manifest contains a duplicate payload path")
+        payload_by_path[relative] = entry
+    if manifest.get("payload_file_count") != len(payload_by_path):
+        raise ValueError("release manifest payload count mismatch")
+
+    checksums: dict[str, str] = {}
+    try:
+        checksum_lines = sums_bytes.decode("utf-8").splitlines()
+    except UnicodeDecodeError as error:
+        raise ValueError("SHA256SUMS.txt is not valid UTF-8") from error
+    for line in checksum_lines:
+        if "  " not in line:
+            raise ValueError("invalid SHA256SUMS.txt line")
+        digest, relative = line.split("  ", 1)
+        release.safe_git_relative(relative)
+        if not re.fullmatch(r"[0-9a-f]{64}", digest) or relative in checksums:
+            raise ValueError("invalid or duplicate SHA256SUMS.txt entry")
+        checksums[relative] = digest
+    if set(checksums) != set(payload_by_path):
+        raise ValueError("release manifest and SHA256SUMS.txt membership mismatch")
+
+    special_members = manifest.get("special_members")
+    if not isinstance(special_members, list):
+        raise ValueError("release manifest special_members must be a list")
+    sums_records = [
+        entry
+        for entry in special_members
+        if isinstance(entry, dict) and entry.get("path") == "SHA256SUMS.txt"
+    ]
+    if len(sums_records) != 1 or sums_records[0].get("sha256") != release.sha256(sums_bytes):
+        raise ValueError("SHA256SUMS.txt special-member hash mismatch")
+
+    payload: dict[str, bytes] = {}
+    for relative in SEED_SOURCE_PATHS:
+        entry = payload_by_path.get(relative)
+        path = root / relative
+        if entry is None or not path.is_file():
+            raise ValueError(f"release source is missing required payload: {relative}")
+        release.safe_relative(root, path)
+        data = path.read_bytes()
+        digest = release.sha256(data)
+        if entry.get("bytes") != len(data) or entry.get("sha256") != digest or checksums[relative] != digest:
+            raise ValueError(f"release source checksum mismatch: {relative}")
+        payload[relative] = data
+    return payload
+
+
 def make_seed_repository(tmp_path: Path, *, tracked_dist: bool = False) -> Path:
     seed = tmp_path / "seed"
     seed.mkdir()
@@ -35,8 +115,9 @@ def make_seed_repository(tmp_path: Path, *, tracked_dist: bool = False) -> Path:
     git(seed, "config", "user.name", "Release Test")
     git(seed, "config", "user.email", "release-test@example.invalid")
     git(seed, "config", "core.autocrlf", "false")
-    all_runs = git(REPOSITORY_ROOT, "cat-file", "blob", "HEAD:results/all_runs.json")
-    summary = git(REPOSITORY_ROOT, "cat-file", "blob", "HEAD:results/summary.md")
+    source_payload = load_seed_payload(REPOSITORY_ROOT)
+    all_runs = source_payload["results/all_runs.json"]
+    summary = source_payload["results/summary.md"]
     assert hashlib.sha256(all_runs).hexdigest() == BASELINE_RUNS_SHA256
     write_bytes(seed, ".gitattributes", b"*.json text\n*.md text\n")
     write_bytes(seed, ".gitignore", b"viewer/dist/\n")
@@ -74,6 +155,81 @@ def rewrite_member(archive_path: Path, name: str, replacement: bytes) -> None:
     with zipfile.ZipFile(archive_path, "w") as target:
         for item, data in members:
             target.writestr(item, replacement if item.filename == name else data)
+
+
+def make_extracted_release_source(tmp_path: Path) -> Path:
+    fixture_parent = tmp_path / "fixture"
+    fixture_parent.mkdir()
+    seed = make_seed_repository(fixture_parent)
+    archive_path = tmp_path / "fixture.zip"
+    release.build(seed, archive_path)
+    release.verify(archive_path)
+    extracted = tmp_path / "extracted"
+    extracted.mkdir()
+    with zipfile.ZipFile(archive_path) as archive:
+        archive.extractall(extracted)
+    assert not (extracted / ".git").exists()
+    return extracted
+
+
+def test_non_git_extracted_release_source_fallback(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """[software_correctness] Extracted RC checksums provide seed bytes without Git metadata."""
+    extracted = make_extracted_release_source(tmp_path)
+    monkeypatch.setattr(sys.modules[__name__], "REPOSITORY_ROOT", extracted)
+    seed_parent = tmp_path / "fallback-seed"
+    seed_parent.mkdir()
+    seed = make_seed_repository(seed_parent)
+    assert git(seed, "cat-file", "blob", "HEAD:results/all_runs.json") == (
+        extracted / "results/all_runs.json"
+    ).read_bytes()
+    assert git(seed, "cat-file", "blob", "HEAD:results/summary.md") == (
+        extracted / "results/summary.md"
+    ).read_bytes()
+
+
+@pytest.mark.parametrize("tamper_kind", ["payload", "checksums", "manifest"])
+def test_non_git_extracted_release_rejects_checksum_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, tamper_kind: str
+) -> None:
+    """[software_correctness] Extracted RC fallback rejects payload, sums, and manifest tampering."""
+    extracted = make_extracted_release_source(tmp_path)
+    if tamper_kind == "payload":
+        (extracted / "results/all_runs.json").write_bytes(b"tampered\n")
+    elif tamper_kind == "checksums":
+        with (extracted / "SHA256SUMS.txt").open("ab") as checksum_file:
+            checksum_file.write(b"\n")
+    else:
+        manifest_path = extracted / "RELEASE_MANIFEST.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        next(
+            entry
+            for entry in manifest["payload_files"]
+            if entry["path"] == "results/all_runs.json"
+        )["sha256"] = "0" * 64
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    monkeypatch.setattr(sys.modules[__name__], "REPOSITORY_ROOT", extracted)
+    seed_parent = tmp_path / "rejected-seed"
+    seed_parent.mkdir()
+    with pytest.raises(ValueError, match="checksum|SHA256SUMS|manifest"):
+        make_seed_repository(seed_parent)
+
+
+def test_non_git_extracted_release_rejects_missing_manifest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """[software_correctness] Extracted RC fallback fails closed without its release manifest."""
+    extracted = make_extracted_release_source(tmp_path)
+    (extracted / "RELEASE_MANIFEST.json").unlink()
+    monkeypatch.setattr(sys.modules[__name__], "REPOSITORY_ROOT", extracted)
+    seed_parent = tmp_path / "missing-manifest-seed"
+    seed_parent.mkdir()
+    with pytest.raises(ValueError, match="RELEASE_MANIFEST"):
+        make_seed_repository(seed_parent)
 
 
 def test_lf_and_crlf_checkouts_produce_identical_head_blob_archives(tmp_path: Path) -> None:

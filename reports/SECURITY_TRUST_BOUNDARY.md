@@ -1,6 +1,6 @@
 # Security and trust-boundary report
 
-Status: **PASS with external-write degradation** (`GITHUB_PUSH_BLOCKED`).
+Status: **PASS for the pre-governance-sync source commit**. GitHub authentication/push is available; draft PR #1 is open, auto-merge is disabled, and `main` is unchanged.
 
 ## Boundary applied
 
@@ -22,8 +22,12 @@ Status: **PASS with external-write degradation** (`GITHUB_PUSH_BLOCKED`).
 
 ## External writes
 
-GitHub CLI was present but not authenticated, and push was blocked by the execution safety review. No retry, credential request, or bypass was attempted. The local branch and review packet are complete; see `reports/PR_READY.md`.
+Current state: GitHub CLI is authenticated as `mitsumoto0608-ui`, branch updates are pushed, and draft PR #1 targets `main`. Hosted run `33296626023` succeeded for pre-governance-sync commit `aa957e3a024561022e939b4b00579251c9062a42` across Linux Python, Windows Python, and static viewer/Node jobs. The governance-sync commit must receive its own successful Hosted run before handoff. Auto-merge is off and no merge to `main` has occurred.
+
+Historical state: an earlier report snapshot recorded `GITHUB_PUSH_BLOCKED` while GitHub CLI was unauthenticated. That was accurate for the earlier snapshot but is no longer the active condition. No token is stored or printed by these reports.
 
 ## Downloads and archives
 
-City manifests contain metadata records only (`download_status=METADATA_ONLY`). No external ZIP/PDF/GeoJSON payload was committed or extracted. The UTF-8-safe release builder and its path/checksum/extraction guards are reviewed. The final release ZIP is built and extraction-tested only after the final local commit; its outcome and SHA-256 belong to the human handoff, not this pre-build report snapshot.
+City manifests contain metadata records only (`download_status=METADATA_ONLY`). No external ZIP/PDF/GeoJSON payload was committed or extracted. The UTF-8-safe release builder uses Git `HEAD` blobs for tracked files and rejects dirty or ambiguous Git state.
+
+In a Git checkout, RC tests also obtain their seed bytes from the resolved `HEAD` commit. In an extracted non-Git RC, tests require `RELEASE_MANIFEST.json` and `SHA256SUMS.txt`, verify payload membership, duplicate/path safety, the checksum file's special-member hash, and each required local payload's byte count and SHA-256 before using it. Missing or inconsistent metadata fails closed. These archive-internal records provide integrity consistency, not authenticity against coordinated tampering; the externally reported final ZIP SHA-256 is the trust anchor. The final archive outcome and SHA-256 are recorded in the human handoff after the final commit and Hosted gate.
