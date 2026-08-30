@@ -1,0 +1,1 @@
+{"connection_status":"NOT_CONNECTED","optional_command_flag":"--optional-official-preview","reason":"Official flood preview preparation requires external ijson, shapely, and pyproj tools that are not declared project runtime dependencies","runtime_dependencies":["ijson","pyproj","shapely"],"runtime_dependencies_declared_by_project":false,"status":"OPTIONAL_PREPARATION"}
