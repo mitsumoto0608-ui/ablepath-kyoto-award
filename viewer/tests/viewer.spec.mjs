@@ -111,5 +111,14 @@ test("[ui_regression] 320 CSS-pixel reflow has no page-level horizontal overflow
   await page.goto("/");
   await expect(page.locator(".app-shell")).toBeVisible();
   const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  const skipLinkBounds = await page.locator(".skip-link").evaluateAll((links) => links.map((link) => {
+    const { left, right } = link.getBoundingClientRect();
+    return { left, right };
+  }));
+  expect(skipLinkBounds).toHaveLength(2);
+  for (const bounds of skipLinkBounds) {
+    expect(bounds.left).toBeGreaterThanOrEqual(0);
+    expect(bounds.right).toBeLessThanOrEqual(dimensions.width);
+  }
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width + 1);
 });
