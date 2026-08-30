@@ -58,14 +58,13 @@ function Controls({ catalog, mapCatalog, state, onStateChange }) {
   const { city, scenario, evidenceMode, phase, view, mapMode } = state;
   function changeCity(cityId) {
     const nextCity = catalog.cities.find((candidate) => candidate.city_id === cityId);
-    const nextMapConfig = mapConfigForCity(mapCatalog, cityId);
     onStateChange({
       ...state,
       city: nextCity,
       scenario: nextCity.scenarios[0],
       selectedEdge: nextCity.map.edges[0] ?? null,
       selectedRealEdgeId: null,
-      mapMode: nextMapConfig?.real_2d ? "real" : "synthetic",
+      mapMode: "synthetic",
     }, `${nextCity.display_name}へ切り替えました`);
   }
   const realMapAvailable = Boolean(mapConfigForCity(mapCatalog, city.city_id)?.real_2d);

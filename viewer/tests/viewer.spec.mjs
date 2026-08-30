@@ -24,6 +24,20 @@ test("[ui_regression] city state is reproducible and unconnected result selector
   await expect(page.getByRole("radio", { name: "厳格" })).toBeChecked();
 });
 
+test("[ui_regression] changing city does not implicitly opt into a real-coordinate layer", async ({ page }) => {
+  await page.goto("/?city=kyoto_arashiyama&layer=synthetic");
+
+  await page.getByLabel("都市・回廊").selectOption("kyoto_kiyomizu");
+
+  await expect(page.getByRole("button", { name: "SYNTHETIC_DEMO" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: "実座標 / CANDIDATE" })).toHaveAttribute("aria-pressed", "false");
+  await expect(page).toHaveURL(/city=kyoto_kiyomizu.*layer=synthetic/);
+
+  await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
+  await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveURL(/city=kyoto_kiyomizu.*layer=real/);
+});
+
 test("[ui_regression] KPI and evidence gaps remain visible and reasoned", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".kpi-card")).toHaveCount(5);

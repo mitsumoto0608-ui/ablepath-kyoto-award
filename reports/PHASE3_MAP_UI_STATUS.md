@@ -19,6 +19,8 @@ RESOLUTION_HEAD_SHA=b60b25402e72fd2a3d38d175b5b8bfb26fb961c0
 RESOLUTION_HEAD_SHA_SCOPE=CONTRACT_RESOLUTION_BEFORE_HOSTED_CI_ATTESTATION_COMMIT
 RESOLUTION_HOSTED_CI=SUCCESS
 RESOLUTION_HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334713941
+POST_RESOLUTION_REVIEW_FINDING=MEDIUM_EXPLICIT_REAL_LAYER_SELECTION
+POST_RESOLUTION_FIX_STATUS=IMPLEMENTED_PENDING_HOSTED_CI
 HOSTED_CI=SUCCESS
 HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334211814
 HOSTED_CI_SCOPE_SHA=9e3411b31746be3bd05278318636837a40857392
@@ -64,6 +66,18 @@ draft integrationを妨げるCritical/High contract defectは検出しなかっ�
 したがって`GREEN_FOR_DRAFT_INTEGRATION`は、`PUBLIC_RELEASE_READY=false`、
 `MAIN_MERGE_READY=false`、draft PRの`auto-merge=false`を維持する条件付きの統合適格性である。
 global truthの更新要否はintegration diff全体で人間reviewし、main merge・tag・public releaseは自動実行しない。
+
+## Post-resolution independent review fix
+
+TERA独立監査で、都市を嵐山から清水へ切り替えただけで実座標layerを自動選択し、
+「実座標layerは明示選択」というlane contractに反するMedium findingが検出された。
+修正前に追加した`[ui_regression]` E2Eは、`SYNTHETIC_DEMO`の`aria-pressed`が
+期待`true`に対して実際`false`となりREDを確認した。
+
+修正は都市切替時のlayerを`synthetic`へ戻す1箇所だけで、清水の実座標layerは
+ユーザーが`実座標 / CANDIDATE`を押した後だけ選択される。candidate/UNKNOWN、URLでの明示的な
+`layer=real`初期選択、hash/provenance、city truth、MapLibre/Cesium fallbackには変更を加えていない。
+viewer unit 39件とproduction buildは成功。追加E2Eを含む最終確認はHosted CIで実施する。
 
 - branch: `codex/phase3-map-ui-v1`
 - base: `372ce8ec37dcc2a263bd6ae28e565f9c03ed9673`
