@@ -358,9 +358,10 @@ def test_status_detects_installed_hook_tampering(
 
     repository, _ = guarded_repository
     scripts = _prepare_installable_guard(repository)
+    installed = repository / ".git" / "hooks" / "pre-push"
+    installed.unlink()
     install = _run_powershell(scripts / "install.ps1", repository)
     assert install.returncode == 0, install.stderr
-    installed = repository / ".git" / "hooks" / "pre-push"
     installed.write_bytes(installed.read_bytes() + b"# tampered\n")
 
     status_result = _run_powershell(scripts / "status.ps1", repository)

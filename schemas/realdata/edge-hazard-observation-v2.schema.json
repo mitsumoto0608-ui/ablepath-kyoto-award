@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.example.invalid/schemas/realdata/edge-hazard-observation-v2.schema.json",
+  "title": "AblePath Phase 2 derived edge-hazard observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "edge_id", "scenario_id", "hazard_type",
+    "scenario_source_status", "scenario_authority", "scenario_coverage_complete", "scenario_default_edge_state", "scenario_source_ids", "scenario_elapsed_time_sec",
+    "overlap", "overlap_length_m",
+    "max_depth_m", "mean_depth_m", "coverage_status", "official_closure",
+    "hazard_data_status", "data_class", "source_ids",
+    "hazard_geometry_artifact_ids", "edge_geometry_artifact_ids",
+    "official_closure_source_ids", "intersecting_hazard_feature_ids", "source_feature_ids", "revision_ids",
+    "method", "lineage"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "edge_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "hazard_type": {"type": "string", "minLength": 1},
+    "scenario_source_status": {"enum": ["REAL", "OFFICIAL_METADATA_ONLY", "MODEL_DERIVED", "SYNTHETIC_DEMO", "UNKNOWN"]},
+    "scenario_authority": {"enum": ["OFFICIAL", "SOURCE_FACT", "ABLEPATH_DESIGN", "DESIGN_ASSUMPTION", "UNKNOWN"]},
+    "scenario_coverage_complete": {"type": "boolean"},
+    "scenario_default_edge_state": {"const": "UNKNOWN"},
+    "scenario_source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "scenario_elapsed_time_sec": {"type": "null"},
+    "overlap": {"type": ["boolean", "null"]},
+    "overlap_length_m": {"type": ["number", "null"], "minimum": 0},
+    "max_depth_m": {"type": ["number", "null"], "minimum": 0},
+    "mean_depth_m": {"type": ["number", "null"], "minimum": 0},
+    "coverage_status": {"enum": ["COMPLETE", "PARTIAL", "UNKNOWN"]},
+    "official_closure": {"type": "null"},
+    "hazard_data_status": {"enum": ["KNOWN", "UNKNOWN"]},
+    "data_class": {"enum": ["MODEL_DERIVED", "UNKNOWN"]},
+    "source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "hazard_geometry_artifact_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "edge_geometry_artifact_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "official_closure_source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "intersecting_hazard_feature_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_feature_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "revision_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "method": {"type": "string", "minLength": 1},
+    "lineage": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"hazard_data_status": {"const": "UNKNOWN"}}, "required": ["hazard_data_status"]},
+      "then": {"properties": {
+        "overlap": {"type": "null"},
+        "overlap_length_m": {"type": "null"},
+        "max_depth_m": {"type": "null"},
+        "mean_depth_m": {"type": "null"},
+        "coverage_status": {"const": "UNKNOWN"},
+        "data_class": {"const": "UNKNOWN"},
+        "intersecting_hazard_feature_ids": {"maxItems": 0}
+      }}
+    },
+    {
+      "if": {"properties": {"hazard_data_status": {"const": "KNOWN"}}, "required": ["hazard_data_status"]},
+      "then": {"properties": {
+        "overlap": {"const": true},
+        "overlap_length_m": {"type": "null"},
+        "max_depth_m": {"type": "null"},
+        "mean_depth_m": {"type": "null"},
+        "coverage_status": {"const": "PARTIAL"},
+        "data_class": {"const": "MODEL_DERIVED"},
+        "scenario_source_status": {"const": "REAL"},
+        "scenario_authority": {"const": "OFFICIAL"},
+        "scenario_coverage_complete": {"const": false},
+        "scenario_default_edge_state": {"const": "UNKNOWN"},
+        "scenario_source_ids": {"minItems": 1},
+        "scenario_elapsed_time_sec": {"type": "null"},
+        "source_ids": {"minItems": 1},
+        "hazard_geometry_artifact_ids": {"minItems": 1},
+        "edge_geometry_artifact_ids": {"minItems": 1},
+        "intersecting_hazard_feature_ids": {"minItems": 1},
+        "source_feature_ids": {"minItems": 1},
+        "revision_ids": {"minItems": 1}
+      }}
+    },
+    {"properties": {"official_closure_source_ids": {"maxItems": 0}}}
+  ],
+  "x-ablepath-runtime-validation": [
+    "serialized KNOWN mappings are rejected; KNOWN output is emitted only by deterministic validated immutable geometry derivation",
+    "all artifact IDs resolve through a ValidatedGeometryIndex holding immutable canonical bytes",
+    "hazard artifacts are OFFICIAL REAL polygon geometry",
+    "edge artifacts are OFFICIAL or VGI REAL corridor geometry",
+    "edge_id exactly resolves to a stable feature in the selected edge artifact",
+    "scenario hazard_type and source_ids exactly match all referenced official hazard features and artifacts",
+    "intersecting_hazard_feature_ids are emitted from the actual intersecting validated features",
+    "source, source-feature, and revision ID sets exactly match referenced artifacts",
+    "mean_depth_m does not exceed max_depth_m",
+    "all numeric values are finite built-in floats after normalization"
+  ]
+}

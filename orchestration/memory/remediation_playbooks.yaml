@@ -60,3 +60,45 @@ playbooks:
     protected_boundaries: [tests, expected_values, repository_files]
     confidence: MEDIUM
     human_approved: false
+  - playbook_id: fresh-install-fixture-normalization-v1
+    trigger: a disposable installer test claims a fresh lifecycle while a prior fixture hook exists
+    actions:
+      - fingerprint the fixture lifecycle separately from repository behavior
+      - remove only the disposable pre-existing hook before the fresh-install action
+      - run targeted guard tests and then the unchanged full suite
+      - leave the real installed hook and protection claims unchanged
+    protected_boundaries: [real_git_hooks, server_protection_truth, expected_guard_behavior]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: validated-geometry-capability-chain-v1
+    trigger: metadata hashes or caller-supplied scenario fields are being treated as geometry-connection authority
+    actions:
+      - distinguish hash-bound artifact metadata from validated connectable geometry
+      - issue a geometry capability only after strict canonical geometry and lineage validation
+      - bind edge identity, official artifact source IDs, feature hazard types, and immutable payload bytes
+      - repeat the relationship checks at every public derive and deserialize boundary
+      - preserve UNKNOWN when coverage, depth, closure, or policy authority is absent
+    protected_boundaries: [UNKNOWN_semantics, official_data_interpretation, source_provenance, safety_state]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: stdlib-schema-structural-precheck-v1
+    trigger: schema verification needs semantic mutation coverage but adding a validator dependency is prohibited
+    actions:
+      - parse the schema with the standard library
+      - assert its exact field and conditional constraint surface
+      - evaluate only the fixture's declared keyword subset in tests
+      - retain runtime relational validation as normative
+      - do not change dependency metadata
+    protected_boundaries: [dependencies, exact_schema, runtime_contract]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: calendar-valid-provenance-time-v1
+    trigger: a timestamp passes lexical validation but may not be a real calendar instant
+    actions:
+      - validate the exact required UTC lexical form
+      - parse year month day and time for calendar validity
+      - reject offsets or fractional forms outside the contract
+      - add impossible-date negative tests
+    protected_boundaries: [source_provenance, temporal_truth]
+    confidence: HIGH
+    human_approved: false
