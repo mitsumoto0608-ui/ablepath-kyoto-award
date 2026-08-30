@@ -12,6 +12,7 @@ HOSTED_CI=NOT_RUN
 HOSTED_RUN_URL=null
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
 HUMAN_GATES=["expand shared manifest/parser and legacy-test writer scope", "define field-local reasons for legacy scalar UNKNOWN fields without schema drift", "resolve artifact-manifest schema-version semantics and hash-bind candidate graph/landmark files", "retain and review official tsunami-facility page/row evidence", "record OSM requested-snapshot and response-base timestamps as distinct fields", "acquire source-traceable storm-surge and inland-flood data", "bind and review A40 ZIP CRS/license/coverage", "retain PLATEAU raw catalog and verify corridor runtime coverage"]
+PUSH_STATUS=BLOCKED_REMOTE_APPROVAL
 ```
 
 `HEAD_SHA` is finalized after the reviewed payload commit is created. Because a
@@ -304,6 +305,53 @@ interpretation, acceptance values, human gates, main, or tags.
 11. **REFLECT**: use PowerShell for Git arguments containing spaces.
 12. **PERSIST**: retained only in this report.
 
+### Fingerprint FUJ-PUSH-REMOTE-007 — attempt 1/3, stopped
+
+1. **OBSERVE**: `git push -u origin task/phase3-fujisawa-rescue-v1` was rejected
+   by the safety reviewer before process creation or network transfer. Exit code
+   is `NOT_STARTED_POLICY_REJECTED`; elapsed time was 12.2 seconds. The reviewer
+   reported that the HTTPS GitHub remote was not established as a private,
+   verified user-owned destination specifically approved for exporting this
+   repository payload. No files or refs changed.
+2. **FINGERPRINT**: `GIT_PUSH_REMOTE_OWNERSHIP_PRIVACY_NOT_VERIFIED`.
+3. **RETRIEVE**: the completion addendum requires feature-branch-only push, while
+   the lane failure lessons prohibit risky workarounds and identical retries.
+4. **DIAGNOSE**: `GIT` / external-write `CONTRACT`, not payload code.
+5. **PLAN**
+   - Primary fix: obtain explicit user approval for this exact remote after
+     disclosing the repository-export risk.
+   - Fallback: leave the reviewed payload and report commits local, clean, and
+     `REPORT_ONLY`.
+   - Allowed paths remain lane-local; rollback is removal of the local feature
+     worktree/branch only after separate explicit authorization.
+6. **CHECKPOINT**: tested payload commit
+   `ea5502cf0dbe659f4529ed6bf62fb5f0f6cddfca`; report metadata commit
+   `d1df0622443b79dcb243176bf114abd68d9e6248`; worktree clean.
+7. **ACT**: stopped without retry or workaround and recorded
+   `PUSH_STATUS=BLOCKED_REMOTE_APPROVAL`.
+8. **TARGETED TEST**: completion fields and local refs remain readable.
+9. **LANE TEST**: unchanged `13 passed` evidence.
+10. **FULL TEST**: unchanged earlier 3.14 result.
+11. **REFLECT**: verify remote ownership/privacy authorization before the first
+    push attempt, not after local finalization.
+12. **PERSIST**: retained here; no message was sent to CONTROL or shared memory.
+
+### Fingerprint FUJ-CMD-SEP-008 — attempt 1/3, repaired
+
+1. **OBSERVE**: the first read-only remote/ref diagnostic used semicolons under
+   `cmd.exe`; Git treated them as arguments and exited nonzero. No files or refs
+   changed; elapsed time was 2.3 seconds.
+2. **FINGERPRINT**: `CMD_SEMICOLON_NOT_A_COMMAND_SEPARATOR`.
+3. **RETRIEVE**: the earlier quoting lesson required a shell change.
+4. **DIAGNOSE**: `ENVIRONMENT` / tool syntax.
+5. **PLAN**: PowerShell command sequencing; fallback individual commands.
+6. **CHECKPOINT**: local commits stayed unchanged.
+7. **ACT**: switched to PowerShell once.
+8. **TARGETED TEST**: remote URL and both local SHAs were read successfully.
+9. **LANE TEST** and 10. **FULL TEST**: evidence unchanged.
+11. **REFLECT**: do not use PowerShell separators in `cmd.exe`.
+12. **PERSIST**: retained only here.
+
 ## Changed paths
 
 Exact payload/report file list:
@@ -363,4 +411,5 @@ registration request. Human/Fable review is required before merge for:
 - recording the OSM requested snapshot and response-base timestamps as distinct
   provenance fields.
 
-Hosted CI was not run before the completion push; no hosted run URL exists.
+The feature push was blocked before network transfer pending explicit remote
+approval. Hosted CI was therefore not run and no hosted run URL exists.
