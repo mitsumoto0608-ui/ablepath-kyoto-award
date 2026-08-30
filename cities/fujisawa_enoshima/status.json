@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "city_id": "fujisawa_enoshima",
+  "DATA_STAGING_COMPLETE": false,
+  "data_staging_reason": "The OSM candidate snapshot is retained, but the original A40 ZIP, PLATEAU raw catalog, official facility document bytes, inland-flood source, and storm-surge source are not all retained and trust-bound.",
+  "REAL_GEOMETRY_CONNECTED": false,
+  "REAL_VGI_CANDIDATE_DATA_AVAILABLE": true,
+  "OFFICIAL_HAZARD_GEOMETRY_CONNECTED": false,
+  "OFFICIAL_HAZARD_PREVIEW_AVAILABLE": true,
+  "CANDIDATE_GRAPH_CONNECTED": false,
+  "CANDIDATE_GRAPH_DATA_AVAILABLE": true,
+  "PLATEAU_METADATA_AVAILABLE": true,
+  "PLATEAU_METADATA_VERIFIED": false,
+  "plateau_metadata_reason": "Official delivery URLs are recorded, but the raw catalog bytes and corridor runtime coverage are not retained and independently verified in this recovery lane.",
+  "PLATEAU_3D_CONNECTED": false,
+  "M7_CONNECTED": false,
+  "M6_CONNECTED": false,
+  "KPI_CONNECTED": false,
+  "ADMIN_VALIDATED": false,
+  "geometry_connection_reason": "A bounded OSM VGI candidate dataset is hash-bound, but no renderer or reviewed route graph consumes it. The A40 derivative is preview-only until original ZIP trust, CRS transformation, license, and coverage are independently verified.",
+  "model_connection_reason": "No candidate edge has verified static clear width, adjacent building height/setback, damage state, or debris-presence evidence required for M7.",
+  "plateau_connection_reason": "Official 2025 building, bridge, and transportation delivery URLs are recorded as unbound metadata; raw catalog bytes, Cesium loading, CORS, and corridor coverage are not verified in this lane.",
+  "kpis": {
+    "physically_reachable": {"value": null, "reason": "Candidate topology lacks verified entrances and M6 profile evaluation."},
+    "accommodated": {"value": null, "reason": "Traceable demand, current usable capacity, and facility operation are unavailable."},
+    "overflow_waiting": {"value": null, "reason": "Traceable demand, current usable capacity, and facility operation are unavailable."},
+    "unreachable": {"value": null, "reason": "Traceable demand origins and M6 profile evaluation are unavailable."},
+    "unknown_affected_upper_bound": {"value": null, "reason": "Traceable demand is unavailable; hazard overlap is not converted to closure or passability."}
+  }
+}

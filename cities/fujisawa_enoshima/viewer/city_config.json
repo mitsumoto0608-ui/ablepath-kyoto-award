@@ -17,6 +17,14 @@
   "lineage": ["Derived only from the citypack display contract; no real geometry."],
   "city_id": "fujisawa_enoshima",
   "display_name": "藤沢・江の島",
+  "realdata_lane": {
+    "renderer_connected": false,
+    "candidate_graph_connected": false,
+    "candidate_vgi_data_available": true,
+    "official_hazard_connected": false,
+    "official_hazard_preview_available": true,
+    "reason": "The viewer remains synthetic. VGI candidate files and an unconnected A40-derived preview are inventory artifacts, not rendered or operational layers."
+  },
   "center": {"lon": 139.48, "lat": 35.3, "status": "SYNTHETIC_DEMO_FIXTURE"},
   "default_zoom": 14,
   "supported_scenarios": ["TSUNAMI_STRICT", "TSUNAMI_OPERATIONAL", "TSUNAMI_SENSITIVITY"],

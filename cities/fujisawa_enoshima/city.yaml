@@ -57,18 +57,22 @@ official_data_targets:
     terrain:
       availability_status: UNKNOWN
     tsunami_hazard:
-      availability_status: UNKNOWN
+      availability_status: DERIVED_PREVIEW_NOT_CONNECTED
+      reason: "A40 derivative is present only as a preview; original ZIP trust, CRS transformation, license, and coverage are not proven."
     flood_hazard:
       availability_status: UNKNOWN
     inland_flood_hazard:
       availability_status: UNKNOWN
+      reason: "No retained source, source-manifest row, or reviewed geometry for inland flooding was recovered from the read-only source commit."
     storm_surge_hazard:
       availability_status: UNKNOWN
+      reason: "No retained source, source-manifest row, or reviewed geometry for storm surge was recovered from the read-only source commit."
     landslide_hazard:
       availability_status: UNKNOWN
   osm_pedestrian_graph:
-    acquisition_status: NOT_ACQUIRED
-    topology_status: NOT_EVALUATED
+    acquisition_status: BOUNDED_SNAPSHOT_RETAINED
+    topology_status: CANDIDATE_NOT_CONNECTED
+    reason: "A fixed-time bounded OSM VGI snapshot is available for QA, but it is not a field-validated graph and is not connected to the viewer or models."
 readiness:
   facility_status: OFFICIAL_METADATA_ONLY
   entrance_status: UNKNOWN
@@ -82,7 +86,7 @@ readiness:
 kpis:
   physically_reachable:
     value: null
-    reason: "Real topology, verified entrances, origins, and M6 profile evaluation are unavailable."
+    reason: "Candidate VGI topology exists, but verified entrances, origins, renderer connection, and M6 profile evaluation are unavailable."
   accommodated:
     value: null
     reason: "Demand, verified facility capacity, and operational state are unavailable."
@@ -91,13 +95,13 @@ kpis:
     reason: "Demand, verified facility capacity, and operational state are unavailable."
   unreachable:
     value: null
-    reason: "Real topology, demand origins, and M6 profile evaluation are unavailable."
+    reason: "Candidate VGI topology exists, but demand origins, validated graph connection, and M6 profile evaluation are unavailable."
   unknown_affected_upper_bound:
     value: null
-    reason: "Demand and source-traceable tsunami hazard geometry are unavailable."
+    reason: "Demand is unavailable and the A40-derived hazard preview is not connected or trust-bound to its original official ZIP."
 completion_levels:
   ENGINEERING_UI_COMPLETE: false
-  DATA_STAGING_COMPLETE: true
+  DATA_STAGING_COMPLETE: false
   REAL_GEOMETRY_CONNECTED: false
   MODEL_CONNECTED: false
   ADMIN_VALIDATED: false

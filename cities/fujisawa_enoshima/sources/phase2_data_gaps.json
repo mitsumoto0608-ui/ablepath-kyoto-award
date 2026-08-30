@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "city_id": "fujisawa_enoshima",
+  "gaps": [
+    {
+      "gap_id": "FJ-P2-GAP-001",
+      "category": "CANDIDATE_GRAPH_VALIDATION",
+      "status": "BLOCKED_FIELD_REVIEW",
+      "reason": "The OSM candidate graph has no field verification of width, slope, steps, access, or passability.",
+      "effect": "Graph remains CANDIDATE and all accessibility states remain UNKNOWN."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-002",
+      "category": "HAZARD_SOURCE_TRUST_CRS_LICENSE_COVERAGE_OPERATION",
+      "status": "BLOCKED_SOURCE_AND_HUMAN_REVIEW",
+      "reason": "The A40-derived preview is not byte-bound to the original official ZIP, and CRS conversion, redistribution terms, complete corridor coverage, and dated operational policy remain unverified.",
+      "effect": "OFFICIAL_HAZARD_GEOMETRY_CONNECTED remains false; preview overlap must not produce CLOSED, OPEN, PASS, depth, or an arrival-time claim."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-003",
+      "category": "FACILITY_ENTRANCE_CAPACITY_OPERATION",
+      "status": "BLOCKED_EVIDENCE",
+      "reason": "Tsunami evacuation facility metadata lacks a verified entrance, current scenario-usable capacity, and dated operation state.",
+      "effect": "The facility is not a graph destination and cannot activate accommodated or overflow KPI values."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-004",
+      "category": "M7_INPUTS",
+      "status": "BLOCKED_EVIDENCE",
+      "reason": "Static clear width, adjacent building height/setback, damage state, and debris-presence evidence are unavailable for every candidate edge.",
+      "effect": "M7_CONNECTED remains false; no model-derived remaining width is emitted."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-005",
+      "category": "PLATEAU_3D_RUNTIME",
+      "status": "BLOCKED_PROVENANCE_AND_UI_RUNTIME",
+      "reason": "The 2025 delivery URLs are recorded from unbound operator-retrieved metadata; raw catalog bytes, Cesium loading, CORS, and corridor coverage were not independently verified in this lane.",
+      "effect": "PLATEAU_3D_CONNECTED remains false."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-006",
+      "category": "M6_KPI_ADMIN",
+      "status": "BLOCKED_CONTRACT_AND_HUMAN_REVIEW",
+      "reason": "M6, traceable demand/origins, operational evidence, and administrative validation are unavailable.",
+      "effect": "M6_CONNECTED, KPI_CONNECTED, and ADMIN_VALIDATED remain false; KPI values remain null plus reason."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-007",
+      "category": "INLAND_FLOOD_PROVENANCE",
+      "status": "BLOCKED_PROVENANCE",
+      "reason": "No retained inland-flood source, source-manifest record, reviewed geometry, or dated operation policy was recovered from the read-only source commit.",
+      "effect": "Inland flooding remains UNKNOWN and cannot produce overlap, depth, OPEN, CLOSED, PASS, or route claims."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-008",
+      "category": "STORM_SURGE_PROVENANCE",
+      "status": "BLOCKED_PROVENANCE",
+      "reason": "No retained storm-surge source, source-manifest record, reviewed geometry, or dated operation policy was recovered from the read-only source commit.",
+      "effect": "Storm surge remains UNKNOWN and cannot produce overlap, depth, OPEN, CLOSED, PASS, or route claims."
+    },
+    {
+      "gap_id": "FJ-P2-GAP-009",
+      "category": "TSUNAMI_EVACUATION_FACILITY_PROVENANCE",
+      "status": "BLOCKED_PROVENANCE",
+      "reason": "The recovered facility row is not bound to retained official document bytes, page/row evidence, and a source-manifest dataset identifier.",
+      "effect": "The row remains metadata-only, separate from generic shelters, and cannot become a verified graph destination or support capacity, entrance, opening, closure, or arrival-time claims."
+    }
+  ]
+}

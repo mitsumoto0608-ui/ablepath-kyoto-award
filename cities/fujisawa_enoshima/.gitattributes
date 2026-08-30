@@ -1,0 +1,18 @@
+# Fujisawa's hash-bound VGI capability and quarantined official-derived preview
+# are reviewed text artifacts whose manifest checksums are defined over LF bytes.
+facilities/tsunami_evacuation_facilities.csv text eol=lf
+geography/corridor.real.geojson text eol=lf
+geography/corridor_landmarks.json text eol=lf
+graph/candidate_topology_qa.real.json text eol=lf
+graph/candidate_walk_edges.real.geojson text eol=lf
+graph/candidate_walk_nodes.real.geojson text eol=lf
+hazards/official-tsunami.real.geojson text eol=lf
+sources/a40-tsunami-source.clip.geojson text eol=lf
+sources/build_normalized.py text eol=lf
+sources/external-source-checksums.json text eol=lf
+sources/osm-corridor.overpassql text eol=lf
+sources/osm-corridor.raw.json text eol=lf
+sources/phase2_data_gaps.json text eol=lf
+sources/plateau_metadata.json text eol=lf
+sources/real-artifacts-v2.json text eol=lf
+status.json text eol=lf

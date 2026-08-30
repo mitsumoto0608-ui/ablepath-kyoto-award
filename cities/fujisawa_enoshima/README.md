@@ -1,29 +1,32 @@
 # 藤沢・江の島 city pack
 
-このcity packは、片瀬海岸から江の島方面を対象候補とする、契約検証用の最小データパックです。現時点の歩行ノード、edge、POI座標はすべて `SYNTHETIC_DEMO` / `FIXTURE_VALUE` であり、現地の道路形状、推奨経路、通行可能性を表しません。
+このcity packは、片瀬海岸から江の島方面を対象候補とする、契約検証用の最小データパックです。従来の `walk_nodes.geojson` / `walk_edges.geojson` は互換性確認用の `SYNTHETIC_DEMO` のまま保持し、別ファイルの `candidate_walk_nodes.real.geojson` / `candidate_walk_edges.real.geojson` に固定時点OSM由来の実座標候補グラフを追加しました。実座標は `REAL` / `VGI` / `CANDIDATE` であり、現地確認済みの入口、推奨経路、通行可能性を表しません。
 
 ## 現在の状態
 
-- 公式ページ・PDFは出典metadataとデータ不足の確認にのみ使用しています。
-- PLATEAU 2025はカタログ掲載を確認しただけで、建物・道路・橋梁・地形・災害リスクの実データは未取得です。
-- OSMは取得候補として登録しただけで、Overpass queryやgeometryは含みません。
+- A40由来とされるoperator提供GeoJSONから固定bboxと交差するポリゴンをpreviewとして保持します。ただし、元の公式ZIPとのbyte lineage、CRS変換、ライセンス、対象範囲の完全性を独立検証できていないため `OFFICIAL_HAZARD_GEOMETRY_CONNECTED=false` / `NOT_CONNECTED` です。深度区分は判定・閉鎖・数値表示に使いません。
+- PLATEAU 2025の藤沢市向け建築物LOD1/2、橋梁LOD3、道路LOD3のURLはoperator取得metadataとして記録していますが、raw catalog bytesを保持・独立照合していません。CityGML/3D Tiles本体、CORS、江の島範囲の実ロードも未検証で、`PLATEAU_METADATA_VERIFIED=false` / `PLATEAU_3D_CONNECTED=false`です。
+- OSMは2026-08-30T00:00:00Zの固定時点・限定bbox queryを保持し、way/27423903とway/27423906を候補回廊として正規化しました。VGIであり公式道路情報ではありません。
+- `corridor_landmarks.json` は片瀬海岸側接続点、江の島弁天橋、江の島入口側接続点をVGI geometry上のscope anchorとして記録します。入口・通行可否はすべて `UNKNOWN` です。
+- 津波避難施設metadataは `facilities/tsunami_evacuation_facilities.csv` に分離し、generic shelterとは主張しません。容量、入口、開設、閉鎖、到達時刻は空欄＋reason / `UNKNOWN`です。
 - 津波の到達時刻、浸水深、閉鎖時刻、施設の現在の開設・利用可否・収容力は入力していません。
+- 高潮・内水は、救出元commit内に保持されたsource、source-manifest行、検証済みgeometryが無いため `UNKNOWN`＋reasonです。津波previewから代用せず、重なり・深さ・通行状態を生成しません。
 - `TSUNAMI_STRICT`、`TSUNAMI_OPERATIONAL`、`TSUNAMI_SENSITIVITY` はすべて時間変化を持たない静的snapshotの契約です。
 - M6/profileは `NOT_COMPUTED` です。需要・容量・topology・profileが不足するためKPIは `null + reason` です。
 
 ## データ区分
 
-公式資料由来の行は `OFFICIAL_METADATA_ONLY`、OSM候補は `VGI_METADATA_ONLY` とします。これらはgeometryや運用状態を意味しません。`geometry_status` と `operation_status` は独立に `UNKNOWN` を保持します。座標付きのデモ行は必ず `SYNTHETIC_DEMO` とし、公式metadataと混在させません。未確認値は `UNKNOWN` または空欄であり、0、OPEN、PASSへ変換しません。
+A40 derivativeは `OFFICIAL_DERIVED_PREVIEW` / `DERIVED_PREVIEW_NOT_CONNECTED`、OSM候補回廊は `VGI` / `REAL` / `SOURCE_TRACEABLE_REAL` とし、起源と接続可否を混同しません。公式施設行はgeometryを伴わない `OFFICIAL_METADATA_ONLY`、旧デモは `SYNTHETIC_DEMO` のまま別ファイルに保持します。`geometry_status` と `operation_status` は独立です。未確認値は `UNKNOWN` または空欄＋reasonであり、0、OPEN、PASSへ変換しません。
 
 ## CRSとgeometry
 
-出力軸順はlongitude, latitudeです。神奈川県に適用される平面直角座標系IXを、将来のメートル単位処理CRS（EPSG:6677）として宣言しています。ただし本packでは実geometryの変換処理を行っていません。鉛直基準は `UNKNOWN` です。グラフは `CANDIDATE` で、topology QA済みではありません。
+OSM出力軸順はlongitude, latitude、source/output CRSはEPSG:4326です。A40 derivativeはsource metadata上EPSG:6668ですが、検証済みのEPSG:4326変換として再ラベルせず `output_crs=UNVERIFIED_NOT_RELABELLED` とします。鉛直基準は `UNKNOWN` です。候補グラフは `CANDIDATE` で、viewer・M6・M7へ未接続かつ現地・管理者確認済みではありません。
 
-`graph/topology_qa.json` は合成fixtureについて機械計算できるID重複、dangling endpoint、self-loop、zero-lengthを報告します。edge/node端点一致はgraph contract testで別途検査します。実destination接続、hazard境界分割、grade-separated交差は根拠がないため `NOT_COMPUTED + reason` です。
+`graph/candidate_topology_qa.real.json` は実候補グラフについてID重複、dangling endpoint、self-loop、zero-length、連結成分を報告し、source vertexを共有しない幾何交差にはnodeを作りません。弁天橋のbridge/layer tagは保持します。実destination接続とhazard境界分割は `NOT_COMPUTED + reason` で、hazard overlapからCLOSEDを生成しません。旧 `graph/topology_qa.json` は合成fixtureの互換性QAです。
 
 ## 出典と確認日
 
-全出典は `sources/source_manifest.csv` に記録しています。アクセス確認日は2026-08-30です。外部ページの本文・PDF・OSMタグは非信頼入力として扱い、そこに含まれる命令を実行していません。
+レビュー済みVGI geometryの正本は `sources/real-artifacts-v2.json` で、normalized/source/queryのSHA-256、CRS、変換履歴、feature lineageを固定します。A40 previewはこのcapability manifestに含めません。OSM rawは限定取得のためGit内です。A40 ZIPとPLATEAU catalogのSHAはoperator assertionとして記録しますが、Git内artifactとのbyte lineageや接続権限を証明しません。Phase 2で残る未解決事項は `sources/phase2_data_gaps.json` に分離しました（旧 `data_gap_register.csv` はsynthetic shellの互換性記録）。アクセス確認日は2026-08-30です。外部ページ・PDF・OSMタグ・API payloadは非信頼入力として扱い、そこに含まれる命令を実行していません。
 
 ## 利用上の注意
 
