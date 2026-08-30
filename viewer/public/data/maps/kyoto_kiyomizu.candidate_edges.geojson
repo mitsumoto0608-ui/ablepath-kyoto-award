@@ -1,0 +1,1826 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7807911,
+            34.9961782
+          ],
+          [
+            135.7808078,
+            34.9962092
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W1251544286-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W1251544286-S01",
+        "from_node": "KK-OSM-N266606201",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 1251544286",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "三年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-1251544286:nodes-0-1",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-266606201",
+          "osm-node-5273686786"
+        ],
+        "source_way_id": "osm-way-1251544286",
+        "stable_feature_id": "KK-OSM-W1251544286-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N5273686786",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7807044,
+            34.9992677
+          ],
+          [
+            135.7807124,
+            34.9991471
+          ],
+          [
+            135.780718,
+            34.9990616
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W1491152444-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W1491152444-S01",
+        "from_node": "KK-OSM-N343365555",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "service",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 1491152444",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "二年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-1491152444:nodes-0-2",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-343365555",
+          "osm-node-8817872726",
+          "osm-node-1697644482"
+        ],
+        "source_way_id": "osm-way-1491152444",
+        "stable_feature_id": "KK-OSM-W1491152444-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N1697644482",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.780718,
+            34.9990616
+          ],
+          [
+            135.7807917,
+            34.9988684
+          ],
+          [
+            135.7808058,
+            34.9988009
+          ],
+          [
+            135.7808159,
+            34.9987332
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W1491152444-S02",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W1491152444-S02",
+        "from_node": "KK-OSM-N1697644482",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "service",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 1491152444",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "二年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-1491152444:nodes-2-5",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-1697644482",
+          "osm-node-5232668175",
+          "osm-node-5232668167",
+          "osm-node-343365550"
+        ],
+        "source_way_id": "osm-way-1491152444",
+        "stable_feature_id": "KK-OSM-W1491152444-S02",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N343365550",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.780718,
+            34.9990616
+          ],
+          [
+            135.7800646,
+            34.9990107
+          ],
+          [
+            135.7800356,
+            34.9990285
+          ],
+          [
+            135.7800031,
+            34.9990833
+          ],
+          [
+            135.7799703,
+            34.9991177
+          ],
+          [
+            135.7799257,
+            34.9991403
+          ],
+          [
+            135.7798746,
+            34.9991575
+          ],
+          [
+            135.7798637,
+            34.999159
+          ],
+          [
+            135.7798541,
+            34.9992109
+          ],
+          [
+            135.7798442,
+            34.9992641
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W157527438-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W157527438-S01",
+        "from_node": "KK-OSM-N1697644482",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 157527438",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "一年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-157527438:nodes-0-9",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-1697644482",
+          "osm-node-1697644479",
+          "osm-node-3779171977",
+          "osm-node-3779171978",
+          "osm-node-1697644483",
+          "osm-node-1697644484",
+          "osm-node-6606657354",
+          "osm-node-1697644485",
+          "osm-node-5181219450",
+          "osm-node-343365516"
+        ],
+        "source_way_id": "osm-way-157527438",
+        "stable_feature_id": "KK-OSM-W157527438-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N343365516",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7771926,
+            35.0037491
+          ],
+          [
+            135.7771519,
+            35.0035269
+          ],
+          [
+            135.7770961,
+            35.0032255
+          ],
+          [
+            135.7770878,
+            35.003161
+          ],
+          [
+            135.7770866,
+            35.0030988
+          ],
+          [
+            135.7770943,
+            35.0030368
+          ],
+          [
+            135.7771251,
+            35.0029372
+          ],
+          [
+            135.7772151,
+            35.0027127
+          ],
+          [
+            135.7772847,
+            35.002504
+          ],
+          [
+            135.7774363,
+            35.0021057
+          ],
+          [
+            135.7774454,
+            35.0020624
+          ],
+          [
+            135.7774492,
+            35.0020447
+          ],
+          [
+            135.7774525,
+            35.0020142
+          ],
+          [
+            135.7775153,
+            35.0014386
+          ],
+          [
+            135.7775681,
+            35.0009482
+          ],
+          [
+            135.7775711,
+            35.0009203
+          ],
+          [
+            135.7775701,
+            35.0008536
+          ],
+          [
+            135.7775689,
+            35.0007819
+          ],
+          [
+            135.7774707,
+            35.0002466
+          ],
+          [
+            135.7773975,
+            34.9998483
+          ],
+          [
+            135.7773249,
+            34.9994669
+          ],
+          [
+            135.7773136,
+            34.999408
+          ],
+          [
+            135.777304,
+            34.99936
+          ],
+          [
+            135.777284,
+            34.9992637
+          ],
+          [
+            135.7771901,
+            34.9987052
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W174762077-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W174762077-S01",
+        "from_node": "KK-OSM-N266605718",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "secondary",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 174762077",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "東大路通",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-174762077:nodes-0-24",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-266605718",
+          "osm-node-2367201379",
+          "osm-node-5011838428",
+          "osm-node-1214631032",
+          "osm-node-5011838427",
+          "osm-node-5235824727",
+          "osm-node-5235824719",
+          "osm-node-305371777",
+          "osm-node-301118607",
+          "osm-node-2781236877",
+          "osm-node-301118121",
+          "osm-node-5310264554",
+          "osm-node-5310264556",
+          "osm-node-305371772",
+          "osm-node-1697644510",
+          "osm-node-5312156316",
+          "osm-node-301118120",
+          "osm-node-5312156309",
+          "osm-node-305371755",
+          "osm-node-4764665815",
+          "osm-node-5327529652",
+          "osm-node-305371751",
+          "osm-node-1697644492",
+          "osm-node-5327529604",
+          "osm-node-266605415"
+        ],
+        "source_way_id": "osm-way-174762077",
+        "stable_feature_id": "KK-OSM-W174762077-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "asphalt",
+        "to_node": "KK-OSM-N266605415",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7808078,
+            34.9962092
+          ],
+          [
+            135.7808855,
+            34.9963541
+          ],
+          [
+            135.7809446,
+            34.9964741
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W179116810-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W179116810-S01",
+        "from_node": "KK-OSM-N5273686786",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "steps",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 179116810",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "三年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-179116810:nodes-0-2",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-5273686786",
+          "osm-node-1894567561",
+          "osm-node-5117539281"
+        ],
+        "source_way_id": "osm-way-179116810",
+        "stable_feature_id": "KK-OSM-W179116810-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N5117539281",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7771901,
+            34.9987052
+          ],
+          [
+            135.777268,
+            34.9986946
+          ],
+          [
+            135.7774997,
+            34.9986693
+          ],
+          [
+            135.7776554,
+            34.9986523
+          ],
+          [
+            135.7779846,
+            34.998625
+          ],
+          [
+            135.7782773,
+            34.9985982
+          ],
+          [
+            135.7785408,
+            34.9985771
+          ],
+          [
+            135.7787712,
+            34.9985629
+          ],
+          [
+            135.7789903,
+            34.9985486
+          ],
+          [
+            135.7790246,
+            34.9985457
+          ],
+          [
+            135.7790096,
+            34.9984353
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W24516359-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W24516359-S01",
+        "from_node": "KK-OSM-N266605415",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "residential",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 24516359",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "八坂通",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-24516359:nodes-0-10",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-266605415",
+          "osm-node-5327529598",
+          "osm-node-8323336757",
+          "osm-node-1697644473",
+          "osm-node-1697644472",
+          "osm-node-343365347",
+          "osm-node-3779179034",
+          "osm-node-343365491",
+          "osm-node-5315712402",
+          "osm-node-1697644470",
+          "osm-node-343365349"
+        ],
+        "source_way_id": "osm-way-24516359",
+        "stable_feature_id": "KK-OSM-W24516359-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "sett",
+        "to_node": "KK-OSM-N343365349",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7807256,
+            34.9962012
+          ],
+          [
+            135.7807911,
+            34.9961782
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W28514434-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W28514434-S01",
+        "from_node": "KK-OSM-N343365378",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 28514434",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "清水坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-28514434:nodes-0-1",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-343365378",
+          "osm-node-266606201"
+        ],
+        "source_way_id": "osm-way-28514434",
+        "stable_feature_id": "KK-OSM-W28514434-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N266606201",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7807911,
+            34.9961782
+          ],
+          [
+            135.7812006,
+            34.9960342
+          ],
+          [
+            135.7812352,
+            34.996022
+          ],
+          [
+            135.7812706,
+            34.9960081
+          ],
+          [
+            135.7813026,
+            34.9959944
+          ],
+          [
+            135.7816958,
+            34.9957931
+          ],
+          [
+            135.7818211,
+            34.9957282
+          ],
+          [
+            135.7818464,
+            34.9957136
+          ],
+          [
+            135.7818686,
+            34.9956984
+          ],
+          [
+            135.7819015,
+            34.9956753
+          ],
+          [
+            135.7819636,
+            34.9956264
+          ],
+          [
+            135.7819926,
+            34.9956038
+          ],
+          [
+            135.7820236,
+            34.9955832
+          ],
+          [
+            135.7820565,
+            34.9955646
+          ],
+          [
+            135.7820912,
+            34.9955483
+          ],
+          [
+            135.7821273,
+            34.9955343
+          ],
+          [
+            135.7821646,
+            34.9955227
+          ],
+          [
+            135.782203,
+            34.9955136
+          ],
+          [
+            135.7822421,
+            34.995507
+          ],
+          [
+            135.7822818,
+            34.995503
+          ],
+          [
+            135.7823217,
+            34.9955015
+          ],
+          [
+            135.7829169,
+            34.9955134
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W28514434-S02",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W28514434-S02",
+        "from_node": "KK-OSM-N266606201",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 28514434",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "清水坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-28514434:nodes-1-22",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-266606201",
+          "osm-node-12620133057",
+          "osm-node-343365383",
+          "osm-node-343365393",
+          "osm-node-343365403",
+          "osm-node-343365405",
+          "osm-node-1697644267",
+          "osm-node-343365409",
+          "osm-node-12620133056",
+          "osm-node-12620133055",
+          "osm-node-343365411",
+          "osm-node-12620133054",
+          "osm-node-12620133053",
+          "osm-node-3779171959",
+          "osm-node-12620133052",
+          "osm-node-12620133051",
+          "osm-node-12620133050",
+          "osm-node-3779171958",
+          "osm-node-12620133049",
+          "osm-node-12620133048",
+          "osm-node-3779171960",
+          "osm-node-343365447"
+        ],
+        "source_way_id": "osm-way-28514434",
+        "stable_feature_id": "KK-OSM-W28514434-S02",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N343365447",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7808521,
+            34.9981617
+          ],
+          [
+            135.7808494,
+            34.9981376
+          ],
+          [
+            135.7808437,
+            34.9981096
+          ],
+          [
+            135.780835,
+            34.9980824
+          ],
+          [
+            135.7808137,
+            34.9980224
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W30882783-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W30882783-S01",
+        "from_node": "KK-OSM-N343365545",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "steps",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 30882783",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "二年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-30882783:nodes-0-4",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-343365545",
+          "osm-node-7490517932",
+          "osm-node-7490517931",
+          "osm-node-7490517930",
+          "osm-node-5315789346"
+        ],
+        "source_way_id": "osm-way-30882783",
+        "stable_feature_id": "KK-OSM-W30882783-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N5315789346",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7808159,
+            34.9987332
+          ],
+          [
+            135.7808259,
+            34.9986602
+          ],
+          [
+            135.7808297,
+            34.9986018
+          ],
+          [
+            135.7808427,
+            34.9984035
+          ],
+          [
+            135.7808488,
+            34.9982578
+          ],
+          [
+            135.7808502,
+            34.9982262
+          ],
+          [
+            135.7808521,
+            34.9981617
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W30913263-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W30913263-S01",
+        "from_node": "KK-OSM-N343365550",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 30913263",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "二年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-30913263:nodes-0-6",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-343365550",
+          "osm-node-5232668105",
+          "osm-node-5315712462",
+          "osm-node-5273129931",
+          "osm-node-5315789347",
+          "osm-node-5273129933",
+          "osm-node-343365545"
+        ],
+        "source_way_id": "osm-way-30913263",
+        "stable_feature_id": "KK-OSM-W30913263-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N343365545",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.779518,
+            35.0007358
+          ],
+          [
+            135.779406,
+            35.0007385
+          ],
+          [
+            135.7792838,
+            35.0007312
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W371739384-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W371739384-S01",
+        "from_node": "KK-OSM-N6990188568",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "footway",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 371739384",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "ねねの小径",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-371739384:nodes-0-2",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-6990188568",
+          "osm-node-3752885685",
+          "osm-node-3752885671"
+        ],
+        "source_way_id": "osm-way-371739384",
+        "stable_feature_id": "KK-OSM-W371739384-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N3752885671",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7797617,
+            35.0006669
+          ],
+          [
+            135.7796425,
+            35.0006738
+          ],
+          [
+            135.7796425,
+            35.0006697
+          ],
+          [
+            135.7795434,
+            35.0006739
+          ],
+          [
+            135.779544,
+            35.0006815
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W371739385-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W371739385-S01",
+        "from_node": "KK-OSM-N3752885643",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "footway",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 371739385",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "ねねの小径",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-371739385:nodes-0-4",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-3752885643",
+          "osm-node-3752885648",
+          "osm-node-3752885646",
+          "osm-node-3752885649",
+          "osm-node-6990188569"
+        ],
+        "source_way_id": "osm-way-371739385",
+        "stable_feature_id": "KK-OSM-W371739385-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N6990188569",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7809446,
+            34.9964741
+          ],
+          [
+            135.7810189,
+            34.9966568
+          ],
+          [
+            135.7810239,
+            34.9967181
+          ],
+          [
+            135.7810265,
+            34.9968943
+          ],
+          [
+            135.7810281,
+            34.9969474
+          ],
+          [
+            135.7810632,
+            34.9974947
+          ],
+          [
+            135.7810585,
+            34.9976499
+          ],
+          [
+            135.7810529,
+            34.9977064
+          ],
+          [
+            135.7810459,
+            34.997767
+          ],
+          [
+            135.7810395,
+            34.9977891
+          ],
+          [
+            135.7810295,
+            34.9978095
+          ],
+          [
+            135.7810049,
+            34.9978509
+          ],
+          [
+            135.7809875,
+            34.9978734
+          ],
+          [
+            135.7809648,
+            34.9978967
+          ],
+          [
+            135.7809412,
+            34.9979168
+          ],
+          [
+            135.7809199,
+            34.997932
+          ],
+          [
+            135.7808045,
+            34.9979977
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W526198271-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W526198271-S01",
+        "from_node": "KK-OSM-N5117539281",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 526198271",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "三年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-526198271:nodes-0-16",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-5117539281",
+          "osm-node-266606200",
+          "osm-node-1894567562",
+          "osm-node-5232798144",
+          "osm-node-339112606",
+          "osm-node-3779179029",
+          "osm-node-343365360",
+          "osm-node-5279549701",
+          "osm-node-343365356",
+          "osm-node-5315620547",
+          "osm-node-3779179028",
+          "osm-node-343365353",
+          "osm-node-5315620548",
+          "osm-node-3779179027",
+          "osm-node-5315620549",
+          "osm-node-1894567564",
+          "osm-node-266606198"
+        ],
+        "source_way_id": "osm-way-526198271",
+        "stable_feature_id": "KK-OSM-W526198271-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N266606198",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7808137,
+            34.9980224
+          ],
+          [
+            135.7808045,
+            34.9979977
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W550360170-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W550360170-S01",
+        "from_node": "KK-OSM-N5315789346",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 550360170",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "二年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-550360170:nodes-0-1",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-5315789346",
+          "osm-node-266606198"
+        ],
+        "source_way_id": "osm-way-550360170",
+        "stable_feature_id": "KK-OSM-W550360170-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N266606198",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7776743,
+            35.0054866
+          ],
+          [
+            135.7776442,
+            35.0052862
+          ],
+          [
+            135.7776442,
+            35.0052767
+          ],
+          [
+            135.7776167,
+            35.0050584
+          ],
+          [
+            135.777601,
+            35.0049432
+          ],
+          [
+            135.7775719,
+            35.0048055
+          ],
+          [
+            135.7775622,
+            35.0047595
+          ],
+          [
+            135.7775191,
+            35.0045617
+          ],
+          [
+            135.7774899,
+            35.004427
+          ],
+          [
+            135.7774627,
+            35.0043506
+          ],
+          [
+            135.7774282,
+            35.0042737
+          ],
+          [
+            135.7773743,
+            35.0041175
+          ],
+          [
+            135.7773062,
+            35.0039682
+          ],
+          [
+            135.7772758,
+            35.0039044
+          ],
+          [
+            135.7771926,
+            35.0037491
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W58413931-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W58413931-S01",
+        "from_node": "KK-OSM-N2085443989",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "secondary",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 58413931",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "東大路通",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-58413931:nodes-0-14",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-2085443989",
+          "osm-node-4612016144",
+          "osm-node-11082203815",
+          "osm-node-5395133117",
+          "osm-node-5303068962",
+          "osm-node-4284209003",
+          "osm-node-309117212",
+          "osm-node-2785051569",
+          "osm-node-301118318",
+          "osm-node-4612016145",
+          "osm-node-4612016146",
+          "osm-node-1023798954",
+          "osm-node-2367201432",
+          "osm-node-11082203814",
+          "osm-node-266605718"
+        ],
+        "source_way_id": "osm-way-58413931",
+        "stable_feature_id": "KK-OSM-W58413931-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "asphalt",
+        "to_node": "KK-OSM-N266605718",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7790096,
+            34.9984353
+          ],
+          [
+            135.7791134,
+            34.9984204
+          ],
+          [
+            135.7792562,
+            34.9984013
+          ],
+          [
+            135.779503,
+            34.998366
+          ],
+          [
+            135.7797694,
+            34.9983277
+          ],
+          [
+            135.7798004,
+            34.9983166
+          ],
+          [
+            135.7798254,
+            34.9982996
+          ],
+          [
+            135.7798516,
+            34.9982777
+          ],
+          [
+            135.7798875,
+            34.9982521
+          ],
+          [
+            135.7799258,
+            34.99823
+          ],
+          [
+            135.7801938,
+            34.9981086
+          ],
+          [
+            135.7802365,
+            34.9980961
+          ],
+          [
+            135.7802933,
+            34.9980832
+          ],
+          [
+            135.7805926,
+            34.9980499
+          ],
+          [
+            135.7807077,
+            34.9980282
+          ],
+          [
+            135.7807334,
+            34.9980225
+          ],
+          [
+            135.7807602,
+            34.9980152
+          ],
+          [
+            135.7807833,
+            34.9980071
+          ],
+          [
+            135.7808045,
+            34.9979977
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W710696944-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W710696944-S01",
+        "from_node": "KK-OSM-N343365349",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "pedestrian",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 710696944",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "三年坂",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-710696944:nodes-0-18",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-343365349",
+          "osm-node-5315712398",
+          "osm-node-3752690101",
+          "osm-node-5315757622",
+          "osm-node-1894567573",
+          "osm-node-1894567571",
+          "osm-node-5315712526",
+          "osm-node-5315712525",
+          "osm-node-5315712524",
+          "osm-node-343365351",
+          "osm-node-3779179030",
+          "osm-node-5181219349",
+          "osm-node-1894567568",
+          "osm-node-1894567566",
+          "osm-node-3779179026",
+          "osm-node-5315620550",
+          "osm-node-5232731774",
+          "osm-node-5315620551",
+          "osm-node-266606198"
+        ],
+        "source_way_id": "osm-way-710696944",
+        "stable_feature_id": "KK-OSM-W710696944-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": "paving_stones",
+        "to_node": "KK-OSM-N266606198",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_MISSING_AT_SNAPSHOT"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.7795479,
+            35.0007344
+          ],
+          [
+            135.779518,
+            35.0007358
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W747033984-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W747033984-S01",
+        "from_node": "KK-OSM-N3752885680",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "footway",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 747033984",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "ねねの小径",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-747033984:nodes-0-1",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-3752885680",
+          "osm-node-6990188568"
+        ],
+        "source_way_id": "osm-way-747033984",
+        "stable_feature_id": "KK-OSM-W747033984-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N6990188568",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_NOT_BOOLEAN:building_passage"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            135.779544,
+            35.0006815
+          ],
+          [
+            135.7795479,
+            35.0007344
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "KK-OSM-W747033985-S01",
+      "properties": {
+        "access_tag": null,
+        "accessibility_reason": "M6_NOT_COMPUTED_AND_REQUIRED_ATTRIBUTES_MISSING",
+        "accessibility_state": "UNKNOWN",
+        "base_clear_width_m": null,
+        "base_clear_width_reason": "NOT_FIELD_MEASURED",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM_BRIDGE_TAG_MISSING_AT_SNAPSHOT",
+        "city_id": "kyoto_kiyomizu",
+        "data_class": "REAL",
+        "edge_id": "KK-OSM-W747033985-S01",
+        "from_node": "KK-OSM-N6990188569",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "highway_tag": "footway",
+        "layer": null,
+        "layer_reason": "OSM_LAYER_TAG_MISSING_AT_SNAPSHOT",
+        "level": null,
+        "level_reason": "OSM_LEVEL_TAG_MISSING_AT_SNAPSHOT",
+        "lineage": [
+          "OpenStreetMap way 747033985",
+          "Overpass historical snapshot 2026-08-30T00:00:00Z",
+          "Server-side exact bbox/name filter; no nearest-neighbour or planar-crossing join"
+        ],
+        "name_tag": "ねねの小径",
+        "operation_reason": "VGI_TAGS_DO_NOT_VERIFY_CURRENT_OR_EMERGENCY_OPERATION",
+        "operation_status": "UNKNOWN",
+        "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+        "running_slope": null,
+        "running_slope_reason": "NOT_FIELD_MEASURED",
+        "schema_version": "2.0.0",
+        "source_class": "VGI",
+        "source_feature_id": "osm-way-747033985:nodes-0-1",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_node_ids": [
+          "osm-node-6990188569",
+          "osm-node-3752885680"
+        ],
+        "source_way_id": "osm-way-747033985",
+        "stable_feature_id": "KK-OSM-W747033985-S01",
+        "step_height_m": null,
+        "step_height_reason": "NOT_FIELD_MEASURED",
+        "surface_tag": null,
+        "to_node": "KK-OSM-N3752885680",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM_TUNNEL_TAG_NOT_BOOLEAN:building_passage"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}
