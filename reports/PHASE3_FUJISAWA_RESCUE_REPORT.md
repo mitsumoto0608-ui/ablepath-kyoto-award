@@ -8,11 +8,12 @@ LANE_STATUS=BLOCKED_PROVENANCE
 BASE_SHA=372ce8ec37dcc2a263bd6ae28e565f9c03ed9673
 HEAD_SHA=ea5502cf0dbe659f4529ed6bf62fb5f0f6cddfca
 ALLOWED_PATHS_AUDIT=PASS
-HOSTED_CI=NOT_RUN
-HOSTED_RUN_URL=null
+HOSTED_CI=FAIL_KNOWN_SHARED_CONTRACT
+HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33332349900
 INTEGRATION_RECOMMENDATION=REPORT_ONLY
+OSM_CORRIDOR_STATUS=CONDITIONAL_GREEN
 HUMAN_GATES=["expand shared manifest/parser and legacy-test writer scope", "define field-local reasons for legacy scalar UNKNOWN fields without schema drift", "resolve artifact-manifest schema-version semantics and hash-bind candidate graph/landmark files", "retain and review official tsunami-facility page/row evidence", "record OSM requested-snapshot and response-base timestamps as distinct fields", "acquire source-traceable storm-surge and inland-flood data", "bind and review A40 ZIP CRS/license/coverage", "retain PLATEAU raw catalog and verify corridor runtime coverage"]
-PUSH_STATUS=BLOCKED_REMOTE_APPROVAL
+PUSH_STATUS=SUCCESS
 ```
 
 `HEAD_SHA` is finalized after the reviewed payload commit is created. Because a
@@ -25,7 +26,10 @@ push handoff.
 `BLOCKED_PROVENANCE`
 
 The OSM-derived Enoshima candidate corridor is conditionally verified as a
-hash-bound VGI candidate. The Fujisawa city artifact as a whole is not GREEN:
+hash-bound VGI candidate and is recorded as `CONDITIONAL_GREEN` solely so
+CONTROL can consider a later partial rescue. This does not promote the
+Fujisawa lane or city artifact to GREEN or `INTEGRATE`. The Fujisawa city
+artifact as a whole is not GREEN:
 the official tsunami source chain, tsunami-evacuation-facility document chain,
 storm-surge source, inland-flood source, and PLATEAU raw catalog are not all
 retained and independently bound.
@@ -99,6 +103,21 @@ The seven full-suite failures are acceptance blockers, not hidden regressions:
 Passing the full suite requires a human-approved writer-scope expansion for
 the shared parser and existing city/integration tests, or an integration branch
 that already contains the corresponding shared contract update.
+
+Hosted CI run `33332349900` evaluated pushed head
+`8f49c6908e855d1d526c3ead1e6c936bf8f7147a` and completed `failure`:
+
+- Python 3.12 / Linux: `6 failed, 506 passed, 1 warning in 28.15s`.
+- Python 3.12 / Windows newline smoke:
+  `6 failed, 506 passed, 1 warning in 51.08s`.
+- Static viewer / Node 22: passed.
+
+Both Python jobs produced the same known shared-contract failure set: four
+legacy Fujisawa city-pack expectations (exact inventory, staging truth,
+freshness/source allowlist, and artifact inventory), one legacy source-class
+expectation, and one shared source-manifest parser rejection of `VGI`. No
+allowed-path-external repair was attempted. The hosted run is evidence for the
+blocked report-only lane, not grounds to promote the whole city.
 
 ## Determinism and SHA-256
 
@@ -352,6 +371,100 @@ interpretation, acceptance values, human gates, main, or tags.
 11. **REFLECT**: do not use PowerShell separators in `cmd.exe`.
 12. **PERSIST**: retained only here.
 
+### Fingerprint FUJ-HOSTED-SHARED-CONTRACT-009 — attempt 1/3, stopped
+
+1. **OBSERVE**
+   - Command: normal `git push -u origin task/phase3-fujisawa-rescue-v1`, then
+     `gh run watch 33332349900 --repo mitsumoto0608-ui/ablepath-kyoto-award
+     --exit-status` and read-only failed-log inspection.
+   - Exit codes: push `0`; Hosted CI watch `1` after the completed failure.
+   - Output: Linux and Windows each reported `6 failed, 506 passed, 1 warning`;
+     Static viewer / Node 22 passed. The six Python failures were the same four
+     legacy city-pack expectations, one legacy source-class expectation, and
+     one shared parser rejection: `unsupported metadata-only data_class: VGI`.
+   - Changed files: push/CI commands changed no worktree files. The only
+     subsequent change is this lane-report persistence update.
+   - Elapsed time: hosted jobs completed in approximately 56 seconds (Linux),
+     2 minutes 14 seconds (Windows), and 55 seconds (Node).
+   - Environment: GitHub-hosted Python 3.12 on Linux and Windows; Node 22 static
+     viewer job; pushed head `8f49c6908e855d1d526c3ead1e6c936bf8f7147a`.
+2. **FINGERPRINT**:
+   `HOSTED_FUJ_RECOVERY_REJECTED_BY_LEGACY_INVENTORY_SOURCE_CLASS_AND_SHARED_VGI_PARSER`.
+   Runner paths, timestamps, durations, run/job IDs, and platform-specific test
+   timing are excluded from identity.
+3. **RETRIEVE** (maximum three):
+   - `FUJ-FULL-CONTRACT-001`: the local full suite already classified the
+     exact-inventory and shared metadata-only parser mismatch as a contract
+     blocker outside writer scope.
+   - `FUJ-PUSH-REMOTE-007`: external writes require exact approval; that approval
+     was supplied for this remote and feature branch before the successful push.
+   - `FUJ-CMD-SEP-008`: use PowerShell-native sequencing for diagnostics rather
+     than retrying a failed shell form.
+4. **DIAGNOSE**: `CONTRACT` primary and `CODE` integration dependency. The
+   failures arise from shared parser/legacy expectations that do not accept the
+   recovered lane contract. The unresolved official source chains remain a
+   separate `DATA` provenance blocker.
+5. **PLAN**
+   - Primary fix: do not change shared manifest/parser or legacy test contracts;
+     record the hosted fingerprint and stop with `BLOCKED_PROVENANCE` /
+     `REPORT_ONLY`.
+   - Fallback: CONTROL may later consider only the hash-bound OSM candidate
+     corridor as `CONDITIONAL_GREEN` after its own partial-rescue review; the
+     whole Fujisawa lane must not be promoted.
+   - Allowed paths: `cities/fujisawa_enoshima/**`,
+     `docs/data/fujisawa_enoshima/**`, `tests/realdata/fujisawa/**`, and
+     `reports/PHASE3_FUJISAWA_*.md`.
+   - Rollback: revert only this report-only update on the feature branch; do not
+     rewrite remote history and do not touch integration, main, tags, or release.
+6. **CHECKPOINT**: the approved remote and feature branch matched exactly;
+   pushed head was `8f49c6908e855d1d526c3ead1e6c936bf8f7147a`;
+   the worktree was clean before this report update; allowed-path audit remained
+   PASS; lane status remained blocked.
+7. **ACT**: inspected the hosted logs, made no shared-code/test repair, and
+   updated only this lane report with the result and partial-rescue status.
+8. **TARGETED TEST**: the pre-push recovery/source-conformance checks passed;
+   no payload changed after those checks.
+9. **LANE TEST**: retained `13 passed` evidence; no lane payload changed.
+10. **FULL TEST**: Hosted CI failed with this fingerprint on both Python
+    platforms. Per user instruction, the same repair was not attempted and the
+    lane stopped after persistence.
+11. **REFLECT**: the earlier contract diagnosis was correct. Waiting for both
+    hosted Python jobs supplied cross-platform confirmation; changing allowed
+    paths would have been wasteful and unauthorized. Future order: inspect the
+    first completed Python failure summary, confirm the second platform, then
+    persist once.
+12. **PERSIST**: this lesson is stored only in the Fujisawa lane report. No
+    shared memory file was edited and no instruction was forwarded to CONTROL.
+
+### Fingerprint FUJ-GIT-LOCK-010 — attempt 1/3, repaired
+
+1. **OBSERVE**: report-only `git add` / `git commit` exited `1` because the
+   managed sandbox denied creation of the linked-worktree `index.lock` under the
+   repository Git metadata. No worktree file, index entry, ref, or remote changed;
+   elapsed time was under three seconds; environment was the local managed
+   Windows workspace.
+2. **FINGERPRINT**: `LINKED_WORKTREE_INDEX_LOCK_SANDBOX_PERMISSION_DENIED`;
+   machine paths and timestamps are excluded.
+3. **RETRIEVE**: `FUJ-GIT-QUOTE-006` requires distinguishing invocation errors
+   from repository state; `FUJ-PUSH-REMOTE-007` requires exact external-write
+   authorization; `FUJ-HOSTED-SHARED-CONTRACT-009` fixes this update to one
+   lane-report file.
+4. **DIAGNOSE**: `GIT` / `ENVIRONMENT`, not payload code or data.
+5. **PLAN**: primary fix is one permission-elevated Git metadata write for the
+   exact report path and feature branch; fallback is to leave the verified report
+   change uncommitted. Allowed path is this report only; rollback is a normal
+   report-only revert commit, never history rewriting.
+6. **CHECKPOINT**: diff contained only this allowed report; index was unchanged;
+   branch remained `task/phase3-fujisawa-rescue-v1`.
+7. **ACT**: retried once with only the required Git-metadata permission change.
+8. **TARGETED TEST**: report completion fields and stale-state scan passed.
+9. **LANE TEST**: retained `13 passed`; payload unchanged.
+10. **FULL TEST**: retained Hosted fingerprint; payload unchanged and no
+    unauthorized repair was made.
+11. **REFLECT**: linked worktrees need Git-metadata permission before staging;
+    future report-only commits should request it on the first write.
+12. **PERSIST**: retained only in this lane report.
+
 ## Changed paths
 
 Exact payload/report file list:
@@ -411,5 +524,8 @@ registration request. Human/Fable review is required before merge for:
 - recording the OSM requested snapshot and response-base timestamps as distinct
   provenance fields.
 
-The feature push was blocked before network transfer pending explicit remote
-approval. Hosted CI was therefore not run and no hosted run URL exists.
+The user subsequently approved the exact remote and feature branch. The normal
+push succeeded without force or `--no-verify`; Hosted CI run `33332349900`
+failed with the known shared-contract fingerprint recorded above. No repair was
+made outside allowed paths, and the lane stopped as `BLOCKED_PROVENANCE` /
+`REPORT_ONLY`.
