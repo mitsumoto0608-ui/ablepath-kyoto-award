@@ -29,8 +29,8 @@ def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_kiyomizu_current_docs_describe_retained_real_artifact_without_connection_claim() -> None:
-    """[source_conformance] Reviewed counts distinguish retained VGI from viewer/model connection."""
+def test_kiyomizu_current_docs_separate_artifact_from_scoped_viewer_connection() -> None:
+    """[source_conformance] Artifact facts remain shared while only global truth claims viewer scope."""
 
     for relative in (
         "README.md",
@@ -43,12 +43,26 @@ def test_kiyomizu_current_docs_describe_retained_real_artifact_without_connectio
         assert "SOURCE_TRACEABLE_REAL" in text and "VGI" in text
         assert "21 nodes / 19 edges / 2 components" in text
         assert "NOT_ESTABLISHED" in text
-        assert "REAL_GEOMETRY_CONNECTED_TO_VIEWER=false" in text
         assert "M7_CONNECTED_TO_REAL_EDGES=false" in text
         assert "M6_CONNECTED=false" in text
         assert "KPI_CONNECTED=false" in text
         assert "realdata/artifact_manifest.v2.json" in text
         assert "sources/source_manifest.csv" in text
+
+    root_readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "MAPLIBRE_RUNTIME_IMPLEMENTED=true" in root_readme
+    assert "MAPLIBRE_CONNECTED=true" in root_readme
+    assert (
+        "MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY"
+        in root_readme
+    )
+    assert "REAL_GEOMETRY_CONNECTED_TO_VIEWER=true" in root_readme
+    assert (
+        "REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY"
+        in root_readme
+    )
+    assert "ALL_THREE_CITIES_REAL_GEOMETRY=false" in root_readme
+    assert "MODEL_CONNECTED=false" in root_readme
 
     city_readme = (PACK / "README.md").read_text(encoding="utf-8")
     readiness = (ROOT / "docs/data/kyoto_kiyomizu/DATA_READINESS.md").read_text(
@@ -88,23 +102,45 @@ def test_v1_source_catalogue_points_to_hash_bound_v2_authority_without_reclassif
 
 
 def test_global_viewer_scope_and_city_artifact_scope_are_machine_readable() -> None:
-    """[source_conformance] Artifact availability is not presented as viewer/model connection."""
+    """[source_conformance] Kiyomizu viewer truth never promotes all-city, model, or real 3D state."""
 
     global_status = _json(ROOT / "reports" / "COMPLETION_LEVELS.json")
     assert global_status["KIYOMIZU_REAL_ARTIFACT_CAPABILITY"] is True
     assert global_status["KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE"] is True
     assert global_status["REAL_GEOMETRY_ARTIFACTS_AVAILABLE"] == "PARTIAL"
     assert global_status["ALL_THREE_CITIES_REAL_GEOMETRY"] is False
-    assert global_status["REAL_GEOMETRY_CONNECTED"] is False
-    assert global_status["REAL_GEOMETRY_CONNECTED_SCOPE"] == "VIEWER_OR_MODEL_PIPELINE"
-    assert global_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER"] is False
+    assert global_status["REAL_GEOMETRY_CONNECTED"] is True
+    assert (
+        global_status["REAL_GEOMETRY_CONNECTED_SCOPE"]
+        == "KIYOMIZU_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE"
+    )
+    assert global_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER"] is True
+    assert (
+        global_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE"]
+        == "KIYOMIZU_CANDIDATE_ONLY"
+    )
     assert global_status["REAL_MAP_COMPLETE"] is False
-    assert global_status["MAPLIBRE_CONNECTED"] is False
+    assert global_status["MAPLIBRE_RUNTIME_IMPLEMENTED"] is True
+    assert global_status["MAPLIBRE_CONNECTED"] is True
+    assert (
+        global_status["MAPLIBRE_CONNECTED_SCOPE"]
+        == "KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY"
+    )
+    assert global_status["KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER"] is True
+    assert global_status["ALL_THREE_CITIES_MAPLIBRE_CONNECTED"] is False
+    assert global_status["CESIUM_RUNTIME_IMPLEMENTED"] is True
     assert global_status["CESIUM_CONNECTED"] is False
+    assert global_status["PLATEAU_3D_CONNECTED"] is False
+    assert (
+        global_status["THREE_D_IMPLEMENTATION"]
+        == "RUNTIME_IMPLEMENTED_MOCKED_GATE_REAL_TILESET_NOT_VALIDATED"
+    )
     assert global_status["M7_CONNECTED_TO_REAL_EDGES"] is False
     assert global_status["M6_CONNECTED"] is False
     assert global_status["KPI_CONNECTED"] is False
     assert global_status["ADMIN_VALIDATED"] is False
+    assert global_status["DEMO_COMPLETE"] is False
+    assert global_status["PUBLIC_RELEASE_READY"] is False
 
     city_status = _json(PACK / "realdata" / "status.json")
     assert city_status["REAL_GEOMETRY_CONNECTED"] is True
@@ -112,6 +148,8 @@ def test_global_viewer_scope_and_city_artifact_scope_are_machine_readable() -> N
         city_status["REAL_GEOMETRY_CONNECTED_SCOPE"]
         == "CITYPACK_VALIDATED_ARTIFACT_CAPABILITY"
     )
+    # The citypack status is an artifact-capability snapshot, not the authority
+    # for the later scoped viewer runtime connection recorded in the global report.
     assert city_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER"] is False
 
 
@@ -197,8 +235,10 @@ def test_report_authority_and_public_release_gate_are_current() -> None:
         assert heading in authority
     for expected in (
         "reports/PHASE2_AUTONOMOUS_REALDATA_REPORT.md",
+        "reports/PHASE3_MAP_UI_STATUS.md",
         "PR #2",
-        "33318099447",
+        "33330312591",
+        "PR #3",
         "RELEASE_MANIFEST.json",
         "cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json",
         "cities/kyoto_kiyomizu/realdata/status.json",

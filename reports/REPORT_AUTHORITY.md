@@ -1,6 +1,6 @@
-# Phase 2 report authority
+# Phase 3 global report authority
 
-This index separates current Phase 2 evidence from retained historical snapshots. A historical file may remain useful evidence, but its commit counts, PR number, Hosted run, capability count, or release values must not be presented as the current Phase 2 state.
+This index separates current Phase 3 evidence from retained historical snapshots. A historical file may remain useful evidence, but its commit counts, PR number, Hosted run, capability count, or release values must not be presented as the current Phase 3 state.
 
 ## CURRENT_AUTHORITATIVE
 
@@ -9,8 +9,9 @@ This index separates current Phase 2 evidence from retained historical snapshots
 - `reports/KNOWN_GAPS.md`: current product, data, operations, and human-gate gaps.
 - `reports/ENVIRONMENT_MANIFEST.json`: current PR #2 reviewed-checkpoint and Hosted-run environment snapshot; the truth-sync feature-run fields remain pending until push.
 - `reports/PUBLIC_RELEASE_GATE.md`: current public-release blockers; `PUBLIC_RELEASE_READY=false`.
-- PR #2 (`integration/realdata-model-map-v1` → `main`): current draft review vehicle. Its reviewed checkpoint before this isolated truth-sync is `048c03a35b4261b77b42b872e393fe34f4c59c4f`.
-- Hosted run `33318099447`: successful pull-request run for reviewed checkpoint `048c03a35b4261b77b42b872e393fe34f4c59c4f`. A later feature/truth-sync HEAD must be reported separately and must not reuse this run as evidence for new bytes.
+- `reports/PHASE3_MAP_UI_STATUS.md`: MAP implementation, scoped viewer capability, provenance, fallback, and contract-resolution evidence.
+- PR #2 (`integration/realdata-model-map-v1` → `main`): draft technical review vehicle at head `1a62a55b1ff6bd047b433bfd594b0c30e91f9f0d`; pull-request run `33330312591` succeeded.
+- PR #3 (`integration/phase3-parallel-v1` → `integration/realdata-model-map-v1`): stacked draft Phase 3 review vehicle. After final verification, its body must record the exact final head, Hosted run, screenshot artifact, deterministic RC SHA, and report-only lanes without changing repository files.
 - RC root `RELEASE_MANIFEST.json`: exists inside each generated deterministic RC ZIP, not as a tracked checkout-root file. Its `source_commit` and payload checksums are authoritative only for that archive.
 - `cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`: hash-bound authority for retained/normalized Kiyomizu real VGI artifacts.
 - `cities/kyoto_kiyomizu/realdata/status.json`: per-city capability status; its true geometry flag is scoped only to `CITYPACK_VALIDATED_ARTIFACT_CAPABILITY`.
@@ -33,7 +34,7 @@ This index separates current Phase 2 evidence from retained historical snapshots
 - `reports/RESUME_AND_WATCHDOG_REPORT.md`
 - prior completion/test counts embedded in older reports
 
-These files are retained for audit history. Reports produced for `overnight-multicity-20260830` are historical unless this index explicitly lists them as current. Where any historical file conflicts with the current authoritative set above, it is not a competing truth root.
+These files are retained for audit history. Reports produced for `overnight-multicity-20260830` and superseded Phase 2 checkpoints are historical unless this index explicitly lists them as current. Where any historical file conflicts with the current authoritative set above, it is not a competing truth root.
 
 ## CURRENT_BUT_PUBLICLY_BLOCKED
 

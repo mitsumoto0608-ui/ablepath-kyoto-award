@@ -1,0 +1,76 @@
+{
+  "viewer_map_schema_version": "1.1.0",
+  "generated_from": "HASH_VERIFIED_CITY_ARTIFACTS",
+  "cities": [
+    {
+      "city_id": "kyoto_kiyomizu",
+      "real_2d": {
+        "data_path": "./data/maps/kyoto_kiyomizu.candidate_edges.geojson",
+        "artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "copied_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "corridor_sha256": "48b08553a9c2d7f8388bd893e83133287e01ad2efa9326116f5e8d3a31836dc7",
+        "source_sha256": "3d21ce674776c5c3e37c507c09a9458e062d2d31f5718b3e702313838ef7d2ec",
+        "query_sha256": "f32964329548d7d715c79cf05da6a28a7ac8230781acc4852f9174ba9f4dfb7b",
+        "topology_sha256": "ea6a7b9257dd49147076af0bdec36a5ce189b87ce87ef1b763574d5b4ae9bb4e",
+        "manifest_sha256": "e83176c1396c3fd13001f3730f7017cd28bcfd2576c90104b971d401f83eb958",
+        "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+        "source_class": "VGI",
+        "data_class": "REAL",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "topology_status": "CANDIDATE_REVIEW_REQUIRED",
+        "route_continuity": "NOT_ESTABLISHED",
+        "snapshot_at": "2026-08-30T00:00:00Z",
+        "feature_count": 19,
+        "bounds": [
+          [
+            135.7770866,
+            34.9955015
+          ],
+          [
+            135.7829169,
+            35.0054866
+          ]
+        ],
+        "license": "Open Data Commons Open Database License (ODbL) 1.0",
+        "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+        "copyright_url": "https://www.openstreetmap.org/copyright",
+        "attribution": "© OpenStreetMap contributors / Data available under ODbL 1.0",
+        "lineage": [
+          "artifact:73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "corridor:48b08553a9c2d7f8388bd893e83133287e01ad2efa9326116f5e8d3a31836dc7",
+          "source:3d21ce674776c5c3e37c507c09a9458e062d2d31f5718b3e702313838ef7d2ec",
+          "query:f32964329548d7d715c79cf05da6a28a7ac8230781acc4852f9174ba9f4dfb7b"
+        ]
+      },
+      "cesium": {
+        "available": true,
+        "data_class": "OFFICIAL_METADATA_ONLY",
+        "source_id": "plateau_26100_bldg_maxlod2_latest_20260830",
+        "source_class": "OFFICIAL",
+        "accessed_at": "2026-08-30",
+        "valid_as_of": null,
+        "valid_as_of_reason": "Latest endpoint is dynamic; retained ETag response must be rechecked",
+        "lod": "LOD2",
+        "tileset_url": "https://assets.cms.plateau.reearth.io/assets/25/dd4c50-5342-4a0b-ac51-05ffb138b8b5/26100_kyoto-shi_city_2025_citygml_1_op_bldg_3dtiles_26105_higashiyama-ku_lod2/tileset.json",
+        "license": "Public Data License 1.0 (PDL1.0), CC BY 4.0 compatible",
+        "license_url": "https://www.mlit.go.jp/plateau/site-policy/",
+        "attribution": "出典：国土交通省 3D都市モデル（Project PLATEAU）京都市2025 / PDL1.0",
+        "connected": false,
+        "requires_commercial_token": false,
+        "metadata_sha256": "2a1e4c71370f58f0f40dc8b6eb9ae120b7f694b6caca1260a8a0efbbfeda78d3",
+        "retained_response_sha256": "ce58a92bb9da595d9251cd72b7b77af6da9a3748628a0e8370ffc6fbc6312242",
+        "query_sha256": "eb9400f69b5ee88b802e972f426b4ff624ab759fe372776f67ecd83978221e40"
+      }
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "real_2d": null,
+      "cesium": null
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "real_2d": null,
+      "cesium": null
+    }
+  ]
+}

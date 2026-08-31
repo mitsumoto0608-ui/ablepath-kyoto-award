@@ -292,14 +292,20 @@ export function selectInitialState(catalog, search = "") {
   const city = catalog.cities.find((candidate) => candidate.city_id === params.get("city")) ?? catalog.cities[0];
   const view = params.get("view") === "3d" ? "3d" : "2d";
   const selectedEdge = city.map.edges.find((edge) => edge.edge_id === params.get("edge")) ?? city.map.edges[0] ?? null;
-  return { city, scenario: city.scenarios[0], evidenceMode: "strict", phase: "before", view, selectedEdge };
+  const requestedRealEdge = params.get("map_edge");
+  const selectedRealEdgeId = requestedRealEdge && /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$/.test(requestedRealEdge)
+    ? requestedRealEdge
+    : null;
+  return { city, scenario: city.scenarios[0], evidenceMode: "strict", phase: "before", view, selectedEdge, selectedRealEdgeId };
 }
 
-export function serializeState({ city, view, selectedEdge }) {
+export function serializeState({ city, view, selectedEdge, mapMode, selectedRealEdgeId }) {
   const params = new URLSearchParams();
   params.set("city", city.city_id);
   params.set("view", view);
-  if (selectedEdge) params.set("edge", selectedEdge.edge_id);
+  if (mapMode === "real" || mapMode === "synthetic") params.set("layer", mapMode);
+  if (mapMode === "real" && selectedRealEdgeId) params.set("map_edge", selectedRealEdgeId);
+  else if (selectedEdge) params.set("edge", selectedEdge.edge_id);
   return `?${params.toString()}`;
 }
 
