@@ -16,6 +16,8 @@ Recommended: review F01–F16 and D01–D25; treat Proposal V2 as a review propo
 
 Recommended: accept only the bounded OSM/ODbL candidate subsets and their receipts for internal review; keep official hazard, PDF, PLATEAU, facility, operation, capacity, and field-validation claims excluded. Alternative: return a city lane for additional provenance/license review. Evidence: city manifests, external-raw SHA receipts, topology QA, and P0 reports. Consequence: acceptance preserves three-city candidate analysis without safety/admin promotion. Decision: [ ] accept both bounded subsets [ ] return Arashiyama [ ] return Fujisawa.
 
+The separate DATA ACQUISITION handoff contains 44 acquired/catalogued entries + 3 `NOT_FOUND` gap entries = 47 status rows. Exactly seven `READY_FOR_INGESTION` entries may be considered in a later consumer-specific normalization/analysis lane. `READY_FOR_METADATA_ONLY`, `HUMAN_ACTION_REQUIRED`, `LICENSE_REVIEW_REQUIRED`, and `NOT_FOUND` remain disconnected. No raw original was re-downloaded for this integration.
+
 ## D — limited M7
 
 Recommended: do not connect M7. All 612 edges are `NOT_READY_REASONED_NULL`; ready/computed counts are zero. Alternative: authorize a new evidence-acquisition lane. Evidence: `PHASE4_M7_REAL_EDGE_READINESS.csv`. Consequence: no M7 number is produced from incomplete evidence. Decision: [ ] keep disconnected [ ] open evidence-acquisition lane.

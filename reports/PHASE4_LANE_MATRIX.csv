@@ -1,4 +1,5 @@
 lane,status,integrated_scope,excluded_scope,human_gate
+DATA_ACQUISITION,HANDOFF_GREEN_7_READY_FOR_INGESTION_NO_AUTO_CONNECTION,"44 acquired/catalogued entries + 3 NOT_FOUND gap entries = 47 status rows; seven follow-on candidates","READY_FOR_METADATA_ONLY; HUMAN_ACTION_REQUIRED; LICENSE_REVIEW_REQUIRED; NOT_FOUND remain disconnected",consumer-specific provenance/license/CRS validation
 ARASHIYAMA,GREEN_CITY_ARTIFACT,"bounded OSM VGI geometry; candidate graph; topology/path analysis; explicit-opt-in viewer","official hazard; PLATEAU; field validation; M6/M7 computation",license/provenance acceptance
 FUJISAWA,GREEN_CITY_ARTIFACT,"bounded OSM VGI geometry; candidate graph; topology/path analysis; explicit-opt-in viewer","official PDF/hazard; PLATEAU; facility/capacity/operation; M6/M7 computation",license/provenance acceptance
 MAP_UI,GREEN_CANDIDATE_EXPLICIT_OPT_IN,"three-city deterministic candidate connectivity UI","safety/accessibility/passability/recommendation/admin claims",private-main merge

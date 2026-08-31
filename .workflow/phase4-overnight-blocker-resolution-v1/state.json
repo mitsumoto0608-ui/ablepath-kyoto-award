@@ -44,12 +44,37 @@
     "TESTS_REQUIRE_PROVENANCE_OR_SAFETY_WEAKENING"
   ],
   "lanes": {
+    "data_acquisition": "HANDOFF_GREEN_7_READY_FOR_INGESTION_NO_AUTO_CONNECTION",
     "arashiyama": "SOURCE_STAGED_NORMALIZED_INGESTED",
     "fujisawa": "SOURCE_STAGED_NORMALIZED_INGESTED",
     "analysis_ui": "GREEN_THREE_CITY_EXPLICIT_OPT_IN",
     "m7_readiness": "NOT_READY_REASONED_NULL_612_OF_612",
     "m6": "READY_FOR_HUMAN_FREEZE_PACKET_ONLY",
     "hokonavi": "READY_FOR_HUMAN_FREEZE_PACKET_ONLY"
+  },
+  "data_acquisition_handoff": {
+    "source_branch": "task/phase4-multicity-data-acquisition-v1",
+    "source_commit": "10f62a6fbb7ff1a1e4817faf6fdb12f9bdf9f2f5",
+    "integration_commit": "3dd830c",
+    "source_parent": "76bbe2a1d85ea1f328cb41ddb0171c75331a1897",
+    "source_file_count": 21,
+    "hosted_run": 33431944640,
+    "hosted_conclusion": "SUCCESS",
+    "status_rows": 47,
+    "acquired_or_catalogued_entries": 44,
+    "not_found_gap_entries": 3,
+    "ready_for_ingestion": 7,
+    "ready_for_ingestion_scope": "FOLLOW_ON_NORMALIZATION_OR_ANALYSIS_CANDIDATES_ONLY",
+    "auto_connected": false,
+    "independent_review": "PASS_NO_FINDINGS"
+  },
+  "post_handoff_revalidation": {
+    "python_full": "529 passed, 1 warning",
+    "runner_runs": 2,
+    "all_runs_sha256_first": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "all_runs_sha256_second": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "allocate_sha256": "2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b",
+    "trust_boundary_scan": "PASS"
   },
   "p0_verification": {
     "targeted_tests": "77 passed",

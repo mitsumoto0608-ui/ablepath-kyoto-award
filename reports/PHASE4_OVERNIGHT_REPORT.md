@@ -7,7 +7,7 @@ Status: `LOCAL_GREEN_HOSTED_CI_PENDING`. This report is an internal review recei
 - Source private main: `76bbe2a1d85ea1f328cb41ddb0171c75331a1897`
 - Baseline tag target: `0c3289b9174bf624c95faeaa3c1643664e31c2eb`
 - Integration branch: `integration/phase4-blocker-resolution-v1`
-- Phase 4 integration commits before this receipt: `9cad3bb`, `b47d018`, `f26ed08`, `3110989`
+- Core integration commits: `9cad3bb`, `b47d018`, `f26ed08`, `3110989`; readiness receipt: `e83af01`; acquisition handoff integration: `3dd830c`
 - `src/allocate.py` remains frozen at `2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b`.
 
 ## Data and analysis result
@@ -17,6 +17,12 @@ Arashiyama and Fujisawa now have source-traceable bounded OSM/ODbL candidate geo
 The path length is `coordinate_degree`, not metres or a geodesic distance. Candidate connectivity does not claim accessibility, safety, passability, evacuation suitability, or recommendation. Official hazard geometry is connected for zero cities; no overlap result creates `CLOSED`, `FAIL`, or another edge state. M6 remains `NOT_COMPUTED`. All 612 candidate edges are M7 `NOT_READY_REASONED_NULL`; ready and computed counts are zero.
 
 Raw ZIP/PDF/snapshot bytes remain outside Git. Git contains bounded normalized artifacts and hash/URL/time/transform receipts. Formal CRS semantics and GeoJSON longitude/latitude serialization are recorded separately. Unbound PLATEAU bytes remain metadata-only or null with a non-empty reason.
+
+## DATA ACQUISITION handoff
+
+The reviewed remote handoff `10f62a6fbb7ff1a1e4817faf6fdb12f9bdf9f2f5` was a single commit directly on private main, changed only 21 staging/report files, and passed Hosted run `33431944640` on Linux, Windows, and Viewer. It was integrated as `3dd830c` without resetting the existing P0/P1/P2 work.
+
+Count wording is fixed as: **44 acquired/catalogued entries + 3 `NOT_FOUND` gap entries = 47 status rows**. Exactly seven entries are `READY_FOR_INGESTION`; they are candidates for a later consumer-specific normalization/analysis step, not automatically connected data. `READY_FOR_METADATA_ONLY`, `HUMAN_ACTION_REQUIRED`, `LICENSE_REVIEW_REQUIRED`, and `NOT_FOUND` remain disconnected. Raw originals were not downloaded again and absolute raw paths were not tracked.
 
 ## Local verification
 
@@ -29,6 +35,7 @@ Raw ZIP/PDF/snapshot bytes remain outside Git. Git contains bounded normalized a
 - npm audit: `0 vulnerabilities`
 - repository trust-boundary/large-file scan: PASS
 - independent final report/contract review: COMMIT YES, no findings
+- post-handoff revalidation: Python `529 passed, 1 warning`; runner SHA twice unchanged; allocator SHA unchanged; trust scan PASS
 
 The first two Python attempts were invalid environment runs because the default temp root was unreadable and the first alternate parent did not yet exist. With a dedicated writable temp parent, the unchanged suite passed. No source/test contract was weakened.
 
