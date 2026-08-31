@@ -3,10 +3,149 @@ from __future__ import annotations
 
 from heapq import heappop, heappush
 from math import hypot, isfinite
+from numbers import Real
 
-M7_FIELDS = ("clear_width_m", "building_height_m", "setback_m", "damage_state", "debris_present", "variant", "official_closure", "hazard_data_status")
+M7_API_FIELDS = (
+    "clear_width_m",
+    "left_buildings",
+    "right_buildings",
+    "variant",
+    "official_closure",
+    "hazard_data_status",
+)
+M7_BUILDING_FIELDS = ("height_m", "setback_m", "damage_state", "debris_present")
+M7_VARIANTS = {"mean_case", "sensitivity_high_case"}
+M7_DAMAGE_STATES = {"COLLAPSED", "DAMAGED"}
+M7_HAZARD_DATA_STATUSES = {"KNOWN", "UNKNOWN"}
 CONNECTED_REASON = "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
 DISCONNECTED_REASON = "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+
+
+def _is_finite_real(value, *, positive=False):
+    return (
+        not isinstance(value, bool)
+        and isinstance(value, Real)
+        and isfinite(value)
+        and (value > 0 if positive else value >= 0)
+    )
+
+
+def _building_missing(building, path):
+    if not isinstance(building, dict):
+        return [path]
+    missing = [f"{path}.{field}" for field in M7_BUILDING_FIELDS if field not in building]
+    if "height_m" in building and not _is_finite_real(building["height_m"], positive=True):
+        missing.append(f"{path}.height_m")
+    if "setback_m" in building and not _is_finite_real(building["setback_m"]):
+        missing.append(f"{path}.setback_m")
+    damage_state = building.get("damage_state")
+    if "damage_state" in building and (
+        not isinstance(damage_state, str) or damage_state not in M7_DAMAGE_STATES
+    ):
+        missing.append(f"{path}.damage_state")
+    debris_present = building.get("debris_present")
+    if "debris_present" in building and type(debris_present) is not bool:
+        missing.append(f"{path}.debris_present")
+    if damage_state == "DAMAGED" and debris_present is True:
+        missing.append(f"{path}.damage_state+debris_present")
+    return missing
+
+
+def _side_missing(value, field):
+    if not isinstance(value, list) or len(value) > 1:
+        return [field]
+    missing = []
+    for index, building in enumerate(value):
+        missing.extend(_building_missing(building, f"{field}[{index}]"))
+    return missing
+
+
+def _m7_structural_missing(props):
+    missing = [field for field in M7_API_FIELDS if field not in props]
+    if "clear_width_m" in props and not _is_finite_real(props["clear_width_m"]):
+        missing.append("clear_width_m")
+    for field in ("left_buildings", "right_buildings"):
+        if field in props:
+            missing.extend(_side_missing(props[field], field))
+    if "variant" in props and (
+        not isinstance(props["variant"], str) or props["variant"] not in M7_VARIANTS
+    ):
+        missing.append("variant")
+    if "official_closure" in props and (
+        props["official_closure"] is not None and type(props["official_closure"]) is not bool
+    ):
+        missing.append("official_closure")
+    if "hazard_data_status" in props and (
+        not isinstance(props["hazard_data_status"], str)
+        or props["hazard_data_status"] not in M7_HAZARD_DATA_STATUSES
+    ):
+        missing.append("hazard_data_status")
+    return list(dict.fromkeys(missing))
+
+
+def _m7_evidence_missing(props):
+    provenance = props.get("m7_provenance")
+    if not isinstance(provenance, dict):
+        return [f"m7_provenance.{field}" for field in M7_API_FIELDS]
+    missing = []
+    for field in M7_API_FIELDS:
+        record = provenance.get(field)
+        path = f"m7_provenance.{field}"
+        if not isinstance(record, dict):
+            missing.append(path)
+            continue
+        for receipt_field in ("source_id", "revision_id"):
+            if not isinstance(record.get(receipt_field), str) or not record[receipt_field].strip():
+                missing.append(f"{path}.{receipt_field}")
+        source_sha256 = record.get("source_sha256")
+        if (
+            not isinstance(source_sha256, str)
+            or len(source_sha256) != 64
+            or any(character not in "0123456789abcdef" for character in source_sha256)
+        ):
+            missing.append(f"{path}.source_sha256")
+        if record.get("evidence_status") != "SOURCE_TRACEABLE":
+            missing.append(f"{path}.evidence_status")
+        if field in ("left_buildings", "right_buildings"):
+            if record.get("coverage_status") != "COMPLETE":
+                missing.append(f"{path}.coverage_status")
+            observed_count = record.get("observed_count")
+            buildings = props.get(field)
+            if (
+                isinstance(observed_count, bool)
+                or not isinstance(observed_count, int)
+                or observed_count < 0
+                or not isinstance(buildings, list)
+                or observed_count != len(buildings)
+            ):
+                missing.append(f"{path}.observed_count")
+    return list(dict.fromkeys(missing))
+
+
+def _m7_readiness(edge_id, props):
+    structural_missing = _m7_structural_missing(props)
+    evidence_missing = _m7_evidence_missing(props)
+    structurally_callable = not structural_missing
+    evidence_ready = structurally_callable and not evidence_missing
+    missing_fields = structural_missing + [
+        field for field in evidence_missing if field not in structural_missing
+    ]
+    if evidence_ready:
+        reason = "M7 inputs are structurally callable and evidence-ready; M7 was not run."
+    elif structurally_callable:
+        reason = "M7 inputs are structurally callable, but source-traceable evidence is incomplete; M7 was not run."
+    else:
+        reason = "M7 inputs are not structurally callable; M7 was not run."
+    return {
+        "edge_id": edge_id,
+        "status": "NOT_COMPUTED",
+        "m7_api_structurally_callable": structurally_callable,
+        "m7_evidence_ready": evidence_ready,
+        "m7_computed": False,
+        "m7_result": None,
+        "missing_fields": missing_fields,
+        "reason": reason,
+    }
 
 def _node_ids(nodes):
     ids = []
@@ -65,5 +204,5 @@ def summarize(nodes: list[dict], edges: list[dict], start: str, end: str) -> dic
         path = {"status": "CONNECTED", "edge_ids": list(reversed(route)), "geometric_length": best[end][0], "unit": "coordinate_degree", "reason": CONNECTED_REASON}
     else:
         path = {"status": "DISCONNECTED", "edge_ids": [], "geometric_length": None, "unit": "coordinate_degree", "reason": DISCONNECTED_REASON}
-    readiness = [{"edge_id": edge_id, "status": "NOT_COMPUTED", "m7_result": None, "missing_fields": [field for field in M7_FIELDS if props.get(field) in (None, "UNKNOWN", "")], "reason": "Required source-traceable M7 inputs are incomplete."} for edge_id, props in sorted(normalized_edges)]
-    return {"topology": {"nodes": len(nodes), "edges": len(edges), "connected_components": components}, "path": path, "hazard_overlap": {"status": "NOT_CONNECTED", "reason": "No trusted official hazard geometry is connected; no closure is derived."}, "m7": {"ready_edge_count": 0, "computed_edge_count": 0, "readiness": readiness}, "m6": {"status": "NOT_COMPUTED", "reason": "Human freeze is pending."}}
+    readiness = [_m7_readiness(edge_id, props) for edge_id, props in sorted(normalized_edges)]
+    return {"topology": {"nodes": len(nodes), "edges": len(edges), "connected_components": components}, "path": path, "hazard_overlap": {"status": "NOT_CONNECTED", "reason": "No trusted official hazard geometry is connected; no closure is derived."}, "m7": {"ready_edge_count": sum(row["m7_evidence_ready"] for row in readiness), "computed_edge_count": sum(row["m7_computed"] for row in readiness), "readiness": readiness}, "m6": {"status": "NOT_COMPUTED", "reason": "Human freeze is pending."}}
