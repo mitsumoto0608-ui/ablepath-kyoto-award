@@ -1,0 +1,9 @@
+lane,status,integrated_scope,excluded_scope,human_gate
+ARASHIYAMA,GREEN_CITY_ARTIFACT,"bounded OSM VGI geometry; candidate graph; topology/path analysis; explicit-opt-in viewer","official hazard; PLATEAU; field validation; M6/M7 computation",license/provenance acceptance
+FUJISAWA,GREEN_CITY_ARTIFACT,"bounded OSM VGI geometry; candidate graph; topology/path analysis; explicit-opt-in viewer","official PDF/hazard; PLATEAU; facility/capacity/operation; M6/M7 computation",license/provenance acceptance
+MAP_UI,GREEN_CANDIDATE_EXPLICIT_OPT_IN,"three-city deterministic candidate connectivity UI","safety/accessibility/passability/recommendation/admin claims",private-main merge
+M7,NOT_READY_REASONED_NULL,"612-edge readiness scan","M7 computation and production connector",limited connector only after complete evidence
+M6,READY_FOR_HUMAN_FREEZE_PACKET_ONLY,"H1-H20 evidence/options/freeze form","threshold/state-table freeze; production profile",H1-H20 human selections
+HOKONAVI,READY_FOR_HUMAN_FREEZE_PACKET_ONLY,"prototype inventory; decision matrix; schema proposal","production schema/adapter; real-data compatibility",F01-F16/D01-D25 human selections
+SENTRY,IMPLEMENTED_OPT_IN_NOT_CONFIGURED,"DSN-absent regression only","project/DSN/MCP/replay/tracing/source maps",credentials and privacy review
+CODE_GRAPH_RAG,REJECT,"ordinary repository search","installation or production dependency",none for Phase 4

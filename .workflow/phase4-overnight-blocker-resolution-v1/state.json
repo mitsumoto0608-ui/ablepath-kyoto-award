@@ -1,13 +1,13 @@
 {
   "workflow_id": "ABLEPATH-PHASE4-OVERNIGHT-BLOCKER-RESOLUTION-V1",
   "started_at_utc": "2026-08-31T17:58:19.5392396Z",
-  "source_of_truth": "C:/Users/kirin/Downloads/CODEX_PHASE4_OVERNIGHT_BLOCKER_RESOLUTION_MASTER_V1.md",
+  "source_of_truth": "CODEX_PHASE4_OVERNIGHT_BLOCKER_RESOLUTION_MASTER_V1.md (external human attachment)",
   "overrides_in_priority_order": [
-    "C:/Users/kirin/Downloads/CODEX_PHASE4_DATA_INGESTION_MINIMUM_OVERRIDE_V1.md",
-    "C:/Users/kirin/Downloads/CODEX_PHASE4_ANALYSIS_AND_UI_MINIMUM_OVERRIDE_V2.md",
-    "C:/Users/kirin/Downloads/CODEX_PHASE4_ANTICIPATED_BLOCKERS_AND_HUMAN_PREAUTH_V1.md"
+    "CODEX_PHASE4_DATA_INGESTION_MINIMUM_OVERRIDE_V1.md (external human attachment)",
+    "CODEX_PHASE4_ANALYSIS_AND_UI_MINIMUM_OVERRIDE_V2.md (external human attachment)",
+    "CODEX_PHASE4_ANTICIPATED_BLOCKERS_AND_HUMAN_PREAUTH_V1.md (external human attachment)"
   ],
-  "status": "P0_INGESTION_GREEN",
+  "status": "LOCAL_GREEN_HOSTED_CI_PENDING",
   "anchor": {
     "origin_main": "76bbe2a1d85ea1f328cb41ddb0171c75331a1897",
     "baseline_tag": "0c3289b9174bf624c95faeaa3c1643664e31c2eb",
@@ -46,10 +46,10 @@
   "lanes": {
     "arashiyama": "SOURCE_STAGED_NORMALIZED_INGESTED",
     "fujisawa": "SOURCE_STAGED_NORMALIZED_INGESTED",
-    "analysis_ui": "PENDING",
-    "m7_readiness": "PENDING",
-    "m6": "PENDING_REVIEW_ONLY",
-    "hokonavi": "PENDING_REVIEW_ONLY"
+    "analysis_ui": "GREEN_THREE_CITY_EXPLICIT_OPT_IN",
+    "m7_readiness": "NOT_READY_REASONED_NULL_612_OF_612",
+    "m6": "READY_FOR_HUMAN_FREEZE_PACKET_ONLY",
+    "hokonavi": "READY_FOR_HUMAN_FREEZE_PACKET_ONLY"
   },
   "p0_verification": {
     "targeted_tests": "77 passed",
@@ -57,6 +57,20 @@
     "arashiyama_raw_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013",
     "fujisawa_raw_sha256": "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04",
     "independent_review": "PASS_FOR_P0_COMMIT"
+  },
+  "final_local_verification": {
+    "python_full": "529 passed, 1 warning",
+    "runner_runs": 2,
+    "all_runs_sha256_first": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "all_runs_sha256_second": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "allocate_sha256": "2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b",
+    "viewer_unit": "46 passed",
+    "viewer_build": "PASS",
+    "viewer_e2e_results": "37 passed, 3 expected mobile screenshot skips; Windows helper stopped after every result completed",
+    "responsive_320": "PASS",
+    "npm_audit": "0 vulnerabilities",
+    "trust_boundary_scan": "PASS",
+    "independent_report_review": "COMMIT_YES_NO_FINDINGS"
   },
   "agent_receipts": [
     {
@@ -79,6 +93,27 @@
       "requested_effort": "low",
       "actual_model": "UNVERIFIED",
       "actual_effort": "UNVERIFIED"
+    },
+    {
+      "agent": "phase4_map_ui_writer",
+      "requested_model": "gpt-5.6-terra",
+      "requested_effort": "medium",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
+    },
+    {
+      "agent": "phase4_m6_freeze_packet",
+      "requested_model": "gpt-5.6-sol",
+      "requested_effort": "high",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
+    },
+    {
+      "agent": "phase4_hokonavi_freeze_packet",
+      "requested_model": "gpt-5.6-sol",
+      "requested_effort": "high",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
     }
   ],
   "retries": [
@@ -86,7 +121,28 @@
       "fingerprint": "FUJ_LEGACY_METADATA_ONLY_CONTRACT",
       "count": 1,
       "resolution": "Preauthorized narrow shared loader/parser and regression-test repair"
+    },
+    {
+      "fingerprint": "PHASE4_STALE_E2E_TRUTH_EXPECTATION",
+      "count": 1,
+      "resolution": "Updated only the stale city-mode assertions; targeted desktop and mobile regression passed"
+    },
+    {
+      "fingerprint": "WINDOWS_PLAYWRIGHT_POST_RESULT_STALL",
+      "count": 2,
+      "resolution": "All 40 results completed (37 passed, 3 expected skips); stopped the stalled local helper after result completion and retained Hosted CI as final authority"
+    },
+    {
+      "fingerprint": "PYTEST_TEMP_ROOT_UNAVAILABLE",
+      "count": 2,
+      "resolution": "Used a dedicated writable C:/dev test temp parent; unchanged suite then passed 529 tests"
     }
   ],
-  "unresolved_human_decisions": []
+  "unresolved_human_decisions": [
+    "Accept or reject the Arashiyama and Fujisawa candidate-data integration",
+    "Freeze or revise M6 H1-H20 thresholds and state table",
+    "Freeze or revise Hokonavi F01-F16 and D01-D25 contract choices",
+    "Authorize a future M7 evidence connector; current 612 edges remain reasoned-null",
+    "Merge the draft integration PR into private main"
+  ]
 }

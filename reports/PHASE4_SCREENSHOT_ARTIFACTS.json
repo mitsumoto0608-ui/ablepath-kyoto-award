@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_class": "PLAYWRIGHT_SCREENSHOT_RECEIPT",
+  "git_binary_committed": false,
+  "artifact_location": "Hosted CI viewer-artifacts/test-results and deterministic internal RC viewer/dist/screenshots/",
+  "source_integration_commit": "3110989b76ed5e6a7135bf44bab580289a44b53b",
+  "screenshots": [
+    {"name": "arashiyama-real-analysis.png", "sha256": "7c2b1174dbdfe971dbf8b12c7c8e876645c1f0055e64f3dc3fb6d464b26cacaa"},
+    {"name": "candidate-path-selected.png", "sha256": "7b8897e31db44c889aafa3d602cac31aee4414ac3042f08ea3e406a31ba42d6c"},
+    {"name": "disconnected-path.png", "sha256": "b5ca39a94fcea019b600321e959a1baf27e2b4c34b4e037fcafb68476b5ab2fb"},
+    {"name": "fujisawa-real-analysis.png", "sha256": "82829e2c889cf2760efe628ce035366d6924444714d74fa7559dd2894ce196f4"},
+    {"name": "hazard-overlay-or-not-connected.png", "sha256": "b5ca39a94fcea019b600321e959a1baf27e2b4c34b4e037fcafb68476b5ab2fb"},
+    {"name": "kiyomizu-real-analysis.png", "sha256": "d28fe6a93f9d31e5e9d8939d060aa12cf3ef6f5e1a026cbb9f7815544d85257b"},
+    {"name": "mobile-320-analysis.png", "sha256": "fb2c1af8c3975f571293662765cf4e5d8f2b9e4d932fa032375d2f92e58b9b33"}
+  ],
+  "claims": {
+    "safe_route": false,
+    "accessibility": false,
+    "admin_validated": false
+  }
+}
