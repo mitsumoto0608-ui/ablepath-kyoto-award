@@ -1,9 +1,9 @@
 # AGENTS.md — Codex運用規約（AblePath京都）
 
 このリポジトリで作業するAI（Codex等）は、コードを書く前に本ファイルを読むこと。
-プロジェクト＝**京都・清水、京都・嵐山、藤沢・江の島の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2＋M7残存幅コア＋multi-city engineering UI shell**。3都市の表示geometryは`SYNTHETIC_DEMO`、graphは`CANDIDATE`であり、実地図、MapLibre、Cesium、M6/profile統合、行政PoCは未完成。清水には別laneとしてsource-traceableな実VGI artifactとcandidate graphがあるが、viewer/modelには未接続。KPIの根拠不足は0ではなく`null`＋reason、M6は`NOT_COMPUTED`として扱う。
+プロジェクト＝**京都・清水、京都・嵐山、藤沢・江の島の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2＋M7残存幅コア＋multi-city engineering UI shell＋scoped MAP runtime**。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、清水だけは明示操作によりsource-traceableな実座標`CANDIDATE` graphをMapLibreで表示できる。嵐山・藤沢はsynthetic fallbackのまま。Cesium runtimeは実装済みだが、実PLATEAU tilesetは未検証・未接続で、3D失敗時は現在の2D layerへ戻る。実座標edgeは通行可能性や安全性を意味せず、幅・段差・勾配・運用・M6/M7・KPI・model・行政検証は未接続または未完了。KPIの根拠不足は0ではなく`null`＋reason、M6は`NOT_COMPUTED`として扱う。
 
-Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_COMPLETE=true`、`TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC`、`KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true`、`REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL`、`REAL_GEOMETRY_CONNECTED=false`、`REAL_GEOMETRY_CONNECTED_SCOPE=VIEWER_OR_MODEL_PIPELINE`、`MODEL_CONNECTED=false`、`MAPLIBRE_CONNECTED=false`、`CESIUM_CONNECTED=false`、`ADMIN_VALIDATED=false`。Hosted CIはLinux Python、Windows Python、static viewer/Nodeを検証する。M7 coreは実装済みだが、3都市の実/CANDIDATE edgeには未接続。
+Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_COMPLETE=true`、`TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_KIYOMIZU_REAL_CANDIDATE_OPT_IN`、`KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true`、`REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL`、`REAL_GEOMETRY_CONNECTED=true`、`REAL_GEOMETRY_CONNECTED_SCOPE=KIYOMIZU_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE`、`REAL_GEOMETRY_CONNECTED_TO_VIEWER=true`、`REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY`、`MAPLIBRE_RUNTIME_IMPLEMENTED=true`、`MAPLIBRE_CONNECTED=true`、`MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY`、`ALL_THREE_CITIES_MAPLIBRE_CONNECTED=false`、`ALL_THREE_CITIES_REAL_GEOMETRY=false`、`REAL_MAP_COMPLETE=false`、`CESIUM_RUNTIME_IMPLEMENTED=true`、`CESIUM_CONNECTED=false`、`PLATEAU_3D_CONNECTED=false`、`THREE_D_IMPLEMENTATION=RUNTIME_IMPLEMENTED_MOCKED_GATE_REAL_TILESET_NOT_VALIDATED`、`MODEL_CONNECTED=false`、`M7_CONNECTED_TO_REAL_EDGES=false`、`M6_CONNECTED=false`、`KPI_CONNECTED=false`、`ADMIN_VALIDATED=false`、`DEMO_COMPLETE=false`、`PUBLIC_RELEASE_READY=false`。Hosted CIはLinux Python、Windows Python、static viewer/Nodeを検証する。M7 coreは実装済みだが、実/CANDIDATE edgeには未接続。
 
 ### Execution Efficiency Rule
 
@@ -69,11 +69,11 @@ Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_C
 ## 直近タスクキュー（この順で）
 
 1. 3都市のsource-traceableな実geometryを取得・検証・接続する。
-2. MapLibreを用いた実地図2D表示へ接続する。
+2. 清水限定のMapLibre実座標候補表示を、検証済み実geometryが得られた都市へ拡張する。
 3. 公式hazard geometryを取得し、edgeとの重なりを検証する。
 4. 実/CANDIDATE edgeへM7残存幅コアを接続する。
 5. M6/profile判定を実装し、`NOT_COMPUTED`を解消する。
-6. Cesium/PLATEAU 3D表示を実装する。
+6. Cesium runtimeへ検証済み実PLATEAU tilesetを接続する。
 7. ほこナビadapterとround-trip・情報損失検証を実装する。
 8. 現地確認と行政レビューで妥当性を検証する。
 

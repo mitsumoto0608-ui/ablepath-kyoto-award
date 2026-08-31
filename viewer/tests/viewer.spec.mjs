@@ -123,6 +123,46 @@ test("[ui_regression] desktop captures all three city 2D states", async ({ page 
   }
 });
 
+test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "deterministic real-mode screenshot is a desktop artifact");
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
+  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
+  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
+  await page.screenshot({
+    path: testInfo.outputPath("kyoto_kiyomizu-real-candidate-2d.png"),
+    fullPage: true,
+    animations: "disabled",
+    caret: "hide",
+  });
+});
+
+test("[ui_regression] desktop captures mocked 3D failure after deterministic 2D fallback", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "deterministic 3D-fallback screenshot is a desktop artifact");
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
+  await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.abort("failed"));
+  await page.goto("/?city=kyoto_kiyomizu&view=2d&layer=real");
+  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
+  await page.getByRole("button", { name: "3D" }).click();
+  await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/view=2d.*layer=real/);
+  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
+  await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toHaveCount(0);
+  await page.screenshot({
+    path: testInfo.outputPath("kyoto_kiyomizu-3d-fallback.png"),
+    fullPage: true,
+    animations: "disabled",
+    caret: "hide",
+  });
+});
+
 test("[ui_regression] responsive layout avoids page-level horizontal overflow", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".app-shell")).toBeVisible();

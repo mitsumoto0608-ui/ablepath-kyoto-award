@@ -8,6 +8,8 @@
 
 `ADMIN_VALIDATED=false`
 
+`DEMO_COMPLETE=false`
+
 The deterministic RC requested by Phase 2 is for internal review only. It must
 not be attached to a public GitHub Release until every blocking gate below is
 closed by a human.
@@ -16,8 +18,11 @@ closed by a human.
 
 - root code license and notice wording are not selected;
 - per-artifact data redistribution and attribution are not finally approved;
-- MapLibre is not connected and the SVG remains a synthetic schematic;
-- Cesium/PLATEAU 3D is not connected;
+- MapLibre runtime is connected only to the explicitly selected Kiyomizu
+  real-coordinate `CANDIDATE` layer; the default and the other two cities remain
+  synthetic, and public OSM tile/ODbL policy still requires human approval;
+- Cesium runtime is implemented, but the real PLATEAU tileset is unvalidated and
+  unconnected (`CESIUM_CONNECTED=false`, `PLATEAU_3D_CONNECTED=false`);
 - M6 is `BLOCKED_CONTRACT` / `NOT_COMPUTED`;
 - Kiyomizu OSM real artifacts are hash-bound, but ODbL attribution/share-alike
   still requires human approval; Arashiyama/Fujisawa real artifacts are not
@@ -25,10 +30,10 @@ closed by a human.
 - the Kiyomizu official-hazard preview is quarantined with its raw source ZIP
   outside the versioned trust root and is ineligible for analysis/model/viewer;
 - no administrative field validation has occurred;
-- reviewed checkpoint `048c03a35b4261b77b42b872e393fe34f4c59c4f`
-  passed draft PR #2 Hosted run `33318099447`, but the truth-sync feature HEAD
-  and its deterministic RC still require their own final verification and
-  human review before PR #2 is updated.
+- draft PR #2 head `1a62a55b1ff6bd047b433bfd594b0c30e91f9f0d`
+  passed pull-request run `33330312591`; stacked draft PR #3 truth-sync Hosted
+  evidence and deterministic RC remain internal-review inputs and do not close
+  the main-merge or public-release human gates.
 
 ## Release invariants
 

@@ -1,12 +1,12 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。viewerが表示するgeometryはすべて`SYNTHETIC_DEMO`、graphは`CANDIDATE`です。別laneとして清水にsource-traceableな実VGI artifactとcandidate graphがありますが、viewer・model pipelineには未接続です。実地図、MapLibre、Cesium、M6/profile統合、公式hazard geometryとの接続、行政PoCは未完成です。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図です。清水だけは明示操作でsource-traceableな実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeがその候補edgeを表示します。嵐山・藤沢はsynthetic fallbackのままです。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続で、3D失敗時は現在の2D layerへ戻ります。M6/profile、実edgeへのM7、KPI/model、公式hazard、行政PoCとpublic releaseは未完成です。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 
 現在の3都市pack:
 
-- 京都・清水：viewerは模式回廊`SYNTHETIC_DEMO`。別のreal artifact laneはOSM historical snapshot `2026-08-30T00:00:00Z`、retained raw 17 ways / 142 nodes、normalized `SOURCE_TRACEABLE_REAL` / `VGI`、candidate graph 21 nodes / 19 edges / 2 components、route continuity `NOT_ESTABLISHED`
+- 京都・清水：デフォルトは模式回廊`SYNTHETIC_DEMO`。明示切替時だけ、OSM historical snapshot `2026-08-30T00:00:00Z`、retained raw 17 ways / 142 nodes、normalized `SOURCE_TRACEABLE_REAL` / `VGI`、candidate graph 21 nodes / 19 edges / 2 components、route continuity `NOT_ESTABLISHED`の実座標候補layerをMapLibreで表示
 - 京都・嵐山：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
 - 藤沢・江の島：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
 
@@ -15,25 +15,35 @@
 ```text
 OVERALL_STATUS=PARTIAL_COMPLETE
 ENGINEERING_UI_SHELL_COMPLETE=true
-TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC
-REAL_GEOMETRY_CONNECTED=false
-REAL_GEOMETRY_CONNECTED_SCOPE=VIEWER_OR_MODEL_PIPELINE
+TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_KIYOMIZU_REAL_CANDIDATE_OPT_IN
+REAL_GEOMETRY_CONNECTED=true
+REAL_GEOMETRY_CONNECTED_SCOPE=KIYOMIZU_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE
 KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true
 KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE=true
 REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL
 ALL_THREE_CITIES_REAL_GEOMETRY=false
-REAL_GEOMETRY_CONNECTED_TO_VIEWER=false
+REAL_GEOMETRY_CONNECTED_TO_VIEWER=true
+REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY
 REAL_MAP_COMPLETE=false
 MODEL_CONNECTED=false
 M7_CONNECTED_TO_REAL_EDGES=false
 M6_CONNECTED=false
 KPI_CONNECTED=false
 ADMIN_VALIDATED=false
-MAPLIBRE_CONNECTED=false
+MAPLIBRE_RUNTIME_IMPLEMENTED=true
+MAPLIBRE_CONNECTED=true
+MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY
+ALL_THREE_CITIES_MAPLIBRE_CONNECTED=false
+KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
+CESIUM_RUNTIME_IMPLEMENTED=true
 CESIUM_CONNECTED=false
+PLATEAU_3D_CONNECTED=false
+THREE_D_IMPLEMENTATION=RUNTIME_IMPLEMENTED_MOCKED_GATE_REAL_TILESET_NOT_VALIDATED
+DEMO_COMPLETE=false
+PUBLIC_RELEASE_READY=false
 ```
 
-清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、hash-bound real artifactの正本は`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`。公式hazard previewはraw trust root未接続のquarantineで、viewer/model/analysisへ使用しません。嵐山・藤沢のreal artifactはこのreviewed integrationへ未統合です。
+清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、hash-bound real artifactの正本は`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。実座標edgeであることは、通行可能性や安全性を意味しません。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`で、M6/M7・KPI・modelへ未接続です。公式hazard previewはraw trust root未接続のquarantineで、viewer/model/analysisへ使用しません。嵐山・藤沢のreal artifactはこのreviewed integrationへ未統合です。
 
 ## 30秒で動かす
 
@@ -137,11 +147,11 @@ Git cloneではGit blobを正本としてrelease archiveを作成し、tracked�
 ## 次にやること（優先順）
 
 1. 3都市のsource-traceableな実geometry
-2. MapLibreを用いた実地図2D
+2. 清水限定のMapLibre候補表示を、検証済み実geometryが得られた都市へ拡張
 3. 公式hazard geometry
 4. 実/CANDIDATE edgeへのM7接続
 5. M6/profile判定
-6. Cesium/PLATEAU
+6. Cesium runtimeへ検証済み実PLATEAU tilesetを接続
 7. ほこナビadapterとround-trip・情報損失検証
 8. 現地確認と行政レビュー
 

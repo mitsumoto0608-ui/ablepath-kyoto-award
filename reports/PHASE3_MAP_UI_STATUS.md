@@ -20,7 +20,9 @@ RESOLUTION_HEAD_SHA_SCOPE=CONTRACT_RESOLUTION_BEFORE_HOSTED_CI_ATTESTATION_COMMI
 RESOLUTION_HOSTED_CI=SUCCESS
 RESOLUTION_HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334713941
 POST_RESOLUTION_REVIEW_FINDING=MEDIUM_EXPLICIT_REAL_LAYER_SELECTION
-POST_RESOLUTION_FIX_STATUS=IMPLEMENTED_PENDING_HOSTED_CI
+POST_RESOLUTION_FIX_STATUS=IMPLEMENTED_HOSTED_CI_SUCCESS
+POST_RESOLUTION_HEAD_SHA=982a3d616bdc948f6c927dbada864ca142dc51bd
+POST_RESOLUTION_HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33335507379
 HOSTED_CI=SUCCESS
 HOSTED_RUN_URL=https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33334211814
 HOSTED_CI_SCOPE_SHA=9e3411b31746be3bd05278318636837a40857392
@@ -31,7 +33,7 @@ LEGAL_CONCLUSION=NOT_MADE_HUMAN_GATE
 PUSH_STATUS=SUCCESS
 REMOTE_HEAD_SHA=9e3411b31746be3bd05278318636837a40857392
 REMOTE_HEAD_SHA_SCOPE=PRE_CONTRACT_RESOLUTION_REPORT
-HUMAN_GATES=["OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_AND_RUNTIME_TRUTH_SYNC","GLOBAL_TRUTH_SYNC","MAIN_MERGE_REVIEW"]
+HUMAN_GATES=["OSM_TILE_AND_ODBL_RELEASE_POLICY","PLATEAU_PDL_PUBLIC_RELEASE_POLICY","MAIN_MERGE_REVIEW"]
 ```
 
 Git commitは自分自身のSHAをblob内へ保持できないため、`HEAD_SHA`はaddendum適用直前の
@@ -77,7 +79,8 @@ TERA独立監査で、都市を嵐山から清水へ切り替えただけで実�
 修正は都市切替時のlayerを`synthetic`へ戻す1箇所だけで、清水の実座標layerは
 ユーザーが`実座標 / CANDIDATE`を押した後だけ選択される。candidate/UNKNOWN、URLでの明示的な
 `layer=real`初期選択、hash/provenance、city truth、MapLibre/Cesium fallbackには変更を加えていない。
-viewer unit 39件とproduction buildは成功。追加E2Eを含む最終確認はHosted CIで実施する。
+viewer unit 39件、production build、追加E2Eを含む最終確認はHosted run
+`33335507379`で成功した。
 
 - branch: `codex/phase3-map-ui-v1`
 - base: `372ce8ec37dcc2a263bd6ae28e565f9c03ed9673`
@@ -95,10 +98,39 @@ viewer unit 39件とproduction buildは成功。追加E2Eを含む最終確認�
 - `PLATEAU_3D_CONNECTED=false`（citypackの静的truthを維持）
 - `REAL_MAP_COMPLETE=false`（3都市全体・公式hazard・行政確認は未完了）
 
-本laneはviewer能力を実装した。README、AGENTS.md、city statusに残る
-`MAPLIBRE_CONNECTED=false`、`CESIUM_CONNECTED=false`、
-`REAL_GEOMETRY_CONNECTED_TO_VIEWER=false`などのglobal truthは変更していない。
-統合時にhuman reviewを経てtruth syncが必要であり、このlane単独でglobal CONNECTEDを主張しない。
+本laneのviewer能力はglobal truthへscope付きで同期した。`MAPLIBRE_CONNECTED=true`と
+`REAL_GEOMETRY_CONNECTED_TO_VIEWER=true`は清水の明示opt-in `CANDIDATE` layerだけを指し、
+all-city・model・通行可能性・安全性を意味しない。`CESIUM_CONNECTED=false`と
+`PLATEAU_3D_CONNECTED=false`は維持し、runtime実装と実tileset接続を区別する。
+
+## Global truth sync
+
+- `MAPLIBRE_RUNTIME_IMPLEMENTED=true`
+- `MAPLIBRE_CONNECTED=true`
+- `MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY`
+- `KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true`
+- `REAL_GEOMETRY_CONNECTED_TO_VIEWER=true`
+- `REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY`
+- `ALL_THREE_CITIES_MAPLIBRE_CONNECTED=false`
+- `ALL_THREE_CITIES_REAL_GEOMETRY=false`
+- `REAL_MAP_COMPLETE=false`
+- `TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_KIYOMIZU_REAL_CANDIDATE_OPT_IN`
+- `CESIUM_RUNTIME_IMPLEMENTED=true`
+- `CESIUM_CONNECTED=false`
+- `PLATEAU_3D_CONNECTED=false`
+- `THREE_D_IMPLEMENTATION=RUNTIME_IMPLEMENTED_MOCKED_GATE_REAL_TILESET_NOT_VALIDATED`
+- `MODEL_CONNECTED=false`
+- `M7_CONNECTED_TO_REAL_EDGES=false`
+- `M6_CONNECTED=false`
+- `KPI_CONNECTED=false`
+- `ADMIN_VALIDATED=false`
+- `DEMO_COMPLETE=false`
+- `PUBLIC_RELEASE_READY=false`
+
+デフォルト表示は全都市synthetic schematicで、清水の実座標候補だけが明示切替可能である。
+嵐山・藤沢はsynthetic fallbackのまま。実座標edgeは通行可能性・安全性を意味せず、幅、
+段差、勾配、運用、M6/M7は未接続。Cesium runtimeのmocked/session gate成功も、未検証の
+実PLATEAU tilesetを静的capabilityへ昇格しない。3D失敗時は現在の2D layerへ戻る。
 
 ## 実装
 
@@ -318,7 +350,7 @@ viewer/vite.config.js
 
 - ODbL attribution/share-alikeとpublic OSM tile利用方針。
 - PLATEAU PDL1.0 attribution、runtime URL、viewer capabilityとstatic connection truthの区別。
-- README、AGENTS.md、COMPLETION_LEVELS、city statusのglobal truth sync。
+- scope付きglobal truth syncの最終確認（README、AGENTS.md、COMPLETION_LEVELS、release gate）。
 - 大きいCesium chunk（lazy-load済み）のperformance判断。
 - mainへmergeする前の人間review。科学式、定数registry、UNKNOWN semantics、acceptance expected valuesは変更していない。
 
