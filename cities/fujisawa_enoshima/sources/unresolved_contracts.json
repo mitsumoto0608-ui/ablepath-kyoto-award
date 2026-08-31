@@ -1,0 +1,6 @@
+{
+  "official_pdf": {"value": null, "reason": "Official PDF bytes and page-row extraction are not part of the accepted P0 OSM subset."},
+  "official_hazard_geometry": {"value": null, "reason": "No hash-bound official hazard source is connected; overlap must not create closure."},
+  "plateau": {"value": null, "reason": "No hash-bound PLATEAU raw snapshot or verified corridor coverage is retained."},
+  "facility": {"value": null, "reason": "No facility entrance, capacity, or operation contract is needed or inferred for the OSM candidate artifact."}
+}

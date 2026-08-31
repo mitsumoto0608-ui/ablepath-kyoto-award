@@ -116,7 +116,11 @@ def test_official_metadata_does_not_imply_geometry_or_operation() -> None:
     assert _json("geography/corridor.metadata.json")["geometry_status"] == "UNKNOWN"
     assert {row["source_class"] for row in sources} == {"OFFICIAL_METADATA_ONLY", "VGI_METADATA_ONLY"}
     for row in sources:
-        assert row["download_status"] == "METADATA_ONLY"
+        if row["dataset_id"] == "OSM_CANDIDATE_SOURCE":
+            assert row["download_status"] == "EXTERNAL_RAW_RECEIPT_ONLY"
+            assert row["freshness_status"] == "FIXED_SNAPSHOT"
+        else:
+            assert row["download_status"] == "METADATA_ONLY"
         assert row["geometry_use"] == "NONE"
         assert row["geometry_status"] == "UNKNOWN"
         assert row["operation_status"] == "UNKNOWN"

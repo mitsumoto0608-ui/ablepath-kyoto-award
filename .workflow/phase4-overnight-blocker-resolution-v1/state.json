@@ -1,0 +1,92 @@
+{
+  "workflow_id": "ABLEPATH-PHASE4-OVERNIGHT-BLOCKER-RESOLUTION-V1",
+  "started_at_utc": "2026-08-31T17:58:19.5392396Z",
+  "source_of_truth": "C:/Users/kirin/Downloads/CODEX_PHASE4_OVERNIGHT_BLOCKER_RESOLUTION_MASTER_V1.md",
+  "overrides_in_priority_order": [
+    "C:/Users/kirin/Downloads/CODEX_PHASE4_DATA_INGESTION_MINIMUM_OVERRIDE_V1.md",
+    "C:/Users/kirin/Downloads/CODEX_PHASE4_ANALYSIS_AND_UI_MINIMUM_OVERRIDE_V2.md",
+    "C:/Users/kirin/Downloads/CODEX_PHASE4_ANTICIPATED_BLOCKERS_AND_HUMAN_PREAUTH_V1.md"
+  ],
+  "status": "P0_INGESTION_GREEN",
+  "anchor": {
+    "origin_main": "76bbe2a1d85ea1f328cb41ddb0171c75331a1897",
+    "baseline_tag": "0c3289b9174bf624c95faeaa3c1643664e31c2eb",
+    "hosted_run": 33413462231,
+    "hosted_run_conclusion": "SUCCESS"
+  },
+  "integration_branch": "integration/phase4-blocker-resolution-v1",
+  "model_route_verified": false,
+  "human_gates": {
+    "main_merge": true,
+    "tag": true,
+    "public_release": true,
+    "m6_freeze": true,
+    "hokonavi_freeze": true,
+    "scientific_or_safety_contract_change": true
+  },
+  "preauthorized_conservative_resolutions": {
+    "independent_osm_vgi_ingestion": true,
+    "external_raw_retention": true,
+    "formal_crs_separate_from_geojson_axis": true,
+    "unbound_plateau_reasoned_null": true,
+    "hazard_overlap_never_derives_state": true,
+    "m7_complete_evidence_only": true,
+    "one_narrow_kiyomizu_only_shared_contract_repair": true
+  },
+  "stop_conditions": [
+    "RAW_SHA_MISMATCH",
+    "UNEXPLAINED_LINEAGE",
+    "UNKNOWN_CRS_TRANSFORMED",
+    "UNKNOWN_PROMOTION",
+    "SECRET_COMMITTED",
+    "SOURCE_ARTIFACT_MUTATION",
+    "ALLOCATE_SHA_CHANGED",
+    "TESTS_REQUIRE_PROVENANCE_OR_SAFETY_WEAKENING"
+  ],
+  "lanes": {
+    "arashiyama": "SOURCE_STAGED_NORMALIZED_INGESTED",
+    "fujisawa": "SOURCE_STAGED_NORMALIZED_INGESTED",
+    "analysis_ui": "PENDING",
+    "m7_readiness": "PENDING",
+    "m6": "PENDING_REVIEW_ONLY",
+    "hokonavi": "PENDING_REVIEW_ONLY"
+  },
+  "p0_verification": {
+    "targeted_tests": "77 passed",
+    "full_tests": "525 passed, 1 warning",
+    "arashiyama_raw_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013",
+    "fujisawa_raw_sha256": "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04",
+    "independent_review": "PASS_FOR_P0_COMMIT"
+  },
+  "agent_receipts": [
+    {
+      "agent": "phase4_ara_p0",
+      "requested_model": "gpt-5.6-terra",
+      "requested_effort": "medium",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
+    },
+    {
+      "agent": "phase4_fuj_p0",
+      "requested_model": "gpt-5.6-terra",
+      "requested_effort": "medium",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
+    },
+    {
+      "agent": "phase4_contract_inventory",
+      "requested_model": "gpt-5.6-luna",
+      "requested_effort": "low",
+      "actual_model": "UNVERIFIED",
+      "actual_effort": "UNVERIFIED"
+    }
+  ],
+  "retries": [
+    {
+      "fingerprint": "FUJ_LEGACY_METADATA_ONLY_CONTRACT",
+      "count": 1,
+      "resolution": "Preauthorized narrow shared loader/parser and regression-test repair"
+    }
+  ],
+  "unresolved_human_decisions": []
+}

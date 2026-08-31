@@ -1,0 +1,60 @@
+{
+  "schema_version": "2.0.0",
+  "authority": "FUJISAWA_P0_OSM_CANDIDATE_ONLY",
+  "city_id": "fujisawa_enoshima",
+  "source_dataset_id": "OSM_CANDIDATE_SOURCE",
+  "source_raw_sha256": "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04",
+  "artifacts": [
+    {
+      "artifact_id": "fujisawa-osm-corridor-v1",
+      "artifact_path": "geography/corridor.real.geojson",
+      "sha256": "01eae54bac6385da4aa5d39c92c935fc25dc799e91be37b030943c1ae5016c32",
+      "source_receipt_path": "sources/receipts/osm-corridor.raw.receipt.json",
+      "source_class": "VGI",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "topology_status": "CANDIDATE",
+      "source_crs": "EPSG:4326",
+      "processing_crs": "EPSG:4326",
+      "output_crs": "EPSG:4326",
+      "geojson_serialization_order": "longitude, latitude",
+      "formal_source_axis_statement": "Not applicable to the OSM EPSG:4326 source; do not relabel any official projected CRS axis as GeoJSON order.",
+      "stable_feature_ids": [
+        "fujisawa-enoshima:corridor:osm-way-27423903",
+        "fujisawa-enoshima:corridor:osm-way-27423906"
+      ],
+      "revision_id": "20260830-r1",
+      "limitations": [
+        "VGI candidate only",
+        "No field or administrative validation",
+        "width, slope, steps, entrances, operation, and passability remain UNKNOWN or null plus reason"
+      ]
+    },
+    {
+      "artifact_id": "fujisawa-osm-candidate-nodes-v1",
+      "artifact_path": "graph/candidate_walk_nodes.real.geojson",
+      "sha256": "2a7fff42baa624caaba401b5bf1e12ca1fa0335262359ce52e050914b9597756",
+      "source_receipt_path": "sources/receipts/osm-corridor.raw.receipt.json",
+      "source_class": "VGI",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "topology_status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "fujisawa-osm-candidate-edges-v1",
+      "artifact_path": "graph/candidate_walk_edges.real.geojson",
+      "sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "source_receipt_path": "sources/receipts/osm-corridor.raw.receipt.json",
+      "source_class": "VGI",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "topology_status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "fujisawa-osm-candidate-topology-qa-v1",
+      "artifact_path": "graph/candidate_topology_qa.real.json",
+      "sha256": "1e89091d688b6ae3a0afa9ff7722e0b8210de9b0bb45c967e30b798b6088f516",
+      "source_receipt_path": "sources/receipts/osm-corridor.raw.receipt.json",
+      "source_class": "VGI",
+      "geometry_status": "SOURCE_TRACEABLE_REAL_CANDIDATE_QA",
+      "topology_status": "CANDIDATE"
+    }
+  ]
+}

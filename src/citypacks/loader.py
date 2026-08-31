@@ -81,6 +81,7 @@ _CITY_ALLOWED = _CITY_REQUIRED | {
     "source_manifest_path",
     "scenario_disclaimer",
     "official_data_targets",
+    "p0_osm_candidate_artifact_manifest",
 }
 _GEOSPATIAL_ALLOWED = _GEO_FIELDS | {
     "source_horizontal_unit",

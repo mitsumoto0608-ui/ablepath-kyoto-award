@@ -1,0 +1,21 @@
+{
+  "receipt_id": "fujisawa-osm-corridor-20260830",
+  "source_class": "VGI",
+  "source_endpoint": "https://overpass-api.de/api/interpreter",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "license": "ODbL-1.0",
+  "snapshot_at": "2026-08-30T00:00:00Z",
+  "retrieval_method": "BOUNDED_QUERY",
+  "retrieval_query_path": "sources/osm-corridor.overpassql",
+  "retrieval_query_sha256": "420988e51d349b1828d6c4a59ec3c69e7d1cb218ef6b23cb5ccbd497d78a6e82",
+  "raw_filename": "osm-corridor.raw.json",
+  "raw_trust_location_relative": "ablepath-raw/fujisawa_enoshima/osm-corridor.raw.json",
+  "raw_byte_size": 581965,
+  "raw_sha256": "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04",
+  "redistribution_status": "EXTERNAL_TRUST_LOCATION_NOT_COMMITTED",
+  "lineage": [
+    "fixed-time bounded Overpass response",
+    "raw retained outside Git",
+    "normalized candidate artifacts retain source way IDs"
+  ]
+}

@@ -1,19 +1,19 @@
 # 藤沢・江の島 city pack
 
-このcity packは、片瀬海岸から江の島方面を対象候補とする、契約検証用の最小データパックです。現時点の歩行ノード、edge、POI座標はすべて `SYNTHETIC_DEMO` / `FIXTURE_VALUE` であり、現地の道路形状、推奨経路、通行可能性を表しません。
+このcity packは、片瀬海岸から江の島方面を対象候補とする最小データパックです。既存の歩行ノード、edge、POI座標は `SYNTHETIC_DEMO` / `FIXTURE_VALUE` のままです。別途、`realdata/artifact_manifest.v2.json` だけが、外部trust locationのraw receiptに結びつくOSM実座標 `VGI` / `CANDIDATE` subsetの正本です。候補geometryは現地の道路形状、推奨経路、通行可能性を表しません。
 
 ## 現在の状態
 
 - 公式ページ・PDFは出典metadataとデータ不足の確認にのみ使用しています。
 - PLATEAU 2025はカタログ掲載を確認しただけで、建物・道路・橋梁・地形・災害リスクの実データは未取得です。
-- OSMは取得候補として登録しただけで、Overpass queryやgeometryは含みません。
+- OSM候補回廊は固定時点のbounded queryから正規化し、raw responseはGit外のtrust locationに保持します。query、filename、相対trust location、size、SHA-256、endpoint、attributionはreceiptに固定します。
 - 津波の到達時刻、浸水深、閉鎖時刻、施設の現在の開設・利用可否・収容力は入力していません。
 - `TSUNAMI_STRICT`、`TSUNAMI_OPERATIONAL`、`TSUNAMI_SENSITIVITY` はすべて時間変化を持たない静的snapshotの契約です。
 - M6/profileは `NOT_COMPUTED` です。需要・容量・topology・profileが不足するためKPIは `null + reason` です。
 
 ## データ区分
 
-公式資料由来の行は `OFFICIAL_METADATA_ONLY`、OSM候補は `VGI_METADATA_ONLY` とします。これらはgeometryや運用状態を意味しません。`geometry_status` と `operation_status` は独立に `UNKNOWN` を保持します。座標付きのデモ行は必ず `SYNTHETIC_DEMO` とし、公式metadataと混在させません。未確認値は `UNKNOWN` または空欄であり、0、OPEN、PASSへ変換しません。
+公式資料由来の行は `OFFICIAL_METADATA_ONLY`、metadata catalogueのOSM行は `VGI_METADATA_ONLY` です。実OSM subsetのauthorityは別の`realdata/artifact_manifest.v2.json`に限定します。`geometry_status` と `operation_status` は独立に `UNKNOWN` を保持します。座標付きのデモ行は必ず `SYNTHETIC_DEMO` とし、未確認値は `UNKNOWN` または空欄であり、0、OPEN、PASSへ変換しません。
 
 ## CRSとgeometry
 
