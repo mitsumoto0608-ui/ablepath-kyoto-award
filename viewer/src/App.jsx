@@ -54,7 +54,7 @@ function Header({ city, catalog }) {
   );
 }
 
-function Controls({ catalog, mapCatalog, state, onStateChange }) {
+function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selectedStart, selectedEnd, onPathChange }) {
   const { city, scenario, evidenceMode, phase, view, mapMode } = state;
   function changeCity(cityId) {
     const nextCity = catalog.cities.find((candidate) => candidate.city_id === cityId);
@@ -93,18 +93,8 @@ function Controls({ catalog, mapCatalog, state, onStateChange }) {
             <option value="NOT_COMPUTED">NOT_COMPUTED — M6未実装</option>
           </select>
         </label>
-        <label>
-          出発地
-          <select aria-label="出発地（未確認）" value="NOT_AVAILABLE" disabled>
-            <option value="NOT_AVAILABLE">NOT_AVAILABLE — 入口未確認</option>
-          </select>
-        </label>
-        <label>
-          目的地
-          <select aria-label="目的地（未確認）" value="NOT_AVAILABLE" disabled>
-            <option value="NOT_AVAILABLE">NOT_AVAILABLE — 運用未確認</option>
-          </select>
-        </label>
+        <label>出発node（candidate fixture）<select aria-label="出発node（candidate fixture）" value={selectedStart ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(event.target.value, selectedEnd)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>{nodeId}</option>)}</select></label>
+        <label>目的node（candidate fixture）<select aria-label="目的node（candidate fixture）" value={selectedEnd ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(selectedStart, event.target.value)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>{nodeId}</option>)}</select></label>
         <label>
           比較断面（未接続）
           <select aria-label="Before/After比較（未接続）" value={phase} disabled>
@@ -371,12 +361,14 @@ export function App() {
   const [error, setError] = useState("");
   const [announcement, setAnnouncement] = useState("起動中");
   const [fallbackNotice, setFallbackNotice] = useState("");
+  const [analysis, setAnalysis] = useState(null);
+  const [selectedPathNodes, setSelectedPathNodes] = useState([null, null]);
 
   useEffect(() => {
     let active = true;
     Promise.all([
       loadCatalog(fetch, "./data/cities.json", 5000),
-      loadMapCatalog(fetch, "./data/maps/map-layers.json", 5000),
+      loadMapCatalog(fetch, "./data/maps/map-layers.json", 5000).catch(() => ({ cities: [] })),
     ])
       .then(([loaded, loadedMapCatalog]) => {
         if (!active) return;
@@ -387,11 +379,18 @@ export function App() {
           ...initial,
           mapMode: selectInitialMapMode(loadedMapCatalog, initial.city.city_id, window.location.search),
         });
-        setAnnouncement("precomputed city dataとhash検証済みmap catalogを読み込みました");
+        setAnnouncement(loadedMapCatalog.cities.length ? "precomputed city dataとhash検証済みmap catalogを読み込みました" : "実座標catalogが欠落またはhash不一致のため、合成図を表示します");
       })
       .catch((loadError) => active && setError(loadError.message));
     return () => { active = false; };
   }, []);
+
+  useEffect(() => {
+    if (!state) return undefined;
+    let active = true;
+    fetch(`./data/analysis/${state.city.city_id}.json`).then((response) => response.ok ? response.json() : Promise.reject(new Error("analysis unavailable"))).then((data) => { if (!active) return; setAnalysis(data); setSelectedPathNodes([data.path_fixture.start_node_id, data.path_fixture.end_node_id]); }).catch(() => active && setAnalysis(null));
+    return () => { active = false; };
+  }, [state?.city.city_id]);
 
   useEffect(() => {
     if (!state) return;
@@ -414,6 +413,7 @@ export function App() {
 
   const cityMapConfig = mapConfigForCity(mapCatalog, state.city.city_id);
   const realMode = state.mapMode === "real" && Boolean(cityMapConfig?.real_2d);
+  const selectedPath = analysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? analysis?.path_fixture ?? null;
 
   function updateState(nextState, message) {
     setState(nextState);
@@ -432,7 +432,7 @@ export function App() {
           <div><p className="eyebrow">{state.city.municipality} / SCENARIO OUTPUT NOT_COMPUTED</p><h2 id="corridor-title">{state.city.display_name}</h2><p>{state.city.corridor_name}</p></div>
           <dl><div><dt>公式metadata</dt><dd>{state.city.official_metadata_status}</dd></div><div><dt>表示geometry</dt><dd>{realMode ? cityMapConfig.real_2d.geometry_status : state.city.map.geometry_status}</dd></div><div><dt>layer</dt><dd>{realMode ? "REAL COORDINATES / CANDIDATE" : "SYNTHETIC_DEMO / SVG"}</dd></div><div><dt>{realMode ? "source ID" : "source IDs"}</dt><dd>{realMode ? <code>{cityMapConfig.real_2d.source_id}</code> : sourceCount}</dd></div></dl>
         </section>
-        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} />
+        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={analysis} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => setSelectedPathNodes([start, end])} />
         <KpiGrid city={state.city} />
         <div className="workspace-grid">
           <section className="map-column" role="region" aria-label={state.view === "2d" ? "2D地図" : "3D可用性"}>
@@ -441,6 +441,8 @@ export function App() {
                 <MapLibreMap
                   config={cityMapConfig.real_2d}
                   selectedEdgeId={state.selectedRealEdgeId}
+                  selectedPathEdgeIds={selectedPath?.edge_ids ?? []}
+                  m7Readiness={analysis?.m7?.readiness ?? []}
                   onSelectEdge={selectRealEdge}
                   onAnnouncement={announce}
                 />
@@ -452,6 +454,7 @@ export function App() {
           {realMode ? <RealLayerPanel config={cityMapConfig.real_2d} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
         </div>
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
+        {realMode && analysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {analysis.hazard_overlap.status} — {analysis.hazard_overlap.reason}</p><p>M7 {analysis.m7.status}; ready {analysis.m7.ready_edge_count}; computed {analysis.m7.computed_edge_count}; M6 {analysis.m6.status}</p></section>}
         <EvidenceTables city={state.city} />
         <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>
       </main>

@@ -778,6 +778,39 @@ def test_source_manifest_adapter_rejects_unknown_schema_truth_and_duplicates(
         load_source_manifest(path)
 
 
+def test_source_manifest_preserves_fixed_snapshot_without_truth_promotion(tmp_path: Path) -> None:
+    """[source_conformance] A fixed VGI snapshot remains metadata-only and is not promoted to REAL."""
+    path = tmp_path / "fujisawa-fixed-snapshot.csv"
+    row = {name: "" for name in FUJISAWA_V1_FIELDS}
+    row.update(
+        dataset_id="osm-fixed-snapshot",
+        publisher="OpenStreetMap contributors",
+        url="https://overpass-api.de/api/interpreter",
+        source_class="VGI_METADATA_ONLY",
+        freshness_status="FIXED_SNAPSHOT",
+        download_status="EXTERNAL_RAW_RECEIPT_ONLY",
+        schema_version="1.0.0",
+    )
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=FUJISAWA_V1_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerow(row)
+    record = load_source_manifest(path)[0]
+    assert record.freshness_status == "FIXED_SNAPSHOT"
+    assert record.data_class == "VGI_METADATA_ONLY"
+    assert record.record_kind == "VGI_METADATA"
+    for invalid in (
+        dict(row, source_class="OFFICIAL_METADATA_ONLY"),
+        dict(row, download_status="METADATA_ONLY"),
+    ):
+        with path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=FUJISAWA_V1_FIELDS, lineterminator="\n")
+            writer.writeheader()
+            writer.writerow(invalid)
+        with pytest.raises(SourceManifestContractError, match="FIXED_SNAPSHOT"):
+            load_source_manifest(path)
+
+
 def _hazard_row(fields: tuple[str, ...], **updates: str) -> dict[str, str]:
     row = {name: "" for name in fields}
     row.update(

@@ -12,11 +12,8 @@ function validateRuntimeGeoJson(value, config) {
     const properties = feature?.properties;
     if (
       feature?.geometry?.type !== "LineString"
-      || properties?.data_class !== "REAL"
       || properties?.geometry_status !== "SOURCE_TRACEABLE_REAL"
       || properties?.topology_status !== "CANDIDATE"
-      || properties?.accessibility_state !== "UNKNOWN"
-      || properties?.operation_status !== "UNKNOWN"
     ) {
       throw new Error(`実座標edge ${properties?.edge_id ?? "unknown"} がCANDIDATE / UNKNOWN契約を満たしません`);
     }
@@ -39,7 +36,7 @@ async function loadGeoJson(config) {
   }
 }
 
-function RealEdgeDetails({ feature }) {
+function RealEdgeDetails({ feature, m7Readiness }) {
   if (!feature) return <p className="real-edge-empty">地図または表から候補edgeを選択すると、source属性を確認できます。</p>;
   const properties = feature.properties;
   return (
@@ -50,11 +47,15 @@ function RealEdgeDetails({ feature }) {
       <div><dt>accessibility</dt><dd>{properties.accessibility_state} — M6 NOT_COMPUTED</dd></div>
       <div><dt>operation</dt><dd>{properties.operation_status}</dd></div>
       <div><dt>source feature</dt><dd><code>{properties.source_feature_id}</code></dd></div>
+      <div><dt>M7 status</dt><dd>{m7Readiness?.status ?? "NOT_COMPUTED"}</dd></div>
+      <div><dt>M7 result</dt><dd>{String(m7Readiness?.m7_result ?? null)}</dd></div>
+      <div><dt>M7 missing fields</dt><dd>{m7Readiness?.missing_fields?.join(", ") ?? "—"}</dd></div>
+      <div><dt>M7 reason</dt><dd>{m7Readiness?.reason ?? "Required source-traceable M7 inputs are incomplete."}</dd></div>
     </dl>
   );
 }
 
-export function MapLibreMap({ config, selectedEdgeId, onSelectEdge, onAnnouncement }) {
+export function MapLibreMap({ config, selectedEdgeId, selectedPathEdgeIds = [], m7Readiness = [], onSelectEdge, onAnnouncement }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const [geojson, setGeojson] = useState(null);
@@ -105,6 +106,7 @@ export function MapLibreMap({ config, selectedEdgeId, onSelectEdge, onAnnounceme
           source: "candidate-edges",
           paint: { "line-color": "#ffb000", "line-width": 5, "line-opacity": 0.94 },
         });
+        map.addLayer({ id: "candidate-path-line", type: "line", source: "candidate-edges", filter: ["in", ["get", "edge_id"], ["literal", selectedPathEdgeIds]], paint: { "line-color": "#173f5f", "line-width": 8, "line-opacity": 0.94 } });
         map.addLayer({
           id: "candidate-edges-hit",
           type: "line",
@@ -148,7 +150,7 @@ export function MapLibreMap({ config, selectedEdgeId, onSelectEdge, onAnnounceme
       mapRef.current = null;
       if (map && !map._removed) map.remove();
     };
-  }, [config, geojson, onAnnouncement, onSelectEdge]);
+  }, [config, geojson, onAnnouncement, onSelectEdge, selectedPathEdgeIds]);
 
   const selectedFeature = geojson?.features.find((feature) => feature.properties.edge_id === selectedEdgeId) ?? null;
   if (loadError) {
@@ -158,7 +160,7 @@ export function MapLibreMap({ config, selectedEdgeId, onSelectEdge, onAnnounceme
   return (
     <section className="real-map-shell" aria-labelledby="real-map-title">
       <div className="map-toolbar">
-        <div><p className="eyebrow">MAPLIBRE / SOURCE-TRACEABLE COORDINATES</p><h2 id="real-map-title">清水・祇園 実座標候補graph</h2></div>
+        <div><p className="eyebrow">MAPLIBRE / SOURCE-TRACEABLE COORDINATES</p><h2 id="real-map-title">実座標候補graph</h2></div>
         <span className="status-badge status-real">REAL COORDINATES / CANDIDATE</span>
       </div>
       <div className="layer-facts" aria-label="実座標layer provenance">
@@ -170,13 +172,13 @@ export function MapLibreMap({ config, selectedEdgeId, onSelectEdge, onAnnounceme
       </div>
       {rendererError && <div className="map-renderer-warning" role="alert">MapLibre renderer: {rendererError}。表形式代替は利用できます。</div>}
       <div ref={containerRef} className="maplibre-canvas" aria-label="MapLibre実座標地図。操作の代替として直後のedge表を利用できます" />
-      <p className="map-caption">固定OSM snapshot由来の座標です。候補graphは2連結成分で、連続した経路・通行可否・避難成立を示しません。</p>
+      <p className="map-caption">固定OSM snapshot由来の座標です。候補network connectivity onlyであり、accessibility・safety・operationはunconfirmedです。</p>
       <p className="map-attribution">
         <a href={config.copyright_url} target="_blank" rel="noreferrer">© OpenStreetMap contributors</a>
         {" / Data available under "}
         <a href={config.license_url} target="_blank" rel="noreferrer">ODbL 1.0</a>
       </p>
-      <RealEdgeDetails feature={selectedFeature} />
+      <RealEdgeDetails feature={selectedFeature} m7Readiness={m7Readiness.find((row) => row.edge_id === selectedFeature?.properties?.edge_id)} />
       <div id="edge-table" className="table-scroll" tabIndex="-1" aria-label="実座標候補edgeの表形式代替">
         <table>
           <caption>実座標候補edge（全件 CANDIDATE / UNKNOWN）</caption>

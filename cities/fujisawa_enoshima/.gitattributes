@@ -1,0 +1,9 @@
+# Fujisawa P0 OSM candidate receipts and normalized artifacts use LF hashes.
+geography/corridor.real.geojson text eol=lf
+graph/candidate_topology_qa.real.json text eol=lf
+graph/candidate_walk_edges.real.geojson text eol=lf
+graph/candidate_walk_nodes.real.geojson text eol=lf
+sources/osm-corridor.overpassql text eol=lf
+sources/receipts/osm-corridor.raw.receipt.json text eol=lf
+sources/unresolved_contracts.json text eol=lf
+realdata/artifact_manifest.v2.json text eol=lf

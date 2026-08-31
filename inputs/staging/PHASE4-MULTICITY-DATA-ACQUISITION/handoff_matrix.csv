@@ -1,0 +1,106 @@
+city_id,subarea_id,area_label,category,completeness,dataset_ids,notes
+kyoto_kiyomizu,kiyomizu,清水,geometry,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,Bounded fixed-time VGI candidate snapshot; field/topology/entrance verification remains separate.
+kyoto_kiyomizu,kiyomizu,清水,PLATEAU,HUMAN_ACTION_REQUIRED,plateau_kyoto_2025_citygml_v5;plateau_kyoto_2025_index;plateau_kyoto_2025_related,"Raw package acquired or attempted, but package-level license/CRS/full-integrity promotion requires review."
+kyoto_kiyomizu,kiyomizu,清水,DEM/terrain,HUMAN_ACTION_REQUIRED,gsi_dem_5m10m_current,GSI registration/login and exact mesh selection required.
+kyoto_kiyomizu,kiyomizu,清水,bridges,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM bridge/layer tags retained; missing tags and grade separation remain UNKNOWN.
+kyoto_kiyomizu,kiyomizu,清水,earthquake,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,kiyomizu,清水,liquefaction,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,kiyomizu,清水,flood,READY_FOR_INGESTION,nlni_a31b_2025_kyoto_flood,Official original ready for later AOI clipping; overlap does not imply closure.
+kyoto_kiyomizu,kiyomizu,清水,inner flood,HUMAN_ACTION_REQUIRED,kyoto_current_hazard_context_2026;kyoto_hazard_gis_download_current,Kyoto GIS consent download required.
+kyoto_kiyomizu,kiyomizu,清水,landslide,HUMAN_ACTION_REQUIRED,kyoto_city_landslide_gis_20260830,"Original ZIP exists, but consent/header/license lineage requires human review."
+kyoto_kiyomizu,kiyomizu,清水,tsunami,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu,清水,storm surge,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu,清水,fire/evacuation guidance,METADATA_ONLY,kyoto_kiyomizu_gion_plan_landing,Plan/reference does not establish live operation or route safety.
+kyoto_kiyomizu,kiyomizu,清水,shelters,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_current_evacuation_facilities,"Related source captured; current municipal authority, facility type, entrances and operation require validation."
+kyoto_kiyomizu,kiyomizu,清水,tsunami evacuation buildings,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu,清水,emergency open spaces,METADATA_ONLY,kyoto_emergency_open_spaces;plateau_kyoto_2025_related,Official role and operational state require separate validation.
+kyoto_kiyomizu,kiyomizu,清水,temporary stay,METADATA_ONLY,kyoto_temporary_stay_facilities,Official landing identified; row-level current original pending.
+kyoto_kiyomizu,kiyomizu,清水,station/transit,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_odpt_gtfs,Station/rail metadata exists; current service feed and accessible entrances are separate.
+kyoto_kiyomizu,kiyomizu,清水,public toilets,METADATA_ONLY,kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,Official XLSX and landing captured; headers inspected. CRS/use and entrance/operation review remain.
+kyoto_kiyomizu,kiyomizu,清水,accessibility facilities,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,"Facility equipment, entrance, width, slope and operation are not inferred."
+kyoto_kiyomizu,kiyomizu,清水,tourism POI,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM tourism objects retained as VGI candidates; official status and entrances are not established.
+kyoto_kiyomizu,kiyomizu,清水,walking-space network,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;hokonavi_current_catalog,Legacy H23 package acquired; target coverage/CRS/current validity require review.
+kyoto_kiyomizu,gion,祇園,geometry,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,Bounded fixed-time VGI candidate snapshot; field/topology/entrance verification remains separate.
+kyoto_kiyomizu,gion,祇園,PLATEAU,HUMAN_ACTION_REQUIRED,plateau_kyoto_2025_citygml_v5;plateau_kyoto_2025_index;plateau_kyoto_2025_related,"Raw package acquired or attempted, but package-level license/CRS/full-integrity promotion requires review."
+kyoto_kiyomizu,gion,祇園,DEM/terrain,HUMAN_ACTION_REQUIRED,gsi_dem_5m10m_current,GSI registration/login and exact mesh selection required.
+kyoto_kiyomizu,gion,祇園,bridges,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM bridge/layer tags retained; missing tags and grade separation remain UNKNOWN.
+kyoto_kiyomizu,gion,祇園,earthquake,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,gion,祇園,liquefaction,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,gion,祇園,flood,READY_FOR_INGESTION,nlni_a31b_2025_kyoto_flood,Official original ready for later AOI clipping; overlap does not imply closure.
+kyoto_kiyomizu,gion,祇園,inner flood,HUMAN_ACTION_REQUIRED,kyoto_current_hazard_context_2026;kyoto_hazard_gis_download_current,Kyoto GIS consent download required.
+kyoto_kiyomizu,gion,祇園,landslide,HUMAN_ACTION_REQUIRED,kyoto_city_landslide_gis_20260830,"Original ZIP exists, but consent/header/license lineage requires human review."
+kyoto_kiyomizu,gion,祇園,tsunami,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,gion,祇園,storm surge,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,gion,祇園,fire/evacuation guidance,METADATA_ONLY,kyoto_kiyomizu_gion_plan_landing,Plan/reference does not establish live operation or route safety.
+kyoto_kiyomizu,gion,祇園,shelters,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_current_evacuation_facilities,"Related source captured; current municipal authority, facility type, entrances and operation require validation."
+kyoto_kiyomizu,gion,祇園,tsunami evacuation buildings,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,gion,祇園,emergency open spaces,METADATA_ONLY,kyoto_emergency_open_spaces;plateau_kyoto_2025_related,Official role and operational state require separate validation.
+kyoto_kiyomizu,gion,祇園,temporary stay,METADATA_ONLY,kyoto_temporary_stay_facilities,Official landing identified; row-level current original pending.
+kyoto_kiyomizu,gion,祇園,station/transit,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_odpt_gtfs,Station/rail metadata exists; current service feed and accessible entrances are separate.
+kyoto_kiyomizu,gion,祇園,public toilets,METADATA_ONLY,kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,Official XLSX and landing captured; headers inspected. CRS/use and entrance/operation review remain.
+kyoto_kiyomizu,gion,祇園,accessibility facilities,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,"Facility equipment, entrance, width, slope and operation are not inferred."
+kyoto_kiyomizu,gion,祇園,tourism POI,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM tourism objects retained as VGI candidates; official status and entrances are not established.
+kyoto_kiyomizu,gion,祇園,walking-space network,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;hokonavi_current_catalog,Legacy H23 package acquired; target coverage/CRS/current validity require review.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,geometry,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,Bounded fixed-time VGI candidate snapshot; field/topology/entrance verification remains separate.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,PLATEAU,HUMAN_ACTION_REQUIRED,plateau_kyoto_2025_citygml_v5;plateau_kyoto_2025_index;plateau_kyoto_2025_related,"Raw package acquired or attempted, but package-level license/CRS/full-integrity promotion requires review."
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,DEM/terrain,HUMAN_ACTION_REQUIRED,gsi_dem_5m10m_current,GSI registration/login and exact mesh selection required.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,bridges,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM bridge/layer tags retained; missing tags and grade separation remain UNKNOWN.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,earthquake,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,liquefaction,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,flood,READY_FOR_INGESTION,nlni_a31b_2025_kyoto_flood,Official original ready for later AOI clipping; overlap does not imply closure.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,inner flood,HUMAN_ACTION_REQUIRED,kyoto_current_hazard_context_2026;kyoto_hazard_gis_download_current,Kyoto GIS consent download required.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,landslide,HUMAN_ACTION_REQUIRED,kyoto_city_landslide_gis_20260830,"Original ZIP exists, but consent/header/license lineage requires human review."
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,tsunami,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,storm surge,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,fire/evacuation guidance,METADATA_ONLY,kyoto_kiyomizu_gion_plan_landing,Plan/reference does not establish live operation or route safety.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,shelters,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_current_evacuation_facilities,"Related source captured; current municipal authority, facility type, entrances and operation require validation."
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,tsunami evacuation buildings,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,emergency open spaces,METADATA_ONLY,kyoto_emergency_open_spaces;plateau_kyoto_2025_related,Official role and operational state require separate validation.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,temporary stay,METADATA_ONLY,kyoto_temporary_stay_facilities,Official landing identified; row-level current original pending.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,station/transit,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_odpt_gtfs,Station/rail metadata exists; current service feed and accessible entrances are separate.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,public toilets,METADATA_ONLY,kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,Official XLSX and landing captured; headers inspected. CRS/use and entrance/operation review remain.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,accessibility facilities,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,"Facility equipment, entrance, width, slope and operation are not inferred."
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,tourism POI,READY_FOR_INGESTION,osm_kyoto_kiyomizu_gion_20260901,OSM tourism objects retained as VGI candidates; official status and entrances are not established.
+kyoto_kiyomizu,kiyomizu_gion_connector,清水〜祇園接続回廊,walking-space network,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;hokonavi_current_catalog,Legacy H23 package acquired; target coverage/CRS/current validity require review.
+kyoto_arashiyama,,嵐山,geometry,READY_FOR_INGESTION,osm_kyoto_arashiyama_20260901,Bounded fixed-time VGI candidate snapshot; field/topology/entrance verification remains separate.
+kyoto_arashiyama,,嵐山,PLATEAU,HUMAN_ACTION_REQUIRED,plateau_kyoto_2025_citygml_v5;plateau_kyoto_2025_index;plateau_kyoto_2025_related,"Raw package acquired or attempted, but package-level license/CRS/full-integrity promotion requires review."
+kyoto_arashiyama,,嵐山,DEM/terrain,HUMAN_ACTION_REQUIRED,gsi_dem_5m10m_current,GSI registration/login and exact mesh selection required.
+kyoto_arashiyama,,嵐山,bridges,READY_FOR_INGESTION,osm_kyoto_arashiyama_20260901,OSM bridge/layer tags retained; missing tags and grade separation remain UNKNOWN.
+kyoto_arashiyama,,嵐山,earthquake,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_arashiyama,,嵐山,liquefaction,HUMAN_ACTION_REQUIRED,kyoto_hazard_gis_download_current,No route-state inference; exact current municipal layer requires review/acquisition.
+kyoto_arashiyama,,嵐山,flood,READY_FOR_INGESTION,nlni_a31b_2025_kyoto_flood,Official original ready for later AOI clipping; overlap does not imply closure.
+kyoto_arashiyama,,嵐山,inner flood,HUMAN_ACTION_REQUIRED,kyoto_current_hazard_context_2026;kyoto_hazard_gis_download_current,Kyoto GIS consent download required.
+kyoto_arashiyama,,嵐山,landslide,HUMAN_ACTION_REQUIRED,kyoto_city_landslide_gis_20260830,"Original ZIP exists, but consent/header/license lineage requires human review."
+kyoto_arashiyama,,嵐山,tsunami,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_arashiyama,,嵐山,storm surge,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_arashiyama,,嵐山,fire/evacuation guidance,METADATA_ONLY,kyoto_saga_arashiyama_plan_2013,Plan/reference does not establish live operation or route safety.
+kyoto_arashiyama,,嵐山,shelters,METADATA_ONLY,plateau_kyoto_2025_related;kyoto_current_evacuation_facilities,"Related source captured; current municipal authority, facility type, entrances and operation require validation."
+kyoto_arashiyama,,嵐山,tsunami evacuation buildings,NOT_APPLICABLE,,Coastal tsunami/storm-surge category is not applicable to the Kyoto target areas in this acquisition matrix.
+kyoto_arashiyama,,嵐山,emergency open spaces,METADATA_ONLY,kyoto_emergency_open_spaces;plateau_kyoto_2025_related,Official role and operational state require separate validation.
+kyoto_arashiyama,,嵐山,temporary stay,METADATA_ONLY,kyoto_temporary_stay_facilities,Official landing identified; row-level current original pending.
+kyoto_arashiyama,,嵐山,station/transit,HUMAN_ACTION_REQUIRED,plateau_kyoto_2025_related;kyoto_odpt_gtfs,Station/rail metadata exists; current service feed and accessible entrances are separate.
+kyoto_arashiyama,,嵐山,public toilets,METADATA_ONLY,kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,Official XLSX and landing captured; headers inspected. CRS/use and entrance/operation review remain.
+kyoto_arashiyama,,嵐山,accessibility facilities,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;kyoto_public_toilets_00307;kyoto_public_toilets_00307_landing,"Facility equipment, entrance, width, slope and operation are not inferred."
+kyoto_arashiyama,,嵐山,tourism POI,READY_FOR_INGESTION,osm_kyoto_arashiyama_20260901,OSM tourism objects retained as VGI candidates; official status and entrances are not established.
+kyoto_arashiyama,,嵐山,walking-space network,HUMAN_ACTION_REQUIRED,mlit_walkspace_kyoto_h23;hokonavi_current_catalog,Legacy H23 package acquired; target coverage/CRS/current validity require review.
+fujisawa_enoshima,,藤沢・片瀬・江の島,geometry,READY_FOR_INGESTION,osm_fujisawa_enoshima_20260901,Bounded fixed-time VGI candidate snapshot; field/topology/entrance verification remains separate.
+fujisawa_enoshima,,藤沢・片瀬・江の島,PLATEAU,HUMAN_ACTION_REQUIRED,plateau_fujisawa_2025_citygml_v5;plateau_fujisawa_2025_index;plateau_fujisawa_2025_related,"Raw package acquired or attempted, but package-level license/CRS/full-integrity promotion requires review."
+fujisawa_enoshima,,藤沢・片瀬・江の島,DEM/terrain,HUMAN_ACTION_REQUIRED,gsi_dem_5m10m_current,GSI registration/login and exact mesh selection required.
+fujisawa_enoshima,,藤沢・片瀬・江の島,bridges,READY_FOR_INGESTION,osm_fujisawa_enoshima_20260901,OSM bridge/layer tags retained; missing tags and grade separation remain UNKNOWN.
+fujisawa_enoshima,,藤沢・片瀬・江の島,earthquake,NOT_FOUND,fujisawa_earthquake_hazard_source_gap,No category-specific original was acquired; use the official portal only as a discovery starting point.
+fujisawa_enoshima,,藤沢・片瀬・江の島,liquefaction,NOT_FOUND,fujisawa_liquefaction_hazard_source_gap,No category-specific original was acquired; use the official portal only as a discovery starting point.
+fujisawa_enoshima,,藤沢・片瀬・江の島,flood,METADATA_ONLY,fujisawa_flood_map;plateau_fujisawa_2025_citygml_v5,Current municipal machine-readable geometry has not been acquired.
+fujisawa_enoshima,,藤沢・片瀬・江の島,inner flood,METADATA_ONLY,fujisawa_inland_flood_landing_current,Official landing captured; exact current map/GIS original still required.
+fujisawa_enoshima,,藤沢・片瀬・江の島,landslide,METADATA_ONLY,fujisawa_flood_map;plateau_fujisawa_2025_citygml_v5,Official current source identified; target GIS original not acquired.
+fujisawa_enoshima,,藤沢・片瀬・江の島,tsunami,HUMAN_ACTION_REQUIRED,nlni_a40_2020_kanagawa_tsunami;fujisawa_tsunami_plan_appendix_2023;fujisawa_tsunami_hazard_landing_current,Official original A40 exists; license/prefectural terms and current municipal attachment remain unresolved.
+fujisawa_enoshima,,藤沢・片瀬・江の島,storm surge,METADATA_ONLY,fujisawa_storm_surge_map,Official landing identified; exact attachment/CRS not acquired.
+fujisawa_enoshima,,藤沢・片瀬・江の島,fire/evacuation guidance,NOT_FOUND,,Plan/reference does not establish live operation or route safety.
+fujisawa_enoshima,,藤沢・片瀬・江の島,shelters,NOT_FOUND,fujisawa_shelter_source_gap,No category-specific authoritative shelter original was acquired.
+fujisawa_enoshima,,藤沢・片瀬・江の島,tsunami evacuation buildings,HUMAN_ACTION_REQUIRED,fujisawa_tsunami_plan_appendix_2023;fujisawa_tsunami_buildings_2025,Appendix acquired; former direct list URL returned 404 and must be rediscovered.
+fujisawa_enoshima,,藤沢・片瀬・江の島,emergency open spaces,NOT_FOUND,,No source was acquired or confirmed for this area/category.
+fujisawa_enoshima,,藤沢・片瀬・江の島,temporary stay,NOT_APPLICABLE,,Kyoto tourist-return-support temporary-stay category is not transferred to Fujisawa.
+fujisawa_enoshima,,藤沢・片瀬・江の島,station/transit,METADATA_ONLY,plateau_fujisawa_2025_related;nlni_bus_stops_p11_v3;nlni_railway_n05_v2,Station/rail metadata exists; current service feed and accessible entrances are separate.
+fujisawa_enoshima,,藤沢・片瀬・江の島,public toilets,HUMAN_ACTION_REQUIRED,fujisawa_webgis_toilets_accessibility,Official UI export required.
+fujisawa_enoshima,,藤沢・片瀬・江の島,accessibility facilities,HUMAN_ACTION_REQUIRED,fujisawa_webgis_toilets_accessibility;fujisawa_webgis_open_data_manual,"Facility equipment, entrance, width, slope and operation are not inferred."
+fujisawa_enoshima,,藤沢・片瀬・江の島,tourism POI,READY_FOR_INGESTION,osm_fujisawa_enoshima_20260901,OSM tourism objects retained as VGI candidates; official status and entrances are not established.
+fujisawa_enoshima,,藤沢・片瀬・江の島,walking-space network,NOT_FOUND,hokonavi_current_catalog,No current official Fujisawa target-area package confirmed.

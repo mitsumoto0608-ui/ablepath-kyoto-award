@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "city_id": "fujisawa_enoshima",
+        "reason": "Retains the Phase 3 bbox covering Katase, Enoshima entrance, Benten Bridge, Katase coast and the three Master-defined stations; only query categories are expanded.",
+        "prior_bbox": [139.4720, 35.2950, 139.4935, 35.3140],
+        "axis_order": "longitude_latitude"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[139.4720,35.2950],[139.4935,35.2950],[139.4935,35.3140],[139.4720,35.3140],[139.4720,35.2950]]]
+      }
+    }
+  ]
+}

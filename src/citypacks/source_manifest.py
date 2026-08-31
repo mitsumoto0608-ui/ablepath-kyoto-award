@@ -55,6 +55,7 @@ _FRESHNESS = {
     "POSSIBLY_STALE",
     "SUPERSEDED",
     "UNKNOWN",
+    "FIXED_SNAPSHOT",
 }
 _METADATA_CLASS_TO_KIND = {
     "OFFICIAL_METADATA_ONLY": "OFFICIAL_METADATA",
@@ -130,6 +131,13 @@ def _normalize_row(dialect_id: str, row: dict[str, str]) -> NormalizedSourceReco
     freshness = _required_text(row, "freshness_status", dialect_id)
     if freshness not in _FRESHNESS:
         raise SourceManifestContractError(f"unsupported freshness_status: {freshness}")
+    if freshness == "FIXED_SNAPSHOT" and (
+        data_class != "VGI_METADATA_ONLY"
+        or row.get("download_status") != "EXTERNAL_RAW_RECEIPT_ONLY"
+    ):
+        raise SourceManifestContractError(
+            "FIXED_SNAPSHOT requires VGI_METADATA_ONLY and EXTERNAL_RAW_RECEIPT_ONLY"
+        )
     return NormalizedSourceRecord(
         schema_version="1.0.0",
         dialect_id=dialect_id,

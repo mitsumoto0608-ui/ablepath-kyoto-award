@@ -1,0 +1,48 @@
+dataset_id,issuer,license,redistribution_status,handoff_status,human_action
+fujisawa_earthquake_hazard_source_gap,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"From the official portal, locate the current earthquake hazard original for the target AOI; preserve the exact URL, revision, license, CRS and file headers."
+fujisawa_enoshima_tsunami_map_2023,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Re-open the official landing page, locate the current original URL, and acquire without bypass. Prior failure: HTTP_404 Response status code does not indicate success: 404 (Not Found)."
+fujisawa_flood_map,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,Acquire the current south-area attachment and any machine-readable official alternative.
+fujisawa_inland_flood_landing_current,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+fujisawa_liquefaction_hazard_source_gap,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"From the official portal, locate the current liquefaction hazard original for the target AOI; preserve the exact URL, revision, license, CRS and file headers."
+fujisawa_shelter_source_gap,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"From the official portal, locate the current authoritative shelter/facility list and preserve its exact URL, date, facility types, license and headers."
+fujisawa_storm_surge_map,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,Acquire the exact current attachment from the official landing page and record its revision and page references.
+fujisawa_tsunami_buildings_2025,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Re-open the official landing page, locate the current original URL, and acquire without bypass. Prior failure: HTTP_404 Response status code does not indicate success: 404 (Not Found)."
+fujisawa_tsunami_hazard_landing_current,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+fujisawa_tsunami_plan_appendix_2023,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+fujisawa_tsunami_wide_map_current,Fujisawa City,Fujisawa City website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Re-open the official landing page, locate the current original URL, and acquire without bypass. Prior failure: HTTP_404 Response status code does not indicate success: 404 (Not Found)."
+fujisawa_webgis_open_data_manual,Fujisawa City,Fujisawa WebGIS terms require review,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+fujisawa_webgis_toilets_accessibility,Fujisawa City,Fujisawa WebGIS terms require review,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Use the official UI/manual export for public-toilet and barrier-free layers; record layer, bbox/query, format and timestamp. Do not use undocumented guest-login URLs."
+gsi_dem_5m10m_current,Geospatial Information Authority of Japan,GSI Content Terms; Survey Act applicability requires use review,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Register/login, select available 5m/10m meshes for each AOI, download original ZIP/XML, and retain mesh/query metadata."
+gsi_fgd_basic_current,Geospatial Information Authority of Japan,GSI Content Terms; Survey Act applicability requires use review,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Register/login, select basic items and exact meshes covering the five target areas, download latest original ZIP/XML, and record mesh/query IDs."
+hokonavi_current_catalog,MLIT,Catalog/resource-specific terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,Confirm current Kyoto/Fujisawa coverage and download only matching official packages after terms review.
+kyoto_city_landslide_gis_20260830,Kyoto City,Kyoto City GIS / website terms require human review,LICENSE_REVIEW_REQUIRED,LICENSE_REVIEW_REQUIRED,Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.
+kyoto_current_evacuation_facilities,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,"Capture the current official rows and keep facility types separate; verify entrances, capacity and operation independently."
+kyoto_current_hazard_context_2026,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+kyoto_emergency_open_spaces,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,"Acquire the complete current list and verify legal/operational category, entrances, opening and capacity."
+kyoto_hazard_gis_download_current,Kyoto City,Kyoto City GIS/website terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Open official map, accept displayed terms, use GIS download for Higashiyama and relevant Kyoto AOIs, and preserve exact ZIP/PDF and headers."
+kyoto_kiyomizu_gion_plan_landing,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+kyoto_odpt_gtfs,Kyoto Municipal Transportation Bureau and relevant operators,Public Transportation Open Data Basic License plus operator terms,LICENSE_REVIEW_REQUIRED,HUMAN_ACTION_REQUIRED,"Register with ODPT, accept terms, select current GTFS resource, download without retaining token/signed query, and record version."
+kyoto_public_toilets_00307,Kyoto City Environment Policy Bureau,CC BY 4.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_METADATA_ONLY,
+kyoto_public_toilets_00307_landing,Kyoto City Environment Policy Bureau,CC BY 4.0,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+kyoto_saga_arashiyama_plan_2013,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+kyoto_temporary_stay_facilities,Kyoto City,Kyoto City website terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,Acquire the current official facility list and dated operational conditions.
+mlit_walkspace_kyoto_h23,MLIT Policy Bureau,Government standard terms / resource terms,LICENSE_REVIEW_REQUIRED,LICENSE_REVIEW_REQUIRED,Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.
+nlni_a31b_2025_kyoto_flood,"Ministry of Land, Infrastructure, Transport and Tourism",CC BY 4.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+nlni_a40_2020_kanagawa_tsunami,"Ministry of Land, Infrastructure, Transport and Tourism",National Land Numerical Information Terms of Use,LICENSE_REVIEW_REQUIRED,LICENSE_REVIEW_REQUIRED,Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.
+nlni_a40_product_spec_v2,MLIT,National Land Numerical Information terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+nlni_bus_stops_p11_v3,MLIT,National Land Numerical Information terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,"Select current Kyoto/Kanagawa packages and preserve exact form query, version and original ZIP."
+nlni_railway_n05_v2,MLIT,National Land Numerical Information terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,"Select current Kyoto/Kanagawa packages and preserve exact form query, version and original ZIP."
+osm_arashiyama_20260829,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+osm_fujisawa_enoshima_20260830,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+osm_fujisawa_enoshima_20260901,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+osm_kiyomizu_gion_corridor_20260830,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+osm_kyoto_arashiyama_20260901,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+osm_kyoto_kiyomizu_gion_20260901,OpenStreetMap contributors,ODbL 1.0,PERMITTED_WITH_OBLIGATIONS,READY_FOR_INGESTION,
+plateau_fujisawa_2025_citygml_v5,MLIT Project PLATEAU,PLATEAU Site Policy section 3 / embedded source terms,LICENSE_REVIEW_REQUIRED,LICENSE_REVIEW_REQUIRED,Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.
+plateau_fujisawa_2025_index,MLIT Project PLATEAU,PLATEAU Site Policy section 3,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+plateau_fujisawa_2025_related,MLIT Project PLATEAU,PLATEAU Site Policy section 3 / embedded source terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+plateau_fujisawa_catalog_20260830,"Ministry of Land, Infrastructure, Transport and Tourism Project PLATEAU",PLATEAU Site Policy / dataset-specific terms require review,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+plateau_kyoto_2025_citygml_v5,MLIT Project PLATEAU,PLATEAU Site Policy section 3 / embedded source terms,LICENSE_REVIEW_REQUIRED,LICENSE_REVIEW_REQUIRED,Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.
+plateau_kyoto_2025_index,MLIT Project PLATEAU,PLATEAU Site Policy section 3,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+plateau_kyoto_2025_related,MLIT Project PLATEAU,PLATEAU Site Policy section 3 / embedded source terms,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,
+plateau_kyoto_bldg_tileset_20260830,"Ministry of Land, Infrastructure, Transport and Tourism Project PLATEAU",PLATEAU Site Policy / dataset-specific terms require review,LICENSE_REVIEW_REQUIRED,READY_FOR_METADATA_ONLY,

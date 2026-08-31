@@ -1,0 +1,36 @@
+{
+  "task_id": "ABLEPATH-PHASE4-MULTICITY-DATA-ACQUISITION-MASTER-V1",
+  "branch": "task/phase4-multicity-data-acquisition-v1",
+  "base_commit": "76bbe2a1d85ea1f328cb41ddb0171c75331a1897",
+  "generated_at": "2026-08-31T19:35:28Z",
+  "tracked_handoff_path": "inputs/staging/PHASE4-MULTICITY-DATA-ACQUISITION/",
+  "raw_root_config_key": "phase4_multicity_data_acquisition_raw_root",
+  "counts": {
+    "downloaded_files": 20,
+    "downloaded_bytes": 3452749155,
+    "reused_files": 8,
+    "reused_bytes": 109473617,
+    "metadata_only": 8,
+    "blocked_or_human": 8,
+    "corrupt_rejected": 0
+  },
+  "status_counts": {
+    "NOT_FOUND": 3,
+    "BLOCKED": 3,
+    "METADATA_ONLY": 8,
+    "DOWNLOADED": 20,
+    "HUMAN_DOWNLOAD_REQUIRED": 5,
+    "DUPLICATE_REUSED": 8
+  },
+  "handoff_counts": {
+    "HUMAN_ACTION_REQUIRED": 11,
+    "READY_FOR_METADATA_ONLY": 24,
+    "LICENSE_REVIEW_REQUIRED": 5,
+    "READY_FOR_INGESTION": 7
+  },
+  "data_acquisition_handoff_ready": true,
+  "limitations": [
+    "Human downloads/license reviews remain and are enumerated in the gap register.",
+    "No raw absolute path, secret, signed query, model/UI connection, or route/safety claim is included."
+  ]
+}

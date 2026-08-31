@@ -17,6 +17,7 @@ data_status: SYNTHETIC_DEMO
 official_metadata_status: OFFICIAL_METADATA_ONLY
 last_verified_at: "2026-08-30"
 source_manifest_path: sources/source_manifest.csv
+p0_osm_candidate_artifact_manifest: realdata/artifact_manifest.v2.json
 scenario_disclaimer: "静的な計画比較用の合成デモであり、ライブの安全案内、個別地点の被害予測、通行可能性の保証ではありません。"
 schema_compatibility:
   supported_major: 1
@@ -67,8 +68,9 @@ official_data_targets:
     landslide_hazard:
       availability_status: UNKNOWN
   osm_pedestrian_graph:
-    acquisition_status: NOT_ACQUIRED
-    topology_status: NOT_EVALUATED
+    acquisition_status: BOUNDED_SNAPSHOT_RETAINED_EXTERNAL_RAW
+    topology_status: CANDIDATE_NOT_CONNECTED
+    reason: "Bounded OSM VGI source is staged externally and normalized locally; it is not connected to the viewer or models."
 readiness:
   facility_status: OFFICIAL_METADATA_ONLY
   entrance_status: UNKNOWN

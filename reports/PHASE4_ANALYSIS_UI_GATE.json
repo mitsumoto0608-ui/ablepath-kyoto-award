@@ -1,0 +1,10 @@
+{
+  "all_three_data_ingested": true, "all_three_topology_analysis_connected": true, "all_three_candidate_path_ui_connected": true,
+  "official_hazard_analysis_city_count": 0, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0,
+  "safe_route_claim": false, "accessibility_claim": false, "admin_validated": false,
+  "cities": {
+    "kyoto_kiyomizu": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] },
+    "kyoto_arashiyama": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] },
+    "fujisawa_enoshima": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] }
+  }
+}

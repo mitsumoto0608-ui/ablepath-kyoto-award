@@ -128,7 +128,7 @@ test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ p
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
   await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
@@ -151,7 +151,7 @@ test("[ui_regression] desktop captures mocked 3D failure after deterministic 2D 
   await page.getByRole("button", { name: "3D" }).click();
   await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
   await expect(page).toHaveURL(/view=2d.*layer=real/);
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
   await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toHaveCount(0);
@@ -213,7 +213,7 @@ test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap
   });
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("continuity NOT_ESTABLISHED", { exact: true })).toBeVisible();
@@ -240,12 +240,43 @@ test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap
   await expect(page.getByRole("row", { name: new RegExp(second) })).toHaveClass(/active-row/);
 });
 
-test("[ui_regression] cities without a reviewed real artifact normalize to synthetic fallback", async ({ page }) => {
+test("[ui_regression] all three cities allow explicit real candidate mode", async ({ page }) => {
   await page.goto("/?city=kyoto_arashiyama&layer=real");
-  await expect(page.getByRole("button", { name: "実座標 / CANDIDATE" })).toBeDisabled();
-  await expect(page.getByRole("button", { name: "SYNTHETIC_DEMO" })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("group", { name: /シナリオ回廊図/ })).toBeVisible();
-  await expect(page).toHaveURL(/layer=synthetic/);
+  await expect(page.getByRole("button", { name: "実座標 / CANDIDATE" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
+  await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
+  await expect(page.getByLabel("candidate path analysis")).toContainText("coordinate_degree");
+  await expect(page.getByLabel("candidate path analysis")).toContainText(/ordered edge IDs: (?!—)/);
+});
+
+test("[ui_regression] precomputed candidate path controls change fixtures without runtime graph calculation", async ({ page }, testInfo) => {
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
+  for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+    await page.goto(`/?city=${cityId}&layer=real`);
+    await expect(page.getByLabel("出発node（candidate fixture）")).toBeEnabled();
+    await expect(page.getByLabel("目的node（candidate fixture）")).toBeEnabled();
+    await expect(page.getByLabel("candidate path analysis")).toContainText("coordinate_degree");
+    await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
+    await expect(page.getByLabel("candidate path analysis")).toContainText(/ordered edge IDs: (?!—)/);
+    await expect(page.getByLabel("candidate path analysis")).toContainText("hazard: NOT_CONNECTED");
+    await expect(page.getByLabel("candidate path analysis")).toContainText("M7 NOT_COMPUTED");
+    if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath({ kyoto_kiyomizu: "kiyomizu-real-analysis.png", kyoto_arashiyama: "arashiyama-real-analysis.png", fujisawa_enoshima: "fujisawa-real-analysis.png" }[cityId]), fullPage: true });
+  }
+  await page.goto("/?city=kyoto_kiyomizu&layer=real");
+  const start = page.getByLabel("出発node（candidate fixture）");
+  const end = page.getByLabel("目的node（candidate fixture）");
+  if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath("candidate-path-selected.png"), fullPage: true });
+  await end.selectOption((await end.locator("option").nth(2).getAttribute("value")));
+  await expect(page.getByLabel("candidate path analysis")).toContainText("DISCONNECTED");
+  await expect(page.getByLabel("candidate path analysis")).toContainText("coordinate-degree distance: —");
+  await expect(page.getByLabel("candidate path analysis")).toContainText("ordered edge IDs: —");
+  if (testInfo.project.name === "desktop-chromium") { await page.screenshot({ path: testInfo.outputPath("disconnected-path.png"), fullPage: true }); await page.screenshot({ path: testInfo.outputPath("hazard-overlay-or-not-connected.png"), fullPage: true }); }
+  await page.goto("/?city=kyoto_arashiyama&layer=real");
+  await page.getByLabel("目的node（candidate fixture）").selectOption((await page.getByLabel("目的node（candidate fixture）").locator("option").nth(2).getAttribute("value")));
+  await expect(page.getByLabel("candidate path analysis")).toContainText("DISCONNECTED");
+  await page.setViewportSize({ width: 320, height: 900 });
+  await expect(page.locator(".app-shell")).toBeVisible();
+  if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath("mobile-320-analysis.png"), fullPage: true });
 });
 
 test("[ui_regression] Cesium is lazy-loaded and a mocked local tileset gates runtime success", async ({ page }) => {
@@ -301,7 +332,7 @@ test("[ui_regression] Cesium child-tile failure after root load returns to 2D", 
   });
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible({ timeout: 15_000 });
   await expect(page).toHaveURL(/view=2d.*layer=real/);
   expect(childRequests).toBeGreaterThan(0);
   await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
@@ -313,7 +344,7 @@ test("[ui_regression] Cesium CORS failure returns to 2D and preserves real-layer
   const selected = "KK-OSM-W1251544286-S01";
   await page.goto(`/?city=kyoto_kiyomizu&view=2d&layer=real&map_edge=${selected}`);
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page).toHaveURL(new RegExp(`view=2d.*layer=real.*map_edge=${selected}`));
   await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
 });
@@ -336,7 +367,7 @@ test("[ui_regression] Cesium timeout returns to 2D and ignores a late root respo
     });
   });
   await page.goto("/?city=kyoto_kiyomizu&view=3d&layer=real");
-  await expect(page.getByRole("heading", { name: "清水・祇園 実座標候補graph" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible({ timeout: 15_000 });
   await expect(page).toHaveURL(/view=2d.*layer=real/);
   await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
   await page.waitForTimeout(750);

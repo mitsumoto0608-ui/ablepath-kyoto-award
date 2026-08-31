@@ -8,12 +8,13 @@
   "vertical_unit": "UNKNOWN",
   "axis_order": "longitude_latitude_output",
   "coordinate_precision": 6,
-  "transform_history": ["No real geometry transformed in this city pack revision."],
+  "transform_history": ["Legacy citypack shell remains synthetic; the bounded OSM candidate authority is separately declared."],
   "geometry_status": "SYNTHETIC_DEMO",
   "source_feature_id": "NOT_APPLICABLE_ARTIFACT_MANIFEST",
   "stable_feature_id": "FJ-ARTIFACT-MANIFEST",
   "revision_id": "1",
   "lineage": ["Authored under FUJISAWA lane V4 citypack contract."],
+  "real_artifact_authority": "realdata/artifact_manifest.v2.json",
   "artifacts": [
     {"path": "city.yaml", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
     {"path": "sources/source_manifest.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
@@ -27,6 +28,16 @@
     {"path": "hazards/scenarios.yaml", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
     {"path": "hazards/edge_states.csv", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO"},
     {"path": "demand/demand_scenarios.csv", "schema_version": "1.0.0", "geometry_status": "UNKNOWN"},
-    {"path": "viewer/city_config.json", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO_AND_METADATA_ONLY"}
+    {"path": "viewer/city_config.json", "schema_version": "1.0.0", "geometry_status": "SYNTHETIC_DEMO_AND_METADATA_ONLY"},
+    {"path": "geography/corridor.real.geojson", "schema_version": "2.0.0", "geometry_status": "SOURCE_TRACEABLE_REAL_CANDIDATE"},
+    {"path": "graph/candidate_walk_nodes.real.geojson", "schema_version": "2.0.0", "geometry_status": "SOURCE_TRACEABLE_REAL_CANDIDATE"},
+    {"path": "graph/candidate_walk_edges.real.geojson", "schema_version": "2.0.0", "geometry_status": "SOURCE_TRACEABLE_REAL_CANDIDATE"},
+    {"path": "graph/candidate_topology_qa.real.json", "schema_version": "2.0.0", "geometry_status": "SOURCE_TRACEABLE_REAL_CANDIDATE_QA"},
+    {"path": "sources/osm-corridor.overpassql", "schema_version": "1.0.0", "geometry_status": "NON_GEOMETRY_OR_METADATA_ONLY"},
+    {"path": "sources/receipts/osm-corridor.raw.receipt.json", "schema_version": "1.0.0", "geometry_status": "EXTERNAL_RAW_RECEIPT_ONLY"},
+    {"path": "sources/unresolved_contracts.json", "schema_version": "1.0.0", "geometry_status": "NON_GEOMETRY_OR_METADATA_ONLY"},
+    {"path": "realdata/artifact_manifest.v2.json", "schema_version": "2.0.0", "geometry_status": "AUTHORITATIVE_REAL_CANDIDATE_MANIFEST"},
+    {"path": ".gitattributes", "schema_version": "1.0.0", "geometry_status": "NON_GEOMETRY_OR_METADATA_ONLY"},
+    {"path": "status.json", "schema_version": "1.0.0", "geometry_status": "NON_GEOMETRY_OR_METADATA_ONLY"}
   ]
 }

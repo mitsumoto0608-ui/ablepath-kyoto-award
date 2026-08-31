@@ -1,0 +1,760 @@
+{
+  "analysis_id": "fujisawa_enoshima:candidate-topology-v2",
+  "analysis_type": "CANDIDATE_TOPOLOGY_STATIC_FIXTURE",
+  "city_id": "fujisawa_enoshima",
+  "source_artifact_ids": [
+    "cities/fujisawa_enoshima/graph/candidate_walk_nodes.real.geojson",
+    "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson"
+  ],
+  "source_revision_ids": [
+    "20260830-r1"
+  ],
+  "input_sha256": "0b280d737c27ead8d67f5a8397774b684386c67c7df4ff60d062a200ca25bdf2",
+  "algorithm": "deterministic-undirected-dijkstra-coordinate-degree",
+  "algorithm_version": "2.0.0",
+  "parameters": {
+    "coordinate_unit": "coordinate_degree",
+    "input_binding": "sha256(node_geojson_bytes + 0x00 + edge_geojson_bytes); input order=node,edge",
+    "tie_break": "lexical ordered edge-ID tuple"
+  },
+  "generated_at": "2026-08-30T00:00:00Z",
+  "deterministic": true,
+  "result": {
+    "topology": {
+      "node_count": 16,
+      "edge_count": 15,
+      "connected_components": 1,
+      "topology_status": "CANDIDATE_REVIEW_REQUIRED"
+    },
+    "selectable_node_ids": [
+      "FJ-OSM-N-1922FF848B18A1BF",
+      "FJ-OSM-N-2174B5DE701CA180",
+      "FJ-OSM-N-3028DFD1A9E8CD85"
+    ],
+    "path_matrix": {
+      "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180": {
+        "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+        "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-0382789A9EC7F022",
+          "FJ-OSM-E-B4CC42C7826CE525"
+        ],
+        "geometric_length": 0.0006177099536968896,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-3028DFD1A9E8CD85": {
+        "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+        "end_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-32EA7FD65F7F2373",
+          "FJ-OSM-E-9B1FB3AF3A7E1DC3"
+        ],
+        "geometric_length": 0.0001309253588273629,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-1922FF848B18A1BF": {
+        "start_node_id": "FJ-OSM-N-2174B5DE701CA180",
+        "end_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-B4CC42C7826CE525",
+          "FJ-OSM-E-0382789A9EC7F022"
+        ],
+        "geometric_length": 0.0006177099536968896,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-3028DFD1A9E8CD85": {
+        "start_node_id": "FJ-OSM-N-2174B5DE701CA180",
+        "end_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-B4CC42C7826CE525",
+          "FJ-OSM-E-0382789A9EC7F022",
+          "FJ-OSM-E-32EA7FD65F7F2373",
+          "FJ-OSM-E-9B1FB3AF3A7E1DC3"
+        ],
+        "geometric_length": 0.0007486353125242525,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-1922FF848B18A1BF": {
+        "start_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "end_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "FJ-OSM-E-32EA7FD65F7F2373"
+        ],
+        "geometric_length": 0.0001309253588273629,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-2174B5DE701CA180": {
+        "start_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "FJ-OSM-E-32EA7FD65F7F2373",
+          "FJ-OSM-E-0382789A9EC7F022",
+          "FJ-OSM-E-B4CC42C7826CE525"
+        ],
+        "geometric_length": 0.0007486353125242526,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      }
+    },
+    "path_fixture": {
+      "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+      "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-0382789A9EC7F022",
+        "FJ-OSM-E-B4CC42C7826CE525"
+      ],
+      "geometric_length": 0.0006177099536968896,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "hazard_overlap": {
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "reason": "No trusted official hazard geometry is connected; no closure is derived."
+    },
+    "m7": {
+      "status": "NOT_COMPUTED",
+      "ready_edge_count": 0,
+      "computed_edge_count": 0,
+      "readiness": [
+        {
+          "edge_id": "FJ-OSM-E-018BDD155711677D",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-062F75C8425C2252",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-215A5178BF215505",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-42405D906C055F26",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-4489A45ACA6EAC2F",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-64C790B90BA45925",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-6AA1F16F8F33134A",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-790B757348C9BC93",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-BF27EB5B0C5124E6",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "FJ-OSM-E-F30BE41F1FBDD11F",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        }
+      ]
+    },
+    "m6": {
+      "status": "NOT_COMPUTED",
+      "reason": "M6/profile evaluation is not connected."
+    }
+  },
+  "limitations": [
+    "Candidate connectivity only",
+    "coordinate_degree is not a geographic or meter distance",
+    "Hazard, M7, M6, accessibility, safety, operation, and administrative validation are unconnected or not computed"
+  ],
+  "provenance": {
+    "source_class": "VGI",
+    "source_id": "OSM_CANDIDATE_SOURCE",
+    "input_binding": "node bytes then NUL then edge bytes",
+    "input_artifacts": [
+      "cities/fujisawa_enoshima/graph/candidate_walk_nodes.real.geojson",
+      "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson"
+    ],
+    "input_hashes": {
+      "node_sha256": "2a7fff42baa624caaba401b5bf1e12ca1fa0335262359ce52e050914b9597756",
+      "edge_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47"
+    }
+  },
+  "safety_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "topology": {
+    "node_count": 16,
+    "edge_count": 15,
+    "connected_components": 1,
+    "topology_status": "CANDIDATE_REVIEW_REQUIRED"
+  },
+  "selectable_node_ids": [
+    "FJ-OSM-N-1922FF848B18A1BF",
+    "FJ-OSM-N-2174B5DE701CA180",
+    "FJ-OSM-N-3028DFD1A9E8CD85"
+  ],
+  "path_matrix": {
+    "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180": {
+      "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+      "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-0382789A9EC7F022",
+        "FJ-OSM-E-B4CC42C7826CE525"
+      ],
+      "geometric_length": 0.0006177099536968896,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-3028DFD1A9E8CD85": {
+      "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+      "end_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-32EA7FD65F7F2373",
+        "FJ-OSM-E-9B1FB3AF3A7E1DC3"
+      ],
+      "geometric_length": 0.0001309253588273629,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-1922FF848B18A1BF": {
+      "start_node_id": "FJ-OSM-N-2174B5DE701CA180",
+      "end_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-B4CC42C7826CE525",
+        "FJ-OSM-E-0382789A9EC7F022"
+      ],
+      "geometric_length": 0.0006177099536968896,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-3028DFD1A9E8CD85": {
+      "start_node_id": "FJ-OSM-N-2174B5DE701CA180",
+      "end_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-B4CC42C7826CE525",
+        "FJ-OSM-E-0382789A9EC7F022",
+        "FJ-OSM-E-32EA7FD65F7F2373",
+        "FJ-OSM-E-9B1FB3AF3A7E1DC3"
+      ],
+      "geometric_length": 0.0007486353125242525,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-1922FF848B18A1BF": {
+      "start_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+      "end_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+        "FJ-OSM-E-32EA7FD65F7F2373"
+      ],
+      "geometric_length": 0.0001309253588273629,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-2174B5DE701CA180": {
+      "start_node_id": "FJ-OSM-N-3028DFD1A9E8CD85",
+      "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+        "FJ-OSM-E-32EA7FD65F7F2373",
+        "FJ-OSM-E-0382789A9EC7F022",
+        "FJ-OSM-E-B4CC42C7826CE525"
+      ],
+      "geometric_length": 0.0007486353125242526,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    }
+  },
+  "path_fixture": {
+    "start_node_id": "FJ-OSM-N-1922FF848B18A1BF",
+    "end_node_id": "FJ-OSM-N-2174B5DE701CA180",
+    "status": "CONNECTED",
+    "edge_ids": [
+      "FJ-OSM-E-0382789A9EC7F022",
+      "FJ-OSM-E-B4CC42C7826CE525"
+    ],
+    "geometric_length": 0.0006177099536968896,
+    "unit": "coordinate_degree",
+    "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+  },
+  "hazard_overlap": {
+    "status": "NOT_CONNECTED",
+    "value": null,
+    "reason": "No trusted official hazard geometry is connected; no closure is derived."
+  },
+  "m7": {
+    "status": "NOT_COMPUTED",
+    "ready_edge_count": 0,
+    "computed_edge_count": 0,
+    "readiness": [
+      {
+        "edge_id": "FJ-OSM-E-018BDD155711677D",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-062F75C8425C2252",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-215A5178BF215505",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-42405D906C055F26",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-4489A45ACA6EAC2F",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-64C790B90BA45925",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-6AA1F16F8F33134A",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-790B757348C9BC93",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-BF27EB5B0C5124E6",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "FJ-OSM-E-F30BE41F1FBDD11F",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      }
+    ]
+  },
+  "m6": {
+    "status": "NOT_COMPUTED",
+    "reason": "M6/profile evaluation is not connected."
+  },
+  "interpretation": "Candidate network connectivity only; accessibility, safety, and operation are unconfirmed."
+}

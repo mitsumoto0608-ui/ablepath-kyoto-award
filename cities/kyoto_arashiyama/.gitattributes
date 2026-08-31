@@ -1,0 +1,11 @@
+# Hash-bound Arashiyama artifacts must retain their Git-blob bytes on every
+# platform. Paths are intentionally exact so future artifacts require review.
+geography/corridor.real.geojson text eol=lf
+graph/graph_provenance.real.json text eol=lf
+graph/topology_qa.real.json text eol=lf
+graph/walk_edges.real.geojson text eol=lf
+graph/walk_nodes.real.geojson text eol=lf
+realdata_status.json text eol=lf
+sources/osm_arashiyama_20260829.overpassql text eol=lf
+sources/realdata_manifest.json text eol=lf
+sources/retention_receipt.json text eol=lf

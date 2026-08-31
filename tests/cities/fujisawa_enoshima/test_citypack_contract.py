@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -30,13 +31,17 @@ def _json(relative: str) -> dict:
     return json.loads((PACK / relative).read_text(encoding="utf-8"))
 
 
+def _sha256(relative: str) -> str:
+    return hashlib.sha256((PACK / relative).read_bytes()).hexdigest()
+
+
 def _yaml(relative: str) -> dict:
     return yaml.safe_load((PACK / relative).read_text(encoding="utf-8"))
 
 
 def test_required_citypack_files_exist():
-    """[software_correctness] V4 city packの必須成果物を欠落させない。"""
-    expected = {
+    """[software_correctness] V4基盤と承認済みP0実geometry成果物を欠落させない。"""
+    required = {
         "city.yaml",
         "artifact_manifest.json",
         "sources/source_manifest.csv",
@@ -53,7 +58,20 @@ def test_required_citypack_files_exist():
         "viewer/city_config.json",
         "README.md",
     }
-    assert {str(path.relative_to(PACK)).replace("\\", "/") for path in PACK.rglob("*") if path.is_file()} == expected
+    required_p0 = {
+        ".gitattributes",
+        "geography/corridor.real.geojson",
+        "graph/candidate_walk_nodes.real.geojson",
+        "graph/candidate_walk_edges.real.geojson",
+        "graph/candidate_topology_qa.real.json",
+        "realdata/artifact_manifest.v2.json",
+        "sources/osm-corridor.overpassql",
+        "sources/receipts/osm-corridor.raw.receipt.json",
+        "sources/unresolved_contracts.json",
+        "status.json",
+    }
+    actual = {str(path.relative_to(PACK)).replace("\\", "/") for path in PACK.rglob("*") if path.is_file()}
+    assert actual == required | required_p0
 
 
 def test_city_schema_versions_and_readiness_are_explicit():
@@ -112,8 +130,14 @@ def test_source_manifest_has_v4_freshness_and_allowlisted_sources():
         "retrieval_last_modified", "redistribution_status",
     }
     assert required <= set(rows[0])
-    allowed_freshness = {"CURRENT_CONFIRMED", "CURRENT_UNVERIFIED", "POSSIBLY_STALE", "SUPERSEDED", "UNKNOWN"}
-    allowed_hosts = {"www.city.fujisawa.kanagawa.jp", "front.geospatial.jp", "www.gsi.go.jp", "www.openstreetmap.org"}
+    allowed_freshness = {
+        "CURRENT_CONFIRMED", "CURRENT_UNVERIFIED", "POSSIBLY_STALE",
+        "SUPERSEDED", "UNKNOWN", "FIXED_SNAPSHOT",
+    }
+    allowed_hosts = {
+        "www.city.fujisawa.kanagawa.jp", "front.geospatial.jp", "www.gsi.go.jp",
+        "www.openstreetmap.org", "overpass-api.de",
+    }
     assert len({row["dataset_id"] for row in rows}) == len(rows)
     for row in rows:
         assert row["freshness_status"] in allowed_freshness
@@ -121,7 +145,11 @@ def test_source_manifest_has_v4_freshness_and_allowlisted_sources():
         assert row["recheck_by"]
         assert urlparse(row["url"]).scheme == "https"
         assert urlparse(row["url"]).hostname in allowed_hosts
-        assert row["download_status"] == "METADATA_ONLY"
+        if row["dataset_id"] == "OSM_CANDIDATE_SOURCE":
+            assert row["freshness_status"] == "FIXED_SNAPSHOT"
+            assert row["download_status"] == "EXTERNAL_RAW_RECEIPT_ONLY"
+        else:
+            assert row["download_status"] == "METADATA_ONLY"
         assert row["local_relative_path"] == "" and row["sha256"] == ""
         assert row["geographic_coverage"] and row["usable_fields"]
         assert row["missing_fields"] and row["interpretation_limits"]
@@ -145,8 +173,50 @@ def test_artifact_manifest_covers_all_machine_readable_artifacts():
         if path.is_file() and path.name not in {"README.md", "artifact_manifest.json"}
     }
     assert listed == actual
-    assert all(entry["schema_version"] == "1.0.0" for entry in manifest["artifacts"])
+    assert {entry["schema_version"] for entry in manifest["artifacts"]} <= {"1.0.0", "2.0.0"}
+    assert {
+        entry["path"] for entry in manifest["artifacts"] if entry["schema_version"] == "2.0.0"
+    } == {
+        "geography/corridor.real.geojson",
+        "graph/candidate_walk_nodes.real.geojson",
+        "graph/candidate_walk_edges.real.geojson",
+        "graph/candidate_topology_qa.real.json",
+        "realdata/artifact_manifest.v2.json",
+    }
     assert all(entry["geometry_status"] for entry in manifest["artifacts"])
+
+
+def test_real_candidate_manifest_is_single_hash_bound_authority():
+    """[source_conformance] v2 authority binds every P0 artifact to one fixed-snapshot receipt."""
+    city = _yaml("city.yaml")
+    envelope = _json("artifact_manifest.json")
+    real = _json("realdata/artifact_manifest.v2.json")
+    receipt_path = "sources/receipts/osm-corridor.raw.receipt.json"
+    receipt = _json(receipt_path)
+    sources = {row["dataset_id"]: row for row in _csv_rows("sources/source_manifest.csv")}
+    expected = {
+        "geography/corridor.real.geojson",
+        "graph/candidate_walk_nodes.real.geojson",
+        "graph/candidate_walk_edges.real.geojson",
+        "graph/candidate_topology_qa.real.json",
+    }
+    assert city["p0_osm_candidate_artifact_manifest"] == "realdata/artifact_manifest.v2.json"
+    assert real["schema_version"] == "2.0.0"
+    assert real["authority"] == "FUJISAWA_P0_OSM_CANDIDATE_ONLY"
+    assert real["source_dataset_id"] == "OSM_CANDIDATE_SOURCE"
+    assert real["source_raw_sha256"] == receipt["raw_sha256"]
+    assert {entry["artifact_path"] for entry in real["artifacts"]} == expected
+    assert all(entry["source_receipt_path"] == receipt_path for entry in real["artifacts"])
+    assert all(_sha256(entry["artifact_path"]) == entry["sha256"] for entry in real["artifacts"])
+    envelope_v2 = {
+        entry["path"] for entry in envelope["artifacts"]
+        if entry["schema_version"] == "2.0.0" and entry["path"] != "realdata/artifact_manifest.v2.json"
+    }
+    assert envelope_v2 == expected
+    source = sources[real["source_dataset_id"]]
+    assert source["freshness_status"] == "FIXED_SNAPSHOT"
+    assert source["download_status"] == "EXTERNAL_RAW_RECEIPT_ONLY"
+    assert source["source_class"] == "VGI_METADATA_ONLY"
 
 
 def test_real_geometry_is_absent_and_demo_geometry_is_unmistakable():

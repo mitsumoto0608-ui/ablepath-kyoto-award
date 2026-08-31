@@ -1,0 +1,59 @@
+[
+  {
+    "query_id": "osm_arashiyama_20260829__osm_arashiyama_20260829",
+    "filename": "osm_arashiyama_20260829__osm_arashiyama_20260829.overpassql",
+    "sha256": "b5c52b3ea7542261159b5764956aa9662673c0422b3509dc59e4866f00c14603",
+    "status": "DUPLICATE_REUSED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": []
+  },
+  {
+    "query_id": "osm_fujisawa_enoshima_20260830__osm-corridor",
+    "filename": "osm_fujisawa_enoshima_20260830__osm-corridor.overpassql",
+    "sha256": "420988e51d349b1828d6c4a59ec3c69e7d1cb218ef6b23cb5ccbd497d78a6e82",
+    "status": "DUPLICATE_REUSED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": []
+  },
+  {
+    "query_id": "osm_fujisawa_enoshima_20260901",
+    "filename": "osm_fujisawa_enoshima_20260901.overpassql",
+    "sha256": "0f6267f96c29374778f9174d323073882dd06d2494c31dbecf31f001f1752ddf",
+    "status": "DOWNLOADED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": [
+      "POST HTTP_406",
+      "GET succeeded"
+    ]
+  },
+  {
+    "query_id": "osm_kiyomizu_gion_corridor_20260830__osm_corridor_20260830",
+    "filename": "osm_kiyomizu_gion_corridor_20260830__osm_corridor_20260830.overpassql",
+    "sha256": "f32964329548d7d715c79cf05da6a28a7ac8230781acc4852f9174ba9f4dfb7b",
+    "status": "DUPLICATE_REUSED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": []
+  },
+  {
+    "query_id": "osm_kyoto_arashiyama_20260901",
+    "filename": "osm_kyoto_arashiyama_20260901.overpassql",
+    "sha256": "1696f71014ecba5277474767421edb65f20b2f25f7f0b8258f7810d804173f25",
+    "status": "DOWNLOADED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": [
+      "POST HTTP_406",
+      "GET succeeded"
+    ]
+  },
+  {
+    "query_id": "osm_kyoto_kiyomizu_gion_20260901",
+    "filename": "osm_kyoto_kiyomizu_gion_20260901.overpassql",
+    "sha256": "f73b07c2e1a6a96747dd02be43e2ad4ae6e768cda9a3c0247283ed0c0941e9a0",
+    "status": "DOWNLOADED",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "failure_history": [
+      "POST HTTP_406",
+      "GET succeeded"
+    ]
+  }
+]
