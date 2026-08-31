@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "city_id": "kyoto_arashiyama",
+        "reason": "Expands the prior central-Arashiyama bbox to include the Master-defined Togetsukyo approaches, Randen Arashiyama, JR Saga-Arashiyama, Hankyu Arashiyama and candidate facility connectors; not an administrative boundary.",
+        "prior_bbox": [135.6748, 35.0087, 135.6802, 35.0153],
+        "axis_order": "longitude_latitude"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[135.6710,35.0000],[135.6890,35.0000],[135.6890,35.0220],[135.6710,35.0220],[135.6710,35.0000]]]
+      }
+    }
+  ]
+}
