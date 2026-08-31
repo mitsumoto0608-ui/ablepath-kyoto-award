@@ -36,6 +36,7 @@ Count wording is fixed as: **44 acquired/catalogued entries + 3 `NOT_FOUND` gap 
 - repository trust-boundary/large-file scan: PASS
 - independent final report/contract review: COMMIT YES, no findings
 - post-handoff revalidation: Python `529 passed, 1 warning`; runner SHA twice unchanged; allocator SHA unchanged; trust scan PASS
+- first final Hosted CI fingerprint: the Fujisawa raw-mismatch test incorrectly depended on a machine-local canonical raw path; a one-file test-only portability repair retained the fail-closed assertion, passed targeted `2/2`, and the full suite remained `529 passed, 1 warning`
 
 The first two Python attempts were invalid environment runs because the default temp root was unreadable and the first alternate parent did not yet exist. With a dedicated writable temp parent, the unchanged suite passed. No source/test contract was weakened.
 

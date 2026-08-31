@@ -53,13 +53,17 @@ def test_phase4_fujisawa_osm_receipt_promotes_only_bounded_vgi_candidate() -> No
 
 
 def test_phase4_fujisawa_raw_receipt_hash_mismatch_fails_closed(tmp_path: Path) -> None:
-    """[source_conformance] A mismatched external raw receipt cannot promote the candidate."""
+    """[source_conformance] A mismatched raw fixture cannot promote the candidate.
+
+    The mismatch is intentionally self-contained: CI must not depend on a
+    machine-local canonical raw root in order to prove the fail-closed rule.
+    """
 
     receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
     receipt["raw_sha256"] = "0" * 64
     bad_receipt = tmp_path / "receipt.json"
     bad_receipt.write_text(json.dumps(receipt), encoding="utf-8")
+    raw_fixture = tmp_path / "osm-corridor.raw.json"
+    raw_fixture.write_bytes(b'{"fixture":"intentional receipt mismatch"}\n')
     with pytest.raises(AssertionError):
-        assert json.loads(bad_receipt.read_text(encoding="utf-8"))["raw_sha256"] == _sha256(
-            Path("C:/dev") / receipt["raw_trust_location_relative"]
-        )
+        assert json.loads(bad_receipt.read_text(encoding="utf-8"))["raw_sha256"] == _sha256(raw_fixture)

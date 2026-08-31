@@ -161,6 +161,11 @@
       "fingerprint": "PYTEST_TEMP_ROOT_UNAVAILABLE",
       "count": 2,
       "resolution": "Used a dedicated writable C:/dev test temp parent; unchanged suite then passed 529 tests"
+    },
+    {
+      "fingerprint": "HOSTED_CI_MACHINE_LOCAL_RAW_TEST_DEPENDENCY",
+      "count": 1,
+      "resolution": "Replaced only the mismatch test's machine-local raw lookup with a tmp_path intentional mismatch fixture; targeted 2 passed and unchanged fail-closed contract full suite passed 529 tests"
     }
   ],
   "unresolved_human_decisions": [
