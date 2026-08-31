@@ -29,3 +29,172 @@ playbooks:
     protected_boundaries: [credentials, external_writes, main, baseline_tag]
     confidence: LOW
     human_approved: false
+  - playbook_id: private-free-plan-main-protection-fallback-v1
+    trigger: GitHub private-plan ruleset or branch-protection capability returns the known HTTP 403 fingerprint
+    actions:
+      - do not retry the same ruleset or classic branch-protection APIs until capability changes
+      - report SERVER_SIDE_BRANCH_PROTECTION=false without implying equivalence
+      - install and verify the versioned local pre-push accident-prevention hook
+      - use isolated worktrees and only task/**, integration/**, or release/** branches
+      - require draft PR, Hosted CI, and human-only main merge
+      - reject main, every tag, deletion, non-fast-forward, malformed, or unavailable-object push locally
+    protected_boundaries: [main, baseline_tag, credentials, server_protection_truth, human_merge_gate]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: recreate-external-venv-from-project-metadata-v1
+    trigger: an external virtualenv launcher is stale or incompatible
+    actions:
+      - discard no repository files and change no dependency metadata
+      - create a new virtualenv outside the repository
+      - install the project from its declared development metadata
+      - run the unchanged tests
+    protected_boundaries: [pyproject, lockfiles, repository_venv, expected_values]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: unique-external-pytest-basetemp-v1
+    trigger: pytest default base temporary directory is inaccessible
+    actions:
+      - select a unique writable base temporary directory outside the repository
+      - disable cacheprovider when cache writes are not required by the acceptance gate
+      - run targeted tests before the unchanged full suite
+    protected_boundaries: [tests, expected_values, repository_files]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: fresh-install-fixture-normalization-v1
+    trigger: a disposable installer test claims a fresh lifecycle while a prior fixture hook exists
+    actions:
+      - fingerprint the fixture lifecycle separately from repository behavior
+      - remove only the disposable pre-existing hook before the fresh-install action
+      - run targeted guard tests and then the unchanged full suite
+      - leave the real installed hook and protection claims unchanged
+    protected_boundaries: [real_git_hooks, server_protection_truth, expected_guard_behavior]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: validated-geometry-capability-chain-v1
+    trigger: metadata hashes or caller-supplied scenario fields are being treated as geometry-connection authority
+    actions:
+      - distinguish hash-bound artifact metadata from validated connectable geometry
+      - issue a geometry capability only after strict canonical geometry and lineage validation
+      - bind edge identity, official artifact source IDs, feature hazard types, and immutable payload bytes
+      - repeat the relationship checks at every public derive and deserialize boundary
+      - preserve UNKNOWN when coverage, depth, closure, or policy authority is absent
+    protected_boundaries: [UNKNOWN_semantics, official_data_interpretation, source_provenance, safety_state]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: stdlib-schema-structural-precheck-v1
+    trigger: schema verification needs semantic mutation coverage but adding a validator dependency is prohibited
+    actions:
+      - parse the schema with the standard library
+      - assert its exact field and conditional constraint surface
+      - evaluate only the fixture's declared keyword subset in tests
+      - retain runtime relational validation as normative
+      - do not change dependency metadata
+    protected_boundaries: [dependencies, exact_schema, runtime_contract]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: calendar-valid-provenance-time-v1
+    trigger: a timestamp passes lexical validation but may not be a real calendar instant
+    actions:
+      - validate the exact required UTC lexical form
+      - parse year month day and time for calendar validity
+      - reject offsets or fractional forms outside the contract
+      - add impossible-date negative tests
+    protected_boundaries: [source_provenance, temporal_truth]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: pytest-post-result-exit-stall-v1
+    trigger: pytest reports complete passing progress but does not terminate under inherited Windows temp or cache state
+    actions:
+      - "OBSERVE: capture the last emitted progress and bound the observation window"
+      - "FINGERPRINT: normalize the post-result exit stall separately from a test assertion failure"
+      - "LESSON search: search memory for the Windows external-temp fingerprint"
+      - "DIAGNOSE: distinguish inherited temp or cache state from repository behavior"
+      - "CHECKPOINT: preserve repository bytes and interrupt only the stalled pytest process"
+      - "REPAIR: select a new external basetemp and disable cacheprovider"
+      - "TARGETED TEST: rerun the unchanged targeted tests"
+      - "FULL TEST: run the unchanged full suite after targeted success"
+      - "REFLECT: confirm no repository test or dependency change masked the environment fault"
+      - "MEMORY update: record the observed presentation and successful environment-only repair"
+    protected_boundaries: [test_truth, dependencies, repository_state]
+    confidence: MEDIUM
+    human_approved: false
+  - playbook_id: exclude-unsafe-hokonavi-prototype-v1
+    trigger: adapter review finds silent source-field loss or an unvalidated semantic sidecar
+    actions:
+      - "OBSERVE: record every lost BIDIRECTIONAL field, UNKNOWN kind, and sidecar validation gap"
+      - "FINGERPRINT: classify the combined round-trip and provenance-boundary failure"
+      - "LESSON search: compare prior provenance capability and no-silent-drop lessons"
+      - "DIAGNOSE: distinguish fixture equality from original-source semantic preservation"
+      - "CHECKPOINT: keep the reviewed mapping contract and exclude the unsafe implementation branch"
+      - "REPAIR: report the adapter as not implemented and preserve the design-only contract"
+      - "TARGETED TEST: retain the existing design-contract tests unchanged"
+      - "FULL TEST: run the integrated full suite without the rejected prototype"
+      - "REFLECT: state that deadline-safe degradation did not satisfy prototype implementation"
+      - "MEMORY update: require exact sidecar schemas and mutation-tested original-source round trips before retry"
+    protected_boundaries: [UNKNOWN_semantics, source_provenance, no_silent_loss, human_gate]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: exact-path-hash-bound-lf-checkout-v1
+    trigger: a hash-bound text artifact differs only after a cross-platform Git checkout
+    actions:
+      - "OBSERVE: capture failing manifest expected and raw working SHA values"
+      - "FINGERPRINT: classify checkout byte drift separately from data or calculation drift"
+      - "LESSON search: inspect prior newline and deterministic archive lessons"
+      - "DIAGNOSE: compare raw working bytes, HEAD blob bytes, and LF-normalized working bytes"
+      - "CHECKPOINT: preserve the correct HEAD blobs and manifest expectations"
+      - "REPAIR: add text eol=lf for each reviewed existing text path without directory wildcards, then re-checkout from HEAD"
+      - "TARGETED TEST: verify working HEAD and manifest SHA equality and run the affected city tests"
+      - "FULL TEST: run the unchanged full Python suite"
+      - "REFLECT: confirm no expected SHA, source data, legacy path, other city, or binary policy changed"
+      - "MEMORY update: record exact-path LF as part of future hash-bound text provenance reviews"
+    protected_boundaries: [source_provenance, deterministic_bytes, future_binary_artifacts]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: authorized-isolated-worktree-runner-v1
+    trigger: runner output write is denied only because an isolated worktree is outside the sandbox writable root
+    actions:
+      - "OBSERVE: capture the exact denied output path and confirm the runner reached its write step"
+      - "FINGERPRINT: classify sandbox write denial separately from model or data failure"
+      - "LESSON search: inspect prior external-environment and permission fingerprints"
+      - "DIAGNOSE: verify branch, clean inputs, worktree containment, and that no output was partially changed"
+      - "CHECKPOINT: preserve tracked source, expected hashes, main, and tags"
+      - "REPAIR: request approval for only the exact runner command in the authorized isolated worktree"
+      - "TARGETED TEST: run the runner once and verify 120 runs plus baseline SHA"
+      - "FULL TEST: repeat the runner and verify both SHA values and generated-file blob equality"
+      - "REFLECT: confirm no source, expected SHA, dependency, main, or tag change"
+      - "MEMORY update: record sandbox/worktree permission as environment capability state"
+    protected_boundaries: [runner_semantics, deterministic_hash, main, tags]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: authorized-playwright-child-lifecycle-v1
+    trigger: Playwright emits complete passing results but its sandboxed Windows web-server child lifecycle does not terminate
+    actions:
+      - "OBSERVE: capture the complete Playwright result and bound the post-result wait"
+      - "FINGERPRINT: separate child-process exit stall from a test assertion or application failure"
+      - "LESSON search: inspect prior Windows post-result and web-server lifecycle records"
+      - "DIAGNOSE: verify every project result is present and no assertion or server-start error occurred"
+      - "CHECKPOINT: preserve repository state and stop only the stalled command"
+      - "REPAIR: rerun the exact command with permission to manage the Playwright web-server child process"
+      - "TARGETED TEST: confirm the 320px desktop and mobile assertions pass unchanged"
+      - "FULL TEST: confirm the complete E2E suite exits zero with 17 passed and 1 intentional skip"
+      - "REFLECT: confirm no viewport, assertion, skip, dependency, or application change masked the environment fault"
+      - "MEMORY update: retain the environment fingerprint and bounded authorized rerun"
+    protected_boundaries: [test_truth, responsive_layout, dependencies, repository_state]
+    confidence: HIGH
+    human_approved: false
+  - playbook_id: sha256sums-path-keyed-inspection-v1
+    trigger: independent RC inspection cannot find a known payload after parsing SHA256SUMS
+    actions:
+      - "OBSERVE: retain the exact lookup error and confirm whether the built-in archive verifier already passed"
+      - "FINGERPRINT: classify inspection-code mapping direction separately from archive checksum failure"
+      - "LESSON search: search release checksum and manifest verification records before changing anything"
+      - "DIAGNOSE: inspect the documented digest double-space path line order and the constructed key direction"
+      - "CHECKPOINT: preserve both archive bytes, their SHA values, the clean repository, and source HEAD"
+      - "REPAIR: parse named digest and path values and construct an explicit path-to-digest mapping"
+      - "TARGETED TEST: inspect one archive and assert source commit plus all_runs membership and digest"
+      - "FULL TEST: run clean extraction verification and all payload manifest comparisons on both archives"
+      - "REFLECT: confirm the archive and builder were unchanged and the failure existed only in ad hoc inspection"
+      - "MEMORY update: retain the path-keyed parsing invariant for future independent RC checks"
+    protected_boundaries: [release_bytes, checksum_truth, source_commit, repository_state]
+    confidence: HIGH
+    human_approved: false

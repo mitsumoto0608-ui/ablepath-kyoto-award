@@ -4,9 +4,9 @@ Overall status: `PARTIAL_COMPLETE`.
 
 ## Product/data gaps
 
-- No city has real source-traceable geometry connected to the viewer.
-- No official hazard polygon/raster is connected to an edge; overlap and operational effects remain `UNKNOWN`.
-- All displayed route geometry is `SYNTHETIC_DEMO`; graph status is `CANDIDATE`.
+- Kiyomizu has a hash-bound `SOURCE_TRACEABLE_REAL` / VGI corridor artifact and a 21-node/19-edge candidate graph, but no city has real geometry connected to the viewer or model pipeline.
+- The Kiyomizu official landslide preview is quarantined as `NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT`; no official hazard polygon/raster is connected to an edge and operational effects remain `UNKNOWN`.
+- All viewer-displayed route geometry is `SYNTHETIC_DEMO`; Kiyomizu's separate real graph is `CANDIDATE` with route continuity `NOT_ESTABLISHED`.
 - M6/profile integration is absent, so profile result is `NOT_COMPUTED` and its selector is disabled.
 - Demand, current capacity, verified entrances, and operating/opening state are incomplete. All five KPI values remain reasoned `null`, never zero.
 - No real/candidate city graph reaches a production hazard/profile/model pipeline; `MODEL_CONNECTED=false`.
@@ -14,20 +14,21 @@ Overall status: `PARTIAL_COMPLETE`.
 - Field verification and administrative validation have not occurred.
 - City KPI ranking/comparison is not supported because assumptions and completeness differ.
 
-City gap registers contain 31 records: 清水10 (OPEN 9, REQUIRES_APPLICATION 1), 嵐山13 (OPEN 13), 藤沢8 (BLOCKED 8).
+Legacy city gap registers contain 31 records: 清水10 (OPEN 9, REQUIRES_APPLICATION 1), 嵐山13 (OPEN 13), 藤沢8 (BLOCKED 8). They are not evidence that the excluded Arashiyama/Fujisawa real-data lanes were integrated.
 
 ## Operational gaps
 
-- Current authenticated state: GitHub CLI is authenticated as `mitsumoto0608-ui`; integration commits are pushed to the remote and draft PR #1 targets `main`. Auto-merge is off and `main` remains unmerged.
-- Pre-governance-sync evidence: source commit `aa957e3a024561022e939b4b00579251c9062a42` passed Hosted GitHub Actions run `33296626023` (Linux Python, Windows Python, and static viewer/Node jobs all succeeded). The governance-sync commit requires a new successful Hosted run before review handoff.
-- Historical only: an earlier local snapshot recorded `GITHUB_PUSH_BLOCKED` before human authentication. That condition is resolved and is not the current state.
+- Current authenticated state: draft PR #2 targets `main` from `integration/realdata-model-map-v1`. Reviewed checkpoint `048c03a35b4261b77b42b872e393fe34f4c59c4f` passed Hosted GitHub Actions run `33318099447`; Linux Python, Windows Python, and static viewer/Node all succeeded. Auto-merge is off and `main` remains unchanged by Phase 2.
+- The truth-sync feature branch must pass its own Hosted CI before a human decides how to update PR #2. Feature-branch success does not itself update or merge PR #2.
+- `SERVER_SIDE_BRANCH_PROTECTION=false`; the versioned local guard is not equivalent to server-side protection. Main merge remains human-only.
+- Historical only: PR #1, pre-Phase2 Hosted runs, and an earlier `GITHUB_PUSH_BLOCKED` snapshot are not current Phase 2 state.
 - Accessibility has automated/source review evidence, but no formal WCAG certification or assistive-technology user validation.
 - The bounded strategy result is a single fixed Windows collision replay; permanent champion promotion requires human review and broader/alternating-order evidence.
 
 ## Required human review before merge
 
 1. Source/truth-class and freshness interpretation for all 27 metadata rows.
-2. Geospatial CRS/axis/lineage and the decision to retain all geometry as synthetic candidate data.
+2. Geospatial CRS/axis/lineage、viewer表示をsyntheticに保つ判断、および清水の別laneにあるreal VGI/CANDIDATE artifactのscope。
 3. Hazard scenario vocabulary, `UNKNOWN` preservation, and absence of official closure inference.
 4. M6/profile disablement and reasoned-null KPI contract.
 5. Hokonavi information-loss mapping and the fact that no adapter to production state is connected.

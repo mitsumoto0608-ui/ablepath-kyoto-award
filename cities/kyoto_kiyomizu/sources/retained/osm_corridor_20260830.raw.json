@@ -1,0 +1,1381 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-08-30T13:41:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 24516359,
+  "nodes": [
+    266605415,
+    5327529598,
+    8323336757,
+    1697644473,
+    1697644472,
+    343365347,
+    3779179034,
+    343365491,
+    5315712402,
+    1697644470,
+    343365349
+  ],
+  "tags": {
+    "highway": "residential",
+    "lanes": "1",
+    "name": "八坂通",
+    "name:en": "Yasaka Street",
+    "name:fr": "Rue Yasaka",
+    "name:ja-Hira": "やさかどおり",
+    "name:ja-Latn": "Yasaka-dōri",
+    "oneway": "yes",
+    "oneway:bicycle": "no",
+    "surface": "sett",
+    "wikidata": "Q21019701",
+    "wikimedia_commons": "Category:Yasaka Dori",
+    "wikipedia": "ja:八坂通"
+  }
+},
+{
+  "type": "way",
+  "id": 28514434,
+  "nodes": [
+    343365378,
+    266606201,
+    12620133057,
+    343365383,
+    343365393,
+    343365403,
+    343365405,
+    1697644267,
+    343365409,
+    12620133056,
+    12620133055,
+    343365411,
+    12620133054,
+    12620133053,
+    3779171959,
+    12620133052,
+    12620133051,
+    12620133050,
+    3779171958,
+    12620133049,
+    12620133048,
+    3779171960,
+    343365447
+  ],
+  "tags": {
+    "highway": "pedestrian",
+    "name": "清水坂",
+    "name:en": "Kiyomizu Slope",
+    "name:fr": "Pente de Kiyomizu",
+    "name:ja-Hira": "きよみずざか",
+    "name:ja-Latn": "Kiyomizu-zaka",
+    "source": "Bing",
+    "surface": "paving_stones",
+    "tourism": "attraction",
+    "vehicle:conditional": "yes @ (19:00-08:00)"
+  }
+},
+{
+  "type": "way",
+  "id": 30882783,
+  "nodes": [
+    343365545,
+    7490517932,
+    7490517931,
+    7490517930,
+    5315789346
+  ],
+  "tags": {
+    "alt_name": "二寧坂",
+    "alt_name:ja-Hira": "に ねんざか",
+    "alt_name:ja-Latn": "Ninen-zaka",
+    "handrail": "no",
+    "highway": "steps",
+    "incline": "up",
+    "lit": "yes",
+    "name": "二年坂",
+    "name:en": "Two-year Slope",
+    "name:fr": "Pente de Deux Ans",
+    "name:ja-Hira": "に ねんざか",
+    "name:ja-Latn": "Ninen-zaka",
+    "ramp": "no",
+    "step_count": "17",
+    "surface": "paving_stones",
+    "tactile_paving": "no",
+    "tourism": "attraction",
+    "width": "4",
+    "wikidata": "Q80622906",
+    "wikimedia_commons": "Category:Ninen-zaka",
+    "wikipedia": "en:Ninenzaka"
+  }
+},
+{
+  "type": "way",
+  "id": 30913263,
+  "nodes": [
+    343365550,
+    5232668105,
+    5315712462,
+    5273129931,
+    5315789347,
+    5273129933,
+    343365545
+  ],
+  "tags": {
+    "alt_name": "二寧坂",
+    "alt_name:ja-Hira": "に ねんざか",
+    "alt_name:ja-Latn": "Ninen-zaka",
+    "highway": "pedestrian",
+    "lit": "yes",
+    "name": "二年坂",
+    "name:en": "Two-year Slope",
+    "name:fr": "Pente de Deux Ans",
+    "name:ja-Hira": "に ねんざか",
+    "name:ja-Latn": "Ninen-zaka",
+    "smoothness": "good",
+    "surface": "paving_stones",
+    "wikidata": "Q80622906",
+    "wikimedia_commons": "Category:Ninen-zaka",
+    "wikipedia": "en:Ninenzaka"
+  }
+},
+{
+  "type": "way",
+  "id": 58413931,
+  "nodes": [
+    2085443989,
+    4612016144,
+    11082203815,
+    5395133117,
+    5303068962,
+    4284209003,
+    309117212,
+    2785051569,
+    301118318,
+    4612016145,
+    4612016146,
+    1023798954,
+    2367201432,
+    11082203814,
+    266605718
+  ],
+  "tags": {
+    "highway": "secondary",
+    "lanes": "4",
+    "maxspeed": "40",
+    "name": "東大路通",
+    "name:en": "Higashioji Street",
+    "name:fr": "Rue Higashiōji",
+    "name:ja": "東大路通",
+    "name:ja-Hira": "ひがしおおじどおり",
+    "name:ja-Latn": "Higashiōji-dōri",
+    "name:sv": "Higashiōji dōri",
+    "official_name": "四ノ宮四ツ塚線",
+    "official_name:en": "Shinomiya Yotsuzuka Line",
+    "official_name:fr": "Route Shinomiya-Yotsuzuka",
+    "official_name:ja": "四ノ宮四ツ塚線",
+    "official_name:ja-Hira": "しのみやよつづかせん",
+    "official_name:ja-Latn": "Shinomiya Yotsudzuka sen",
+    "ref": "143",
+    "sidewalk:both": "separate",
+    "source": "Bing",
+    "surface": "asphalt",
+    "wikidata": "Q11526498",
+    "wikipedia": "ja:東大路通"
+  }
+},
+{
+  "type": "way",
+  "id": 157527438,
+  "nodes": [
+    1697644482,
+    1697644479,
+    3779171977,
+    3779171978,
+    1697644483,
+    1697644484,
+    6606657354,
+    1697644485,
+    5181219450,
+    343365516
+  ],
+  "tags": {
+    "alt_name": "一念坂",
+    "alt_name:ja-Hira": "いち ねんざか",
+    "alt_name:ja-Latn": "Ichinen-zaka",
+    "highway": "pedestrian",
+    "motor_vehicle:conditional": "no @ (10:00-17:00)",
+    "name": "一年坂",
+    "name:en": "One-year Slope",
+    "name:fr": "Pente d'Un An",
+    "name:ja-Hira": "いち ねんざか",
+    "name:ja-Latn": "Ichinen-zaka",
+    "source": "bing",
+    "surface": "paving_stones"
+  }
+},
+{
+  "type": "way",
+  "id": 174762077,
+  "nodes": [
+    266605718,
+    2367201379,
+    5011838428,
+    1214631032,
+    5011838427,
+    5235824727,
+    5235824719,
+    305371777,
+    301118607,
+    2781236877,
+    301118121,
+    5310264554,
+    5310264556,
+    305371772,
+    1697644510,
+    5312156316,
+    301118120,
+    5312156309,
+    305371755,
+    4764665815,
+    5327529652,
+    305371751,
+    1697644492,
+    5327529604,
+    266605415
+  ],
+  "tags": {
+    "highway": "secondary",
+    "lanes": "4",
+    "maxspeed": "40",
+    "name": "東大路通",
+    "name:en": "Higashiōji Street",
+    "name:fr": "Rue Higashiōji",
+    "name:ja": "東大路通",
+    "name:ja-Hira": "ひがしおおじどおり",
+    "name:ja-Latn": "Higashiōji-dōri",
+    "name:sv": "Higashiōji dōri",
+    "official_name": "四ノ宮四ツ塚線",
+    "official_name:en": "Shinomiya Yotsuzuka Line",
+    "official_name:fr": "Route Shinomiya-Yotsuzuka",
+    "official_name:ja": "四ノ宮四ツ塚線",
+    "official_name:ja-Hira": "しのみやよつづかせん",
+    "official_name:ja-Latn": "Shinomiya Yotsudzuka sen",
+    "ref": "143",
+    "sidewalk:both": "separate",
+    "source": "Bing",
+    "surface": "asphalt",
+    "wikidata": "Q11526498",
+    "wikipedia": "ja:東大路通"
+  }
+},
+{
+  "type": "way",
+  "id": 179116810,
+  "nodes": [
+    5273686786,
+    1894567561,
+    5117539281
+  ],
+  "tags": {
+    "alt_name": "産寧坂",
+    "alt_name:ja-Hira": "さんねいざか",
+    "alt_name:ja-Latn": "Sannei-zaka",
+    "handrail": "no",
+    "highway": "steps",
+    "incline": "down",
+    "lit": "yes",
+    "name": "三年坂",
+    "name:en": "Three-year Slope",
+    "name:fr": "Pente de Trois Ans",
+    "name:ja-Hira": "さん ねんざか",
+    "name:ja-Latn": "Sannen-zaka",
+    "ramp": "no",
+    "step_count": "46",
+    "surface": "paving_stones",
+    "tactile_paving": "no",
+    "tourism": "attraction",
+    "wheelchair": "no",
+    "width": "4",
+    "wikidata": "Q11574990",
+    "wikimedia_commons": "Category:Sannei-zaka",
+    "wikipedia": "ja:産寧坂"
+  }
+},
+{
+  "type": "way",
+  "id": 371739384,
+  "nodes": [
+    6990188568,
+    3752885685,
+    3752885671
+  ],
+  "tags": {
+    "highway": "footway",
+    "name": "ねねの小径",
+    "name:en": "Nenenokomichi"
+  }
+},
+{
+  "type": "way",
+  "id": 371739385,
+  "nodes": [
+    3752885643,
+    3752885648,
+    3752885646,
+    3752885649,
+    6990188569
+  ],
+  "tags": {
+    "highway": "footway",
+    "name": "ねねの小径",
+    "name:en": "Nenenokomichi"
+  }
+},
+{
+  "type": "way",
+  "id": 526198271,
+  "nodes": [
+    5117539281,
+    266606200,
+    1894567562,
+    5232798144,
+    339112606,
+    3779179029,
+    343365360,
+    5279549701,
+    343365356,
+    5315620547,
+    3779179028,
+    343365353,
+    5315620548,
+    3779179027,
+    5315620549,
+    1894567564,
+    266606198
+  ],
+  "tags": {
+    "alt_name": "産寧坂",
+    "alt_name:ja-Hira": "さんねいざか",
+    "alt_name:ja-Latn": "Sannei-zaka",
+    "highway": "pedestrian",
+    "lit": "yes",
+    "name": "三年坂",
+    "name:en": "Three-year Slope",
+    "name:fr": "Pente de Trois Ans",
+    "name:ja-Hira": "さん ねんざか",
+    "name:ja-Latn": "Sannen-zaka",
+    "smoothness": "good",
+    "surface": "paving_stones",
+    "wikidata": "Q11574990",
+    "wikimedia_commons": "Category:Sannei-zaka",
+    "wikipedia": "ja:産寧坂"
+  }
+},
+{
+  "type": "way",
+  "id": 550360170,
+  "nodes": [
+    5315789346,
+    266606198
+  ],
+  "tags": {
+    "alt_name": "二寧坂",
+    "alt_name:ja-Hira": "に ねんざか",
+    "alt_name:ja-Latn": "Ninen-zaka",
+    "highway": "pedestrian",
+    "name": "二年坂",
+    "name:en": "Two-year Slope",
+    "name:fr": "Pente de Deux Ans",
+    "name:ja-Hira": "に ねんざか",
+    "name:ja-Latn": "Ninen-zaka",
+    "smoothness": "good",
+    "surface": "paving_stones",
+    "wikidata": "Q80622906",
+    "wikimedia_commons": "Category:Ninen-zaka",
+    "wikipedia": "en:Ninenzaka"
+  }
+},
+{
+  "type": "way",
+  "id": 710696944,
+  "nodes": [
+    343365349,
+    5315712398,
+    3752690101,
+    5315757622,
+    1894567573,
+    1894567571,
+    5315712526,
+    5315712525,
+    5315712524,
+    343365351,
+    3779179030,
+    5181219349,
+    1894567568,
+    1894567566,
+    3779179026,
+    5315620550,
+    5232731774,
+    5315620551,
+    266606198
+  ],
+  "tags": {
+    "alt_name": "産寧坂",
+    "alt_name:ja-Hira": "さん ねんざか",
+    "alt_name:ja-Latn": "Sannen-zaka",
+    "bicycle": "no",
+    "highway": "pedestrian",
+    "lit": "yes",
+    "motor_vehicle:conditional": "no @ (10:00-17:00)",
+    "name": "三年坂",
+    "name:fr": "Pente de Trois Ans",
+    "name:ja-Hira": "さん ねんざか",
+    "name:ja-Latn": "Sannen-zaka",
+    "smoothness": "good",
+    "surface": "paving_stones",
+    "wikidata": "Q11574990",
+    "wikimedia_commons": "Category:Sannei-zaka",
+    "wikipedia": "ja:産寧坂"
+  }
+},
+{
+  "type": "way",
+  "id": 747033984,
+  "nodes": [
+    3752885680,
+    6990188568
+  ],
+  "tags": {
+    "highway": "footway",
+    "name": "ねねの小径",
+    "name:en": "Nenenokomichi",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 747033985,
+  "nodes": [
+    6990188569,
+    3752885680
+  ],
+  "tags": {
+    "highway": "footway",
+    "name": "ねねの小径",
+    "name:en": "Nenenokomichi",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 1251544286,
+  "nodes": [
+    266606201,
+    5273686786
+  ],
+  "tags": {
+    "alt_name": "産寧坂",
+    "alt_name:ja-Hira": "さんねいざか",
+    "alt_name:ja-Latn": "Sannei-zaka",
+    "highway": "pedestrian",
+    "name": "三年坂",
+    "name:en": "Three-year Slope",
+    "name:fr": "Pente de Trois Ans",
+    "name:ja-Hira": "さん ねんざか",
+    "name:ja-Latn": "Sannen-zaka",
+    "smoothness": "good",
+    "surface": "paving_stones",
+    "wikidata": "Q11574990",
+    "wikimedia_commons": "Category:Sannei-zaka",
+    "wikipedia": "ja:産寧坂"
+  }
+},
+{
+  "type": "way",
+  "id": 1491152444,
+  "nodes": [
+    343365555,
+    8817872726,
+    1697644482,
+    5232668175,
+    5232668167,
+    343365550
+  ],
+  "tags": {
+    "alt_name": "二寧坂",
+    "alt_name:ja-Hira": "に ねんざか",
+    "alt_name:ja-Latn": "Ninen-zaka",
+    "highway": "service",
+    "lit": "yes",
+    "name": "二年坂",
+    "name:en": "Two-year Slope",
+    "name:fr": "Pente de Deux Ans",
+    "name:ja-Hira": "に ねんざか",
+    "name:ja-Latn": "Ninen-zaka",
+    "smoothness": "good",
+    "wikidata": "Q80622906",
+    "wikimedia_commons": "Category:Ninen-zaka",
+    "wikipedia": "en:Ninenzaka"
+  }
+},
+{
+  "type": "node",
+  "id": 266605415,
+  "lat": 34.9987052,
+  "lon": 135.7771901
+},
+{
+  "type": "node",
+  "id": 305371751,
+  "lat": 34.9994080,
+  "lon": 135.7773136
+},
+{
+  "type": "node",
+  "id": 1697644492,
+  "lat": 34.9993600,
+  "lon": 135.7773040
+},
+{
+  "type": "node",
+  "id": 5327529598,
+  "lat": 34.9986946,
+  "lon": 135.7772680
+},
+{
+  "type": "node",
+  "id": 5327529604,
+  "lat": 34.9992637,
+  "lon": 135.7772840
+},
+{
+  "type": "node",
+  "id": 5327529652,
+  "lat": 34.9994669,
+  "lon": 135.7773249
+},
+{
+  "type": "node",
+  "id": 266606198,
+  "lat": 34.9979977,
+  "lon": 135.7808045
+},
+{
+  "type": "node",
+  "id": 266606200,
+  "lat": 34.9966568,
+  "lon": 135.7810189
+},
+{
+  "type": "node",
+  "id": 266606201,
+  "lat": 34.9961782,
+  "lon": 135.7807911
+},
+{
+  "type": "node",
+  "id": 339112606,
+  "lat": 34.9969474,
+  "lon": 135.7810281
+},
+{
+  "type": "node",
+  "id": 343365347,
+  "lat": 34.9985982,
+  "lon": 135.7782773
+},
+{
+  "type": "node",
+  "id": 343365349,
+  "lat": 34.9984353,
+  "lon": 135.7790096
+},
+{
+  "type": "node",
+  "id": 343365351,
+  "lat": 34.9982300,
+  "lon": 135.7799258
+},
+{
+  "type": "node",
+  "id": 343365353,
+  "lat": 34.9978509,
+  "lon": 135.7810049
+},
+{
+  "type": "node",
+  "id": 343365356,
+  "lat": 34.9977670,
+  "lon": 135.7810459
+},
+{
+  "type": "node",
+  "id": 343365360,
+  "lat": 34.9976499,
+  "lon": 135.7810585
+},
+{
+  "type": "node",
+  "id": 343365378,
+  "lat": 34.9962012,
+  "lon": 135.7807256
+},
+{
+  "type": "node",
+  "id": 343365383,
+  "lat": 34.9960220,
+  "lon": 135.7812352
+},
+{
+  "type": "node",
+  "id": 343365393,
+  "lat": 34.9960081,
+  "lon": 135.7812706
+},
+{
+  "type": "node",
+  "id": 343365403,
+  "lat": 34.9959944,
+  "lon": 135.7813026
+},
+{
+  "type": "node",
+  "id": 343365405,
+  "lat": 34.9957931,
+  "lon": 135.7816958
+},
+{
+  "type": "node",
+  "id": 343365409,
+  "lat": 34.9957136,
+  "lon": 135.7818464
+},
+{
+  "type": "node",
+  "id": 343365411,
+  "lat": 34.9956264,
+  "lon": 135.7819636
+},
+{
+  "type": "node",
+  "id": 343365447,
+  "lat": 34.9955134,
+  "lon": 135.7829169
+},
+{
+  "type": "node",
+  "id": 343365491,
+  "lat": 34.9985629,
+  "lon": 135.7787712
+},
+{
+  "type": "node",
+  "id": 343365516,
+  "lat": 34.9992641,
+  "lon": 135.7798442
+},
+{
+  "type": "node",
+  "id": 343365545,
+  "lat": 34.9981617,
+  "lon": 135.7808521
+},
+{
+  "type": "node",
+  "id": 343365550,
+  "lat": 34.9987332,
+  "lon": 135.7808159
+},
+{
+  "type": "node",
+  "id": 343365555,
+  "lat": 34.9992677,
+  "lon": 135.7807044
+},
+{
+  "type": "node",
+  "id": 1697644267,
+  "lat": 34.9957282,
+  "lon": 135.7818211
+},
+{
+  "type": "node",
+  "id": 1697644470,
+  "lat": 34.9985457,
+  "lon": 135.7790246
+},
+{
+  "type": "node",
+  "id": 1697644472,
+  "lat": 34.9986250,
+  "lon": 135.7779846
+},
+{
+  "type": "node",
+  "id": 1697644473,
+  "lat": 34.9986523,
+  "lon": 135.7776554
+},
+{
+  "type": "node",
+  "id": 1697644479,
+  "lat": 34.9990107,
+  "lon": 135.7800646
+},
+{
+  "type": "node",
+  "id": 1697644482,
+  "lat": 34.9990616,
+  "lon": 135.7807180
+},
+{
+  "type": "node",
+  "id": 1697644483,
+  "lat": 34.9991177,
+  "lon": 135.7799703
+},
+{
+  "type": "node",
+  "id": 1697644484,
+  "lat": 34.9991403,
+  "lon": 135.7799257
+},
+{
+  "type": "node",
+  "id": 1697644485,
+  "lat": 34.9991590,
+  "lon": 135.7798637
+},
+{
+  "type": "node",
+  "id": 1894567561,
+  "lat": 34.9963541,
+  "lon": 135.7808855
+},
+{
+  "type": "node",
+  "id": 1894567562,
+  "lat": 34.9967181,
+  "lon": 135.7810239
+},
+{
+  "type": "node",
+  "id": 1894567564,
+  "lat": 34.9979320,
+  "lon": 135.7809199
+},
+{
+  "type": "node",
+  "id": 1894567566,
+  "lat": 34.9980499,
+  "lon": 135.7805926
+},
+{
+  "type": "node",
+  "id": 1894567568,
+  "lat": 34.9980832,
+  "lon": 135.7802933
+},
+{
+  "type": "node",
+  "id": 1894567571,
+  "lat": 34.9983166,
+  "lon": 135.7798004
+},
+{
+  "type": "node",
+  "id": 1894567573,
+  "lat": 34.9983277,
+  "lon": 135.7797694
+},
+{
+  "type": "node",
+  "id": 3752690101,
+  "lat": 34.9984013,
+  "lon": 135.7792562
+},
+{
+  "type": "node",
+  "id": 3779171958,
+  "lat": 34.9955136,
+  "lon": 135.7822030
+},
+{
+  "type": "node",
+  "id": 3779171959,
+  "lat": 34.9955646,
+  "lon": 135.7820565
+},
+{
+  "type": "node",
+  "id": 3779171960,
+  "lat": 34.9955015,
+  "lon": 135.7823217
+},
+{
+  "type": "node",
+  "id": 3779171977,
+  "lat": 34.9990285,
+  "lon": 135.7800356
+},
+{
+  "type": "node",
+  "id": 3779171978,
+  "lat": 34.9990833,
+  "lon": 135.7800031
+},
+{
+  "type": "node",
+  "id": 3779179026,
+  "lat": 34.9980282,
+  "lon": 135.7807077
+},
+{
+  "type": "node",
+  "id": 3779179027,
+  "lat": 34.9978967,
+  "lon": 135.7809648
+},
+{
+  "type": "node",
+  "id": 3779179028,
+  "lat": 34.9978095,
+  "lon": 135.7810295
+},
+{
+  "type": "node",
+  "id": 3779179029,
+  "lat": 34.9974947,
+  "lon": 135.7810632
+},
+{
+  "type": "node",
+  "id": 3779179030,
+  "lat": 34.9981086,
+  "lon": 135.7801938
+},
+{
+  "type": "node",
+  "id": 3779179034,
+  "lat": 34.9985771,
+  "lon": 135.7785408
+},
+{
+  "type": "node",
+  "id": 5117539281,
+  "lat": 34.9964741,
+  "lon": 135.7809446
+},
+{
+  "type": "node",
+  "id": 5181219349,
+  "lat": 34.9980961,
+  "lon": 135.7802365
+},
+{
+  "type": "node",
+  "id": 5181219450,
+  "lat": 34.9992109,
+  "lon": 135.7798541
+},
+{
+  "type": "node",
+  "id": 5232668105,
+  "lat": 34.9986602,
+  "lon": 135.7808259
+},
+{
+  "type": "node",
+  "id": 5232668167,
+  "lat": 34.9988009,
+  "lon": 135.7808058
+},
+{
+  "type": "node",
+  "id": 5232668175,
+  "lat": 34.9988684,
+  "lon": 135.7807917
+},
+{
+  "type": "node",
+  "id": 5232731774,
+  "lat": 34.9980152,
+  "lon": 135.7807602
+},
+{
+  "type": "node",
+  "id": 5232798144,
+  "lat": 34.9968943,
+  "lon": 135.7810265
+},
+{
+  "type": "node",
+  "id": 5273129931,
+  "lat": 34.9984035,
+  "lon": 135.7808427
+},
+{
+  "type": "node",
+  "id": 5273129933,
+  "lat": 34.9982262,
+  "lon": 135.7808502
+},
+{
+  "type": "node",
+  "id": 5273686786,
+  "lat": 34.9962092,
+  "lon": 135.7808078
+},
+{
+  "type": "node",
+  "id": 5279549701,
+  "lat": 34.9977064,
+  "lon": 135.7810529
+},
+{
+  "type": "node",
+  "id": 5315620547,
+  "lat": 34.9977891,
+  "lon": 135.7810395
+},
+{
+  "type": "node",
+  "id": 5315620548,
+  "lat": 34.9978734,
+  "lon": 135.7809875
+},
+{
+  "type": "node",
+  "id": 5315620549,
+  "lat": 34.9979168,
+  "lon": 135.7809412
+},
+{
+  "type": "node",
+  "id": 5315620550,
+  "lat": 34.9980225,
+  "lon": 135.7807334
+},
+{
+  "type": "node",
+  "id": 5315620551,
+  "lat": 34.9980071,
+  "lon": 135.7807833
+},
+{
+  "type": "node",
+  "id": 5315712398,
+  "lat": 34.9984204,
+  "lon": 135.7791134
+},
+{
+  "type": "node",
+  "id": 5315712402,
+  "lat": 34.9985486,
+  "lon": 135.7789903
+},
+{
+  "type": "node",
+  "id": 5315712462,
+  "lat": 34.9986018,
+  "lon": 135.7808297
+},
+{
+  "type": "node",
+  "id": 5315712524,
+  "lat": 34.9982521,
+  "lon": 135.7798875
+},
+{
+  "type": "node",
+  "id": 5315712525,
+  "lat": 34.9982777,
+  "lon": 135.7798516
+},
+{
+  "type": "node",
+  "id": 5315712526,
+  "lat": 34.9982996,
+  "lon": 135.7798254
+},
+{
+  "type": "node",
+  "id": 5315757622,
+  "lat": 34.9983660,
+  "lon": 135.7795030
+},
+{
+  "type": "node",
+  "id": 5315789346,
+  "lat": 34.9980224,
+  "lon": 135.7808137
+},
+{
+  "type": "node",
+  "id": 5315789347,
+  "lat": 34.9982578,
+  "lon": 135.7808488
+},
+{
+  "type": "node",
+  "id": 6606657354,
+  "lat": 34.9991575,
+  "lon": 135.7798746
+},
+{
+  "type": "node",
+  "id": 7490517930,
+  "lat": 34.9980824,
+  "lon": 135.7808350
+},
+{
+  "type": "node",
+  "id": 7490517931,
+  "lat": 34.9981096,
+  "lon": 135.7808437
+},
+{
+  "type": "node",
+  "id": 7490517932,
+  "lat": 34.9981376,
+  "lon": 135.7808494
+},
+{
+  "type": "node",
+  "id": 8323336757,
+  "lat": 34.9986693,
+  "lon": 135.7774997
+},
+{
+  "type": "node",
+  "id": 8817872726,
+  "lat": 34.9991471,
+  "lon": 135.7807124
+},
+{
+  "type": "node",
+  "id": 12620133048,
+  "lat": 34.9955030,
+  "lon": 135.7822818
+},
+{
+  "type": "node",
+  "id": 12620133049,
+  "lat": 34.9955070,
+  "lon": 135.7822421
+},
+{
+  "type": "node",
+  "id": 12620133050,
+  "lat": 34.9955227,
+  "lon": 135.7821646
+},
+{
+  "type": "node",
+  "id": 12620133051,
+  "lat": 34.9955343,
+  "lon": 135.7821273
+},
+{
+  "type": "node",
+  "id": 12620133052,
+  "lat": 34.9955483,
+  "lon": 135.7820912
+},
+{
+  "type": "node",
+  "id": 12620133053,
+  "lat": 34.9955832,
+  "lon": 135.7820236
+},
+{
+  "type": "node",
+  "id": 12620133054,
+  "lat": 34.9956038,
+  "lon": 135.7819926
+},
+{
+  "type": "node",
+  "id": 12620133055,
+  "lat": 34.9956753,
+  "lon": 135.7819015
+},
+{
+  "type": "node",
+  "id": 12620133056,
+  "lat": 34.9956984,
+  "lon": 135.7818686
+},
+{
+  "type": "node",
+  "id": 12620133057,
+  "lat": 34.9960342,
+  "lon": 135.7812006
+},
+{
+  "type": "node",
+  "id": 266605718,
+  "lat": 35.0037491,
+  "lon": 135.7771926
+},
+{
+  "type": "node",
+  "id": 301118121,
+  "lat": 35.0020624,
+  "lon": 135.7774454
+},
+{
+  "type": "node",
+  "id": 301118607,
+  "lat": 35.0025040,
+  "lon": 135.7772847
+},
+{
+  "type": "node",
+  "id": 305371755,
+  "lat": 35.0002466,
+  "lon": 135.7774707
+},
+{
+  "type": "node",
+  "id": 305371777,
+  "lat": 35.0027127,
+  "lon": 135.7772151
+},
+{
+  "type": "node",
+  "id": 1023798954,
+  "lat": 35.0041175,
+  "lon": 135.7773743
+},
+{
+  "type": "node",
+  "id": 1214631032,
+  "lat": 35.0031610,
+  "lon": 135.7770878
+},
+{
+  "type": "node",
+  "id": 2367201379,
+  "lat": 35.0035269,
+  "lon": 135.7771519
+},
+{
+  "type": "node",
+  "id": 2367201432,
+  "lat": 35.0039682,
+  "lon": 135.7773062
+},
+{
+  "type": "node",
+  "id": 2781236877,
+  "lat": 35.0021057,
+  "lon": 135.7774363
+},
+{
+  "type": "node",
+  "id": 4612016145,
+  "lat": 35.0043506,
+  "lon": 135.7774627
+},
+{
+  "type": "node",
+  "id": 4612016146,
+  "lat": 35.0042737,
+  "lon": 135.7774282
+},
+{
+  "type": "node",
+  "id": 4764665815,
+  "lat": 34.9998483,
+  "lon": 135.7773975
+},
+{
+  "type": "node",
+  "id": 5011838427,
+  "lat": 35.0030988,
+  "lon": 135.7770866
+},
+{
+  "type": "node",
+  "id": 5011838428,
+  "lat": 35.0032255,
+  "lon": 135.7770961
+},
+{
+  "type": "node",
+  "id": 5235824719,
+  "lat": 35.0029372,
+  "lon": 135.7771251
+},
+{
+  "type": "node",
+  "id": 5235824727,
+  "lat": 35.0030368,
+  "lon": 135.7770943
+},
+{
+  "type": "node",
+  "id": 5310264554,
+  "lat": 35.0020447,
+  "lon": 135.7774492
+},
+{
+  "type": "node",
+  "id": 5310264556,
+  "lat": 35.0020142,
+  "lon": 135.7774525
+},
+{
+  "type": "node",
+  "id": 11082203814,
+  "lat": 35.0039044,
+  "lon": 135.7772758
+},
+{
+  "type": "node",
+  "id": 301118120,
+  "lat": 35.0008536,
+  "lon": 135.7775701
+},
+{
+  "type": "node",
+  "id": 301118318,
+  "lat": 35.0044270,
+  "lon": 135.7774899
+},
+{
+  "type": "node",
+  "id": 305371772,
+  "lat": 35.0014386,
+  "lon": 135.7775153
+},
+{
+  "type": "node",
+  "id": 309117212,
+  "lat": 35.0047595,
+  "lon": 135.7775622
+},
+{
+  "type": "node",
+  "id": 1697644510,
+  "lat": 35.0009482,
+  "lon": 135.7775681
+},
+{
+  "type": "node",
+  "id": 2085443989,
+  "lat": 35.0054866,
+  "lon": 135.7776743
+},
+{
+  "type": "node",
+  "id": 2785051569,
+  "lat": 35.0045617,
+  "lon": 135.7775191
+},
+{
+  "type": "node",
+  "id": 3752885643,
+  "lat": 35.0006669,
+  "lon": 135.7797617
+},
+{
+  "type": "node",
+  "id": 3752885646,
+  "lat": 35.0006697,
+  "lon": 135.7796425
+},
+{
+  "type": "node",
+  "id": 3752885648,
+  "lat": 35.0006738,
+  "lon": 135.7796425
+},
+{
+  "type": "node",
+  "id": 3752885649,
+  "lat": 35.0006739,
+  "lon": 135.7795434
+},
+{
+  "type": "node",
+  "id": 3752885671,
+  "lat": 35.0007312,
+  "lon": 135.7792838
+},
+{
+  "type": "node",
+  "id": 3752885680,
+  "lat": 35.0007344,
+  "lon": 135.7795479
+},
+{
+  "type": "node",
+  "id": 3752885685,
+  "lat": 35.0007385,
+  "lon": 135.7794060
+},
+{
+  "type": "node",
+  "id": 4284209003,
+  "lat": 35.0048055,
+  "lon": 135.7775719
+},
+{
+  "type": "node",
+  "id": 4612016144,
+  "lat": 35.0052862,
+  "lon": 135.7776442
+},
+{
+  "type": "node",
+  "id": 5303068962,
+  "lat": 35.0049432,
+  "lon": 135.7776010
+},
+{
+  "type": "node",
+  "id": 5312156309,
+  "lat": 35.0007819,
+  "lon": 135.7775689
+},
+{
+  "type": "node",
+  "id": 5312156316,
+  "lat": 35.0009203,
+  "lon": 135.7775711
+},
+{
+  "type": "node",
+  "id": 5395133117,
+  "lat": 35.0050584,
+  "lon": 135.7776167
+},
+{
+  "type": "node",
+  "id": 6990188568,
+  "lat": 35.0007358,
+  "lon": 135.7795180
+},
+{
+  "type": "node",
+  "id": 6990188569,
+  "lat": 35.0006815,
+  "lon": 135.7795440
+},
+{
+  "type": "node",
+  "id": 11082203815,
+  "lat": 35.0052767,
+  "lon": 135.7776442
+}
+
+  ]
+}

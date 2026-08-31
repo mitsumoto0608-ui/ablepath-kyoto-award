@@ -1,12 +1,12 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。表示geometryはすべて`SYNTHETIC_DEMO`、graphは`CANDIDATE`です。実地図、MapLibre、Cesium、M6/profile統合、公式hazard geometryとの接続、行政PoCは未完成です。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。viewerが表示するgeometryはすべて`SYNTHETIC_DEMO`、graphは`CANDIDATE`です。別laneとして清水にsource-traceableな実VGI artifactとcandidate graphがありますが、viewer・model pipelineには未接続です。実地図、MapLibre、Cesium、M6/profile統合、公式hazard geometryとの接続、行政PoCは未完成です。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 
 現在の3都市pack:
 
-- 京都・清水：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
+- 京都・清水：viewerは模式回廊`SYNTHETIC_DEMO`。別のreal artifact laneはOSM historical snapshot `2026-08-30T00:00:00Z`、retained raw 17 ways / 142 nodes、normalized `SOURCE_TRACEABLE_REAL` / `VGI`、candidate graph 21 nodes / 19 edges / 2 components、route continuity `NOT_ESTABLISHED`
 - 京都・嵐山：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
 - 藤沢・江の島：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
 
@@ -17,15 +17,27 @@ OVERALL_STATUS=PARTIAL_COMPLETE
 ENGINEERING_UI_SHELL_COMPLETE=true
 TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC
 REAL_GEOMETRY_CONNECTED=false
+REAL_GEOMETRY_CONNECTED_SCOPE=VIEWER_OR_MODEL_PIPELINE
+KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true
+KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE=true
+REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL
+ALL_THREE_CITIES_REAL_GEOMETRY=false
+REAL_GEOMETRY_CONNECTED_TO_VIEWER=false
+REAL_MAP_COMPLETE=false
 MODEL_CONNECTED=false
+M7_CONNECTED_TO_REAL_EDGES=false
+M6_CONNECTED=false
+KPI_CONNECTED=false
 ADMIN_VALIDATED=false
 MAPLIBRE_CONNECTED=false
 CESIUM_CONNECTED=false
 ```
 
-official/VGIのsource referenceはmetadata-onlyです。公式payload、実geometry、公式hazard geometryが取得・検証・接続済みであることを意味しません。
+清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、hash-bound real artifactの正本は`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`。公式hazard previewはraw trust root未接続のquarantineで、viewer/model/analysisへ使用しません。嵐山・藤沢のreal artifactはこのreviewed integrationへ未統合です。
 
 ## 30秒で動かす
+
+Python full suiteの前提はGit、Python、PowerShell 7（`pwsh`）です。local-main-guardのinstaller/statusテストがPowerShellを実行するため、`pwsh`のないminimal Linuxではfull suiteを実行できず、Pythonだけで完結するtest setとは扱いません。UI unit/build/E2Eを行う場合はNode、npm、Playwrightも必要です。依存がない場合にtestをskip/xfailして成功扱いにはしません。
 
 ```bash
 python -m venv .venv

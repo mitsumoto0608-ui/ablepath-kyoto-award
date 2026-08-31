@@ -1,0 +1,11 @@
+asset_class,current_status,known_terms_or_signal,redistribution_decision,required_human_action
+repository_source_code,HUMAN_GATE,No root LICENSE selected,NOT_AUTHORIZED,Select code license and copyright wording
+OpenStreetMap bounded source or normalized database,HUMAN_GATE,ODbL 1.0 attribution and database obligations,NOT_AUTHORIZED,Review produced-work/database classification and required notices
+Project PLATEAU metadata or assets,HUMAN_GATE,Dataset-specific official terms must be verified,NOT_AUTHORIZED,Verify exact city asset terms version and attribution
+official Kyoto hazard data,HUMAN_GATE,Dataset/site-specific official terms not yet finally reviewed,NOT_AUTHORIZED,Review exact downloaded artifact and redistribution terms
+official Fujisawa hazard data,HUMAN_GATE,Dataset/site-specific official terms not yet finally reviewed,NOT_AUTHORIZED,Review exact downloaded artifact and redistribution terms
+Hokonavi specification reference,HUMAN_GATE,Official specification referenced; no ministry dataset converted,REFERENCE_ONLY,Confirm quotation and notice wording
+synthetic fixtures,INTERNAL,Repository-created test and UI fixtures,ROOT_LICENSE_DEPENDENT,Include only after root license decision
+research papers,EXCLUDED,Copyrighted sources used for evidence review,DO_NOT_REDISTRIBUTE,Keep originals outside release archive
+large raw geospatial archives,EXCLUDED,Large/restricted/license-dependent inputs,DO_NOT_REDISTRIBUTE,Retain outside Git and review separately
+Kyoto road ledger plan,PROHIBITED,Repository policy prohibits copying processing or derived coordinate use,DO_NOT_USE,Maintain prohibition

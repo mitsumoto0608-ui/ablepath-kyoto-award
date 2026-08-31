@@ -1,9 +1,9 @@
 # AGENTS.md — Codex運用規約（AblePath京都）
 
 このリポジトリで作業するAI（Codex等）は、コードを書く前に本ファイルを読むこと。
-プロジェクト＝**京都・清水、京都・嵐山、藤沢・江の島の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2＋M7残存幅コア＋multi-city engineering UI shell**。3都市の表示geometryは`SYNTHETIC_DEMO`、graphは`CANDIDATE`であり、実地図、MapLibre、Cesium、M6/profile統合、行政PoCは未完成。KPIの根拠不足は0ではなく`null`＋reason、M6は`NOT_COMPUTED`として扱う。
+プロジェクト＝**京都・清水、京都・嵐山、藤沢・江の島の観光地で「誰が、なぜ通れないか」を証拠付きedgeで評価し、平時観光と地震・火災・大雨の避難計画成立性を同じ歩行グラフで検証する行政向けツール**。現在地＝**シナリオ計算エンジンv0.2＋M7残存幅コア＋multi-city engineering UI shell**。3都市の表示geometryは`SYNTHETIC_DEMO`、graphは`CANDIDATE`であり、実地図、MapLibre、Cesium、M6/profile統合、行政PoCは未完成。清水には別laneとしてsource-traceableな実VGI artifactとcandidate graphがあるが、viewer/modelには未接続。KPIの根拠不足は0ではなく`null`＋reason、M6は`NOT_COMPUTED`として扱う。
 
-Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_COMPLETE=true`、`TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC`、`REAL_GEOMETRY_CONNECTED=false`、`MODEL_CONNECTED=false`、`MAPLIBRE_CONNECTED=false`、`CESIUM_CONNECTED=false`、`ADMIN_VALIDATED=false`。Hosted CIはLinux Python、Windows Python、static viewer/Nodeを検証する。M7 coreは実装済みだが、3都市の実/CANDIDATE edgeには未接続。
+Current truth flags: `OVERALL_STATUS=PARTIAL_COMPLETE`、`ENGINEERING_UI_SHELL_COMPLETE=true`、`TWO_D_IMPLEMENTATION=SYNTHETIC_SVG_SCHEMATIC`、`KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true`、`REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL`、`REAL_GEOMETRY_CONNECTED=false`、`REAL_GEOMETRY_CONNECTED_SCOPE=VIEWER_OR_MODEL_PIPELINE`、`MODEL_CONNECTED=false`、`MAPLIBRE_CONNECTED=false`、`CESIUM_CONNECTED=false`、`ADMIN_VALIDATED=false`。Hosted CIはLinux Python、Windows Python、static viewer/Nodeを検証する。M7 coreは実装済みだが、3都市の実/CANDIDATE edgeには未接続。
 
 ### Execution Efficiency Rule
 

@@ -57,8 +57,8 @@ def require_supported_schema_majors(city: dict) -> None:
 
 
 def test_city_pack_has_exact_required_structure():
-    """[software_correctness] V1/V4が要求する同型city-pack成果物を固定する。"""
-    expected = {
+    """[software_correctness] Legacy pack and reviewed additive v2 lane form one exact set."""
+    legacy_expected = {
         "city.yaml", "README.md", "sources/source_manifest.csv",
         "sources/data_gap_register.csv", "geography/corridor.metadata.json",
         "graph/walk_nodes.geojson", "graph/walk_edges.geojson",
@@ -67,8 +67,25 @@ def test_city_pack_has_exact_required_structure():
         "hazards/edge_physics.csv", "demand/demand_scenarios.csv",
         "viewer/city_config.json",
     }
+    v2_expected = {
+        "geography/real/corridor.osm.geojson",
+        "graph/real/candidate_edges.geojson",
+        "graph/real/candidate_nodes.geojson",
+        "graph/real/topology_qa.json",
+        "hazards/official/landslide_warning_preview.geojson",
+        "hazards/official/landslide_warning_preview.metadata.json",
+        "model/m7_input_readiness.json",
+        "realdata/artifact_manifest.v2.json",
+        "realdata/status.json",
+        "sources/plateau_26100_metadata.json",
+        "sources/queries/osm_corridor_20260830.overpassql",
+        "sources/queries/plateau_26100_bldg_tileset_url.txt",
+        "sources/retained/osm_corridor_20260830.raw.json",
+        "sources/retained/plateau_26100_bldg_tileset_20260830.json",
+        "tools/build_realdata.py",
+    }
     actual = {path.relative_to(PACK).as_posix() for path in PACK.rglob("*") if path.is_file()}
-    assert actual == expected
+    assert actual == legacy_expected | v2_expected
 
 
 def test_schema_versions_are_explicit_supported_major_one():

@@ -1,0 +1,22 @@
+{
+  "report_schema_version": "1.0.0",
+  "proposal_id": "private-plan-main-guard-v1",
+  "status": "PASS_FOR_LIMITED_LOCAL_FALLBACK",
+  "gates": {
+    "server_side_truth_disclosed": true,
+    "main_push_denied": true,
+    "all_tag_pushes_denied": true,
+    "branch_deletion_denied": true,
+    "non_fast_forward_denied": true,
+    "unapproved_namespace_denied": true,
+    "malformed_or_unavailable_object_denied": true,
+    "multi_ref_push_fails_if_any_ref_is_denied": true,
+    "existing_hook_not_overwritten": true,
+    "effective_hooks_path_conflict_fails_closed": true,
+    "source_must_be_tracked_and_clean": true,
+    "installed_bytes_are_lf_without_bom": true,
+    "human_main_merge_required": true
+  },
+  "protected_boundaries_touched": false,
+  "limitation": "The local hook protects only this clone and cannot replace GitHub server-side enforcement."
+}

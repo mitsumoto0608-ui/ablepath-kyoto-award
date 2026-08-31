@@ -1,0 +1,80 @@
+{
+  "city_id": "kyoto_kiyomizu",
+  "connected_components": [
+    [
+      "KK-OSM-N1697644482",
+      "KK-OSM-N2085443989",
+      "KK-OSM-N266605415",
+      "KK-OSM-N266605718",
+      "KK-OSM-N266606198",
+      "KK-OSM-N266606201",
+      "KK-OSM-N343365349",
+      "KK-OSM-N343365378",
+      "KK-OSM-N343365447",
+      "KK-OSM-N343365516",
+      "KK-OSM-N343365545",
+      "KK-OSM-N343365550",
+      "KK-OSM-N343365555",
+      "KK-OSM-N5117539281",
+      "KK-OSM-N5273686786",
+      "KK-OSM-N5315789346"
+    ],
+    [
+      "KK-OSM-N3752885643",
+      "KK-OSM-N3752885671",
+      "KK-OSM-N3752885680",
+      "KK-OSM-N6990188568",
+      "KK-OSM-N6990188569"
+    ]
+  ],
+  "counts": {
+    "candidate_edge_count": 19,
+    "candidate_node_count": 21,
+    "connected_components": 2,
+    "dangling_endpoint_nodes": 7,
+    "duplicate_edge_ids": 0,
+    "duplicate_node_ids": 0,
+    "geometric_cross_no_node_candidates": 0,
+    "geometric_crossings_promoted_to_nodes": 0,
+    "operation_unknown_edges": 19,
+    "self_loops": 0,
+    "source_way_count": 17,
+    "zero_length_edges": 0
+  },
+  "geometric_cross_no_node_candidates": [],
+  "geometry_status": "SOURCE_TRACEABLE_REAL",
+  "nearest_neighbour_join_applied": false,
+  "nearest_neighbour_join_reason": "No reviewed tolerance or authority exists",
+  "not_computed": {
+    "disconnected_destinations": {
+      "reason": "No verified destination entrance geometry is connected",
+      "status": "NOT_COMPUTED"
+    },
+    "unsplit_hazard_boundaries": {
+      "reason": "Official hazard preview is not a validated v2 capability",
+      "status": "NOT_COMPUTED"
+    }
+  },
+  "route_continuity": "NOT_ESTABLISHED",
+  "route_continuity_reason": "Named OSM subsets are not a verified continuous administrative route",
+  "schema_version": "2.0.0",
+  "shared_source_node_ids": [
+    "osm-node-1697644482",
+    "osm-node-266605415",
+    "osm-node-266605718",
+    "osm-node-266606198",
+    "osm-node-266606201",
+    "osm-node-343365349",
+    "osm-node-343365545",
+    "osm-node-343365550",
+    "osm-node-3752885680",
+    "osm-node-5117539281",
+    "osm-node-5273686786",
+    "osm-node-5315789346",
+    "osm-node-6990188568",
+    "osm-node-6990188569"
+  ],
+  "source_class": "VGI",
+  "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+  "topology_status": "CANDIDATE_REVIEW_REQUIRED"
+}

@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# Local accident-prevention guard for the current clone.
+# This is not server-side branch protection and can be absent in other clones.
+set -u
+
+deny() {
+    code="$1"
+    shift
+    printf '%s\n' "LOCAL_MAIN_GUARD: DENY: ${code}: $*" >&2
+    exit 1
+}
+
+is_zero_oid() {
+    case "$1" in
+        ""|*[!0]*) return 1 ;;
+        *) return 0 ;;
+    esac
+}
+
+is_valid_oid() {
+    case "$1" in
+        *[!0-9a-fA-F]*) return 1 ;;
+    esac
+    case "${#1}" in
+        40|64) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+while read -r local_ref local_oid remote_ref remote_oid
+do
+    [ -n "${local_ref:-}" ] || deny "LOCAL_GUARD_INVALID_UPDATE" "missing local ref"
+    [ -n "${remote_ref:-}" ] || deny "LOCAL_GUARD_INVALID_UPDATE" "missing remote ref"
+    is_valid_oid "${local_oid:-}" \
+        || deny "LOCAL_GUARD_INVALID_UPDATE" "malformed local OID"
+    is_valid_oid "${remote_oid:-}" \
+        || deny "LOCAL_GUARD_INVALID_UPDATE" "malformed remote OID"
+
+    case "$remote_ref" in
+        refs/heads/main)
+            deny "LOCAL_GUARD_MAIN_PUSH_DENIED" "pushes to refs/heads/main require a human-only merge procedure"
+            ;;
+        refs/tags/v0.2.0-baseline)
+            deny "LOCAL_GUARD_TAG_PUSH_DENIED" "the baseline tag may not be created, updated, or deleted by an agent"
+            ;;
+        refs/tags/*)
+            deny "LOCAL_GUARD_TAG_PUSH_DENIED" "agent tag pushes are prohibited"
+            ;;
+        refs/heads/task/*|refs/heads/integration/*|refs/heads/release/*)
+            ;;
+        refs/heads/*)
+            deny "LOCAL_GUARD_NAMESPACE_DENIED" "only task/**, integration/**, and release/** branches may be pushed by an agent"
+            ;;
+        *)
+            deny "LOCAL_GUARD_NAMESPACE_DENIED" "unsupported remote ref: $remote_ref"
+            ;;
+    esac
+
+    if is_zero_oid "$local_oid"; then
+        deny "LOCAL_GUARD_DELETE_DENIED" "branch deletion is prohibited by the local agent guard: $remote_ref"
+    fi
+
+    git cat-file -e "${local_oid}^{commit}" 2>/dev/null \
+        || deny "LOCAL_GUARD_OBJECT_UNAVAILABLE" "local branch tip is not a verifiable commit: $remote_ref"
+
+    if ! is_zero_oid "$remote_oid"; then
+        git cat-file -e "${remote_oid}^{commit}" 2>/dev/null \
+            || deny "LOCAL_GUARD_OBJECT_UNAVAILABLE" "remote tip is unavailable locally; fetch before pushing: $remote_ref"
+        git merge-base --is-ancestor "$remote_oid" "$local_oid" 2>/dev/null \
+            || deny "LOCAL_GUARD_NON_FF_DENIED" "non-fast-forward update detected: $remote_ref"
+    fi
+done
+
+exit 0

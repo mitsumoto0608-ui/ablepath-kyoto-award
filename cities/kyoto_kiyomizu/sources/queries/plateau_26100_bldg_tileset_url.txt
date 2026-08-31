@@ -1,0 +1,1 @@
+https://api.plateauview.mlit.go.jp/datacatalog/3dtiles/26100-bldg-maxlod2-latest/tileset.json

@@ -15,6 +15,11 @@ from .tabular import (
     adapt_edge_observation_row,
     load_edge_observation_table,
 )
+from .realdata import (
+    EDGE_HAZARD_OBSERVATION_V2_FIELDS,
+    EdgeHazardObservationV2,
+    derive_edge_hazard_observation_v2,
+)
 
 __all__ = [
     "EdgeHazardObservation",
@@ -28,4 +33,7 @@ __all__ = [
     "adapt_edge_observation_row",
     "load_edge_observation_table",
     "validate_dense_observations",
+    "EDGE_HAZARD_OBSERVATION_V2_FIELDS",
+    "EdgeHazardObservationV2",
+    "derive_edge_hazard_observation_v2",
 ]
