@@ -9,7 +9,7 @@ import {
   computeGeoJsonBounds,
   selectInitialMapMode,
 } from "../../viewer/src/mapDomain.mjs";
-import { buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs";
+import { buildMapArtifacts, shortestCandidateFixture } from "../../viewer/scripts/build-map-artifacts.mjs";
 import { installCesiumFailureListeners, withTimeout } from "../../viewer/src/mapAsync.mjs";
 import { selectInitialState, serializeState } from "../../viewer/src/domain.mjs";
 
@@ -21,7 +21,7 @@ function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-test("[source_conformance] build copies the Kiyomizu candidate graph with hash-bound lineage", () => {
+test("[source_conformance] build copies all allowlisted city candidate graphs with hash-bound lineage", () => {
   const output = mkdtempSync(join(tmpdir(), "ablepath-map-artifacts-"));
   try {
     const result = buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output });
@@ -33,7 +33,7 @@ test("[source_conformance] build copies the Kiyomizu candidate graph with hash-b
     assert.equal(kiyomizu.real_2d.feature_count, 19);
     assert.equal(kiyomizu.real_2d.topology_status, "CANDIDATE_REVIEW_REQUIRED");
     assert.equal(kiyomizu.real_2d.route_continuity, "NOT_ESTABLISHED");
-    assert.equal(result.files.length, 2);
+    assert.equal(result.files.length, 4);
 
     const copied = readJson(join(output, kiyomizu.real_2d.data_path.replace("./data/maps/", "")));
     assert.equal(copied.features.length, 19);
@@ -75,13 +75,35 @@ test("[source_conformance] GeoJSON bounds preserve longitude-latitude axis order
   assert.ok(bounds[0][1] < bounds[1][1]);
 });
 
-test("[ui_regression] real mode is explicit and unsupported cities fail back to synthetic", () => {
+test("[ui_regression] real mode is explicit for every allowlisted city", () => {
   const catalog = readJson(new URL("../../viewer/public/data/maps/map-layers.json", import.meta.url));
   const validated = assertSupportedMapCatalog(catalog);
   assert.equal(selectInitialMapMode(validated, "kyoto_kiyomizu", "?layer=real"), "real");
   assert.equal(selectInitialMapMode(validated, "kyoto_kiyomizu", "?layer=synthetic"), "synthetic");
-  assert.equal(selectInitialMapMode(validated, "kyoto_arashiyama", "?layer=real"), "synthetic");
-  assert.equal(selectInitialMapMode(validated, "fujisawa_enoshima", "?layer=real"), "synthetic");
+  assert.equal(selectInitialMapMode(validated, "kyoto_arashiyama", "?layer=real"), "real");
+  assert.equal(selectInitialMapMode(validated, "fujisawa_enoshima", "?layer=real"), "real");
+});
+
+test("[software_correctness] candidate fixture uses geometric Dijkstra, lexical ties, and reasoned disconnection", () => {
+  const adjacency = new Map([
+    ["a", [["d", "direct"], ["b", "a-b"], ["c", "a-c"]]],
+    ["b", [["a", "a-b"], ["d", "b-d"]]],
+    ["c", [["a", "a-c"], ["d", "c-d"]]],
+    ["d", [["a", "direct"], ["b", "b-d"], ["c", "c-d"]]],
+  ]);
+  const lengths = new Map([["direct", 10], ["a-b", 1], ["b-d", 1], ["a-c", 1], ["c-d", 1]]);
+  assert.deepEqual(shortestCandidateFixture(adjacency, lengths, "a", "d"), { status: "CONNECTED", edge_ids: ["a-b", "b-d"], geometric_length: 2 });
+  assert.deepEqual(shortestCandidateFixture(adjacency, lengths, "a", "missing"), { status: "DISCONNECTED", edge_ids: [], geometric_length: null });
+});
+
+test("[source_conformance] every city allowlist fails closed on an artifact hash mismatch", () => {
+  const source = readJson(new URL("../../viewer/public/data/maps/map-layers.json", import.meta.url));
+  for (const city of source.cities) {
+    const mutated = structuredClone(source);
+    mutated.cities.find((entry) => entry.city_id === city.city_id).real_2d.artifact_sha256 = "0".repeat(64);
+    assert.throws(() => assertSupportedMapCatalog(mutated), /copied bytes do not match|exact allowlisted artifact value/);
+    assert.equal(selectInitialMapMode({ cities: [] }, city.city_id, "?layer=real"), "synthetic");
+  }
 });
 
 test("[source_conformance] PLATEAU remains official metadata only and disconnected", () => {

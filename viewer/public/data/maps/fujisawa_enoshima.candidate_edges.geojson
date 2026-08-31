@@ -1,0 +1,837 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4828872,
+            35.3059914
+          ],
+          [
+            139.4827928,
+            35.3057642
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-018BDD155711677D",
+        "from_node": "FJ-OSM-N-BB5AB6061E7A0973",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/018bdd155711677d37d4ad7750744b99d60374c8fdae0e64c2696db549d181a1",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-018bdd155711677d",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-96B0236BB319D695",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4831362,
+            35.3063281
+          ],
+          [
+            139.4830249,
+            35.3062274
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+        "from_node": "FJ-OSM-N-7290586ED05C03A3",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/0382789a9ec7f0220c3ca4f8bab43857163aaab5cc11a7706afb4ac22835e8fa",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-0382789a9ec7f022",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-1922FF848B18A1BF",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4816085,
+            35.3031939
+          ],
+          [
+            139.481286,
+            35.3024824
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": true,
+        "bridge_reason": null,
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-062F75C8425C2252",
+        "from_node": "FJ-OSM-N-D99ABD7E268CF549",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": 1,
+        "layer_reason": null,
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423903",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423903#segment-sha256/062f75c8425c22524afee3931dfab32fbcdcb6913b9bd98cd92f4a31d3608153",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-062f75c8425c2252",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-6E59DAC05D3DD353",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4829218,
+            35.3060543
+          ],
+          [
+            139.4828872,
+            35.3059914
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+        "from_node": "FJ-OSM-N-E2DCA393810CEBCA",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/0d2835dbf8b3a7cc5065e5044f5de00e17c9e1a40f3a8cfe4bfe3a3dd87fb4cd",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-0d2835dbf8b3a7cc",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-BB5AB6061E7A0973",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4825277,
+            35.3051907
+          ],
+          [
+            139.4823922,
+            35.3048829
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": true,
+        "bridge_reason": null,
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-215A5178BF215505",
+        "from_node": "FJ-OSM-N-B177C559B8FE9B16",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": 1,
+        "layer_reason": null,
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423903",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423903#segment-sha256/215a5178bf215505942f9515e9355a46bffcf6d9628e56fb5392028c91173035",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-215a5178bf215505",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-427F81A68D83B44F",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4830249,
+            35.3062274
+          ],
+          [
+            139.4829911,
+            35.3061848
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+        "from_node": "FJ-OSM-N-1922FF848B18A1BF",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/32ea7fd65f7f23738c0563c7f50c40e562848f4b14dfcb01c68795ecf2c96410",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-32ea7fd65f7f2373",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-837A186F842196B9",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4836389,
+            35.3067833
+          ],
+          [
+            139.4835588,
+            35.3067108
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-42405D906C055F26",
+        "from_node": "FJ-OSM-N-B105EE75F3D02C75",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/42405d906c055f26cf01e28a2b9e9ecb939f9b448eda58154b68760b859f85f0",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-42405d906c055f26",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-61EFFD5F09BD298F",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4829525,
+            35.3061187
+          ],
+          [
+            139.4829218,
+            35.3060543
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-4489A45ACA6EAC2F",
+        "from_node": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/4489a45aca6eac2f6ee27c5560f283dcffbacddd6a1c7f05470dfd1f133bfea4",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-4489a45aca6eac2f",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-E2DCA393810CEBCA",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4826129,
+            35.3053843
+          ],
+          [
+            139.4825277,
+            35.3051907
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": true,
+        "bridge_reason": null,
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-64C790B90BA45925",
+        "from_node": "FJ-OSM-N-C4B69FE493E49647",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": 1,
+        "layer_reason": null,
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423903",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423903#segment-sha256/64c790b90ba4592541a2db996a5f25b5bdf9660a17c751144c9e8071ff42162e",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-64c790b90ba45925",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-B177C559B8FE9B16",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4827928,
+            35.3057642
+          ],
+          [
+            139.4826129,
+            35.3053843
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": true,
+        "bridge_reason": null,
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-6AA1F16F8F33134A",
+        "from_node": "FJ-OSM-N-96B0236BB319D695",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": 1,
+        "layer_reason": null,
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423903",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423903#segment-sha256/6aa1f16f8f33134a862939231c281337bab6195e12852929d0218db765287eb8",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-6aa1f16f8f33134a",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-C4B69FE493E49647",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4835588,
+            35.3067108
+          ],
+          [
+            139.4834828,
+            35.306642
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-790B757348C9BC93",
+        "from_node": "FJ-OSM-N-61EFFD5F09BD298F",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/790b757348c9bc9372c9692c528a25f29d88dd0e2cfe1e3285d725741f294413",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-790b757348c9bc93",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-2174B5DE701CA180",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4829911,
+            35.3061848
+          ],
+          [
+            139.4829525,
+            35.3061187
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+        "from_node": "FJ-OSM-N-837A186F842196B9",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/9b1fb3af3a7e1dc3bf5846091ea914bac06251e7e4c441b19c1c8506953b0cd7",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-9b1fb3af3a7e1dc3",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-3028DFD1A9E8CD85",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4834828,
+            35.306642
+          ],
+          [
+            139.4831362,
+            35.3063281
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+        "from_node": "FJ-OSM-N-2174B5DE701CA180",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/b4cc42c7826ce5256d5e9038dfd285482a3b8ca5e18c38900c9a49ec20777558",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-b4cc42c7826ce525",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-7290586ED05C03A3",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.4823922,
+            35.3048829
+          ],
+          [
+            139.4816085,
+            35.3031939
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": true,
+        "bridge_reason": null,
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-BF27EB5B0C5124E6",
+        "from_node": "FJ-OSM-N-427F81A68D83B44F",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": 1,
+        "layer_reason": null,
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423903",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423903#segment-sha256/bf27eb5b0c5124e64db1bd4a616a092ba62778938c7bbc49e151f004bf282f72",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-bf27eb5b0c5124e6",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-D99ABD7E268CF549",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            139.483963,
+            35.3070762
+          ],
+          [
+            139.4836389,
+            35.3067833
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "accessibility_state": "UNKNOWN",
+        "accessibility_state_reason": "M6/profile and field validation are not connected",
+        "bridge": "UNKNOWN",
+        "bridge_reason": "OSM bridge tag absent",
+        "data_status": "REAL_VGI_CANDIDATE",
+        "edge_id": "FJ-OSM-E-F30BE41F1FBDD11F",
+        "from_node": "FJ-OSM-N-769BC7A0E9E6D709",
+        "geometry_status": "SOURCE_TRACEABLE_REAL",
+        "layer": null,
+        "layer_reason": "OSM layer tag absent",
+        "length_m": null,
+        "length_m_reason": "Geodesic length derivation is not reviewed or connected",
+        "level": null,
+        "level_reason": "OSM level tag absent",
+        "lineage": [
+          "OpenStreetMap way/27423906",
+          "consecutive source geometry vertices"
+        ],
+        "official_closure": null,
+        "official_closure_reason": "No current official closure feed is connected",
+        "operation_status": "UNKNOWN",
+        "operation_status_reason": "No current operator status feed is connected",
+        "revision_id": "20260830-r1",
+        "slope": null,
+        "slope_reason": "No reviewed source slope or field measurement is connected",
+        "source_class": "VGI",
+        "source_feature_id": "way/27423906#segment-sha256/f30be41f1fbdd11f1ed8e440502cca1a5f236a1d1d2a783f774f18f8786727d7",
+        "stable_feature_id": "fujisawa-enoshima:edge:osm-f30be41f1fbdd11f",
+        "step_status": "UNKNOWN",
+        "step_status_reason": "OSM step semantics are not established for this segment",
+        "to_node": "FJ-OSM-N-B105EE75F3D02C75",
+        "topology_status": "CANDIDATE",
+        "tunnel": "UNKNOWN",
+        "tunnel_reason": "OSM tunnel tag absent",
+        "width_m": null,
+        "width_m_reason": "No reviewed source width or field measurement is connected"
+      },
+      "type": "Feature"
+    }
+  ],
+  "metadata": {
+    "axis_order": "longitude_latitude",
+    "coordinate_precision": 7,
+    "geometry_status": "SOURCE_TRACEABLE_REAL",
+    "horizontal_unit": "degree",
+    "lineage": [
+      "fixed-time bounded OSM source",
+      "candidate graph; no field or administrative validation"
+    ],
+    "output_crs": "EPSG:4326",
+    "processing_crs": "EPSG:4326",
+    "revision_id": "20260830-r1",
+    "schema_version": "2.0.0",
+    "source_crs": "EPSG:4326",
+    "source_feature_id": "way/27423903+way/27423906",
+    "stable_feature_id": "FUJISAWA-ENOSHIMA-CANDIDATE-GRAPH-V1",
+    "topology_status": "CANDIDATE",
+    "transform_history": [
+      "segmented only at exact OSM geometry vertices; no inferred joins"
+    ],
+    "vertical_unit": "UNKNOWN"
+  },
+  "type": "FeatureCollection"
+}

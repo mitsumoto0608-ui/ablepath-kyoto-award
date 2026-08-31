@@ -1,0 +1,862 @@
+{
+  "analysis_id": "kyoto_kiyomizu:candidate-topology-v2",
+  "analysis_type": "CANDIDATE_TOPOLOGY_STATIC_FIXTURE",
+  "city_id": "kyoto_kiyomizu",
+  "source_artifact_ids": [
+    "cities/kyoto_kiyomizu/graph/real/candidate_nodes.geojson",
+    "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson"
+  ],
+  "source_revision_ids": [
+    "osm-snapshot-2026-08-30T00:00:00Z"
+  ],
+  "input_sha256": "5551956603fee8b6dd010189f328afec244d99953d10ae0474c58b5f756ed18a",
+  "algorithm": "deterministic-undirected-dijkstra-coordinate-degree",
+  "algorithm_version": "2.0.0",
+  "parameters": {
+    "coordinate_unit": "coordinate_degree",
+    "input_binding": "sha256(node_geojson_bytes + 0x00 + edge_geojson_bytes); input order=node,edge",
+    "tie_break": "lexical ordered edge-ID tuple"
+  },
+  "generated_at": "2026-08-30T00:00:00Z",
+  "deterministic": true,
+  "result": {
+    "topology": {
+      "node_count": 21,
+      "edge_count": 19,
+      "connected_components": 2,
+      "topology_status": "CANDIDATE_REVIEW_REQUIRED"
+    },
+    "selectable_node_ids": [
+      "KK-OSM-N1697644482",
+      "KK-OSM-N5315789346",
+      "KK-OSM-N3752885643"
+    ],
+    "path_matrix": {
+      "KK-OSM-N1697644482__KK-OSM-N5315789346": {
+        "start_node_id": "KK-OSM-N1697644482",
+        "end_node_id": "KK-OSM-N5315789346",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "KK-OSM-W1491152444-S02",
+          "KK-OSM-W30913263-S01",
+          "KK-OSM-W30882783-S01"
+        ],
+        "geometric_length": 0.0010621547714682509,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "KK-OSM-N1697644482__KK-OSM-N3752885643": {
+        "start_node_id": "KK-OSM-N1697644482",
+        "end_node_id": "KK-OSM-N3752885643",
+        "status": "DISCONNECTED",
+        "edge_ids": [],
+        "geometric_length": null,
+        "unit": "coordinate_degree",
+        "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+      },
+      "KK-OSM-N5315789346__KK-OSM-N1697644482": {
+        "start_node_id": "KK-OSM-N5315789346",
+        "end_node_id": "KK-OSM-N1697644482",
+        "status": "CONNECTED",
+        "edge_ids": [
+          "KK-OSM-W30882783-S01",
+          "KK-OSM-W30913263-S01",
+          "KK-OSM-W1491152444-S02"
+        ],
+        "geometric_length": 0.0010621547714682507,
+        "unit": "coordinate_degree",
+        "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+      },
+      "KK-OSM-N5315789346__KK-OSM-N3752885643": {
+        "start_node_id": "KK-OSM-N5315789346",
+        "end_node_id": "KK-OSM-N3752885643",
+        "status": "DISCONNECTED",
+        "edge_ids": [],
+        "geometric_length": null,
+        "unit": "coordinate_degree",
+        "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+      },
+      "KK-OSM-N3752885643__KK-OSM-N1697644482": {
+        "start_node_id": "KK-OSM-N3752885643",
+        "end_node_id": "KK-OSM-N1697644482",
+        "status": "DISCONNECTED",
+        "edge_ids": [],
+        "geometric_length": null,
+        "unit": "coordinate_degree",
+        "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+      },
+      "KK-OSM-N3752885643__KK-OSM-N5315789346": {
+        "start_node_id": "KK-OSM-N3752885643",
+        "end_node_id": "KK-OSM-N5315789346",
+        "status": "DISCONNECTED",
+        "edge_ids": [],
+        "geometric_length": null,
+        "unit": "coordinate_degree",
+        "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+      }
+    },
+    "path_fixture": {
+      "start_node_id": "KK-OSM-N1697644482",
+      "end_node_id": "KK-OSM-N5315789346",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "KK-OSM-W1491152444-S02",
+        "KK-OSM-W30913263-S01",
+        "KK-OSM-W30882783-S01"
+      ],
+      "geometric_length": 0.0010621547714682509,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "hazard_overlap": {
+      "status": "NOT_CONNECTED",
+      "value": null,
+      "reason": "No trusted official hazard geometry is connected; no closure is derived."
+    },
+    "m7": {
+      "status": "NOT_COMPUTED",
+      "ready_edge_count": 0,
+      "computed_edge_count": 0,
+      "readiness": [
+        {
+          "edge_id": "KK-OSM-W1251544286-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W1491152444-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W1491152444-S02",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W157527438-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W174762077-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W179116810-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W24516359-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W28514434-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W28514434-S02",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W30882783-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W30913263-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W371739384-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W371739385-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W526198271-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W550360170-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W58413931-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W710696944-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W747033984-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        },
+        {
+          "edge_id": "KK-OSM-W747033985-S01",
+          "status": "NOT_COMPUTED",
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "building_height_m",
+            "setback_m",
+            "damage_state",
+            "debris_present",
+            "variant",
+            "official_closure",
+            "hazard_data_status"
+          ],
+          "reason": "Required source-traceable M7 inputs are incomplete."
+        }
+      ]
+    },
+    "m6": {
+      "status": "NOT_COMPUTED",
+      "reason": "M6/profile evaluation is not connected."
+    }
+  },
+  "limitations": [
+    "Candidate connectivity only",
+    "coordinate_degree is not a geographic or meter distance",
+    "Hazard, M7, M6, accessibility, safety, operation, and administrative validation are unconnected or not computed"
+  ],
+  "provenance": {
+    "source_class": "VGI",
+    "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+    "input_binding": "node bytes then NUL then edge bytes",
+    "input_artifacts": [
+      "cities/kyoto_kiyomizu/graph/real/candidate_nodes.geojson",
+      "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson"
+    ],
+    "input_hashes": {
+      "node_sha256": "47dd4bd5f935d2d3d73fd365067c02f837b12dcfb6b64e4265eef9d4720fc401",
+      "edge_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b"
+    }
+  },
+  "safety_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "topology": {
+    "node_count": 21,
+    "edge_count": 19,
+    "connected_components": 2,
+    "topology_status": "CANDIDATE_REVIEW_REQUIRED"
+  },
+  "selectable_node_ids": [
+    "KK-OSM-N1697644482",
+    "KK-OSM-N5315789346",
+    "KK-OSM-N3752885643"
+  ],
+  "path_matrix": {
+    "KK-OSM-N1697644482__KK-OSM-N5315789346": {
+      "start_node_id": "KK-OSM-N1697644482",
+      "end_node_id": "KK-OSM-N5315789346",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "KK-OSM-W1491152444-S02",
+        "KK-OSM-W30913263-S01",
+        "KK-OSM-W30882783-S01"
+      ],
+      "geometric_length": 0.0010621547714682509,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "KK-OSM-N1697644482__KK-OSM-N3752885643": {
+      "start_node_id": "KK-OSM-N1697644482",
+      "end_node_id": "KK-OSM-N3752885643",
+      "status": "DISCONNECTED",
+      "edge_ids": [],
+      "geometric_length": null,
+      "unit": "coordinate_degree",
+      "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+    },
+    "KK-OSM-N5315789346__KK-OSM-N1697644482": {
+      "start_node_id": "KK-OSM-N5315789346",
+      "end_node_id": "KK-OSM-N1697644482",
+      "status": "CONNECTED",
+      "edge_ids": [
+        "KK-OSM-W30882783-S01",
+        "KK-OSM-W30913263-S01",
+        "KK-OSM-W1491152444-S02"
+      ],
+      "geometric_length": 0.0010621547714682507,
+      "unit": "coordinate_degree",
+      "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+    },
+    "KK-OSM-N5315789346__KK-OSM-N3752885643": {
+      "start_node_id": "KK-OSM-N5315789346",
+      "end_node_id": "KK-OSM-N3752885643",
+      "status": "DISCONNECTED",
+      "edge_ids": [],
+      "geometric_length": null,
+      "unit": "coordinate_degree",
+      "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+    },
+    "KK-OSM-N3752885643__KK-OSM-N1697644482": {
+      "start_node_id": "KK-OSM-N3752885643",
+      "end_node_id": "KK-OSM-N1697644482",
+      "status": "DISCONNECTED",
+      "edge_ids": [],
+      "geometric_length": null,
+      "unit": "coordinate_degree",
+      "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+    },
+    "KK-OSM-N3752885643__KK-OSM-N5315789346": {
+      "start_node_id": "KK-OSM-N3752885643",
+      "end_node_id": "KK-OSM-N5315789346",
+      "status": "DISCONNECTED",
+      "edge_ids": [],
+      "geometric_length": null,
+      "unit": "coordinate_degree",
+      "reason": "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed."
+    }
+  },
+  "path_fixture": {
+    "start_node_id": "KK-OSM-N1697644482",
+    "end_node_id": "KK-OSM-N5315789346",
+    "status": "CONNECTED",
+    "edge_ids": [
+      "KK-OSM-W1491152444-S02",
+      "KK-OSM-W30913263-S01",
+      "KK-OSM-W30882783-S01"
+    ],
+    "geometric_length": 0.0010621547714682509,
+    "unit": "coordinate_degree",
+    "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
+  },
+  "hazard_overlap": {
+    "status": "NOT_CONNECTED",
+    "value": null,
+    "reason": "No trusted official hazard geometry is connected; no closure is derived."
+  },
+  "m7": {
+    "status": "NOT_COMPUTED",
+    "ready_edge_count": 0,
+    "computed_edge_count": 0,
+    "readiness": [
+      {
+        "edge_id": "KK-OSM-W1251544286-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W1491152444-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W1491152444-S02",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W157527438-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W174762077-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W179116810-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W24516359-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W28514434-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W28514434-S02",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W30882783-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W30913263-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W371739384-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W371739385-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W526198271-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W550360170-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W58413931-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W710696944-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W747033984-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      },
+      {
+        "edge_id": "KK-OSM-W747033985-S01",
+        "status": "NOT_COMPUTED",
+        "m7_result": null,
+        "missing_fields": [
+          "clear_width_m",
+          "building_height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "variant",
+          "official_closure",
+          "hazard_data_status"
+        ],
+        "reason": "Required source-traceable M7 inputs are incomplete."
+      }
+    ]
+  },
+  "m6": {
+    "status": "NOT_COMPUTED",
+    "reason": "M6/profile evaluation is not connected."
+  },
+  "interpretation": "Candidate network connectivity only; accessibility, safety, and operation are unconfirmed."
+}

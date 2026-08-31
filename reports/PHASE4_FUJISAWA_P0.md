@@ -1,6 +1,6 @@
 # Phase 4 Fujisawa / Enoshima P0 lane
 
-Status: `READY_FOR_HUMAN_APPROVAL`.
+Status: `READY_FOR_HUMAN_APPROVAL`; `SOURCE_STAGED=true`; `NORMALIZED_INGESTED=true`; `VIEWER_CONNECTED=true`（source-traceable candidate geometry の明示 opt-in viewer 接続のみ）。
 
 The bounded OSM candidate subset is staged and normalized.  It is VGI,
 `CANDIDATE`, and source-traceable; it is not a route, accessibility, safety,

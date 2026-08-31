@@ -54,4 +54,8 @@ def test_status_issues_only_artifact_capability_not_connection_claims() -> None:
     assert status["NORMALIZED_INGESTED"] is True
     assert status["SOURCE_TRACEABLE_CANDIDATE_ARTIFACT_AVAILABLE"] is True
     assert "REAL_GEOMETRY_CONNECTED" not in status
-    assert all(status[key] is False for key in ("VIEWER_CONNECTED", "MODEL_CONNECTED", "ANALYSIS_CONNECTED", "M7_CONNECTED"))
+    assert status["VIEWER_CONNECTED"] is True
+    assert status["ANALYSIS_CONNECTED"] is True
+    assert status["VIEWER_CONNECTED_SCOPE"] == "SOURCE_TRACEABLE_VGI_CANDIDATE_EXPLICIT_OPT_IN_ONLY"
+    assert status["ANALYSIS_CONNECTED_SCOPE"] == "SOURCE_TRACEABLE_VGI_CANDIDATE_EXPLICIT_OPT_IN_ONLY"
+    assert all(status[key] is False for key in ("MODEL_CONNECTED", "M7_CONNECTED"))

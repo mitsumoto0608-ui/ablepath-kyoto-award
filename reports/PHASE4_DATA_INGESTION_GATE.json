@@ -1,0 +1,9 @@
+{
+  "gate_schema_version": "2.0.0", "gate_id": "PHASE4_DATA_INGESTION_GATE", "status": "PARTIAL_COMPLETE",
+  "cities": {
+    "kyoto_kiyomizu": { "SOURCE_STAGED": true, "NORMALIZED_INGESTED": true, "VIEWER_CONNECTED": true },
+    "kyoto_arashiyama": { "SOURCE_STAGED": true, "NORMALIZED_INGESTED": true, "VIEWER_CONNECTED": true },
+    "fujisawa_enoshima": { "SOURCE_STAGED": true, "NORMALIZED_INGESTED": true, "VIEWER_CONNECTED": true }
+  },
+  "scope": "Source-traceable VGI candidate geometry is explicitly opt-in in the viewer; model, accessibility, safety, operation, and administrative validation remain false."
+}

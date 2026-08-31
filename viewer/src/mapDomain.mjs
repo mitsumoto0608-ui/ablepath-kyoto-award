@@ -1,6 +1,7 @@
-const MAP_SCHEMA_VERSION = "1.1.0";
+const MAP_SCHEMA_VERSION = "2.0.0";
 const CITY_IDS = new Set(["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]);
-const REVIEWED_REAL_HASHES = {
+const CITY_REAL_CONTRACTS = {
+  kyoto_kiyomizu: {
   artifact_sha256: "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
   copied_sha256: "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
   corridor_sha256: "48b08553a9c2d7f8388bd893e83133287e01ad2efa9326116f5e8d3a31836dc7",
@@ -8,6 +9,20 @@ const REVIEWED_REAL_HASHES = {
   query_sha256: "f32964329548d7d715c79cf05da6a28a7ac8230781acc4852f9174ba9f4dfb7b",
   topology_sha256: "ea6a7b9257dd49147076af0bdec36a5ce189b87ce87ef1b763574d5b4ae9bb4e",
   manifest_sha256: "e83176c1396c3fd13001f3730f7017cd28bcfd2576c90104b971d401f83eb958",
+  source_id: "openstreetmap_kiyomizu_named_corridor_20260830",
+  },
+  kyoto_arashiyama: {
+    artifact_sha256: "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285", copied_sha256: "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+    corridor_sha256: "81c727646b27ad33af0bc19c23bbe0d2e8465c6150ee6335b15214f55af18334", source_sha256: "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013", query_sha256: "b5c52b3ea7542261159b5764956aa9662673c0422b3509dc59e4866f00c14603",
+    topology_sha256: "9a4cbc52a246eab14d4494903904457a33704954774d4558d2b2b1c000a75cc1", manifest_sha256: "c1f672d78e5184fdd74112b55e299abdcfcd015aefbd4738f194a45bb1327d67",
+    source_id: "openstreetmap-overpass-arashiyama-20260829",
+  },
+  fujisawa_enoshima: {
+    artifact_sha256: "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47", copied_sha256: "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+    corridor_sha256: "01eae54bac6385da4aa5d39c92c935fc25dc799e91be37b030943c1ae5016c32", source_sha256: "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04", query_sha256: "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04",
+    topology_sha256: "1e89091d688b6ae3a0afa9ff7722e0b8210de9b0bb45c967e30b798b6088f516", manifest_sha256: "72f5ec956d935d2b0d6961275844eef5296a9642617f6f8b04acb9a4648dfb7e",
+    source_id: "OSM_CANDIDATE_SOURCE",
+  },
 };
 const REVIEWED_PLATEAU_HASHES = {
   metadata_sha256: "2a1e4c71370f58f0f40dc8b6eb9ae120b7f694b6caca1260a8a0efbbfeda78d3",
@@ -72,8 +87,10 @@ function validateReal2d(layer, cityId) {
     sha256(layer[field], `${cityId}.real_2d.${field}`);
   }
   if (layer.artifact_sha256 !== layer.copied_sha256) throw new Error(`${cityId}.real_2d copied bytes do not match the source artifact`);
-  for (const [field, expected] of Object.entries(REVIEWED_REAL_HASHES)) {
-    if (layer[field] !== expected) throw new Error(`${cityId}.real_2d.${field} is not the reviewed artifact hash`);
+  const contract = CITY_REAL_CONTRACTS[cityId];
+  if (!contract) throw new Error(`${cityId}.real_2d has no exact allowlist contract`);
+  for (const [field, expected] of Object.entries(contract)) {
+    if (expected !== null && layer[field] !== expected) throw new Error(`${cityId}.real_2d.${field} is not the exact allowlisted artifact value`);
   }
   for (const field of ["data_path", "source_id", "license", "license_url", "copyright_url", "attribution"]) nonEmptyString(layer[field], `${cityId}.real_2d.${field}`);
   if (!/^\.\/data\/maps\/[A-Za-z0-9_.-]+\.geojson$/.test(layer.data_path)) throw new Error(`${cityId}.real_2d.data_path must remain same-origin and confined`);
@@ -81,13 +98,13 @@ function validateReal2d(layer, cityId) {
     throw new Error(`${cityId}.real_2d provenance classes are unsupported`);
   }
   if (
-    layer.source_id !== "openstreetmap_kiyomizu_named_corridor_20260830"
+    layer.source_id !== contract.source_id
     || layer.license !== "Open Data Commons Open Database License (ODbL) 1.0"
     || layer.license_url !== "https://opendatacommons.org/licenses/odbl/1-0/"
     || layer.copyright_url !== "https://www.openstreetmap.org/copyright"
     || layer.attribution !== "© OpenStreetMap contributors / Data available under ODbL 1.0"
   ) {
-    throw new Error(`${cityId}.real_2d source and license identity must match the reviewed OSM snapshot`);
+    throw new Error(`${cityId}.real_2d source and license identity must match the allowlisted OSM artifact`);
   }
   if (layer.topology_status !== "CANDIDATE_REVIEW_REQUIRED" || layer.route_continuity !== "NOT_ESTABLISHED") {
     throw new Error(`${cityId}.real_2d must not promote candidate topology or route continuity`);
@@ -139,9 +156,6 @@ export function assertSupportedMapCatalog(catalog) {
     seen.add(city.city_id);
     if (city.real_2d !== null) validateReal2d(city.real_2d, city.city_id);
     if (city.cesium !== null) validateCesium(city.cesium, city.city_id);
-    if (city.city_id !== "kyoto_kiyomizu" && (city.real_2d !== null || city.cesium !== null)) {
-      throw new Error(`${city.city_id} must use the synthetic fallback until a reviewed artifact is configured`);
-    }
   }
   return catalog;
 }

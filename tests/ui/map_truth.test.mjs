@@ -52,7 +52,7 @@ test("[source_conformance] global truth matches the scoped Phase 3 map capabilit
   }
 });
 
-test("[ui_regression] runtime catalog preserves explicit Kiyomizu-only real mode and disconnected PLATEAU", () => {
+test("[ui_regression] runtime catalog preserves explicit three-city candidate mode and disconnected PLATEAU", () => {
   const catalog = assertSupportedMapCatalog(
     readJson("viewer/public/data/maps/map-layers.json"),
   );
@@ -65,8 +65,10 @@ test("[ui_regression] runtime catalog preserves explicit Kiyomizu-only real mode
   assert.equal(kiyomizu.real_2d.route_continuity, "NOT_ESTABLISHED");
   assert.equal(selectInitialMapMode(catalog, "kyoto_kiyomizu", ""), "synthetic");
   assert.equal(selectInitialMapMode(catalog, "kyoto_kiyomizu", "?layer=real"), "real");
-  assert.equal(arashiyama.real_2d, null);
-  assert.equal(fujisawa.real_2d, null);
+  assert.ok(arashiyama.real_2d);
+  assert.ok(fujisawa.real_2d);
+  assert.equal(selectInitialMapMode(catalog, "kyoto_arashiyama", "?layer=real"), "real");
+  assert.equal(selectInitialMapMode(catalog, "fujisawa_enoshima", "?layer=real"), "real");
   assert.equal(kiyomizu.cesium.connected, false);
   assert.equal(kiyomizu.cesium.data_class, "OFFICIAL_METADATA_ONLY");
 });
