@@ -1,0 +1,19 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "city_id": "kyoto_kiyomizu",
+        "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+        "reason": "Expands the prior Kiyomizu named-way bbox only enough to include the Master-defined Gion, Gion-Shijo, Kiyomizu-Gojo, Higashiyama, Yasaka and connector candidates; not an administrative boundary.",
+        "prior_bbox": [135.7775, 34.9948, 135.7850, 35.0046],
+        "axis_order": "longitude_latitude"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[135.7655,34.9905],[135.7865,34.9905],[135.7865,35.0080],[135.7655,35.0080],[135.7655,34.9905]]]
+      }
+    }
+  ]
+}
