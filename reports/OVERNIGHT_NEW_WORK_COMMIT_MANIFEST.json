@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "base_branch": "integration/audit-remediation-composition-v1",
+  "base_commit": "d029f339806c5e2e0613901ae97e7e9bf9654d50",
+  "head_branch": "integration/official-data-to-m7-evidence-v1",
+  "commits_in_replay_order": [
+    {"commit": "9322f249c9a74aa41365add3fb49bcef32913e67", "subject": "docs: inventory PLATEAU building evidence"},
+    {"commit": "6dde3f1750875f995b09af7479ac976a7c276a38", "subject": "docs: evaluate M7 evidence readiness for real edges"},
+    {"commit": "864c72ad1bfdf6f77d77009be6924bcaf91d53cd", "subject": "data: stage official evidence receipts for V2"},
+    {"commit": "969068bed434d04a1015e17578ca725d347edda9", "subject": "build: preserve Phase 4 evidence bytes"},
+    {"commit": "9272288b41aa4bb598cd1bc17c747f701db78b56", "subject": "test: register additive Phase 4 evidence artifacts"},
+    {"commit": "9b44e19823aa79e6dc1587c5f2756bcb7559d716", "subject": "feat: connect official evidence to the viewer"},
+    {"commit": "22c1888c61cde9fbaa983e27d503cccb26adb123", "subject": "test: scope facility readiness assertions"}
+  ],
+  "receipt_commit_policy": "The commit that adds this manifest and final status reports is intentionally self-excluded; replay it after the listed commits or replay the final branch range.",
+  "production_contract_changed": false,
+  "m6_frozen": false,
+  "hokonavi_frozen": false,
+  "main_modified": false,
+  "MODEL_ROUTE_VERIFIED": false
+}
