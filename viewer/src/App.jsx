@@ -346,6 +346,31 @@ function EvidenceTables({ city }) {
   );
 }
 
+function OfficialEvidencePanel({ evidence }) {
+  if (!evidence) return null;
+  const rows = [
+    ["terrain", evidence.terrain.status, evidence.terrain.reason],
+    ["hazard", evidence.hazard.status, evidence.hazard.reason],
+    ["PLATEAU", evidence.plateau.status, evidence.plateau.reason],
+    ["M7", evidence.m7.status, `${evidence.m7.all_edge_count} edges / deep pilot ${evidence.m7.deep_pilot_count} / ready ${evidence.m7.evidence_ready_count} / computed ${evidence.m7.computed_count}. ${evidence.m7.city_limitations}`],
+    ["M6/profile", evidence.m6.status, evidence.m6.reason],
+    ["facility", evidence.facility.status, evidence.facility.reason],
+  ];
+  return (
+    <section className="evidence-tables official-evidence" aria-labelledby="official-evidence-title">
+      <div className="section-heading"><p className="eyebrow">SOURCE-BOUND OFFICIAL EVIDENCE</p><h2 id="official-evidence-title">公式データの接続状態</h2></div>
+      <p>source receiptに結合した表示です。未接続の地形・ハザードからCLOSED/FAILを導出せず、建物setback・damage・debrisも推定しません。</p>
+      <div className="table-scroll" tabIndex="0" aria-label="公式データ接続状態一覧"><table><caption>subareas: {evidence.subareas.join(" / ") || "not specified"}</caption><thead><tr><th scope="col">対象</th><th scope="col">状態</th><th scope="col">根拠・未解決理由</th></tr></thead><tbody>{rows.map(([name, status, reason]) => <tr key={name}><th scope="row">{name}</th><td>{status}</td><td>{reason}</td></tr>)}</tbody></table></div>
+      <div className="table-scroll" tabIndex="0" aria-label="source hash binding"><table><caption>source hash binding</caption><tbody>{Object.entries(evidence.source_hashes).map(([name, value]) => <tr key={name}><th scope="row">{name}</th><td><code>{value}</code></td></tr>)}</tbody></table></div>
+      {evidence.terrain.products.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="terrain product inventory"><table><caption>terrain products — receipt <code>{evidence.terrain.receipt_sha256}</code></caption><thead><tr><th>mesh</th><th>DEM</th><th>horizontal CRS</th><th>vertical datum</th><th>AOI</th><th>validation</th><th>status</th></tr></thead><tbody>{evidence.terrain.products.map((row) => <tr key={row.dataset_id}><td>{row.mesh_id}</td><td>{row.dem_class}</td><td>{row.horizontal_crs}</td><td>{row.vertical_datum}</td><td>{row.aoi}</td><td>{row.validation_result}</td><td>{row.status}</td></tr>)}</tbody></table></div>}
+      {evidence.hazard.layers.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Kyoto hazard layer status"><table><caption>Kyoto subarea hazard layers</caption><thead><tr><th>subarea</th><th>layer</th><th>artifact</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.layers.map((row) => <tr key={`${row.subarea}-${row.layer}`}><td>{row.subarea}</td><td>{row.layer}</td><td>{row.artifact_status}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
+      {evidence.hazard.scenarios.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Fujisawa hazard scenario inventory"><table><caption>Fujisawa scenario inventory (AOI: enoshima_katase)</caption><thead><tr><th>dataset</th><th>scenario</th><th>layer</th><th>source</th><th>version</th><th>license/validation</th><th>CRS/bounds</th><th>status</th></tr></thead><tbody>{evidence.hazard.scenarios.map((row) => <tr key={row.dataset_id}><td>{row.dataset_id}</td><td>{row.scenario}</td><td>{row.layer_kind}</td><td>{row.official_source} / {row.official_url}</td><td>{row.version_date}</td><td>{row.license_review} / {row.validation_result}</td><td>{row.crs} / {row.bounds_native}</td><td>{row.status}</td></tr>)}</tbody></table></div>}
+      <p className="model-caveat">PLATEAU: {evidence.plateau.aoi_count} AOIs ({evidence.plateau.aoi_scope.join(" / ")}) / {evidence.plateau.fallback}。実tilesは接続していません。</p>
+      {evidence.facility.marker_policy === "TABLE_ONLY_NO_MARKERS_OR_GEOCODING" && <div className="table-scroll" tabIndex="0" aria-label="藤沢の住所のみ施設一覧"><table><caption>藤沢・江の島／片瀬の公式施設 {evidence.facility.record_count}件（ADDRESS_ONLY、地図markerなし）。ostomate detailは車いす・入口・段差・開設・災害利用可能性を意味しません。</caption><thead><tr><th scope="col">ID</th><th scope="col">施設名</th><th scope="col">住所</th><th scope="col">電話</th><th scope="col">source/currentness</th><th scope="col">ostomate detail</th><th scope="col">車いす/入口/開設</th></tr></thead><tbody>{evidence.facility.records.map((record) => <tr key={record.facility_record_id}><th scope="row"><code>{record.facility_record_id}</code></th><td>{record.name}</td><td>{record.address}</td><td>{record.phone ?? "null"}</td><td>{record.source_id} / {record.source_version_or_valid_as_of ?? "null"}</td><td>{String(record.ostomate_detail_available)}</td><td>UNKNOWN / UNKNOWN / UNKNOWN</td></tr>)}</tbody></table></div>}
+    </section>
+  );
+}
+
 function Loading() {
   return <main id="main-content" className="center-state" tabIndex="-1" aria-busy="true" role="status" aria-live="polite"><p className="eyebrow">LOADING PRECOMPUTED DATA</p><h2>都市データを確認しています</h2></main>;
 }
@@ -388,6 +413,7 @@ export function App() {
   useEffect(() => {
     if (!state) return undefined;
     let active = true;
+    setAnalysis(null);
     fetch(`./data/analysis/${state.city.city_id}.json`).then((response) => response.ok ? response.json() : Promise.reject(new Error("analysis unavailable"))).then((data) => { if (!active) return; setAnalysis(data); setSelectedPathNodes([data.path_fixture.start_node_id, data.path_fixture.end_node_id]); }).catch(() => active && setAnalysis(null));
     return () => { active = false; };
   }, [state?.city.city_id]);
@@ -413,7 +439,8 @@ export function App() {
 
   const cityMapConfig = mapConfigForCity(mapCatalog, state.city.city_id);
   const realMode = state.mapMode === "real" && Boolean(cityMapConfig?.real_2d);
-  const selectedPath = analysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? analysis?.path_fixture ?? null;
+  const cityAnalysis = analysis?.city_id === state.city.city_id ? analysis : null;
+  const selectedPath = cityAnalysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? cityAnalysis?.path_fixture ?? null;
 
   function updateState(nextState, message) {
     setState(nextState);
@@ -432,7 +459,7 @@ export function App() {
           <div><p className="eyebrow">{state.city.municipality} / SCENARIO OUTPUT NOT_COMPUTED</p><h2 id="corridor-title">{state.city.display_name}</h2><p>{state.city.corridor_name}</p></div>
           <dl><div><dt>公式metadata</dt><dd>{state.city.official_metadata_status}</dd></div><div><dt>表示geometry</dt><dd>{realMode ? cityMapConfig.real_2d.geometry_status : state.city.map.geometry_status}</dd></div><div><dt>layer</dt><dd>{realMode ? "REAL COORDINATES / CANDIDATE" : "SYNTHETIC_DEMO / SVG"}</dd></div><div><dt>{realMode ? "source ID" : "source IDs"}</dt><dd>{realMode ? <code>{cityMapConfig.real_2d.source_id}</code> : sourceCount}</dd></div></dl>
         </section>
-        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={analysis} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => setSelectedPathNodes([start, end])} />
+        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={cityAnalysis} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => setSelectedPathNodes([start, end])} />
         <KpiGrid city={state.city} />
         <div className="workspace-grid">
           <section className="map-column" role="region" aria-label={state.view === "2d" ? "2D地図" : "3D可用性"}>
@@ -442,7 +469,7 @@ export function App() {
                   config={cityMapConfig.real_2d}
                   selectedEdgeId={state.selectedRealEdgeId}
                   selectedPathEdgeIds={selectedPath?.edge_ids ?? []}
-                  m7Readiness={analysis?.m7?.readiness ?? []}
+                  m7Readiness={cityAnalysis?.m7?.readiness ?? []}
                   onSelectEdge={selectRealEdge}
                   onAnnouncement={announce}
                 />
@@ -454,7 +481,8 @@ export function App() {
           {realMode ? <RealLayerPanel config={cityMapConfig.real_2d} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
         </div>
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
-        {realMode && analysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {analysis.hazard_overlap.status} — {analysis.hazard_overlap.reason}</p><p>M7 {analysis.m7.status}; ready {analysis.m7.ready_edge_count}; computed {analysis.m7.computed_edge_count}; M6 {analysis.m6.status}</p></section>}
+        {realMode && cityAnalysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></section>}
+        <OfficialEvidencePanel evidence={cityAnalysis?.official_evidence} />
         <EvidenceTables city={state.city} />
         <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>
       </main>

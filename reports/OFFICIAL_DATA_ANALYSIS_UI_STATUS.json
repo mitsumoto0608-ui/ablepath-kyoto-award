@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PARTIAL_FAIL_CLOSED",
+  "ui_connection": "SOURCE_BOUND_OFFICIAL_EVIDENCE_ONLY",
+  "cities": {
+    "kyoto_kiyomizu": {"subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"], "terrain": "NOT_CONNECTED", "terrain_products": 6, "hazard": "NOT_CONNECTED", "hazard_layers": 15, "facility": "NOT_CONNECTED", "plateau_aoi_count": 3, "plateau_fallback": "EXISTING_DETERMINISTIC_2D"},
+    "kyoto_arashiyama": {"subareas": ["arashiyama"], "terrain": "NOT_CONNECTED", "terrain_products": 3, "hazard": "NOT_CONNECTED", "hazard_layers": 5, "facility": "NOT_CONNECTED", "plateau_aoi_count": 1, "plateau_fallback": "EXISTING_DETERMINISTIC_2D"},
+    "fujisawa_enoshima": {"subareas": ["enoshima_katase"], "terrain": "NOT_CONNECTED", "terrain_products": 3, "hazard": "NOT_CONNECTED", "hazard_scenarios": 18, "facility": "READY_FOR_TABLE_ONLY", "facility_records": 57, "geometry_status": "ADDRESS_ONLY", "marker_policy": "TABLE_ONLY_NO_MARKERS_OR_GEOCODING", "plateau_aoi_count": 1, "plateau_fallback": "EXISTING_DETERMINISTIC_2D"}
+  },
+  "m7": {"status": "NOT_COMPUTED", "all_edge_count": 612, "deep_pilot_count": 15, "ready_count": 0, "computed_count": 0, "kiyomizu_gion_connector_partition": "NOT_REVIEWED"},
+  "m6": "NOT_COMPUTED",
+  "safety_contract": {"safe_route_claim": false, "accessibility_claim": false, "admin_validated": false, "hazard_to_closed_or_fail": false, "building_setback_damage_debris_inferred": false},
+  "MODEL_ROUTE_VERIFIED": false
+}
