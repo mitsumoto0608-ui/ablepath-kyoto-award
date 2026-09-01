@@ -4,6 +4,7 @@ import { isVerifiedCesiumConnection } from "./mapDomain.mjs";
 export function CesiumPanel({ config, onFallback, onAnnouncement }) {
   const [Scene, setScene] = useState(null);
   const [runtimeStatus, setRuntimeStatus] = useState("LAZY_LOADING_RUNTIME");
+  const verifiedConnection = isVerifiedCesiumConnection(config);
   const handleConnected = useCallback(() => {
     setRuntimeStatus("SESSION_ROOT_TILESET_LOADED");
     onAnnouncement("PLATEAU root tileset metadataをこのセッションで読み込みました");
@@ -11,12 +12,13 @@ export function CesiumPanel({ config, onFallback, onAnnouncement }) {
   const handleFailure = useCallback((reason) => onFallback(`3D通信失敗: ${reason}`), [onFallback]);
 
   useEffect(() => {
+    if (!verifiedConnection) return undefined;
     let active = true;
     import("./CesiumScene.jsx")
       .then((module) => active && setScene(() => module.default))
       .catch((error) => active && onFallback(`Cesium runtimeの読込に失敗しました: ${error.message}`));
     return () => { active = false; };
-  }, [onFallback]);
+  }, [onFallback, verifiedConnection]);
 
   if (!config) {
     return (
@@ -29,10 +31,10 @@ export function CesiumPanel({ config, onFallback, onAnnouncement }) {
     );
   }
 
-  if (!isVerifiedCesiumConnection(config)) {
+  if (!verifiedConnection) {
     return (
       <section className="three-d-notice" aria-labelledby="three-d-title">
-        <p className="eyebrow">OFFICIAL PLATEAU METADATA / NOT_CONNECTED</p>
+        <p className="eyebrow"><span>OFFICIAL PLATEAU METADATA</span> / <strong>NOT_CONNECTED</strong></p>
         <h2 id="three-d-title">3Dは未接続です</h2>
         <div className="layer-facts">
           <span>{config.data_class}</span><span>{config.source_class}</span><span>{config.lod}</span><span>accessed {config.accessed_at}</span>
