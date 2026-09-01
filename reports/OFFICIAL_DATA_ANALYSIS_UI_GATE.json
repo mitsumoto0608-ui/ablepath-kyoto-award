@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PARTIAL_FAIL_CLOSED",
+  "gate": "OFFICIAL_DATA_ANALYSIS_UI",
+  "pass_conditions": {
+    "source_hash_binding": true,
+    "unsafe_promotion_rejected": true,
+    "fujisawa_address_only_table": true,
+    "kyoto_unconnected_reasons_visible": true,
+    "explicit_terrain_hazard_receipts_visible": true,
+    "m7_not_computed_visible": true
+  },
+  "blocked_conditions": ["terrain_crs_aoi_vertical_datum_review", "official_hazard_geometry_connection", "official_facility_map_connection", "verified_plateau_tiles_or_building_evidence", "m7_real_edge_inputs", "m6_profile_evaluation", "administrative_validation"],
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "MODEL_ROUTE_VERIFIED": false
+}

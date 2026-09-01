@@ -116,318 +116,273 @@
     "m7": {
       "status": "NOT_COMPUTED",
       "ready_edge_count": 0,
-      "computed_edge_count": 0,
-      "readiness": [
-        {
-          "edge_id": "KK-OSM-W1251544286-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W1491152444-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W1491152444-S02",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W157527438-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W174762077-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W179116810-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W24516359-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W28514434-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W28514434-S02",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W30882783-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W30913263-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W371739384-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W371739385-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W526198271-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W550360170-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W58413931-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W710696944-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W747033984-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        },
-        {
-          "edge_id": "KK-OSM-W747033985-S01",
-          "status": "NOT_COMPUTED",
-          "m7_result": null,
-          "missing_fields": [
-            "clear_width_m",
-            "building_height_m",
-            "setback_m",
-            "damage_state",
-            "debris_present",
-            "variant",
-            "official_closure",
-            "hazard_data_status"
-          ],
-          "reason": "Required source-traceable M7 inputs are incomplete."
-        }
-      ]
+      "computed_edge_count": 0
     },
     "m6": {
       "status": "NOT_COMPUTED",
       "reason": "M6/profile evaluation is not connected."
     }
+  },
+  "official_evidence": {
+    "source_status": "PARTIAL_FAIL_CLOSED",
+    "source_hashes": {
+      "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
+      "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
+      "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
+      "kyoto_status_sha256": "d9f738dd52e20362db67226c6ab232e9eac0a6562047034e5e99ce9ee72b71a6",
+      "terrain_inventory_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478"
+    },
+    "subareas": [
+      "kiyomizu",
+      "gion",
+      "kiyomizu_gion_connector"
+    ],
+    "terrain": {
+      "status": "NOT_CONNECTED",
+      "reason": "DEM products were found, but terrain is NOT_CONNECTED: CRS/AOI/vertical datum review remains unresolved.",
+      "connected": false,
+      "receipt_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
+      "products": [
+        {
+          "dataset_id": "gsi_523536_dem1a_20250908",
+          "mesh_id": "523536",
+          "dem_class": "DEM1A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        },
+        {
+          "dataset_id": "gsi_523546_dem1a_20250908",
+          "mesh_id": "523546",
+          "dem_class": "DEM1A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        },
+        {
+          "dataset_id": "gsi_523536_dem5a_20250908",
+          "mesh_id": "523536",
+          "dem_class": "DEM5A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        },
+        {
+          "dataset_id": "gsi_523546_dem5a_20250908",
+          "mesh_id": "523546",
+          "dem_class": "DEM5A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        },
+        {
+          "dataset_id": "gsi_523536_dem5b_20250609",
+          "mesh_id": "523536",
+          "dem_class": "DEM5B",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        },
+        {
+          "dataset_id": "gsi_523546_dem5b_20161001",
+          "mesh_id": "523546",
+          "dem_class": "DEM5B",
+          "horizontal_crs": "fguuid:jgd2011.bl",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+          "aoi_status": "AOI_INTERSECTION_PENDING",
+          "validation_result": "CRS_REVIEW_REQUIRED",
+          "terrain_connected": false,
+          "status": "NOT_CONNECTED"
+        }
+      ]
+    },
+    "hazard": {
+      "status": "NOT_CONNECTED",
+      "reason": "No closure is derived. Flood: Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane. Landslide: Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed.",
+      "connected": false,
+      "closure_derived": false,
+      "damage_or_debris_inferred": false,
+      "layers": [
+        {
+          "subarea": "kiyomizu",
+          "layer": "flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
+          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+        },
+        {
+          "subarea": "kiyomizu",
+          "layer": "landslide",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "LICENSE_REVIEW_REQUIRED",
+          "reason": "Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed."
+        },
+        {
+          "subarea": "kiyomizu",
+          "layer": "earthquake",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "kiyomizu",
+          "layer": "liquefaction",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "kiyomizu",
+          "layer": "inner_flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "gion",
+          "layer": "flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
+          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+        },
+        {
+          "subarea": "gion",
+          "layer": "landslide",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "LICENSE_REVIEW_REQUIRED",
+          "reason": "Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed."
+        },
+        {
+          "subarea": "gion",
+          "layer": "earthquake",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "gion",
+          "layer": "liquefaction",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "gion",
+          "layer": "inner_flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "kiyomizu_gion_connector",
+          "layer": "flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
+          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+        },
+        {
+          "subarea": "kiyomizu_gion_connector",
+          "layer": "landslide",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "LICENSE_REVIEW_REQUIRED",
+          "reason": "Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed."
+        },
+        {
+          "subarea": "kiyomizu_gion_connector",
+          "layer": "earthquake",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "kiyomizu_gion_connector",
+          "layer": "liquefaction",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        },
+        {
+          "subarea": "kiyomizu_gion_connector",
+          "layer": "inner_flood",
+          "status": "NOT_CONNECTED",
+          "connected": false,
+          "artifact_status": "NOT_ACCEPTED",
+          "reason": "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
+        }
+      ],
+      "scenarios": []
+    },
+    "facility": {
+      "status": "NOT_CONNECTED",
+      "record_count": 0,
+      "reason": "R8.8.18 shelter/emergency-site originals were absent from approved staging/workspace. Toilet XLSX has a tracked metadata receipt only; row-level subarea extraction was not authorized. Other facility sources are landing/category metadata only."
+    },
+    "plateau": {
+      "status": "NOT_CONNECTED",
+      "aoi_count": 3,
+      "aoi_scope": [
+        "kiyomizu",
+        "gion",
+        "kiyomizu_gion_connector"
+      ],
+      "fallback": "EXISTING_DETERMINISTIC_2D",
+      "m7_evidence_ready_count": 0,
+      "m7_computed_count": 0,
+      "reason": "This city AOI set retains the existing deterministic 2D fallback; verified PLATEAU tiles or building-side evidence are not connected."
+    },
+    "m7": {
+      "status": "NOT_COMPUTED",
+      "all_edge_count": 612,
+      "deep_pilot_count": 15,
+      "evidence_ready_count": 0,
+      "computed_count": 0,
+      "city_edge_count": 19,
+      "edge_receipts_source_sha256": "ced9bcd8ffd2466ac9b07d162a7c1863c42b27746b19ae7ba473a95f639f03b1",
+      "city_limitations": "Current candidate pack lacks reviewed Kiyomizu/Gion/connector per-edge partition; no verified Gion deep-pilot coverage claim is made.",
+      "reason": "M7 is not connected to real candidate edges; building setback, damage, and debris are not inferred."
+    },
+    "m6": {
+      "status": "NOT_COMPUTED",
+      "reason": "M6/profile evaluation is not connected."
+    },
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false
   },
   "limitations": [
     "Candidate connectivity only",
@@ -549,308 +504,878 @@
     "computed_edge_count": 0,
     "readiness": [
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": true,
+        "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
         "edge_id": "KK-OSM-W1251544286-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-1251544286:nodes-0-1",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": true,
+        "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
         "edge_id": "KK-OSM-W1491152444-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-1491152444:nodes-0-2",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": true,
+        "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
         "edge_id": "KK-OSM-W1491152444-S02",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-1491152444:nodes-2-5",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": true,
+        "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
         "edge_id": "KK-OSM-W157527438-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-157527438:nodes-0-9",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": true,
+        "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
         "edge_id": "KK-OSM-W174762077-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-174762077:nodes-0-24",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W179116810-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-179116810:nodes-0-2",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W24516359-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-24516359:nodes-0-10",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W28514434-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-28514434:nodes-0-1",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W28514434-S02",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-28514434:nodes-1-22",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W30882783-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-30882783:nodes-0-4",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W30913263-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-30913263:nodes-0-6",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W371739384-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-371739384:nodes-0-2",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W371739385-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-371739385:nodes-0-4",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W526198271-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-526198271:nodes-0-16",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W550360170-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-550360170:nodes-0-1",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W58413931-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-58413931:nodes-0-14",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W710696944-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-710696944:nodes-0-18",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W747033984-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-747033984:nodes-0-1",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       },
       {
+        "city_id": "kyoto_kiyomizu",
+        "damage_or_debris_derived_from_hazard": false,
+        "deep_pilot": false,
+        "deep_pilot_group": null,
         "edge_id": "KK-OSM-W747033985-S01",
-        "status": "NOT_COMPUTED",
+        "field_evidence_status": {
+          "clear_width_m": "MISSING",
+          "hazard_data_status": "MISSING",
+          "left_buildings": "MISSING",
+          "official_closure": "MISSING",
+          "right_buildings": "MISSING",
+          "variant": "MISSING"
+        },
+        "geometry_provenance": {
+          "geometry_status": "SOURCE_TRACEABLE_REAL",
+          "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+          "source_feature_id": "osm-way-747033985:nodes-0-1",
+          "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+        },
+        "implicit_defaults_used": false,
+        "m7_api_structurally_callable": false,
+        "m7_computed": false,
+        "m7_evidence_ready": false,
         "m7_result": null,
         "missing_fields": [
           "clear_width_m",
-          "building_height_m",
-          "setback_m",
-          "damage_state",
-          "debris_present",
+          "left_buildings",
+          "right_buildings",
           "variant",
           "official_closure",
-          "hazard_data_status"
+          "hazard_data_status",
+          "m7_provenance.clear_width_m",
+          "m7_provenance.left_buildings",
+          "m7_provenance.right_buildings",
+          "m7_provenance.variant",
+          "m7_provenance.official_closure",
+          "m7_provenance.hazard_data_status"
         ],
-        "reason": "Required source-traceable M7 inputs are incomplete."
+        "reason": "M7 inputs are not structurally callable; M7 was not run.",
+        "selection_basis": "BROAD_SCAN_ONLY",
+        "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+        "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+        "status": "NOT_COMPUTED",
+        "structural_values_present": []
       }
     ]
   },

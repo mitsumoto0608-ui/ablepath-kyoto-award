@@ -55,6 +55,24 @@ test("[ui_regression] KPI and evidence gaps remain visible and reasoned", async 
   }
 });
 
+test("[source_conformance] official evidence keeps Kyoto disconnected and Fujisawa facilities table-only", async ({ page }) => {
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  const official = page.locator(".official-evidence");
+  await expect(official).toContainText("CRS/AOI/vertical datum review remains unresolved");
+  await expect(official).toContainText("No closure is derived");
+  await expect(official).toContainText("612 edges / deep pilot 15 / ready 0 / computed 0");
+  await expect(official).toContainText("Kiyomizu/Gion/connector");
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  await expect(page.getByText(/公式施設 57件/)).toBeVisible();
+  await expect(page.locator(".official-evidence tbody tr").filter({ hasText: "fujisawa-accessibility-" })).toHaveCount(57);
+  await expect(page.locator(".official-evidence").getByText(/ADDRESS_ONLY、地図markerなし/)).toBeVisible();
+  await expect(page.locator(".official-evidence").getByText("UNKNOWN / UNKNOWN / UNKNOWN")).toHaveCount(57);
+  await expect(page.locator(".official-evidence .map-marker, .official-evidence [data-marker]")).toHaveCount(0);
+  const text = await page.locator("body").innerText();
+  expect(text).not.toContain("安全な避難ルート");
+  expect(text).not.toContain("CLOSEDを導出");
+});
+
 test("[ui_regression] map uses text marks and is keyboard operable", async ({ page }) => {
   await page.goto("/");
   const legend = page.getByLabel("状態凡例");
@@ -379,4 +397,30 @@ test("[ui_regression] real map remains within 320 360 375 and 400 CSS pixels", a
     expect(dimensions.scrollWidth, `viewport ${width}`).toBeLessThanOrEqual(dimensions.width + 1);
     await expect(page.getByRole("link", { name: /OpenStreetMap contributors/ })).toBeVisible();
   }
+});
+
+test("[ui_regression] official evidence tables remain page-width responsive at 320 through 400 CSS pixels", async ({ page }) => {
+  for (const width of [320, 360, 375, 400]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/?city=fujisawa_enoshima&layer=synthetic");
+    await expect(page.getByText(/公式施設 57件/)).toBeVisible();
+    const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+    expect(dimensions.scrollWidth, `official evidence viewport ${width}`).toBeLessThanOrEqual(dimensions.width + 1);
+  }
+});
+
+test("[ui_regression] desktop captures the required V2 official-evidence artifact names", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "V2 evidence screenshots are desktop review artifacts");
+  const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  for (const name of ["kiyomizu-gion-terrain-hazard.png", "kiyomizu-gion-official-facilities.png", "kiyomizu-gion-plateau-or-fallback.png", "kyoto-m7-evidence-not-computed-or-result.png", "kiyomizu-terrain-analysis.png", "m7-evidence-not-computed.png", "fallback.png"]) await capture(name);
+  await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  for (const name of ["arashiyama-terrain-flood.png", "arashiyama-official-facilities.png", "arashiyama-plateau-or-fallback.png", "arashiyama-terrain-analysis.png"]) await capture(name);
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  for (const name of ["fujisawa-earthquake-scenario.png", "fujisawa-liquefaction-scenario.png", "fujisawa-accessibility-table.png"]) await capture(name);
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  await capture("mobile-320-kyoto-official-data.png");
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  await capture("mobile-320-official-data.png");
 });
