@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ablepath:g7-human-freeze-decisions:1.0.0-review.1",
+  "title": "AblePath Gate 7 human-freeze decision record",
+  "description": "Review-only schema. Conformance to this schema does not freeze M6 or Hokonavi and does not authorize production enablement.",
+  "x-ablepath-required-decision-ids": [
+    "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10",
+    "H11", "H12", "H13", "H14", "H15", "H16", "H17", "H18", "H19", "H20",
+    "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08",
+    "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16",
+    "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09",
+    "D10", "D11", "D12", "D13", "D14", "D15", "D16", "D17", "D18",
+    "D19", "D20", "D21", "D22", "D23", "D24", "D25"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_id",
+    "schema_version",
+    "document_role",
+    "source_commit",
+    "freeze_record",
+    "gates",
+    "decisions"
+  ],
+  "properties": {
+    "$schema": {"const": "G7_HUMAN_FREEZE_DECISIONS.schema.json"},
+    "schema_id": {"const": "ABLEPATH_G7_HUMAN_FREEZE_DECISIONS"},
+    "schema_version": {"const": "1.0.0-review.1"},
+    "document_role": {"const": "REVIEW_ONLY"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "freeze_record": {"$ref": "#/$defs/freezeRecord"},
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["m6", "hokonavi"],
+      "properties": {
+        "m6": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "result_status", "production_calculation_enabled"],
+          "properties": {
+            "status": {"enum": ["READY_FOR_HUMAN_FREEZE", "EVIDENCE_GAP"]},
+            "result_status": {"const": "NOT_COMPUTED"},
+            "production_calculation_enabled": {"const": false}
+          }
+        },
+        "hokonavi": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "production_adapter_enabled"],
+          "properties": {
+            "status": {"enum": ["READY_FOR_HUMAN_FREEZE", "BLOCKED_CONTRACT"]},
+            "production_adapter_enabled": {"const": false}
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 61,
+      "maxItems": 61,
+      "items": {"$ref": "#/$defs/decision"}
+    }
+  },
+  "$defs": {
+    "nullableNonEmptyString": {
+      "oneOf": [
+        {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+        {"type": "null"}
+      ]
+    },
+    "freezeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "record_id",
+        "reviewer_name",
+        "reviewer_role",
+        "decision_date",
+        "signature_or_review_record",
+        "source_commit"
+      ],
+      "properties": {
+        "status": {"enum": ["NOT_RECORDED", "PARTIAL", "APPROVED", "REJECTED"]},
+        "record_id": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "reviewer_name": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "reviewer_role": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "decision_date": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "signature_or_review_record": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "source_commit": {
+          "oneOf": [
+            {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "lane",
+        "title",
+        "recommended",
+        "alternatives",
+        "evidence",
+        "effect",
+        "checkbox",
+        "selection",
+        "blocking"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^(H([1-9]|1[0-9]|20)|F(0[1-9]|1[0-6])|D(0[1-9]|1[0-9]|2[0-5]))$"},
+        "lane": {"enum": ["M6", "HOKONAVI"]},
+        "title": {"type": "string", "minLength": 1},
+        "recommended": {"type": "string", "minLength": 1},
+        "alternatives": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "effect": {"type": "string", "minLength": 1},
+        "checkbox": {"const": "[ ]"},
+        "selection": {"$ref": "#/$defs/nullableNonEmptyString"},
+        "blocking": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["m6", "hokonavi", "reason"],
+          "properties": {
+            "m6": {"type": "boolean"},
+            "hokonavi": {"type": "boolean"},
+            "reason": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "freeze_record": {
+            "properties": {"status": {"const": "APPROVED"}},
+            "required": ["status"]
+          }
+        },
+        "required": ["freeze_record"]
+      },
+      "then": {
+        "properties": {
+          "freeze_record": {
+            "properties": {
+              "status": {"const": "APPROVED"},
+              "record_id": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "reviewer_name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "reviewer_role": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "decision_date": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "signature_or_review_record": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+            }
+          },
+          "decisions": {
+            "items": {
+              "properties": {
+                "selection": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}
+              },
+              "required": ["selection"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

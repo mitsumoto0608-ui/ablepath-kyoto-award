@@ -179,6 +179,19 @@ export function mapConfigForCity(catalog, cityId) {
   return catalog.cities.find((city) => city.city_id === cityId) ?? null;
 }
 
+// Static catalog metadata is deliberately not sufficient to make a network
+// capability claim. Gate 8 requires a separate reviewed receipt for the root,
+// child availability, CORS, and the target AOI before the Cesium runtime may
+// request an official tileset.
+export function isVerifiedCesiumConnection(layer) {
+  return Boolean(
+    layer
+    && layer.connected === true
+    && layer.data_class === "OFFICIAL_REMOTE_TILESET"
+    && layer.connection_receipt_sha256,
+  );
+}
+
 export function selectInitialMapMode(catalog, cityId, search = "") {
   const requested = new URLSearchParams(search).get("layer");
   const realAvailable = Boolean(mapConfigForCity(catalog, cityId)?.real_2d);

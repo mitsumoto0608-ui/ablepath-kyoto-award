@@ -7,6 +7,7 @@ import test from "node:test";
 import {
   assertSupportedMapCatalog,
   computeGeoJsonBounds,
+  isVerifiedCesiumConnection,
   selectInitialMapMode,
 } from "../../viewer/src/mapDomain.mjs";
 import { buildMapArtifacts, shortestCandidateFixture } from "../../viewer/scripts/build-map-artifacts.mjs";
@@ -116,6 +117,10 @@ test("[source_conformance] PLATEAU remains official metadata only and disconnect
   assert.equal(layer.cesium.connected, false);
   assert.equal(layer.cesium.requires_commercial_token, false);
   assert.match(layer.cesium.tileset_url, /^https:\/\/assets\.cms\.plateau\.reearth\.io\//);
+  // The retained root metadata has no reviewed CORS, AOI, or child-tile receipt.
+  // A mock response must therefore not turn this into a real PLATEAU connection.
+  assert.equal(isVerifiedCesiumConnection(layer.cesium), false);
+  assert.equal(isVerifiedCesiumConnection({ ...layer.cesium, connected: true }), false);
 });
 
 test("[source_conformance] catalog validation rejects truth-status promotion and lineage drift", () => {

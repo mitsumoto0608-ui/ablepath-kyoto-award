@@ -1,0 +1,1344 @@
+{
+  "$schema": "G7_HUMAN_FREEZE_DECISIONS.schema.json",
+  "schema_id": "ABLEPATH_G7_HUMAN_FREEZE_DECISIONS",
+  "schema_version": "1.0.0-review.1",
+  "document_role": "REVIEW_ONLY",
+  "source_commit": "515955000d3df28b5b20e468a6312a006f7f95ea",
+  "freeze_record": {
+    "status": "NOT_RECORDED",
+    "record_id": null,
+    "reviewer_name": null,
+    "reviewer_role": null,
+    "decision_date": null,
+    "signature_or_review_record": null,
+    "source_commit": null
+  },
+  "gates": {
+    "m6": {
+      "status": "READY_FOR_HUMAN_FREEZE",
+      "result_status": "NOT_COMPUTED",
+      "production_calculation_enabled": false
+    },
+    "hokonavi": {
+      "status": "READY_FOR_HUMAN_FREEZE",
+      "production_adapter_enabled": false
+    }
+  },
+  "decisions": [
+    {
+      "id": "H1",
+      "lane": "M6",
+      "title": "Claim scope",
+      "recommended": "Report named-source conformance and profile assessment only as separate outputs; defer computation until both schemas are approved.",
+      "alternatives": [
+        "Conformance only",
+        "Profile assessment only",
+        "Defer all computation."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h1--claim-scope",
+        "docs/reference/DESIGN.md FR-5/FR-7"
+      ],
+      "effect": "Prevents legal/source conformance from being presented as person-level traversability.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H1 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H2",
+      "lane": "M6",
+      "title": "Japanese source applicability",
+      "recommended": "Require authoritative edge-level applicability before Japanese conformance; otherwise keep that output NOT_COMPUTED.",
+      "alternatives": [
+        "Apply a national clause without edge proof",
+        "Omit Japanese conformance from v1."
+      ],
+      "evidence": [
+        "docs/review/M6_EVIDENCE_MATRIX.md S1-S2",
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h2--japanese-source-applicability"
+      ],
+      "effect": "Avoids asserting a rule applies without road, administrator, ordinance, or trigger evidence.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H2 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H3",
+      "lane": "M6",
+      "title": "First executable profile",
+      "recommended": "Keep production profile count zero now; consider one immutable manual-wheelchair-independent reference only after all remaining gates.",
+      "alternatives": [
+        "Promote a width-only profile now",
+        "Promote multiple device profiles",
+        "Approve one profile after all gates."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h3--first-executable-profile",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#profileattribute-readiness"
+      ],
+      "effect": "Keeps every profile result NOT_COMPUTED until a complete validated profile exists.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H3 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H4",
+      "lane": "M6",
+      "title": "Required attributes",
+      "recommended": "Use a closed required/optional attribute set per immutable profile; unresolved required attributes cannot yield PASS.",
+      "alternatives": [
+        "Width only",
+        "One shared attribute set for all profiles",
+        "Defer the attribute schema."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h4--required-attributes",
+        "docs/review/M6_EVIDENCE_MATRIX.md S1-S7/S11"
+      ],
+      "effect": "Prevents width-only overclaim and profile aliasing.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H4 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H5",
+      "lane": "M6",
+      "title": "Comparator and source binding",
+      "recommended": "Do not bind production values until humans select one named source or a closed precedence rule per attribute.",
+      "alternatives": [
+        "One named source per comparator",
+        "Documented source hierarchy",
+        "Aggregate values across sources."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h5--comparatorsource-binding",
+        "docs/review/M6_INTERNATIONAL_STANDARDS_COMPARISON.md"
+      ],
+      "effect": "Keeps value, operator, edition, exceptions, and applicability together.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H5 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H6",
+      "lane": "M6",
+      "title": "Equality semantics",
+      "recommended": "Preserve each source operator for conformance and freeze profile equality separately; keep profile NOT_COMPUTED meanwhile.",
+      "alternatives": [
+        "Equality always PASS",
+        "Equality always CONDITIONAL",
+        "Equality always FAIL."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h6--equality-semantics",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#symbolic-width-and-constriction-table"
+      ],
+      "effect": "Prevents a universal equality state from being invented.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H6 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H7",
+      "lane": "M6",
+      "title": "Short constriction",
+      "recommended": "Defer production exceptions; retain ADA and DfT structures only as separate non-executable comparators until validated.",
+      "alternatives": [
+        "No exception",
+        "Adopt the complete named ADA rule",
+        "Adopt the complete named DfT rule",
+        "Create a validated AblePath rule."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h7--short-constriction",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#symbolic-width-and-constriction-table"
+      ],
+      "effect": "Prevents mixing width, length, spacing, and surrounding-space clauses.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H7 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H8",
+      "lane": "M6",
+      "title": "Aggregation and direction",
+      "recommended": "Use independent attribute results with no overall state for v1 review; adopt a compound model only after target validation.",
+      "alternatives": [
+        "Worst-required-attribute gate",
+        "Validated compound model",
+        "Weighted score."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h8--attribute-aggregation-and-direction",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#attribute-aggregation-options"
+      ],
+      "effect": "Avoids an unvalidated overall state and preserves ascent/descent meaning.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H8 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H9",
+      "lane": "M6",
+      "title": "Meaning of CONDITIONAL",
+      "recommended": "If used, freeze a disjoint closed condition vocabulary with reason codes; otherwise keep affected cases UNKNOWN.",
+      "alternatives": [
+        "Source exception only",
+        "Verified assistance only",
+        "Bounded operation only",
+        "Soft cost only",
+        "No CONDITIONAL in the first profile."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h9--meaning-of-conditional",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#conditional-options"
+      ],
+      "effect": "Prevents unlike exceptions, assistance, operation, and costs from collapsing into one opaque state.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H9 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H10",
+      "lane": "M6",
+      "title": "Hard exclusion versus soft cost",
+      "recommended": "Keep the hard-exclusion list empty until validated; later allow only a frozen physical hard exclusion to create FAIL.",
+      "alternatives": [
+        "Every source non-conformance creates FAIL",
+        "Speed/cost evidence creates FAIL",
+        "Approve a closed validated hard list."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h10--hard-exclusion-versus-soft-cost",
+        "docs/review/M6_IMPLEMENTATION_CONTRACT.md"
+      ],
+      "effect": "Prevents performance evidence from being mislabeled as physical impossibility.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H10 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H11",
+      "lane": "M6",
+      "title": "Closure precedence",
+      "recommended": "Keep closure as a separate route-use gate; closure true blocks route use while profile assessment remains semantically separate.",
+      "alternatives": [
+        "Fold closure true into FAIL",
+        "Fold closure true into UNKNOWN",
+        "Treat closure false as proof of PASS."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h11--closure-precedence",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#closure-precedence-options"
+      ],
+      "effect": "Preserves operation versus physical meaning and never defaults unknown closure to open.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H11 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H12",
+      "lane": "M6",
+      "title": "Evidence sufficiency and conflict",
+      "recommended": "Freeze a per-attribute authority, method, verification, validity, and conflict matrix; defer computation until complete.",
+      "alternatives": [
+        "One global hierarchy and expiry",
+        "Reuse product weights as scientific truth",
+        "Always defer computation."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h12--evidence-sufficiency-freshness-and-conflict",
+        "docs/reference/DESIGN.md FR-5"
+      ],
+      "effect": "Prevents stale or conflicting evidence from silently producing a known state.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H12 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H13",
+      "lane": "M6",
+      "title": "Exact schemas and reason codes",
+      "recommended": "Treat malformed or extra inputs as validation errors and explicit missing evidence as UNKNOWN under closed schemas.",
+      "alternatives": [
+        "Treat all malformed data as UNKNOWN",
+        "Default missing numeric values",
+        "Defer schema definition."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h13--inputoutput-schema-and-invalid-data",
+        "docs/review/M6_IMPLEMENTATION_CONTRACT.md M6-F04/M6-F08"
+      ],
+      "effect": "Separates producer defects from valid unknown evidence and prevents default-to-PASS.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H13 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H14",
+      "lane": "M6",
+      "title": "Units and uncertainty",
+      "recommended": "After measurement evidence, use an uncertainty interval and prohibit PASS when it crosses a boundary; defer until then.",
+      "alternatives": [
+        "Exact converted point with no tolerance",
+        "Unverified fixed epsilon",
+        "Source-unit-only comparison",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h14--units-tolerance-and-uncertainty",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md"
+      ],
+      "effect": "Avoids false precision and invented tolerances.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H14 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H15",
+      "lane": "M6",
+      "title": "Graph representation",
+      "recommended": "Use typed edge, node, arc, and route evidence objects; keep M6 NOT_COMPUTED until required objects exist.",
+      "alternatives": [
+        "Edge width only",
+        "Flatten all context onto edges",
+        "Defer representation."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h15--graph-representation",
+        "docs/reference/DESIGN.md §13.3"
+      ],
+      "effect": "Preserves passing, turning, rest, constriction, and directional context.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H15 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H16",
+      "lane": "M6",
+      "title": "Reference capability envelope",
+      "recommended": "Keep every profile future/NOT_COMPUTED now; later approve a documented immutable envelope with exclusions and non-claims.",
+      "alternatives": [
+        "Generic wheelchair user",
+        "Infer capability from labels",
+        "Approve a documented envelope now."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h16--reference-capability-envelope",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#profileattribute-readiness"
+      ],
+      "effect": "Prevents device/person/assistance classes from being aliased.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H16 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H17",
+      "lane": "M6",
+      "title": "Target validation",
+      "recommended": "Require a documented Kyoto/Fujisawa target-validation protocol for profile assessment; allow named conformance only as a separate layer.",
+      "alternatives": [
+        "No local validation",
+        "Foreign-source conformance only",
+        "Defer production."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h17--target-validation",
+        "docs/reference/DESIGN.md test taxonomy"
+      ],
+      "effect": "Keeps source conformance distinct from validated local profile performance.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H17 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H18",
+      "lane": "M6",
+      "title": "Registry and ledger reconciliation",
+      "recommended": "Perform human provenance reconciliation with an audit trail; do not edit the numeric value in this lane.",
+      "alternatives": [
+        "Keep both classifications and document mismatch",
+        "Silently normalize metadata",
+        "Remove or rebind after review."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h18--registryledger-reconciliation",
+        "docs/review/M6_IMPLEMENTATION_CONTRACT.md M6-F06"
+      ],
+      "effect": "Prevents authority metadata from being silently rewritten.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H18 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H19",
+      "lane": "M6",
+      "title": "EN 17210 re-review",
+      "recommended": "Watch metadata and re-review only after final publication plus actual legal/adoption status verification.",
+      "alternatives": [
+        "Use draft values now",
+        "Never reconsider the source",
+        "Metadata-only watch without binding."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h19--en-17210-re-review-trigger",
+        "docs/review/M6_EVIDENCE_MATRIX.md S9-S10"
+      ],
+      "effect": "Keeps draft or inaccessible clauses out of production bindings.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H19 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "H20",
+      "lane": "M6",
+      "title": "RED expected values",
+      "recommended": "Approve complete executable state/reason tables only after H1-H19; otherwise defer all state expectations.",
+      "alternatives": [
+        "Approve no-PASS and validation invariants only",
+        "Encode current recommendations as tests",
+        "Defer all executable M6 tests."
+      ],
+      "evidence": [
+        "docs/review/M6_H1_H20_RECOMMENDATIONS.md#h20--red-expected-values-and-mutation-gates",
+        "docs/review/M6_STATE_TABLE_OPTIONS.md#post-freeze-red-and-mutation-menu"
+      ],
+      "effect": "Prevents tests from silently freezing equality, closure, evidence, and state policy.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": true,
+        "hokonavi": false,
+        "reason": "Unselected H20 blocks a complete signed M6 freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F01",
+      "lane": "HOKONAVI",
+      "title": "Adapter scope",
+      "recommended": "Freeze the 40 entries only as AblePath mapping concepts; reject undeclared source fields and do not claim complete official-field coverage.",
+      "alternatives": [
+        "Wait for a complete official source-field inventory",
+        "Freeze a modified bounded scope."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f01--adapterの対象範囲",
+        "schemas/hokonavi_2024_mapping.yaml"
+      ],
+      "effect": "Defines the bounded implementation surface without inventing coverage.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F01 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F02",
+      "lane": "HOKONAVI",
+      "title": "Node and link internal schema",
+      "recommended": "Use separate node/link collections with exact keys, geometry types, endpoint references, and numbered incident-link columns.",
+      "alternatives": [
+        "Modify the proposed exact shape",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f02--nodelink-internal-schema",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §§2-5"
+      ],
+      "effect": "Prevents entity mixing and dangling topology.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F02 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F03",
+      "lane": "HOKONAVI",
+      "title": "Stable identity and lineage",
+      "recommended": "Preserve source IDs inside dataset-qualified identity, reject literal node/link collision, and store split/merge lineage separately.",
+      "alternatives": [
+        "Specify another global-ID policy",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f03--stable-identityとlineage",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §3"
+      ],
+      "effect": "Protects round-trip identity and evidence association.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F03 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F04",
+      "lane": "HOKONAVI",
+      "title": "maint_date semantics",
+      "recommended": "Preserve maint_date as source update date only; do not derive observation time, validity, or expiry.",
+      "alternatives": [
+        "Approve modified time semantics",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f04--maint_date",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §5.5"
+      ],
+      "effect": "Prevents unsupported freshness claims.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F04 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F05",
+      "lane": "HOKONAVI",
+      "title": "Code 99, semantic blank, and missing",
+      "recommended": "Retain SOURCE_VALUE, SOURCE_CODE_99, SEMANTIC_BLANK, and MISSING_ATTRIBUTE per field; semantic blank requires a reviewed field rule.",
+      "alternatives": [
+        "Wait for all field-specific blank rules",
+        "Freeze a modified missingness policy."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f05--99--semantic-blank--missing",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §6"
+      ],
+      "effect": "Preserves distinct unknown causes through round-trip.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F05 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F06",
+      "lane": "HOKONAVI",
+      "title": "Static width and M7 width",
+      "recommended": "Keep clear_width_static_m and remaining_clear_width_m in separate layers and prohibit mutual overwrite or adapter-generated M7 values.",
+      "alternatives": [
+        "Approve a modified separation",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f06--static-widthとm7-width",
+        "AI_TASKS/05_HOKONAVI_2024_ADAPTER_IMPLEMENTATION.md"
+      ],
+      "effect": "Prevents normal network facts from mixing with scenario-model output.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F06 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F07",
+      "lane": "HOKONAVI",
+      "title": "CRS, axis, and unit",
+      "recommended": "Store source CRS, formal axes, serialization order, and units separately; reject transformations without source declaration and rationale.",
+      "alternatives": [
+        "Wait for per-format axis review",
+        "Freeze modified CRS semantics."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f07--crs--axis--unit",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §2.3"
+      ],
+      "effect": "Prevents axis reversal and unsupported conversion.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F07 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F08",
+      "lane": "HOKONAVI",
+      "title": "Time separation",
+      "recommended": "Keep source update, observation, validity, schedule, and scenario elapsed time separate with no automatic derivation.",
+      "alternatives": [
+        "Freeze modified time semantics",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f08--time-semantics",
+        "docs/reference/DESIGN.md §13.5"
+      ],
+      "effect": "Prevents static metadata from becoming operational truth.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F08 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F09",
+      "lane": "HOKONAVI",
+      "title": "Sidecar version",
+      "recommended": "Treat prototype 1.0.0 as unapproved; use breaking Proposal V2 as the first freeze candidate with no automatic migration.",
+      "alternatives": [
+        "Adopt prototype 1.0.0 with explicit design exception and re-review",
+        "Specify another sidecar design."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f09--sidecar-version",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §8"
+      ],
+      "effect": "Avoids freezing a prototype that lacks association, lineage, and adoption records.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F09 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F10",
+      "lane": "HOKONAVI",
+      "title": "Evidence association",
+      "recommended": "Require edge_ref and attribute on observations/evidence/adoptions, with resolved observation references.",
+      "alternatives": [
+        "Freeze a modified association model",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f10--evidence-association",
+        "docs/reference/DESIGN.md §13.6"
+      ],
+      "effect": "Makes each adopted value traceable to selected and rejected observations.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F10 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F11",
+      "lane": "HOKONAVI",
+      "title": "Information-loss policy",
+      "recommended": "Emit deterministic mapping-level and entity-level loss IDs; preserve UNMAPPED externally or reject export.",
+      "alternatives": [
+        "Freeze a modified loss model",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f11--information-loss-policy",
+        "docs/data/HOKONAVI_2024_INFORMATION_LOSS.md"
+      ],
+      "effect": "Prevents silent data loss.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F11 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F12",
+      "lane": "HOKONAVI",
+      "title": "Round-trip claim",
+      "recommended": "Permit only DECLARED_SUBSET_SEMANTIC_ROUND_TRIP; keep byte, all-field, cross-format, and real-data claims unverified.",
+      "alternatives": [
+        "Choose a narrower claim",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f12--round-trip-claim",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §9"
+      ],
+      "effect": "Keeps interoperability claims inside tested synthetic evidence.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F12 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F13",
+      "lane": "HOKONAVI",
+      "title": "Rejection behavior",
+      "recommended": "Make identity, geometry, CRS, code, connector, loss, numeric, and sidecar inconsistencies fatal without auto-repair.",
+      "alternatives": [
+        "Freeze a modified rejection matrix",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f13--rejection-behavior",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md §10"
+      ],
+      "effect": "Maintains fail-closed import/export behavior.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F13 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F14",
+      "lane": "HOKONAVI",
+      "title": "Golden fixtures",
+      "recommended": "Retain the 5-node/5-link SYNTHETIC golden only for regression and add a separately reviewed real-data-shaped fixture after freeze.",
+      "alternatives": [
+        "Modify fixture policy",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f14--golden-fixture",
+        "tests/fixtures/hokonavi_2024/README.md"
+      ],
+      "effect": "Prevents synthetic evidence from being counted as real interoperability.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F14 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F15",
+      "lane": "HOKONAVI",
+      "title": "Version and revision policy",
+      "recommended": "Version source spec, mapping, internal schema, sidecar, and adapter independently; stop on newer revision and require explicit migration for breaking change.",
+      "alternatives": [
+        "Freeze modified version rules",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f15--versionrevision-policy",
+        "docs/review/HOKONAVI_2024_EXACT_SCHEMA_PROPOSAL.md"
+      ],
+      "effect": "Prevents automatic reinterpretation under a newer source specification.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F15 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "F16",
+      "lane": "HOKONAVI",
+      "title": "Integration gate",
+      "recommended": "Treat freeze as an implementation prerequisite only; require separate tests-first, real-data-shaped, full-suite, deterministic, and independent-review gates.",
+      "alternatives": [
+        "Freeze modified integration gates",
+        "Defer."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_HUMAN_FREEZE_FORM.md#f16--integration-gate",
+        "CODEX_GATE5_TO_GATE8_AUTONOMOUS_MASTER_V1.md §9/§13"
+      ],
+      "effect": "Prevents human contract selection from being mistaken for production acceptance.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected F16 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D01",
+      "lane": "HOKONAVI",
+      "title": "Mapping coverage",
+      "recommended": "Treat 40 as mapping concepts, not complete official-field coverage; reject undeclared fields.",
+      "alternatives": [
+        "Complete official inventory before freeze."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D01"
+      ],
+      "effect": "Avoids a false coverage denominator and silent loss.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D01 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D02",
+      "lane": "HOKONAVI",
+      "title": "Entity model",
+      "recommended": "Use separate node/link collections and reject duplicate, collision, mixed entity, and dangling references.",
+      "alternatives": [
+        "Use one internal FeatureCollection."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D02"
+      ],
+      "effect": "Keeps topology and entity validation explicit.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D02 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D03",
+      "lane": "HOKONAVI",
+      "title": "Source identity",
+      "recommended": "Preserve source ID with dataset namespace; do not replace it with an AblePath-only UUID.",
+      "alternatives": [
+        "Replace source IDs with AblePath UUIDs."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D03"
+      ],
+      "effect": "Preserves lineage and round-trip references.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D03 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D04",
+      "lane": "HOKONAVI",
+      "title": "Revision and lineage",
+      "recommended": "Require dataset revision and separate split/merge lineage records.",
+      "alternatives": [
+        "Overwrite history under one source ID."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D04"
+      ],
+      "effect": "Prevents evidence from attaching to the wrong revision.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D04 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D05",
+      "lane": "HOKONAVI",
+      "title": "maint_date",
+      "recommended": "Store exact source update date and derive no expiry or validity.",
+      "alternatives": [
+        "Reuse maint_date as validity interval."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D05"
+      ],
+      "effect": "Avoids invented current/stale status.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D05 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D06",
+      "lane": "HOKONAVI",
+      "title": "Unknown kinds",
+      "recommended": "Preserve source code 99, semantic blank, missing attribute, and source value separately per field.",
+      "alternatives": [
+        "Collapse all kinds to UNKNOWN."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D06"
+      ],
+      "effect": "Retains the original reason for missingness.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D06 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D07",
+      "lane": "HOKONAVI",
+      "title": "Semantic blank",
+      "recommended": "Generate semantic blank only from a reviewed field rule.",
+      "alternatives": [
+        "Treat every blank as unrestricted."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D07"
+      ],
+      "effect": "Prevents blank-to-known promotion.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D07 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D08",
+      "lane": "HOKONAVI",
+      "title": "Static and M7 width",
+      "recommended": "Store w_min-derived static width in network and residual M7 width in sidecar with no overwrite.",
+      "alternatives": [
+        "Merge both into one width field."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D08"
+      ],
+      "effect": "Keeps source fact separate from model-derived scenario output.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D08 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D09",
+      "lane": "HOKONAVI",
+      "title": "Rank and profile",
+      "recommended": "Preserve raw rank and never derive profile PASS/FAIL from it.",
+      "alternatives": [
+        "Map rank to profile state."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D09"
+      ],
+      "effect": "Prevents implicit implementation of unfrozen M6.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D09 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D10",
+      "lane": "HOKONAVI",
+      "title": "CRS contract",
+      "recommended": "Separate source CRS, formal axis, serialization order, units, and transform.",
+      "alternatives": [
+        "Keep only a JGD2011 label."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D10"
+      ],
+      "effect": "Prevents coordinate reversal and unsupported transform.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D10 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D11",
+      "lane": "HOKONAVI",
+      "title": "Time contract",
+      "recommended": "Separate update, observation, validity, schedule, and scenario elapsed time.",
+      "alternatives": [
+        "Use one timestamp."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D11"
+      ],
+      "effect": "Prevents update metadata from becoming operational status.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D11 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D12",
+      "lane": "HOKONAVI",
+      "title": "Sidecar version",
+      "recommended": "Do not freeze prototype v1; use breaking Proposal V2 with association, lineage, and adoption.",
+      "alternatives": [
+        "Adopt prototype sidecar 1.0.0."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D12"
+      ],
+      "effect": "Closes known prototype reference gaps before implementation.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D12 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D13",
+      "lane": "HOKONAVI",
+      "title": "Evidence association",
+      "recommended": "Bind every record to edge and attribute and resolve evidence/adoption observation IDs.",
+      "alternatives": [
+        "Keep unlinked edge-level arrays."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D13"
+      ],
+      "effect": "Makes support and rejection trails auditable.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D13 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D14",
+      "lane": "HOKONAVI",
+      "title": "SOURCE_FACT boundary",
+      "recommended": "Keep source facts in the internal network and AblePath design records in external sidecar.",
+      "alternatives": [
+        "Mix both roles in one object."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D14"
+      ],
+      "effect": "Prevents official-source and product-design provenance from being confused.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D14 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D15",
+      "lane": "HOKONAVI",
+      "title": "Loss output",
+      "recommended": "Emit both entity-level losses and complete mapping-to-loss disposition.",
+      "alternatives": [
+        "Rely on a prose loss register only."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D15"
+      ],
+      "effect": "Allows runtime detection of silent loss.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D15 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D16",
+      "lane": "HOKONAVI",
+      "title": "Export without sidecar",
+      "recommended": "Reject export when AblePath-only data or unresolved loss would be dropped.",
+      "alternatives": [
+        "Discard sidecar and export."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D16"
+      ],
+      "effect": "Prevents scenario, evidence, and provenance loss.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D16 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D17",
+      "lane": "HOKONAVI",
+      "title": "Round-trip scope",
+      "recommended": "Claim canonical semantic round-trip only for the declared reviewed subset.",
+      "alternatives": [
+        "Claim byte identity, all fields, cross-format, or real-data round-trip."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D17"
+      ],
+      "effect": "Keeps claims within prototype evidence.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D17 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D18",
+      "lane": "HOKONAVI",
+      "title": "Source format",
+      "recommended": "Limit first implementation to the reviewed GeoJSON-shaped subset.",
+      "alternatives": [
+        "Implement CSV, Shapefile, and GML together."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D18"
+      ],
+      "effect": "Defers format-specific blank, typing, and axis semantics to separate review.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D18 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D19",
+      "lane": "HOKONAVI",
+      "title": "Schema drift",
+      "recommended": "Reject unknown field/code and newer spec; return to contract review.",
+      "alternatives": [
+        "Best-effort import."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D19"
+      ],
+      "effect": "Prevents new meanings from being interpreted by an old contract.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D19 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D20",
+      "lane": "HOKONAVI",
+      "title": "Connector consistency",
+      "recommended": "Keep rt_struct and route_type separate and reject connector contradictions.",
+      "alternatives": [
+        "Collapse to booleans and auto-correct."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D20"
+      ],
+      "effect": "Preserves connector structure and direction.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D20 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D21",
+      "lane": "HOKONAVI",
+      "title": "Numeric validity",
+      "recommended": "Require finite, non-negative domain-valid values and preserve precision; do not synthesize representatives from categories.",
+      "alternatives": [
+        "Clamp or default invalid values."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D21"
+      ],
+      "effect": "Prevents invented values and unit loss.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D21 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D22",
+      "lane": "HOKONAVI",
+      "title": "Golden fixture gate",
+      "recommended": "Keep synthetic golden for regression and add human-reviewed real-data-shaped fixture before production.",
+      "alternatives": [
+        "Use synthetic fixtures as the production gate."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D22"
+      ],
+      "effect": "Separates synthetic correctness from real interoperability.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D22 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D23",
+      "lane": "HOKONAVI",
+      "title": "Deterministic serialization",
+      "recommended": "Use UTF-8, LF, finite JSON, sorted keys, and canonical separators.",
+      "alternatives": [
+        "Use platform-default serialization."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D23"
+      ],
+      "effect": "Produces stable bytes and hashes.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D23 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D24",
+      "lane": "HOKONAVI",
+      "title": "Version policy",
+      "recommended": "Version source spec, mapping, internal, sidecar, and adapter independently; major-bump breaking changes.",
+      "alternatives": [
+        "Use one shared implicit version."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D24"
+      ],
+      "effect": "Makes migrations and compatibility boundaries explicit.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D24 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    },
+    {
+      "id": "D25",
+      "lane": "HOKONAVI",
+      "title": "Integration status",
+      "recommended": "Use freeze only as a prerequisite; production integration remains a separate reviewed gate.",
+      "alternatives": [
+        "Integrate the prototype when freeze is recorded."
+      ],
+      "evidence": [
+        "docs/review/HOKONAVI_2024_DECISION_MATRIX.md D25"
+      ],
+      "effect": "Prevents contract review from being mistaken for production acceptance.",
+      "checkbox": "[ ]",
+      "selection": null,
+      "blocking": {
+        "m6": false,
+        "hokonavi": true,
+        "reason": "Unselected D25 blocks a complete signed HOKONAVI freeze; the production surface remains disabled."
+      }
+    }
+  ]
+}

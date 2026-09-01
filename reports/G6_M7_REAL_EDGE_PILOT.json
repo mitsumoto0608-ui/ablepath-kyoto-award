@@ -1,0 +1,532 @@
+{
+  "cities": [
+    {
+      "accessibility_claim": false,
+      "candidate_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "candidate_artifact_binding": "Tracked commit path and exact bytes are bound here for pilot reproducibility; this is not a substitute for per-field M7 evidence.",
+      "candidate_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "city_id": "kyoto_kiyomizu",
+      "edges": [
+        {
+          "edge_id": "KK-OSM-W1251544286-S01",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1251544286:nodes-0-1",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "KK-OSM-W1491152444-S01",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1491152444:nodes-0-2",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "KK-OSM-W1491152444-S02",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1491152444:nodes-2-5",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "KK-OSM-W157527438-S01",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-157527438:nodes-0-9",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "KK-OSM-W174762077-S01",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-174762077:nodes-0-24",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830",
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        }
+      ],
+      "m6_status": "NOT_COMPUTED",
+      "m7_api_structurally_callable_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "m7_evidence_ready_edge_count": 0,
+      "safe_route_claim": false,
+      "selected_edge_count": 5,
+      "selection_rule": "First five candidate edges by lexical stable edge_id. This bounded rule is deterministic and reviewable; it does not imply accessibility, safety, priority, or operational suitability."
+    },
+    {
+      "accessibility_claim": false,
+      "candidate_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "candidate_artifact_binding": "Tracked commit path and exact bytes are bound here for pilot reproducibility; this is not a substitute for per-field M7 evidence.",
+      "candidate_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "city_id": "kyoto_arashiyama",
+      "edges": [
+        {
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/0",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829",
+            "source_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013"
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/1",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829",
+            "source_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013"
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/2",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829",
+            "source_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013"
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/3",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829",
+            "source_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013"
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/4",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829",
+            "source_sha256": "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013"
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        }
+      ],
+      "m6_status": "NOT_COMPUTED",
+      "m7_api_structurally_callable_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "m7_evidence_ready_edge_count": 0,
+      "safe_route_claim": false,
+      "selected_edge_count": 5,
+      "selection_rule": "First five candidate edges by lexical stable edge_id. This bounded rule is deterministic and reviewable; it does not imply accessibility, safety, priority, or operational suitability."
+    },
+    {
+      "accessibility_claim": false,
+      "candidate_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "candidate_artifact_binding": "Tracked commit path and exact bytes are bound here for pilot reproducibility; this is not a substitute for per-field M7 evidence.",
+      "candidate_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "city_id": "fujisawa_enoshima",
+      "edges": [
+        {
+          "edge_id": "FJ-OSM-E-018BDD155711677D",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "20260830-r1",
+            "source_feature_id": "way/27423906#segment-sha256/018bdd155711677d37d4ad7750744b99d60374c8fdae0e64c2696db549d181a1",
+            "source_id": null,
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "20260830-r1",
+            "source_feature_id": "way/27423906#segment-sha256/0382789a9ec7f0220c3ca4f8bab43857163aaab5cc11a7706afb4ac22835e8fa",
+            "source_id": null,
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "FJ-OSM-E-062F75C8425C2252",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "20260830-r1",
+            "source_feature_id": "way/27423903#segment-sha256/062f75c8425c22524afee3931dfab32fbcdcb6913b9bd98cd92f4a31d3608153",
+            "source_id": null,
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "20260830-r1",
+            "source_feature_id": "way/27423906#segment-sha256/0d2835dbf8b3a7cc5065e5044f5de00e17c9e1a40f3a8cfe4bfe3a3dd87fb4cd",
+            "source_id": null,
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        },
+        {
+          "edge_id": "FJ-OSM-E-215A5178BF215505",
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "note": "Geometry provenance is reported separately from M7 per-field evidence; it cannot make an edge M7-evidence-ready.",
+            "revision_id": "20260830-r1",
+            "source_feature_id": "way/27423903#segment-sha256/215a5178bf215505942f9515e9355a46bffcf6d9628e56fb5392028c91173035",
+            "source_id": null,
+            "source_sha256": null
+          },
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "status": "NOT_COMPUTED"
+        }
+      ],
+      "m6_status": "NOT_COMPUTED",
+      "m7_api_structurally_callable_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "m7_evidence_ready_edge_count": 0,
+      "safe_route_claim": false,
+      "selected_edge_count": 5,
+      "selection_rule": "First five candidate edges by lexical stable edge_id. This bounded rule is deterministic and reviewable; it does not imply accessibility, safety, priority, or operational suitability."
+    }
+  ],
+  "computed_count": 0,
+  "constraints": {
+    "accessibility_claim": false,
+    "centroid_distance_used_as_setback": false,
+    "hazard_overlap_used_for_damage_or_debris": false,
+    "missing_value_defaulted_to_zero": false,
+    "safe_route_claim": false,
+    "synthetic_fixture_presented_as_real": false,
+    "width_inferred_from_highway_class": false
+  },
+  "evidence_ready_count": 0,
+  "gate": "G6_M7_REAL_EDGE_PILOT",
+  "model_route": {
+    "MODEL_ROUTE_VERIFIED": false,
+    "actual": "UNVERIFIED",
+    "requested": "Sol/high parent implementation and independent review"
+  },
+  "schema_version": "1.0.0",
+  "selected_edge_count": 15,
+  "status": "PARTIAL"
+}
