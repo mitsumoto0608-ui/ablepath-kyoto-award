@@ -2,7 +2,7 @@
 
 ## Mission and truth boundary
 
-AblePath evaluates evidence-backed walking-graph constraints for Kyoto Kiyomizu, Kyoto Arashiyama, and Fujisawa Enoshima. It is `PARTIAL_COMPLETE`: default geometry is `SYNTHETIC_DEMO`; Kiyomizu alone has an explicit opt-in, source-traceable real-coordinate `CANDIDATE` viewer. It is not a safety guarantee, model result, M6/M7 result, or administrative validation. Missing KPI evidence is `null` with a reason; M6 is `NOT_COMPUTED`.
+AblePath evaluates evidence-backed walking-graph constraints for Kyoto Kiyomizu, Kyoto Arashiyama, and Fujisawa Enoshima. It is `PARTIAL_COMPLETE`: all three default to `SYNTHETIC_DEMO`, and all three have an explicit opt-in viewer for source-traceable VGI real-coordinate `CANDIDATE` geometry with route continuity `NOT_ESTABLISHED`. This is not a validated real map, safety guarantee, accessibility result, operation result, model result, M6/M7 result, or administrative validation. Missing KPI evidence is `null` with a reason; M6 is `NOT_COMPUTED`.
 
 ## Before editing
 

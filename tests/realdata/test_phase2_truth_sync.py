@@ -22,6 +22,7 @@ PREVIEW_METADATA = (
     PACK / "hazards" / "official" / "landslide_warning_preview.metadata.json"
 )
 MANIFEST = PACK / "realdata" / "artifact_manifest.v2.json"
+PHASE4_GATE = ROOT / "reports" / "PHASE4_ANALYSIS_UI_GATE.json"
 PREVIEW_SHA256 = "c9cea5f7b874e829c53c3df40c6479a8aa8869607f2928b5ed436b4113c9ad6f"
 
 
@@ -53,14 +54,16 @@ def test_kiyomizu_current_docs_separate_artifact_from_scoped_viewer_connection()
     assert "MAPLIBRE_RUNTIME_IMPLEMENTED=true" in root_readme
     assert "MAPLIBRE_CONNECTED=true" in root_readme
     assert (
-        "MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY"
+        "MAPLIBRE_CONNECTED_SCOPE=ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY"
         in root_readme
     )
     assert "REAL_GEOMETRY_CONNECTED_TO_VIEWER=true" in root_readme
     assert (
-        "REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY"
+        "REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY"
         in root_readme
     )
+    assert "ALL_THREE_CITIES_SOURCE_TRACEABLE_VGI_CANDIDATE_GEOMETRY=true" in root_readme
+    assert "ALL_THREE_CITIES_MAPLIBRE_CONNECTED=true" in root_readme
     assert "ALL_THREE_CITIES_REAL_GEOMETRY=false" in root_readme
     assert "MODEL_CONNECTED=false" in root_readme
 
@@ -102,32 +105,55 @@ def test_v1_source_catalogue_points_to_hash_bound_v2_authority_without_reclassif
 
 
 def test_global_viewer_scope_and_city_artifact_scope_are_machine_readable() -> None:
-    """[source_conformance] Kiyomizu viewer truth never promotes all-city, model, or real 3D state."""
+    """[source_conformance] Phase 4 three-city candidate truth never promotes model or validated-map state."""
 
+    gate = _json(PHASE4_GATE)
     global_status = _json(ROOT / "reports" / "COMPLETION_LEVELS.json")
+    assert gate["authority_role"] == "SOLE_CURRENT_MACHINE_TRUTH_ROOT"
+    assert set(gate["cities"]) == {
+        "kyoto_kiyomizu",
+        "kyoto_arashiyama",
+        "fujisawa_enoshima",
+    }
+    assert gate["all_three_source_traceable_vgi_candidate_geometry"] is True
+    assert gate["all_three_explicit_opt_in_candidate_viewer_connected"] is True
+    assert all(
+        city["explicit_opt_in_candidate_viewer_connected"] is True
+        and city["route_continuity"] == "NOT_ESTABLISHED"
+        for city in gate["cities"].values()
+    )
+    assert global_status["CURRENT_MACHINE_TRUTH_AUTHORITY"] == str(
+        PHASE4_GATE.relative_to(ROOT)
+    ).replace("\\", "/")
     assert global_status["KIYOMIZU_REAL_ARTIFACT_CAPABILITY"] is True
     assert global_status["KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE"] is True
-    assert global_status["REAL_GEOMETRY_ARTIFACTS_AVAILABLE"] == "PARTIAL"
+    assert global_status["ALL_THREE_CITIES_SOURCE_TRACEABLE_VGI_CANDIDATE_GEOMETRY"] is True
+    assert (
+        global_status["REAL_GEOMETRY_ARTIFACTS_AVAILABLE"]
+        == "ALL_THREE_CITIES_SOURCE_TRACEABLE_VGI_CANDIDATE"
+    )
     assert global_status["ALL_THREE_CITIES_REAL_GEOMETRY"] is False
     assert global_status["REAL_GEOMETRY_CONNECTED"] is True
     assert (
         global_status["REAL_GEOMETRY_CONNECTED_SCOPE"]
-        == "KIYOMIZU_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE"
+        == "ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE"
     )
     assert global_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER"] is True
     assert (
         global_status["REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE"]
-        == "KIYOMIZU_CANDIDATE_ONLY"
+        == "ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY"
     )
     assert global_status["REAL_MAP_COMPLETE"] is False
     assert global_status["MAPLIBRE_RUNTIME_IMPLEMENTED"] is True
     assert global_status["MAPLIBRE_CONNECTED"] is True
     assert (
         global_status["MAPLIBRE_CONNECTED_SCOPE"]
-        == "KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY"
+        == "ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY"
     )
     assert global_status["KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER"] is True
-    assert global_status["ALL_THREE_CITIES_MAPLIBRE_CONNECTED"] is False
+    assert global_status["ARASHIYAMA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER"] is True
+    assert global_status["FUJISAWA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER"] is True
+    assert global_status["ALL_THREE_CITIES_MAPLIBRE_CONNECTED"] is True
     assert global_status["CESIUM_RUNTIME_IMPLEMENTED"] is True
     assert global_status["CESIUM_CONNECTED"] is False
     assert global_status["PLATEAU_3D_CONNECTED"] is False
@@ -234,14 +260,13 @@ def test_report_authority_and_public_release_gate_are_current() -> None:
     ):
         assert heading in authority
     for expected in (
-        "reports/PHASE2_AUTONOMOUS_REALDATA_REPORT.md",
+        "reports/PHASE4_ANALYSIS_UI_GATE.json",
+        "sole current machine truth root",
+        "reports/COMPLETION_LEVELS.json",
+        "compatibility mirror",
         "reports/PHASE3_MAP_UI_STATUS.md",
-        "PR #2",
-        "33330312591",
-        "PR #3",
+        "historical",
         "RELEASE_MANIFEST.json",
-        "cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json",
-        "cities/kyoto_kiyomizu/realdata/status.json",
     ):
         assert expected in authority
     public_gate = (ROOT / "reports" / "PUBLIC_RELEASE_GATE.md").read_text(
@@ -259,6 +284,8 @@ def test_readme_declares_full_suite_prerequisites_and_preserves_safety_language(
         assert expected in readme
     assert "minimal Linux" in readme
     assert "local-main-guard" in readme
+    assert "core static/Git guard tests always run" in readme
+    assert "only the installer/status integration tests skip" in readme
     assert "UNKNOWNをPASS" in readme
     assert "UNKNOWN→OPEN" not in readme
     assert "安全な避難ルートを提供" not in readme

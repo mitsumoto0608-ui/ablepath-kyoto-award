@@ -1,29 +1,31 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図です。清水だけは明示操作でsource-traceableな実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeがその候補edgeを表示します。嵐山・藤沢はsynthetic fallbackのままです。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続で、3D失敗時は現在の2D layerへ戻ります。M6/profile、実edgeへのM7、KPI/model、公式hazard、行政PoCとpublic releaseは未完成です。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、公式hazard、行政PoCとpublic releaseは未完成です。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 
 現在の3都市pack:
 
 - 京都・清水：デフォルトは模式回廊`SYNTHETIC_DEMO`。明示切替時だけ、OSM historical snapshot `2026-08-30T00:00:00Z`、retained raw 17 ways / 142 nodes、normalized `SOURCE_TRACEABLE_REAL` / `VGI`、candidate graph 21 nodes / 19 edges / 2 components、route continuity `NOT_ESTABLISHED`の実座標候補layerをMapLibreで表示
-- 京都・嵐山：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
-- 藤沢・江の島：模式回廊、`SYNTHETIC_DEMO` / `CANDIDATE`
+- 京都・嵐山：デフォルトは`SYNTHETIC_DEMO`。明示切替時だけ、source-traceable VGIの530 nodes / 578 edges / 9 componentsの`CANDIDATE` layerを表示。route continuity `NOT_ESTABLISHED`
+- 藤沢・江の島：デフォルトは`SYNTHETIC_DEMO`。明示切替時だけ、source-traceable VGIの16 nodes / 15 edges / 1 componentの`CANDIDATE` layerを表示。route continuity `NOT_ESTABLISHED`
 
 `M6`未実装のためprofile結果は`NOT_COMPUTED`で、selectorは無効です。需要・現在容量・検証済み入口・運用状態の根拠が不足するKPIは、0と推定せず`null`＋reasonを返します。
 
 ```text
 OVERALL_STATUS=PARTIAL_COMPLETE
+CURRENT_MACHINE_TRUTH_AUTHORITY=reports/PHASE4_ANALYSIS_UI_GATE.json
 ENGINEERING_UI_SHELL_COMPLETE=true
-TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_KIYOMIZU_REAL_CANDIDATE_OPT_IN
+TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_THREE_CITY_REAL_CANDIDATE_OPT_IN
 REAL_GEOMETRY_CONNECTED=true
-REAL_GEOMETRY_CONNECTED_SCOPE=KIYOMIZU_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE
+REAL_GEOMETRY_CONNECTED_SCOPE=ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_VIEWER_ONLY_NOT_MODEL_PIPELINE
 KIYOMIZU_REAL_ARTIFACT_CAPABILITY=true
 KIYOMIZU_CANDIDATE_GRAPH_AVAILABLE=true
-REAL_GEOMETRY_ARTIFACTS_AVAILABLE=PARTIAL
+ALL_THREE_CITIES_SOURCE_TRACEABLE_VGI_CANDIDATE_GEOMETRY=true
+REAL_GEOMETRY_ARTIFACTS_AVAILABLE=ALL_THREE_CITIES_SOURCE_TRACEABLE_VGI_CANDIDATE
 ALL_THREE_CITIES_REAL_GEOMETRY=false
 REAL_GEOMETRY_CONNECTED_TO_VIEWER=true
-REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=KIYOMIZU_CANDIDATE_ONLY
+REAL_GEOMETRY_CONNECTED_TO_VIEWER_SCOPE=ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY
 REAL_MAP_COMPLETE=false
 MODEL_CONNECTED=false
 M7_CONNECTED_TO_REAL_EDGES=false
@@ -32,9 +34,11 @@ KPI_CONNECTED=false
 ADMIN_VALIDATED=false
 MAPLIBRE_RUNTIME_IMPLEMENTED=true
 MAPLIBRE_CONNECTED=true
-MAPLIBRE_CONNECTED_SCOPE=KIYOMIZU_EXPLICIT_OPT_IN_CANDIDATE_ONLY
-ALL_THREE_CITIES_MAPLIBRE_CONNECTED=false
+MAPLIBRE_CONNECTED_SCOPE=ALL_THREE_CITIES_EXPLICIT_OPT_IN_VGI_CANDIDATE_ONLY
+ALL_THREE_CITIES_MAPLIBRE_CONNECTED=true
 KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
+ARASHIYAMA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
+FUJISAWA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
 CESIUM_RUNTIME_IMPLEMENTED=true
 CESIUM_CONNECTED=false
 PLATEAU_3D_CONNECTED=false
@@ -43,11 +47,11 @@ DEMO_COMPLETE=false
 PUBLIC_RELEASE_READY=false
 ```
 
-清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、hash-bound real artifactの正本は`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。実座標edgeであることは、通行可能性や安全性を意味しません。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`で、M6/M7・KPI・modelへ未接続です。公式hazard previewはraw trust root未接続のquarantineで、viewer/model/analysisへ使用しません。嵐山・藤沢のreal artifactはこのreviewed integrationへ未統合です。
+現在のmachine-readableな全体正本は`reports/PHASE4_ANALYSIS_UI_GATE.json`です。`reports/COMPLETION_LEVELS.json`はそのcompatibility mirrorです。3都市のhash-bound artifactとprovenanceは各city packのmanifest/receiptが正本で、清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、artifact authorityは`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。実座標edgeであることは通行可能性や安全性を意味しません。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`で、M6/M7・KPI・modelへ未接続です。公式hazard analysisは0都市で、清水のpreviewもquarantineのままです。
 
 ## 30秒で動かす
 
-Python full suiteの前提はGit、Python、PowerShell 7（`pwsh`）です。local-main-guardのinstaller/statusテストがPowerShellを実行するため、`pwsh`のないminimal Linuxではfull suiteを実行できず、Pythonだけで完結するtest setとは扱いません。UI unit/build/E2Eを行う場合はNode、npm、Playwrightも必要です。依存がない場合にtestをskip/xfailして成功扱いにはしません。
+Python full suiteの基本前提はGitとPythonです。local-main-guardのcore static/Git guard tests always runし、PowerShell 7（`pwsh`）がないminimal Linuxではonly the installer/status integration tests skipします。完全なinstaller/status evidenceは`pwsh`を備えたHosted Windows/Linux jobで確認します。UI unit/build/E2Eを行う場合はNode、npm、Playwrightも必要です。
 
 ```bash
 python -m venv .venv
@@ -129,11 +133,11 @@ Git cloneではGit blobを正本としてrelease archiveを作成し、tracked�
 - **RAIN_L5**：五条坂（E011）の冠水状況がUNKNOWN。UNKNOWN道路を利用可能と仮定すると到達不能が5,350→1,525人へ減るが、広場容量不足2,125人が新たに顕在化する（PEAK・誘導配分。厳格＝収容2,800／到達不能5,350、楽観＝収容4,500／滞留2,125／到達不能1,525）。**この帯＝「道路1本の状況確認の価値」**であり、大雨版のUNKNOWNパネルの主役。確認できても全員が入れるわけではない、というのが4区分で初めて見える。
 - OFFPEAK×RAIN_L4：最近接だと滞留640人→誘導配分で0人。大雨でも配分の価値が出る。
 - PEAK（紅葉期想定）：**平常時**は誘導配分でも滞留3,650人が残る＝**広場容量の構造的不足マップ**（一時滞在施設・二段階の必然性への導線）。ハザードが強いscenarioでは需要が容量不足から到達不能へ移るため、滞留の数字はscenarioごとに違う（上の代表ラン表を参照）。
-- 車いす：二年坂・産寧坂（階段）不可→東大路迂回のみ。RAIN_L4では土砂警戒閉塞で石畳側全滅でも迂回は生きる。
+- 車いすprofileのsynthetic fixtureでは、二年坂・産寧坂を階段として不通にし、RAIN_L4固定scenarioでも東大路側の合成edgeが残るという静的計算結果になる。これは実道路の通行可能性・accessibility・hazard下の安全性を示さず、実世界の経路成立は`NOT_ESTABLISHED`である。
 
 ## 実データ差し替えの確認先（公式）
 
-土砂災害警戒区域＝京都府「土砂災害警戒区域等指定箇所情報」＋京都市Web版ハザードマップ／浸水想定＝京都市防災ポータル／緊急避難広場・一時滞在施設＝京都市の公式一覧（**円山公園が広場かは未確認・要確認**）／PLATEAU京都2025（建物・道路LOD3.4・橋梁・洪水・土砂LOD1）／歩行グラフ＝OSM＋QGIS＋現地実測（ほこナビ旧京都データは宇治のため使用不可・仕様参考のみ）。**京都市道路台帳平面図は複製・加工・派生作成・営利利用が禁止のためデータソースにしない**（詳細は`data/ATTRIBUTION.md`）。
+将来の差し替え候補は、土砂災害警戒区域＝京都府「土砂災害警戒区域等指定箇所情報」＋京都市Web版ハザードマップ／浸水想定＝京都市防災ポータル／緊急避難広場・一時滞在施設＝京都市の公式一覧（**円山公園が広場かは未確認・要確認**）／PLATEAU京都2025（建物・道路LOD3.4・橋梁・洪水・土砂LOD1）／歩行グラフ＝OSM＋QGIS＋現地実測（ほこナビ旧京都データは宇治のため使用不可・仕様参考のみ）。これらの公式hazard・施設・PLATEAUは現時点でproduction pipelineへ未接続。**京都市道路台帳平面図は複製・加工・派生作成・営利利用が禁止のためデータソースにしない**（詳細は`data/ATTRIBUTION.md`）。
 
 ## 数値と根拠の規律
 
@@ -146,13 +150,13 @@ Git cloneではGit blobを正本としてrelease archiveを作成し、tracked�
 
 ## 次にやること（優先順）
 
-1. 3都市のsource-traceableな実geometry
-2. 清水限定のMapLibre候補表示を、検証済み実geometryが得られた都市へ拡張
-3. 公式hazard geometry
-4. 実/CANDIDATE edgeへのM7接続
-5. M6/profile判定
-6. Cesium runtimeへ検証済み実PLATEAU tilesetを接続
-7. ほこナビadapterとround-trip・情報損失検証
-8. 現地確認と行政レビュー
+1. 3都市のVGI `CANDIDATE` geometryを現地・管理者証拠で検証する
+2. 公式hazard geometryを取得し、edgeとの重なりを検証する
+3. 実/CANDIDATE edgeへM7のreviewed inputsを接続する
+4. M6/profile判定を実装し、`NOT_COMPUTED`を解消する
+5. 検証済み実PLATEAU tilesetをCesium runtimeへ接続する
+6. ほこナビadapterとround-trip・情報損失検証を実装する
+7. 施設・入口・容量・運用・需要を検証しKPI/modelへ接続する
+8. 現地確認と行政レビューで妥当性を検証する
 
 安全表現：「安全な避難ルート」と言わない。時間断面は分析用であり安全基準ではない。個別建物の倒壊・個別道路の冠水を予言しない（固定scenarioの比較）。UNKNOWNをPASSに落とさない。
