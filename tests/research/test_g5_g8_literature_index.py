@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -13,6 +14,8 @@ RESEARCH = ROOT / "docs" / "research"
 BIBLIOGRAPHY = RESEARCH / "G5_G8_MASTER_BIBLIOGRAPHY.csv"
 MAPPING = RESEARCH / "G5_G8_PROBLEM_SOURCE_MAP.csv"
 PACKETS = RESEARCH / "problem_packets"
+QUEUE_JSON = ROOT / "reports" / "G5_G8_EVIDENCE_CLOSURE_QUEUE.json"
+QUEUE_MD = ROOT / "reports" / "G5_G8_EVIDENCE_CLOSURE_QUEUE.md"
 
 BIBLIOGRAPHY_COLUMNS = [
     "source_id", "title", "authors_or_issuer", "year_version", "DOI",
@@ -144,6 +147,8 @@ def test_all_research_text_references_and_sensitive_patterns() -> None:
         MAPPING,
         *sorted(PACKETS.glob("P*.md")),
         ROOT / "reports" / "G5_G8_LITERATURE_INDEX_STATUS.md",
+        QUEUE_MD,
+        QUEUE_JSON,
     ]
     local_path = re.compile(r"(?:(?<![A-Za-z])[A-Za-z]:[\\/]|\\\\|file://|/Users/|/home/)")
     secret = re.compile(
@@ -155,3 +160,74 @@ def test_all_research_text_references_and_sensitive_patterns() -> None:
         assert set(re.findall(r"\bS\d{3}\b", text)) <= source_ids
         assert not local_path.search(text), path
         assert not secret.search(text), path
+
+
+def test_evidence_closure_queue_is_ranked_bounded_and_fail_closed() -> None:
+    """[source_conformance] Five queue items cover P01–P17 without authorizing production promotion."""
+    queue = json.loads(QUEUE_JSON.read_text(encoding="utf-8"))
+    assert set(queue) == {"schema_version", "task_id", "generated_at", "status", "baseline", "constraints", "items"}
+    assert queue["schema_version"] == "1.0.0"
+    assert queue["task_id"] == "ABLEPATH-LITERATURE-INDEX-INTEGRATION-AND-EVIDENCE-CLOSURE-V1"
+    assert queue["status"] == "RESEARCH_QUEUE_ONLY"
+    assert set(queue["baseline"]) == {"origin_main", "initial_index_commit", "draft_pr"}
+    assert queue["baseline"]["origin_main"] == "515955000d3df28b5b20e468a6312a006f7f95ea"
+    assert queue["baseline"]["initial_index_commit"] == "9f3c981540f3f8dbe00f263f4abde374f1677616"
+    assert queue["baseline"]["draft_pr"].endswith("/pull/7")
+    expected_constraints = {
+        "production_contract_changed", "production_implementation_authorized",
+        "m6_freeze_authorized", "hokonavi_freeze_authorized",
+        "main_merge_authorized", "tag_or_release_authorized",
+        "safe_route_claim", "accessibility_claim", "admin_validated",
+    }
+    assert set(queue["constraints"]) == expected_constraints
+    assert all(value is False for value in queue["constraints"].values())
+    items = queue["items"]
+    assert [item["queue_id"] for item in items] == [f"Q{rank}" for rank in range(1, 6)]
+    assert [item["rank"] for item in items] == list(range(1, 6))
+    sources = _read_csv(BIBLIOGRAPHY, BIBLIOGRAPHY_COLUMNS)
+    source_ids = {row["source_id"] for row in sources}
+    covered_problems: set[str] = set()
+    common_item_keys = {
+        "queue_id", "rank", "gate", "title", "current_status",
+        "current_blocker", "current_facts", "problem_ids",
+        "recommended_sources", "official_receipts", "supported_claims",
+        "unsupported_claims", "contradiction", "smallest_admissible_resolution",
+        "happy_path_test", "fail_closed_test", "human_freeze_trigger",
+    }
+    expected_statuses = {
+        "Q1": "NOT_CONNECTED", "Q2": "LICENSE_REVIEW_REQUIRED",
+        "Q3": "NOT_CONNECTED", "Q4": "BLOCKED", "Q5": "NOT_COMPUTED",
+    }
+    expected_facts = {
+        "Q1": {"g5_status": "PARTIAL", "connected_cities": 0, "connected_layers": 0, "closure_derived": False},
+        "Q2": {"g5_status": "PARTIAL", "connected_cities": 0, "connected_layers": 0, "closure_derived": False},
+        "Q3": {"gate_status": "PARTIAL", "connected_cities": 0, "real_tileset": False},
+        "Q4": {"gate_status": "BLOCKED", "connected_sources": 0, "operation_inferred": False},
+        "Q5": {"gate_status": "PARTIAL", "selected_edges": 15, "structurally_callable_edges": 0, "evidence_ready_edges": 0, "computed_edges": 0, "m6_status": "NOT_COMPUTED"},
+    }
+    queue_md = QUEUE_MD.read_text(encoding="utf-8")
+    for item in items:
+        expected_keys = set(common_item_keys)
+        if item["queue_id"] == "Q4":
+            expected_keys.add("scoped_inventories")
+        if item["queue_id"] == "Q5":
+            expected_keys.add("zero_computed_is_valid_closure_outcome")
+        assert set(item) == expected_keys
+        assert 3 <= len(item["recommended_sources"]) <= 5
+        assert len(item["recommended_sources"]) == len(set(item["recommended_sources"]))
+        assert set(item["recommended_sources"]) <= source_ids
+        assert item["current_status"] == expected_statuses[item["queue_id"]]
+        assert item["current_facts"] == expected_facts[item["queue_id"]]
+        for key in ("gate", "title", "current_blocker", "contradiction", "smallest_admissible_resolution", "happy_path_test", "fail_closed_test", "human_freeze_trigger"):
+            assert isinstance(item[key], str) and item[key].strip()
+        for key in ("problem_ids", "official_receipts", "supported_claims", "unsupported_claims"):
+            assert isinstance(item[key], list) and item[key]
+        heading = f"## Rank {item['rank']} — {item['queue_id']} "
+        start = queue_md.index(heading)
+        next_start = queue_md.find("\n## Rank ", start + len(heading))
+        section = queue_md[start:next_start if next_start != -1 else len(queue_md)]
+        assert f"`{item['current_status']}`" in section
+        assert all(problem_id in section for problem_id in item["problem_ids"])
+        assert all(source_id in section for source_id in item["recommended_sources"])
+        covered_problems.update(item["problem_ids"])
+    assert covered_problems == {f"P{number:02d}" for number in range(1, 18)}

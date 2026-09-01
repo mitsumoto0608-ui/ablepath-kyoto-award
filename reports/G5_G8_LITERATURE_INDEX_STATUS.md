@@ -20,6 +20,8 @@ Gate 5–8で起きるP01–P17を分類したstandalone indexを、real AblePat
 - docs/research/G5_G8_RESEARCH_GAPS.md
 - docs/research/problem_packets/P01.md–P17.md
 - reports/G5_G8_LITERATURE_INDEX_STATUS.md
+- reports/G5_G8_EVIDENCE_CLOSURE_QUEUE.md
+- reports/G5_G8_EVIDENCE_CLOSURE_QUEUE.json
 
 ## Inventory / deduplication
 
@@ -73,4 +75,4 @@ HUMAN_ACTION_REQUIRED=
 
 ## Git status
 
-Integration branch: `task/g5-g8-literature-index-integration-v1` from `origin/main@515955000d3df28b5b20e468a6312a006f7f95ea`. Commit/push/draft PR receipt is added by this task after verification. `main` merge, tag, and release are not attempted.
+Integration branch: `task/g5-g8-literature-index-integration-v1` from `origin/main@515955000d3df28b5b20e468a6312a006f7f95ea`. Initial index commit `9f3c981540f3f8dbe00f263f4abde374f1677616` was pushed and draft PR #7 was created at https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/7 before the Evidence Closure Queue was added. `main` merge, tag, and release are not attempted.
