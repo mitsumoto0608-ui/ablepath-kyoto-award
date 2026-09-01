@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "applied_from_checkpoint": "integration/g5-g8-v1-after-lane-commit-receipts",
+  "literature_lane": "task/g5-g8-literature-index-v1",
+  "literature_lane_is_gate_blocker": false,
+  "packet_source_budget": {
+    "default_minimum": 3,
+    "default_maximum": 5,
+    "scope_expansion_status": "RESEARCH_SCOPE_EXPANSION_REQUIRED"
+  },
+  "production_rule": "NO_EVIDENCE_PACKET_NO_NEW_RESEARCH_DERIVED_PRODUCTION_BEHAVIOR",
+  "problems": [
+    {"problem_id":"P01","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_SAFE_DEFAULT_SUFFICIENT","human_freeze_required":false,"current_resolution":"NOT_CONNECTED_OR_METADATA_ONLY"},
+    {"problem_id":"P02","triggered":false,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED","human_freeze_required":false,"current_resolution":"EXISTING_AXIS_AND_BOUNDS_CONTROLS"},
+    {"problem_id":"P03","triggered":false,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED","human_freeze_required":false,"current_resolution":"FEATURE_QUARANTINE"},
+    {"problem_id":"P04","triggered":false,"research_required":false,"official_source_required":false,"evidence_packet_status":"NOT_OPENED","human_freeze_required":false,"current_resolution":"EXISTING_TOPOLOGY_CONTRACT"},
+    {"problem_id":"P05","triggered":true,"research_required":false,"official_source_required":false,"evidence_packet_status":"DEFERRED_UNTIL_METHOD_PROPOSAL","human_freeze_required":true,"current_resolution":"UNKNOWN_OR_NOT_COMPUTED"},
+    {"problem_id":"P06","triggered":false,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED","human_freeze_required":true,"current_resolution":"SPATIAL_OVERLAP_ONLY"},
+    {"problem_id":"P07","triggered":false,"research_required":false,"official_source_required":false,"evidence_packet_status":"NOT_OPENED","human_freeze_required":true,"current_resolution":"COORDINATE_DEGREE_LABEL_ONLY"},
+    {"problem_id":"P08","triggered":true,"research_required":false,"official_source_required":false,"evidence_packet_status":"DEFERRED_UNTIL_NEW_EVIDENCE_METHOD_PROPOSAL","human_freeze_required":true,"current_resolution":"NOT_COMPUTED_WITH_MISSING_FIELDS_AND_REASON"},
+    {"problem_id":"P09","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"G7_HUMAN_FREEZE_PACKET_READY","human_freeze_required":true,"current_resolution":"M6_NOT_COMPUTED"},
+    {"problem_id":"P10","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_SAFE_DEFAULT_SUFFICIENT","human_freeze_required":false,"current_resolution":"3D_NOT_CONNECTED_WITH_2D_FALLBACK"},
+    {"problem_id":"P11","triggered":true,"research_required":false,"official_source_required":false,"evidence_packet_status":"NOT_REQUIRED_EXISTING_FAILURE_PLAYBOOK","human_freeze_required":false,"current_resolution":"VERIFIED_2D_FALLBACK_TESTS_CI_PENDING"},
+    {"problem_id":"P12","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_SAFE_DEFAULT_SUFFICIENT","human_freeze_required":true,"current_resolution":"OFFICIAL_METADATA_WITH_UNKNOWN_OPERATION"},
+    {"problem_id":"P13","triggered":false,"research_required":true,"official_source_required":true,"evidence_packet_status":"OPEN_ONLY_IF_CONFLICT_OBSERVED","human_freeze_required":true,"current_resolution":"SOURCE_SEPARATION"},
+    {"problem_id":"P14","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_LIMITATION_ONLY","human_freeze_required":true,"current_resolution":"CROSS_TIME_ANALYSIS_LIMITATION"},
+    {"problem_id":"P15","triggered":false,"research_required":true,"official_source_required":false,"evidence_packet_status":"OPEN_ONLY_FOR_NEW_USER_AFFECTING_INTERPRETATION","human_freeze_required":true,"current_resolution":"EXISTING_OPT_IN_TABLE_AND_CAVEAT_CONTROLS"},
+    {"problem_id":"P16","triggered":false,"research_required":true,"official_source_required":false,"evidence_packet_status":"OPEN_BEFORE_ANY_RESEARCH_TRANSFER","human_freeze_required":true,"current_resolution":"STRUCTURE_ONLY_OR_REJECT"},
+    {"problem_id":"P17","triggered":false,"research_required":false,"official_source_required":false,"evidence_packet_status":"NOT_OPENED","human_freeze_required":false,"current_resolution":"THREE_TO_FIVE_SOURCE_PACKET_LIMIT"}
+  ]
+}
