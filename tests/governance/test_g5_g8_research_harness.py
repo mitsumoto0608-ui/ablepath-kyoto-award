@@ -53,7 +53,7 @@ def test_research_trigger_state_is_bounded_and_never_promotes_active_gaps() -> N
     assert problems["P01"]["current_resolution"] == "NOT_CONNECTED_OR_METADATA_ONLY"
     assert problems["P08"]["current_resolution"] == "NOT_COMPUTED_WITH_MISSING_FIELDS_AND_REASON"
     assert problems["P09"]["human_freeze_required"] is True
-    assert problems["P11"]["current_resolution"] == "VERIFIED_2D_FALLBACK_TESTS_CI_PENDING"
+    assert problems["P11"]["current_resolution"] == "VERIFIED_2D_FALLBACK_TESTS_HOSTED_CI_GREEN"
     assert problems["P12"]["current_resolution"] == "OFFICIAL_METADATA_WITH_UNKNOWN_OPERATION"
 
 
