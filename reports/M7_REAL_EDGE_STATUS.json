@@ -1,0 +1,70 @@
+{
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "all_edge_count": 612,
+  "computed_count": 0,
+  "deep_pilot_count": 15,
+  "evidence_ready_count": 0,
+  "m7_connected_to_real_edges": false,
+  "m7_evidence_pipeline_complete": true,
+  "missing_field_counts": {
+    "clear_width_m": 612,
+    "hazard_data_status": 612,
+    "left_buildings": 612,
+    "official_closure": 612,
+    "right_buildings": 612,
+    "variant": 612
+  },
+  "model_route": {
+    "MODEL_ROUTE_VERIFIED": false,
+    "actual_model": "UNVERIFIED",
+    "requested_route": "M7_EVIDENCE isolated writer"
+  },
+  "most_frequent_blockers": [
+    {
+      "blocked_edge_count": 612,
+      "field": "clear_width_m",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    },
+    {
+      "blocked_edge_count": 612,
+      "field": "left_buildings",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    },
+    {
+      "blocked_edge_count": 612,
+      "field": "right_buildings",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    },
+    {
+      "blocked_edge_count": 612,
+      "field": "variant",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    },
+    {
+      "blocked_edge_count": 612,
+      "field": "official_closure",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    },
+    {
+      "blocked_edge_count": 612,
+      "field": "hazard_data_status",
+      "reason": "No complete source-traceable per-field receipt is connected"
+    }
+  ],
+  "safe_route_claim": false,
+  "schema_version": "1.0.0",
+  "status": "PARTIAL",
+  "structural_missing_field_counts": {
+    "clear_width_m": 612,
+    "hazard_data_status": 612,
+    "left_buildings": 612,
+    "official_closure": 597,
+    "right_buildings": 612,
+    "variant": 612
+  },
+  "structurally_callable_count": 0,
+  "subarea_limitations": {
+    "kyoto_kiyomizu": "Current candidate pack lacks reviewed Kiyomizu/Gion/connector per-edge partition; no verified Gion deep-pilot coverage claim is made."
+  }
+}
