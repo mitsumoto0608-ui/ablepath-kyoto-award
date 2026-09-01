@@ -50,8 +50,9 @@ test("[ui_regression] KPI and evidence gaps remain visible and reasoned", async 
   await expect(page.getByRole("heading", { name: "source・facility・gap一覧" })).toBeVisible();
   await expect(page.getByText("kyoto_kiyomizu_gion_evacuation_plan", { exact: true })).toBeVisible();
   await expect(page.getByText("Verified facility entrance, capacity, and current operation records are unavailable.")).toBeVisible();
+  const facilityReadiness = page.getByLabel("横スクロール可能なfacility readiness一覧");
   for (const readiness of ["facility", "entrance", "capacity", "operation", "demand", "origin", "profile (M6)"]) {
-    await expect(page.getByRole("row", { name: new RegExp(`^${readiness.replace(/[()]/g, "\\$&")}`) })).toBeVisible();
+    await expect(facilityReadiness.getByRole("row", { name: new RegExp(`^${readiness.replace(/[()]/g, "\\$&")}`) })).toBeVisible();
   }
 });
 
