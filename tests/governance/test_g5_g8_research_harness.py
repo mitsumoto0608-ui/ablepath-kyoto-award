@@ -1,6 +1,7 @@
 """Gate 5–8 pre-mortem and bounded evidence protocol contract."""
 import csv
 import json
+from datetime import datetime
 from pathlib import Path
 
 
@@ -55,6 +56,47 @@ def test_research_trigger_state_is_bounded_and_never_promotes_active_gaps() -> N
     assert problems["P09"]["human_freeze_required"] is True
     assert problems["P11"]["current_resolution"] == "VERIFIED_2D_FALLBACK_TESTS_HOSTED_CI_GREEN"
     assert problems["P12"]["current_resolution"] == "OFFICIAL_METADATA_WITH_UNKNOWN_OPERATION"
+
+
+def test_hosted_ci_green_resolution_requires_exact_verified_receipt() -> None:
+    """[source_conformance] P11 GREEN is valid only for run 33456970091 on audited SHA, with all three jobs successful."""
+    status = json.loads(TRIGGERS.read_text(encoding="utf-8"))
+    green = [
+        item
+        for item in status["problems"]
+        if "HOSTED_CI_GREEN" in item["current_resolution"]
+    ]
+
+    assert {item["problem_id"] for item in green} == {"P11"}
+    receipt = green[0]["hosted_ci_receipt"]
+    assert set(receipt) == {
+        "run_id",
+        "run_url",
+        "target_sha",
+        "workflow",
+        "event",
+        "required_job_conclusions",
+        "checked_at",
+        "receipt_status",
+    }
+    assert type(receipt["run_id"]) is int
+    assert receipt["run_id"] == 33456970091
+    assert receipt["run_url"] == (
+        "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/"
+        "actions/runs/33456970091"
+    )
+    assert receipt["target_sha"] == "027d57b29f107717f4a57dc85c580632befd40a4"
+    assert receipt["workflow"] == "AblePath quality gates"
+    assert receipt["event"] == "pull_request"
+    assert receipt["required_job_conclusions"] == {
+        "Python 3.12 / Linux": "success",
+        "Python 3.12 / Windows newline smoke": "success",
+        "Static viewer / Node 22": "success",
+    }
+    checked_at = datetime.fromisoformat(receipt["checked_at"])
+    assert checked_at.tzinfo is not None
+    assert checked_at.utcoffset() is not None
+    assert receipt["receipt_status"] == "VERIFIED"
 
 
 def test_human_freeze_problem_classes_remain_explicit() -> None:

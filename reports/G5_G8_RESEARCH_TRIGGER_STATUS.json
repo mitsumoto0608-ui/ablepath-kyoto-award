@@ -20,7 +20,29 @@
     {"problem_id":"P08","triggered":true,"research_required":false,"official_source_required":false,"evidence_packet_status":"DEFERRED_UNTIL_NEW_EVIDENCE_METHOD_PROPOSAL","human_freeze_required":true,"current_resolution":"NOT_COMPUTED_WITH_MISSING_FIELDS_AND_REASON"},
     {"problem_id":"P09","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"G7_HUMAN_FREEZE_PACKET_READY","human_freeze_required":true,"current_resolution":"M6_NOT_COMPUTED"},
     {"problem_id":"P10","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_SAFE_DEFAULT_SUFFICIENT","human_freeze_required":false,"current_resolution":"3D_NOT_CONNECTED_WITH_2D_FALLBACK"},
-    {"problem_id":"P11","triggered":true,"research_required":false,"official_source_required":false,"evidence_packet_status":"NOT_REQUIRED_EXISTING_FAILURE_PLAYBOOK","human_freeze_required":false,"current_resolution":"VERIFIED_2D_FALLBACK_TESTS_HOSTED_CI_GREEN"},
+    {
+      "problem_id": "P11",
+      "triggered": true,
+      "research_required": false,
+      "official_source_required": false,
+      "evidence_packet_status": "NOT_REQUIRED_EXISTING_FAILURE_PLAYBOOK",
+      "human_freeze_required": false,
+      "current_resolution": "VERIFIED_2D_FALLBACK_TESTS_HOSTED_CI_GREEN",
+      "hosted_ci_receipt": {
+        "run_id": 33456970091,
+        "run_url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/actions/runs/33456970091",
+        "target_sha": "027d57b29f107717f4a57dc85c580632befd40a4",
+        "workflow": "AblePath quality gates",
+        "event": "pull_request",
+        "required_job_conclusions": {
+          "Python 3.12 / Linux": "success",
+          "Python 3.12 / Windows newline smoke": "success",
+          "Static viewer / Node 22": "success"
+        },
+        "checked_at": "2026-09-01T16:55:53+09:00",
+        "receipt_status": "VERIFIED"
+      }
+    },
     {"problem_id":"P12","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_SAFE_DEFAULT_SUFFICIENT","human_freeze_required":true,"current_resolution":"OFFICIAL_METADATA_WITH_UNKNOWN_OPERATION"},
     {"problem_id":"P13","triggered":false,"research_required":true,"official_source_required":true,"evidence_packet_status":"OPEN_ONLY_IF_CONFLICT_OBSERVED","human_freeze_required":true,"current_resolution":"SOURCE_SEPARATION"},
     {"problem_id":"P14","triggered":true,"research_required":false,"official_source_required":true,"evidence_packet_status":"NOT_OPENED_LIMITATION_ONLY","human_freeze_required":true,"current_resolution":"CROSS_TIME_ANALYSIS_LIMITATION"},
