@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-OVERNIGHT-OFFICIAL-DATA-TO-M7-REAL-EDGE-EVIDENCE-V2",
+  "status": "PARTIAL_FAIL_CLOSED",
+  "corrected_zip": {
+    "sha256": "297f6aa0f1c9abc28ef22f62fa305006f9d58307f112a40c92543e8188cbc574",
+    "member_count": 17,
+    "crc_status": "PASS"
+  },
+  "true_missing_data_count": 0,
+  "gsi_dem": {
+    "found": true,
+    "outer_sha256": "6b67adaabe15908189316eb34dd574bfe5854b9db509f29902eab7ecfc3a88db",
+    "product_count": 12,
+    "products": ["DEM1A", "DEM5A", "DEM5B"],
+    "mesh_ids": ["523536", "523545", "523546", "523973"],
+    "dem10b_found": false,
+    "source_crs": ["fguuid:jgd2024.bl", "fguuid:jgd2011.bl"],
+    "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+    "aoi_intersection_validated": false,
+    "status": "CRS_REVIEW_REQUIRED",
+    "terrain_connected": false
+  },
+  "fujisawa_earthquake": {
+    "found": true,
+    "scenario_count": 8,
+    "susceptibility_layer_count": 1,
+    "scenario_source_sha256": "03989508e8e715496c700f92e30ac8c3feaaec163d19438aa28b3bcb3738b442",
+    "crs": "CRS_CONTRADICTION: EPSG:4301 sidecar with projected-looking native bbox",
+    "status": "CRS_REVIEW_REQUIRED",
+    "connected": false
+  },
+  "fujisawa_liquefaction": {
+    "found": true,
+    "scenario_count": 8,
+    "hazard_layer_count": 1,
+    "scenario_source_sha256": "91f721e0f37114379d7535f5a9c09eac03ffa9c4d3dc1a2088d6d8ee5f47d023",
+    "crs": "EPSG:4612",
+    "status": "LICENSE_REVIEW_REQUIRED",
+    "connected": false
+  },
+  "fujisawa_accessibility_facilities": {
+    "found": true,
+    "status": "READY_FOR_TABLE_ONLY",
+    "total_rows": 339,
+    "ostomate_detail_rows": 119,
+    "enoshima_katase_rows": 57,
+    "enoshima_katase_ostomate_detail_rows": 17,
+    "geometry_status": "ADDRESS_ONLY",
+    "table_artifact_created": true,
+    "map_ready": false,
+    "silent_geocoding": false,
+    "accessibility_state_inferred": false,
+    "opening_inferred": false,
+    "disaster_availability_inferred": false
+  },
+  "kyoto": {
+    "status_authority": "reports/KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json",
+    "kiyomizu_gion_separate_from_arashiyama": true,
+    "flood_connected_city_count": 0,
+    "landslide_connected_city_count": 0,
+    "official_facility_table_connected_city_count": 0
+  },
+  "excluded": ["raw ZIP/GML/Shapefile/XLSX/PDF", "absolute local paths", "credentials or signed URLs", "unreviewed spatial derivatives"],
+  "closure_derived": false,
+  "damage_derived": false,
+  "debris_derived": false,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "model_route": {"requested": "DATA_PROMOTION_WRITER", "actual": "UNVERIFIED"},
+  "model_route_verified": false
+}

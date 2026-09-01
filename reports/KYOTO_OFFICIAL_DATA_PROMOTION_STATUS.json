@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PARTIAL_FAIL_CLOSED",
+  "cities": {
+    "kyoto_kiyomizu": {
+      "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+      "dem_found": true,
+      "dem_product_count": 6,
+      "dem_mesh_candidates": ["523536", "523546"],
+      "dem_validated": false,
+      "terrain_connected": false,
+      "flood_artifact_status": "READY_FOR_INTERNAL_INGESTION",
+      "flood_connected": false,
+      "flood_reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane.",
+      "landslide_artifact_status": "LICENSE_REVIEW_REQUIRED",
+      "landslide_connected": false,
+      "landslide_reason": "Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed.",
+      "earthquake_connected": false,
+      "liquefaction_connected": false,
+      "inner_flood_connected": false,
+      "official_facility_table_connected": false,
+      "official_facility_map_connected": false,
+      "facility_reason": "R8.8.18 shelter/emergency-site originals were absent from approved staging/workspace. Toilet XLSX has a tracked metadata receipt only; row-level subarea extraction was not authorized. Other facility sources are landing/category metadata only."
+    },
+    "kyoto_arashiyama": {
+      "subareas": ["arashiyama"],
+      "dem_found": true,
+      "dem_product_count": 3,
+      "dem_mesh_candidates": ["523545"],
+      "dem_validated": false,
+      "terrain_connected": false,
+      "flood_artifact_status": "READY_FOR_INTERNAL_INGESTION",
+      "flood_connected": false,
+      "flood_reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, Arashiyama output SHA, source feature-ID lineage, or AOI review was produced in this lane.",
+      "landslide_artifact_status": "LICENSE_REVIEW_REQUIRED",
+      "landslide_connected": false,
+      "landslide_reason": "Exact g_dosha_00all.zip SHA exists, but terms/consent path and Arashiyama clip lineage are not reviewed.",
+      "earthquake_connected": false,
+      "liquefaction_connected": false,
+      "inner_flood_connected": false,
+      "official_facility_table_connected": false,
+      "official_facility_map_connected": false,
+      "facility_reason": "R8.8.18 shelter/emergency-site originals were absent from approved staging/workspace. Toilet XLSX has a tracked metadata receipt only; row-level Arashiyama extraction was not authorized. Other facility sources are landing/category metadata only."
+    }
+  },
+  "closure_derived": false,
+  "damage_derived": false,
+  "debris_derived": false,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "model_route_verified": false
+}

@@ -1,0 +1,19 @@
+{
+  "task_id": "ABLEPATH-OVERNIGHT-OFFICIAL-DATA-TO-M7-REAL-EDGE-EVIDENCE-V2",
+  "artifact": "AblePath_NEW_FOLDER_FULL_INVESTIGATION_20260902_CORRECTED_V2.zip",
+  "sha256": "297f6aa0f1c9abc28ef22f62fa305006f9d58307f112a40c92543e8188cbc574",
+  "byte_size": 89385,
+  "member_count": 17,
+  "crc_status": "PASS",
+  "crc_method": "All 17 entry streams were read to EOF with System.IO.Compression on 2026-09-02.",
+  "raw_scope_file_count": 25,
+  "raw_scope_byte_count": 793535586,
+  "raw_modified": false,
+  "supersedes": {
+    "artifact": "AblePath_NEW_FOLDER_FULL_INVESTIGATION_20260902.zip",
+    "true_missing_data_count": 1,
+    "status": "SUPERSEDED_BY_CORRECTED_V2"
+  },
+  "model_route": {"requested": "DATA_PROMOTION_WRITER", "actual": "UNVERIFIED"},
+  "model_route_verified": false
+}

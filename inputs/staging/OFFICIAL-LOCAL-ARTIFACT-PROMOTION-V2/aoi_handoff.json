@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "areas": {
+    "kyoto_kiyomizu": {
+      "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+      "dem_mesh_candidates": ["523536", "523546"],
+      "dem_aoi_intersection": "PENDING",
+      "flood_aoi_clip": "NOT_CONNECTED",
+      "landslide_aoi_clip": "NOT_CONNECTED",
+      "facility_table": "NOT_CONNECTED"
+    },
+    "kyoto_arashiyama": {
+      "subareas": ["arashiyama"],
+      "dem_mesh_candidates": ["523545"],
+      "dem_aoi_intersection": "PENDING",
+      "flood_aoi_clip": "NOT_CONNECTED",
+      "landslide_aoi_clip": "NOT_CONNECTED",
+      "facility_table": "NOT_CONNECTED"
+    },
+    "fujisawa_enoshima": {
+      "subareas": ["enoshima", "katase"],
+      "dem_mesh_candidates": ["523973"],
+      "dem_aoi_intersection": "PENDING",
+      "earthquake_aoi_clip": "NOT_CONNECTED",
+      "liquefaction_aoi_clip": "NOT_CONNECTED",
+      "facility_table": "READY_FOR_TABLE_ONLY",
+      "facility_geometry": "ADDRESS_ONLY"
+    }
+  },
+  "claim_boundaries": {
+    "closure_derived": false,
+    "damage_derived": false,
+    "debris_derived": false,
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false
+  }
+}

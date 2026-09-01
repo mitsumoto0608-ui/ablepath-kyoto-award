@@ -1,0 +1,10 @@
+{
+  "authority": "CORRECTED_V2_BOUNDED_LOCAL_INVESTIGATION",
+  "true_missing_data_count": 0,
+  "gsi_dem_found": true,
+  "fujisawa_earthquake_found": true,
+  "fujisawa_liquefaction_found": true,
+  "fujisawa_accessibility_found": true,
+  "family_presence_is_not_connection": true,
+  "superseded_truth": {"true_missing_data_count": 1, "status": "SUPERSEDED_BY_CORRECTED_V2"}
+}
