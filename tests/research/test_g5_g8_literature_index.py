@@ -7,6 +7,7 @@ import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -16,6 +17,9 @@ MAPPING = RESEARCH / "G5_G8_PROBLEM_SOURCE_MAP.csv"
 PACKETS = RESEARCH / "problem_packets"
 QUEUE_JSON = ROOT / "reports" / "G5_G8_EVIDENCE_CLOSURE_QUEUE.json"
 QUEUE_MD = ROOT / "reports" / "G5_G8_EVIDENCE_CLOSURE_QUEUE.md"
+STATUS_MD = ROOT / "reports" / "G5_G8_LITERATURE_INDEX_STATUS.md"
+PREMORTEM_REGISTER = ROOT / "reports" / "G5_G8_PREMORTEM_REGISTER.csv"
+TRIGGER_STATUS = ROOT / "reports" / "G5_G8_RESEARCH_TRIGGER_STATUS.json"
 
 BIBLIOGRAPHY_COLUMNS = [
     "source_id", "title", "authors_or_issuer", "year_version", "DOI",
@@ -36,6 +40,13 @@ MAPPING_COLUMNS = [
 TRANSFER_STATUSES = {
     "DIRECT", "ADAPT", "STRUCTURE_ONLY", "PRESENTATION_ONLY", "REJECT"
 }
+ALLOWED_PROBLEM_CONTEXT_TRANSFER = {
+    "DIRECT": {"DIRECT", "ADAPT", "STRUCTURE_ONLY"},
+    "ADAPT": {"ADAPT"},
+    "STRUCTURE_ONLY": {"STRUCTURE_ONLY"},
+    "PRESENTATION_ONLY": {"PRESENTATION_ONLY"},
+    "REJECT": {"REJECT"},
+}
 
 
 def _read_csv(path: Path, expected_columns: list[str]) -> list[dict[str, str]]:
@@ -53,6 +64,27 @@ def _normalized(value: str) -> str:
     return re.sub(r"[\W_]+", "", value.casefold(), flags=re.UNICODE)
 
 
+def _gate_set(value: str) -> set[int]:
+    match = re.fullmatch(r"G([5-8])(?:-G([5-8]))?", value)
+    assert match, value
+    start = int(match.group(1))
+    end = int(match.group(2) or start)
+    assert start <= end
+    return set(range(start, end + 1))
+
+
+def _source_id_set(value: str) -> set[str]:
+    source_ids: set[str] = set()
+    for token in value.split(","):
+        match = re.fullmatch(r"\s*S(\d{3})(?:[–-]S?(\d{3}))?\s*", token)
+        assert match, token
+        start = int(match.group(1))
+        end = int(match.group(2) or start)
+        assert start <= end
+        source_ids.update(f"S{number:03d}" for number in range(start, end + 1))
+    return source_ids
+
+
 def test_csv_schema_ids_references_and_direct_counts() -> None:
     """[source_conformance] Strict schemas, identities, refs, and tracked counts remain stable."""
     sources = _read_csv(BIBLIOGRAPHY, BIBLIOGRAPHY_COLUMNS)
@@ -66,7 +98,20 @@ def test_csv_schema_ids_references_and_direct_counts() -> None:
         "ORIGINAL_VERIFIED": 33,
         "DISCOVERY_ONLY": 5,
     }
-    assert len(list(PACKETS.glob("P*.md"))) == 17
+    expected_problem_ids = {row["problem_id"] for row in mappings}
+    expected_packets = {f"{problem_id}.md" for problem_id in expected_problem_ids}
+    actual_packets = {
+        path.name
+        for path in PACKETS.iterdir()
+        if path.is_file() and re.fullmatch(r"P\d{2}\.md", path.name)
+    }
+    assert actual_packets == expected_packets
+    if PREMORTEM_REGISTER.exists():
+        with PREMORTEM_REGISTER.open(encoding="utf-8", newline="") as handle:
+            assert {row["problem_id"] for row in csv.DictReader(handle)} == expected_problem_ids
+    if TRIGGER_STATUS.exists():
+        trigger = json.loads(TRIGGER_STATUS.read_text(encoding="utf-8"))
+        assert {row["problem_id"] for row in trigger["problems"]} == expected_problem_ids
 
 
 def test_problem_coverage_packet_budget_and_priorities() -> None:
@@ -93,7 +138,15 @@ def test_verification_transfer_and_locator_contracts() -> None:
     for row in sources:
         assert row["transfer_status"] in TRANSFER_STATUSES
         if row["source_status"] == "ORIGINAL_VERIFIED":
-            assert row["DOI"].strip() or row["official_url"].startswith("https://")
+            doi = row["DOI"].strip()
+            official_url = row["official_url"].strip()
+            parsed = urlparse(official_url)
+            assert parsed.scheme == "https" and parsed.netloc
+            assert (
+                parsed.path.rstrip("/") or parsed.query or parsed.fragment
+            ), f"publisher-root locator: {row['source_id']}"
+            if parsed.netloc == "doi.org":
+                assert doi and parsed.path.lstrip("/") == doi
         if "A1-NUM" in row["evidence_quality"] or "A1-EQ" in row["evidence_quality"]:
             locator = row["exact_page_section"].casefold()
             assert any(token in locator for token in ("p.", "pp.", "section", "clause", "r302", "eq.", "table", "§"))
@@ -105,10 +158,53 @@ def test_verification_transfer_and_locator_contracts() -> None:
             assert any(token in non_use for token in ("production", "original", "invent", "verified"))
     mappings = _read_csv(MAPPING, MAPPING_COLUMNS)
     assert all(row["transfer_status"] in TRANSFER_STATUSES for row in mappings)
+    source_transfer = {row["source_id"]: row["transfer_status"] for row in sources}
+    for row in mappings:
+        assert row["transfer_status"] in ALLOWED_PROBLEM_CONTEXT_TRANSFER[source_transfer[row["source_id"]]]
+    audited_context_rows = {
+        (row["problem_id"], row["source_id"]): row["transfer_status"]
+        for row in mappings
+        if (row["problem_id"], row["source_id"])
+        in {("P04", "S005"), ("P10", "S004"), ("P11", "S005"), ("P11", "S007")}
+    }
+    assert audited_context_rows == {
+        ("P04", "S005"): "ADAPT",
+        ("P10", "S004"): "STRUCTURE_ONLY",
+        ("P11", "S005"): "ADAPT",
+        ("P11", "S007"): "ADAPT",
+    }
+    audited_locators = {
+        row["source_id"]: (row["year_version"], row["DOI"], row["official_url"])
+        for row in sources
+        if row["source_id"] in {"S017", "S018", "S034"}
+    }
+    assert audited_locators == {
+        "S017": ("2024", "10.5610/jaee.24.3_1", "https://doi.org/10.5610/jaee.24.3_1"),
+        "S018": ("2009", "10.5638/thagis.17.73", "https://doi.org/10.5638/thagis.17.73"),
+        "S034": ("2013", "10.1109/EMBC.2013.6609720", "https://doi.org/10.1109/EMBC.2013.6609720"),
+    }
     s012 = next(row for row in mappings if row["problem_id"] == "P09" and row["source_id"] == "S012")
     assert s012["transfer_status"] == "ADAPT"
     assert "§8.2.2" in s012["exact_page_section"]
     assert "executable AblePath profile boundary" in s012["not_supported"]
+
+
+def test_status_gate_collections_do_not_contradict_bibliography_authority() -> None:
+    """[source_conformance] Every curated Gate collection entry is authorized by the bibliography gate field."""
+    sources = _read_csv(BIBLIOGRAPHY, BIBLIOGRAPHY_COLUMNS)
+    source_gates = {row["source_id"]: _gate_set(row["Gate_5_6_7_8"]) for row in sources}
+    collections = {
+        int(gate): _source_id_set(source_list)
+        for gate, source_list in re.findall(
+            r"^Gate ([5-8]) sources: (.+)$",
+            STATUS_MD.read_text(encoding="utf-8"),
+            flags=re.MULTILINE,
+        )
+    }
+
+    assert set(collections) == {5, 6, 7, 8}
+    for gate, source_ids in collections.items():
+        assert all(gate in source_gates[source_id] for source_id in source_ids)
 
 
 def test_bibliographic_dedup_and_local_receipt_shape() -> None:

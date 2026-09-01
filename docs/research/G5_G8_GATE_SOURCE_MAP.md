@@ -10,6 +10,7 @@
 - A1-BIB / A1-CLAIM / A1-NUM / A1-EQ / A2 はrepoの`RESEARCH_LEDGER`/registry語彙に合わせる。本indexの新規確認はproduction ledgerを自動的に拡張しない。
 - 本indexは判断材料への入口であり、PASS / CONDITIONAL / FAIL、閾値、hazard closure、safe routeを決めない。
 - 各問題の通常参照は problem_packets/Pxx.md の3–5本に限定する。その他は BACKGROUND_LIBRARY。
+- bibliographyの`transfer_status`はsource全体の上限、problem-source mapの値は個別problem文脈での採用範囲である。mapは同値または安全側への限定のみを許し、`DIRECT`から`ADAPT`/`STRUCTURE_ONLY`への限定は可、逆方向の拡張は不可とする。
 
 ## Gate 5 — hazard GIS / official source semantics
 

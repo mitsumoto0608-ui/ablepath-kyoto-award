@@ -14,6 +14,25 @@ Standalone read-only workspaceで作成されたindexを、`origin/main@51595500
 
 未解決なのは以下のevidence closureであり、production contractの変更ではない。
 
+## Claude audit transfer-status remediation ledger
+
+Bibliographyのstatusはsource全体のtransfer上限、problem-source mapは個別problemでの採用範囲とする。以下の4行は監査前から安全側に限定されており、その値をsupported statusとして維持し、拡張禁止testを追加した。
+
+| Problem / source | Before | After | Reason |
+|---|---|---|---|
+| P04 / S005 | ADAPT (bibliography: DIRECT) | ADAPT | PLATEAUのschema capabilityはlocal pedestrian topology completenessを直接証明しない |
+| P10 / S004 | STRUCTURE_ONLY (bibliography: DIRECT) | STRUCTURE_ONLY | 3D Tilesはdelivery/portrayal structureでありsource semanticsを直接移転しない |
+| P11 / S005 | ADAPT (bibliography: DIRECT) | ADAPT | PLATEAU product specificationは個別remote endpoint uptimeの証拠ではない |
+| P11 / S007 | ADAPT (bibliography: DIRECT) | ADAPT | portal update historyは個別endpoint reliabilityへ直接移転しない |
+
+## Claude audit locator remediation ledger
+
+| Source | Before | After | Reason |
+|---|---|---|---|
+| S017 | J-STAGE publisher root / DOIなし | `10.5610/jaee.24.3_1` | repo manifestのarticle IDを原著DOIへ解決 |
+| S018 | J-STAGE publisher root / DOIなし | `10.5638/thagis.17.73` | repo manifestのarticle IDを原著DOIへ解決 |
+| S034 | ACM publisher root / DOIなし / 2016 metadata | `10.1109/EMBC.2013.6609720` / 2013 IEEE EMBC metadata | 固有titleの原著recordに解決し、別publisher・別年の誤記を維持しない |
+
 ## Evidence gaps by problem
 
 | Problem | Gap | Current handling | Required evidence |

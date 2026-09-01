@@ -11,6 +11,8 @@ Gate 5–8で起きるP01–P17を分類したstandalone indexを、real AblePat
 
 統合監査で、A1/A2語彙、CSA/PROWAGの現行M6 evidence status、M7既存frozen contractとの境界、Ohtsu標本数、Moya部分標本の記述、PLATEAU 5.1文書とFY2025/v5 city packageの区別をresearch側だけで修正した。
 
+Claude監査後のnarrow repairでは、packet集合を登録problem IDから導出し、Gate collectionの3矛盾をbibliography authorityへ合わせ、problem文脈のtransfer statusは拡張せず安全側限定として契約化した。S017/S018/S034のpublisher-root locatorは原著DOIへ解決した。production contractとproduction filesは変更していない。
+
 作成物:
 
 - docs/research/G5_G8_MASTER_BIBLIOGRAPHY.csv
@@ -39,9 +41,9 @@ PROBLEMS_WITH_EVIDENCE_GAPS=17
 
 ## Gate collections
 
-Gate 5 sources: S001, S002, S005–S008, S015–S019, S023
-Gate 6 sources: S002, S005, S015–S022, S031
-Gate 7 sources: S006, S008–S013, S016, S020, S022–S025, S029, S032, S034
+Gate 5 sources: S001, S002, S005–S008, S015–S019
+Gate 6 sources: S002, S005, S015–S020, S022, S031
+Gate 7 sources: S008–S013, S016, S020, S022–S025, S029, S032, S034
 Gate 8 sources: S001–S005, S007, S010, S014, S021, S023–S030, S033–S034
 
 ## Top 10 most important sources
