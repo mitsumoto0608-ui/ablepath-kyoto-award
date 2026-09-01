@@ -83,6 +83,11 @@ def test_city_pack_has_exact_required_structure():
         "sources/retained/osm_corridor_20260830.raw.json",
         "sources/retained/plateau_26100_bldg_tileset_20260830.json",
         "tools/build_realdata.py",
+        "terrain/official/dem_product_inventory.csv",
+        "terrain/official/source_receipt.json",
+        "hazards/official/promotion_v2_receipt.json",
+        "facilities/official/promotion_v2_status.json",
+        "sources/receipts/official_local_promotion_v2.json",
     }
     actual = {path.relative_to(PACK).as_posix() for path in PACK.rglob("*") if path.is_file()}
     assert actual == legacy_expected | v2_expected
