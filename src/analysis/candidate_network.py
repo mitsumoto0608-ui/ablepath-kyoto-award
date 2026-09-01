@@ -147,6 +147,15 @@ def _m7_readiness(edge_id, props):
         "reason": reason,
     }
 
+
+def assess_m7_readiness(edge_id: str, props: dict) -> dict:
+    """Return the frozen M7 API/evidence gate without running the M7 model."""
+    if not isinstance(edge_id, str) or not edge_id:
+        raise ValueError("edge_id must be a non-empty string")
+    if not isinstance(props, dict):
+        raise TypeError("M7 edge properties must be a dict")
+    return _m7_readiness(edge_id, props)
+
 def _node_ids(nodes):
     ids = []
     for node in nodes:
@@ -204,5 +213,5 @@ def summarize(nodes: list[dict], edges: list[dict], start: str, end: str) -> dic
         path = {"status": "CONNECTED", "edge_ids": list(reversed(route)), "geometric_length": best[end][0], "unit": "coordinate_degree", "reason": CONNECTED_REASON}
     else:
         path = {"status": "DISCONNECTED", "edge_ids": [], "geometric_length": None, "unit": "coordinate_degree", "reason": DISCONNECTED_REASON}
-    readiness = [_m7_readiness(edge_id, props) for edge_id, props in sorted(normalized_edges)]
+    readiness = [assess_m7_readiness(edge_id, props) for edge_id, props in sorted(normalized_edges)]
     return {"topology": {"nodes": len(nodes), "edges": len(edges), "connected_components": components}, "path": path, "hazard_overlap": {"status": "NOT_CONNECTED", "reason": "No trusted official hazard geometry is connected; no closure is derived."}, "m7": {"ready_edge_count": sum(row["m7_evidence_ready"] for row in readiness), "computed_edge_count": sum(row["m7_computed"] for row in readiness), "readiness": readiness}, "m6": {"status": "NOT_COMPUTED", "reason": "Human freeze is pending."}}
