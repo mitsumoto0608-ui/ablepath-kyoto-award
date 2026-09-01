@@ -1,0 +1,44 @@
+{
+  "city_id": "kyoto_kiyomizu",
+  "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+  "layers": [
+    {
+      "dataset_id": "nlni_a31b_2025_kyoto_flood",
+      "title": "National Land Numerical Information A31b 2025 Kyoto mesh 5235",
+      "issuer": "Ministry of Land, Infrastructure, Transport and Tourism",
+      "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip",
+      "version": "A31b 2025",
+      "original_filename": "A31b-25_10_5235_GEOJSON.zip",
+      "raw_sha256": "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c",
+      "raw_byte_size": 55502814,
+      "license": "CC BY 4.0; attribution required",
+      "source_crs": "EPSG:6668",
+      "axis_semantics": "JGD2011 formal latitude_longitude; GeoJSON longitude_latitude is separate",
+      "artifact_status": "READY_FOR_INTERNAL_INGESTION",
+      "connection_status": "NOT_CONNECTED",
+      "reason": "The exact raw receipt is tracked, but an authorized raw AOI clip was not available to this writer and no deterministic Kiyomizu/Gion/connector clip, source feature-ID lineage, or output SHA was produced."
+    },
+    {
+      "dataset_id": "kyoto_city_landslide_gis_20260830",
+      "title": "Kyoto City disaster-prevention map landslide GIS download",
+      "issuer": "Kyoto City",
+      "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload",
+      "version": "snapshot acquired 2026-08-30; embedded files dated 2026-01-22",
+      "original_filename": "g_dosha_00all.zip",
+      "raw_sha256": "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828",
+      "raw_byte_size": 14311801,
+      "license": "Kyoto City GIS/website terms require human review",
+      "source_crs": "EPSG:6668",
+      "artifact_status": "LICENSE_REVIEW_REQUIRED",
+      "connection_status": "NOT_CONNECTED",
+      "reason": "Exact prior consent/download headers and redistribution terms are unavailable; no reviewed Kiyomizu/Gion/connector AOI clip or feature-ID lineage exists."
+    },
+    {"dataset_id": "kyoto_earthquake", "connection_status": "NOT_CONNECTED", "reason": "No exact authorized original, source URL/version/license/CRS/raw SHA, and subarea clip receipt were present in the approved workspace or tracked acquisition staging."},
+    {"dataset_id": "kyoto_liquefaction", "connection_status": "NOT_CONNECTED", "reason": "No exact authorized original, source URL/version/license/CRS/raw SHA, and subarea clip receipt were present in the approved workspace or tracked acquisition staging."},
+    {"dataset_id": "kyoto_inner_flood", "connection_status": "NOT_CONNECTED", "reason": "No exact authorized original, source URL/version/license/CRS/raw SHA, and subarea clip receipt were present in the approved workspace or tracked acquisition staging."}
+  ],
+  "closure_derived": false,
+  "damage_derived": false,
+  "debris_derived": false,
+  "safe_route_claim": false
+}

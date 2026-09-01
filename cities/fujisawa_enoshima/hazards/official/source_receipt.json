@@ -1,0 +1,10 @@
+{
+  "status": "NOT_CONNECTED",
+  "earthquake": {"scenario_count": 8, "susceptibility_layer_count": 1, "inventory_sha256": "8c3946c3f6f0bb1f100870278aec8bf9f5588db2bdc6c41198d9eb2ad2a75257", "blocker": "CRS_CONTRADICTION_AND_LICENSE_RECEIPT_REQUIRED"},
+  "liquefaction": {"scenario_count": 8, "hazard_layer_count": 1, "inventory_sha256": "8fa9338328afbe7360c6174ce1bffa56bf27639981e7ca16de7ac52119d29b1e", "blocker": "LICENSE_AND_SOURCE_RECEIPT_REQUIRED"},
+  "scenario_averaged": false,
+  "closure_derived": false,
+  "damage_derived": false,
+  "debris_derived": false,
+  "safe_route_claim": false
+}
