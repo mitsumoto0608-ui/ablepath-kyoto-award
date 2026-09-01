@@ -150,7 +150,12 @@ def test_all_research_text_references_and_sensitive_patterns() -> None:
         QUEUE_MD,
         QUEUE_JSON,
     ]
-    local_path = re.compile(r"(?:(?<![A-Za-z])[A-Za-z]:[\\/]|\\\\|file://|/Users/|/home/)")
+    unix_user_roots = ("/" + "Users" + "/", "/" + "home" + "/")
+    local_path = re.compile(
+        r"(?:(?<![A-Za-z])[A-Za-z]:[\\/]|\\\\|file://|"
+        + "|".join(re.escape(root) for root in unix_user_roots)
+        + r")"
+    )
     secret = re.compile(
         r"(?:gh[opusr]_[A-Za-z0-9]{20,}|api[_-]?key\s*[:=]|client[_-]?secret\s*[:=]|bearer\s+[A-Za-z0-9._-]{12,})",
         re.IGNORECASE,
