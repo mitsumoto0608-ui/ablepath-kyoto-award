@@ -51,7 +51,7 @@ PUBLIC_RELEASE_READY=false
 
 ## 30秒で動かす
 
-Python full suiteの前提はGit、Python、PowerShell 7（`pwsh`）です。local-main-guardのinstaller/statusテストがPowerShellを実行するため、`pwsh`のないminimal Linuxではfull suiteを実行できず、Pythonだけで完結するtest setとは扱いません。UI unit/build/E2Eを行う場合はNode、npm、Playwrightも必要です。依存がない場合にtestをskip/xfailして成功扱いにはしません。
+Python full suiteの基本前提はGitとPythonです。local-main-guardのcore static/Git guard tests always runし、PowerShell 7（`pwsh`）がないminimal Linuxではonly the installer/status integration tests skipします。完全なinstaller/status evidenceは`pwsh`を備えたHosted Windows/Linux jobで確認します。UI unit/build/E2Eを行う場合はNode、npm、Playwrightも必要です。
 
 ```bash
 python -m venv .venv

@@ -284,6 +284,8 @@ def test_readme_declares_full_suite_prerequisites_and_preserves_safety_language(
         assert expected in readme
     assert "minimal Linux" in readme
     assert "local-main-guard" in readme
+    assert "core static/Git guard tests always run" in readme
+    assert "only the installer/status integration tests skip" in readme
     assert "UNKNOWNをPASS" in readme
     assert "UNKNOWN→OPEN" not in readme
     assert "安全な避難ルートを提供" not in readme
