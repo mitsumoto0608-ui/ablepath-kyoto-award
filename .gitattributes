@@ -41,3 +41,21 @@ reports/PLATEAU_BUILDING_EVIDENCE_V1.json text eol=lf
 reports/M7_REAL_EDGE_STATUS.json text eol=lf
 reports/KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json text eol=lf
 cities/fujisawa_enoshima/facilities/official/facility_source_receipt.json text eol=lf
+
+# Kyoto parity artifacts are generated deterministically and hash-bound to exact raw receipts.
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/a31b_kiyomizu_gion_display.geojson text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/a31b_arashiyama_display.geojson text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/dem_aoi_validation.json text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_points.geojson text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_points_kiyomizu_gion.geojson text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_points_arashiyama.geojson text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_records.json text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/handoff.json text eol=lf
+inputs/staging/KYOTO-OFFICIAL-PARITY-V1/source_receipts.json text eol=lf
+reports/KYOTO_M7_DEEP_PILOT_STATUS.json text eol=lf
+reports/KYOTO_PARITY_STATUS.json text eol=lf
+viewer/public/data/official/a31b_kiyomizu_gion_display.geojson text eol=lf
+viewer/public/data/official/a31b_arashiyama_display.geojson text eol=lf
+viewer/public/data/official/facility_points_kiyomizu_gion.geojson text eol=lf
+viewer/public/data/official/facility_points_arashiyama.geojson text eol=lf

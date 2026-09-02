@@ -119,8 +119,14 @@ def test_scenario_and_facility_outputs_preserve_unknowns() -> None:
     ) == hazard_receipt["liquefaction"]["inventory_sha256"]
 
 
-def test_kyoto_metadata_does_not_claim_hazard_or_facility_connection() -> None:
-    """[software_correctness] Artifact availability is separated from AOI, license, table, map, and safety claims."""
+def test_kyoto_scoped_display_connection_does_not_claim_analysis_or_safety() -> None:
+    """[software_correctness] Approved AOI display is true while terrain/hazard analysis and safety stay false.
+
+    The expectation changed because the reviewed A31b source-feature selections and three
+    source-coordinate facility categories are now connected to the internal viewer. This
+    does not connect elevation analysis, hazard edge analysis, landslide, or operational
+    facility truth and cannot derive closure or accessibility.
+    """
 
     status = _json(ROOT / "reports" / "KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json")
     assert status["closure_derived"] is False
@@ -129,10 +135,14 @@ def test_kyoto_metadata_does_not_claim_hazard_or_facility_connection() -> None:
     for city in ("kyoto_kiyomizu", "kyoto_arashiyama"):
         truth = status["cities"][city]
         assert truth["dem_found"] is True
+        assert truth["dem_inventory_validated"] is True
         assert truth["terrain_connected"] is False
-        assert truth["flood_connected"] is False
+        assert truth["terrain_elevation_analysis_connected"] is False
+        assert truth["flood_connected"] is True
+        assert truth["flood_connected_scope"].endswith("DISPLAY_ONLY_NOT_EDGE_OVERLAP_OR_OPERATIONAL_STATE")
         assert truth["landslide_connected"] is False
-        assert truth["official_facility_map_connected"] is False
+        assert truth["official_facility_map_connected"] is True
+        assert truth["official_facility_connection_scope"].endswith("SOURCE_PROVIDED_COORDINATES_ONLY")
 
     for relative in (
         "cities/fujisawa_enoshima/facilities/official/facility_table_339.csv",

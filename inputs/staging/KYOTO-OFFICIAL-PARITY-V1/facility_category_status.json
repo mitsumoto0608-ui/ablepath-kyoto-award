@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "designated_emergency_evacuation_place": {
+      "map_connected": true,
+      "record_count": 24,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "designated_shelter": {
+      "map_connected": true,
+      "record_count": 25,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "emergency_open_space": {
+      "map_connected": false,
+      "next_acquisition_method": "Acquire the current official emergency-open-space row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+      "record_count": 0,
+      "status": "METADATA_ONLY_NOT_CONNECTED"
+    },
+    "public_tourist_toilet": {
+      "map_connected": true,
+      "record_count": 28,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "temporary_stay_facility": {
+      "map_connected": false,
+      "next_acquisition_method": "Acquire the current official temporary-stay facility row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+      "record_count": 0,
+      "status": "METADATA_ONLY_NOT_CONNECTED"
+    }
+  },
+  "schema_version": "1.0.0",
+  "silent_geocoding": false,
+  "status": "PARTIAL_SOURCE_COORDINATE_CONNECTION"
+}

@@ -6,14 +6,21 @@
   "data": {
     "corrected_v2_zip_crc": "PASS",
     "dem_product_rows": 12,
-    "terrain_connected_city_count": 0,
+    "terrain_evidence_ui_connected_city_count": 2,
+    "terrain_elevation_analysis_connected_city_count": 0,
     "kyoto_subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector", "arashiyama"],
     "fujisawa_subareas": ["enoshima_katase"],
     "fujisawa_earthquake_status_rows": 9,
     "fujisawa_liquefaction_status_rows": 9,
     "fujisawa_facility_table_rows": 57,
     "fujisawa_facility_geometry_status": "ADDRESS_ONLY",
-    "official_hazard_connected_city_count": 0
+    "official_hazard_edge_analysis_connected_city_count": 0,
+    "kyoto_a31b_internal_display_aoi_count": 2,
+    "kyoto_a31b_internal_display_feature_count": 502,
+    "kyoto_facility_source_coordinate_record_count": 77,
+    "kyoto_facility_connected_category_count": 3,
+    "kyoto_facility_metadata_only_category_count": 2,
+    "kyoto_silent_geocoding": false
   },
   "plateau": {
     "target_aoi_count": 5,
@@ -35,14 +42,14 @@
     "terrain_product_rows_by_city": {"kyoto_kiyomizu": 6, "kyoto_arashiyama": 3, "fujisawa_enoshima": 3},
     "kyoto_hazard_status_rows": {"kyoto_kiyomizu": 15, "kyoto_arashiyama": 5},
     "fujisawa_hazard_scenario_rows": 18,
-    "required_screenshot_name_count": 16,
+    "required_screenshot_name_count": 19,
     "screenshot_binary_committed": false
   },
   "validation": {
     "python_tests": "568 passed, 1 warning",
-    "viewer_unit_tests": "53 passed",
+    "viewer_unit_tests": "60 passed",
     "viewer_build": "PASS",
-    "viewer_e2e": "50 cases completed without assertion failure; 4 desktop-only artifacts skipped on mobile; Windows cleanup required manual stop",
+    "viewer_e2e": "52 cases completed without assertion failure; 5 desktop-only artifact captures skipped on mobile; Windows cleanup required manual stop",
     "runner_run_count_each": 120,
     "all_runs_sha256_run_1": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
     "all_runs_sha256_run_2": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",

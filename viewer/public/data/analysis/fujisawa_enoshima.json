@@ -142,8 +142,8 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "terrain_inventory_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
-      "facility_receipt_sha256": "60c63dc005405acfd208803ee938479f1a1b8c357d9a152166ff3ec99399ba83",
+      "terrain_inventory_sha256": "f1a785e878ae0e3ca6a2b33c80eaf12bbcce7c1583d06c0f6c8d753b322aa5cb",
+      "facility_receipt_sha256": "90b0a7b1c95b429d3b1d2e878f0856a36c9f84d131d3f281645db4e8f703d52a",
       "facility_table_sha256": "770cdde2a68e81aed808d4366398f7d8f5c2170e014e9079c55779b1c326b8ed",
       "earthquake_inventory_sha256": "8c3946c3f6f0bb1f100870278aec8bf9f5588db2bdc6c41198d9eb2ad2a75257",
       "liquefaction_inventory_sha256": "8fa9338328afbe7360c6174ce1bffa56bf27639981e7ca16de7ac52119d29b1e"
@@ -155,7 +155,12 @@
       "status": "NOT_CONNECTED",
       "reason": "No terrain product has been connected to this city analysis.",
       "connected": false,
-      "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+      "evidence_ui_connected": false,
+      "elevation_sampled": false,
+      "step_inferred": false,
+      "cross_slope_inferred": false,
+      "aoi_validation": null,
+      "receipt_sha256": "f1a785e878ae0e3ca6a2b33c80eaf12bbcce7c1583d06c0f6c8d753b322aa5cb",
       "products": [
         {
           "dataset_id": "gsi_523973_dem1a_20250613",
@@ -166,6 +171,7 @@
           "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
           "aoi_status": "AOI_INTERSECTION_PENDING",
           "validation_result": "CRS_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
           "status": "NOT_CONNECTED"
         },
@@ -178,6 +184,7 @@
           "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
           "aoi_status": "AOI_INTERSECTION_PENDING",
           "validation_result": "CRS_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
           "status": "NOT_CONNECTED"
         },
@@ -190,6 +197,7 @@
           "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
           "aoi_status": "AOI_INTERSECTION_PENDING",
           "validation_result": "CRS_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
           "status": "NOT_CONNECTED"
         }
@@ -199,6 +207,9 @@
       "status": "NOT_CONNECTED",
       "reason": "No official hazard geometry is connected; earthquake and liquefaction inventories remain scenario metadata and do not derive CLOSED or FAIL.",
       "connected": false,
+      "display_connected": false,
+      "display_feature_count": 0,
+      "display_layer": null,
       "closure_derived": false,
       "damage_or_debris_inferred": false,
       "layers": [],
@@ -1534,10 +1545,12 @@
       "aoi_scope": [
         "enoshima_katase"
       ],
+      "inventory": [],
+      "inventory_connected": false,
       "fallback": "EXISTING_DETERMINISTIC_2D",
       "m7_evidence_ready_count": 0,
       "m7_computed_count": 0,
-      "reason": "This city AOI set retains the existing deterministic 2D fallback; verified PLATEAU tiles or building-side evidence are not connected."
+      "reason": "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer."
     },
     "m7": {
       "status": "NOT_COMPUTED",
@@ -1547,8 +1560,9 @@
       "computed_count": 0,
       "city_edge_count": 15,
       "edge_receipts_source_sha256": "ced9bcd8ffd2466ac9b07d162a7c1863c42b27746b19ae7ba473a95f639f03b1",
+      "kyoto_deep_pilot_edges": [],
       "city_limitations": "No reviewed source-traceable per-edge M7 inputs are connected.",
-      "reason": "M7 is not connected to real candidate edges; building setback, damage, and debris are not inferred."
+      "reason": "M7 is not connected to real candidate edges; every Kyoto pilot exposes field-level evidence candidates and next acquisition without inferring setback, damage, or debris."
     },
     "m6": {
       "status": "NOT_COMPUTED",

@@ -1,0 +1,2085 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          135.67604713,
+          35.0216645
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:233",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-1543",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68797469,
+          35.01281298
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨五島町1",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:268",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+        "operation_status": "UNKNOWN",
+        "phone": "075-864-7858",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68641668,
+          35.0074608
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山東海道町46",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:292",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山東小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-881-5120",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67697549,
+          35.01023829
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山虚空蔵山町68-3",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:314",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "法輪寺",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-0069",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67604713,
+          35.0216645
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:263",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-1543",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6866803,
+          35.01344068
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨柳田町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:265",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-872-1466",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68797469,
+          35.01281298
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨五島町1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:307",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+        "operation_status": "UNKNOWN",
+        "phone": "075-864-7858",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68641668,
+          35.0074608
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山東海道町46",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:329",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山東小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-881-5120",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67697549,
+          35.01023829
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山虚空蔵山町68-3",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:358",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "法輪寺",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-0069",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6859469,
+          35.0003239
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵐山宮町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:39",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "松尾大社観光トイレマツオタイシャカンコウ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.677900819701,
+          35.0153000892413
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺造路町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:51",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐電嵐山駅観光トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.681568,
+          35.018601
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺車道町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "JR嵯峨嵐山駅前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.672824722119,
+          35.0198080167197
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺立石町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨公園トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6790738,
+          35.0141743
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺造路町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－２",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山観光駐車場トイレアラシヤマカンコウチュウシャジョウ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.674161,
+          35.01350355
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺芒ノ馬場町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－３",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "天龍寺南門前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6729689,
+          35.0133267
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨亀ノ尾町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－４",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "亀山公園下公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6791715,
+          35.0118186
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨中ノ島町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－５",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山中ノ島公園東公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6782837,
+          35.0115747
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨中ノ島町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－６",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山中ノ島公園西公衆トイレ\n（嵐山さくらトイレ）アラシヤマ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6761808,
+          35.0117719
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨元禄山町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－７",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山渡月小橋西公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.770272,
+          35.005985
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市中京区蛸薬師通河原町東入備前前島町310-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:127",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "立誠ガーデン　ヒューリック京都",
+        "operation_status": "UNKNOWN",
+        "phone": "075-212-1102",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.779675,
+          34.997476
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区清水二丁目204-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:129",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "ザ・ホテル青龍　京都清水セイリュウキョウトキヨミズ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-532-1130",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7713156,
+          34.9996924
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区宮川筋四丁目306番地",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:130",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "新道自治会館シンミチジチカイカン",
+        "operation_status": "UNKNOWN",
+        "phone": "―",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77390623,
+          35.00789458
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区大和大路通三条下る東入若松町393",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:132",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "元有済小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-541-2151",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77417317,
+          34.99634282
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区六波羅裏門通東入多門町155",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:133",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "開睛小中学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-533-8811",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7807445,
+          35.0068558
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町3-456",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:137",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "華頂女子中学高等学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-541-0391",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77987597,
+          35.00680356
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町3-456",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:140",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都華頂大学・華頂短期大学",
+        "operation_status": "UNKNOWN",
+        "phone": "075-551-1188",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77563979,
+          34.99201268
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区東大路渋谷下る妙法院前側町441",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:141",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山総合支援学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-561-3373",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78199468,
+          34.99069342
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区今熊野阿弥陀ケ峰町17-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:142",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "府立陶工高等技術専門校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-561-2943",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77633958,
+          34.99702887
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区清水五丁目130-6 東山区総合庁舎3階",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:143",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山地域体育館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-532-0474",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77723402,
+          34.99342088
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区五条橋東六丁目514",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:144",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "大谷本廟",
+        "operation_status": "UNKNOWN",
+        "phone": "075-531-4171",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78036681,
+          35.00456153
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町400-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:145",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "知恩院 和順会館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-205-5013",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77691,
+          35.0032
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区祇園町南側キョウトシヒガシヤマクギオンチョウミナミガワ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:149",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "弥栄自治会館ヤエイジチカイカン",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77636,
+          35.00318
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区祇園町南側551キョウトシヒガシヤマクギオンチョウミナミガワ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:150",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "弥栄ふれあいサロンヤサカ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-757-8600",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.772377,
+          34.990581
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区茶屋町526キョウトシヒガシヤマクチャヤマチ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:151",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都国立博物館　平成知新館キョウトコクリツハクブツカンヘイセイチシンカン",
+        "operation_status": "UNKNOWN",
+        "phone": "075-531-7503",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.768758,
+          34.991177
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区鞘町通正面下る上堀詰町272マチ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:152",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都美術工芸大学京都東山キャンパスキョウトビジュツコウゲイダイガクキョウトヒガシヤマ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-525-1515",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7758451,
+          34.9952546
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区五条通大和大路東入5丁目梅林町576-5",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:153",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "やすらぎ・ふれあい館",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7765761,
+          35.0078416
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区三条通大橋東入2丁目下る巽町442-9",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:155",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山いきいき市民活動センター",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7658489,
+          35.0009535
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市下京区御幸町通仏光寺下る橘町437",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:204",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都市学校歴史博物館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-344-1305",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7680303,
+          35.0022281
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市下京区河原町通仏光寺西入富永町344ブッコウジニシイトミナガチョウ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:206",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都市総合教育センター",
+        "operation_status": "UNKNOWN",
+        "phone": "075-371-2340",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.770272,
+          35.005985
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市中京区蛸薬師通河原町東入備前前島町310-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:153",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "立誠ガーデン　ヒューリック京都",
+        "operation_status": "UNKNOWN",
+        "phone": "075-212-1102",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.779675,
+          34.997476
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区清水二丁目204-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:155",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "ザ・ホテル青龍　京都清水セイリュウキョウトキヨミズ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-532-1130",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7713156,
+          34.9996924
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区宮川筋四丁目306番地",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:156",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "新道自治会館シンミチジチカイカン",
+        "operation_status": "UNKNOWN",
+        "phone": "―",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77390623,
+          35.00789458
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区大和大路通三条下る東入若松町393",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:158",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "元有済小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-541-2151",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77417317,
+          34.99634282
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区六波羅裏門通東入多門町155",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:159",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "開睛小中学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-533-8811",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7807445,
+          35.0068558
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町3-456",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:163",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "華頂女子中学高等学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-541-0391",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77987597,
+          35.00680356
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町3-456",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:166",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都華頂大学・華頂短期大学",
+        "operation_status": "UNKNOWN",
+        "phone": "075-551-1188",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77563979,
+          34.99201268
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区東大路渋谷下る妙法院前側町441",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:168",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山総合支援学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-561-3373",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78199468,
+          34.99069342
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区今熊野阿弥陀ケ峰町17-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:169",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "府立陶工高等技術専門校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-561-2943",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77633958,
+          34.99702887
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区清水五丁目130-6 東山区総合庁舎3階",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:170",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山地域体育館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-532-0474",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77723402,
+          34.99342088
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区五条橋東六丁目514",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:171",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "大谷本廟",
+        "operation_status": "UNKNOWN",
+        "phone": "075-531-4171",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77443139,
+          34.99972307
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区大和大路通四条下る四丁目小松町584ヨンチョウメ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:172",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "建仁寺",
+        "operation_status": "UNKNOWN",
+        "phone": "075-561-6363",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78036681,
+          35.00456153
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区林下町400-2",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:173",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "知恩院 和順会館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-205-5013",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77691,
+          35.0032
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区祇園町南側キョウトシヒガシヤマクギオンチョウミナミガワ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:177",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "弥栄自治会館ヤエイジチカイカン",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77636,
+          35.00318
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区祇園町南側551キョウトシヒガシヤマクギオンチョウミナミガワ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:178",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "弥栄ふれあいサロンヤサカ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-757-8600",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.772377,
+          34.990581
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区茶屋町526キョウトシヒガシヤマクチャヤマチ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:179",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都国立博物館　平成知新館キョウトコクリツハクブツカンヘイセイチシンカン",
+        "operation_status": "UNKNOWN",
+        "phone": "075-531-7503",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.768758,
+          34.991177
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区鞘町通正面下る上堀詰町272マチ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:180",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都美術工芸大学京都東山キャンパスキョウトビジュツコウゲイダイガクキョウトヒガシヤマ",
+        "operation_status": "UNKNOWN",
+        "phone": "075-525-1515",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7765761,
+          35.0078416
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市東山区三条通大橋東入2丁目下る巽町442-9",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:182",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "東山いきいき市民活動センター",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7658489,
+          35.0009535
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市下京区御幸町通仏光寺下る橘町437",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:234",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都市学校歴史博物館",
+        "operation_status": "UNKNOWN",
+        "phone": "075-344-1305",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7680303,
+          35.0022281
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市下京区河原町通仏光寺西入富永町344ブッコウジニシイトミナガチョウ",
+        "aoi_group": "kiyomizu_gion",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:236",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "京都市総合教育センター",
+        "operation_status": "UNKNOWN",
+        "phone": "075-371-2340",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.781246633134,
+          35.0054222706826
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "林下町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:22",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "知恩院観光トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78270614,
+          34.9947321
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "清水1丁目",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "清水寺境内公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7833217,
+          35.0032846
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "円山町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－１０",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "円山公園弁天堂前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7775194,
+          35.0065142
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "石橋町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－１１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "祇園白川公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7722931,
+          35.0041722
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "川端町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－１２",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "四条大橋東詰公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7725814,
+          35.0010985
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "小松町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－１３",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "大和大路団栗南公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7802639,
+          34.9964289
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "清水2丁目",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－２",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "清水坂観光駐車場東公衆トイレ\n（蛇口屋稼業因東司）",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7796803,
+          34.9967518
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "清水2丁目",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－３",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "清水坂観光駐車場トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7799635,
+          34.9995198
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "下河原町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－４",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "高台寺公園公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7675945,
+          34.9960944
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "下材木町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－５",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "五条大橋西詰公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.77785,
+          35.0044051
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "祇園町北側",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－６",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "祇園石段下公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7794177,
+          35.0041436
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "祇園町北側",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－７",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "円山公園一休庵前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7820463,
+          35.003713
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "円山町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－８",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "円山公園藤ノ棚東公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.78144684,
+          35.0030769
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "円山町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ａ－９",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "円山公園銅像前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7706107,
+          35.006445
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "下樵木町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｄ－３",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "木屋町公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7674041,
+          35.0058452
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "東側町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｄ－４",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "蛸薬師新京極公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7677776,
+          35.0071985
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "桜之町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｄ－５",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "六角新京極東公衆トイレロッカクシンキョウゴクヒガシ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.7678453,
+          35.0050751
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "裏寺町",
+        "aoi_group": "kiyomizu_gion",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｄ－６",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "第二京極公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    }
+  ],
+  "name": "Kyoto official facility source-coordinate points",
+  "type": "FeatureCollection"
+}
