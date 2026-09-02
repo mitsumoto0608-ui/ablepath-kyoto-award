@@ -60,7 +60,8 @@
   },
   "remote": {
     "composition_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
-    "integration_push": "PENDING_FINAL_COMMIT",
+    "integration_head_before_receipt_commit": "c2b8c4b1888c6caad07c7605cf3628f48c9efee0",
+    "integration_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
     "hosted_ci": "PENDING_REMOTE_BRANCH",
     "draft_pr": "PENDING_REMOTE_BRANCH"
   },

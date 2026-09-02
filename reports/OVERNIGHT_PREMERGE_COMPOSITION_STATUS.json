@@ -15,6 +15,8 @@
   ],
   "composition_local_validation": "GREEN",
   "composition_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
+  "integration_head_before_receipt_commit": "c2b8c4b1888c6caad07c7605cf3628f48c9efee0",
+  "integration_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
   "hook_policy": "UNCHANGED_NOT_BYPASSED",
   "hosted_ci": "PENDING_REMOTE_BRANCH",
   "main_modified": false,

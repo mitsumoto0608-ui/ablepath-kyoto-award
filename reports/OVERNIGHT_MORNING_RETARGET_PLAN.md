@@ -10,3 +10,5 @@
 6. stacked draft PRのbaseを`main`へretargetするか、clean replay branchから新しいdraft PRを作る。先頭の`DO_NOT_MERGE_TO_MAIN=true`は人間が最終diffとHosted CIを確認するまで維持する。
 
 禁止事項は継続します: force push、`--no-verify`、branch削除、tag、release、M6/Hokonavi freeze、main protection変更。
+
+現在の追加実装headは `c2b8c4b1888c6caad07c7605cf3628f48c9efee0`。normal pushはactive pre-push guard不在のため拒否されており、hookを変更・迂回していない。morning replayではmanifest末尾のKyoto parity commitまで順に取り込み、清水・祇園・接続回廊のcombined AOIと嵐山AOIを混同しないこと、A31bはinternal displayのみ、M7は10 edgeすべてreasoned-nullのままであることを再確認する。
