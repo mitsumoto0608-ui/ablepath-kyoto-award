@@ -10,18 +10,26 @@ import { buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs"
 const REPO_ROOT = new URL("../../", import.meta.url);
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 
-test("[source_conformance] official analysis binds source receipts while preserving disconnected and table-only states", () => {
+test("[source_conformance] official analysis separates display connections from scientific and operational states", () => {
   const output = mkdtempSync(join(tmpdir(), "ablepath-official-analysis-"));
   try {
     buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output });
     const kiyomizu = readJson(join(output, "..", "analysis", "kyoto_kiyomizu.json"));
     const fujisawa = readJson(join(output, "..", "analysis", "fujisawa_enoshima.json"));
     const p3 = readJson(new URL("../../reports/M7_ALL_EDGE_EVIDENCE_READINESS.json", import.meta.url));
-    assert.equal(kiyomizu.official_evidence.terrain.status, "NOT_CONNECTED");
+    assert.equal(kiyomizu.official_evidence.terrain.status, "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED");
+    assert.equal(kiyomizu.official_evidence.terrain.connected, false);
+    assert.equal(kiyomizu.official_evidence.terrain.evidence_ui_connected, true);
+    assert.equal(kiyomizu.official_evidence.terrain.elevation_sampled, false);
     assert.equal(kiyomizu.official_evidence.terrain.products.length, 6);
     assert.equal(kiyomizu.official_evidence.hazard.layers.length, 15);
-    assert.ok(kiyomizu.official_evidence.hazard.layers.every((row) => row.connected === false && row.status === "NOT_CONNECTED" && row.reason));
-    assert.match(kiyomizu.official_evidence.hazard.reason, /No closure is derived/);
+    assert.equal(kiyomizu.official_evidence.hazard.layers.filter((row) => row.layer === "flood" && row.connected).length, 3);
+    assert.ok(kiyomizu.official_evidence.hazard.layers.filter((row) => row.layer !== "flood").every((row) => row.connected === false && row.status === "NOT_CONNECTED" && row.reason));
+    assert.equal(kiyomizu.official_evidence.hazard.closure_derived, false);
+    assert.equal(kiyomizu.official_evidence.hazard.damage_or_debris_inferred, false);
+    assert.equal(kiyomizu.official_evidence.facility.marker_policy, "SOURCE_COORDINATES_ONLY_NO_GEOCODING");
+    assert.ok(kiyomizu.official_evidence.facility.records.length > 0);
+    assert.ok(kiyomizu.official_evidence.facility.records.every((record) => record.coordinate_method === "SOURCE_PROVIDED_LONGITUDE_LATITUDE" && record.silent_geocoding === false));
     assert.equal(kiyomizu.official_evidence.plateau.fallback, "EXISTING_DETERMINISTIC_2D");
     assert.equal(fujisawa.official_evidence.facility.status, "READY_FOR_TABLE_ONLY");
     assert.equal(fujisawa.official_evidence.terrain.products.length, 3);
@@ -31,6 +39,8 @@ test("[source_conformance] official analysis binds source receipts while preserv
     assert.ok(fujisawa.official_evidence.facility.records.every((record) => record.geometry_status === "ADDRESS_ONLY" && record.latitude === null && record.longitude === null));
     assert.equal(kiyomizu.official_evidence.m7.all_edge_count, 612);
     assert.equal(kiyomizu.official_evidence.m7.computed_count, 0);
+    assert.equal(kiyomizu.official_evidence.m7.kyoto_deep_pilot_edges.length, 5);
+    assert.ok(kiyomizu.official_evidence.m7.kyoto_deep_pilot_edges.every((edge) => edge.m7_result === null && edge.field_resolution));
     assert.deepEqual(kiyomizu.m7.readiness, p3.edges.filter((edge) => edge.city_id === "kyoto_kiyomizu"));
     assert.equal("edge_receipts" in kiyomizu.official_evidence.m7, false);
     assert.equal("readiness" in kiyomizu.result.m7, false);

@@ -9,7 +9,7 @@ Draft PR: https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/7
 
 ## Rank 1 — Q1 Kyoto official flood geometry closure
 
-- Current blocker: G5は`PARTIAL`。`nlni_a31b_2025_kyoto_flood`は`READY_FOR_INGESTION`だが、京都・清水／嵐山のreviewed AOI clipがなく、connected city/layerは0、`closure_derived=false`。
+- Current checkpoint: G5は`PARTIAL`。`nlni_a31b_2025_kyoto_flood`から、清水・祇園・接続回廊と嵐山の2 AOIについてexact source-feature intersection selectionをhash-boundで作成し、internal displayへ接続した。これはclip geometryの再生成、edge overlap解析、operational connectionではなく、`closure_derived=false`を維持する。残るblockerはsource feature stable IDの確認、edge overlapの独立検証、公開配布判断である。
 - Problem map: P01, P02, P03, P06, P13, P14, P16, P17
 - Recommended literature: S006, S001, S002, S007, S023
 - Official receipt required: exact A31b archive/product page、license/terms、revision/date、raw SHA-256、declared CRS/axis、feature IDs、scenario semantics、AOI derivation receipt、output/clip SHA-256。

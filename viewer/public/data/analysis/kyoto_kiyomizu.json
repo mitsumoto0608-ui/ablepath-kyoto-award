@@ -129,8 +129,12 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "kyoto_status_sha256": "d9f738dd52e20362db67226c6ab232e9eac0a6562047034e5e99ce9ee72b71a6",
-      "terrain_inventory_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478"
+      "kyoto_status_sha256": "991ca56c11a0c50c29f360ddbb42cf4d6fee98c6a382bb4815186e9088171731",
+      "terrain_inventory_sha256": "b7eddd300d3930d93b137fdc5500429a4c4eb05f161b240232af400fac37e81f",
+      "kyoto_parity_sha256": "e8920fcc9b4d4575952215acedbf7b265624b0adf5b37d7e8e80779c269edda7",
+      "kyoto_m7_pilot_sha256": "8209d44588d99c004eaee0f5427cb605c63a8d7238e0a86957963179b7c2510a",
+      "kyoto_facility_sha256": "f201527c7a822a62e098f1313898ba0871ccdb3db2c00f47484cf8847d7ef312",
+      "kyoto_flood_display_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e"
     },
     "subareas": [
       "kiyomizu",
@@ -138,10 +142,106 @@
       "kiyomizu_gion_connector"
     ],
     "terrain": {
-      "status": "NOT_CONNECTED",
-      "reason": "DEM products were found, but terrain is NOT_CONNECTED: CRS/AOI/vertical datum review remains unresolved.",
+      "status": "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED",
+      "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
       "connected": false,
-      "receipt_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
+      "evidence_ui_connected": true,
+      "elevation_sampled": false,
+      "step_inferred": false,
+      "cross_slope_inferred": false,
+      "aoi_validation": {
+        "aoi_bounds_longitude_latitude": [
+          135.7655,
+          34.9905,
+          135.7865,
+          35.008
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 5,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "1e2115ceb62ebc7155006fd750d30b2bd9caa779cd02f7c604fa537d3f46338c",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "968aa88c36f4c1b1b82f49cf0f64815e85d802f15a247fd8c480d8017666883d",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "9669221197f1aa2a5c99bf301098248db1ce0e2e9a40fbc76425b2ce6e350721",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "93f70338fb02a372c12addead0c497c80fb6ce489643a1529e00e935c0afdfb8",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.775, 35.0, 135.875, 35.05]",
+            "dataset_id": "gsi_523546_dem5b_20161001",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2011.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20161001",
+            "source_sha256": "918e29779b22db3ec8d038c14284e0cb9246d712a948aeb8a74ed3c74a296e29",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      },
+      "receipt_sha256": "b7eddd300d3930d93b137fdc5500429a4c4eb05f161b240232af400fac37e81f",
       "products": [
         {
           "dataset_id": "gsi_523536_dem1a_20250908",
@@ -149,11 +249,18 @@
           "dem_class": "DEM1A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523546_dem1a_20250908",
@@ -161,11 +268,18 @@
           "dem_class": "DEM1A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523536_dem5a_20250908",
@@ -173,11 +287,18 @@
           "dem_class": "DEM5A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523546_dem5a_20250908",
@@ -185,11 +306,18 @@
           "dem_class": "DEM5A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523536_dem5b_20250609",
@@ -197,11 +325,18 @@
           "dem_class": "DEM5B",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523546_dem5b_20161001",
@@ -209,28 +344,44 @@
           "dem_class": "DEM5B",
           "horizontal_crs": "fguuid:jgd2011.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "kiyomizu_gion",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_kiyomizu_gion; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         }
       ]
     },
     "hazard": {
-      "status": "NOT_CONNECTED",
-      "reason": "No closure is derived. Flood: Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane. Landslide: Exact g_dosha_00all.zip SHA exists, but terms/consent path and Kiyomizu/Gion/connector clip lineage are not reviewed.",
+      "status": "A31B_DISPLAY_CONNECTED_LANDSLIDE_NOT_CONNECTED",
+      "reason": "A31b is connected for internal display only. Landslide remains NOT_CONNECTED: Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
       "connected": false,
+      "display_connected": true,
+      "display_feature_count": 366,
+      "display_layer": {
+        "data_path": "./data/official/a31b_kiyomizu_gion_display.geojson",
+        "artifact_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+        "copied_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+        "feature_count": 366,
+        "display_only": true
+      },
       "closure_derived": false,
       "damage_or_debris_inferred": false,
       "layers": [
         {
           "subarea": "kiyomizu",
           "layer": "flood",
-          "status": "NOT_CONNECTED",
-          "connected": false,
-          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
-          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+          "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY",
+          "connected": true,
+          "artifact_status": "AOI_INTERSECTION_SELECTION_HASH_BOUND",
+          "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation."
         },
         {
           "subarea": "kiyomizu",
@@ -267,10 +418,10 @@
         {
           "subarea": "gion",
           "layer": "flood",
-          "status": "NOT_CONNECTED",
-          "connected": false,
-          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
-          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+          "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY",
+          "connected": true,
+          "artifact_status": "AOI_INTERSECTION_SELECTION_HASH_BOUND",
+          "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation."
         },
         {
           "subarea": "gion",
@@ -307,10 +458,10 @@
         {
           "subarea": "kiyomizu_gion_connector",
           "layer": "flood",
-          "status": "NOT_CONNECTED",
-          "connected": false,
-          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
-          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, per-subarea output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+          "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY",
+          "connected": true,
+          "artifact_status": "AOI_INTERSECTION_SELECTION_HASH_BOUND",
+          "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation."
         },
         {
           "subarea": "kiyomizu_gion_connector",
@@ -348,9 +499,1157 @@
       "scenarios": []
     },
     "facility": {
-      "status": "NOT_CONNECTED",
-      "record_count": 0,
-      "reason": "R8.8.18 shelter/emergency-site originals were absent from approved staging/workspace. Toilet XLSX has a tracked metadata receipt only; row-level subarea extraction was not authorized. Other facility sources are landing/category metadata only."
+      "status": "PARTIAL_3_OF_5_CATEGORIES_SOURCE_COORDINATES",
+      "geometry_status": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+      "marker_policy": "SOURCE_COORDINATES_ONLY_NO_GEOCODING",
+      "record_count": 58,
+      "records": [
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市中京区蛸薬師通河原町東入備前前島町310-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:127",
+          "latitude": 35.005985,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.770272,
+          "name": "立誠ガーデン　ヒューリック京都",
+          "operation_status": "UNKNOWN",
+          "phone": "075-212-1102",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区清水二丁目204-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:129",
+          "latitude": 34.997476,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.779675,
+          "name": "ザ・ホテル青龍　京都清水セイリュウキョウトキヨミズ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-532-1130",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区宮川筋四丁目306番地",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:130",
+          "latitude": 34.9996924,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7713156,
+          "name": "新道自治会館シンミチジチカイカン",
+          "operation_status": "UNKNOWN",
+          "phone": "―",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区大和大路通三条下る東入若松町393",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:132",
+          "latitude": 35.00789458,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77390623,
+          "name": "元有済小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-541-2151",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区六波羅裏門通東入多門町155",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:133",
+          "latitude": 34.99634282,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77417317,
+          "name": "開睛小中学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-533-8811",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町3-456",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:137",
+          "latitude": 35.0068558,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7807445,
+          "name": "華頂女子中学高等学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-541-0391",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町3-456",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:140",
+          "latitude": 35.00680356,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77987597,
+          "name": "京都華頂大学・華頂短期大学",
+          "operation_status": "UNKNOWN",
+          "phone": "075-551-1188",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区東大路渋谷下る妙法院前側町441",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:141",
+          "latitude": 34.99201268,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77563979,
+          "name": "東山総合支援学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-561-3373",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区今熊野阿弥陀ケ峰町17-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:142",
+          "latitude": 34.99069342,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78199468,
+          "name": "府立陶工高等技術専門校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-561-2943",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区清水五丁目130-6 東山区総合庁舎3階",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:143",
+          "latitude": 34.99702887,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77633958,
+          "name": "東山地域体育館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-532-0474",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区五条橋東六丁目514",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:144",
+          "latitude": 34.99342088,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77723402,
+          "name": "大谷本廟",
+          "operation_status": "UNKNOWN",
+          "phone": "075-531-4171",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町400-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:145",
+          "latitude": 35.00456153,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78036681,
+          "name": "知恩院 和順会館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-205-5013",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区祇園町南側キョウトシヒガシヤマクギオンチョウミナミガワ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:149",
+          "latitude": 35.0032,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77691,
+          "name": "弥栄自治会館ヤエイジチカイカン",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区祇園町南側551キョウトシヒガシヤマクギオンチョウミナミガワ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:150",
+          "latitude": 35.00318,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77636,
+          "name": "弥栄ふれあいサロンヤサカ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-757-8600",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区茶屋町526キョウトシヒガシヤマクチャヤマチ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:151",
+          "latitude": 34.990581,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.772377,
+          "name": "京都国立博物館　平成知新館キョウトコクリツハクブツカンヘイセイチシンカン",
+          "operation_status": "UNKNOWN",
+          "phone": "075-531-7503",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区鞘町通正面下る上堀詰町272マチ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:152",
+          "latitude": 34.991177,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.768758,
+          "name": "京都美術工芸大学京都東山キャンパスキョウトビジュツコウゲイダイガクキョウトヒガシヤマ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-525-1515",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区五条通大和大路東入5丁目梅林町576-5",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:153",
+          "latitude": 34.9952546,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7758451,
+          "name": "やすらぎ・ふれあい館",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区三条通大橋東入2丁目下る巽町442-9",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:155",
+          "latitude": 35.0078416,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7765761,
+          "name": "東山いきいき市民活動センター",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市下京区御幸町通仏光寺下る橘町437",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:204",
+          "latitude": 35.0009535,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7658489,
+          "name": "京都市学校歴史博物館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-344-1305",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市下京区河原町通仏光寺西入富永町344ブッコウジニシイトミナガチョウ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:206",
+          "latitude": 35.0022281,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7680303,
+          "name": "京都市総合教育センター",
+          "operation_status": "UNKNOWN",
+          "phone": "075-371-2340",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市中京区蛸薬師通河原町東入備前前島町310-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:153",
+          "latitude": 35.005985,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.770272,
+          "name": "立誠ガーデン　ヒューリック京都",
+          "operation_status": "UNKNOWN",
+          "phone": "075-212-1102",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区清水二丁目204-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:155",
+          "latitude": 34.997476,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.779675,
+          "name": "ザ・ホテル青龍　京都清水セイリュウキョウトキヨミズ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-532-1130",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区宮川筋四丁目306番地",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:156",
+          "latitude": 34.9996924,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7713156,
+          "name": "新道自治会館シンミチジチカイカン",
+          "operation_status": "UNKNOWN",
+          "phone": "―",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区大和大路通三条下る東入若松町393",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:158",
+          "latitude": 35.00789458,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77390623,
+          "name": "元有済小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-541-2151",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区六波羅裏門通東入多門町155",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:159",
+          "latitude": 34.99634282,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77417317,
+          "name": "開睛小中学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-533-8811",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町3-456",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:163",
+          "latitude": 35.0068558,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7807445,
+          "name": "華頂女子中学高等学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-541-0391",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町3-456",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:166",
+          "latitude": 35.00680356,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77987597,
+          "name": "京都華頂大学・華頂短期大学",
+          "operation_status": "UNKNOWN",
+          "phone": "075-551-1188",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区東大路渋谷下る妙法院前側町441",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:168",
+          "latitude": 34.99201268,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77563979,
+          "name": "東山総合支援学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-561-3373",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区今熊野阿弥陀ケ峰町17-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:169",
+          "latitude": 34.99069342,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78199468,
+          "name": "府立陶工高等技術専門校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-561-2943",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区清水五丁目130-6 東山区総合庁舎3階",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:170",
+          "latitude": 34.99702887,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77633958,
+          "name": "東山地域体育館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-532-0474",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区五条橋東六丁目514",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:171",
+          "latitude": 34.99342088,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77723402,
+          "name": "大谷本廟",
+          "operation_status": "UNKNOWN",
+          "phone": "075-531-4171",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区大和大路通四条下る四丁目小松町584ヨンチョウメ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:172",
+          "latitude": 34.99972307,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77443139,
+          "name": "建仁寺",
+          "operation_status": "UNKNOWN",
+          "phone": "075-561-6363",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区林下町400-2",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:173",
+          "latitude": 35.00456153,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78036681,
+          "name": "知恩院 和順会館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-205-5013",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区祇園町南側キョウトシヒガシヤマクギオンチョウミナミガワ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:177",
+          "latitude": 35.0032,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77691,
+          "name": "弥栄自治会館ヤエイジチカイカン",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区祇園町南側551キョウトシヒガシヤマクギオンチョウミナミガワ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:178",
+          "latitude": 35.00318,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77636,
+          "name": "弥栄ふれあいサロンヤサカ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-757-8600",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区茶屋町526キョウトシヒガシヤマクチャヤマチ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:179",
+          "latitude": 34.990581,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.772377,
+          "name": "京都国立博物館　平成知新館キョウトコクリツハクブツカンヘイセイチシンカン",
+          "operation_status": "UNKNOWN",
+          "phone": "075-531-7503",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区鞘町通正面下る上堀詰町272マチ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:180",
+          "latitude": 34.991177,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.768758,
+          "name": "京都美術工芸大学京都東山キャンパスキョウトビジュツコウゲイダイガクキョウトヒガシヤマ",
+          "operation_status": "UNKNOWN",
+          "phone": "075-525-1515",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市東山区三条通大橋東入2丁目下る巽町442-9",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:182",
+          "latitude": 35.0078416,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7765761,
+          "name": "東山いきいき市民活動センター",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市下京区御幸町通仏光寺下る橘町437",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:234",
+          "latitude": 35.0009535,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7658489,
+          "name": "京都市学校歴史博物館",
+          "operation_status": "UNKNOWN",
+          "phone": "075-344-1305",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市下京区河原町通仏光寺西入富永町344ブッコウジニシイトミナガチョウ",
+          "aoi_group": "kiyomizu_gion",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:236",
+          "latitude": 35.0022281,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7680303,
+          "name": "京都市総合教育センター",
+          "operation_status": "UNKNOWN",
+          "phone": "075-371-2340",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "林下町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:22",
+          "latitude": 35.0054222706826,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.781246633134,
+          "name": "知恩院観光トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "清水1丁目",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－１",
+          "latitude": 34.9947321,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78270614,
+          "name": "清水寺境内公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "円山町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－１０",
+          "latitude": 35.0032846,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7833217,
+          "name": "円山公園弁天堂前公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "石橋町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－１１",
+          "latitude": 35.0065142,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7775194,
+          "name": "祇園白川公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "川端町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－１２",
+          "latitude": 35.0041722,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7722931,
+          "name": "四条大橋東詰公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "小松町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－１３",
+          "latitude": 35.0010985,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7725814,
+          "name": "大和大路団栗南公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "清水2丁目",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－２",
+          "latitude": 34.9964289,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7802639,
+          "name": "清水坂観光駐車場東公衆トイレ\n（蛇口屋稼業因東司）",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "清水2丁目",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－３",
+          "latitude": 34.9967518,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7796803,
+          "name": "清水坂観光駐車場トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "下河原町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－４",
+          "latitude": 34.9995198,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7799635,
+          "name": "高台寺公園公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "下材木町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－５",
+          "latitude": 34.9960944,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7675945,
+          "name": "五条大橋西詰公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "祇園町北側",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－６",
+          "latitude": 35.0044051,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.77785,
+          "name": "祇園石段下公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "祇園町北側",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－７",
+          "latitude": 35.0041436,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7794177,
+          "name": "円山公園一休庵前公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "円山町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－８",
+          "latitude": 35.003713,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7820463,
+          "name": "円山公園藤ノ棚東公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "円山町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ａ－９",
+          "latitude": 35.0030769,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.78144684,
+          "name": "円山公園銅像前公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "下樵木町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｄ－３",
+          "latitude": 35.006445,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7706107,
+          "name": "木屋町公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "東側町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｄ－４",
+          "latitude": 35.0058452,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7674041,
+          "name": "蛸薬師新京極公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "桜之町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｄ－５",
+          "latitude": 35.0071985,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7677776,
+          "name": "六角新京極東公衆トイレロッカクシンキョウゴクヒガシ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "裏寺町",
+          "aoi_group": "kiyomizu_gion",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｄ－６",
+          "latitude": 35.0050751,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.7678453,
+          "name": "第二京極公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        }
+      ],
+      "categories": {
+        "designated_emergency_evacuation_place": {
+          "map_connected": true,
+          "record_count": 20,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "kiyomizu_gion"
+        },
+        "designated_shelter": {
+          "map_connected": true,
+          "record_count": 20,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "kiyomizu_gion"
+        },
+        "emergency_open_space": {
+          "map_connected": false,
+          "next_acquisition_method": "Acquire the current official emergency-open-space row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+          "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+          "record_count": 0,
+          "status": "METADATA_ONLY_NOT_CONNECTED",
+          "count_scope": "kiyomizu_gion"
+        },
+        "public_tourist_toilet": {
+          "map_connected": true,
+          "record_count": 18,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "kiyomizu_gion"
+        },
+        "temporary_stay_facility": {
+          "map_connected": false,
+          "next_acquisition_method": "Acquire the current official temporary-stay facility row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+          "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+          "record_count": 0,
+          "status": "METADATA_ONLY_NOT_CONNECTED",
+          "count_scope": "kiyomizu_gion"
+        }
+      },
+      "display_layer": {
+        "data_path": "./data/official/facility_points_kiyomizu_gion.geojson",
+        "artifact_sha256": "2b05a201221536c267c5f5011f56f60a3fa095f16dde76e0a75b668159b1bd62",
+        "copied_sha256": "2b05a201221536c267c5f5011f56f60a3fa095f16dde76e0a75b668159b1bd62",
+        "feature_count": 58
+      },
+      "reason": "Three official categories are displayed from source-provided longitude/latitude only. Emergency-open-space and temporary-stay rows remain metadata-only; opening, entrance, accessibility, safety, and disaster usability are UNKNOWN."
     },
     "plateau": {
       "status": "NOT_CONNECTED",
@@ -360,10 +1659,82 @@
         "gion",
         "kiyomizu_gion_connector"
       ],
+      "inventory": [
+        {
+          "city_id": "kyoto_kiyomizu",
+          "subarea_id": "kiyomizu",
+          "city_code": "26100",
+          "dataset_id": "plateau_kyoto_2025_citygml_v5",
+          "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+          "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+          "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+          "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+          "stable_building_id_status": "NOT_INSPECTED",
+          "footprint_status": "NOT_INSPECTED",
+          "lod_status": "NOT_INSPECTED",
+          "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+          "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+          "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+          "cors_status": "UNVERIFIED",
+          "bounded_derivative_status": "NOT_CREATED",
+          "connection_mode": "NOT_CONNECTED",
+          "fallback": "EXISTING_DETERMINISTIC_2D",
+          "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Kiyomizu coverage were not verified."
+        },
+        {
+          "city_id": "kyoto_kiyomizu",
+          "subarea_id": "gion",
+          "city_code": "26100",
+          "dataset_id": "plateau_kyoto_2025_citygml_v5",
+          "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+          "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+          "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+          "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+          "stable_building_id_status": "NOT_INSPECTED",
+          "footprint_status": "NOT_INSPECTED",
+          "lod_status": "NOT_INSPECTED",
+          "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+          "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+          "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+          "cors_status": "UNVERIFIED",
+          "bounded_derivative_status": "NOT_CREATED",
+          "connection_mode": "NOT_CONNECTED",
+          "fallback": "EXISTING_DETERMINISTIC_2D",
+          "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Gion coverage were not verified."
+        },
+        {
+          "city_id": "kyoto_kiyomizu",
+          "subarea_id": "kiyomizu_gion_connector",
+          "city_code": "26100",
+          "dataset_id": "plateau_kyoto_2025_citygml_v5",
+          "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+          "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+          "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+          "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+          "stable_building_id_status": "NOT_INSPECTED",
+          "footprint_status": "NOT_INSPECTED",
+          "lod_status": "NOT_INSPECTED",
+          "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+          "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+          "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+          "cors_status": "UNVERIFIED",
+          "bounded_derivative_status": "NOT_CREATED",
+          "connection_mode": "NOT_CONNECTED",
+          "fallback": "EXISTING_DETERMINISTIC_2D",
+          "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and connector coverage were not verified."
+        }
+      ],
+      "inventory_connected": true,
       "fallback": "EXISTING_DETERMINISTIC_2D",
       "m7_evidence_ready_count": 0,
       "m7_computed_count": 0,
-      "reason": "This city AOI set retains the existing deterministic 2D fallback; verified PLATEAU tiles or building-side evidence are not connected."
+      "reason": "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer."
     },
     "m7": {
       "status": "NOT_COMPUTED",
@@ -373,8 +1744,680 @@
       "computed_count": 0,
       "city_edge_count": 19,
       "edge_receipts_source_sha256": "ced9bcd8ffd2466ac9b07d162a7c1863c42b27746b19ae7ba473a95f639f03b1",
+      "kyoto_deep_pilot_edges": [
+        {
+          "aoi_group": "kiyomizu_gion",
+          "city_id": "kyoto_kiyomizu",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+          "edge_id": "KK-OSM-W1251544286-S01",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1251544286:nodes-0-1",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+          "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "COMBINED_PACK_UNPARTITIONED"
+        },
+        {
+          "aoi_group": "kiyomizu_gion",
+          "city_id": "kyoto_kiyomizu",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+          "edge_id": "KK-OSM-W1491152444-S01",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1491152444:nodes-0-2",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+          "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "COMBINED_PACK_UNPARTITIONED"
+        },
+        {
+          "aoi_group": "kiyomizu_gion",
+          "city_id": "kyoto_kiyomizu",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+          "edge_id": "KK-OSM-W1491152444-S02",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-1491152444:nodes-2-5",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+          "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "COMBINED_PACK_UNPARTITIONED"
+        },
+        {
+          "aoi_group": "kiyomizu_gion",
+          "city_id": "kyoto_kiyomizu",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+          "edge_id": "KK-OSM-W157527438-S01",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-157527438:nodes-0-9",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+          "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "COMBINED_PACK_UNPARTITIONED"
+        },
+        {
+          "aoi_group": "kiyomizu_gion",
+          "city_id": "kyoto_kiyomizu",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+          "edge_id": "KK-OSM-W174762077-S01",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-snapshot-2026-08-30T00:00:00Z",
+            "source_feature_id": "osm-way-174762077:nodes-0-24",
+            "source_id": "openstreetmap_kiyomizu_named_corridor_20260830"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+          "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "COMBINED_PACK_UNPARTITIONED"
+        }
+      ],
       "city_limitations": "Current candidate pack lacks reviewed Kiyomizu/Gion/connector per-edge partition; no verified Gion deep-pilot coverage claim is made.",
-      "reason": "M7 is not connected to real candidate edges; building setback, damage, and debris are not inferred."
+      "reason": "M7 is not connected to real candidate edges; every Kyoto pilot exposes field-level evidence candidates and next acquisition without inferring setback, damage, or debris."
     },
     "m6": {
       "status": "NOT_COMPUTED",

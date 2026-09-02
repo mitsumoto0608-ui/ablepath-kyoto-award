@@ -147,17 +147,87 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "kyoto_status_sha256": "d9f738dd52e20362db67226c6ab232e9eac0a6562047034e5e99ce9ee72b71a6",
-      "terrain_inventory_sha256": "6a957931f9061308c3d3d1e782cd07368a85a6ae187d35e71d47fb9ed50fe988"
+      "kyoto_status_sha256": "991ca56c11a0c50c29f360ddbb42cf4d6fee98c6a382bb4815186e9088171731",
+      "terrain_inventory_sha256": "f624053384847964a0b6473687b24cad00a8f81513da047ddb8e3d82d9e83f3b",
+      "kyoto_parity_sha256": "e8920fcc9b4d4575952215acedbf7b265624b0adf5b37d7e8e80779c269edda7",
+      "kyoto_m7_pilot_sha256": "8209d44588d99c004eaee0f5427cb605c63a8d7238e0a86957963179b7c2510a",
+      "kyoto_facility_sha256": "f201527c7a822a62e098f1313898ba0871ccdb3db2c00f47484cf8847d7ef312",
+      "kyoto_flood_display_sha256": "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7"
     },
     "subareas": [
       "arashiyama"
     ],
     "terrain": {
-      "status": "NOT_CONNECTED",
-      "reason": "DEM products were found, but terrain is NOT_CONNECTED: CRS/AOI/vertical datum review remains unresolved.",
+      "status": "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED",
+      "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
       "connected": false,
-      "receipt_sha256": "6a957931f9061308c3d3d1e782cd07368a85a6ae187d35e71d47fb9ed50fe988",
+      "evidence_ui_connected": true,
+      "elevation_sampled": false,
+      "step_inferred": false,
+      "cross_slope_inferred": false,
+      "aoi_validation": {
+        "aoi_bounds_longitude_latitude": [
+          135.671,
+          35,
+          135.689,
+          35.022
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 3,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+            "dataset_id": "gsi_523545_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250908",
+            "source_sha256": "6c427b6b2ec65418ba9a0f23f4a07af9e27a421761292c6e17b3e434e82cd338",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+            "dataset_id": "gsi_523545_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250908",
+            "source_sha256": "082e675a7c3a495ba3297790b70f3d97f3a005ce50d34372e8b8a708b3853914",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.7375, 35.066666667]",
+            "dataset_id": "gsi_523545_dem5b_20250609",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250609",
+            "source_sha256": "5c6fdfdb5acbdcb5a8980088b5064d335def074a1dc5a4be41c04f9e5f8bd144",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      },
+      "receipt_sha256": "f624053384847964a0b6473687b24cad00a8f81513da047ddb8e3d82d9e83f3b",
       "products": [
         {
           "dataset_id": "gsi_523545_dem1a_20250908",
@@ -165,11 +235,18 @@
           "dem_class": "DEM1A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "arashiyama",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523545_dem5a_20250908",
@@ -177,11 +254,18 @@
           "dem_class": "DEM5A",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "arashiyama",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         },
         {
           "dataset_id": "gsi_523545_dem5b_20250609",
@@ -189,28 +273,44 @@
           "dem_class": "DEM5B",
           "horizontal_crs": "fguuid:jgd2024.bl",
           "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
-          "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
-          "aoi_status": "AOI_INTERSECTION_PENDING",
-          "validation_result": "CRS_REVIEW_REQUIRED",
+          "aoi": "arashiyama",
+          "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS",
+          "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
           "terrain_connected": false,
-          "status": "NOT_CONNECTED"
+          "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS",
+          "legacy_inventory_status": {
+            "aoi": "CANDIDATE:kyoto_arashiyama; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "terrain_connected": false
+          }
         }
       ]
     },
     "hazard": {
-      "status": "NOT_CONNECTED",
-      "reason": "No closure is derived. Flood: Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, Arashiyama output SHA, source feature-ID lineage, or AOI review was produced in this lane. Landslide: Exact g_dosha_00all.zip SHA exists, but terms/consent path and Arashiyama clip lineage are not reviewed.",
+      "status": "A31B_DISPLAY_CONNECTED_LANDSLIDE_NOT_CONNECTED",
+      "reason": "A31b is connected for internal display only. Landslide remains NOT_CONNECTED: Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
       "connected": false,
+      "display_connected": true,
+      "display_feature_count": 136,
+      "display_layer": {
+        "data_path": "./data/official/a31b_arashiyama_display.geojson",
+        "artifact_sha256": "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7",
+        "copied_sha256": "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7",
+        "feature_count": 136,
+        "display_only": true
+      },
       "closure_derived": false,
       "damage_or_debris_inferred": false,
       "layers": [
         {
           "subarea": "arashiyama",
           "layer": "flood",
-          "status": "NOT_CONNECTED",
-          "connected": false,
-          "artifact_status": "READY_FOR_INTERNAL_INGESTION",
-          "reason": "Exact A31b-25_10_5235 receipt and SHA exist, but no authorized raw clip, Arashiyama output SHA, source feature-ID lineage, or AOI review was produced in this lane."
+          "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY",
+          "connected": true,
+          "artifact_status": "AOI_INTERSECTION_SELECTION_HASH_BOUND",
+          "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation."
         },
         {
           "subarea": "arashiyama",
@@ -248,9 +348,416 @@
       "scenarios": []
     },
     "facility": {
-      "status": "NOT_CONNECTED",
-      "record_count": 0,
-      "reason": "R8.8.18 shelter/emergency-site originals were absent from approved staging/workspace. Toilet XLSX has a tracked metadata receipt only; row-level Arashiyama extraction was not authorized. Other facility sources are landing/category metadata only."
+      "status": "PARTIAL_3_OF_5_CATEGORIES_SOURCE_COORDINATES",
+      "geometry_status": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+      "marker_policy": "SOURCE_COORDINATES_ONLY_NO_GEOCODING",
+      "record_count": 19,
+      "records": [
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+          "aoi_group": "arashiyama",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:233",
+          "latitude": 35.0216645,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.67604713,
+          "name": "嵯峨小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-861-1543",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市右京区嵯峨五島町1",
+          "aoi_group": "arashiyama",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:268",
+          "latitude": 35.01281298,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.68797469,
+          "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+          "operation_status": "UNKNOWN",
+          "phone": "075-864-7858",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市西京区嵐山東海道町46",
+          "aoi_group": "arashiyama",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:292",
+          "latitude": 35.0074608,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.68641668,
+          "name": "嵐山東小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-881-5120",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市西京区嵐山虚空蔵山町68-3",
+          "aoi_group": "arashiyama",
+          "category": "designated_emergency_evacuation_place",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_emergency_shelters_r80818:314",
+          "latitude": 35.01023829,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.67697549,
+          "name": "法輪寺",
+          "operation_status": "UNKNOWN",
+          "phone": "075-861-0069",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_emergency_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+          "aoi_group": "arashiyama",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:263",
+          "latitude": 35.0216645,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.67604713,
+          "name": "嵯峨小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-861-1543",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市右京区嵯峨柳田町35-1",
+          "aoi_group": "arashiyama",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:265",
+          "latitude": 35.01344068,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6866803,
+          "name": "嵐山小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-872-1466",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市右京区嵯峨五島町1",
+          "aoi_group": "arashiyama",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:307",
+          "latitude": 35.01281298,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.68797469,
+          "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+          "operation_status": "UNKNOWN",
+          "phone": "075-864-7858",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市西京区嵐山東海道町46",
+          "aoi_group": "arashiyama",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:329",
+          "latitude": 35.0074608,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.68641668,
+          "name": "嵐山東小学校",
+          "operation_status": "UNKNOWN",
+          "phone": "075-881-5120",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "京都市西京区嵐山虚空蔵山町68-3",
+          "aoi_group": "arashiyama",
+          "category": "designated_shelter",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_designated_shelters_r80818:358",
+          "latitude": 35.01023829,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.67697549,
+          "name": "法輪寺",
+          "operation_status": "UNKNOWN",
+          "phone": "075-861-0069",
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_designated_shelters_r80818",
+          "source_version_or_valid_as_of": "R8.8.18"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵐山宮町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:39",
+          "latitude": 35.0003239,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6859469,
+          "name": "松尾大社観光トイレマツオタイシャカンコウ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨天龍寺造路町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:51",
+          "latitude": 35.0153000892413,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.677900819701,
+          "name": "嵐電嵐山駅観光トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨天龍寺車道町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１",
+          "latitude": 35.018601,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.681568,
+          "name": "JR嵯峨嵐山駅前公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨天龍寺立石町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１１",
+          "latitude": 35.0198080167197,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.672824722119,
+          "name": "嵯峨公園トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨天龍寺造路町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－２",
+          "latitude": 35.0141743,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6790738,
+          "name": "嵐山観光駐車場トイレアラシヤマカンコウチュウシャジョウ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨天龍寺芒ノ馬場町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－３",
+          "latitude": 35.01350355,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.674161,
+          "name": "天龍寺南門前公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨亀ノ尾町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－４",
+          "latitude": 35.0133267,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6729689,
+          "name": "亀山公園下公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨中ノ島町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－５",
+          "latitude": 35.0118186,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6791715,
+          "name": "嵐山中ノ島公園東公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨中ノ島町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－６",
+          "latitude": 35.0115747,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6782837,
+          "name": "嵐山中ノ島公園西公衆トイレ\n（嵐山さくらトイレ）アラシヤマ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        },
+        {
+          "accessibility_status": "UNKNOWN",
+          "address": "嵯峨元禄山町",
+          "aoi_group": "arashiyama",
+          "category": "public_tourist_toilet",
+          "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+          "entrance_status": "UNKNOWN",
+          "facility_record_id": "kyoto_public_toilets_00307:Ｂ－７",
+          "latitude": 35.0117719,
+          "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+          "longitude": 135.6761808,
+          "name": "嵐山渡月小橋西公衆トイレ",
+          "operation_status": "UNKNOWN",
+          "phone": null,
+          "safety_status": "UNKNOWN",
+          "silent_geocoding": false,
+          "source_id": "kyoto_public_toilets_00307",
+          "source_version_or_valid_as_of": "2026-03-06"
+        }
+      ],
+      "categories": {
+        "designated_emergency_evacuation_place": {
+          "map_connected": true,
+          "record_count": 4,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "arashiyama"
+        },
+        "designated_shelter": {
+          "map_connected": true,
+          "record_count": 5,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "arashiyama"
+        },
+        "emergency_open_space": {
+          "map_connected": false,
+          "next_acquisition_method": "Acquire the current official emergency-open-space row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+          "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+          "record_count": 0,
+          "status": "METADATA_ONLY_NOT_CONNECTED",
+          "count_scope": "arashiyama"
+        },
+        "public_tourist_toilet": {
+          "map_connected": true,
+          "record_count": 10,
+          "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI",
+          "count_scope": "arashiyama"
+        },
+        "temporary_stay_facility": {
+          "map_connected": false,
+          "next_acquisition_method": "Acquire the current official temporary-stay facility row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+          "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+          "record_count": 0,
+          "status": "METADATA_ONLY_NOT_CONNECTED",
+          "count_scope": "arashiyama"
+        }
+      },
+      "display_layer": {
+        "data_path": "./data/official/facility_points_arashiyama.geojson",
+        "artifact_sha256": "be81af586c7496b6c543d215d3ca66022ba189938c8a5ab6f456a3737ec75b6e",
+        "copied_sha256": "be81af586c7496b6c543d215d3ca66022ba189938c8a5ab6f456a3737ec75b6e",
+        "feature_count": 19
+      },
+      "reason": "Three official categories are displayed from source-provided longitude/latitude only. Emergency-open-space and temporary-stay rows remain metadata-only; opening, entrance, accessibility, safety, and disaster usability are UNKNOWN."
     },
     "plateau": {
       "status": "NOT_CONNECTED",
@@ -258,10 +765,36 @@
       "aoi_scope": [
         "arashiyama"
       ],
+      "inventory": [
+        {
+          "city_id": "kyoto_arashiyama",
+          "subarea_id": "arashiyama",
+          "city_code": "26100",
+          "dataset_id": "plateau_kyoto_2025_citygml_v5",
+          "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+          "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+          "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+          "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+          "stable_building_id_status": "NOT_INSPECTED",
+          "footprint_status": "NOT_INSPECTED",
+          "lod_status": "NOT_INSPECTED",
+          "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+          "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+          "remote_tileset_child_status": "UKYO_AND_NISHIKYO_CHILD_URLS_ENUMERATED_BYTES_UNVERIFIED",
+          "cors_status": "UNVERIFIED",
+          "bounded_derivative_status": "NOT_CREATED",
+          "connection_mode": "NOT_CONNECTED",
+          "fallback": "EXISTING_DETERMINISTIC_2D",
+          "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Arashiyama coverage were not verified."
+        }
+      ],
+      "inventory_connected": true,
       "fallback": "EXISTING_DETERMINISTIC_2D",
       "m7_evidence_ready_count": 0,
       "m7_computed_count": 0,
-      "reason": "This city AOI set retains the existing deterministic 2D fallback; verified PLATEAU tiles or building-side evidence are not connected."
+      "reason": "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer."
     },
     "m7": {
       "status": "NOT_COMPUTED",
@@ -271,8 +804,680 @@
       "computed_count": 0,
       "city_edge_count": 578,
       "edge_receipts_source_sha256": "ced9bcd8ffd2466ac9b07d162a7c1863c42b27746b19ae7ba473a95f639f03b1",
+      "kyoto_deep_pilot_edges": [
+        {
+          "aoi_group": "arashiyama",
+          "city_id": "kyoto_arashiyama",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "ARASHIYAMA",
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/0",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+          "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "ARASHIYAMA_PACK"
+        },
+        {
+          "aoi_group": "arashiyama",
+          "city_id": "kyoto_arashiyama",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "ARASHIYAMA",
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/1",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+          "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "ARASHIYAMA_PACK"
+        },
+        {
+          "aoi_group": "arashiyama",
+          "city_id": "kyoto_arashiyama",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "ARASHIYAMA",
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/2",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+          "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "ARASHIYAMA_PACK"
+        },
+        {
+          "aoi_group": "arashiyama",
+          "city_id": "kyoto_arashiyama",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "ARASHIYAMA",
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/3",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+          "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "ARASHIYAMA_PACK"
+        },
+        {
+          "aoi_group": "arashiyama",
+          "city_id": "kyoto_arashiyama",
+          "damage_or_debris_derived_from_hazard": false,
+          "deep_pilot": true,
+          "deep_pilot_group": "ARASHIYAMA",
+          "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+          "field_evidence_status": {
+            "clear_width_m": "MISSING",
+            "hazard_data_status": "MISSING",
+            "left_buildings": "MISSING",
+            "official_closure": "MISSING",
+            "right_buildings": "MISSING",
+            "variant": "MISSING"
+          },
+          "field_resolution": {
+            "clear_width_m": {
+              "evidence_candidates": [
+                "reviewed H23 walking-space evidence",
+                "explicit source-tagged width",
+                "verified field measurement"
+              ],
+              "next_acquisition_method": "Acquire a reviewed source-tagged walking clear-width measurement for the exact edge; do not infer it from highway class, raster appearance, or DEM."
+            },
+            "hazard_data_status": {
+              "evidence_candidates": [
+                "verified connected hazard context",
+                "bounded UNKNOWN decision receipt"
+              ],
+              "next_acquisition_method": "Bind the edge to a reviewed hazard-context receipt or explicitly record UNKNOWN with provenance; missing evidence cannot become a silent enum value."
+            },
+            "left_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete left-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete left-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "m7_provenance.clear_width_m": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for clear_width_m",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind clear_width_m to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.hazard_data_status": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for hazard_data_status",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind hazard_data_status to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.left_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for left_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind left_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.official_closure": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for official_closure",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind official_closure to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.right_buildings": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for right_buildings",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind right_buildings to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "m7_provenance.variant": {
+              "evidence_candidates": [
+                "source/revision/field locator receipt for variant",
+                "reviewed transformation lineage with no silent default"
+              ],
+              "next_acquisition_method": "Bind variant to an exact source ID, revision, field locator, and reviewed transformation receipt; a value without this provenance remains not evidence-ready."
+            },
+            "official_closure": {
+              "evidence_candidates": [
+                "official operational closure record",
+                "bounded official query receipt preserving tri-state None"
+              ],
+              "next_acquisition_method": "Acquire a bounded official road-closure query or record for the edge and preserve None when no answer is evidenced; hazard overlap cannot create closure."
+            },
+            "right_buildings": {
+              "evidence_candidates": [
+                "official PLATEAU stable building IDs",
+                "complete right-side coverage receipt"
+              ],
+              "next_acquisition_method": "Verify PLATEAU package bytes, CRS, stable IDs, footprints, and complete right-side coverage; an empty list requires evidence that no influencing building exists."
+            },
+            "variant": {
+              "evidence_candidates": [
+                "human-reviewed M7 pilot decision receipt"
+              ],
+              "next_acquisition_method": "Record a reviewed mean_case or sensitivity_high_case decision for this pilot edge; do not apply a silent default."
+            }
+          },
+          "geometry_provenance": {
+            "geometry_status": "SOURCE_TRACEABLE_REAL",
+            "revision_id": "osm-2026-08-29-v1",
+            "source_feature_id": "way/22727319#segment/4",
+            "source_id": "openstreetmap-overpass-arashiyama-20260829"
+          },
+          "implicit_defaults_used": false,
+          "m7_api_structurally_callable": false,
+          "m7_computed": false,
+          "m7_evidence_ready": false,
+          "m7_result": null,
+          "missing_fields": [
+            "clear_width_m",
+            "left_buildings",
+            "right_buildings",
+            "variant",
+            "official_closure",
+            "hazard_data_status",
+            "m7_provenance.clear_width_m",
+            "m7_provenance.left_buildings",
+            "m7_provenance.right_buildings",
+            "m7_provenance.variant",
+            "m7_provenance.official_closure",
+            "m7_provenance.hazard_data_status"
+          ],
+          "reason": "M7 inputs are not structurally callable; M7 was not run.",
+          "selection_basis": "LEXICAL_EDGE_ID_BASELINE",
+          "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+          "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+          "status": "NOT_COMPUTED",
+          "structural_values_present": [],
+          "subarea_partition_status": "ARASHIYAMA_PACK"
+        }
+      ],
       "city_limitations": "No reviewed source-traceable per-edge M7 inputs are connected.",
-      "reason": "M7 is not connected to real candidate edges; building setback, damage, and debris are not inferred."
+      "reason": "M7 is not connected to real candidate edges; every Kyoto pilot exposes field-level evidence candidates and next acquisition without inferring setback, damage, or debris."
     },
     "m6": {
       "status": "NOT_COMPUTED",

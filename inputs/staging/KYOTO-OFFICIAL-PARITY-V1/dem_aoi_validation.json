@@ -1,0 +1,160 @@
+{
+  "aois": {
+    "arashiyama": {
+      "aoi_bounds_longitude_latitude": [
+        135.671,
+        35.0,
+        135.689,
+        35.022
+      ],
+      "cross_slope_inferred": false,
+      "elevation_sampled": false,
+      "evidence_ui_connected": true,
+      "intersecting_product_count": 3,
+      "products": [
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+          "dataset_id": "gsi_523545_dem1a_20250908",
+          "dem_class": "DEM1A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523545",
+          "package_date": "20250908",
+          "source_sha256": "6c427b6b2ec65418ba9a0f23f4a07af9e27a421761292c6e17b3e434e82cd338",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+          "dataset_id": "gsi_523545_dem5a_20250908",
+          "dem_class": "DEM5A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523545",
+          "package_date": "20250908",
+          "source_sha256": "082e675a7c3a495ba3297790b70f3d97f3a005ce50d34372e8b8a708b3853914",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.625, 35.0, 135.7375, 35.066666667]",
+          "dataset_id": "gsi_523545_dem5b_20250609",
+          "dem_class": "DEM5B",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523545",
+          "package_date": "20250609",
+          "source_sha256": "5c6fdfdb5acbdcb5a8980088b5064d335def074a1dc5a4be41c04f9e5f8bd144",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        }
+      ],
+      "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+      "step_inferred": false,
+      "terrain_surface_computed": false
+    },
+    "kiyomizu_gion": {
+      "aoi_bounds_longitude_latitude": [
+        135.7655,
+        34.9905,
+        135.7865,
+        35.008
+      ],
+      "cross_slope_inferred": false,
+      "elevation_sampled": false,
+      "evidence_ui_connected": true,
+      "intersecting_product_count": 5,
+      "products": [
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+          "dataset_id": "gsi_523536_dem1a_20250908",
+          "dem_class": "DEM1A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523536",
+          "package_date": "20250908",
+          "source_sha256": "1e2115ceb62ebc7155006fd750d30b2bd9caa779cd02f7c604fa537d3f46338c",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+          "dataset_id": "gsi_523546_dem1a_20250908",
+          "dem_class": "DEM1A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523546",
+          "package_date": "20250908",
+          "source_sha256": "968aa88c36f4c1b1b82f49cf0f64815e85d802f15a247fd8c480d8017666883d",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+          "dataset_id": "gsi_523536_dem5a_20250908",
+          "dem_class": "DEM5A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523536",
+          "package_date": "20250908",
+          "source_sha256": "9669221197f1aa2a5c99bf301098248db1ce0e2e9a40fbc76425b2ce6e350721",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+          "dataset_id": "gsi_523546_dem5a_20250908",
+          "dem_class": "DEM5A",
+          "horizontal_crs": "fguuid:jgd2024.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523546",
+          "package_date": "20250908",
+          "source_sha256": "93f70338fb02a372c12addead0c497c80fb6ce489643a1529e00e935c0afdfb8",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        },
+        {
+          "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+          "bounds_wgs84": "[135.775, 35.0, 135.875, 35.05]",
+          "dataset_id": "gsi_523546_dem5b_20161001",
+          "dem_class": "DEM5B",
+          "horizontal_crs": "fguuid:jgd2011.bl",
+          "issuer": "Geospatial Information Authority of Japan (GSI)",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+          "mesh_id": "523546",
+          "package_date": "20161001",
+          "source_sha256": "918e29779b22db3ec8d038c14284e0cb9246d712a948aeb8a74ed3c74a296e29",
+          "source_url": "https://service.gsi.go.jp/kiban/",
+          "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+        }
+      ],
+      "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+      "step_inferred": false,
+      "terrain_surface_computed": false
+    }
+  },
+  "schema_version": "1.0.0",
+  "status": "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED"
+}

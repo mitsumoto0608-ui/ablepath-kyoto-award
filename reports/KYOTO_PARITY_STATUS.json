@@ -1,0 +1,640 @@
+{
+  "MODEL_ROUTE_VERIFIED": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "aois": {
+    "arashiyama": {
+      "aoi_group": "arashiyama",
+      "facilities": {
+        "category_status_source": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json",
+        "evidence_ui_connected": true,
+        "record_count": 19,
+        "silent_geocoding": false
+      },
+      "flood": {
+        "aoi_group": "arashiyama",
+        "artifact_sha256": "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7",
+        "closure_derived": false,
+        "damage_or_debris_derived": false,
+        "display_connected": true,
+        "feature_count": 136,
+        "layer_counts": {
+          "A31b-10": 47,
+          "A31b-20": 43,
+          "A31b-30": 41,
+          "A31b-41": 1,
+          "A31b-42": 4
+        },
+        "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation.",
+        "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY"
+      },
+      "landslide": {
+        "reason": "Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
+        "status": "NOT_CONNECTED"
+      },
+      "plateau": {
+        "fallback": "EXISTING_DETERMINISTIC_2D",
+        "inventory_connected": true,
+        "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Arashiyama coverage were not verified.",
+        "setback_derived": false,
+        "status": "NOT_CONNECTED"
+      },
+      "subarea_partition_status": "ARASHIYAMA_AOI",
+      "terrain": {
+        "aoi_bounds_longitude_latitude": [
+          135.671,
+          35.0,
+          135.689,
+          35.022
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 3,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+            "dataset_id": "gsi_523545_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250908",
+            "source_sha256": "6c427b6b2ec65418ba9a0f23f4a07af9e27a421761292c6e17b3e434e82cd338",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.75, 35.083333333]",
+            "dataset_id": "gsi_523545_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250908",
+            "source_sha256": "082e675a7c3a495ba3297790b70f3d97f3a005ce50d34372e8b8a708b3853914",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.625, 35.0, 135.7375, 35.066666667]",
+            "dataset_id": "gsi_523545_dem5b_20250609",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523545",
+            "package_date": "20250609",
+            "source_sha256": "5c6fdfdb5acbdcb5a8980088b5064d335def074a1dc5a4be41c04f9e5f8bd144",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      }
+    },
+    "gion": {
+      "aoi_group": "kiyomizu_gion",
+      "facilities": {
+        "category_status_source": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json",
+        "evidence_ui_connected": true,
+        "record_count": 58,
+        "silent_geocoding": false
+      },
+      "flood": {
+        "aoi_group": "kiyomizu_gion",
+        "artifact_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+        "closure_derived": false,
+        "damage_or_debris_derived": false,
+        "display_connected": true,
+        "feature_count": 366,
+        "layer_counts": {
+          "A31b-20": 329,
+          "A31b-30": 31,
+          "A31b-41": 4,
+          "A31b-42": 2
+        },
+        "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation.",
+        "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY"
+      },
+      "landslide": {
+        "reason": "Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
+        "status": "NOT_CONNECTED"
+      },
+      "plateau": {
+        "fallback": "EXISTING_DETERMINISTIC_2D",
+        "inventory_connected": true,
+        "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Gion coverage were not verified.",
+        "setback_derived": false,
+        "status": "NOT_CONNECTED"
+      },
+      "subarea_partition_status": "COMBINED_KIYOMIZU_GION_CONNECTOR_AOI_NOT_PARTITIONED",
+      "terrain": {
+        "aoi_bounds_longitude_latitude": [
+          135.7655,
+          34.9905,
+          135.7865,
+          35.008
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 5,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "1e2115ceb62ebc7155006fd750d30b2bd9caa779cd02f7c604fa537d3f46338c",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "968aa88c36f4c1b1b82f49cf0f64815e85d802f15a247fd8c480d8017666883d",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "9669221197f1aa2a5c99bf301098248db1ce0e2e9a40fbc76425b2ce6e350721",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "93f70338fb02a372c12addead0c497c80fb6ce489643a1529e00e935c0afdfb8",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.775, 35.0, 135.875, 35.05]",
+            "dataset_id": "gsi_523546_dem5b_20161001",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2011.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20161001",
+            "source_sha256": "918e29779b22db3ec8d038c14284e0cb9246d712a948aeb8a74ed3c74a296e29",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      }
+    },
+    "kiyomizu": {
+      "aoi_group": "kiyomizu_gion",
+      "facilities": {
+        "category_status_source": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json",
+        "evidence_ui_connected": true,
+        "record_count": 58,
+        "silent_geocoding": false
+      },
+      "flood": {
+        "aoi_group": "kiyomizu_gion",
+        "artifact_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+        "closure_derived": false,
+        "damage_or_debris_derived": false,
+        "display_connected": true,
+        "feature_count": 366,
+        "layer_counts": {
+          "A31b-20": 329,
+          "A31b-30": 31,
+          "A31b-41": 4,
+          "A31b-42": 2
+        },
+        "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation.",
+        "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY"
+      },
+      "landslide": {
+        "reason": "Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
+        "status": "NOT_CONNECTED"
+      },
+      "plateau": {
+        "fallback": "EXISTING_DETERMINISTIC_2D",
+        "inventory_connected": true,
+        "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Kiyomizu coverage were not verified.",
+        "setback_derived": false,
+        "status": "NOT_CONNECTED"
+      },
+      "subarea_partition_status": "COMBINED_KIYOMIZU_GION_CONNECTOR_AOI_NOT_PARTITIONED",
+      "terrain": {
+        "aoi_bounds_longitude_latitude": [
+          135.7655,
+          34.9905,
+          135.7865,
+          35.008
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 5,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "1e2115ceb62ebc7155006fd750d30b2bd9caa779cd02f7c604fa537d3f46338c",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "968aa88c36f4c1b1b82f49cf0f64815e85d802f15a247fd8c480d8017666883d",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "9669221197f1aa2a5c99bf301098248db1ce0e2e9a40fbc76425b2ce6e350721",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "93f70338fb02a372c12addead0c497c80fb6ce489643a1529e00e935c0afdfb8",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.775, 35.0, 135.875, 35.05]",
+            "dataset_id": "gsi_523546_dem5b_20161001",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2011.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20161001",
+            "source_sha256": "918e29779b22db3ec8d038c14284e0cb9246d712a948aeb8a74ed3c74a296e29",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      }
+    },
+    "kiyomizu_gion_connector": {
+      "aoi_group": "kiyomizu_gion",
+      "facilities": {
+        "category_status_source": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json",
+        "evidence_ui_connected": true,
+        "record_count": 58,
+        "silent_geocoding": false
+      },
+      "flood": {
+        "aoi_group": "kiyomizu_gion",
+        "artifact_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+        "closure_derived": false,
+        "damage_or_debris_derived": false,
+        "display_connected": true,
+        "feature_count": 366,
+        "layer_counts": {
+          "A31b-20": 329,
+          "A31b-30": 31,
+          "A31b-41": 4,
+          "A31b-42": 2
+        },
+        "reason": "Exact source features intersecting the reviewed AOI rectangle are displayed without geometry rewriting or operational interpretation.",
+        "status": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY"
+      },
+      "landslide": {
+        "reason": "Exact g_dosha_00all.zip SHA is known, but prior-consent terms, redistribution review, and source-feature-to-AOI lineage are unresolved; no layer is displayed and no CLOSED, damage, or debris state is derived.",
+        "status": "NOT_CONNECTED"
+      },
+      "plateau": {
+        "fallback": "EXISTING_DETERMINISTIC_2D",
+        "inventory_connected": true,
+        "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and connector coverage were not verified.",
+        "setback_derived": false,
+        "status": "NOT_CONNECTED"
+      },
+      "subarea_partition_status": "COMBINED_KIYOMIZU_GION_CONNECTOR_AOI_NOT_PARTITIONED",
+      "terrain": {
+        "aoi_bounds_longitude_latitude": [
+          135.7655,
+          34.9905,
+          135.7865,
+          35.008
+        ],
+        "cross_slope_inferred": false,
+        "elevation_sampled": false,
+        "evidence_ui_connected": true,
+        "intersecting_product_count": 5,
+        "products": [
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "1e2115ceb62ebc7155006fd750d30b2bd9caa779cd02f7c604fa537d3f46338c",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem1a_20250908",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "968aa88c36f4c1b1b82f49cf0f64815e85d802f15a247fd8c480d8017666883d",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 34.916666667, 135.875, 35.0]",
+            "dataset_id": "gsi_523536_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523536",
+            "package_date": "20250908",
+            "source_sha256": "9669221197f1aa2a5c99bf301098248db1ce0e2e9a40fbc76425b2ce6e350721",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.75, 35.0, 135.875, 35.083333333]",
+            "dataset_id": "gsi_523546_dem5a_20250908",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20250908",
+            "source_sha256": "93f70338fb02a372c12addead0c497c80fb6ce489643a1529e00e935c0afdfb8",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          },
+          {
+            "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude remains a separate serialization rule",
+            "bounds_wgs84": "[135.775, 35.0, 135.875, 35.05]",
+            "dataset_id": "gsi_523546_dem5b_20161001",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2011.bl",
+            "issuer": "Geospatial Information Authority of Japan (GSI)",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "license_url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+            "mesh_id": "523546",
+            "package_date": "20161001",
+            "source_sha256": "918e29779b22db3ec8d038c14284e0cb9246d712a948aeb8a74ed3c74a296e29",
+            "source_url": "https://service.gsi.go.jp/kiban/",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML"
+          }
+        ],
+        "reason": "Package bounds, declared horizontal CRS, formal GML axis semantics, and AOI intersection are validated for inventory display. Vertical datum is not explicit and elevation was not sampled; no step, curb, longitudinal slope, cross-slope, M6, or accessibility value is derived.",
+        "step_inferred": false,
+        "terrain_surface_computed": false
+      }
+    }
+  },
+  "facility_categories": {
+    "designated_emergency_evacuation_place": {
+      "map_connected": true,
+      "record_count": 24,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "designated_shelter": {
+      "map_connected": true,
+      "record_count": 25,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "emergency_open_space": {
+      "map_connected": false,
+      "next_acquisition_method": "Acquire the current official emergency-open-space row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+      "record_count": 0,
+      "status": "METADATA_ONLY_NOT_CONNECTED"
+    },
+    "public_tourist_toilet": {
+      "map_connected": true,
+      "record_count": 28,
+      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+    },
+    "temporary_stay_facility": {
+      "map_connected": false,
+      "next_acquisition_method": "Acquire the current official temporary-stay facility row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
+      "record_count": 0,
+      "status": "METADATA_ONLY_NOT_CONNECTED"
+    }
+  },
+  "m6_status": "NOT_COMPUTED",
+  "m7": {
+    "computed_count": 0,
+    "evidence_ready_count": 0,
+    "reasoned_null_ui_connected": true,
+    "selected_edge_count": 10,
+    "source": "reports/KYOTO_M7_DEEP_PILOT_STATUS.json"
+  },
+  "plateau_inventory": [
+    {
+      "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+      "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+      "bounded_derivative_status": "NOT_CREATED",
+      "city_code": "26100",
+      "city_id": "kyoto_kiyomizu",
+      "connection_mode": "NOT_CONNECTED",
+      "cors_status": "UNVERIFIED",
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "fallback": "EXISTING_DETERMINISTIC_2D",
+      "footprint_status": "NOT_INSPECTED",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "lod_status": "NOT_INSPECTED",
+      "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+      "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Kiyomizu coverage were not verified.",
+      "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+      "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "stable_building_id_status": "NOT_INSPECTED",
+      "subarea_id": "kiyomizu"
+    },
+    {
+      "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+      "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+      "bounded_derivative_status": "NOT_CREATED",
+      "city_code": "26100",
+      "city_id": "kyoto_kiyomizu",
+      "connection_mode": "NOT_CONNECTED",
+      "cors_status": "UNVERIFIED",
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "fallback": "EXISTING_DETERMINISTIC_2D",
+      "footprint_status": "NOT_INSPECTED",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "lod_status": "NOT_INSPECTED",
+      "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+      "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Gion coverage were not verified.",
+      "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+      "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "stable_building_id_status": "NOT_INSPECTED",
+      "subarea_id": "gion"
+    },
+    {
+      "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+      "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+      "bounded_derivative_status": "NOT_CREATED",
+      "city_code": "26100",
+      "city_id": "kyoto_kiyomizu",
+      "connection_mode": "NOT_CONNECTED",
+      "cors_status": "UNVERIFIED",
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "fallback": "EXISTING_DETERMINISTIC_2D",
+      "footprint_status": "NOT_INSPECTED",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "lod_status": "NOT_INSPECTED",
+      "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+      "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and connector coverage were not verified.",
+      "remote_tileset_child_status": "HIGASHIYAMA_CHILD_URL_ENUMERATED_BYTES_UNVERIFIED",
+      "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "stable_building_id_status": "NOT_INSPECTED",
+      "subarea_id": "kiyomizu_gion_connector"
+    },
+    {
+      "aoi_coverage_status": "AOI_COVERAGE_REVIEW_REQUIRED",
+      "axis_semantics": "PACKAGE_METADATA_REQUIRED",
+      "bounded_derivative_status": "NOT_CREATED",
+      "city_code": "26100",
+      "city_id": "kyoto_arashiyama",
+      "connection_mode": "NOT_CONNECTED",
+      "cors_status": "UNVERIFIED",
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "fallback": "EXISTING_DETERMINISTIC_2D",
+      "footprint_status": "NOT_INSPECTED",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "lod_status": "NOT_INSPECTED",
+      "official_height_attribute_status": "UNKNOWN_NOT_INSPECTED",
+      "package_sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "reason": "Package bytes were outside the authorized lane scope; child bytes, CRS, building semantics, and Arashiyama coverage were not verified.",
+      "remote_tileset_child_status": "UKYO_AND_NISHIKYO_CHILD_URLS_ENUMERATED_BYTES_UNVERIFIED",
+      "remote_tileset_root_status": "HASH_BOUND_ROOT_METADATA_ONLY",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "stable_building_id_status": "NOT_INSPECTED",
+      "subarea_id": "arashiyama"
+    }
+  ],
+  "safe_route_claim": false,
+  "schema_version": "1.0.0",
+  "screenshots": {
+    "binary_git_tracked": false,
+    "ci_artifact_directory": "viewer/test-results",
+    "required": [
+      "kyoto-kiyomizu-gion-parity.png",
+      "kyoto-arashiyama-parity.png",
+      "kyoto-m7-reasoned-null.png"
+    ]
+  },
+  "status": "PARTIAL_FAIL_CLOSED_EVIDENCE_UI_CONNECTED",
+  "task_id": "KYOTO-OFFICIAL-PARITY-V1"
+}

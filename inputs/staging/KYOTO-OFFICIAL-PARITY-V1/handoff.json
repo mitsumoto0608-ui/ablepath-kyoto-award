@@ -1,0 +1,19 @@
+{
+  "absolute_paths_tracked": false,
+  "generated_artifacts": {
+    "README.md": "33590fde6f1ed21256d91d3855afefe000889c43570fe50202b64f9f98aca95d",
+    "a31b_arashiyama_display.geojson": "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7",
+    "a31b_kiyomizu_gion_display.geojson": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+    "dem_aoi_validation.json": "e8e2d33731fd6d234d685ddee8dfbd035de7fa0183471144d25d40097384846a",
+    "facility_category_status.json": "9dd0af84156f771909d8751b5da594a47b8866bd62553ba0d7597746cb73fbe6",
+    "facility_points.geojson": "5d005ec01ffe22a8a7f1e1046985c93d9de1288d1e9809bdd0f9aca30be8056f",
+    "facility_points_arashiyama.geojson": "be81af586c7496b6c543d215d3ca66022ba189938c8a5ab6f456a3737ec75b6e",
+    "facility_points_kiyomizu_gion.geojson": "2b05a201221536c267c5f5011f56f60a3fa095f16dde76e0a75b668159b1bd62",
+    "facility_records.json": "f201527c7a822a62e098f1313898ba0871ccdb3db2c00f47484cf8847d7ef312",
+    "source_receipts.json": "86d2e6a879027029a0ce23572cdd3034e48188fc4d2edec9a2c89208469e01ea"
+  },
+  "raw_redownloaded": false,
+  "raw_tracked": false,
+  "schema_version": "1.0.0",
+  "status": "PARTIAL_FAIL_CLOSED_EVIDENCE_UI_CONNECTED"
+}
