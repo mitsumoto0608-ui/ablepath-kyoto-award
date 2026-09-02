@@ -11,4 +11,4 @@
 
 禁止事項は継続します: force push、`--no-verify`、branch削除、tag、release、M6/Hokonavi freeze、main protection変更。
 
-現在の追加実装headは `c2b8c4b1888c6caad07c7605cf3628f48c9efee0`。normal pushはactive pre-push guard不在のため拒否されており、hookを変更・迂回していない。morning replayではmanifest末尾のKyoto parity commitまで順に取り込み、清水・祇園・接続回廊のcombined AOIと嵐山AOIを混同しないこと、A31bはinternal displayのみ、M7は10 edgeすべてreasoned-nullのままであることを再確認する。
+現在の追加実装pre-receipt headは `93c7b901d713b1e85301f440407e5f43a26c92cd`。sourceとhash一致のactive pre-push guardを確認し、composition/headとも通常push済み。stacked draft PRは[#10](https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/10)。morning replayではmanifest末尾のKyoto parityおよびCI screenshot timeout commitまで順に取り込み、清水・祇園・接続回廊のcombined AOIと嵐山AOIを混同しないこと、A31bはinternal displayのみ、M7は10 edgeすべてreasoned-nullのままであることを再確認する。

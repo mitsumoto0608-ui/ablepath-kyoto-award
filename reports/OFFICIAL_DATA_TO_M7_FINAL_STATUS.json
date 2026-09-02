@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "status": "PARTIAL_FAIL_CLOSED_LOCAL_GREEN_REMOTE_PENDING",
+  "status": "PARTIAL_FAIL_CLOSED_LOCAL_GREEN_STACKED_DRAFT_OPEN",
   "task_id": "ABLEPATH-OVERNIGHT-OFFICIAL-DATA-TO-M7-REAL-EDGE-EVIDENCE-V1",
   "contract": "V2_KYOTO_PARITY_WITH_NO_MAIN_MERGE_OVERRIDE",
   "data": {
@@ -59,11 +59,11 @@
     "release_tests": "24 passed"
   },
   "remote": {
-    "composition_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
-    "integration_head_before_receipt_commit": "c2b8c4b1888c6caad07c7605cf3628f48c9efee0",
-    "integration_push": "BLOCKED_NO_ACTIVE_PRE_PUSH_HOOK",
-    "hosted_ci": "PENDING_REMOTE_BRANCH",
-    "draft_pr": "PENDING_REMOTE_BRANCH"
+    "composition_push": "NORMAL_PUSH_COMPLETE",
+    "integration_head_before_receipt_commit": "93c7b901d713b1e85301f440407e5f43a26c92cd",
+    "integration_push": "NORMAL_PUSH_COMPLETE_THROUGH_PRE_RECEIPT_HEAD",
+    "hosted_ci": "SEE_STACKED_DRAFT_PR_10_DYNAMIC_STATUS",
+    "draft_pr": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/10"
   },
   "safe_route_claim": false,
   "accessibility_claim": false,
