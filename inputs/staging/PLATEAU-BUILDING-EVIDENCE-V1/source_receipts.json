@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "PLATEAU-BUILDING-EVIDENCE-V1",
+  "corrected_v2_scope": {
+    "archive_sha256": "297f6aa0f1c9abc28ef22f62fa305006f9d58307f112a40c92543e8188cbc574",
+    "member_count": 17,
+    "plateau_package_member_present": false,
+    "authorized_raw_scope_top_level_file_count": 25,
+    "kyoto_expected_filename_present": false,
+    "fujisawa_expected_filename_present": false,
+    "raw_packages_reopened": false
+  },
+  "packages": [
+    {
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "city_code": "26100",
+      "title": "3D city model Project PLATEAU Kyoto City 2025 CityGML",
+      "issuer": "MLIT Project PLATEAU",
+      "version": "FY2025 / product specification v5",
+      "source_url": "https://assets.cms.plateau.reearth.io/assets/c8/4c6540-2bcf-4773-b21d-74ad2d9f1ba1/26100_kyoto-shi_city_2025_citygml_1_op.zip",
+      "original_filename": "26100_kyoto-shi_city_2025_citygml_1_op.zip",
+      "byte_size": 2700713512,
+      "archive_member_count": 97678,
+      "sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "license": "PLATEAU Site Policy section 3 / embedded source terms",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "transform_allowed": false
+    },
+    {
+      "dataset_id": "plateau_fujisawa_2025_citygml_v5",
+      "city_code": "14205",
+      "title": "3D city model Project PLATEAU Fujisawa City 2025 CityGML",
+      "issuer": "MLIT Project PLATEAU",
+      "version": "FY2025 / product specification v5",
+      "source_url": "https://assets.cms.plateau.reearth.io/assets/f6/937d63-b787-4319-a5a5-bedcafde2cc7/14205_fujisawa-shi_city_2025_citygml_1_op.zip",
+      "original_filename": "14205_fujisawa-shi_city_2025_citygml_1_op.zip",
+      "byte_size": 736037983,
+      "archive_member_count": 4928,
+      "sha256": "7e85ff8e1642b9c2cc627f356acedbe792e95fac25febe2ee70c9312d6c415ea",
+      "license": "PLATEAU Site Policy section 3 / embedded source terms",
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+      "package_verification_status": "RECEIPT_BOUND_RAW_NOT_IN_AUTHORIZED_SCOPE",
+      "transform_allowed": false
+    }
+  ],
+  "remote_tileset": {
+    "dataset_id": "plateau_kyoto_bldg_tileset_20260830",
+    "city_code": "26100",
+    "root_sha256": "ce58a92bb9da595d9251cd72b7b77af6da9a3748628a0e8370ffc6fbc6312242",
+    "root_metadata_hash_bound": true,
+    "higashiyama_child_url_enumerated": true,
+    "ukyo_child_url_enumerated": true,
+    "nishikyo_child_url_enumerated": true,
+    "child_bytes_verified": false,
+    "cors_verified": false,
+    "aoi_coverage_verified": false,
+    "connection_mode": "NOT_CONNECTED",
+    "fallback": "EXISTING_DETERMINISTIC_2D"
+  }
+}

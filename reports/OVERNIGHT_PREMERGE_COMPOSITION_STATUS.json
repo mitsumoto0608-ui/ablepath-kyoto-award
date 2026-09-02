@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-OVERNIGHT-OFFICIAL-DATA-TO-M7-REAL-EDGE-EVIDENCE-V1",
+  "PREMERGE_COMPOSITION_MODE": true,
+  "MAIN_MERGE_REQUIRED_BEFORE_RETARGET": true,
+  "DO_NOT_MERGE_TO_MAIN": true,
+  "composition_branch": "integration/audit-remediation-composition-v1",
+  "composition_head": "d029f339806c5e2e0613901ae97e7e9bf9654d50",
+  "AUDIT_COMPOSITION_TREE": "48f835d5805df29b070339a1f7dad3a8530ffdfa",
+  "composition_inputs": [
+    "fdd780f75fff25f688c5a6b51f0dbf59d1d5b464",
+    "7380e02aee2a40931f851ec77847565311e70cf4",
+    "1cb145fbf63b6c1ce5c9a0767867ab81fc2809a1",
+    "c5dcdd062d8a79302605ad5e44936039553e5066"
+  ],
+  "composition_local_validation": "GREEN",
+  "composition_push": "NORMAL_PUSH_COMPLETE",
+  "integration_head_before_receipt_commit": "93c7b901d713b1e85301f440407e5f43a26c92cd",
+  "integration_push": "NORMAL_PUSH_COMPLETE_THROUGH_PRE_RECEIPT_HEAD",
+  "hook_policy": "UNCHANGED_NOT_BYPASSED",
+  "hosted_ci": "SEE_STACKED_DRAFT_PR_10_DYNAMIC_STATUS",
+  "stacked_draft_pr": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award/pull/10",
+  "main_modified": false,
+  "tag_created": false,
+  "release_created": false,
+  "MODEL_ROUTE_VERIFIED": false
+}

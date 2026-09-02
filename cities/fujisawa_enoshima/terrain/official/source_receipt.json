@@ -1,0 +1,16 @@
+{
+  "dataset_id": "gsi_dem_5m10m_current",
+  "outer_original_filename": "20260902014842719-001.zip",
+  "outer_sha256": "6b67adaabe15908189316eb34dd574bfe5854b9db509f29902eab7ecfc3a88db",
+  "subareas": ["enoshima", "katase"],
+  "mesh_candidates": ["523973"],
+  "product_inventory_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+  "product_count": 3,
+  "horizontal_crs": ["fguuid:jgd2024.bl"],
+  "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude is separate",
+  "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+  "aoi_status": "CANDIDATE_MESH_ONLY_AOI_INTERSECTION_PENDING",
+  "validation_result": "CRS_REVIEW_REQUIRED",
+  "terrain_connected": false,
+  "limitations": "No sampling or elevation analysis. DEM is not evidence of step, curb, cross-slope, or accessibility."
+}

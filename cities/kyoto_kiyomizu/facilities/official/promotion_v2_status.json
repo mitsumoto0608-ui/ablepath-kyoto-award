@@ -1,0 +1,17 @@
+{
+  "city_id": "kyoto_kiyomizu",
+  "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+  "sources": [
+    {"dataset_id": "kyoto_designated_shelters_r8_8_18", "status": "NOT_CONNECTED", "reason": "The R8.8.18 XLSX original and row-level receipt were not present in approved staging/workspace; no table or map rows were created."},
+    {"dataset_id": "kyoto_designated_emergency_sites_r8_8_18", "status": "NOT_CONNECTED", "reason": "The R8.8.18 XLSX original and row-level receipt were not present in approved staging/workspace; no table or map rows were created."},
+    {"dataset_id": "kyoto_public_toilets_00307", "status": "READY_FOR_METADATA_ONLY", "original_filename": "20260306112900_オープンデータ（公衆トイレ、観光トイレ）.xlsx", "raw_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764", "license": "CC BY 4.0", "reason": "Tracked receipt exists, but the raw workbook was outside the authorized source scope and CRS/row-level coordinates/subarea selection were not reviewed; table and map remain NOT_CONNECTED."},
+    {"dataset_id": "kyoto_return_support_plazas", "status": "NOT_CONNECTED", "reason": "Landing-page/category metadata only; no row-level original, stable facility ID, coordinates, entrance, capacity, current opening, or operation evidence."},
+    {"dataset_id": "kyoto_temporary_stay_facilities", "status": "NOT_CONNECTED", "reason": "No authorized row-level original with source/version/license and subarea rows was present."}
+  ],
+  "official_facility_table_connected": false,
+  "official_facility_map_connected": false,
+  "silent_geocoding": false,
+  "operation_inferred": false,
+  "accessibility_inferred": false,
+  "fire_safe_inferred": false
+}

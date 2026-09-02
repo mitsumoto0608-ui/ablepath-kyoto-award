@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PARTIAL_FAIL_CLOSED",
+  "ui_connection": "SOURCE_BOUND_OFFICIAL_EVIDENCE_ONLY",
+  "cities": {
+    "kyoto_kiyomizu": {"subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"], "subarea_partition_status": "COMBINED_KIYOMIZU_GION_CONNECTOR_AOI_NOT_PARTITIONED", "terrain_evidence_ui": "CONNECTED", "terrain_elevation_analysis": "NOT_CONNECTED", "terrain_products": 6, "a31b_display": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY", "a31b_display_features": 366, "hazard_edge_analysis": "NOT_CONNECTED", "landslide": "NOT_CONNECTED_LICENSE_AND_LINEAGE_REVIEW", "facility": "PARTIAL_3_OF_5_CATEGORIES_SOURCE_COORDINATES", "facility_records": 58, "silent_geocoding": false, "plateau_inventory": "CONNECTED", "plateau_aoi_count": 3, "plateau_real_3d": "NOT_CONNECTED", "plateau_fallback": "EXISTING_DETERMINISTIC_2D"},
+    "kyoto_arashiyama": {"subareas": ["arashiyama"], "subarea_partition_status": "ARASHIYAMA_AOI", "terrain_evidence_ui": "CONNECTED", "terrain_elevation_analysis": "NOT_CONNECTED", "terrain_products": 3, "a31b_display": "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY", "a31b_display_features": 136, "hazard_edge_analysis": "NOT_CONNECTED", "landslide": "NOT_CONNECTED_LICENSE_AND_LINEAGE_REVIEW", "facility": "PARTIAL_3_OF_5_CATEGORIES_SOURCE_COORDINATES", "facility_records": 19, "silent_geocoding": false, "plateau_inventory": "CONNECTED", "plateau_aoi_count": 1, "plateau_real_3d": "NOT_CONNECTED", "plateau_fallback": "EXISTING_DETERMINISTIC_2D"},
+    "fujisawa_enoshima": {"subareas": ["enoshima_katase"], "terrain": "NOT_CONNECTED", "terrain_products": 3, "hazard": "NOT_CONNECTED", "hazard_scenarios": 18, "facility": "READY_FOR_TABLE_ONLY", "facility_records": 57, "geometry_status": "ADDRESS_ONLY", "marker_policy": "TABLE_ONLY_NO_MARKERS_OR_GEOCODING", "plateau_aoi_count": 1, "plateau_fallback": "EXISTING_DETERMINISTIC_2D"}
+  },
+  "m7": {"status": "NOT_COMPUTED", "all_edge_count": 612, "deep_pilot_count": 15, "kyoto_deep_pilot_count": 10, "ready_count": 0, "computed_count": 0, "kiyomizu_gion_connector_partition": "COMBINED_PACK_NOT_REVIEWED", "reasoned_null_ui": true},
+  "m6": "NOT_COMPUTED",
+  "safety_contract": {"safe_route_claim": false, "accessibility_claim": false, "admin_validated": false, "hazard_to_closed_or_fail": false, "building_setback_damage_debris_inferred": false},
+  "MODEL_ROUTE_VERIFIED": false
+}
