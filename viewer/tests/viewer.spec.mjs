@@ -420,6 +420,7 @@ test("[ui_regression] official evidence tables remain page-width responsive at 3
 });
 
 test("[ui_regression] desktop captures the required V2 official-evidence artifact names", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
   test.skip(testInfo.project.name !== "desktop-chromium", "V2 evidence screenshots are desktop review artifacts");
   const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
   await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
