@@ -10,7 +10,9 @@
     {"commit": "969068bed434d04a1015e17578ca725d347edda9", "subject": "build: preserve Phase 4 evidence bytes"},
     {"commit": "9272288b41aa4bb598cd1bc17c747f701db78b56", "subject": "test: register additive Phase 4 evidence artifacts"},
     {"commit": "9b44e19823aa79e6dc1587c5f2756bcb7559d716", "subject": "feat: connect official evidence to the viewer"},
-    {"commit": "22c1888c61cde9fbaa983e27d503cccb26adb123", "subject": "test: scope facility readiness assertions"}
+    {"commit": "22c1888c61cde9fbaa983e27d503cccb26adb123", "subject": "test: scope facility readiness assertions"},
+    {"commit": "3a8cf5d3f2bcb4d7ce850a2f8ffb5a28966de440", "subject": "docs: record overnight premerge replay status"},
+    {"commit": "c2b8c4b1888c6caad07c7605cf3628f48c9efee0", "subject": "feat: complete Kyoto official evidence parity"}
   ],
   "receipt_commit_policy": "The commit that adds this manifest and final status reports is intentionally self-excluded; replay it after the listed commits or replay the final branch range.",
   "production_contract_changed": false,
