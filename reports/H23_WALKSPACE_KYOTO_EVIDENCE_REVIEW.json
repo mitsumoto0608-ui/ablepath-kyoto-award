@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "mlit_walkspace_kyoto_h23",
+  "reviewed_at": "2026-09-03",
+  "review_mode": "READ_ONLY",
+  "artifact": {
+    "original_filename": "08.zip",
+    "byte_size": 62079,
+    "sha256": "7140bf6d0e4e96c2a40fe0018add57f4d2e6f38039ebef84b5edc7a45fc1f30c",
+    "exact_match": true,
+    "refetch_performed": false,
+    "raw_tracked_in_git": false,
+    "receipt_id": "receipt-mlit_walkspace_kyoto_h23",
+    "repo_logical_raw_path": "raw/shared/mlit_walkspace_kyoto_h23"
+  },
+  "archive": {
+    "outer_member_encoding": "cp932",
+    "members": [
+      {
+        "name": "京都地区データ/kyoto_csv.zip",
+        "bytes": 13029,
+        "sha256_prefix": "757eb98dc4f2"
+      },
+      {
+        "name": "京都地区データ/kyoto_gml.zip",
+        "bytes": 48764,
+        "sha256_prefix": "f025bacba212"
+      }
+    ],
+    "csv_encoding": "cp932",
+    "gml_encoding": "utf-8-sig",
+    "layers": [
+      "ノード情報",
+      "リンク情報",
+      "出入口情報",
+      "施設情報/トイレ情報",
+      "施設情報/公共施設情報"
+    ],
+    "link_count": 204,
+    "node_count": 189
+  },
+  "crs": {
+    "gml_srsName": "EPSG:4612",
+    "csv_coordinate_format": "DMS string",
+    "digits_code": "3"
+  },
+  "extent": {
+    "lat": [
+      34.888014,
+      34.894294
+    ],
+    "lon": [
+      135.800751,
+      135.811265
+    ],
+    "place": "Uji city centre (JR Uji – Ujigami shrine)"
+  },
+  "aoi_coverage": {
+    "kyoto_kiyomizu": {
+      "overlap": false,
+      "approx_distance_km": 12
+    },
+    "kyoto_arashiyama": {
+      "overlap": false,
+      "approx_distance_km": 17
+    },
+    "fujisawa_enoshima": {
+      "overlap": false
+    }
+  },
+  "width_field": {
+    "column": "有効幅員",
+    "value_distribution": {
+      "3.00": 173,
+      "0.00": 25,
+      "1.00": 4,
+      "2.00": 2
+    },
+    "interpretation": "CATEGORY_CODE_NOT_METRIC_WIDTH",
+    "codebook_verified": false,
+    "a1_request": "MLIT 歩行空間ネットワークデータ整備仕様 (H22/H23) codebook for 有効幅員/経路の種類/勾配/段差"
+  },
+  "currentness": {
+    "survey_date": "2011-10-13",
+    "fiscal_year": "FY2011",
+    "distribution_last_modified": "2016-09-29"
+  },
+  "license": {
+    "status": "LICENSE_REVIEW_REQUIRED",
+    "terms_text_retrieved": false
+  },
+  "receipt_hygiene": {
+    "presigned_query_in_final_url": true,
+    "action": "HUMAN: fix sanitizer and strip query from receipt (outside Git)"
+  },
+  "m7_impact": {
+    "clear_width_m_candidates": 0,
+    "pilot_edges": 15,
+    "readiness_changed": false,
+    "values_inferred": false,
+    "highway_class_inference": false
+  },
+  "claims": {
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false
+  }
+}
