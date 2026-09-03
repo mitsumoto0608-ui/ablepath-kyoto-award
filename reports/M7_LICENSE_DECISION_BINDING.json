@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-03",
+  "LICENSE_REVIEW_PROCESS_COMPLETE": true,
+  "process_complete_basis": "human direction 2026-09-03 (task pack CODEX_M7_AUTONOMOUS_RESEARCH_CONTRACT_CLOSURE_V2 §0): 「license最終確認は完了済み」",
+  "LICENSE_DECISION_ARTIFACT_BINDING": "NOT_YET_MACHINE_BOUND",
+  "artifact_search": {
+    "repo": [
+      "reports/LICENSE_DECISION.md (ROOT_LICENSE_SELECTED=false, PUBLIC_DISTRIBUTION_AUTHORIZED=false, 2026-08-30)",
+      "reports/DATA_LICENSE_DECISION_MATRIX.csv (all HUMAN_GATE/NOT_AUTHORIZED)",
+      "reports/PLATEAU_DERIVED_BUILDING_LIST_LICENSE_GATE.json (HOLD)",
+      "data/ATTRIBUTION.md"
+    ],
+    "local_roots_searched": [
+      "ablepath-raw",
+      "ablepath-overnight-official-data-m7-workflow",
+      "Dropbox a行政ハッカソン (depth 5)",
+      "Downloads"
+    ],
+    "final_scope_decision_artifact_found": false
+  },
+  "scopes": {
+    "private_internal_analysis": {
+      "status": "CONTINUE",
+      "basis": "human statement: review process complete; internal development continues"
+    },
+    "private_git_repository": {
+      "status": "CONTINUE",
+      "basis": "same; branch stays in private repo mitsumoto0608-ui/ablepath-kyoto-award"
+    },
+    "internal_rc": {
+      "status": "CONTINUE_INTERNAL_ONLY",
+      "basis": "deterministic internal RC allowed; not a public archive"
+    },
+    "public_git": {
+      "status": "NOT_AUTHORIZED",
+      "basis": "no explicit scope decision artifact; PUBLIC_DISTRIBUTION_AUTHORIZED=false remains"
+    },
+    "public_rc": {
+      "status": "NOT_AUTHORIZED",
+      "basis": "same"
+    },
+    "public_demo": {
+      "status": "NOT_AUTHORIZED",
+      "basis": "same"
+    }
+  },
+  "PUBLIC_REDISTRIBUTION_ALLOWED": false,
+  "public_release_ready": false,
+  "binding_instructions": "Place the final scope decision (signed/dated, per asset class and per scope) at reports/LICENSE_FINAL_SCOPE_DECISION.json; a future run binds it here and flips LICENSE_DECISION_ARTIFACT_BINDING to MACHINE_BOUND. Do not re-open generic license review.",
+  "no_legal_conclusion_drawn": true
+}
