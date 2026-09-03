@@ -43,7 +43,8 @@
     "kyoto_hazard_status_rows": {"kyoto_kiyomizu": 15, "kyoto_arashiyama": 5},
     "fujisawa_hazard_scenario_rows": 18,
     "required_screenshot_name_count": 19,
-    "screenshot_binary_committed": false
+    "screenshot_binary_committed": false,
+    "screenshot_binary_committed_scope": "Applies to the Hosted-CI screenshot receipts listed above only. Three legacy 2D screenshots (reports/UI_SCREENSHOTS/*-2d.png, 1,939,205 bytes) ARE git-tracked from an earlier phase; see CLAUDE_TAKEOVER_AUDIT TK-06. Removal is a human decision (history rewrite prohibited)."
   },
   "validation": {
     "python_tests": "568 passed, 1 warning",
