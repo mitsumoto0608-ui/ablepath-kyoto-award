@@ -1,5 +1,7 @@
 # CLAUDE_TAKEOVER_AUDIT — Codex→Claude Code 移管監査（第1run・無変更）
 
+> **解決状況（task/claude-post-pr10-evidence-closure-v1 での更新）**: TK-01・TK-03・TK-04・TK-05・TK-06(申告訂正)・TK-11 は本ブランチで解決済み（`git log b64b5d0..HEAD`）。TK-02（viewer計算のsrc側移管）・TK-06のPNG削除・TK-07・TK-08・TK-09・TK-10・TK-12は未解決（人間裁定または後続タスク）。TK-13はNEEのまま。§7の「無変更」は第1run時点の記述。
+
 実施: 2026-09-03／方式: read-only。primary worktree（C:\dev\ablepath-kyoto-award）は無変更（`GIT_OPTIONAL_LOCKS=0`で参照のみ）。監査はbundle `official-data-to-m7-evidence-v1.bundle` をコンテナへ複製し、PR #10 head `b64b5d0` の**detached isolated worktree**で実施。独立サブ監査2班（Opus: D/ABC班＝M7・データ、E/F班＝UI・生成バイト）＋統合者。GitHub API/Webへの照会は行っていない（PR状態・CI runは**pack申告のまま＝未独立確認**）。
 
 ## 1. TAKEOVER_PRE-FLIGHT（照合結果）
