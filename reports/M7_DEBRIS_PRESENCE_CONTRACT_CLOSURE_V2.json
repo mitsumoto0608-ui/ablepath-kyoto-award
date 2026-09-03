@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.0.0",
+  "contract_id": "M7_DEBRIS_PRESENCE_INPUT_CONTRACT_V2",
+  "generated_at": "2026-09-03",
+  "status_flags": {
+    "M7_DEBRIS_CONTRACT_PACKET_READY": true,
+    "M7_DEBRIS_VALIDATOR_READY": true,
+    "M7_DEBRIS_PRODUCTION_FROZEN": false,
+    "M7_REAL_DEBRIS_BOOL_READY_COUNT": 0
+  },
+  "status_flag_notes": {
+    "M7_DEBRIS_VALIDATOR_READY": true,
+    "M7_REAL_DEBRIS_BOOL_READY_COUNT": "0 unless direct building-level evidence is discovered and fully validated."
+  },
+  "schema_path": "schemas/m7_debris_presence_evidence_v2.schema.json",
+  "contract_doc_path": "docs/review/M7_DEBRIS_PRESENCE_INPUT_CONTRACT_V2.md",
+  "core_api_unchanged": true,
+  "moya_extent_equations_unchanged": true,
+  "m7_invoked": false,
+  "current_v2_values": {
+    "nearest_geometry_distance_m": "PROXY_NOT_SETBACK",
+    "m7_eligible": false
+  },
+  "enums": {
+    "debris_evidence_kind": [
+      "OBSERVED",
+      "OFFICIAL_ASSET_LEVEL_SCENARIO",
+      "CONDITIONAL_PROBABILITY",
+      "EXPERIMENTAL_STOCHASTIC_REALIZATION",
+      "UNKNOWN"
+    ],
+    "extent_variant": [
+      "mean_case",
+      "sensitivity_high_case",
+      null
+    ],
+    "validation_status": [
+      "ACCEPTED",
+      "PENDING_HUMAN_FREEZE",
+      "REJECTED",
+      "RECORD_ONLY"
+    ]
+  },
+  "m7_eligibility": {
+    "OBSERVED": "eligible after accepted observed boolean with source/revision/sha256",
+    "OFFICIAL_ASSET_LEVEL_SCENARIO": "eligible after accepted official building-level boolean",
+    "CONDITIONAL_PROBABILITY": "never directly eligible",
+    "EXPERIMENTAL_STOCHASTIC_REALIZATION": "not production eligible until human-frozen",
+    "UNKNOWN": "never eligible; never falls back to false"
+  },
+  "human_freeze_items": [
+    "[ ] debris_present が presence であり extent ではないことを確認する",
+    "[ ] Moya Eq.7 を原論文で確認し、条件付き確率モデルの版を凍結する",
+    "[ ] 倒壊から瓦礫の道路到達を自動的に導かないことを確認する",
+    "[ ] 確率をしきい値で bool 化しないことを確認する",
+    "[ ] 不明な debris を false に落とさないことを確認する",
+    "[ ] EXPERIMENTAL_STOCHASTIC_REALIZATION の seed / scenario_id / generator の固定要件を凍結する",
+    "[ ] 観測 bool の受領書様式（観測時刻・撤去後の変化の扱い）を凍結する",
+    "[ ] damage_state=DAMAGED と debris_present=true の矛盾規則を damage 契約と整合させる",
+    "[ ] extent_model_id / extent_variant が presence 判定に一切影響しないことを確認する"
+  ],
+  "validator_module": "src/analysis/m7_evidence_contracts.py",
+  "validator_tests": "tests/analysis/test_m7_evidence_contracts.py"
+}
