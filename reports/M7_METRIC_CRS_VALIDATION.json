@@ -591,6 +591,12 @@
         "text": "本番計算環境で pinned PROJ/GDAL 版を固定し、同一 control point で再現確認する（GDAL は本検証環境に未導入）",
         "checked": false
       }
-    ]
+    ],
+    "M7_METRIC_CRS_TECHNICAL_VALIDATION_READY": true,
+    "M7_METRIC_CRS_PRODUCTION_FROZEN": false,
+    "area_of_use_source_check": {
+      "EPSG_registry": "via PROJ 9.5.1 database",
+      "JGSI_notice": "平成14年国土交通省告示第9号 IX系（神奈川県を含む）— TO_BE_CONFIRMED_BY_HUMAN against the original notice text"
+    }
   }
 }
