@@ -2,7 +2,7 @@
 
 `SETBACK_METHOD_STATUS=PROPOSAL_REQUIRED_NOT_FROZEN`（V1 から変更なし）
 
-V2 で追加された `proximity_min_footprint_vertex_to_edge_m` は **setback ではない**。
+V2 で追加された `nearest_geometry_distance_m`（method_status=PROXY_NOT_SETBACK, m7_eligible=false） は **setback ではない**。
 これは「候補建物の lod0RoofEdge 頂点と OSM 由来 candidate edge 折れ線との最短距離（局所等距円筒近似、m）」で、
 レビュー用の近接指標に過ぎない。理由:
 
