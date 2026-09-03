@@ -68,79 +68,92 @@
       "id": "TK-01",
       "severity": "HIGH",
       "summary": "viewer analysis JSON source_hashes stale vs repo bytes (6 hashes)",
-      "file": "viewer/public/data/analysis/*.json; viewer/scripts/build-map-artifacts.mjs:85-91"
+      "file": "viewer/public/data/analysis/*.json; viewer/scripts/build-map-artifacts.mjs:85-91",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-02",
       "severity": "HIGH",
       "summary": "DES-14 unresolved: viewer build script computes Dijkstra/path_matrix/M7 aggregation",
-      "file": "viewer/scripts/build-map-artifacts.mjs:104-134"
+      "file": "viewer/scripts/build-map-artifacts.mjs:104-134",
+      "status": "OPEN"
     },
     {
       "id": "TK-03",
       "severity": "MEDIUM",
       "summary": "commit manifest lists 10 of 12 commits (missing 7cb7c50, b64b5d0)",
-      "file": "reports/OVERNIGHT_NEW_WORK_COMMIT_MANIFEST.json"
+      "file": "reports/OVERNIGHT_NEW_WORK_COMMIT_MANIFEST.json",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-04",
       "severity": "MEDIUM",
       "summary": "official layer copied_sha256 hashes source path, not delivered bytes",
-      "file": "viewer/scripts/build-map-artifacts.mjs:68,95"
+      "file": "viewer/scripts/build-map-artifacts.mjs:68,95",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-05",
       "severity": "MEDIUM",
       "summary": "rebuild test does not compare against committed delivered bytes",
-      "file": "tests/ui/official_data_layers.test.mjs:13-51"
+      "file": "tests/ui/official_data_layers.test.mjs:13-51",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-06",
       "severity": "MEDIUM",
       "summary": "screenshot_binary_committed:false is false; 3 PNG (1.94MB) tracked",
-      "file": "reports/OFFICIAL_DATA_TO_M7_FINAL_STATUS.json:46; reports/UI_SCREENSHOTS/"
+      "file": "reports/OFFICIAL_DATA_TO_M7_FINAL_STATUS.json:46; reports/UI_SCREENSHOTS/",
+      "status": "CLAIM_CORRECTED_PNG_REMOVAL_HUMAN_DECISION"
     },
     {
       "id": "TK-07",
       "severity": "MEDIUM",
       "summary": "generator of M7_ALL_EDGE_EVIDENCE_READINESS.json not tracked (verifiable, not regenerable)",
-      "file": "reports/M7_ALL_EDGE_EVIDENCE_READINESS.json"
+      "file": "reports/M7_ALL_EDGE_EVIDENCE_READINESS.json",
+      "status": "OPEN"
     },
     {
       "id": "TK-08",
       "severity": "MEDIUM",
       "summary": "receipts missing license/CRS/source_url fields",
-      "file": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/source_receipts.json; OFFICIAL-LOCAL-ARTIFACT-PROMOTION-V2/source_bindings.json"
+      "file": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/source_receipts.json; OFFICIAL-LOCAL-ARTIFACT-PROMOTION-V2/source_bindings.json",
+      "status": "OPEN"
     },
     {
       "id": "TK-09",
       "severity": "MEDIUM",
       "summary": "exact-count assertions (non-zero) will break on legitimate additions",
-      "file": "tests/data,tests/realdata,tests/ui"
+      "file": "tests/data,tests/realdata,tests/ui",
+      "status": "OPEN"
     },
     {
       "id": "TK-10",
       "severity": "LOW",
       "summary": "evidence_ready_count literal 0; synthetic facility_record_id for blank IDs",
-      "file": "scripts/build_kyoto_official_parity.py:414,220"
+      "file": "scripts/build_kyoto_official_parity.py:414,220",
+      "status": "OPEN"
     },
     {
       "id": "TK-11",
       "severity": "LOW",
       "summary": "analysis JSON / map-layers.json not in LF allowlist",
-      "file": ".gitattributes"
+      "file": ".gitattributes",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-12",
       "severity": "LOW",
       "summary": "local repo hygiene: main diverged (112dbe9), stale local branches, 70 prunable worktrees",
-      "file": "C:\\dev\\ablepath-kyoto-award"
+      "file": "C:\\dev\\ablepath-kyoto-award",
+      "status": "OPEN"
     },
     {
       "id": "TK-13",
       "severity": "NEE",
       "summary": "GitHub PR/CI state, E2E, CORRECTED_V2 SHA, raw Dropbox SHA not independently verified",
-      "file": "-"
+      "file": "-",
+      "status": "OPEN"
     }
   ],
   "next_branch": "task/claude-post-pr10-evidence-closure-v1",
@@ -152,5 +165,6 @@
     "branches_tags_modified": false,
     "m6_hokonavi_frozen": false,
     "m7_inputs_guessed": false
-  }
+  },
+  "resolution_branch": "task/claude-post-pr10-evidence-closure-v1"
 }

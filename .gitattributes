@@ -59,3 +59,8 @@ viewer/public/data/official/a31b_kiyomizu_gion_display.geojson text eol=lf
 viewer/public/data/official/a31b_arashiyama_display.geojson text eol=lf
 viewer/public/data/official/facility_points_kiyomizu_gion.geojson text eol=lf
 viewer/public/data/official/facility_points_arashiyama.geojson text eol=lf
+# Claude takeover closure (TK-11): generated analysis/catalog bytes are hash-bound and byte-compared by tests
+viewer/public/data/analysis/kyoto_kiyomizu.json text eol=lf
+viewer/public/data/analysis/kyoto_arashiyama.json text eol=lf
+viewer/public/data/analysis/fujisawa_enoshima.json text eol=lf
+viewer/public/data/maps/map-layers.json text eol=lf

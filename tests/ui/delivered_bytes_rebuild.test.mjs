@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
+import { mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs";
+import { assertDeliveredOfficialArtifacts, buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs";
 
 // TK-01 / TK-05 (CLAUDE_TAKEOVER_AUDIT): the committed viewer data must equal a fresh deterministic rebuild
 // from the current repository bytes. Otherwise the UI shows stale source-hash provenance.
@@ -32,6 +32,7 @@ test("[source_conformance] committed viewer maps/official/analysis bytes equal a
     for (const directory of ["maps", "official", "analysis"]) {
       const rebuilt = listFiles(join(rebuiltRoot, directory));
       const committed = listFiles(join(DELIVERED_ROOT, directory));
+      assert.deepEqual(committed, rebuilt, `${directory}: committed file set must equal the rebuilt file set (no orphan or missing generated files)`);
       for (const relative of rebuilt) {
         assert.ok(committed.includes(relative), `${directory}/${relative} is rebuilt but not committed`);
         const rebuiltBytes = readFileSync(join(rebuiltRoot, directory, relative));
@@ -88,4 +89,20 @@ test("[source_conformance] official display_layer copied_sha256 equals delivered
   }
   const fujisawa = readJson(join(DELIVERED_ROOT, "analysis", "fujisawa_enoshima.json"));
   assert.equal(fujisawa.official_evidence.facility.display_layer ?? null, null, "Fujisawa ADDRESS_ONLY table must not ship a display layer");
+});
+
+test("[software_correctness] official delivered-byte mismatch fails closed before analysis delivery", () => {
+  const scratch = mkdtempSync(join(tmpdir(), "ablepath-official-delivered-mutated-"));
+  try {
+    const officialDirectory = join(scratch, "official");
+    buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: join(scratch, "maps") });
+    const analysis = readJson(join(scratch, "analysis", "kyoto_arashiyama.json"));
+    const built = [{ city_id: "kyoto_arashiyama", official_evidence: analysis.official_evidence }];
+    assert.doesNotThrow(() => assertDeliveredOfficialArtifacts(built, officialDirectory));
+    const target = join(officialDirectory, "a31b_arashiyama_display.geojson");
+    writeFileSync(target, Buffer.concat([readFileSync(target), Buffer.from("\n")]));
+    assert.throws(() => assertDeliveredOfficialArtifacts(built, officialDirectory), /official delivered byte SHA-256 mismatch/);
+  } finally {
+    rmSync(scratch, { recursive: true, force: true });
+  }
 });
