@@ -65,7 +65,7 @@ function readOfficialEvidence(root, cityId, override = {}, m7Override = {}) {
         record_count: records.length,
         records,
         categories,
-        display_layer: { data_path: `./data/official/facility_points_${parityGroup}.geojson`, artifact_sha256: hash(pointPath), copied_sha256: hash(pointPath), feature_count: pointData.features.length },
+        display_layer: { data_path: `./data/official/facility_points_${parityGroup}.geojson`, artifact_sha256: hash(pointPath), copied_sha256: null, feature_count: pointData.features.length },
         reason: "Three official categories are displayed from source-provided longitude/latitude only. Emergency-open-space and temporary-stay rows remain metadata-only; opening, entrance, accessibility, safety, and disaster usability are UNKNOWN.",
       };
     })() : { status: "NOT_CONNECTED", record_count: 0, reason: "No official facility evidence is connected." };
@@ -92,7 +92,7 @@ function readOfficialEvidence(root, cityId, override = {}, m7Override = {}) {
     },
     subareas,
     terrain: { status: cityTruth ? "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED" : "NOT_CONNECTED", reason: cityTruth ? parityAoi.terrain.reason : terrainReason, connected: false, evidence_ui_connected: Boolean(cityTruth), elevation_sampled: false, step_inferred: false, cross_slope_inferred: false, aoi_validation: cityTruth ? parityAoi.terrain : null, receipt_sha256: terrainPath ? hash(terrainPath) : null, products: terrainProducts },
-    hazard: { status: cityTruth ? "A31B_DISPLAY_CONNECTED_LANDSLIDE_NOT_CONNECTED" : "NOT_CONNECTED", reason: cityTruth ? `A31b is connected for internal display only. Landslide remains NOT_CONNECTED: ${parityAoi.landslide.reason}` : hazardReason, connected: false, display_connected: Boolean(cityTruth), display_feature_count: floodData?.features.length ?? 0, display_layer: cityTruth ? { data_path: `./data/official/a31b_${parityGroup}_display.geojson`, artifact_sha256: hash(floodPath), copied_sha256: hash(floodPath), feature_count: floodData.features.length, display_only: true } : null, closure_derived: false, damage_or_debris_inferred: false, layers: hazardLayers, scenarios },
+    hazard: { status: cityTruth ? "A31B_DISPLAY_CONNECTED_LANDSLIDE_NOT_CONNECTED" : "NOT_CONNECTED", reason: cityTruth ? `A31b is connected for internal display only. Landslide remains NOT_CONNECTED: ${parityAoi.landslide.reason}` : hazardReason, connected: false, display_connected: Boolean(cityTruth), display_feature_count: floodData?.features.length ?? 0, display_layer: cityTruth ? { data_path: `./data/official/a31b_${parityGroup}_display.geojson`, artifact_sha256: hash(floodPath), copied_sha256: null, feature_count: floodData.features.length, display_only: true } : null, closure_derived: false, damage_or_debris_inferred: false, layers: hazardLayers, scenarios },
     facility,
     plateau: { status: "NOT_CONNECTED", aoi_count: subareas.length, aoi_scope: subareas, inventory: plateauInventory, inventory_connected: Boolean(cityTruth), fallback: plateau.fallback, m7_evidence_ready_count: plateau.m7_evidence_ready_count, m7_computed_count: plateau.m7_computed_count, reason: "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer." },
     m7: { status: "NOT_COMPUTED", all_edge_count: m7.all_edge_count, deep_pilot_count: m7.deep_pilot_count, evidence_ready_count: m7.evidence_ready_count, computed_count: m7.computed_count, city_edge_count: edgeReceipts.length, edge_receipts_source_sha256: hash(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json")), kyoto_deep_pilot_edges: kyotoPilotEdges, city_limitations: m7.subarea_limitations[cityId] ?? "No reviewed source-traceable per-edge M7 inputs are connected.", reason: "M7 is not connected to real candidate edges; every Kyoto pilot exposes field-level evidence candidates and next acquisition without inferring setback, damage, or debris." },
@@ -162,6 +162,21 @@ export function assertDeliveredMapArtifacts(catalog, outputRoot) {
   return catalog;
 }
 
+export function assertDeliveredOfficialArtifacts(built, officialDirectory) {
+  // TK-04: copied_sha256 must be the SHA-256 of the DELIVERED bytes (re-read from the output directory),
+  // never the staging/source path hash. artifact_sha256 stays the source hash; both must agree for an exact byte copy.
+  for (const city of built) {
+    for (const layer of [city.official_evidence.facility?.display_layer, city.official_evidence.hazard?.display_layer]) {
+      if (!layer) continue;
+      const deliveredPath = join(officialDirectory, layer.data_path.replace("./data/official/", ""));
+      const actual = hash(deliveredPath);
+      if (actual !== layer.artifact_sha256) throw new Error(`${city.city_id} official delivered byte SHA-256 mismatch: expected ${layer.artifact_sha256}, got ${actual}`);
+      layer.copied_sha256 = actual;
+    }
+  }
+  return built;
+}
+
 export function buildMapArtifacts({ repoRoot, outputRoot, officialEvidenceOverride, m7EvidenceOverride }) {
   const root = repoRoot instanceof URL ? fileURLToPath(repoRoot) : resolve(repoRoot); const output = outputRoot instanceof URL ? fileURLToPath(outputRoot) : resolve(outputRoot);
   const built = CITY_INPUTS.map((input) => { const official_evidence = readOfficialEvidence(root, input.id, officialEvidenceOverride, m7EvidenceOverride); const m7_readiness = json(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json")).edges.filter((edge) => edge.city_id === input.id); return { ...artifact(root, input), official_evidence, m7_readiness }; }); mkdirSync(output, { recursive: true });
@@ -175,6 +190,7 @@ export function buildMapArtifacts({ repoRoot, outputRoot, officialEvidenceOverri
   for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
     copyFileSync(join(parityRoot, filename), join(officialDirectory, filename));
   }
+  assertDeliveredOfficialArtifacts(built, officialDirectory);
   const analysisDirectory = join(dirname(output), "analysis"); mkdirSync(analysisDirectory, { recursive: true });
   for (const city of built) writeFileSync(join(analysisDirectory, `${city.city_id}.json`), `${JSON.stringify(analysisFor(city), null, 2)}\n`);
   const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, official_evidence, m7_readiness, ...city }) => city) };
