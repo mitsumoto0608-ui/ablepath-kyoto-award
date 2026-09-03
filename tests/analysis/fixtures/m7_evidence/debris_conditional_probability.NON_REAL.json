@@ -1,0 +1,27 @@
+{
+  "building_id": "NON-REAL-bldg-000002",
+  "conditional_on_damage_state": "COMPLETE_COLLAPSE",
+  "damage_state_evidence_id": "NON-REAL-DMG-0002",
+  "debris_evidence_kind": "CONDITIONAL_PROBABILITY",
+  "extent_model_id": "NON-REAL-EXTENT-MODEL",
+  "extent_variant": "mean_case",
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "A probability is never a boolean."
+  ],
+  "mapping_to_m7_core": null,
+  "observed_debris_present": null,
+  "probability_model_id": "NON-REAL-P-MODEL",
+  "probability_model_version": "TO_BE_VERIFIED",
+  "probability_of_presence": 0.82,
+  "realization_id": null,
+  "realization_method": null,
+  "realization_seed": null,
+  "realized_debris_present": null,
+  "revision_id": "unverified",
+  "scenario_id": "NON-REAL-SCENARIO-001",
+  "schema_version": "2.0.0",
+  "source_id": "NON-REAL-PROBABILITY-MODEL",
+  "source_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+  "validation_status": "RECORD_ONLY"
+}

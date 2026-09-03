@@ -1,0 +1,29 @@
+{
+  "building_id": "NON-REAL-bldg-000003",
+  "building_taxonomy": null,
+  "damage_state_probabilities": null,
+  "damage_taxonomy_id": null,
+  "damage_taxonomy_version": null,
+  "evidence_kind": "UNKNOWN",
+  "fragility_model_id": null,
+  "fragility_model_version": null,
+  "intensity_measure_type": "JMA_INSTRUMENTAL_SEISMIC_INTENSITY",
+  "intensity_measure_value": 6.2,
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "Mesh intensity is exposure, not damage."
+  ],
+  "mapping_status": "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+  "mapping_to_m7_core": null,
+  "observation_or_model_time": null,
+  "realization_id": null,
+  "realization_method": null,
+  "realization_seed": null,
+  "realized_state": null,
+  "revision_id": "2024",
+  "scenario_id": "NON-REAL-SCENARIO-001",
+  "schema_version": "2.0.0",
+  "source_id": "NON-REAL-INTENSITY-MESH",
+  "source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "validation_status": "RECORD_ONLY"
+}

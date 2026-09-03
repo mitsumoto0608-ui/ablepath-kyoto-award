@@ -1,0 +1,31 @@
+{
+  "boundary_revision_id": "2026",
+  "boundary_role": "OFFICIAL_SIDEWALK_BOUNDARY",
+  "boundary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "boundary_source_id": "NON-REAL-OFFICIAL-0001",
+  "building_geometry_role": "FOOTPRINT_EDGE",
+  "building_id": "NON-REAL-bldg-000001",
+  "building_revision_id": "r1",
+  "building_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "building_source_id": "NON-REAL-BUILDINGS",
+  "coverage_status": "COMPLETE",
+  "edge_id": "NON-REAL-EDGE-0001",
+  "evidence_status": "PENDING_HUMAN_FREEZE",
+  "horizontal_accuracy_m": 0.25,
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "Human freeze receipt not yet issued."
+  ],
+  "measurement_or_derivation_method": "official sidewalk boundary to building footprint edge",
+  "metric_crs": "EPSG:6674",
+  "schema_version": "2.0.0",
+  "setback_status": "OFFICIAL_BOUNDARY_DERIVED",
+  "setback_value_m": 2.1,
+  "side": "RIGHT",
+  "stable_edge_direction": "FROM_NODE_TO_TO_NODE",
+  "station_end_m": 30.0,
+  "station_start_m": 0.0,
+  "transform_id": "NON-REAL-TRANSFORM",
+  "transform_version": "1",
+  "value_uncertainty_m": 0.5
+}
