@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "contract_id": "M7_DAMAGE_STATE_INPUT_CONTRACT_V2",
+  "generated_at": "2026-09-03",
+  "status_flags": {
+    "M7_DAMAGE_STATE_CONTRACT_PACKET_READY": true,
+    "M7_DAMAGE_STATE_VALIDATOR_READY": true,
+    "M7_DAMAGE_STATE_PRODUCTION_FROZEN": false,
+    "M7_REAL_BUILDING_DAMAGE_STATE_READY_COUNT": 0
+  },
+  "status_flag_notes": {
+    "M7_DAMAGE_STATE_VALIDATOR_READY": true,
+    "M7_REAL_BUILDING_DAMAGE_STATE_READY_COUNT": "0 unless an actual building-level source is found and fully validated."
+  },
+  "schema_path": "schemas/m7_damage_state_evidence_v2.schema.json",
+  "contract_doc_path": "docs/review/M7_DAMAGE_STATE_INPUT_CONTRACT_V2.md",
+  "core_api_unchanged": true,
+  "core_accepted_values": [
+    "COLLAPSED",
+    "DAMAGED"
+  ],
+  "m7_invoked": false,
+  "current_v2_values": {
+    "nearest_geometry_distance_m": "PROXY_NOT_SETBACK",
+    "m7_eligible": false
+  },
+  "enums": {
+    "evidence_kind": [
+      "OBSERVED_POST_EVENT",
+      "OFFICIAL_ASSET_LEVEL_SCENARIO",
+      "MODEL_PROBABILITY_DISTRIBUTION",
+      "MODEL_REALIZATION_EXPERIMENTAL",
+      "UNKNOWN"
+    ],
+    "mapping_status": [
+      "MAPPED_EXPLICIT",
+      "NOT_MAPPED",
+      "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+      "PENDING_HUMAN_FREEZE"
+    ],
+    "intensity_measure_type": [
+      "PGA",
+      "PGV",
+      "SA",
+      "SI",
+      "JMA_INSTRUMENTAL_SEISMIC_INTENSITY",
+      "INUNDATION_DEPTH",
+      "LANDSLIDE_ZONE_OVERLAP",
+      "LIQUEFACTION_ZONE_OVERLAP",
+      "HAZARD_EXPOSURE_ONLY",
+      "NOT_APPLICABLE",
+      "UNKNOWN"
+    ],
+    "mapping_to_m7_core": [
+      "COLLAPSED",
+      "DAMAGED",
+      null
+    ],
+    "validation_status": [
+      "ACCEPTED",
+      "PENDING_HUMAN_FREEZE",
+      "REJECTED",
+      "RECORD_ONLY"
+    ]
+  },
+  "m7_eligibility": {
+    "OBSERVED_POST_EVENT": "eligible after accepted, versioned, explicit taxonomy mapping",
+    "OFFICIAL_ASSET_LEVEL_SCENARIO": "eligible after accepted, versioned, explicit building-level mapping",
+    "MODEL_PROBABILITY_DISTRIBUTION": "never directly eligible",
+    "MODEL_REALIZATION_EXPERIMENTAL": "not production eligible; only via human-frozen deterministic realization",
+    "UNKNOWN": "never eligible; never falls back to DAMAGED"
+  },
+  "human_freeze_items": [
+    "[ ] damage_taxonomy_id と damage_taxonomy_version を凍結する",
+    "[ ] 語彙から core の COLLAPSED / DAMAGED への明示写像表を凍結する",
+    "[ ] 曝露のみの指標（500 m メッシュ震度・PGA・SI・浸水・土砂・液状化重畳）を被害状態に使わないことを確認する",
+    "[ ] 建物築年のみで状態を決めないことを確認する",
+    "[ ] 確率分布を core カテゴリへ直接写像しないことを確認する",
+    "[ ] 不明な被害状態を DAMAGED に落とさないことを確認する",
+    "[ ] MODEL_REALIZATION_EXPERIMENTAL を core へ渡す条件（human_freeze_id 付与）を凍結する",
+    "[ ] 建物単位の公式シナリオ出所が存在するかの最終確認と、その受領書様式を凍結する",
+    "[ ] damage_state=DAMAGED と debris_present=true の矛盾規則を debris 契約と整合させる"
+  ],
+  "validator_module": "src/analysis/m7_evidence_contracts.py",
+  "validator_tests": "tests/analysis/test_m7_evidence_contracts.py"
+}

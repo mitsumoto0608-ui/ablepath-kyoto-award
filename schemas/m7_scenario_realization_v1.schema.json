@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.local/schemas/m7_scenario_realization_v1.schema.json",
+  "title": "AblePath M7 scenario realization record (V1, experimental only)",
+  "description": "Reproducibility record for a deterministic realization drawn from probabilistic damage/debris models. It exists so experiments are reproducible without pretending probabilistic outputs are observations. It is experimental_only=true and production_eligible=false by construction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "scenario_version",
+    "hazard_model",
+    "exposure_model",
+    "building_taxonomy_mapping",
+    "fragility_model",
+    "damage_distribution_sha256",
+    "debris_probability_model",
+    "seed",
+    "random_generator",
+    "sample_index",
+    "realization_sha256",
+    "experimental_only",
+    "production_eligible",
+    "human_freeze_id",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hazard_model": {
+      "$ref": "#/$defs/model_ref"
+    },
+    "exposure_model": {
+      "$ref": "#/$defs/model_ref"
+    },
+    "building_taxonomy_mapping": {
+      "$ref": "#/$defs/model_ref"
+    },
+    "fragility_model": {
+      "$ref": "#/$defs/model_ref"
+    },
+    "damage_distribution_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "debris_probability_model": {
+      "$ref": "#/$defs/model_ref"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Pinned seed. An unseeded realization is rejected; null is not permitted."
+    },
+    "random_generator": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Named, versioned generator (e.g. numpy.random.PCG64) so the draw is reproducible."
+    },
+    "sample_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "realization_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "experimental_only": {
+      "const": true
+    },
+    "production_eligible": {
+      "const": false
+    },
+    "human_freeze_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "null until a human freeze exists. Only a non-null human_freeze_id permits a damage/debris evidence record derived from this realization to be considered for core mapping, and even then production_eligible stays false at this contract version."
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "model_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "model_version",
+        "source_sha256"
+      ],
+      "properties": {
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "x-ablepath": {
+    "contract_id": "M7_SCENARIO_REALIZATION_CONTRACT_V1",
+    "contract_doc_path": "docs/review/M7_SCENARIO_REALIZATION_CONTRACT_V1.md",
+    "core_api_unchanged": true,
+    "m7_eligibility": {
+      "experimental_only=true": "never production eligible at this contract version",
+      "human_freeze_id=null": "no derived record may be mapped to the M7 core",
+      "human_freeze_id!=null": "derived damage/debris records may be considered for core mapping only under a separate frozen contract; this record alone never authorises it"
+    },
+    "prohibited_derivations": [
+      "running real-edge production M7 from this contract",
+      "unseeded or generator-unspecified realization",
+      "presenting a realization as an observation",
+      "promoting a realization while human_freeze_id is null",
+      "setting production_eligible=true at this contract version",
+      "calling calculate_residual_width from the disabled adapter"
+    ],
+    "core_mapping_allowed_from": [],
+    "adapter_rules": [
+      "the adapter may build an experimental/reference input object only",
+      "the adapter must expose production_eligible=false",
+      "the adapter must refuse to call calculate_residual_width",
+      "synthetic fixtures only; output labelled NON_REAL / EXPERIMENTAL"
+    ]
+  }
+}
