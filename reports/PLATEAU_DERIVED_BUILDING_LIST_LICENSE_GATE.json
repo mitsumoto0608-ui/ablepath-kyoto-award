@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "PLATEAU_DERIVED_BUILDING_LIST_LICENSE_GATE",
+  "generated_at": "2026-09-03",
+  "PLATEAU_PUBLIC_REDISTRIBUTION_READY": false,
+  "gate_values": {
+    "INTERNAL_PRIVATE_USE": "REVIEW_CANDIDATE",
+    "PUBLIC_REDISTRIBUTION": "HOLD"
+  },
+  "legal_conclusion_drawn": false,
+  "legal_conclusion_note": "本書は repo 内の受領書・ライセンス台帳に記録された事実の整理であり、法的結論ではない。条項の正確な文言は全て TO_BE_CONFIRMED_BY_HUMAN。",
+  "derived_artefact": {
+    "primary": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json",
+    "contents": "建物 stable ID（uro:buildingID）／gml_id／mesh_file／LOD 一覧／公式高さ bldg:measuredHeight／uro:lod1HeightType／thematicSrc コード／usage コード／survey_year／edge との近接距離。geometry は含まない。",
+    "candidate_count": 347,
+    "unique_building_count": 288,
+    "area_count": 15,
+    "geometry_included": false,
+    "setback_included": false,
+    "damage_state_included": false,
+    "debris_present_included": false,
+    "accompanying_reports": [
+      "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_HEIGHT_EVIDENCE_MATRIX.csv",
+      "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/PLATEAU_BUILDING_AOI_INVENTORY.csv",
+      "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_SETBACK_METHOD_STATUS.md",
+      "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/source_receipts.json",
+      "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/README.md"
+    ]
+  },
+  "source_packages": [
+    {
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "city_code": "26100",
+      "sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "license_matrix_redistribution_status": "LICENSE_REVIEW_REQUIRED",
+      "license_matrix_handoff_status": "LICENSE_REVIEW_REQUIRED"
+    },
+    {
+      "dataset_id": "plateau_fujisawa_2025_citygml_v5",
+      "city_code": "14205",
+      "sha256": "7e85ff8e1642b9c2cc627f356acedbe792e95fac25febe2ee70c9312d6c415ea",
+      "license_matrix_redistribution_status": "LICENSE_REVIEW_REQUIRED",
+      "license_matrix_handoff_status": "LICENSE_REVIEW_REQUIRED"
+    }
+  ],
+  "terms_as_recorded_in_repo": [
+    {
+      "clause_id": "PLATEAU_SITE_POLICY_S3",
+      "as_recorded_in_repo": "reports/PHASE4_SOURCE_LICENSE_MATRIX.csv の plateau_kyoto_2025_citygml_v5 / plateau_fujisawa_2025_citygml_v5 行の license 欄に「PLATEAU Site Policy section 3 / embedded source terms」と記録",
+      "redistribution_status_as_recorded": "LICENSE_REVIEW_REQUIRED",
+      "handoff_status_as_recorded": "LICENSE_REVIEW_REQUIRED",
+      "human_action_as_recorded": "Review dataset-specific license/redistribution terms and package CRS/integrity before promotion.",
+      "exact_wording": "TO_BE_CONFIRMED_BY_HUMAN"
+    },
+    {
+      "clause_id": "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+      "as_recorded_in_repo": "data/ATTRIBUTION.md では京都府／京都市系の出典について「多くは政府標準利用規約/CC BY 系だが個別に確認して版を記録」と記録。政府標準利用規約（第2.0版）互換の主張は PLATEAU 個別データセットに対しては repo 内で未確定。",
+      "redistribution_status_as_recorded": "UNRESOLVED",
+      "handoff_status_as_recorded": "UNRESOLVED",
+      "human_action_as_recorded": "版と条項番号を人間が確認して記録する",
+      "exact_wording": "TO_BE_CONFIRMED_BY_HUMAN"
+    },
+    {
+      "clause_id": "CC_BY_4_0_COMPATIBLE",
+      "as_recorded_in_repo": "data/ATTRIBUTION.md の帰属雛形に「出典：国土交通省 3D都市モデル（Project PLATEAU）京都市（CC BY 4.0互換の利用規約に従う。版・URLを追記）」と記録",
+      "redistribution_status_as_recorded": "CLAIMED_IN_ATTRIBUTION_TEMPLATE_BUT_LICENSE_MATRIX_SAYS_REVIEW_REQUIRED",
+      "handoff_status_as_recorded": "CONTRADICTION_TO_BE_RESOLVED_BY_HUMAN",
+      "human_action_as_recorded": "ATTRIBUTION.md の「CC BY 4.0互換」表記と license matrix の LICENSE_REVIEW_REQUIRED の不一致を人間が解消する",
+      "exact_wording": "TO_BE_CONFIRMED_BY_HUMAN"
+    }
+  ],
+  "attribution_template_as_recorded": "出典：国土交通省 3D都市モデル（Project PLATEAU）京都市／藤沢市（利用規約に従う。版・URL を追記）※ 文言・版は TO_BE_CONFIRMED_BY_HUMAN",
+  "usage_contexts": [
+    {
+      "context_id": "INTERNAL_PRIVATE_ANALYSIS",
+      "label": "内部の非公開分析（Git 外の作業・ローカル計算）",
+      "what_is_shared": "M7_BUILDING_SIDE_CANDIDATES.json（建物 ID・高さ・コード・近接値、geometry なし）と本レポート群を、プロジェクト内部の作業者のみが参照する。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "内部でも出典表記（雛形）を成果物に付す運用を推奨。必須か否かは TO_BE_CONFIRMED_BY_HUMAN。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 内部利用の範囲では原本の再配布に当たらないと **仮定** しているが、これは法的結論ではなくレビュー対象。",
+      "risk_notes": [
+        "原本 ZIP は Git 外 read-only 検査で、raw_tracked_in_git=false を維持する必要がある。",
+        "内部利用でも出典表示の運用を先に決めておかないと、公開段階で遡及的に不足する。",
+        "license matrix は当該データセットを LICENSE_REVIEW_REQUIRED としており、内部利用可という積極的判断は repo 内に存在しない。"
+      ],
+      "current_gate": "REVIEW_CANDIDATE"
+    },
+    {
+      "context_id": "PRIVATE_GIT_REPOSITORY",
+      "label": "非公開 Git リポジトリへの格納",
+      "what_is_shared": "上記 JSON・CSV・md を非公開リポジトリにコミットし、アクセス権のある関係者が閲覧する。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "リポジトリ内 ATTRIBUTION に PLATEAU 出典と版を記載。必須性は TO_BE_CONFIRMED_BY_HUMAN。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 内部利用の範囲では原本の再配布に当たらないと **仮定** しているが、これは法的結論ではなくレビュー対象。",
+      "risk_notes": [
+        "アクセス権者の範囲が将来拡大した場合、実質的に第三者提供へ変わる。権限リストの管理が前提。",
+        "非公開リポジトリが誤って public 化されると即座に公開再配布になる（不可逆）。",
+        "raw ZIP・GML・geometry を混入させない CI ゲートが必要。"
+      ],
+      "current_gate": "REVIEW_CANDIDATE"
+    },
+    {
+      "context_id": "INTERNAL_RC",
+      "label": "内部向け RC（関係者限定のリリース候補ビルド）",
+      "what_is_shared": "派生 JSON と本レポート群を含む RC 成果物を、プロジェクト関係者・想定利用行政の担当者に限定配布する。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "RC 成果物内に PLATEAU 出典表記を明示。文言は TO_BE_CONFIRMED_BY_HUMAN。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 内部利用の範囲では原本の再配布に当たらないと **仮定** しているが、これは法的結論ではなくレビュー対象。",
+      "risk_notes": [
+        "「限定配布」の相手方が組織外に及ぶ場合、公開再配布に近づく。配布先の定義が必要。",
+        "RC が行政検証済み・安全判断可能と誤読されないよう、成果物側の非主張表示が必要。",
+        "配布物のスナップショットは回収できない。"
+      ],
+      "current_gate": "REVIEW_CANDIDATE"
+    },
+    {
+      "context_id": "PUBLIC_GIT",
+      "label": "公開 Git リポジトリ",
+      "what_is_shared": "建物 ID・高さ・コード・近接値を含む派生 JSON を、誰でも取得できる形で公開する。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "公開する場合は出典表記＋版＋URL が必須になると想定されるが、条項確認まで判断保留。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 公開は原本由来 ID と属性値の外部提供にあたるため、再配布条項の適用可否を人間が判断するまで保留。",
+      "risk_notes": [
+        "PLATEAU 個別データセットの再配布条項が未確認（license matrix: LICENSE_REVIEW_REQUIRED）。",
+        "ATTRIBUTION.md の「CC BY 4.0 互換」表記と license matrix の未確認状態が矛盾しており、公開の根拠にならない。",
+        "公開は取り消しが効かない（fork・アーカイブ）。",
+        "建物 ID 単位の属性公開は、特定の建物に関する示唆と受け取られうる。"
+      ],
+      "current_gate": "HOLD"
+    },
+    {
+      "context_id": "PUBLIC_RC",
+      "label": "公開 RC（一般に配布されるリリース候補）",
+      "what_is_shared": "同上の派生 JSON およびレポートを一般配布物に同梱する。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "配布物内の出典表示および版記録が必要と想定。条項確認まで判断保留。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 公開は原本由来 ID と属性値の外部提供にあたるため、再配布条項の適用可否を人間が判断するまで保留。",
+      "risk_notes": [
+        "公開 Git と同じ再配布条項リスクに加え、配布物としての利用条件表示義務の有無が未確認。",
+        "第三者が再配布物をさらに再配布する連鎖について、条項が要求する条件の継承が未整理。",
+        "OSM 由来 edge と組み合わせた成果物は ODbL の派生データベース条件も別途判断が必要（data/ATTRIBUTION.md：public release 前に人間確認）。"
+      ],
+      "current_gate": "HOLD"
+    },
+    {
+      "context_id": "PUBLIC_DEMO",
+      "label": "公開デモ（ビューア等での表示）",
+      "what_is_shared": "派生値を画面上で表示する（建物 ID・高さの表示、近接値の表示など）。geometry は含まないため建物形状は描画しない。",
+      "relevant_terms_clauses": [
+        "PLATEAU_SITE_POLICY_S3",
+        "GOV_STANDARD_TERMS_V2_COMPATIBLE",
+        "CC_BY_4_0_COMPATIBLE"
+      ],
+      "attribution_requirement": "画面上に PLATEAU 出典表記が必要と想定。文言・掲出位置は TO_BE_CONFIRMED_BY_HUMAN。",
+      "derived_data_status": "PLATEAU CityGML 原本から抽出した属性のみの派生物（stable building ID・公式高さ・lod1HeightType・thematicSrc/usage コード・survey_year・edge との近接距離）。geometry（footprint 座標・LOD ソリッド）は含まない。原本の実質的部分にあたるか否か（＝派生データの再配布可否）は未判断。 公開は原本由来 ID と属性値の外部提供にあたるため、再配布条項の適用可否を人間が判断するまで保留。",
+      "risk_notes": [
+        "画面表示は再配布とは別の論点だが、値の取得が可能な形（API・JSON 同梱）であれば実質的に再配布になる。",
+        "デモ表示は行政検証済み・安全判断可能という誤読を最も招きやすい。表示上の非主張ラベルが前提。",
+        "M7 未実行・damage_state/debris_present が null である事実を表示しないと、値の意味が誤解される。",
+        "PLATEAU 由来である旨の画面上出典表示が必要と想定。"
+      ],
+      "current_gate": "HOLD"
+    }
+  ],
+  "unrelated_but_recorded_prohibition": {
+    "item": "京都市道路台帳平面図",
+    "recorded_in": "data/ATTRIBUTION.md「使ってはいけない出典」／docs/reference/DESIGN.md",
+    "content_as_recorded": "無断複製・加工・派生著作物の作成・営利利用が禁止。スクレイピング・転記・座標取得など本製品のデータソースとしての利用を一切禁止（画面目視の参考にとどめる）。",
+    "relation_to_plateau": "本ゲートの対象（PLATEAU 派生建物リスト）とは無関係。混同を避けるため、既存禁止事項として記録のみ行う。"
+  },
+  "other_source_notes": [
+    "OSM 由来 edge と組み合わせた成果物については ODbL の派生データベース条件が別途あり、data/ATTRIBUTION.md は public release 時の attribution と share-alike の適用判断を HUMAN_GATE としている。",
+    "PLATEAU の uro:bldgDisasterRiskAttribute / uro:LandSlideRiskAttribute は原本に存在するが V2 では読み取っても使用してもいない（対象建物数として共有された 349 という値は repo 内成果物では確認できず TO_BE_CONFIRMED_BY_HUMAN）。仮に読む場合もハザード区域の重畳属性であり、被害状態としては扱わない。"
+  ],
+  "human_questions": [
+    "PLATEAU の当該 2 データセット（京都市 2025 / 藤沢市 2025 CityGML）に適用される利用規約の正確な版と条項番号は何か。",
+    "属性のみ（geometry なし）の抽出物は、当該規約上の「再配布」に該当するか、それとも派生物の公開として別扱いか。",
+    "stable building ID（uro:buildingID）の公開そのものに制約があるか。",
+    "要求される出典表記の正確な文言・掲出位置・版／URL の記載粒度は何か。",
+    "ATTRIBUTION.md の「CC BY 4.0 互換」表記と license matrix の LICENSE_REVIEW_REQUIRED の不一致をどう解消するか。",
+    "非公開 Git・内部 RC の配布先範囲をどこまで「内部」とみなすか。",
+    "OSM 由来 edge と PLATEAU 由来属性を結合した成果物に ODbL の share-alike が及ぶか。",
+    "公開後に条項解釈が変わった場合の撤回手順をどう定めるか。"
+  ],
+  "human_checkboxes": [
+    {
+      "id": "PLGATE-01",
+      "text": "PLATEAU 京都市 2025 / 藤沢市 2025 CityGML の利用規約の版・条項番号を人間が確認し、受領書に記録する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-02",
+      "text": "属性のみ（geometry なし）の派生物が当該規約上どう扱われるかを人間（必要なら法務）が判断する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-03",
+      "text": "stable building ID の公開可否を人間が判断する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-04",
+      "text": "出典表記の正確な文言・掲出位置・版／URL 粒度を人間が確定し、ATTRIBUTION.md を更新する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-05",
+      "text": "ATTRIBUTION.md の「CC BY 4.0 互換」表記と PHASE4_SOURCE_LICENSE_MATRIX.csv の LICENSE_REVIEW_REQUIRED の不一致を人間が解消する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-06",
+      "text": "「内部」の配布先範囲（非公開 Git のアクセス権者・内部 RC の配布先）を人間が定義する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-07",
+      "text": "OSM（ODbL）と PLATEAU 属性を結合した成果物の share-alike 適用を人間が判断する（既存 HUMAN_GATE）。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-08",
+      "text": "raw ZIP・GML・geometry を Git に混入させない CI ゲートの存在を人間が確認する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-09",
+      "text": "非公開リポジトリの誤 public 化を防ぐ設定を人間が確認する。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-10",
+      "text": "公開後に条項解釈が変わった場合の撤回手順を人間が定める。",
+      "checked": false
+    },
+    {
+      "id": "PLGATE-11",
+      "text": "PUBLIC_REDISTRIBUTION の HOLD 解除は、上記が全て解決した後に人間が明示的に行うことを確認する。",
+      "checked": false
+    }
+  ]
+}
