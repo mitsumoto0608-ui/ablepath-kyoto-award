@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-03",
+  "time_box_minutes": 30,
+  "time_box_minutes_used": 26,
+  "mode": "READ_ONLY_NO_DOWNLOAD",
+  "target_aois": [
+    "kiyomizu",
+    "gion",
+    "kiyomizu_gion_connector",
+    "arashiyama_togetsukyo"
+  ],
+  "candidates": [
+    {
+      "id": "hokonavi_current_catalog",
+      "classification": "TARGET_AOI_NO_MATCH_FOUND",
+      "url": "https://ckan.hokonavi.go.jp/dataset/",
+      "coverage": "31 datasets (Tokyo, Osaka area, Kawasaki, Takamatsu, Sabae, …); no Kyoto/Higashiyama/Arashiyama/Fujisawa",
+      "width_field": "link width exists at spec level (2024-07 spec) but no target-AOI resource",
+      "license_crs": "resource-specific; LICENSE_REVIEW_REQUIRED"
+    },
+    {
+      "id": "mlit_walkspace_kyoto_h23",
+      "classification": "SOURCE_FOUND_OUTSIDE_AOI",
+      "url": "https://www.geospatial.jp/ckan/dataset/0401",
+      "coverage": "Uji city centre only (lat 34.888–34.894, lon 135.801–135.811)",
+      "width_field": "有効幅員 = 4-value class code (0/1/2/3), not metres; codebook unverified; conversion forbidden",
+      "license_crs": "EPSG:4612; FY2011; sha256 7140bf6d0e4e96c2a40fe0018add57f4d2e6f38039ebef84b5edc7a45fc1f30c"
+    },
+    {
+      "id": "kyoto_pref_road_current_stats",
+      "classification": "TARGET_AOI_NO_MATCH_FOUND",
+      "url": "https://data.bodik.jp/dataset/260002_tokeisyo0601",
+      "coverage": "municipality-level aggregates",
+      "width_field": "none (road length statistics)",
+      "license_crs": "CC BY 4.0; non-spatial"
+    },
+    {
+      "id": "kyoto_city_road_ledger",
+      "classification": "EXCLUDED_PROHIBITED",
+      "url": "https://www.city.kyoto.lg.jp/kensetu/page/0000194562.html",
+      "coverage": "Kyoto City recognised routes",
+      "width_field": "ledger total road width (not clear walking width)",
+      "license_crs": "copy/derivative/commercial restrictions — prohibited source for AblePath (data/ATTRIBUTION.md); recorded as excluded only"
+    },
+    {
+      "id": "kyoto_city_opendata_portal",
+      "classification": "TARGET_AOI_NO_MATCH_FOUND",
+      "url": "https://data.city.kyoto.lg.jp/",
+      "coverage": "public toilets etc.; no sidewalk/clear-width/barrier-free-route dataset confirmed (search UI not machine-checkable)",
+      "width_field": "n/a",
+      "license_crs": "n/a"
+    },
+    {
+      "id": "repo_existing_catalogue",
+      "classification": "TARGET_AOI_NO_MATCH_FOUND",
+      "url": "reports/PHASE4_DATA_ACQUISITION_MATRIX.csv; reports/PHASE4_SOURCE_LICENSE_MATRIX.csv; inputs/staging/PHASE4-MULTICITY-DATA-ACQUISITION/source_manifest.csv; schemas/hokonavi_2024_mapping.yaml",
+      "coverage": "only width-bearing official source catalogued is mlit_walkspace_kyoto_h23",
+      "width_field": "OSM width tag presence unknown (VGI); hokonavi mapping is DESIGN_CONTRACT_ONLY",
+      "license_crs": "OSM ODbL 1.0"
+    }
+  ],
+  "searched_urls": [
+    {
+      "url": "WebSearch",
+      "query": "ほこナビ 歩行空間ネットワークデータ カタログ 京都市",
+      "checked_at": "2026-09-03T07:44Z"
+    },
+    {
+      "url": "https://www.hokonavi.go.jp/opendata/",
+      "query": "coverage",
+      "checked_at": "2026-09-03T07:45Z"
+    },
+    {
+      "url": "https://ckan.hokonavi.go.jp/dataset?q=京都",
+      "query": "京都",
+      "checked_at": "2026-09-03T07:46Z",
+      "result": "0 results"
+    },
+    {
+      "url": "https://ckan.hokonavi.go.jp/dataset/",
+      "query": "full list",
+      "checked_at": "2026-09-03T07:49Z"
+    },
+    {
+      "url": "WebSearch",
+      "query": "京都市 オープンデータ 歩道 幅員 バリアフリー 経路 データ",
+      "checked_at": "2026-09-03T07:46Z"
+    },
+    {
+      "url": "https://www.geospatial.jp/ckan/dataset/0401",
+      "query": "Kyoto resources; width field",
+      "checked_at": "2026-09-03T07:47Z"
+    },
+    {
+      "url": "https://data.city.kyoto.lg.jp/dataset?q=幅員",
+      "query": "幅員",
+      "checked_at": "2026-09-03T07:47Z",
+      "result": "no response"
+    },
+    {
+      "url": "https://www.city.kyoto.lg.jp/kensetu/page/0000194562.html",
+      "query": "道路の名称・幅員",
+      "checked_at": "2026-09-03T07:48Z"
+    },
+    {
+      "url": "WebSearch",
+      "query": "data.city.kyoto.lg.jp オープンデータ 道路 歩道 データセット 東山区",
+      "checked_at": "2026-09-03T07:48Z"
+    },
+    {
+      "url": "https://data.city.kyoto.lg.jp/search?keyword=道路",
+      "query": "道路",
+      "checked_at": "2026-09-03T07:48Z",
+      "result": "404"
+    },
+    {
+      "url": "WebSearch",
+      "query": "京都府 オープンデータ 歩道 幅員 バリアフリー 道路 データセット ダウンロード",
+      "checked_at": "2026-09-03T07:49Z"
+    },
+    {
+      "url": "https://data.bodik.jp/dataset/260002_tokeisyo0601",
+      "query": "道路現況 fields",
+      "checked_at": "2026-09-03T07:50Z"
+    }
+  ],
+  "verdict_by_aoi": {
+    "kiyomizu": "TARGET_AOI_NO_MATCH_FOUND",
+    "gion": "TARGET_AOI_NO_MATCH_FOUND",
+    "kiyomizu_gion_connector": "TARGET_AOI_NO_MATCH_FOUND",
+    "arashiyama_togetsukyo": "TARGET_AOI_NO_MATCH_FOUND",
+    "fujisawa_enoshima_secondary": "TARGET_AOI_NO_MATCH_FOUND"
+  },
+  "data_does_not_exist_claimed": false,
+  "next_acquisition": [
+    {
+      "priority": 1,
+      "action": "京都市（建設局道路建設部／歩くまち京都推進室）へ東山区・右京区の歩道現況調査・バリアフリー基本構想 特定経路の有効幅員記録の有無と二次利用条件を照会（道路台帳平面図は除外）"
+    },
+    {
+      "priority": 2,
+      "action": "ほこナビDPへ京都（東山・嵐山）整備予定を照会し、2024-07 仕様の幅員フィールド定義を先に固定してカタログを定期再確認"
+    },
+    {
+      "priority": 3,
+      "action": "pilot 15 edge の現地 clear width 実測（器具・手順・日時・写真を evidence 化）"
+    },
+    {
+      "priority": 4,
+      "action": "OSM width / sidewalk:width の明示タグのみを別 evidence class として抽出（highway class・車道幅・写真からの推定禁止、欠測=UNKNOWN）"
+    }
+  ],
+  "prohibited_conversions_applied": false,
+  "m7_readiness_changed": false
+}
