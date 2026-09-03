@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "scanned_at": "2026-09-03",
+  "patterns": "(X-Amz-Credential=|X-Amz-Security-Token=|X-Amz-Signature=|X-Amz-Algorithm=|X-Amz-Date=|X-Amz-Expires=|X-Amz-SignedHeaders=|response-content-disposition=|[?&]signature=|access_token=|ASIA[A-Z0-9]{16})",
+  "allowlisted_files_with_fake_placeholders": [
+    "docs/operations/RECEIPT_SANITIZATION.md",
+    "tests/tools/test_sanitize_receipt.py",
+    "tools/sanitize_receipt.py"
+  ],
+  "git_tracked_files_scanned": 528,
+  "git_tracked_hits_outside_allowlist": [],
+  "branch_blob_hits_outside_allowlist": 0,
+  "handoff_outputs_scanned_root": "claude-takeover-audit-20260903 (container copies)",
+  "handoff_hits": [],
+  "original_receipt_modified": false,
+  "sanitized_derived_receipt": {
+    "path": "<ablepath-raw>/phase4-multicity-data-acquisition/receipts/receipt-mlit_walkspace_kyoto_h23.sanitized.json",
+    "source_receipt_sha256": "6fe66de16d57c41f771ed1d6b5f3f56fbfe04d20a5eb30b3403384bb25f583f8",
+    "token_substrings_present": false,
+    "sha256_and_byte_size_preserved": true
+  },
+  "plateau_receipts_presigned_query_present": false,
+  "shareable_receipt_policy": "only *.sanitized.json may be staged, bundled, pushed or attached to reports",
+  "result": "CLEAN",
+  "scanner_pattern_false_positives": [
+    {
+      "file": "tests/realdata/test_plateau_building_evidence.py",
+      "line": 108,
+      "reason": "regex literal of the existing secret guard test (forbidden_secret pattern), not a credential"
+    }
+  ]
+}
