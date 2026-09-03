@@ -1,0 +1,35 @@
+{
+  "building_id": "NON-REAL-bldg-000002",
+  "building_taxonomy": "WOODEN_LOW_RISE",
+  "damage_state_probabilities": {
+    "COMPLETE_COLLAPSE": 0.05,
+    "HALF_COLLAPSE": 0.1,
+    "LARGE_SCALE_HALF_COLLAPSE": 0.05,
+    "NO_DAMAGE": 0.5,
+    "PARTIAL_DAMAGE": 0.3
+  },
+  "damage_taxonomy_id": "JP-MLIT-BUILDING-DAMAGE-CLASS",
+  "damage_taxonomy_version": "2024.1",
+  "evidence_kind": "MODEL_PROBABILITY_DISTRIBUTION",
+  "fragility_model_id": "NON-REAL-FRAGILITY",
+  "fragility_model_version": "0.1",
+  "intensity_measure_type": "PGA",
+  "intensity_measure_value": 0.6,
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "A distribution is never a categorical state."
+  ],
+  "mapping_status": "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+  "mapping_to_m7_core": null,
+  "observation_or_model_time": "2026-04-01T00:00:00Z",
+  "realization_id": null,
+  "realization_method": null,
+  "realization_seed": null,
+  "realized_state": null,
+  "revision_id": "r1",
+  "scenario_id": "NON-REAL-SCENARIO-001",
+  "schema_version": "2.0.0",
+  "source_id": "NON-REAL-FRAGILITY-0001",
+  "source_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "validation_status": "RECORD_ONLY"
+}

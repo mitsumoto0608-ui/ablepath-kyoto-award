@@ -1,0 +1,27 @@
+{
+  "building_id": "NON-REAL-bldg-000000",
+  "conditional_on_damage_state": "COMPLETE_COLLAPSE",
+  "damage_state_evidence_id": "NON-REAL-DMG-0001",
+  "debris_evidence_kind": "OBSERVED",
+  "extent_model_id": null,
+  "extent_variant": null,
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "Presence is not extent."
+  ],
+  "mapping_to_m7_core": true,
+  "observed_debris_present": true,
+  "probability_model_id": null,
+  "probability_model_version": null,
+  "probability_of_presence": null,
+  "realization_id": null,
+  "realization_method": null,
+  "realization_seed": null,
+  "realized_debris_present": null,
+  "revision_id": "r1",
+  "scenario_id": null,
+  "schema_version": "2.0.0",
+  "source_id": "NON-REAL-SURVEY-0001",
+  "source_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+  "validation_status": "ACCEPTED"
+}

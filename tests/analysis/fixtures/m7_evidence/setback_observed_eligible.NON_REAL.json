@@ -1,0 +1,31 @@
+{
+  "boundary_revision_id": "r1",
+  "boundary_role": "WALKABLE_CORRIDOR_BOUNDARY",
+  "boundary_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "boundary_source_id": "NON-REAL-FIELD-0001",
+  "building_geometry_role": "FRONTAGE_LINE",
+  "building_id": "NON-REAL-bldg-000000",
+  "building_revision_id": "r1",
+  "building_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "building_source_id": "NON-REAL-BUILDINGS",
+  "coverage_status": "COMPLETE",
+  "edge_id": "NON-REAL-EDGE-0001",
+  "evidence_status": "ACCEPTED",
+  "horizontal_accuracy_m": 0.05,
+  "limitations": [
+    "NON_REAL synthetic fixture; no real site was measured.",
+    "Not a safety or accessibility result."
+  ],
+  "measurement_or_derivation_method": "frontage line to walkable corridor boundary, tape at 2 m stations",
+  "metric_crs": "EPSG:6677",
+  "schema_version": "2.0.0",
+  "setback_status": "OBSERVED_FIELD",
+  "setback_value_m": 1.4,
+  "side": "LEFT",
+  "stable_edge_direction": "FROM_NODE_TO_TO_NODE",
+  "station_end_m": 20.0,
+  "station_start_m": 12.0,
+  "transform_id": "NON-REAL-TRANSFORM",
+  "transform_version": "1",
+  "value_uncertainty_m": 0.1
+}
