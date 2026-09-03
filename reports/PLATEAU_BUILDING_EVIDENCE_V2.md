@@ -40,7 +40,7 @@
 ## 判断
 
 - 公式直接高さ: **パッケージ属性として存在**（`bldg:measuredHeight` uom=m）。ただし provenance は都市で異なる（京都=点群中央値、藤沢=写真図化最高高さ）。M7 `height_m` に採用する際は provenance code 別の扱い（中央値 vs 最高高さ）の人間裁定が必要。geometry 由来高さは未計算（`DERIVED_CANDIDATE_NOT_FROZEN`）。
-- setback: **未凍結・未生成**（`proximity_*` は setback ではない）。centroid 不使用。
+- setback: **未凍結・未生成**（`nearest_geometry_distance_m` は setback ではない）。centroid 不使用。
 - side coverage: パッケージ内の footprint 頂点ベースでは 15 edge 全て buffer がメッシュ envelope 内（`PACKAGE_COMPLETE_…_REAL_WORLD_UNVERIFIED`）。実世界完全性は未証明で、藤沢 `FJ-OSM-E-215A5178BF215505` の 0/0 は「不在の証明」ではない。
 - 複数建物は個別列挙（集約なし）。影響区間分割は未提案。
 - damage_state / debris_present: PLATEAU から生成していない（`uro:bldgDisasterRiskAttribute` が 349 棟に存在するが読んでいない・使っていない）。

@@ -1,0 +1,596 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-03",
+  "pinned_versions": {
+    "pyproj": "3.7.2",
+    "PROJ": "9.5.1",
+    "GDAL": "NOT_INSTALLED_IN_VALIDATION_ENV"
+  },
+  "source_crs": {
+    "epsg": 6697,
+    "name": "JGD2011 + JGD2011 (vertical) height",
+    "type": "Compound CRS",
+    "axis": [
+      "Geodetic latitude (Lat) north [degree]",
+      "Geodetic longitude (Lon) east [degree]",
+      "Gravity-related height (H) up [metre]"
+    ],
+    "area_of_use": "- name: Japan - onshore mainland - Hokkaido, Honshu, Shikoku, Kyushu.\n- bounds: (129.3, 30.94, 145.87, 45.54)",
+    "horizontal_component": "EPSG:6668 JGD2011 geographic 2D",
+    "remarks": "PLATEAU bldg GML posList order = lat lon h (verified in mesh envelope)"
+  },
+  "candidates": [
+    {
+      "city_group": "kyoto",
+      "city_ids": "kyoto_kiyomizu/kyoto_arashiyama",
+      "epsg": 6674,
+      "name": "JGD2011 / Japan Plane Rectangular CS VI",
+      "projection": "Transverse Mercator",
+      "datum": "Japanese Geodetic Datum 2011",
+      "units": [
+        "metre",
+        "metre"
+      ],
+      "axis": [
+        "Northing (X) north",
+        "Easting (Y) east"
+      ],
+      "area_of_use": {
+        "name": "Japan - onshore - Honshu between approximately 135°10'E and 136°45'E - Kyoto-fu; Osaka-fu; Fukui-ken; Shiga-ken; Mie-ken; Nara-ken; Wakayama-ken.",
+        "bounds_wgs84_lonlat": [
+          134.86,
+          33.4,
+          136.99,
+          36.33
+        ]
+      },
+      "scope": "Cadastre, engineering survey, topographic mapping (large and medium scale).",
+      "params": {
+        "Latitude of natural origin": 36.0,
+        "Longitude of natural origin": 136.0,
+        "Scale factor at natural origin": 0.9999,
+        "False easting": 0.0,
+        "False northing": 0.0
+      },
+      "transformation_from_6697": {
+        "pipeline": "axis order change (2D) + Null geographic offset from JGD2011 to JGD2011 + Japan Plane Rectangular CS zone VI + axis order change (2D)",
+        "definition": "proj=pipeline step proj=unitconvert xy_in=deg xy_out=rad step proj=tmerc lat_0=36 lon_0=136 k=0.9999 x_0=0 y_0=0 ellps=GRS80",
+        "accuracy_m": 0.0
+      },
+      "pilot_points_inside_area_of_use": "20/20",
+      "round_trip_error_m_max": 1.0603932974647203e-09,
+      "scale_factor_at_origin": 0.9999
+    },
+    {
+      "city_group": "fujisawa",
+      "city_ids": "fujisawa_enoshima",
+      "epsg": 6677,
+      "name": "JGD2011 / Japan Plane Rectangular CS IX",
+      "projection": "Transverse Mercator",
+      "datum": "Japanese Geodetic Datum 2011",
+      "units": [
+        "metre",
+        "metre"
+      ],
+      "axis": [
+        "Northing (X) north",
+        "Easting (Y) east"
+      ],
+      "area_of_use": {
+        "name": "Japan - onshore - Honshu - Tokyo-to. (Excludes offshore island areas of Tokyo-to covered by Japan Plane Rectangular Coordinate System zones XIV, XVIII and XIX).",
+        "bounds_wgs84_lonlat": [
+          138.4,
+          29.31,
+          141.11,
+          37.98
+        ]
+      },
+      "scope": "Cadastre, engineering survey, topographic mapping (large and medium scale).",
+      "params": {
+        "Latitude of natural origin": 36.0,
+        "Longitude of natural origin": 139.83333333333334,
+        "Scale factor at natural origin": 0.9999,
+        "False easting": 0.0,
+        "False northing": 0.0
+      },
+      "transformation_from_6697": {
+        "pipeline": "axis order change (2D) + Null geographic offset from JGD2011 to JGD2011 + Japan Plane Rectangular CS zone IX + axis order change (2D)",
+        "definition": "proj=pipeline step proj=unitconvert xy_in=deg xy_out=rad step proj=tmerc lat_0=36 lon_0=139.833333333333 k=0.9999 x_0=0 y_0=0 ellps=GRS80",
+        "accuracy_m": 0.0
+      },
+      "pilot_points_inside_area_of_use": "10/10",
+      "round_trip_error_m_max": 2.584859393242583e-09,
+      "scale_factor_at_origin": 0.9999
+    }
+  ],
+  "control_points": [
+    {
+      "edge_id": "KK-OSM-W1251544286-S01",
+      "point": "start",
+      "lon": 135.7807911,
+      "lat": 34.9961782,
+      "epsg": 6674,
+      "x_easting_m": -20010.1253,
+      "y_northing_m": -111340.6702,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W1251544286-S01",
+      "point": "end",
+      "lon": 135.7808078,
+      "lat": 34.9962092,
+      "epsg": 6674,
+      "x_easting_m": -20008.5933,
+      "y_northing_m": -111337.2348,
+      "round_trip_error_m": 1.0603932974647203e-09
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S01",
+      "point": "start",
+      "lon": 135.7807044,
+      "lat": 34.9992677,
+      "epsg": 6674,
+      "x_easting_m": -20017.2872,
+      "y_northing_m": -110997.9355,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S01",
+      "point": "end",
+      "lon": 135.780718,
+      "lat": 34.9990616,
+      "epsg": 6674,
+      "x_easting_m": -20016.096,
+      "y_northing_m": -111020.8009,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S02",
+      "point": "start",
+      "lon": 135.780718,
+      "lat": 34.9990616,
+      "epsg": 6674,
+      "x_easting_m": -20016.096,
+      "y_northing_m": -111020.8009,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S02",
+      "point": "end",
+      "lon": 135.7808159,
+      "lat": 34.9987332,
+      "epsg": 6674,
+      "x_easting_m": -20007.2396,
+      "y_northing_m": -111057.2498,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W157527438-S01",
+      "point": "start",
+      "lon": 135.780718,
+      "lat": 34.9990616,
+      "epsg": 6674,
+      "x_easting_m": -20016.096,
+      "y_northing_m": -111020.8009,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W157527438-S01",
+      "point": "end",
+      "lon": 135.7798442,
+      "lat": 34.9992641,
+      "epsg": 6674,
+      "x_easting_m": -20095.8072,
+      "y_northing_m": -110998.1621,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W174762077-S01",
+      "point": "start",
+      "lon": 135.7771926,
+      "lat": 35.0037491,
+      "epsg": 6674,
+      "x_easting_m": -20336.7358,
+      "y_northing_m": -110500.1054,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "KK-OSM-W174762077-S01",
+      "point": "end",
+      "lon": 135.7771901,
+      "lat": 34.9987052,
+      "epsg": 6674,
+      "x_easting_m": -20338.212,
+      "y_northing_m": -111059.6236,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+      "point": "start",
+      "lon": 135.6778518,
+      "lat": 35.0136547,
+      "epsg": 6674,
+      "x_easting_m": -29400.5464,
+      "y_northing_m": -109376.539,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+      "point": "end",
+      "lon": 135.6779597,
+      "lat": 35.0136904,
+      "epsg": 6674,
+      "x_easting_m": -29390.6862,
+      "y_northing_m": -109372.6106,
+      "round_trip_error_m": 1.0603932974647203e-09
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "point": "start",
+      "lon": 135.6779597,
+      "lat": 35.0136904,
+      "epsg": 6674,
+      "x_easting_m": -29390.6862,
+      "y_northing_m": -109372.6106,
+      "round_trip_error_m": 1.0603932974647203e-09
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "point": "end",
+      "lon": 135.6779938,
+      "lat": 35.0136935,
+      "epsg": 6674,
+      "x_easting_m": -29387.5729,
+      "y_northing_m": -109372.2767,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "point": "start",
+      "lon": 135.6779938,
+      "lat": 35.0136935,
+      "epsg": 6674,
+      "x_easting_m": -29387.5729,
+      "y_northing_m": -109372.2767,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "point": "end",
+      "lon": 135.6786725,
+      "lat": 35.0136918,
+      "epsg": 6674,
+      "x_easting_m": -29325.6325,
+      "y_northing_m": -109372.6648,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+      "point": "start",
+      "lon": 135.6786725,
+      "lat": 35.0136918,
+      "epsg": 6674,
+      "x_easting_m": -29325.6325,
+      "y_northing_m": -109372.6648,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+      "point": "end",
+      "lon": 135.6790113,
+      "lat": 35.0137123,
+      "epsg": 6674,
+      "x_easting_m": -29294.7048,
+      "y_northing_m": -109370.4902,
+      "round_trip_error_m": 1.0583222168056095e-09
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "point": "start",
+      "lon": 135.6790113,
+      "lat": 35.0137123,
+      "epsg": 6674,
+      "x_easting_m": -29294.7048,
+      "y_northing_m": -109370.4902,
+      "round_trip_error_m": 1.0583222168056095e-09
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "point": "end",
+      "lon": 135.6793472,
+      "lat": 35.0137326,
+      "epsg": 6674,
+      "x_easting_m": -29264.0419,
+      "y_northing_m": -109368.3368,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-018BDD155711677D",
+      "point": "start",
+      "lon": 139.4828872,
+      "lat": 35.3059914,
+      "epsg": 6677,
+      "x_easting_m": -31868.9149,
+      "y_northing_m": -76938.0205,
+      "round_trip_error_m": 1.0583222168056095e-09
+    },
+    {
+      "edge_id": "FJ-OSM-E-018BDD155711677D",
+      "point": "end",
+      "lon": 139.4827928,
+      "lat": 35.3057642,
+      "epsg": 6677,
+      "x_easting_m": -31877.5886,
+      "y_northing_m": -76963.1947,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "point": "start",
+      "lon": 139.4831362,
+      "lat": 35.3063281,
+      "epsg": 6677,
+      "x_easting_m": -31846.1392,
+      "y_northing_m": -76900.7484,
+      "round_trip_error_m": 2.584859393242583e-09
+    },
+    {
+      "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "point": "end",
+      "lon": 139.4830249,
+      "lat": 35.3062274,
+      "epsg": 6677,
+      "x_easting_m": -31856.3001,
+      "y_northing_m": -76911.8839,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-062F75C8425C2252",
+      "point": "start",
+      "lon": 139.4816085,
+      "lat": 35.3031939,
+      "epsg": 6677,
+      "x_easting_m": -31986.299,
+      "y_northing_m": -77247.9515,
+      "round_trip_error_m": 7.062385047567765e-10
+    },
+    {
+      "edge_id": "FJ-OSM-E-062F75C8425C2252",
+      "point": "end",
+      "lon": 139.481286,
+      "lat": 35.3024824,
+      "epsg": 6677,
+      "x_easting_m": -32015.9079,
+      "y_northing_m": -77326.7781,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+      "point": "start",
+      "lon": 139.4829218,
+      "lat": 35.3060543,
+      "epsg": 6677,
+      "x_easting_m": -31865.7437,
+      "y_northing_m": -76931.0537,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+      "point": "end",
+      "lon": 139.4828872,
+      "lat": 35.3059914,
+      "epsg": 6677,
+      "x_easting_m": -31868.9149,
+      "y_northing_m": -76938.0205,
+      "round_trip_error_m": 1.0583222168056095e-09
+    },
+    {
+      "edge_id": "FJ-OSM-E-215A5178BF215505",
+      "point": "start",
+      "lon": 139.4825277,
+      "lat": 35.3051907,
+      "epsg": 6677,
+      "x_easting_m": -31901.9216,
+      "y_northing_m": -77026.7311,
+      "round_trip_error_m": 0.0
+    },
+    {
+      "edge_id": "FJ-OSM-E-215A5178BF215505",
+      "point": "end",
+      "lon": 139.4823922,
+      "lat": 35.3048829,
+      "epsg": 6677,
+      "x_easting_m": -31914.3648,
+      "y_northing_m": -77060.8335,
+      "round_trip_error_m": 3.5277407226853647e-10
+    }
+  ],
+  "edge_length_checks": [
+    {
+      "edge_id": "KK-OSM-W1251544286-S01",
+      "epsg": 6674,
+      "length_projected_m": 3.762,
+      "length_geodesic_m": 3.762,
+      "length_local_equirect_m": 3.751,
+      "proj_minus_geodesic_mm": -0.36,
+      "equirect_minus_geodesic_mm": -11.06
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S01",
+      "epsg": 6674,
+      "length_projected_m": 22.896,
+      "length_geodesic_m": 22.899,
+      "length_local_equirect_m": 22.823,
+      "proj_minus_geodesic_mm": -2.18,
+      "equirect_minus_geodesic_mm": -75.51
+    },
+    {
+      "edge_id": "KK-OSM-W1491152444-S02",
+      "epsg": 6674,
+      "length_projected_m": 37.627,
+      "length_geodesic_m": 37.63,
+      "length_local_equirect_m": 37.511,
+      "proj_minus_geodesic_mm": -3.58,
+      "equirect_minus_geodesic_mm": -119.15
+    },
+    {
+      "edge_id": "KK-OSM-W157527438-S01",
+      "epsg": 6674,
+      "length_projected_m": 97.45,
+      "length_geodesic_m": 97.459,
+      "length_local_equirect_m": 97.3,
+      "proj_minus_geodesic_mm": -9.26,
+      "equirect_minus_geodesic_mm": -159.44
+    },
+    {
+      "edge_id": "KK-OSM-W174762077-S01",
+      "epsg": 6674,
+      "length_projected_m": 568.092,
+      "length_geodesic_m": 568.146,
+      "length_local_equirect_m": 566.306,
+      "proj_minus_geodesic_mm": -53.92,
+      "equirect_minus_geodesic_mm": -1840.02
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+      "epsg": 6674,
+      "length_projected_m": 10.614,
+      "length_geodesic_m": 10.615,
+      "length_local_equirect_m": 10.6,
+      "proj_minus_geodesic_mm": -0.95,
+      "equirect_minus_geodesic_mm": -14.92
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "epsg": 6674,
+      "length_projected_m": 3.131,
+      "length_geodesic_m": 3.131,
+      "length_local_equirect_m": 3.128,
+      "proj_minus_geodesic_mm": -0.28,
+      "equirect_minus_geodesic_mm": -3.52
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "epsg": 6674,
+      "length_projected_m": 61.942,
+      "length_geodesic_m": 61.947,
+      "length_local_equirect_m": 61.879,
+      "proj_minus_geodesic_mm": -5.54,
+      "equirect_minus_geodesic_mm": -68.02
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+      "epsg": 6674,
+      "length_projected_m": 31.004,
+      "length_geodesic_m": 31.007,
+      "length_local_equirect_m": 30.972,
+      "proj_minus_geodesic_mm": -2.77,
+      "equirect_minus_geodesic_mm": -34.41
+    },
+    {
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "epsg": 6674,
+      "length_projected_m": 30.738,
+      "length_geodesic_m": 30.741,
+      "length_local_equirect_m": 30.707,
+      "proj_minus_geodesic_mm": -2.75,
+      "equirect_minus_geodesic_mm": -34.12
+    },
+    {
+      "edge_id": "FJ-OSM-E-018BDD155711677D",
+      "epsg": 6677,
+      "length_projected_m": 26.627,
+      "length_geodesic_m": 26.629,
+      "length_local_equirect_m": 26.546,
+      "proj_minus_geodesic_mm": -2.33,
+      "equirect_minus_geodesic_mm": -83.12
+    },
+    {
+      "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "epsg": 6677,
+      "length_projected_m": 15.075,
+      "length_geodesic_m": 15.076,
+      "length_local_equirect_m": 15.041,
+      "proj_minus_geodesic_mm": -1.32,
+      "equirect_minus_geodesic_mm": -35.34
+    },
+    {
+      "edge_id": "FJ-OSM-E-062F75C8425C2252",
+      "epsg": 6677,
+      "length_projected_m": 84.204,
+      "length_geodesic_m": 84.211,
+      "length_local_equirect_m": 83.952,
+      "proj_minus_geodesic_mm": -7.36,
+      "equirect_minus_geodesic_mm": -259.55
+    },
+    {
+      "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+      "epsg": 6677,
+      "length_projected_m": 7.655,
+      "length_geodesic_m": 7.655,
+      "length_local_equirect_m": 7.632,
+      "proj_minus_geodesic_mm": -0.67,
+      "equirect_minus_geodesic_mm": -22.78
+    },
+    {
+      "edge_id": "FJ-OSM-E-215A5178BF215505",
+      "epsg": 6677,
+      "length_projected_m": 36.302,
+      "length_geodesic_m": 36.305,
+      "length_local_equirect_m": 36.192,
+      "proj_minus_geodesic_mm": -3.18,
+      "equirect_minus_geodesic_mm": -112.4
+    }
+  ],
+  "policy": {
+    "M7_METRIC_CRS_POLICY_READY": false,
+    "recommended_candidate_not_frozen": {
+      "kyoto": "EPSG:6674 (JGD2011 / Japan Plane Rectangular CS VI)",
+      "fujisawa": "EPSG:6677 (JGD2011 / Japan Plane Rectangular CS IX)"
+    },
+    "tolerance_proposal": {
+      "round_trip_position_m": 0.001,
+      "projected_vs_geodesic_length_relative": 0.0001,
+      "setback_distance_reporting_resolution_m": 0.01,
+      "setback_distance_tolerance_m_PROPOSAL": 0.05,
+      "basis": "Transverse Mercator scale factor 0.9999 at origin; pilot AOIs lie within the zone so scale distortion < 1e-4; observed max round-trip error and length differences below"
+    },
+    "observed": {
+      "max_round_trip_error_m": 2.584859393242583e-09,
+      "max_projected_minus_geodesic_mm": 53.92,
+      "max_local_equirect_minus_geodesic_mm": 1840.02,
+      "local_equirect_note": "the approximation used for V2 proximity (PROXY_NOT_SETBACK) differs from geodesic by at most the value above over pilot edge lengths; acceptable for candidate enumeration only"
+    },
+    "separate_decisions": [
+      "CRS selection (this packet)",
+      "setback definition (reports/M7_SETBACK_DEFINITION_DECISION.*)"
+    ],
+    "human_checkboxes": [
+      {
+        "id": "CRS-1",
+        "text": "京都 AOI の metric CRS として EPSG:6674 を採用する（area of use・軸・単位を確認済み）",
+        "checked": false
+      },
+      {
+        "id": "CRS-2",
+        "text": "藤沢 AOI の metric CRS として EPSG:6677 を採用する",
+        "checked": false
+      },
+      {
+        "id": "CRS-3",
+        "text": "EPSG:6697→平面直角座標の変換は水平成分のみ（高さは通過）で運用し、変換パイプラインと PROJ 版を凍結する",
+        "checked": false
+      },
+      {
+        "id": "CRS-4",
+        "text": "許容誤差（round trip 1 mm／距離相対 1e-4／setback 報告 0.01 m・許容 0.05 m 提案）を承認する",
+        "checked": false
+      },
+      {
+        "id": "CRS-5",
+        "text": "本番計算環境で pinned PROJ/GDAL 版を固定し、同一 control point で再現確認する（GDAL は本検証環境に未導入）",
+        "checked": false
+      }
+    ]
+  }
+}

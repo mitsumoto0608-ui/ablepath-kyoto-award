@@ -20,7 +20,8 @@ def test_v2_candidates_never_carry_setback_damage_or_debris():
     assert candidates, "V2 must list at least one candidate"
     for c in candidates:
         assert c["setback_m"] is None and c["damage_state"] is None and c["debris_present"] is None
-        assert c["proximity_is_setback"] is False
+        assert c["method_status"] == "PROXY_NOT_SETBACK" and c["m7_eligible"] is False
+        assert "nearest_geometry_distance_m" in c and "proximity_min_footprint_vertex_to_edge_m" not in c
         assert c["stable_building_id"], "stable uro:buildingID required"
         if c["height_status"] == "INVALID_SENTINEL":
             assert c["official_height_m"] is None
