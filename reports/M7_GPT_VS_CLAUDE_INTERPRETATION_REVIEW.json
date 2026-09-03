@@ -1,0 +1,570 @@
+{
+  "schema_version": "1.0.0",
+  "generated_date": "2026-09-03",
+  "report": "reports/M7_GPT_VS_CLAUDE_INTERPRETATION_REVIEW.md",
+  "scope": "三層分離レビュー（SOURCE_FACT / GPT_SYNTHESIS / CLAUDE_INDEPENDENT_REVIEW）",
+  "layer_definitions": {
+    "SOURCE_FACT": "原著が実際に述べていること。ページ・節・式、母集団、変数定義、較正、検証、限界。",
+    "GPT_SYNTHESIS": "本プロジェクトの従前の解釈（RESEARCH_LEDGER / DESIGN / M7 decision packets / 契約 §3 の source map）が AblePath へどう適用したか。推論と暫定設計案であって production 採用ではない。",
+    "CLAUDE_INDEPENDENT_REVIEW": "本レビューによる独立の読み。同意/不同意、記述漏れ、過大解釈、より安全な代替、採用可能な範囲。"
+  },
+  "no_production_rule_changed": true,
+  "production_constants_changed": false,
+  "m7_executed": false,
+  "safety_accessibility_or_administrative_validation_claimed": false,
+  "human_freeze_still_required": true,
+  "flags_unchanged": {
+    "M7_SETBACK_POLICY_READY": false,
+    "M7_DAMAGE_DEBRIS_EVIDENCE_READY": false,
+    "M7_COMPUTED_EDGE_COUNT": 0
+  },
+  "propositions": [
+    {
+      "proposition_id": "A",
+      "statement": "層分離: hazard exposure -> fragility probability -> scenario realization -> damage state -> debris presence -> debris extent -> road intrusion -> remaining physical width -> M6/profile を、独立した層として分けて扱う。",
+      "verdict": "SUPPORTED",
+      "evidence": [
+        "OpenQuake fragility_models.html: P(DS >= ds_i | IM) = Phi(...) — 出力は超過確率であり実現状態ではない（DS-07）",
+        "Moya p.224/p.226: 式は倒壊を条件とし、まず倒壊/非倒壊を実現化する必要がある（DB-01）",
+        "Anelli p.6 Eq.(5)(8): 倒壊しても瓦礫幅ゼロが機構として存在する（DB-04）",
+        "Yu & Gardoni §5.4 Eq.(9): 瓦礫距離から通行対象面への侵入量を差分で取り出す（DB-03）",
+        "Anelli p.7 Eq.(10): 残存幅は左右の侵入量を引いて得る（SB-02）",
+        "Lo p.3824-3826: PGA -> MBT別fragility -> complete damage 確率 -> 閉塞確率、が実運用システムで分離されている（DS-06）"
+      ],
+      "caveat": "連鎖の各リンクは少なくとも 1 本の原著に支持されるが、連鎖全体を一つの source が実装している例はない。AblePath の層分離は複数 source からの合成であり、その合成自体は AblePath 独自の設計判断である。この点を対外資料で『文献に基づく』と述べる際は『各層の分離が文献に支持される』と限定すること。",
+      "no_production_change": true
+    },
+    {
+      "proposition_id": "B",
+      "statement": "setback_m は道路／歩行空間と建物前面との物理的離隔であって、中心線距離ではない。",
+      "verdict": "PARTIALLY_SUPPORTED",
+      "evidence": [
+        "Moya p.211/p.218: D の基準線は建物 footprint 外周（SB-08）",
+        "Yu & Gardoni List of Symbols: delta_q は建物 edge から対象車線までの道路要素幅の合計（既存 Y-06）",
+        "Anelli p.4 Step 1: 断面は建物面基準で分解される（SB-01）",
+        "Sorrentino p.5 Eq.(1) 直後: 『w の値には建物の後退位置を算入すべきであり、それは経路にとって有利である』（SB-04）",
+        "ROSA p.1: Building Debris Width Index の入力に setback が名指しされる（SB-06）",
+        "Kamei p.78: 中心線切断規則は原著自身が広幅員での過大評価を認める（SB-08）"
+      ],
+      "caveat": "『中心線距離ではない』は完全に支持される。『歩行空間の縁を相手側に取る』は支持されない——どの source も相手側を車線・path・向かい建物とし、歩行空間の縁として定義した source は存在しない。また Sorrentino も ROSA も後退量の測り方（基準線・測点・許容誤差・単位）を与えない。したがって setback_m の定義は human freeze を要し、M7_SETBACK_POLICY_READY=false を維持する。",
+      "requires_human_freeze": true,
+      "no_production_change": true
+    },
+    {
+      "proposition_id": "C",
+      "statement": "damage_state は震度・液状化・浸水の重畳だけでは決まらない。",
+      "verdict": "SUPPORTED",
+      "evidence": [
+        "OpenQuake fragility_models.html: damage state 確率は intensity と taxonomy を条件とし、beta_ds（閾値定義の不確かさ）を含む（DS-07）",
+        "Yamada p.1564/p.1569-1570: 年代と倒壊率に強い相関があるが、それでも不均質性は年代だけで説明できない（DS-03）",
+        "Yamada p.1569: 表層地盤の増幅は強震時に非線形化しうる（DS-03）——『軟弱地盤の重畳=被害大』の単調ロジックを否定する",
+        "Lo p.3824: PGA は intensity measure であって damage state ではない（DS-06）",
+        "Kamei p.77: PGV -> 全壊率 -> モンテカルロ実現化の 3 段（既存 K-03）"
+      ],
+      "caveat": "支持は強い。ただし既存文書が Yamada を『年代の説明力が弱い』方向に読みうる書き方をしている点は補正が必要（DS-03）。PLATEAU の uro:bldgDisasterRiskAttribute 等が区域の重畳属性であり被害状態ではない、という既存の主張自体は原著群と整合する。",
+      "no_production_change": true
+    },
+    {
+      "proposition_id": "D",
+      "statement": "debris_present は damage_state とも debris_extent とも別の量である。",
+      "verdict": "SUPPORTED",
+      "evidence": [
+        "Moya p.222 Eq.(7): 倒壊しても瓦礫が出ない確率が非ゼロで与えられる（DB-01）",
+        "Anelli p.6 Eq.(5)(8) と DF<=7% 条項: 瓦礫幅ゼロが 2 機構で存在する（DB-04）",
+        "Yu & Gardoni §5.4 Eq.(9): 瓦礫距離と『通行対象面へ届いた分』が別量（DB-03）",
+        "ROSA p.1: 瓦礫幅・影響区間比・閉塞深刻度が別次元（SB-07）"
+      ],
+      "caveat": "確率 -> bool の変換規則はどの source も供給しない。AblePath の variant 規則（MEAN_CASE / HIGH_SENSITIVITY / NO_DEBRIS）は独自の凍結実現規則であり human freeze を要する。RESEARCH_LEDGER §3 の『Moya Eq.7 から variant 規則で決定値化』という文面は、規則が Moya 由来であるかのように読める点で補正が望ましい。",
+      "requires_human_freeze": true,
+      "no_production_change": true
+    },
+    {
+      "proposition_id": "E",
+      "statement": "fragility の出力は分布であって、直接 DAMAGED / COLLAPSED にはならない。",
+      "verdict": "SUPPORTED",
+      "evidence": [
+        "OpenQuake fragility_models.html: P(DS >= ds_i | IM) = Phi((ln IM - ln mu)/beta)、beta_DS_i = sqrt(beta_r2r^2 + beta_b2b^2 + beta_ds^2)、beta_ds は damage state 閾値定義そのものの不確かさ（DS-07）",
+        "OpenQuake Scenario-Based Damage: 出力は各 damage state の fraction（既存 O-02）",
+        "Yu & Gardoni §6.1 Eq.(17): 確率で重み付けしたまま積み上げ、状態を確定させない（DB-03）",
+        "Sorrentino p.7 Eq.(6)-(8): 確率を確率のまま MAF へ積分（SB-05）",
+        "Kamei p.77: 全壊率からモンテカルロで実現化（既存 K-03）"
+      ],
+      "caveat": "beta_ds の存在は既存文書が使っていない強い論拠である——公式文書自身が damage state の境界を不確かな量として扱っている。したがって確率を categorical に落とす操作は不確かさを捨てる操作であり、その捨象を凍結規則として明示的に記録する必要がある。AblePath の DAMAGED / COLLAPSED は、採用する fragility モデルの limitStates 語彙への写像なしには意味を持たない。",
+      "requires_human_freeze": true,
+      "no_production_change": true
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "SB-01",
+      "topic": "setback",
+      "source": "Anelli, Mori & Vona 2020 (10.3390/app10041289)",
+      "page_or_section": "p.4 Section 2 Step 1",
+      "equation": "NA",
+      "source_fact": "道路断面は w_r（車道舗装幅の平均）・w_br（歩道幅の平均）・w_bb（向かい合う干渉建物間の平均距離）に分解される。片側の建物-車道縁距離は独立変数として定義されず、w_bb と w_r・w_br の差から導かれる従属量である。",
+      "gpt_interpretation": "RESEARCH_LEDGER §3 は setback S を『歩行空間までの後退距離』として独立入力に置き、Anelli の断面分解を残存幅式の型として援用した。",
+      "claude_interpretation": "断面分解の型は一致するが、Anelli が独立に測っているのは w_bb であって片側 setback ではない。S を独立入力にするという設計判断は Anelli から導けない。ただし『基準線は建物面である』という点は一致しており、中心線 proxy の否定には使える。",
+      "agreement_status": "AGREE_WITH_NARROWING",
+      "recommended_ablepath_use": "断面を建物面基準で分解するという説明図式。中心線・重心 proxy を退ける文献的裏づけ。",
+      "prohibited_use": "w_r=5.50 / w_br=1.00 / w_bb=7.50 という Amatrice 実測値を京都・藤沢の断面値として用いること。w_bb を片側 setback と同一視すること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-02",
+      "topic": "setback",
+      "source": "Anelli, Mori & Vona 2020",
+      "page_or_section": "p.7 Eq.(10)（p.5 に重複組版）",
+      "equation": "w_fr = w_bb - max(w_br1; |w_br1 - w_d1,i|) - max(w_br2; |w_br2 - w_d2,j|)",
+      "source_fact": "残存自由幅は向かい建物間距離から、左右それぞれ『歩道幅と瓦礫侵入量の大きい方』を引いて得る。歩道は瓦礫に消費される前提であり、歩行空間の残存幅は出力されない。",
+      "gpt_interpretation": "AblePath の remaining_clear_width_m = max(W_clear - I_L - I_R, 0) を Anelli Eq.(10) と同型として説明した。",
+      "claude_interpretation": "左右独立差し引きという代数構造は同型だが、意味は反転している。Anelli では歩道が最初に失われ、AblePath では歩道こそ守る対象である。同型性の主張には必ずこの反転を併記しなければならない。",
+      "agreement_status": "AGREE_WITH_NARROWING",
+      "recommended_ablepath_use": "左右独立差し引きの型の説明（反転の併記を必須とする）。",
+      "prohibited_use": "Eq.(10) をそのまま歩行空間の残存幅式として実装すること。w_br を歩行空間幅として読むこと。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-03",
+      "topic": "setback",
+      "source": "Anelli, Mori & Vona 2020",
+      "page_or_section": "p.3 Introduction; p.7 Eq.(11); p.9 Eq.(14)",
+      "equation": "w_dr >= w_r - 3.50 ; P(w_fr >= 3.50|IM) = 1 - P(w_dr >= w_r - 3.50|IM)",
+      "source_fact": "3.50 m は緊急車両（emergency vehicles）が車道舗装（road pavement）を通過できるかの閾値である。歩行者・車いすの閾値ではない。",
+      "gpt_interpretation": "契約 §3 が『3.50 m を wheelchair/person profile に用いない』と明記しており、既存文書はこれを守っている。",
+      "claude_interpretation": "契約の禁止は原著の記述と完全に一致する。追加で、Yu & Gardoni の E=3.5 m と Anelli の 3.50 m は別々の source の別々の量であり、一致は偶然である旨を記録すべきである。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "閾値が profile 依存であることの説明。",
+      "prohibited_use": "3.50 m を歩行者・車いすの所要幅として用いること。Yu & Gardoni の E=3.5 m と同一視すること。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "false"
+    },
+    {
+      "claim_id": "SB-04",
+      "topic": "setback",
+      "source": "Sorrentino & Giresini 2024 (10.3390/buildings14040984)",
+      "page_or_section": "p.5 Section 3.1, Eq.(1) 及び直後",
+      "equation": "(h_b1 + h_b2)/w >= 1.0",
+      "source_fact": "干渉条件は左右建物の軒高の和と path の幅 w の比で定義される。w の値には『建物の後退位置（recessed position）を算入すべきであり、それは経路にとって有利である』と明示される。",
+      "gpt_interpretation": "既存文書（契約 §3・SETBACK packet §3.1）は『歩行空間の縁を相手側に取る source は 1 本もない』と結論した。Sorrentino は §9 の禁止側にのみ現れる。",
+      "claude_interpretation": "その結論は維持されるが、GPT 側は Sorrentino が後退を明示的に扱っていることを見落としている（OMISSION）。これは AblePath の setback の方向性を支持する唯一の明示的指示であり、支持証拠として記録すべきである。ただし w は path の幅であって歩行空間の縁ではなく、後退量の測り方も与えられないため S の定義の供給ではない。",
+      "agreement_status": "GPT_OMISSION",
+      "recommended_ablepath_use": "『後退を幅に算入する』という方向性の先行例として引く。",
+      "prohibited_use": "Eq.(1) の 1.0 を AblePath の閾値として実装すること。path safety の結論を AblePath の経路安全性主張とすること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-05",
+      "topic": "setback",
+      "source": "Sorrentino & Giresini 2024",
+      "page_or_section": "p.5 Section 3.1",
+      "equation": "NA",
+      "source_fact": "本手法は瓦礫幅を計算せず、『建物被害の確率をそのまま道路閉塞の確率とする』簡略化を採る（Lo et al. に倣う）。fragility は DS4（very heavy damage）の経験曲線で、確率は確率のまま MAF へ積分される（Eq.6-8）。幾何モデルの限界（道路設計を無視／確率分布を恣意的に仮定）も自認する。",
+      "gpt_interpretation": "契約 §3 は Sorrentino を『multiple interfering elements と経路閉塞リスク構造』として use に置いた。",
+      "claude_interpretation": "その use は S-01（直列系合成）については支持されるが、契約は『瓦礫幅を計算しない簡略化』を記していない。この簡略化を持ち込むと全ての DS4 建物が閉塞として数えられ、AblePath の残存幅モデルは無意味になる。契約の記述は不完全であり、補正が必要。",
+      "agreement_status": "GPT_OMISSION",
+      "recommended_ablepath_use": "干渉要素の直列系合成という構造の説明。実務が簡略化を選ぶ場合の比較軸。",
+      "prohibited_use": "閉塞確率＝建物被害確率という置換を AblePath に持ち込むこと。DS4 到達確率を damage_state として使うこと。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-06",
+      "topic": "setback",
+      "source": "Yang et al. 2025 / ROSA (10.1051/e3sconf/202565302003)",
+      "page_or_section": "p.1 Section 1",
+      "equation": "NA",
+      "source_fact": "Building Debris Width Index は『collapse extent, probability, and setback』から閉塞の深刻度を推定する。式は本論文になく Chu et al. 2023 (10.1177/87552930231194563) に外部化されている。",
+      "gpt_interpretation": "既存文書に ROSA への言及はない（新規 source）。",
+      "claude_interpretation": "setback を瓦礫幅指標の正規入力として名指しする唯一の source であり、AblePath の setback 候補定義を『文献上の先行例がある変数』として位置づけられる。ただし定義・単位・測り方・合成規則はいずれも取得できず、実装根拠にはならない。",
+      "agreement_status": "NEW_EVIDENCE_SUPPORTS_GPT",
+      "recommended_ablepath_use": "『setback は瓦礫幅指標の正規入力である』という用語レベルの先行例。",
+      "prohibited_use": "指標を実装すること。collapse extent・probability・setback の合成規則を推測で復元すること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-07",
+      "topic": "setback",
+      "source": "Yang et al. 2025 / ROSA",
+      "page_or_section": "p.1 Section 1",
+      "equation": "NA",
+      "source_fact": "3 指標は別次元として定義される: Building Debris Width Index（瓦礫幅）／Affected Segment Ratio Index（区間のうち影響を受ける割合、ブロック形状と区間幾何を考慮）／Blockage Severity Index（ブロック内の集約、footprint 面積で重み付け）。",
+      "gpt_interpretation": "RESEARCH_LEDGER §3 は『建物の影響投影区間で edge を分割し、各小区間で左右別の最大侵入幅』という集約規則を独自に置いた。",
+      "claude_interpretation": "ROSA の Affected Segment Ratio Index は AblePath の『影響投影区間による edge 分割』と同じ問題を扱う先行例であり、GPT 側の設計判断はこの点で孤立していない。ただし ROSA は比率、AblePath は幅であり、量が異なる。",
+      "agreement_status": "NEW_EVIDENCE_SUPPORTS_GPT",
+      "recommended_ablepath_use": "edge 分割・区間集約という設計判断の先行例の提示。",
+      "prohibited_use": "比率指標と幅指標を同一視すること。ブロック単位集約を edge 単位の残存幅に読み替えること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "SB-08",
+      "topic": "setback",
+      "source": "Kamei et al. 2009 (10.5638/thagis.17.73) / Moya et al. 2020",
+      "page_or_section": "Kamei p.78 / Moya p.211, p.218, p.224",
+      "equation": "NA",
+      "source_fact": "Kamei: 等方バッファが道路中心線を分断すれば閉塞とする離散判定で、原著自身が広幅員での過大評価を認める。Moya: D の基準線は建物 footprint であり、離隔は変数として計測されていない（唯一の値は応用例の仮定値 1 m）。",
+      "gpt_interpretation": "既存文書は centerline/centroid proxy を setback として使うことを禁じ、nearest_geometry_distance_m を PROXY_NOT_SETBACK に固定した。",
+      "claude_interpretation": "全面的に同意する。加えて、中心線距離を S に使うと S と W_clear が同一量から導かれる循環（W_clear/2 + S 形の分解）が生じるため、禁止は文献の裏づけを超えて代数的にも必要である。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "中心線・重心・屋根頂点 proxy を退ける文献的裏づけ。",
+      "prohibited_use": "中心線距離・重心距離を setback として M7 に入れること。2009 年の閉塞率を現在の値として引くこと。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "false"
+    },
+    {
+      "claim_id": "DS-01",
+      "topic": "damage_state",
+      "source": "Yamada, Ohmura & Goto 2017 (10.1193/090816EQS144M)",
+      "page_or_section": "p.6（刷り p.1560）",
+      "equation": "NA",
+      "source_fact": "被害区分は Okada & Takai (2000) の被害パターンチャートにより D0（no damage）／D1-D3（partially collapsed）／D4（totally collapsed）／D5（story failure）の 4 区分。D4 は構造要素の重大な損傷（傾斜等）で使用不能、D5 は層崩壊。",
+      "gpt_interpretation": "DAMAGE_STATE packet は Yamada を『限界の言語化』にのみ用い（PRESENTATION_ONLY）、本文未取得のため A1_NOT_VERIFIED としていた。",
+      "claude_interpretation": "本文を取得し A1_VERIFIED とした。区分は D1/D2/D3 を分離しない 4 カテゴリであり、Moya の『倒壊=D5』とも Naito の 3 区分とも異なる。damage state 語彙が source ごとに異なるという契約上の主張の実例である。",
+      "agreement_status": "AGREE_WITH_NARROWING",
+      "recommended_ablepath_use": "damage state 語彙が source 固有であることの実例。",
+      "prohibited_use": "Yamada の 4 区分を AblePath の DAMAGED/COLLAPSED に語彙写像なしで対応づけること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DS-02",
+      "topic": "damage_state",
+      "source": "Yamada, Ohmura & Goto 2017",
+      "page_or_section": "pp.8-9（刷り pp.1562-1563）Table 1; p.15（刷り p.1569）; p.17（刷り p.1571）",
+      "equation": "NA",
+      "source_fact": "誤差行列（n=1,041）: 写真判読 Collapsed 233 のうち現地 D5 が 202（87%）。一方、現地 D4 の 158 棟のうち写真で Collapsed とされたのは 22 棟（13.9%）にとどまり、136 棟が Standing と判定された。全壊（D4+D5）439 棟のうち写真で検出できたのは 233 棟（約半数）。原著は『航空写真は D5 の同定には適するが D4 の同定は困難』と明記する。",
+      "gpt_interpretation": "契約は『航空写真だけでは D4 を十分に検出できないという制約を確認せよ』と指示した（未確認のまま）。",
+      "claude_interpretation": "制約は原著本文と誤差行列で確認された。さらに強く言える: 偽陰性は全壊の約半数に及び、D4 単独では 86% が見落とされる。したがってリモートセンシング由来の damage_state は『観測』ではなく『検出下限を伴う推定』として provenance に記録しなければならない。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "damage_state の観測手段ごとの偽陰性を provenance 必須項目とする根拠。",
+      "prohibited_use": "航空写真判読由来の被害区分を現地調査相当の観測値として扱うこと。13.9%/51.0% を京都・藤沢の検出率として引くこと。",
+      "transfer_status": "STRUCTURE_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DS-03",
+      "topic": "damage_state",
+      "source": "Yamada, Ohmura & Goto 2017",
+      "page_or_section": "p.1 Abstract; p.10（刷り p.1564）; pp.15-16（刷り pp.1569-1570）; p.17（刷り p.1571）",
+      "equation": "NA",
+      "source_fact": "要旨は不均質性の原因を『建物耐震性能と局所地盤条件の組み合わせ』とし、結論は『局所地盤条件と建築年代の組み合わせ』とする（列挙因子が一致しない）。本文は年代と倒壊率の強い相関を認め（築50年超で倒壊率40%）、建築基準改正年（1981/2000）より経年劣化の効果が大きいと述べる。表層地盤の増幅は強震時に非線形化しうるとも述べる。",
+      "gpt_interpretation": "DAMAGE_STATE packet C-15 は要旨のみに依拠し『不均質性は建築年代だけでは説明できない』とした。契約 §3 も『building age alone is insufficient』を use に置いた。",
+      "claude_interpretation": "『年代だけでは不十分』は支持される。しかし『年代の説明力が弱い』という読みは原著に反する（強い相関を明示）。既存文書は要旨だけを引いたため、この非対称を落としている。また非線形増幅の記述は、ハザード重畳の単調ロジック（軟弱地盤=被害大）を否定する追加根拠であり、既存文書はこれを利用していない。",
+      "agreement_status": "PARTIAL_DISAGREE",
+      "recommended_ablepath_use": "『年代だけでは damage_state を決められない』という限界の言語化。ハザード重畳の単調ロジックを退ける追加根拠。",
+      "prohibited_use": "『建築年代は説明力が弱い』と述べること。1981年以前/以後の二分で damage_state を割り当てること。40%/28%/9%/2% を京都・藤沢に転用すること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DS-04",
+      "topic": "damage_state",
+      "source": "Naito et al. 2024 (10.20965/jdr.2024.p0780)",
+      "page_or_section": "p.2（刷り p.781）; p.3（刷り p.782）Table 1",
+      "equation": "NA",
+      "source_fact": "3 区分は D0-D6 の粗粒度化である（1: no damage <- D0 / 2: damaged <- D1,D2,D3 / 3: collapsed <- D4,D5,D6）。区分を細かくするほど調査手法・調査員による集計差が大きくなることを粗粒度化の理由として明記する。",
+      "gpt_interpretation": "DAMAGE_STATE packet は Naito を『事後推定の構造』として REJECT の根拠に用いた（要旨のみ）。",
+      "claude_interpretation": "REJECT 判断は維持される。加えて、Naito の Collapsed が D4 を含む点は重要である——Moya の『倒壊=D5』より広く、Yamada の D4/D5 分離とも異なる。粗粒度化の理由（手法間・調査員間のばらつき）は、AblePath が damage_state を細かく持つほど provenance 要件が重くなることを示唆する。",
+      "agreement_status": "AGREE_WITH_NARROWING",
+      "recommended_ablepath_use": "damage state 語彙が一致しないこと（CT-3）の具体例。粗粒度化のトレードオフの説明。",
+      "prohibited_use": "Naito の Collapsed を Moya の『倒壊=D5』と同一視すること。3 区分を AblePath の語彙に無写像で流用すること。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DS-05",
+      "topic": "damage_state",
+      "source": "Naito et al. 2024",
+      "page_or_section": "p.6（刷り p.785）Table 4; p.7（刷り p.786）Section 5.4; p.8（刷り p.787）Tables 6-7",
+      "equation": "NA",
+      "source_fact": "10 変数 random forest の Overall Accuracy は 0.814、3 クラス平均 F 値は約 0.70。しかし collapsed クラスの Recall は 0.517（Precision 0.652, F 0.577）で、1 変数モデルの Recall 0.641 より低い。検証標本 7,981 棟中 collapsed は 290 棟（3.6%）。重要度上位は CNN 予測・テクスチャ解析・断層距離・震度の順で、上位 2 つは事後航空写真依存。ブルーシート被覆・地震前後 DSM 差分も事後観測。",
+      "gpt_interpretation": "DAMAGE_STATE packet §7 は『総合正解率およそ 81%』とだけ記し、§9-7 で 81%/70% を閾値・定数に用いることを禁じた。",
+      "claude_interpretation": "禁止は維持されるが、既存文書は 81% の内訳を落としている。倒壊クラスの再現率 0.517 は『倒壊建物の約半数を取りこぼす』ことを意味し、変数を増やすと再現率はむしろ下がる。したがって 81% は damage_state の信頼性の根拠に使えないという禁止を、精度の内訳の側から強く補強できる。既存文書は禁止の理由を『事後変数依存』のみに置いていた。",
+      "agreement_status": "GPT_OMISSION",
+      "recommended_ablepath_use": "事前割り当て不可の排除論拠、および『全体精度と少数クラス再現率は別物』という一般的注意。",
+      "prohibited_use": "81%/70%/0.517 を閾値やコード定数に用いること。事前シナリオで本モデルの構造を転用すること。これらの精度を京都・藤沢の妥当性として引くこと。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "false"
+    },
+    {
+      "claim_id": "DS-06",
+      "topic": "damage_state",
+      "source": "Lo et al. 2020 (10.1007/s12205-020-0340-7)",
+      "page_or_section": "p.4（刷り p.3824）; p.5（刷り p.3825）; p.6（刷り p.3826）Eq.(2)",
+      "equation": "F_r = 1 - Prod_{n=1}^{N}(1 - P_n)",
+      "source_fact": "TELES の damage state は 5 段（no / minor / moderate / severe / complete damage）で、道路閉塞に使うのは complete damage の 1 段のみ。PGA（250/400/550/750 Gal）は fragility 曲線の入力であって damage state ではない。閉塞確率は『1 棟でも倒壊すれば閉塞』とする直列合成で、幅・離隔・瓦礫量を一切用いない。",
+      "gpt_interpretation": "既存文書に Lo への言及はない（新規 source）。ただし RESEARCH_LEDGER §3 は damage_state を scenario 指定として与える設計を採る。",
+      "claude_interpretation": "PGA から damage state を直接作る経路が存在しないことを、TELES という実運用システムの側から確認できる。一方 Eq.(2) は AblePath の残存幅モデルとは互換性がなく、『先行研究が多数ある』ことが残存幅モデルの根拠にはならないことの実例である。",
+      "agreement_status": "NEW_EVIDENCE_SUPPORTS_GPT",
+      "recommended_ablepath_use": "『intensity は damage state ではない』ことの実運用システム側の裏づけ。幅を持たないモデルとの対比。",
+      "prohibited_use": "Eq.(2) を M7 の残存幅計算に用いること。PGA シナリオ結果を京都・藤沢に転用すること。",
+      "transfer_status": "REJECT",
+      "production_freeze_required": "false"
+    },
+    {
+      "claim_id": "DS-07",
+      "topic": "damage_state",
+      "source": "OpenQuake / GEM fragility documentation",
+      "page_or_section": "docs.openquake.org/vulnerability/fragility_models.html（参照 2026-09-03、#references を含む）",
+      "equation": "P(DS >= ds_i | IM) = Phi((ln IM - ln mu_DS_i)/beta_DS_i) ; beta_DS_i = sqrt(beta_r2r^2 + beta_b2b^2 + beta_ds^2)",
+      "source_fact": "fragility function は『ある damage state に達するか超える確率』を intensity measure の関数として記述する。mu は当該 damage state に対応する intensity の中央値、beta は総対数標準偏差（分散）。ばらつきは記録間・建物間・damage state 閾値定義の 3 成分に分解され、beta_ds は damage state の閾値定義そのものの不確かさを表す。",
+      "gpt_interpretation": "DAMAGE_STATE packet §4 は taxonomy -> probability -> realization の 3 層分離を採用し、確率を categorical に落とすには明示的な凍結実現規則が必要と結論した。",
+      "claude_interpretation": "全面的に同意する。加えて beta_ds の存在は既存文書が使っていない強い論拠である——公式文書自身が『damage state の境界は不確かである』と述べている以上、確率を状態に落とす操作は不確かさを捨てる操作であり、その捨象を凍結規則として記録することが必須になる。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "3 層分離の形式的根拠。realization 規則を凍結対象とする根拠。beta_ds による閾値定義の不確かさの明示。",
+      "prohibited_use": "確率分布を凍結実現規則なしに categorical な damage_state へ落とすこと。DAMAGED/COLLAPSED を taxonomy 写像なしに limitStates 語彙と同一視すること。",
+      "transfer_status": "STRUCTURE_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-01",
+      "topic": "debris_present",
+      "source": "Moya et al. 2020 (10.1177/8755293019892423)",
+      "page_or_section": "p.222 Eq.(7)-(8); p.224; p.226",
+      "equation": "P[D = 0 | H = h AND collapse] = 1.5 e^(-0.43h)",
+      "source_fact": "倒壊した建物であっても瓦礫が生じない確率が、建物高さの関数として明示的に非ゼロで与えられる。式(2)(3)(7)(9)(10) はすべて倒壊を条件とする条件付き量であり、原著は『倒壊確率が別に必要』『まず倒壊/非倒壊を実現化する必要がある』と明記する。",
+      "gpt_interpretation": "RESEARCH_LEDGER §3 は『debris_present（道路側へ瓦礫が出るか。Moya Eq.7 から variant 規則で決定値化: MEAN_CASE / HIGH_SENSITIVITY / NO_DEBRIS）』とした。",
+      "claude_interpretation": "『Eq.7 が debris_present を条件付き確率として与える』という読みは正しい。ただし『variant 規則で決定値化』は原著に規則が存在せず、AblePath 独自の凍結実現規則である。既存文書はこれを自認しているが（本 A1 検証 D-09）、台帳 §3 の文面だけを読むと Moya に規則があるように読める。文面の補正が望ましい。",
+      "agreement_status": "AGREE_WITH_NARROWING",
+      "recommended_ablepath_use": "debris_present を damage_state から独立した条件付き確率事象として契約に立てること。",
+      "prohibited_use": "Eq.(7) の値を bool として直接代入すること。damage_state=COLLAPSED から debris_present=true を自動生成すること。",
+      "transfer_status": "ADAPT",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-02",
+      "topic": "debris_present",
+      "source": "Moya et al. 2020",
+      "page_or_section": "p.211; p.218; p.222 Eq.(2)-(3); p.228-229",
+      "equation": "mu_h = 0.31h + 1.10 ; sigma = 1.11 (n = 738)",
+      "source_fact": "D は建物 footprint 外周から外側へ広がった瓦礫の距離で、50 cm 刻みで計測される。mu_h/sigma は D>0 の部分標本（n=738、母集団は木造 851 棟）に対する条件付き平均と残差標準偏差。瓦礫の方向は較正されておらず道路方向は保守的仮定。両側に建物がある場合は閉塞確率がもはや独立でないと明記。",
+      "gpt_interpretation": "RESEARCH_LEDGER §3 は D = 0.31h + 1.10、感度上限 +1sigma = 1.11 とし、§2 #3 で『2階建て町家 h≈7m なら mu_D≈3.3m、+1σで≈4.4m——幅4mの産寧坂クラスは沿道1棟の倒壊で車いす閾値を割る』という桁感を示した。",
+      "claude_interpretation": "係数の転記は正確で、TRANSFER=ADAPT の注記も適切。ただし『幅4mの産寧坂クラスは沿道1棟の倒壊で車いす閾値を割る』という桁感は、(i) Eq.(7) の P[D=0] を掛けていない、(ii) S=0 を暗黙に仮定している、(iii) 方向が当該側であることを仮定している——3 つの条件を落としている。台帳自身が『Eq.7 と併用せよ』と別項で述べているため矛盾しており、桁感の文面を条件付きに書き改めるべきである。",
+      "agreement_status": "GPT_OVERINTERPRETATION",
+      "recommended_ablepath_use": "debris_extent の凍結中核候補（human freeze 前）。左右独立の侵入量計算の入力。",
+      "prohibited_use": "mu_h を『倒壊建物は必ず 3.27 m の瓦礫を出す』式として使うこと。P[D=0] と S と方向を落とした桁感を対外資料に用いること。sigma を悲観ケースと呼ぶこと。",
+      "transfer_status": "ADAPT",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-03",
+      "topic": "debris_present",
+      "source": "Yu & Gardoni 2022 (10.1016/j.ress.2021.108220)",
+      "page_or_section": "§5.1.1; §5.2 Eq.(3); §5.2.1; §5.4 Eq.(9); §6.1 Eq.(17)",
+      "equation": "D_e,q = max(D_b,q(x,DS,Theta) - delta_q, 0)",
+      "source_fact": "瓦礫距離は damage state DS と建物寸法を条件とする確率量として構成される（対数変換した回帰＋残差）。瓦礫体積比 k は DS の関数。車線に届いた分 D_e は瓦礫距離から道路要素幅 delta_q を引いた正部分として別途定義される。経路閉塞確率は damage state の確率で重み付けした和であり、状態を確定させない。",
+      "gpt_interpretation": "RESEARCH_LEDGER §4 は容量式 C=V-E の型を借り、E を歩行プロファイル別所要幅 E_p に読み替えるとした。SETBACK packet は delta_q を『離隔を明示的に扱った先行例』として引いた。",
+      "claude_interpretation": "同意する。加えて、AblePath の I_side = max(D - S, 0) は Yu & Gardoni Eq.(9) と同型であることが指摘できる——既存文書は C=V-E の型のみを強調し、Eq.(9) の差分演算との同型性を活用していない。これは『debris_extent と road intrusion は別量である』という主張の最も直接的な文献的裏づけである。",
+      "agreement_status": "GPT_OMISSION",
+      "recommended_ablepath_use": "debris_extent から road intrusion を得る差分演算の型（Eq.9）。確率を確率のまま積み上げる型（Eq.17）。",
+      "prohibited_use": "C3 較正の後験値（theta, sigma）と HAZUS の k を日本木造に移植すること。delta_q をそのまま setback とすること（歩道を離隔に含めるため）。",
+      "transfer_status": "STRUCTURE_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-04",
+      "topic": "debris_present",
+      "source": "Anelli, Mori & Vona 2020",
+      "page_or_section": "p.6 Eq.(5), Eq.(8); p.6 冒頭; p.5 Table 1",
+      "equation": "w_d,2 = 0 ; w_d,5 = 0 ; w_d = 0 for DF <= 7%",
+      "source_fact": "瓦礫幅ゼロは 2 つの機構で明示的に生じる: (i) 損傷が軽微（DF <= 7%、operative limit state 以下）で footprint を保つ場合、(ii) 倒壊方向が当該道路側でない場合（Eq.5 の説明文が明記）。瓦礫幅自体は倒壊メカニズム別の幾何モデル（a, epsilon, Delta h）で与えられる。",
+      "gpt_interpretation": "既存文書は『倒壊 -> 瓦礫あり』の自動変換を Moya Eq.(7) のみを根拠に禁じていた。",
+      "claude_interpretation": "Anelli は Moya とは完全に独立な第二の根拠を与える。しかも機構が異なる——Moya の P[D=0] は観測された頻度、Anelli の w_d=0 は倒壊方向の幾何的場合分けである。両者を『同じ瓦礫なし確率』として混ぜてはならないが、禁止の根拠としては 2 本が独立に立つ。既存文書はこの二重の根拠を持っていない。",
+      "agreement_status": "GPT_OMISSION",
+      "recommended_ablepath_use": "damage_state -> debris_present の自動変換禁止の第二の独立根拠。",
+      "prohibited_use": "epsilon・w_d 式を日本木造に適用すること。Moya の P[D=0] と Anelli の w_d=0 を同じ確率として合成すること。",
+      "transfer_status": "PRESENTATION_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-05",
+      "topic": "debris_present",
+      "source": "Moya 2020 / Anelli 2020 / Yu & Gardoni 2022 / OpenQuake",
+      "page_or_section": "Moya p.222 Eq.(7), p.226; Anelli p.6 Eq.(5)(8); Yu & Gardoni §6.1 Eq.(17); OpenQuake fragility_models.html",
+      "equation": "NA",
+      "source_fact": "確率を閾値で bool に変換した source は 1 本も存在しない。Moya は乱数実現へ渡し、Yu & Gardoni は確率のまま重み付けし、Sorrentino は確率のまま MAF へ積分し、OpenQuake は fraction として集計する。",
+      "gpt_interpretation": "契約 §11 と既存 validator 設計は、COLLAPSED->debris_present=true、probability>0.5->true、UNKNOWN->false の 3 つの自動変換を禁止した。",
+      "claude_interpretation": "3 つの禁止はいずれも原著群と整合し、支持する。特に『probability>0.5 -> true』の 0.5 という値には文献上の出所が一切なく、閾値を置くこと自体が凍結を要する設計判断である。『UNKNOWN->false』の禁止も、Moya が倒壊確率を別途要求する構造（欠測は false ではなく未評価）と整合する。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "fail-closed validator の 3 テスト（自動変換の拒否）。",
+      "prohibited_use": "COLLAPSED から debris_present=true を導くこと。0.5 閾値で bool 化すること。UNKNOWN を false へ縮退させること。",
+      "transfer_status": "STRUCTURE_ONLY",
+      "production_freeze_required": "true"
+    },
+    {
+      "claim_id": "DB-06",
+      "topic": "debris_present",
+      "source": "Moya 2020 / Yu & Gardoni 2022 / Anelli 2020 / ROSA 2025",
+      "page_or_section": "Moya p.211; Yu & Gardoni §5.4 Eq.(9); Anelli p.7 Eq.(10); ROSA p.1",
+      "equation": "I_side = max(D - S, 0) ; remaining = max(W_clear - I_L - I_R, 0)",
+      "source_fact": "4 本の source はいずれも『瓦礫がどこまで出たか』と『通行対象面にどれだけ入ったか』と『残った幅』を別々の量として扱う。Moya の D は建物面基準、Yu & Gardoni の D_e は車線基準、Anelli の w_fr は残存幅、ROSA は 3 指標を別次元として定義する。",
+      "gpt_interpretation": "RESEARCH_LEDGER §3 は damage_state / debris_present / debris_extent / I_side / remaining_clear_width_m を分離した設計を採る。",
+      "claude_interpretation": "この分離は 4 本の source すべてに支持される、本レビューで最も強く裏づけられた設計判断である。ただし『どの量も他から自動導出されない』という含意まで踏み込むべきである——特に debris_present=true から I_side>0 は導けない（S が必要）。",
+      "agreement_status": "AGREE",
+      "recommended_ablepath_use": "5 フィールドを独立に保持する契約構造。相互の自動補完を禁じる validator。",
+      "prohibited_use": "debris_present=true から I_side>0 を導くこと。debris_extent を remaining_clear_width の直接の入力として扱うこと（S を経由しない）。",
+      "transfer_status": "STRUCTURE_ONLY",
+      "production_freeze_required": "true"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-01",
+      "type": "GPT_OVERINTERPRETATION",
+      "target": "docs/reference/RESEARCH_LEDGER.md §2 #3",
+      "text": "『2階建て町家 h≈7m なら μ_D≈3.3m、+1σで≈4.4m——幅4mの産寧坂クラスは沿道1棟の倒壊で車いす閾値を割る』",
+      "issue": "Moya Eq.(7) の P[D=0|h,collapse]（h=7 で約 0.074）を掛けておらず、setback S=0 を暗黙に仮定し、瓦礫方向が当該側であることも仮定している。台帳自身が別項で『Eq.7 と併用せよ』と述べており内部矛盾。",
+      "recommended_action": "桁感の文面を『倒壊し、瓦礫が当該側へ出て、かつ離隔が 0 と仮定した場合』という条件付きに書き改める。対外資料では条件を省略しない。",
+      "claim_ids": [
+        "DB-02"
+      ]
+    },
+    {
+      "finding_id": "F-02",
+      "type": "GPT_OMISSION",
+      "target": "docs/research/m7/SETBACK_EVIDENCE_PACKET_V2.md §3.1 / 契約 §3",
+      "text": "『歩行空間の縁を相手側に取る source は 1 本もない』という結論の下で、Sorrentino が禁止側にのみ現れる",
+      "issue": "Sorrentino & Giresini 2024 p.5 は『w の値には建物の後退位置を算入すべき』と明示しており、AblePath の setback の方向性を支持する唯一の明示的指示である。結論自体は正しいが、支持証拠が記録されていない。",
+      "recommended_action": "SETBACK packet 付録 S-A で C-14 として追記済み。",
+      "claim_ids": [
+        "SB-04"
+      ]
+    },
+    {
+      "finding_id": "F-03",
+      "type": "GPT_OMISSION",
+      "target": "契約 §3 の Sorrentino use 記述",
+      "text": "『use: multiple interfering elements and road-path blockage risk structure』",
+      "issue": "同論文が『閉塞確率＝建物被害確率』という瓦礫幅を計算しない簡略化を採ることが記されていない。この簡略化を持ち込むと全ての DS4 建物が閉塞として数えられ、残存幅モデルが無意味になる。",
+      "recommended_action": "DEBRIS packet §11 で Sorrentino を REJECT（瓦礫量として）に置いた。契約側の記述にも注記を要する。",
+      "claim_ids": [
+        "SB-05"
+      ]
+    },
+    {
+      "finding_id": "F-04",
+      "type": "GPT_OMISSION",
+      "target": "docs/research/m7/DAMAGE_STATE_EVIDENCE_PACKET_V2.md §7",
+      "text": "『SRC-5 の総合正解率およそ 81%』",
+      "issue": "内訳では collapsed クラスの Recall が 0.517 で、変数を 1 個から 10 個に増やすと再現率はむしろ下がる（0.641 -> 0.517）。倒壊建物の約半数を取りこぼす。",
+      "recommended_action": "DAMAGE_STATE packet 付録 D-A §15.2 に C-24 / C-25 として追記済み。",
+      "claim_ids": [
+        "DS-05"
+      ]
+    },
+    {
+      "finding_id": "F-05",
+      "type": "POTENTIAL_MISREADING",
+      "target": "docs/research/m7/DAMAGE_STATE_EVIDENCE_PACKET_V2.md C-15 / 契約 §3 の Yamada 記述",
+      "text": "『不均質性は建築年代だけでは説明できない』（要旨のみに依拠）",
+      "issue": "本文は年代と倒壊率の強い相関を明示し（築50年超で倒壊率40%）、建築基準改正年より経年劣化の効果が大きいと述べる。また要旨と結論で列挙因子が一致しない。『年代の説明力が弱い』という読みは原著に反する。",
+      "recommended_action": "DAMAGE_STATE packet 付録 D-A §15.1 で C-20/C-21 を追記し、支持される読みと支持されない読みを明記済み。",
+      "claim_ids": [
+        "DS-03"
+      ]
+    },
+    {
+      "finding_id": "F-06",
+      "type": "GPT_OMISSION",
+      "target": "docs/reference/RESEARCH_LEDGER.md §4 / SETBACK packet §7",
+      "text": "Yu & Gardoni からは容量式 C=V-E の型のみを借用している",
+      "issue": "AblePath の I_side = max(D - S, 0) は Yu & Gardoni Eq.(9) の D_e,q = max(D_b,q - delta_q, 0) と同型であり、これが『debris_extent と road intrusion は別量である』ことの最も直接的な文献的裏づけである。既存文書はこの同型性を活用していない。",
+      "recommended_action": "DEBRIS packet §4 / §8-3 に記載済み。",
+      "claim_ids": [
+        "DB-03"
+      ]
+    },
+    {
+      "finding_id": "F-07",
+      "type": "GPT_OMISSION",
+      "target": "DEBRIS 側の禁止根拠",
+      "text": "『倒壊 -> 瓦礫あり』の自動変換禁止が Moya Eq.(7) のみに依拠していた",
+      "issue": "Anelli p.6 Eq.(5)/(8) と DF<=7% 条項が、完全に独立な第二の根拠を与える（機構は異なる: 観測頻度 vs 倒壊方向の幾何的場合分け）。",
+      "recommended_action": "DEBRIS packet C-11/C-12 および A1 検証 A-08 に記載済み。両者の確率を合成しないことも併記。",
+      "claim_ids": [
+        "DB-04"
+      ]
+    },
+    {
+      "finding_id": "F-08",
+      "type": "WORDING_CORRECTION",
+      "target": "docs/reference/RESEARCH_LEDGER.md §3",
+      "text": "『debris_present（… Moya Eq.7: P[D=0|h]=1.5e^(−0.43h) から variant 規則で決定値化）』",
+      "issue": "文面だけを読むと決定値化規則が Moya 由来であるように読める。原著に決定値化規則は存在せず、variant は AblePath 独自の凍結実現規則である（A1 検証 D-09 と同旨）。また原著の条件は『H=h AND collapse』であり、台帳の表記は collapse 条件を省略している。",
+      "recommended_action": "台帳の文面を『Moya Eq.7 の条件付き確率 P[D=0|H=h AND collapse] を入力とし、AblePath 独自の凍結実現規則（variant）で決定値化する（human freeze 要）』に改める。台帳の編集は本タスクの許可範囲外のため記録にとどめる。",
+      "claim_ids": [
+        "DB-01"
+      ]
+    },
+    {
+      "finding_id": "F-09",
+      "type": "NEW_EVIDENCE",
+      "target": "setback 候補定義の議論",
+      "text": "ROSA（Yang et al. 2025）が setback を Building Debris Width Index の正規入力として名指しする",
+      "issue": "AblePath の setback 候補定義は文献上孤立していない。ただし式は Chu et al. 2023 に外部化され本 worktree に原本がないため A1_NOT_VERIFIED であり、実装根拠にはならない。",
+      "recommended_action": "用語レベルの先行例として引く。Chu et al. 2023 の原本入手を取得キューに追加する。",
+      "claim_ids": [
+        "SB-06",
+        "SB-07"
+      ]
+    },
+    {
+      "finding_id": "F-10",
+      "type": "NEW_CONSTRAINT",
+      "target": "damage_state の provenance 要件",
+      "text": "Yamada Table 1: 現地 D4 の 158 棟のうち写真判読で Collapsed とされたのは 22 棟（13.9%）のみ",
+      "issue": "航空写真判読由来の damage_state は『観測』ではなく『検出下限を伴う推定』である。全壊（D4+D5）全体でも検出率は 51.0%。",
+      "recommended_action": "damage_state の凍結項目に『観測手段の記録と、手段ごとの既知の偽陰性の併記』を追加する（DAMAGE_STATE packet 付録 §15.5 に記載済み）。",
+      "claim_ids": [
+        "DS-02"
+      ]
+    }
+  ],
+  "summary": {
+    "claims_total": 21,
+    "agreement_status_counts": {
+      "AGREE_WITH_NARROWING": 5,
+      "AGREE": 6,
+      "GPT_OMISSION": 5,
+      "NEW_EVIDENCE_SUPPORTS_GPT": 3,
+      "PARTIAL_DISAGREE": 1,
+      "GPT_OVERINTERPRETATION": 1
+    },
+    "propositions_total": 5,
+    "verdicts": {
+      "A": "SUPPORTED",
+      "B": "PARTIALLY_SUPPORTED",
+      "C": "SUPPORTED",
+      "D": "SUPPORTED",
+      "E": "SUPPORTED"
+    },
+    "propositions_requiring_human_freeze": [
+      "B",
+      "D",
+      "E"
+    ],
+    "findings_total": 10,
+    "headline": "原著 10 本（うち 6 本を今回新規に原本入手）を読み直した結果、AblePath の層分離設計（命題 A・C・D・E）は原著群に支持される。setback の定義（命題 B）は『中心線距離ではない』という否定形のみが支持され、『歩行空間の縁を相手側に取る』という肯定形は依然としてどの source からも得られない。既存の解釈側には過大解釈 1 件・記述漏れ 5 件・誤読リスク 1 件・文面補正 1 件を検出したが、いずれも production 規則の変更を要しない。"
+  },
+  "artifacts": {
+    "synthesis": "docs/research/m7/ORIGINAL_SOURCE_SYNTHESIS_V3.md",
+    "claim_matrix": "docs/research/m7/ORIGINAL_SOURCE_CLAIM_MATRIX_V3.csv",
+    "a1_verification": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md",
+    "crosswalk": "docs/research/m7/M7_LITERATURE_CROSSWALK_V2.csv",
+    "packets": [
+      "docs/research/m7/SETBACK_EVIDENCE_PACKET_V2.md",
+      "docs/research/m7/DAMAGE_STATE_EVIDENCE_PACKET_V2.md",
+      "docs/research/m7/DEBRIS_PRESENCE_EVIDENCE_PACKET_V2.md"
+    ]
+  },
+  "limitations": [
+    "本書は原著の該当箇所の同定・引用転記と、その上での独立の読みである。統計の再現計算やデータの再解析ではない。",
+    "ROSA の Building Debris Width Index の算式（R-02）と Moya の相関係数 r（M-10）は A1_NOT_VERIFIED のままである。",
+    "OpenQuake の documentation は版とともに変わる。引用は参照時点（2026-09-03）のものである。",
+    "本書は安全性・アクセシビリティ・行政妥当性のいずれの検証でもない。"
+  ]
+}
