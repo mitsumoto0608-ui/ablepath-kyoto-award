@@ -1,0 +1,627 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "M7-CLOSURE-STATUS-RECEIPTS-V1",
+  "generated_at": "2026-09-03",
+  "semantics": {
+    "None": "no bounded official check completed",
+    "False": "authoritative source states no closure (requires receipt)",
+    "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND": "a check ran but the source carries no edge-level status"
+  },
+  "edges": [
+    {
+      "city_id": "fujisawa_enoshima",
+      "edge_id": "FJ-OSM-E-018BDD155711677D",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 2
+      },
+      "automated_source_checks": [
+        {
+          "source": "cities/fujisawa_enoshima/hazards/official/*_scenario_inventory.csv",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "藤沢市 液状化・地震被害想定",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "INVENTORY_ONLY_NO_GEOMETRY",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 2
+      },
+      "automated_source_checks": [
+        {
+          "source": "cities/fujisawa_enoshima/hazards/official/*_scenario_inventory.csv",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "藤沢市 液状化・地震被害想定",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "INVENTORY_ONLY_NO_GEOMETRY",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "edge_id": "FJ-OSM-E-062F75C8425C2252",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 5
+      },
+      "automated_source_checks": [
+        {
+          "source": "cities/fujisawa_enoshima/hazards/official/*_scenario_inventory.csv",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "藤沢市 液状化・地震被害想定",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "INVENTORY_ONLY_NO_GEOMETRY",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 2
+      },
+      "automated_source_checks": [
+        {
+          "source": "cities/fujisawa_enoshima/hazards/official/*_scenario_inventory.csv",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "藤沢市 液状化・地震被害想定",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "INVENTORY_ONLY_NO_GEOMETRY",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "edge_id": "FJ-OSM-E-215A5178BF215505",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 0
+      },
+      "automated_source_checks": [
+        {
+          "source": "cities/fujisawa_enoshima/hazards/official/*_scenario_inventory.csv",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "藤沢市 液状化・地震被害想定",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "INVENTORY_ONLY_NO_GEOMETRY",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 12
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 8
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 12
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 6
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 7
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "edge_id": "KK-OSM-W1251544286-S01",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 24
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "edge_id": "KK-OSM-W1491152444-S01",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 15
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "edge_id": "KK-OSM-W1491152444-S02",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 27
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "edge_id": "KK-OSM-W157527438-S01",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 32
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "edge_id": "KK-OSM-W174762077-S01",
+      "official_closure": null,
+      "official_closure_status": "NONE_RETAINED_BOUNDED_CHECK_PENDING",
+      "official_closure_receipt": {
+        "authority": null,
+        "checked_at": null,
+        "result": null,
+        "note": "None ≠ False. Set False only with an authoritative receipt."
+      },
+      "hazard_data_status": "UNKNOWN",
+      "hazard_data_status_receipt": {
+        "decision": "UNKNOWN",
+        "basis": "no accepted building-level or edge-level hazard state artifact; exposure-only join exists",
+        "exposure_only_records": 193
+      },
+      "automated_source_checks": [
+        {
+          "source": "reports/KYOTO_PARITY_STATUS.json A31b display (internal only)",
+          "check_type": "REPO_INTERNAL_OFFICIAL_ARTIFACT",
+          "result": "SOURCE_CHECK_EXECUTED_NO_AUTHORITATIVE_EDGE_STATUS_FOUND",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "京都府土砂災害警戒区域 GIS",
+          "check_type": "OFFICIAL_SOURCE_NOT_CONNECTED",
+          "result": "NOT_CONNECTED_LICENSE_OR_AOI_LINEAGE_UNRESOLVED",
+          "login_required": false,
+          "field_work_required": false
+        },
+        {
+          "source": "道路管理者の通行規制情報（京都市／神奈川県・藤沢市）",
+          "check_type": "AUTHORITATIVE_CLOSURE_SOURCE",
+          "result": "NOT_EXECUTED_REQUIRES_HUMAN_QUERY",
+          "login_required": null,
+          "field_work_required": false
+        }
+      ]
+    }
+  ]
+}

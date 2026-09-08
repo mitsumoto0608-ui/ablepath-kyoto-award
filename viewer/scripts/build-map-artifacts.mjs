@@ -108,9 +108,22 @@ export function assertDeliveredMapArtifacts(catalog, outputRoot) {
   return catalog;
 }
 
+export function assertDeliveredOfficialArtifacts(analyses, officialDirectory) {
+  for (const analysis of analyses) {
+    for (const layer of [analysis.official_evidence?.facility?.display_layer, analysis.official_evidence?.hazard?.display_layer]) {
+      if (!layer) continue;
+      const deliveredPath = join(officialDirectory, layer.data_path.replace("./data/official/", ""));
+      const actual = hash(deliveredPath);
+      if (actual !== layer.artifact_sha256 || actual !== layer.copied_sha256) throw new Error(`${analysis.city_id} official delivered byte SHA-256 mismatch`);
+    }
+  }
+  return analyses;
+}
+
 export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot }) {
   const root = repoRoot instanceof URL ? fileURLToPath(repoRoot) : resolve(repoRoot); const output = outputRoot instanceof URL ? fileURLToPath(outputRoot) : resolve(outputRoot);
-  assertStaticAnalysisArtifacts({ repoRoot: root, analysisRoot });
+  const analysisDirectory = analysisRoot instanceof URL ? fileURLToPath(analysisRoot) : resolve(analysisRoot ?? join(root, "viewer", "public", "data", "analysis"));
+  assertStaticAnalysisArtifacts({ repoRoot: root, analysisRoot: analysisDirectory });
   const built = CITY_INPUTS.map((input) => artifact(root, input)); mkdirSync(output, { recursive: true });
   for (const city of built) {
     const deliveredPath = join(output, `${city.city_id}.candidate_edges.geojson`);
@@ -122,6 +135,7 @@ export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot }) {
   for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
     copyFileSync(join(parityRoot, filename), join(officialDirectory, filename));
   }
+  assertDeliveredOfficialArtifacts(CITY_INPUTS.map((input) => json(join(analysisDirectory, `${input.id}.json`))), officialDirectory);
   const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => city) };
   assertSupportedMapCatalog(catalog); assertDeliveredMapArtifacts(catalog, output); writeFileSync(join(output, "map-layers.json"), `${JSON.stringify(catalog, null, 2)}\n`);
   return { files: [...built.map((city) => join(output, `${city.city_id}.candidate_edges.geojson`)), ...["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"].map((filename) => join(officialDirectory, filename)), join(output, "map-layers.json")] };

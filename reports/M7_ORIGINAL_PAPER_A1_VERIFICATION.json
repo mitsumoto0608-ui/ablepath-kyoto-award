@@ -1,0 +1,920 @@
+{
+  "schema_version": "1.0.0",
+  "generated_date": "2026-09-03",
+  "report": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md",
+  "scope": "contract section 10 original-paper A1 verification",
+  "production_constants_changed": false,
+  "safety_accessibility_or_administrative_validation_claimed": false,
+  "m7_executed": false,
+  "sources": [
+    {
+      "source_id": "MOYA",
+      "citation": "Moya L., Mas E., Yamazaki F., Liu W., Koshimura S. (2020) Statistical analysis of earthquake debris extent from wood-frame buildings and its use in road networks in Japan. Earthquake Spectra 36(1) 209-231.",
+      "doi": "10.1177/8755293019892423",
+      "sha256": "f813df0899dfc89c9fb545983298a33614d852fb34bc0f3e49fd1526788cb6b4",
+      "manifest_id": "P03",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "source_id": "YUGA",
+      "citation": "Yu Y.-C., Gardoni P. (2022) Predicting road blockage due to building damage following earthquakes. Reliability Engineering and System Safety 219, 108220.",
+      "doi": "10.1016/j.ress.2021.108220",
+      "sha256": "a78f77e2b02cd41fa103b8cf2082367cd03ac8c655a708a36887e15eed0c190f",
+      "manifest_id": "P04",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "source_id": "KAMEI",
+      "citation": "亀井千尋・花岡和聖・中谷友樹 (2009) 震災時の道路閉塞状況からみた文化財の危険度評価. GIS-理論と応用 17(1) 73-82.",
+      "doi": "10.5638/thagis.17.73",
+      "sha256": "a2e704c224898f24bd4a04aca63b194ac68973b0016c2d3a8e8fc66a8b6e4b18",
+      "manifest_id": "P02",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "source_id": "ANELLI",
+      "citation": "Anelli A., Mori F., Vona M. (2020) Fragility Curves of the Urban Road Network Based on the Debris Distributions of Interfering Buildings. Applied Sciences 10(4):1289.",
+      "doi": "10.3390/app10041289",
+      "sha256": "d00552369dfcc22795c1018b2ab1972bf3a09650497e076dacb011e7f1aded53",
+      "manifest_id": null,
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "appendix_note": "2026-09-03 付録 A で原本 PDF を入手し、媒体を格上げした。"
+    },
+    {
+      "source_id": "SORRE",
+      "citation": "Sorrentino L., Giresini L. (2024) Risk Assessment of Road Blockage after Earthquakes. Buildings 14(4):984.",
+      "doi": "10.3390/buildings14040984",
+      "sha256": "521b3dda66d6433a950f816248c2a6fb98bb3bca3a4633f56100e3996808f33e",
+      "manifest_id": null,
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "appendix_note": "2026-09-03 付録 A で原本 PDF を入手し、媒体を格上げした。"
+    },
+    {
+      "source_id": "OQ",
+      "citation": "OpenQuake Engine documentation (Fragility Models; Scenario-Based Damage Calculator), GEM Foundation.",
+      "doi": null,
+      "sha256": null,
+      "manifest_id": null,
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML"
+    },
+    {
+      "source_id": "NAITO",
+      "citation": "Naito S., Tomozawa H., Tsuchiya M., Nakamura H., Fujiwara H. (2024) Improving the Accuracy of Building Damage Estimation Model Due to Earthquake Using 10 Explanatory Variables. J. Disaster Res. 19(5) 780-792.",
+      "doi": "10.20965/jdr.2024.p0780",
+      "sha256": "2cf08ca41958e558c4584666e804f75533d66cd68c53e9db29b8c7a7a25bbe52",
+      "manifest_id": null,
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "appendix_note": "2026-09-03 付録 A で原本 PDF を入手し、媒体を格上げした。"
+    },
+    {
+      "source_id": "YAMADA",
+      "citation": "Yamada M., Ohmura J., Goto H. (2017) Wooden Building Damage Analysis in Mashiki Town for the 2016 Kumamoto Earthquakes on April 14 and 16. Earthquake Spectra 33(4) 1555-1572.",
+      "doi": "10.1193/090816EQS144M",
+      "sha256": "ad4ffd3521a4a1532a2bfd941430cb17eeca2ee98537765141a0df2e41c746f7",
+      "manifest_id": null,
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "appendix_note": "2026-09-03 付録 A で原本 PDF を入手し、媒体を格上げした。",
+      "source_note": "旧記録の『本文取得不可（購読制）』は付録 A.3 で解消。"
+    },
+    {
+      "source_id": "LO",
+      "citation": "Lo I.-T., Lin C.-Y., Yang C.-T., Chuang Y.-J., Lin C.-H. (2020) Assessing the Blockage Risk of Disaster-Relief Road for a Large-Scale Earthquake. KSCE Journal of Civil Engineering 24(12) 3820-3834.",
+      "doi": "10.1007/s12205-020-0340-7",
+      "sha256": "4992ae872bb67dad752160bca0dec13da1cf9e3e6b68ebc56f5c230627a25d8d",
+      "manifest_id": "NA",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "source_id": "ROSA",
+      "citation": "Yang C.-T. et al. (2025) Development and Validation of ROSA: A Tool for Post-Earthquake Rescue Road Planning and Risk Assessment. E3S Web of Conferences 653, 02003.",
+      "doi": "10.1051/e3sconf/202565302003",
+      "sha256": "972a573165a43cebd7e566c5b98d85f21f4e8a5055ef4e79467f9153e666a50a",
+      "manifest_id": "NA",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    }
+  ],
+  "withdrawn_duplicate_doi_used": false,
+  "withdrawn_duplicate_doi": "10.1177/87552930241232908",
+  "items": [
+    {
+      "item_id": "M-01",
+      "source_id": "MOYA",
+      "contract_item": "exact definition of h",
+      "status": "A1_VERIFIED",
+      "location": "p.222, text following Eq.(2)-(3); p.219",
+      "quote": "where h denotes a particular realization of the random value H.",
+      "note": "H は建物高さ。高さの出所は LiDAR 由来 DSM（屋根面）。軒高/屋根高の区別は原著に明示なし。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-02",
+      "source_id": "MOYA",
+      "contract_item": "exact definition of debris extent D",
+      "status": "A1_VERIFIED",
+      "location": "p.211 Introduction; p.218 'Debris extent of collapsed buildings'",
+      "quote": "the debris width produced by a collapsed building that is extended further than the initial building's boundary, hereafter referred to as debris extent (D)",
+      "note": "基準線は建物 footprint（BDSM に整合させて位置補正済み）。0.5 m 刻みの離散値。標高差 50 cm 以上を瓦礫と判定。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-03",
+      "source_id": "MOYA",
+      "contract_item": "Eq.2",
+      "status": "A1_VERIFIED",
+      "location": "p.222, Eq.(2)",
+      "quote": "mu_h = beta*h + alpha = 0.31h + 1.10",
+      "note": "D>0 部分標本に対する条件付き平均。台帳 §1/§3 と一致。原著記号は mu_h。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-04",
+      "source_id": "MOYA",
+      "contract_item": "Eq.3",
+      "status": "A1_VERIFIED",
+      "location": "p.222, Eq.(3)",
+      "quote": "sigma = 1.11",
+      "note": "1.11 が標準偏差であることを式(4)(5) との算術整合で確認（1.11^2/(738*2.211)=7.55e-4 ≒ 0.00075、sqrt=0.0275 ≒ Eq.(5) の 0.0274）。式(4)(5) 自体はテキスト抽出が崩れるため実装に用いない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-05",
+      "source_id": "MOYA",
+      "contract_item": "Eq.7",
+      "status": "A1_VERIFIED",
+      "location": "p.222, Eq.(7); complement Eq.(8); Fig.11(b)",
+      "quote": "P[D = 0 | H = h AND collapse] = 1.5 e^(-0.43h)",
+      "note": "負号は Eq.(8) の補集合形と Fig.11(b)・p.228 の記述（高さが増すと無瓦礫割合が減る）で確定。9.5<=h<10.5 のビンは当てはめから除外。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-06",
+      "source_id": "MOYA",
+      "contract_item": "sample filters incl. n=738 D>0 subsample and adjacent-building exclusion",
+      "status": "A1_VERIFIED",
+      "location": "p.212; pp.215-216; p.219; p.222",
+      "quote": "Collapsed buildings obstructed by neighboring buildings. The reason for this decision was that the natural pattern of debris expansion was probably affected by the neighboring buildings (Figure 5c and d). / After filtering the types of buildings mentioned above, a total of 1099 buildings were selected / Finally, 851 wooden buildings were selected for further analysis. / The sample size is n = 738.",
+      "note": "系統は 1,099（材料フィルタ前）→ 851（木造）→ 738（うち D>0）。倒壊の定義は Okada & Takai (2000) の D5（1層以上の消失）。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-07",
+      "source_id": "MOYA",
+      "contract_item": "whether setback / building-road separation is measured and how",
+      "status": "A1_VERIFIED",
+      "location": "p.224 Figure 12 caption and text; absence in pp.219-223",
+      "quote": "The road has a width of 3 m and is at a distance of 1 m from the building facade.",
+      "note": "否定的所見。setback は説明変数として計測されていない。1 m は応用例の仮定値。D は building footprint 起点の量であり、道路中心線・footprint 重心・屋根頂点からの距離とは別量。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-08",
+      "source_id": "MOYA",
+      "contract_item": "conditionality of debris probability",
+      "status": "A1_VERIFIED",
+      "location": "p.222 Eq.(6)-(10); p.224; p.226 'Synthetic scenarios'",
+      "quote": "Recall that Equation 10 was defined using the sample space of collapsed buildings, which is a subsample of all buildings. Therefore, the probability that a building will collapse is required. / it is necessary to simulate the collapse/non-collapse behaviors of buildings first.",
+      "note": "式(2)(3)(7)(9)(10) は全て倒壊を条件とする。Moya は damage_state 生成器ではない。Eq.(7) は確率であり bool ではない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-09",
+      "source_id": "MOYA",
+      "contract_item": "exclusion / limitation conditions",
+      "status": "A1_VERIFIED",
+      "location": "pp.227-229 Discussion and conclusion",
+      "quote": "Material type should also be correlated with the debris extent, and therefore the probabilistic model proposed in this study applies only to wooden buildings. / We are not claiming that the effects of neighboring buildings were completely removed / the probability that a building will block the road is no longer independent. / our outputs must be used within an integrated framework",
+      "note": "京町家の連担は較正時に除外された側。TRANSFER=ADAPT。崩壊モード（EMS-98）は特定不能。両側建物では独立でない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "M-10",
+      "source_id": "MOYA",
+      "contract_item": "D-H correlation coefficient r=0.45 (ledger-recorded value)",
+      "status": "A1_NOT_VERIFIED",
+      "location": "Figure 9 panels, p.220 (in-image text only)",
+      "quote": "",
+      "note": "図中の画像文字であり本文・表に無いため引用位置を特定できない。台帳 §1 の r=0.45 は本書で追認も否認もしない。M7 の計算に入らないため production 影響なし。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-01",
+      "source_id": "YUGA",
+      "contract_item": "damage taxonomy",
+      "status": "A1_VERIFIED",
+      "location": "Sec.5.1.2 and Table 1; Sec.7.1",
+      "quote": "The damage grades have five levels from 0 to 5 (0 = no damage; 5 = total collapse) / We then map the damage grades in EMS into the DS in HAZUS / the five damage states, DS_mu (mu = 1, 2, ..., 5). The damage state from 1 to 5, respectively, are none, slight, moderate, extensive, and complete damage.",
+      "note": "Table 1: EMS Grades 1&2->Slight, 3->Moderate, 4->Extensive, 5->Collapse。台帳 §1 と一致。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-02",
+      "source_id": "YUGA",
+      "contract_item": "calibration population (Haiti / C3)",
+      "status": "A1_VERIFIED",
+      "location": "Sec.5.1, 5.1.1, 5.1.2, Sec.8",
+      "quote": "We selected a total of 174 damaged buildings located in Port-Au-Prince / Data are for pre-code Type C3 buildings according to the HAZUS categories. Type C3 buildings are concrete frame buildings with unreinforced infill. / The limitation in this work is that all buildings in the data are of Type C3.",
+      "note": "2010 ハイチ地震、Port-au-Prince、174 損傷建物、全て pre-code C3。日本の木造・京町家と構造も設計世代も異なる。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-03",
+      "source_id": "YUGA",
+      "contract_item": "debris-distance relation",
+      "status": "A1_VERIFIED",
+      "location": "Sec.5.1.1; Sec.5.2 Eq.(3)-(5); Sec.5.2.1 Eq.(4); Table 2; Table 3",
+      "quote": "We select the maximum distance from each reference points to the nearest building edge as the debris distance / T[D(x, DS, Theta)] = T[d_hat(x, DS)] + gamma(x, theta) + sigma*epsilon / We use the HAZUS debris generating model to predict k as a function of DS.",
+      "note": "Table 3 後験値 theta1=1.051, theta38=-0.671, theta40=0.211, sigma=0.470。建物長 L で無次元化。theta/sigma は C3 較正であり移植不可。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-04",
+      "source_id": "YUGA",
+      "contract_item": "road blockage fragility structure",
+      "status": "A1_VERIFIED",
+      "location": "Sec.4 Eq.(1)-(2); Sec.5.4 Eq.(9); Sec.6.1 Eq.(10)-(18); Sec.6.2 Eq.(19)-(20); Sec.3",
+      "quote": "C = V - E, where V is the total width of lanes and E is the minimum width an emergency vehicle (e.g., ambulance) required. / C_q = V_q - E / g(x, DS, Theta) = C - sum_l D_e,l(x, DS, Theta) / F(DS, Theta) = P[g(x, DS, Theta) <= 0 | DS, Theta] / F~(S) = sum_mu F~(DS) P(DS_mu | S)",
+      "note": "断面型は中央帯有無 x 片側/両側建物の 4 型。道路全体は直列（Eq.19）／並列（Eq.20）。台帳 §1 の C=V-E と一致。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-05",
+      "source_id": "YUGA",
+      "contract_item": "transfer limits",
+      "status": "A1_VERIFIED",
+      "location": "Sec.3 (second assumption); Sec.7.1; Sec.8",
+      "quote": "vehicles can only drive on vehicle lanes but not on the other road elements (e.g., sidewalk) in an emergency (while such elements provide space for the debris) / The minimum width for an emergency vehicle is taken 3.5 meters (E = 3.5 m). / The building seismic vulnerability estimation can be replaced by other building fragility models for the specific regional building standard.",
+      "note": "歩道は通行空間から明示的に除外され瓦礫の受け皿として扱われる。E を歩行者・車いす所要幅へ読み替えるのは原著仮定の反転であり STRUCTURE_ONLY でしか成立しない。置換可能なのは fragility モデルと再較正後パラメータであって C3 後験値ではない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "Y-06",
+      "source_id": "YUGA",
+      "contract_item": "setback-equivalent quantity (delta_q)",
+      "status": "A1_VERIFIED",
+      "location": "List of Symbols; Sec.5.4 Eq.(9); Sec.7.2",
+      "quote": "delta_q  the total width of the road elements from the building edge to the target lanes on the q side of the road / delta_1 = W_s,1 + W_p,1 = 3.5 m",
+      "note": "delta_q は建物 edge から対象車線までの道路要素幅の合計で、歩道を含む。Moya の S（建物前面から歩行空間縁まで）とも道路中心線距離とも別量。歩行空間を守る S としては使えない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "A-01",
+      "source_id": "ANELLI",
+      "contract_item": "road pavement width",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 1",
+      "quote": "the average width of the road pavement (w_r)",
+      "note": "",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.4, Section 2 Step 1",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-02",
+      "source_id": "ANELLI",
+      "contract_item": "sidewalk width",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 1",
+      "quote": "the average width of the sidewalks (w_br)",
+      "note": "",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.4, Section 2 Step 1",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-03",
+      "source_id": "ANELLI",
+      "contract_item": "opposite-building separation",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 1",
+      "quote": "the average distance between the opposite interfering buildings (w_bb) along the road sides",
+      "note": "w_bb は向かい合う干渉建物どうしの距離であって setback そのものではないが、離隔を建物面基準の幅の分解として扱う点が道路中心線 proxy との決定的な差。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.4, Section 2 Step 1",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-04",
+      "source_id": "ANELLI",
+      "contract_item": "debris width",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 3; Eq.(2)-(9)",
+      "quote": "debris width (w_d) extending further than the initial width of the structure (a) / w_d,1 = w_d,max = a*(eps - 1) / w_d,2 = 0 / w_d,3 = w_d,max/2 / w_d,4 = delta_h / w_d,5 = 0 / w_d,6 = delta_h/2",
+      "note": "倒壊メカニズム別の幾何モデル（LiDAR 実測ではない）。w_d,2 = w_d,5 = 0 が瓦礫幅ゼロの場合を明示的に含む＝Moya Eq.(7) とは独立な「瓦礫の有無は別事象」根拠。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.4 Step 3 (definition); p.6 Eq.(4)-(9)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-05",
+      "source_id": "ANELLI",
+      "contract_item": "remaining-free-width definition",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 4; Eq.(10)",
+      "quote": "width of the road pavement that remains free after the debris fall (w_fr) / w_fr = w_bb - max(w_br1; |w_br1 - w_d1,i|) - max(w_br2; |w_br2 - w_d2,j|)",
+      "note": "歩道が瓦礫の緩衝帯として消費される構造。左右侵入を差し引く点は AblePath と同型だが、歩行空間の残存幅は出力されない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.7 Eq.(10) (duplicated typesetting on p.5)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-06",
+      "source_id": "ANELLI",
+      "contract_item": "3.50 m emergency-vehicle threshold scope",
+      "status": "A1_VERIFIED",
+      "location": "Section 2, Step 4",
+      "quote": "the probability that the width of the road pavement is at least 3.50 m, in order to allow the passage of emergency vehicles after a debris fall",
+      "note": "3.50 m は緊急車両の通行可否閾値であり、歩行者・車いす閾値ではない。事例は Amatrice Corso Umberto I（組積造 100 棟＋RC 3 棟）、LCE = limiting conditions of the emergency。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.3 Introduction; p.7 Eq.(11); p.9 Eq.(14)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "K-01",
+      "source_id": "KAMEI",
+      "contract_item": "Kyoto building attribute sources",
+      "status": "A1_VERIFIED",
+      "location": "p.74 Table 1; pp.74-75",
+      "quote": "対象地域内には 524,523 件の建物ポリゴンが存在する。",
+      "note": "Z-map TOWN II（位置・面積・階数）／土地利用現況調査資料（年代別構造別戸数）／京町家まちづくり調査／京都市建物実態調査／MAPCUBE（高さ）／GISMAP for Road／数値地図25000・50m／活断層詳細デジタルマップ。建物単位の属性は観測ではなく推定値。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-02",
+      "source_id": "KAMEI",
+      "contract_item": "building attribute estimation and its validation",
+      "status": "A1_VERIFIED",
+      "location": "pp.75-77, Eq.(1), Fig.2-3",
+      "quote": "モンテカルロ・シミュレーションを用いて，調査地区での統計上の建物件数を制約として，建物単位での建築年代と建築構造を推定する / 全建物件数のうち建築構造が正しく分類された建物件数の比率（Overall classification accuracy）は，5事例の平均で76％",
+      "note": "構造は木造/非木造の 2 区分、年代は戦前(-1944)/戦後(1945-1974)/近年(1975-)の 3 区分。京町家は事前に戦前木造へ固定。年代の分類精度は未報告。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-03",
+      "source_id": "KAMEI",
+      "contract_item": "collapse simulation",
+      "status": "A1_VERIFIED",
+      "location": "p.77 sec.3.2, Fig.5-6",
+      "quote": "内閣府の『地震被害想定マニュアル』（2001）の手順に従い行う / 建物ポリゴンの建築年代と建築構造，地表最大速度から建物の全壊率を求めた / モンテカルロ・シミュレーションを用いて，建物全壊率に基づき地震発生時における建物の「全壊」または「被害なし」を予測した / 25事例で，倒壊した建物件数は平均で 123,240 件（全建物ポリゴンに占める割合 23.50％）",
+      "note": "PGV -> 全壊率（確率） -> モンテカルロで全壊/被害なしへ実現化、の 3 段分離。京都市消防局(2007) の 117,800 棟と整合を確認。二値であり多段 damage state ではない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-04",
+      "source_id": "KAMEI",
+      "contract_item": "road blockage rules",
+      "status": "A1_VERIFIED",
+      "location": "p.78 sec.4, Fig.7, Table 3",
+      "quote": "建物から等方向に瓦礫が流出すると想定する / 建物ポリゴンに瓦礫流出を見立てたバッファを発生させ，それらが道路の中心線を分断するならば，その道路は閉塞状況にあると判断する。これは道路の片側1車線以上が通行不可能な状況である。 / 瓦礫流出幅を建物の高さ H をパラメータ B で除して推定する / B=4 の場合で，全道路リンク数 26,268 のうち閉塞道路リンク数は 9,179",
+      "note": "閉塞判定は等方バッファ対道路中心線であり、幅の差し引きではない。B は 1,2,4,8 を試行し 4 を採用。B=4 の閉塞率は全体 35%、3.0-5.5m で 48%、5.5-13.0m で 25%、13.0m 以上で 7%。原著自身が広幅員での過大評価を認める。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-05",
+      "source_id": "KAMEI",
+      "contract_item": "validation status",
+      "status": "A1_VERIFIED",
+      "location": "p.78",
+      "quote": "道路閉塞を直接検証可能な資料がないため，本研究では，花折断層の地震動によって兵庫県南部地震と同程度の道路閉塞被害が生じると仮定する。 / 家田ほか（1997）によれば，兵庫県南部地震による神戸市内の道路閉塞は，幅員 4-6m の街路で約30％，幅員 6-8m の街路で 15%，幅員 8-12m の街路で 3％である。これらと比較すると，B=4 または 8 が妥当である。",
+      "note": "否定的所見。京都の道路閉塞について直接の実測検証は存在しない。B=4 は神戸の実態調査との比較と「同程度の被害」という仮定の下でのみ選ばれている。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-06",
+      "source_id": "KAMEI",
+      "contract_item": "year / scope limitations",
+      "status": "A1_VERIFIED",
+      "location": "p.81 sec.6; p.74 Table 1; p.73 masthead",
+      "quote": "建物から全方向に瓦礫が発生するとしたが，これは推定結果に過大評価をもたらすと考えられ，有方向の建物倒壊モデルが必要である。瓦礫幅は，「建物の高さ / 4」としたが，これも過去の震災の経験を踏まえた検討が求められる。また，倒壊率や建築年代は，内閣府のマニュアルに基づき算出したが，町家の耐震性評価などを含め，さらなる精緻化が必要であろう。",
+      "note": "入力は土地利用現況調査資料 2005 年版、想定は京都市第3次地震被害想定(2007)、原稿受理 2008-09-08 / 採用 2009-04-21。対象は京都市（旧京北町を除く）。現在の清水・祇園回廊の状態を表さない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "K-07",
+      "source_id": "KAMEI",
+      "contract_item": "accessibility result (source of ledger 8%/8%)",
+      "status": "A1_VERIFIED",
+      "location": "p.73 Abstract; pp.79-80 sec.5; Table 4",
+      "quote": "As a result, 8% of cultural heritages cannot be reached at all and another 8% at only 20% due to the blockade. / その際，到達地点は，文化財の周囲80ｍ以内と設定する。これは，消防車がホース車を接続し通常放水に対応できる範囲であり / 最短経路探索には，ArcGIS 9.2 の Network Analyst を使用する。",
+      "note": "Table 4: 評価1 24件(8%)、評価2 24件(8%)、評価7 163件(57%)、合計 285 件。到達判定は消防車両の 80 m 接近であり歩行者・車いすの到達可能性ではない。台帳 §1 と一致。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED"
+    },
+    {
+      "item_id": "O-01",
+      "source_id": "OQ",
+      "contract_item": "fragility schema",
+      "status": "A1_VERIFIED",
+      "location": "User Guide > Inputs > Fragility Models (referenced version 3.19 / latest)",
+      "quote": "a fragility model defines a set of fragility functions that describe the probability of exceeding a set of limit, or damage, states / id: a unique string used to identify the Fragility Model / lossCategory: mandatory; valid strings for this attribute are 'structural', 'nonstructural', 'contents', and 'business_interruption' / limitStates: this field is used to define the number and nomenclature of each limit state",
+      "note": "damage state の個数と名称はモデル側の宣言であり普遍的な固定集合ではない。DAMAGED / COLLAPSED は宣言済み limitStates 語彙に写像しない限り意味を持たない。",
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML"
+    },
+    {
+      "item_id": "O-02",
+      "source_id": "OQ",
+      "contract_item": "damage-state probabilities",
+      "status": "A1_VERIFIED",
+      "location": "Underlying Science > Scenario-Based Damage Calculator",
+      "quote": "each ground-motion field is combined with a fragility model (discrete or continuous), in order to compute the fractions of buildings in each damage state / For continuous fragility functions, the fractions of building in each damage state are calculated using the analytical expression of the lognormal cumulative distribution functions",
+      "note": "出力は各 damage state に属する建物の割合であって個々の建物の状態ではない。各状態の確率は隣接 limit state 曲線の差分。",
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML"
+    },
+    {
+      "item_id": "O-03",
+      "source_id": "OQ",
+      "contract_item": "scenario realization mechanics",
+      "status": "A1_VERIFIED",
+      "location": "Underlying Science > Scenario-Based Damage Calculator",
+      "quote": "a finite earthquake rupture should be used to derive sets of ground-motion fields / E[FR] = (sum_n FR_n|IML) / m ; SD[FR] = sqrt[(1/m) sum_n (FR_n - E[FR])^2] where m represents the number of simulated ground-motion fields / multiplied by the quantity of the respective asset, leading to the mean and standard deviation of the number or area of buildings in each damage state",
+      "note": "realization（地震動場のサンプル）と probability（fragility）と exposure（資産量）は別レイヤ。確率をそのまま categorical 状態にする経路は存在しない。M7 の variant 規則は AblePath 独自の凍結実現規則であって OpenQuake 由来ではない。",
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML"
+    },
+    {
+      "item_id": "O-04",
+      "source_id": "OQ",
+      "contract_item": "taxonomy mapping requirements",
+      "status": "A1_VERIFIED",
+      "location": "User Guide > Inputs > Fragility Models",
+      "quote": "a unique string used to identify the taxonomy for which the function is being defined / is used to relate the Fragility Function with the relevant asset in the Exposure Model",
+      "note": "fragility は taxonomy 文字列を介して exposure に結び付く。PLATEAU 属性 -> damage_state には (a) taxonomy 語彙の凍結 (b) 属性->taxonomy 対応表と受領書 (c) その taxonomy に対する fragility の出所 が必要。参照頁は exposure 側 taxonomy との一致を明示要件としては述べていない点を限定として記録する。",
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML"
+    },
+    {
+      "item_id": "S-01",
+      "source_id": "SORRE",
+      "contract_item": "multiple interfering elements and path structure (contract 'use' claim)",
+      "status": "A1_VERIFIED",
+      "location": "Section 1; Sections 3.1-3.4; Section 3.6 Eq.(8)",
+      "quote": "Typological classes of elements interfering with roads, such as unreinforced masonry and reinforced concrete buildings, unreinforced masonry and reinforced concrete bridges, retaining walls, and slopes, are considered. / The MAF of exceedance of the LS of the blockage of an entire road segment lambda_LS,s is calculated considering an in-series system",
+      "note": "経路上の複数種の干渉要素を直列系として合成する構造。契約の use 主張は支持される。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.1 Abstract; p.7 Section 3.6 Eq.(8)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "S-02",
+      "source_id": "SORRE",
+      "contract_item": "do not use as AblePath route safety (contract 'do not use' claim)",
+      "status": "A1_VERIFIED",
+      "location": "whole text; Section 4.1",
+      "quote": "Although the performance of the bridges affected by the 2016 earthquake was investigated in [44], the overall response of the Amatrice road network in terms of its interaction with buildings, retaining walls, and slopes has not been studied so far.",
+      "note": "否定的所見。参照全文中に歩行者・車いす利用者の安全性・通行可能性の記述は見当たらない。対象は車両通行の閉塞 MAF、事例は Amatrice。REJECT。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "full text (negative finding)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "Y17-01",
+      "source_id": "YAMADA",
+      "contract_item": "observed damage heterogeneity; building age alone insufficient",
+      "status": "A1_VERIFIED",
+      "location": "Sage article page (Restricted access); abstract only",
+      "quote": "The analysis of past aerial photos showed that the heterogeneity of the damage distribution is difficult to explain by only the building age.",
+      "note": "本文が購読制で取得できずページ・節・図表を特定できない。要旨の記述は参考記録であり A1 化しない。本論文由来の数値・規則は実装しない。DAMAGE_STATE packet では PRESENTATION_ONLY。なお Moya p.213 が本論文を collapsed/non-collapsed 閾値の較正に用いている点のみ MOYA 側で確認済み。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.1 Abstract (printed p.1555); p.17 Conclusions (printed p.1571)",
+      "quote_appendix": "The cause of the damage heterogeneity was likely not because of an earthquake source effect, but probably because of a combination of the local site conditions and age of buildings.",
+      "appendix_ref": "付録 A.3",
+      "superseded_status_note": "旧判定 A1_NOT_VERIFIED（本文取得不可）は原本入手により解消。要旨と結論で列挙因子が一致しない点を付録で指摘した。"
+    },
+    {
+      "item_id": "N-01",
+      "source_id": "NAITO",
+      "contract_item": "post-event multi-variable damage estimation structure (contract 'use' claim)",
+      "status": "A1_VERIFIED",
+      "location": "J. Disaster Res. 19(5) 780-792 (2024), publisher abstract page",
+      "quote": "Improving the Accuracy of Building Damage Estimation Model Due to Earthquake Using 10 Explanatory Variables",
+      "note": "2016 熊本地震を対象に 10 説明変数（表層地盤増幅、前震・本震震度、断層距離、推定建物構造、推定建築年代、ブルーシート被覆、テクスチャ解析、地震前後 DSM 差分、事後空中写真の CNN 予測）を random forest で結合。総合正解率およそ 81%、3 被害区分平均 F 値およそ 70%。節・図表単位の検証は要旨ページのみでは不可。数値をコード・閾値に用いない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.2-p.8 (printed p.781-787)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "N-02",
+      "source_id": "NAITO",
+      "contract_item": "do not use as pre-event deterministic damage assignment (contract 'do not use' claim)",
+      "status": "A1_VERIFIED",
+      "location": "same page; derived from the explanatory-variable composition in N-01",
+      "quote": "",
+      "note": "説明変数に事後空中写真の CNN 予測・ブルーシート被覆・事後 DSM 差分が含まれる。事前シナリオではこれらの入力が存在しないため、事前の決定論的 damage_state 割り当てには原理的に使えない。REJECT。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "location_appendix": "p.3-p.7 (printed p.782-786)",
+      "appendix_ref": "reports/M7_ORIGINAL_PAPER_A1_VERIFICATION.md 付録 A"
+    },
+    {
+      "item_id": "A-07",
+      "source_id": "ANELLI",
+      "contract_item": "debris area amplification factor epsilon",
+      "status": "A1_VERIFIED",
+      "location": "p.6, Eq.(2)-(3)",
+      "quote": "A_d,max = A_f · epsilon^2 ; epsilon = 1.228 + 0.07869·(a/b) + 0.05626·(A_f·h_b^2)/(V_b·a)",
+      "note": "epsilon は Domaneschi ら由来の中部イタリア組積造の幾何モデル定数。実測較正値ではなく、日本木造への適用根拠はない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "A-08",
+      "source_id": "ANELLI",
+      "contract_item": "conditions under which debris width is zero",
+      "status": "A1_VERIFIED",
+      "location": "p.6 (Step 3 continued); Table 1 on p.5; Eq.(5), Eq.(8)",
+      "quote": "for each IM in which DF <= 7%, the structure retains its footprint area (A_f ), and the debris width can be assumed equal to zero (w_d = 0)",
+      "note": "瓦礫幅ゼロは2機構で生じる: (i) DF<=7% の軽微損傷、(ii) 倒壊方向が当該道路側でない (Eq.5 の w_d,2=0)。Moya Eq.7 とは独立に『倒壊→瓦礫あり』の自動変換を否定する。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "A-09",
+      "source_id": "ANELLI",
+      "contract_item": "calibration population / measured cross-section",
+      "status": "A1_VERIFIED",
+      "location": "pp.9-10, Section 4",
+      "quote": "AC1 and AC2 had an average width of road pavement of 5.50 m (w_r = 5.50 m), an average width of sidewalks of 1.00 m on each side (w_br1 = w_br2 = 1.00 m), and an average distance between the opposite interfering buildings along the road sides of 7.50 m (w_bb = 7.50 m).",
+      "note": "Amatrice Corso Umberto I。組積造100棟＋RC3棟、延床約15,600 m2、1-4階。京都・藤沢の断面値として引かない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "S-03",
+      "source_id": "SORRE",
+      "contract_item": "geometric interference condition",
+      "status": "A1_VERIFIED",
+      "location": "p.5, Section 3.1, Eq.(1)",
+      "quote": "(h_b1 + h_b2)/w >= 1.0 ... where h_b1 is the eave height of the building to the left of the cross-section of the considered path (equal to zero if there is no building); ... w is the width of the path.",
+      "note": "干渉候補の二値選別条件であり、通行可否でも侵入量でもない。1.0 を AblePath の閾値として実装してはならない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "S-04",
+      "source_id": "SORRE",
+      "contract_item": "simplification: blockage probability equals building damage probability",
+      "status": "A1_VERIFIED",
+      "location": "p.5, Section 3.1",
+      "quote": "to keep the model simple enough to be managed by a technical office with limited manpower, in the present work, the probability of road congestion caused by building damage is assumed equal to the probability of building damage, as carried out by Lo et al.",
+      "note": "瓦礫幅を一切計算しない。DS4 到達確率をそのまま閉塞確率とする。AblePath の残存幅モデルと両立しないため REJECT。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "S-05",
+      "source_id": "SORRE",
+      "contract_item": "recessed building position and path width w",
+      "status": "A1_VERIFIED",
+      "location": "p.5, immediately after Eq.(1)",
+      "quote": "For the value of w, one should also consider the possible recessed position of the building, as this case is beneficial for the path safety.",
+      "note": "建物後退を w に算入せよという唯一の明示指示。ただし w は path の幅であって歩行空間の縁ではなく、後退量の測り方も与えられない。用語レベルの支持にとどまる。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "S-06",
+      "source_id": "SORRE",
+      "contract_item": "explicitly excluded phenomena",
+      "status": "A1_VERIFIED",
+      "location": "p.2, Introduction",
+      "quote": "The procedure does not account for abandoned vehicles or people flow during evacuations ... Similarly, no blockage due to urban furniture is considered",
+      "note": "放置車両・避難時人流・街路施設は明示的に対象外。高密度観光回廊にそのまま当てはめられない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "Y17-02",
+      "source_id": "YAMADA",
+      "contract_item": "damage state categories",
+      "status": "A1_VERIFIED",
+      "location": "p.6 (printed p.1560), FIELD SURVEY",
+      "quote": "the damage experienced by buildings was classified into four categories: D0 (no damage), D1-D3 (partially collapsed), D4 (totally collapsed), and D5 (story failure).",
+      "note": "4区分であり D1/D2/D3 は分離されない。Moya の『倒壊=D5』とは別閾値。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "Y17-03",
+      "source_id": "YAMADA",
+      "contract_item": "aerial photo vs field survey error matrix / false negatives",
+      "status": "A1_VERIFIED",
+      "location": "pp.8-9 (printed pp.1562-1563), Table 1; p.15 (printed p.1569); p.17 (printed p.1571)",
+      "quote": "photo analysis is a reasonable method to identify story-collapsed buildings (D5), but it is difficult to identify D4 buildings (tilted buildings without story collapse). ... the number of totally collapsed buildings that were detected from the photo analysis, was about half the number observed in the field.",
+      "note": "Table 1 (n=1,041): 写真判読 Collapsed 233 のうち D5 が 202 (87%)。一方 D4 158棟のうち写真で Collapsed とされたのは 22 (13.9%)、136棟が Standing。全壊(D4+D5)全体では 224/439 = 51.0%。『航空写真だけでは D4 を十分に検出できない』という制約を原著本文で確認。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "Y17-04",
+      "source_id": "YAMADA",
+      "contract_item": "building age and collapse ratio",
+      "status": "A1_VERIFIED",
+      "location": "p.10 (printed p.1564), Figures 11a/13; pp.15-16 (printed pp.1569-1570)",
+      "quote": "there was a strong correlation between the building age and the collapse ratio and that the older buildings had higher collapse ratios. The buildings over 50 years old had a very high collapse ratio of 40%.",
+      "note": "原著は年代の説明力を積極的に認め、建築基準改正年(1981/2000)より経年劣化の効果が大きいと述べる。『1981年以前/以後』の二分は原著が弱いとした分割。40%/28%/9%/2% は益城町固有で転用不可。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "Y17-05",
+      "source_id": "YAMADA",
+      "contract_item": "local site conditions and nonlinearity",
+      "status": "A1_VERIFIED",
+      "location": "p.15 (printed p.1569), Discussion",
+      "quote": "These soil structures may show nonlinear effects during strong shaking that reduce the amplification for strong shaking ... Further investigation and analysis are necessary to confirm this assumption.",
+      "note": "強震時に表層増幅が非線形化しうる。『軟弱地盤の重畳=被害が大きい』という単調な重畳ロジックは支持されない。ハザード重畳から damage_state を作ることの禁止の追加根拠。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "N-03",
+      "source_id": "NAITO",
+      "contract_item": "damage class definitions and mapping from D0-D6",
+      "status": "A1_VERIFIED",
+      "location": "p.2 (printed p.781); p.3 (printed p.782) Table 1",
+      "quote": "'Damaged' indicates that the building can be repaired and reused, whereas 'Collapsed' indicates that the building is uninhabitable and presents a human injury risk.",
+      "note": "Table 1: 1 no damage <- D0 / 2 damaged <- D1,D2,D3 / 3 collapsed <- D4,D5,D6。Yamada の4区分とも Yu&Gardoni の HAZUS 5段とも異なる。Collapsed は D4 を含むため Moya の『倒壊=D5』より広い。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "N-04",
+      "source_id": "NAITO",
+      "contract_item": "confusion matrix, precision and recall",
+      "status": "A1_VERIFIED",
+      "location": "p.6 (printed p.785) Table 4; p.8 (printed p.787) Tables 6-7",
+      "quote": "The Precision increases and Recall decreases when the number of explanatory variables is six or more, especially in Class 3 (collapsed).",
+      "note": "Table 7 (10変数): Class3 Recall 0.517 / Precision 0.652 / F 0.577、Overall Accuracy 0.814。Table 6 (1変数): Class3 Recall 0.641。すなわち10変数モデルは倒壊建物の約半数を取りこぼす。検証標本 7,981 棟中 collapsed は 290 棟 (3.6%) と不均衡。81% を damage_state の信頼性根拠に使えない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "N-05",
+      "source_id": "NAITO",
+      "contract_item": "explanatory variable importance and post-event dependence",
+      "status": "A1_VERIFIED",
+      "location": "pp.3-5 (printed pp.782-784) Section 3; p.7 (printed p.786) Section 5.4",
+      "quote": "the explanatory variables with significant influence were the prediction of CNN, texture analysis, distance from faults, and seismic intensities, in that order of importance.",
+      "note": "上位2変数(CNN予測・テクスチャ解析)はいずれも事後の航空写真依存。ブルーシート被覆・地震前後DSM差分も事後観測。構造そのものが事前割り当てに転用できない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "O-05",
+      "source_id": "OQ",
+      "contract_item": "fragility exceedance probability, median, dispersion, uncertainty components",
+      "status": "A1_VERIFIED",
+      "location": "https://docs.openquake.org/vulnerability/fragility_models.html (accessed 2026-09-03), incl. #references",
+      "quote": "Fragility functions describe the probability that a structure will reach or exceed a given damage state (DS) as a function of an intensity measure (IM). / P(DS >= ds_i | IM) = Phi((ln(IM) - ln(mu_DS_i))/beta_DS_i) / beta_DS_i = sqrt(beta_r2r^2 + beta_b2b^2 + beta_ds^2)",
+      "note": "出力は超過確率であって実現状態ではない。beta_ds が『damage state 閾値定義そのものの不確かさ』として明記される以上、確率を categorical に落とす操作は必ず凍結規則を伴う。本ページには limitStates 等の XML 属性記述は含まれない(それは Engine User Guide 側)。references は Baker 2015 / Lallemant+ 2015 / Jalayer+ 2015 / Jalayer+ 2017 の fragility 推定手法文献。",
+      "evidence_medium": "PROJECT_DOCUMENTATION_HTML",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "L-01",
+      "source_id": "LO",
+      "contract_item": "five damage states and use of complete damage only",
+      "status": "A1_VERIFIED",
+      "location": "p.4 (printed p.3824), Sections 2.1-2.2",
+      "quote": "The five damage states are as follows: no damage, minor damage, moderate damage, severe damage, and complete damage (Yeh et al., 2006). In this study, building collapse that results in road blockage specifically refers to complete damage state.",
+      "note": "damage state は5段の離散語彙で、閉塞に使うのは最上位1段のみ。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "L-02",
+      "source_id": "LO",
+      "contract_item": "PGA is an intensity measure, not a damage state",
+      "status": "A1_VERIFIED",
+      "location": "p.5 (printed p.3825) Section 2.4; p.6 (printed p.3826) Step 2",
+      "quote": "The fragility curve formula of the TELES is used to calculate the risk probability of the complete collapse of each MBT based on PGAs of 250, 400, 550, and 750 Gal.",
+      "note": "PGA -> MBT別 fragility -> complete damage 確率、の3段が明示的に分離される。建物は台湾家屋税データ由来の15 MBT に分類される。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "L-03",
+      "source_id": "LO",
+      "contract_item": "road blockage probability composition",
+      "status": "A1_VERIFIED",
+      "location": "p.6 (printed p.3826) Eq.(2); p.7 (printed p.3827) Eq.(3)",
+      "quote": "F_r = 1 - Prod_{n=1}^{N} (1 - P_n) ... indicating that the road segment r between nodes i and j could be blocked as long as one building collapsed.",
+      "note": "幅・離隔・瓦礫量を一切用いない『1棟でも倒壊すれば閉塞』規則。R_r = P_r + F_r - (P_r x F_r) は液状化との独立仮定。AblePath の残存幅モデルと互換性なし。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "L-04",
+      "source_id": "LO",
+      "contract_item": "validation status and scope",
+      "status": "A1_VERIFIED",
+      "location": "pp.5-6 (printed pp.3825-3826)",
+      "quote": "the highest probability value of P_m in road segment r was selected to represent the probability of road segment blockage",
+      "note": "台湾・新北市板橋区の防災道路。液状化側は500m x 500m グリッド最大値の保守的集約。建物単位の観測被害との照合は行われていないシナリオ計算。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "R-01",
+      "source_id": "ROSA",
+      "contract_item": "three indices and the role of setback",
+      "status": "A1_VERIFIED",
+      "location": "p.1, Section 1 (Introduction)",
+      "quote": "(1) Building Debris Width Index: Estimates obstruction severity from adjacent building collapse based on collapse extent, probability, and setback. (2) Affected Segment Ratio Index: Calculates the proportion of a road segment impacted by collapse, considering block shape and segment geometry. (3) Blockage Severity Index: Aggregates collapse effects within a block, weighted by footprint area, to reflect overall impact on road continuity.",
+      "note": "setback を瓦礫幅指標の正規入力として名指しする唯一の source。ただし定義・測り方・単位を与えない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "R-02",
+      "source_id": "ROSA",
+      "contract_item": "formula of the Building Debris Width Index",
+      "status": "A1_NOT_VERIFIED",
+      "location": "p.1 / References [2]",
+      "quote": "the underlying formulas and framework of ROSA-already published in [2]",
+      "note": "式が本論文に存在せず Chu Y.-C., Yang C.-T., Yeh C.-H., Lin S.-Y. (2023) Earthquake Spectra 39(4) 2193-2211, DOI 10.1177/87552930231194563 に外部化されている。当該原本は本 worktree にない。実装してはならず、合成規則を推測してもならない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    },
+    {
+      "item_id": "R-03",
+      "source_id": "ROSA",
+      "contract_item": "nature of the validation",
+      "status": "A1_VERIFIED",
+      "location": "p.2; p.4 (Conclusion)",
+      "quote": "during the April 3, 2024 Hualien earthquake, the predicted risk zones closely matched observed building damage ... Although spatial correlations were weaker in Taipei, further investigation is planned",
+      "note": "検証はリスクゾーンと観測被害の空間的一致という粗い水準で、定量的精度指標はない。台北では一致が弱いことを原著が認める。AblePath の妥当性根拠として引かない。",
+      "evidence_medium": "LOCAL_ORIGINAL_FULLTEXT_SHA256_MATCHED",
+      "added_in": "appendix_A_2026-09-03"
+    }
+  ],
+  "counts": {
+    "total": 60,
+    "a1_verified": 58,
+    "a1_not_verified": 2,
+    "by_source": {
+      "ANELLI": 9,
+      "KAMEI": 7,
+      "LO": 4,
+      "MOYA": 10,
+      "NAITO": 5,
+      "OQ": 5,
+      "ROSA": 3,
+      "SORRE": 6,
+      "YAMADA": 5,
+      "YUGA": 6
+    }
+  },
+  "unresolved_items": [
+    {
+      "item_id": "M-10",
+      "source_id": "MOYA",
+      "reason": "correlation coefficient r is printed inside Figure 9 only; no quotable text location",
+      "is_contract_core_item": false
+    },
+    {
+      "item_id": "R-02",
+      "source_id": "ROSA",
+      "reason": "the Building Debris Width Index formula is not in this paper; externalized to Chu et al. 2023 (DOI 10.1177/87552930231194563), whose original is not held in this worktree",
+      "is_contract_core_item": false
+    }
+  ],
+  "core_moya_yugardoni_kamei_items": [
+    "M-01",
+    "M-02",
+    "M-03",
+    "M-04",
+    "M-05",
+    "M-06",
+    "M-07",
+    "M-08",
+    "M-09",
+    "Y-01",
+    "Y-02",
+    "Y-03",
+    "Y-04",
+    "Y-05",
+    "Y-06",
+    "K-01",
+    "K-02",
+    "K-03",
+    "K-04",
+    "K-05",
+    "K-06",
+    "K-07"
+  ],
+  "core_items_unresolved": [],
+  "ledger_discrepancies": [
+    {
+      "id": "D-01",
+      "ledger_location": "docs/reference/RESEARCH_LEDGER.md sec.12",
+      "ledger_text": "n=738 は D>0 の部分標本（全1,099棟）",
+      "original_finding": "Eq.(2)/(3) の統計母集団は 851 木造。1,099 は材料フィルタ前の中間数（p.216 -> p.219 -> p.222）",
+      "severity": "WORDING_ONLY_NO_NUMERIC_ERROR",
+      "action": "台帳文言の修正候補。本タスクでは変更しない"
+    },
+    {
+      "id": "D-02",
+      "ledger_location": "sec.1",
+      "ledger_text": "D-H 相関 r=0.45",
+      "original_finding": "図中画像文字のみ。本文・表に無い",
+      "severity": "UNVERIFIABLE_FROM_TEXT",
+      "action": "A1_NOT_VERIFIED。production 未使用のため影響なし"
+    },
+    {
+      "id": "D-08",
+      "ledger_location": "sec.1",
+      "ledger_text": "文化財の8%が到達不能＋8%が到達率20%",
+      "original_finding": "p.73 Abstract・表4 と一致。ただし到達判定は消防車両の 80 m 接近",
+      "severity": "MATCH_WITH_MISSING_QUALIFIER",
+      "action": "引用時に到達定義（消防車両80m）を併記すべき"
+    },
+    {
+      "id": "D-09",
+      "ledger_location": "sec.3",
+      "ledger_text": "Moya Eq.7 から variant 規則で決定値化",
+      "original_finding": "Eq.(7) は確率であり、決定値化規則は原著に存在しない",
+      "severity": "ABLEPATH_ORIGINAL_RULE_NOT_SOURCE_DERIVED",
+      "action": "variant 規則は AblePath 独自の凍結実現規則として human freeze が必要"
+    },
+    {
+      "id": "D-10",
+      "ledger_location": "sec.3",
+      "ledger_text": "required_width v1=0.90m（伊 DM236/1989 由来）",
+      "original_finding": "本書の検証範囲外",
+      "severity": "OUT_OF_SCOPE",
+      "action": "Anelli の 3.50m（緊急車両）と混同しないこと"
+    },
+    {
+      "id": "D-11",
+      "record": "本文 §0 表『YAMADA: 本文取得不可（購読制）』",
+      "original": "原本 PDF 入手済み",
+      "verdict": "解消（付録 A.3 が正）"
+    },
+    {
+      "id": "D-12",
+      "record": "本文 §6『Y17-01 は PRESENTATION_ONLY にとどめる』",
+      "original": "数値は益城町固有のままだが、Y17-03 の偽陰性は構造的知見として provenance 規則に効く",
+      "verdict": "限定的に格上げ（数値不使用は維持）"
+    },
+    {
+      "id": "D-13",
+      "record": "DAMAGE_STATE_EVIDENCE_PACKET_V2.md C-15『建築年代だけでは説明できない（要旨、A1 化しない）』",
+      "original": "本文で確認。ただし年代と倒壊率の強い相関も述べる（Y17-04）",
+      "verdict": "要注記。『年代の説明力が弱い』とは読めない"
+    },
+    {
+      "id": "D-14",
+      "record": "同 packet §7『SRC-5 の総合正解率およそ 81%』",
+      "original": "Table 7 で 0.814 を確認。ただし collapsed クラス Recall は 0.517（N-04）",
+      "verdict": "要注記。81% を damage_state の信頼性根拠に使えない"
+    },
+    {
+      "id": "D-15",
+      "record": "RESEARCH_LEDGER.md §3『Moya Eq.7 から variant 規則で決定値化』",
+      "original": "Eq.(7) は確率。決定値化規則は原著に存在しない。Anelli A-08 が独立に第二の根拠を与える",
+      "verdict": "変更なし。variant 規則は AblePath 独自の凍結実現規則"
+    },
+    {
+      "id": "D-16",
+      "record": "契約 §3『Sorrentino: multiple interfering elements and road-path blockage risk structure』",
+      "original": "S-01 で支持。ただし S-04 の『閉塞確率＝建物被害確率』という瓦礫幅非計算の簡略化を同時に確認",
+      "verdict": "要注記。構造は借りられるが瓦礫量の供給源ではない"
+    },
+    {
+      "id": "D-17",
+      "record": "契約 §3『Yamada: building age alone is insufficient』",
+      "original": "Y17-01 / Y17-04 で支持。ただし原著は年代の説明力を積極的に認める",
+      "verdict": "要注記（D-13 と同旨）"
+    }
+  ],
+  "literature_evidence_packets_ready": true,
+  "original_paper_a1_verification_ready": true,
+  "readiness_basis": "contract §4 の3 packet（SETBACK / DAMAGE_STATE / DEBRIS_PRESENCE）と横断表 M7_LITERATURE_CROSSWALK_V2.csv が揃い、contract §10 の中核項目（Moya / Yu & Gardoni / Anelli / Kamei / OpenQuake）はすべて位置と引用を特定して A1_VERIFIED とした。未解決は M-10（図中数値）と R-02（式が外部文献にあり原本未入手）の2件で、いずれも contract §10 の中核項目ではない。readiness は『原著の該当箇所を特定し引用を転記できた』ことのみを意味し、production 定数の採用・凍結を意味しない。",
+  "evidence_packets": {
+    "setback": "docs/research/m7/SETBACK_EVIDENCE_PACKET_V2.md",
+    "damage_state": "docs/research/m7/DAMAGE_STATE_EVIDENCE_PACKET_V2.md",
+    "debris_presence": "docs/research/m7/DEBRIS_PRESENCE_EVIDENCE_PACKET_V2.md",
+    "crosswalk": "docs/research/m7/M7_LITERATURE_CROSSWALK_V2.csv"
+  },
+  "limitations": [
+    "本書は該当箇所の同定と引用転記であり、統計の再現計算・データの再解析ではない",
+    "ANELLI / SORRE / OQ / NAITO / YAMADA はローカル原本の sha256 受領書を持たない",
+    "OpenQuake の文書は版とともに変わるため、O-01..O-04 は参照時点の記述である",
+    "safety / accessibility / administrative validation はいずれも主張していない"
+  ],
+  "resolved_in_appendix_a": [
+    {
+      "item_id": "Y17-01",
+      "previous_status": "A1_NOT_VERIFIED",
+      "new_status": "A1_VERIFIED",
+      "basis": "original PDF obtained; sha256 ad4ffd35...41c746f7"
+    }
+  ],
+  "appendix_a": {
+    "date": "2026-09-03",
+    "scope": "re-verification after obtaining the ANELLI / SORRE / YAMADA / NAITO originals and the newly added LO and ROSA originals, plus direct reference to the OpenQuake fragility_models page",
+    "existing_content_deleted": false,
+    "appendix_supersedes_body_where_they_conflict": true
+  },
+  "v3_synthesis": {
+    "synthesis": "docs/research/m7/ORIGINAL_SOURCE_SYNTHESIS_V3.md",
+    "claim_matrix": "docs/research/m7/ORIGINAL_SOURCE_CLAIM_MATRIX_V3.csv",
+    "interpretation_review": "reports/M7_GPT_VS_CLAUDE_INTERPRETATION_REVIEW.md"
+  }
+}

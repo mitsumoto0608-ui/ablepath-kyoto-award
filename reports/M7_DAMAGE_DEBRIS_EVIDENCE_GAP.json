@@ -1,0 +1,863 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "M7_DAMAGE_DEBRIS_EVIDENCE_GAP",
+  "generated_at": "2026-09-03",
+  "M7_DAMAGE_DEBRIS_EVIDENCE_READY": false,
+  "evidence_ready_edge_count": 0,
+  "deep_pilot_edge_count": 15,
+  "field_count": 4,
+  "safety_contract": {
+    "accessibility_claim": false,
+    "admin_validated": false,
+    "safe_route_claim": false,
+    "damage_or_debris_inferred": false,
+    "hazard_overlap_to_closure": false,
+    "implicit_defaults_used": false,
+    "m7_invoked": false
+  },
+  "inputs_read": [
+    {
+      "path": "reports/M7_ALL_EDGE_EVIDENCE_READINESS.json",
+      "edge_receipts_sha256": "eafa2339c031d028bac656072530cd7230f2d3c5d09f78bcf1f9bec09a9ade2d"
+    },
+    {
+      "path": "reports/M7_MISSING_FIELD_COUNTS.csv"
+    },
+    {
+      "path": "reports/KYOTO_M7_DEEP_PILOT_STATUS.json"
+    },
+    {
+      "path": "reports/KYOTO_PARITY_STATUS.json"
+    },
+    {
+      "path": "cities/fujisawa_enoshima/hazards/official/earthquake_scenario_inventory.csv"
+    },
+    {
+      "path": "cities/fujisawa_enoshima/hazards/official/liquefaction_scenario_inventory.csv"
+    },
+    {
+      "path": "cities/fujisawa_enoshima/hazards/official/source_receipt.json"
+    },
+    {
+      "path": "cities/kyoto_kiyomizu/hazards/official/"
+    },
+    {
+      "path": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/README.md"
+    },
+    {
+      "path": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json"
+    },
+    {
+      "path": "docs/reference/RESEARCH_LEDGER.md"
+    },
+    {
+      "path": "docs/reference/DESIGN.md"
+    }
+  ],
+  "readiness_observations": {
+    "note": "指示文は official_closure の STRUCTURAL_VALUE_WITHOUT_EVIDENCE を deep pilot 15 edge としていたが、readiness JSON 実データでは deep pilot のうち藤沢 5 edge のみが STRUCTURAL_VALUE_WITHOUT_EVIDENCE で、京都 10 edge は MISSING。structural value を持つ 15 edge は全て fujisawa_enoshima（うち deep pilot は 5、非 pilot が 10）。",
+    "official_closure_structural_value_edges_total": 15,
+    "official_closure_structural_value_edges_all_fujisawa": true,
+    "deep_pilot_edges_with_official_closure_structural_value": 5,
+    "evidence_missing_field_counts": {
+      "clear_width_m": 612,
+      "hazard_data_status": 612,
+      "left_buildings": 612,
+      "official_closure": 612,
+      "right_buildings": 612,
+      "variant": 612
+    },
+    "structural_missing_field_counts": {
+      "clear_width_m": 612,
+      "hazard_data_status": 612,
+      "left_buildings": 612,
+      "official_closure": 597,
+      "right_buildings": 612,
+      "variant": 612
+    },
+    "damage_state_and_debris_present_not_tracked_as_readiness_fields": true
+  },
+  "summary": {
+    "hazard_overlap_is_not_damage": "ハザード（震度・液状化・浸水・土砂）との重畳は被害ではない。PLATEAU の uro:bldgDisasterRiskAttribute / uro:LandSlideRiskAttribute もハザード区域の重畳属性であり、damage_state へ変換してはならない。",
+    "unknown_damage_stays_unknown": "damage_state が不明なとき UNKNOWN を保持する。DAMAGED に落とさない。",
+    "unknown_debris_stays_unknown": "debris_present が不明なとき UNKNOWN を保持する。false に落とさない。",
+    "official_closure_none_rule": "official_closure の None は、照会日・権限主体・照会範囲を書いた bounded receipt を伴う場合にのみ許される。None は False ではない。",
+    "hazard_data_status_semantics": "hazard_data_status はデータ可用性の状態であって道路の状態ではない。",
+    "field_freeze": "4 フィールドすべて human_freeze_required=true。証拠なしに M7 を走らせない。"
+  },
+  "field_contracts": [
+    {
+      "field": "damage_state",
+      "m7_role": "残存幅ビルダー（M7）の建物側入力。倒壊するか否かの scenario 指定値。",
+      "tracked_in_readiness_json": false,
+      "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+      "current_source": "none",
+      "current_value_in_repo": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json の全建物候補で null（`damage_state: null`）。",
+      "exact_missing_evidence": [
+        "V2 が列挙した PLATEAU stable building ID（例 26100-bldg-489494 / 14205-bldg-…）単位で damage_state を与える、建物別の公式被害想定成果物",
+        "その成果物の source receipt（発行主体・版・取得日・URL・SHA-256・利用条件）",
+        "scenario 識別子（どの想定地震に対する damage_state か）と、edge 側 scenario 指定との対応表",
+        "建物 ID 突合の receipt（公式成果物の建物識別子 ↔ uro:buildingID の対応根拠）"
+      ],
+      "possible_official_source": [
+        "京都市／京都府の地震被害想定：現時点で建物単位（棟別）成果が公開されているかは repo 内に受領書が無く UNKNOWN。メッシュ単位（棟別でない）であれば damage_state 入力にはならない。",
+        "藤沢：cities/fujisawa_enoshima/hazards/official/earthquake_scenario_inventory.csv に 8 シナリオ（三浦半島断層群／元禄型関東／南海トラフ／大正型関東 ほか）の震度分布が存在するが、これは 500m 級メッシュの震度・PGA・SI であり **scenario メタデータであって建物単位の damage_state ではない**。同 CSV の safety_boundary 列は `OVERLAP_ONLY; DO_NOT_DERIVE_CLOSED_DAMAGE_STATE_DEBRIS_SAFE_UNSAFE` を明記。加えて license_review=LICENSE_REVIEW_REQUIRED、CRS=CRS_CONTRADICTION、official_url=UNKNOWN_NO_SOURCE_URL_OR_ACQUISITION_RECEIPT_IN_SCOPED_FOLDER。",
+        "PLATEAU の `uro:bldgDisasterRiskAttribute` / `uro:LandSlideRiskAttribute`：**ハザード区域の重畳属性であって被害状態ではない**。V2 では読み取っても使用してもいない。これを damage_state に変換してはならない。"
+      ],
+      "research_model_candidate": [
+        "Moya ほか 2020（RESEARCH_LEDGER #3）：D-h 関係は **倒壊を所与とした瓦礫の広がり** のモデルであり、倒壊確率＝damage_state の生成器ではない。damage_state の代替にはならない。",
+        "fragility curve / damage-probability 系（Yu & Gardoni 2022 が用いた EMS→HAZUS damage state 対応、Costa 2020 の complete damage 実倒壊割合、Toma-Danila 2020 の Monte Carlo 反復）は **候補としてのみ列挙**。いずれも A1化要求（査読論文A1検証台帳での検証・移植条件の明記・人間 freeze）未了で、数値・係数は本書に記載しない。",
+        "Yu & Gardoni のハイチ C3 較正パラメータは移植不可（DESIGN.md の禁止事項）。"
+      ],
+      "prohibited_derivation": [
+        "ハザード重畳（震度・液状化・土砂区域）から damage_state を作らない",
+        "不明な damage_state を DAMAGED に落とさない（UNKNOWN のまま保持）",
+        "建物高さ・用途コード・survey_year から damage_state を推定しない"
+      ],
+      "human_freeze_required": true
+    },
+    {
+      "field": "debris_present",
+      "m7_role": "道路側へ瓦礫が出るか否かの真偽値。debris_extent とは別立て（DESIGN.md FR-8）。",
+      "tracked_in_readiness_json": false,
+      "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+      "current_source": "none",
+      "current_value_in_repo": "M7_BUILDING_SIDE_CANDIDATES.json の全建物候補で null（`debris_present: null`）。`hazard_derived_damage_or_debris: false`。",
+      "exact_missing_evidence": [
+        "damage_state が確定していること（debris_present は倒壊を所与とする条件付き量であり、前提が UNKNOWN なら値を作れない）",
+        "建物前面線と歩行空間境界の定義凍結（M7_SETBACK_METHOD_STATUS.md：SETBACK_METHOD_STATUS=PROPOSAL_REQUIRED_NOT_FROZEN）",
+        "瓦礫の道路側到達を判定する規則の人間 freeze 記録（規則そのものと、その適用範囲）",
+        "上記を建物 ID 単位で記録した provenance（m7_provenance.left_buildings / right_buildings と対になるもの）"
+      ],
+      "possible_official_source": [
+        "公式データで debris_present を直接与えるものは repo 内に存在しない（藤沢の震度・液状化 inventory、清水の土砂 preview いずれも道路側瓦礫の有無を述べない）。",
+        "現地観測台帳（発災前は成立しない）。"
+      ],
+      "research_model_candidate": [
+        "Moya ほか 2020 Eq.7（倒壊しても瓦礫が出ない確率の関数形）は debris_present の直接の候補だが、**倒壊を所与とする条件付き確率** であり damage_state が UNKNOWN の間は適用できない。数値は本書に記載しない（A1化要求）。",
+        "Zhang ほか 2024 Eq.7 の残存幅定式化は道路側の減算項の構図を与えるのみで、debris_present の生成器ではない。",
+        "Iskandar ほか 2023/2024 の瓦礫高に応じた速度規則は **通行速度側の規則** であり、debris_present の有無判定ではない。規則のみ参照・数値移植は A1化要求。",
+        "以上いずれも AblePath 独自簡約モデルとして名乗る前提（DESIGN.md：Moya×Zhang×Yu&Gardoni の三研究独自合成）。"
+      ],
+      "prohibited_derivation": [
+        "不明な debris_present を false に落とさない（UNKNOWN のまま保持）",
+        "ハザード重畳から debris_present を導出しない",
+        "nearest_geometry_distance_m（PROXY_NOT_SETBACK）を setback とみなして瓦礫到達を計算しない（proximity_is_setback=false）"
+      ],
+      "human_freeze_required": true
+    },
+    {
+      "field": "official_closure",
+      "m7_role": "公式に閉鎖されているか。M7 の profile 非依存出力の一つ（DESIGN.md FR-8）。None は False ではない。",
+      "tracked_in_readiness_json": true,
+      "current_status": "藤沢 5 edge は STRUCTURAL_VALUE_WITHOUT_EVIDENCE、京都（嵐山 5・清水 5）10 edge は MISSING。証拠としては 15 edge すべて未充足（evidence_missing_field_counts.official_closure=612）。",
+      "current_source": "structural value（藤沢 5 edge のみ、構造上の値が存在するが裏づけ証拠なし）／京都 10 edge は none",
+      "current_value_in_repo": "readiness JSON の structural_values_present に official_closure を持つのは藤沢の 15 edge のみ（うち deep pilot は 5）。structural_missing_field_counts.official_closure=597／612。",
+      "exact_missing_evidence": [
+        "当該 edge を含む範囲について、いつ・どの機関の・どの一次情報を・どの範囲で照会したかを書いた **bounded official closure check receipt**（照会日／権限主体／照会範囲（AOI・道路区間）／結果／None を保持した根拠）",
+        "閉鎖ありの場合は、その公式通行止め情報の出典・版・URL・取得日・SHA-256",
+        "m7_provenance.official_closure（15 edge すべてで missing_fields に計上）"
+      ],
+      "possible_official_source": [
+        "道路管理者（京都市／京都府／藤沢市／神奈川県）の通行規制・通行止め公表。repo 内に受領書なし。",
+        "警察の交通規制情報。repo 内に受領書なし。",
+        "注意：京都市道路台帳平面図は data/ATTRIBUTION.md でデータソース利用が禁止されており、closure 証拠としても使えない。"
+      ],
+      "research_model_candidate": [
+        "該当なし。official_closure は研究モデルで代替してはならない（公式事実であり推定値ではない）。"
+      ],
+      "prohibited_derivation": [
+        "ハザード／施設ポリゴンから closure を導出しない（safety_contract.hazard_overlap_to_closure=false）",
+        "None を False に変換しない",
+        "証拠なき structural value を証拠ありと扱わない"
+      ],
+      "human_freeze_required": true
+    },
+    {
+      "field": "hazard_data_status",
+      "m7_role": "そのハザード文脈のデータが利用可能かという **データ可用性の状態** 。道路の状態ではない。",
+      "tracked_in_readiness_json": true,
+      "current_status": "15 edge すべて MISSING（structural・evidence とも 612／612 欠落）",
+      "current_source": "none",
+      "current_value_in_repo": "readiness JSON の field_evidence_status.hazard_data_status は 15 edge すべて MISSING。missing_fields に hazard_data_status と m7_provenance.hazard_data_status の双方を計上。",
+      "exact_missing_evidence": [
+        "KNOWN／UNKNOWN のいずれを採るかを明示した **hazard_data_status decision receipt**（判断日・判断者・対象 AOI・対象ハザード種別・接続されているデータの識別子と SHA-256・接続されていない理由）",
+        "KNOWN を主張する場合は、当該 AOI に接続済みで license/CRS/lineage が解決済みのハザードデータの受領書",
+        "UNKNOWN を採る場合も、暗黙に落とさず bounded な判断記録として残すこと（M7_MISSING_FIELD_COUNTS.csv：No missing-source to silent UNKNOWN）"
+      ],
+      "possible_official_source": [
+        "京都（嵐山）：A31b 洪水は KYOTO_PARITY_STATUS.json で `CONNECTED_FOR_INTERNAL_DISPLAY_ONLY`（内部表示のみ。closure_derived=false／damage_or_debris_derived=false）。土砂は `NOT_CONNECTED`（事前同意条件・再配布審査・source-feature→AOI lineage 未解決）。",
+        "京都（清水）：cities/kyoto_kiyomizu/hazards/official/ の土砂 preview は raw source ZIP が trust root 外で `NOT_CONNECTED_RAW_SOURCE_OUTSIDE_TRUST_ROOT`（data/ATTRIBUTION.md）。",
+        "藤沢：震度 8 シナリオ・液状化 8 シナリオの inventory は存在するが status=NOT_CONNECTED（CRS_CONTRADICTION_AND_LICENSE_RECEIPT_REQUIRED ／ LICENSE_AND_SOURCE_RECEIPT_REQUIRED）。"
+      ],
+      "research_model_candidate": [
+        "該当なし。データ可用性の状態であり、モデルで生成する対象ではない。"
+      ],
+      "prohibited_derivation": [
+        "hazard_data_status を道路状態（OPEN/CLOSED/NARROWED）として解釈しない",
+        "出典が無いことを黙って UNKNOWN に落とさない（判断 receipt を伴うこと）",
+        "内部表示のみ接続（A31b 洪水）を KNOWN の根拠にしない"
+      ],
+      "human_freeze_required": true
+    }
+  ],
+  "edges": [
+    {
+      "city_id": "fujisawa_enoshima",
+      "city_label": "藤沢・江の島／片瀬",
+      "deep_pilot_group": "FUJISAWA_ENOSHIMA",
+      "edge_id": "FJ-OSM-E-018BDD155711677D",
+      "source_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "source_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "STRUCTURAL_VALUE_WITHOUT_EVIDENCE",
+          "current_source": "structural value (no evidence)"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "city_label": "藤沢・江の島／片瀬",
+      "deep_pilot_group": "FUJISAWA_ENOSHIMA",
+      "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "source_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "source_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "STRUCTURAL_VALUE_WITHOUT_EVIDENCE",
+          "current_source": "structural value (no evidence)"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "city_label": "藤沢・江の島／片瀬",
+      "deep_pilot_group": "FUJISAWA_ENOSHIMA",
+      "edge_id": "FJ-OSM-E-062F75C8425C2252",
+      "source_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "source_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "STRUCTURAL_VALUE_WITHOUT_EVIDENCE",
+          "current_source": "structural value (no evidence)"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "city_label": "藤沢・江の島／片瀬",
+      "deep_pilot_group": "FUJISAWA_ENOSHIMA",
+      "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+      "source_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "source_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "STRUCTURAL_VALUE_WITHOUT_EVIDENCE",
+          "current_source": "structural value (no evidence)"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "city_label": "藤沢・江の島／片瀬",
+      "deep_pilot_group": "FUJISAWA_ENOSHIMA",
+      "edge_id": "FJ-OSM-E-215A5178BF215505",
+      "source_artifact": "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+      "source_artifact_sha256": "630c2dbb74845b0ad30b064168b03d361115ed20955b325fb8f58b91034a0c47",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "STRUCTURAL_VALUE_WITHOUT_EVIDENCE",
+          "current_source": "structural value (no evidence)"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "city_label": "京都・嵐山",
+      "deep_pilot_group": "ARASHIYAMA",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
+      "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "city_label": "京都・嵐山",
+      "deep_pilot_group": "ARASHIYAMA",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "city_label": "京都・嵐山",
+      "deep_pilot_group": "ARASHIYAMA",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "city_label": "京都・嵐山",
+      "deep_pilot_group": "ARASHIYAMA",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
+      "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "city_label": "京都・嵐山",
+      "deep_pilot_group": "ARASHIYAMA",
+      "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "source_artifact": "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+      "source_artifact_sha256": "b8df66f59b5baefc0ba9dbd7d197546a4c93b0efa51f273d7ac465d832e08285",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "city_label": "京都・清水／祇園",
+      "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+      "edge_id": "KK-OSM-W1251544286-S01",
+      "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "city_label": "京都・清水／祇園",
+      "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+      "edge_id": "KK-OSM-W1491152444-S01",
+      "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "city_label": "京都・清水／祇園",
+      "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+      "edge_id": "KK-OSM-W1491152444-S02",
+      "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "city_label": "京都・清水／祇園",
+      "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+      "edge_id": "KK-OSM-W157527438-S01",
+      "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "city_label": "京都・清水／祇園",
+      "deep_pilot_group": "KIYOMIZU_GION_CURRENT_CANDIDATE_PACK",
+      "edge_id": "KK-OSM-W174762077-S01",
+      "source_artifact": "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+      "source_artifact_sha256": "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b",
+      "geometry_status": "SOURCE_TRACEABLE_REAL",
+      "m7_computed": false,
+      "m7_evidence_ready": false,
+      "damage_or_debris_derived_from_hazard": false,
+      "field_references": [
+        {
+          "field": "damage_state",
+          "contract_ref": "field_contracts[0]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "debris_present",
+          "contract_ref": "field_contracts[1]",
+          "current_status": "NOT_TRACKED_AS_A_READINESS_FIELD_AND_NULL_IN_PLATEAU_V2",
+          "current_source": "none"
+        },
+        {
+          "field": "official_closure",
+          "contract_ref": "field_contracts[2]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        },
+        {
+          "field": "hazard_data_status",
+          "contract_ref": "field_contracts[3]",
+          "current_status": "MISSING",
+          "current_source": "none"
+        }
+      ],
+      "human_freeze_required": true,
+      "evidence_ready": false
+    }
+  ],
+  "human_checkboxes": [
+    {
+      "id": "M7GAP-01",
+      "text": "damage_state を与える建物単位の公式被害想定成果物が存在するか（京都市／京都府、藤沢市／神奈川県）を人間が確認し、受領書を作る。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-02",
+      "text": "存在しない場合、damage_state を UNKNOWN のまま保持する運用を人間が承認し記録する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-03",
+      "text": "PLATEAU の uro:bldgDisasterRiskAttribute / uro:LandSlideRiskAttribute を damage_state に変換しない禁止事項を、実装ゲートとして人間が明文化する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-04",
+      "text": "debris_present の判定規則（Moya Eq.7 系を候補とする独自簡約モデル）について A1化要求を満たす検証を行い、人間が freeze する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-05",
+      "text": "SETBACK_METHOD_STATUS を PROPOSAL_REQUIRED_NOT_FROZEN から進めるための提案（歩行空間境界・edge 方向安定化・metric CRS・影響区間・許容誤差・provenance）を人間が審査する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-06",
+      "text": "official_closure の bounded check receipt 様式（照会日・権限主体・照会範囲・結果・None 保持根拠）を人間が定め、15 edge 分を取得する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-07",
+      "text": "藤沢 5 edge の official_closure structural value を、証拠付与するか除去するかを人間が決定する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-08",
+      "text": "hazard_data_status の KNOWN/UNKNOWN 判断 receipt を AOI 別（清水・嵐山・江の島）に人間が作成する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-09",
+      "text": "藤沢の震度／液状化 inventory の license_review・CRS_CONTRADICTION・official_url 欠落を人間が解決する（未解決の間は scenario メタデータ以上に使わない）。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-10",
+      "text": "京都府土砂 GIS の利用条件・AOI lineage 未解決（NOT_CONNECTED）の扱いを人間が決定する。",
+      "checked": false
+    },
+    {
+      "id": "M7GAP-11",
+      "text": "4 フィールドすべてが証拠付きになるまで M7 を実行しないゲートを人間が維持することを確認する。",
+      "checked": false
+    }
+  ]
+}

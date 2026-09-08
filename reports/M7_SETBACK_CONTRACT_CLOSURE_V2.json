@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "contract_id": "M7_SETBACK_INPUT_CONTRACT_V2",
+  "generated_at": "2026-09-03",
+  "status_flags": {
+    "M7_SETBACK_CONTRACT_PACKET_READY": true,
+    "M7_SETBACK_VALIDATOR_READY": true,
+    "M7_SETBACK_PRODUCTION_FROZEN": false,
+    "M7_SETBACK_POLICY_READY": false
+  },
+  "status_flag_notes": {
+    "M7_SETBACK_VALIDATOR_READY": true,
+    "M7_SETBACK_POLICY_READY": "unchanged by this contract packet; remains false until human freeze."
+  },
+  "schema_path": "schemas/m7_setback_evidence_v2.schema.json",
+  "contract_doc_path": "docs/review/M7_SETBACK_INPUT_CONTRACT_V2.md",
+  "core_api_unchanged": true,
+  "m7_invoked": false,
+  "current_v2_values": {
+    "nearest_geometry_distance_m": "PROXY_NOT_SETBACK",
+    "m7_eligible": false
+  },
+  "enums": {
+    "setback_status": [
+      "OBSERVED_FIELD",
+      "OFFICIAL_BOUNDARY_DERIVED",
+      "RESEARCH_DERIVED_EXPERIMENTAL",
+      "PROXY_NOT_SETBACK",
+      "UNKNOWN"
+    ],
+    "boundary_role": [
+      "WALKABLE_CORRIDOR_BOUNDARY",
+      "OFFICIAL_SIDEWALK_BOUNDARY",
+      "OFFICIAL_ROAD_BOUNDARY_PROXY",
+      "CANDIDATE_CENTERLINE_PROXY",
+      "UNKNOWN"
+    ],
+    "building_geometry_role": [
+      "FRONTAGE_LINE",
+      "FOOTPRINT_EDGE",
+      "ROOF_EDGE_PROXY",
+      "CENTROID_FORBIDDEN",
+      "UNKNOWN"
+    ],
+    "side": [
+      "LEFT",
+      "RIGHT"
+    ],
+    "stable_edge_direction": [
+      "FROM_NODE_TO_TO_NODE",
+      "TO_NODE_TO_FROM_NODE"
+    ],
+    "coverage_status": [
+      "COMPLETE",
+      "PARTIAL",
+      "UNKNOWN"
+    ],
+    "evidence_status": [
+      "ACCEPTED",
+      "PENDING_HUMAN_FREEZE",
+      "REJECTED",
+      "RECORD_ONLY"
+    ]
+  },
+  "m7_eligibility": {
+    "OBSERVED_FIELD": "eligible after accepted measurement receipt",
+    "OFFICIAL_BOUNDARY_DERIVED": "eligible only after method/version/CRS validation and frozen contract",
+    "RESEARCH_DERIVED_EXPERIMENTAL": "not production eligible",
+    "PROXY_NOT_SETBACK": "never eligible",
+    "UNKNOWN": "never eligible"
+  },
+  "human_freeze_items": [
+    "[ ] setback の定義（歩行空間境界 -> 建物前面の最短水平距離）を凍結する",
+    "[ ] 歩行空間境界の縁（歩道端／車道端／建物前面線）をどれにするか凍結する",
+    "[ ] building_geometry_role として FRONTAGE_LINE / FOOTPRINT_EDGE / ROOF_EDGE_PROXY のどれを許容するか凍結する",
+    "[ ] 測定手順（基準器・器差・測点間隔・許容誤差）を凍結する",
+    "[ ] 同一断面に複数建物が面する場合の代表建物選定規則を凍結する",
+    "[ ] metric CRS と transform（id/version）を凍結する",
+    "[ ] coverage_status=COMPLETE の受領書様式を凍結する",
+    "[ ] OFFICIAL_ROAD_BOUNDARY_PROXY を使う場合の境界線と歩行可能面の差分記録要件を承認する",
+    "[ ] nearest_geometry_distance_m を M7 入力に使わない（PROXY_NOT_SETBACK 固定）ことを確認する",
+    "[ ] centroid 由来の値を永久に拒否する（CENTROID_FORBIDDEN）ことを確認する"
+  ],
+  "validator_module": "src/analysis/m7_evidence_contracts.py",
+  "validator_tests": "tests/analysis/test_m7_evidence_contracts.py"
+}

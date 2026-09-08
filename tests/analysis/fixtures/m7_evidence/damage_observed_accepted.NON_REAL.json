@@ -1,0 +1,28 @@
+{
+  "building_id": "NON-REAL-bldg-000000",
+  "building_taxonomy": "WOODEN_LOW_RISE",
+  "damage_state_probabilities": null,
+  "damage_taxonomy_id": "JP-MLIT-BUILDING-DAMAGE-CLASS",
+  "damage_taxonomy_version": "2024.1",
+  "evidence_kind": "OBSERVED_POST_EVENT",
+  "fragility_model_id": null,
+  "fragility_model_version": null,
+  "intensity_measure_type": "NOT_APPLICABLE",
+  "intensity_measure_value": null,
+  "limitations": [
+    "NON_REAL synthetic fixture; no real building was surveyed."
+  ],
+  "mapping_status": "MAPPED_EXPLICIT",
+  "mapping_to_m7_core": "COLLAPSED",
+  "observation_or_model_time": "2026-04-01T00:00:00Z",
+  "realization_id": null,
+  "realization_method": null,
+  "realization_seed": null,
+  "realized_state": "COMPLETE_COLLAPSE",
+  "revision_id": "r1",
+  "scenario_id": null,
+  "schema_version": "2.0.0",
+  "source_id": "NON-REAL-SURVEY-0001",
+  "source_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "validation_status": "ACCEPTED"
+}

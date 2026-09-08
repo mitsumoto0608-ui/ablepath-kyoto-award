@@ -1,7 +1,7 @@
 {
   "task_id": "ABLEPATH-TK02-STATIC-VIEWER-BOUNDARY-AND-FINAL-INTEGRATION-V1",
   "finding_id": "TK-02",
-  "status": "RESOLVED_PENDING_HOSTED_CI_AND_INDEPENDENT_REVIEW",
+  "status": "RESOLVED",
   "source_analysis_authority": "src/analysis/candidate_network.py",
   "source_generator": "scripts/build_candidate_analysis.py",
   "viewer_analysis_mode": "STATIC_READ_ONLY",
@@ -36,7 +36,7 @@
     "stale_input_detection": true,
     "viewer_boundary": true,
     "architecture_mutations_killed": true,
-    "hosted_ci_green": null,
+    "hosted_ci_green": true,
     "independent_audit_green": true,
     "critical_open_count": 0,
     "high_open_count": 0
