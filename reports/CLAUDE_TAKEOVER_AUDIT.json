@@ -63,6 +63,15 @@
     "admin_validated": false,
     "public_release_ready": false
   },
+  "tk02_resolution": {
+    "status": "RESOLVED",
+    "source_analysis_authority": "src/analysis",
+    "viewer_analysis_mode": "STATIC_READ_ONLY",
+    "viewer_graph_computation_count": 0,
+    "independent_audit_green": true,
+    "critical_open_count": 0,
+    "high_open_count": 0
+  },
   "findings": [
     {
       "id": "TK-01",
@@ -74,9 +83,9 @@
     {
       "id": "TK-02",
       "severity": "HIGH",
-      "summary": "DES-14 unresolved: viewer build script computes Dijkstra/path_matrix/M7 aggregation",
-      "file": "viewer/scripts/build-map-artifacts.mjs:104-134",
-      "status": "OPEN"
+      "summary": "DES-14 resolved: source-side generator owns Dijkstra/path_matrix/M7 aggregation and viewer only validates/copies committed static analysis",
+      "file": "reports/TK02_STATIC_VIEWER_BOUNDARY_CLOSURE.md; tests/ui/viewer_static_boundary.test.mjs",
+      "status": "RESOLVED"
     },
     {
       "id": "TK-03",

@@ -1,6 +1,6 @@
 # TK-02 static viewer boundary closure
 
-`TK02_STATUS=RESOLVED_PENDING_HOSTED_CI_AND_INDEPENDENT_REVIEW`
+`TK02_STATUS=RESOLVED`
 
 `SOURCE_ANALYSIS_AUTHORITY=src/analysis`
 
@@ -14,4 +14,4 @@ The three successor files are not byte-identical to their pre-TK-02 predecessors
 
 Current invariants remain 3 cities, 612 candidate edges, 15 deep-pilot edges, M7 evidence-ready 0, M7 computed 0, and false safety/accessibility/administrative/public-release claims. No city geometry, candidate graph, M7 core/API/constants, M6, Hokonavi, viewer runtime behavior, or workflow file changed.
 
-Independent LUNA/TERA-equivalent post-diff audits are GREEN with zero open Critical/High findings. The transition from `RESOLVED_PENDING_HOSTED_CI_AND_INDEPENDENT_REVIEW` to final `RESOLVED` now requires only the exact PR #12 Hosted CI to be GREEN.
+Independent LUNA/TERA-equivalent post-diff audits are GREEN with zero open Critical/High findings. Exact-head PR #12 Hosted CI is GREEN.

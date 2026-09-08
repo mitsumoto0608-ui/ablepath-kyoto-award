@@ -1,6 +1,13 @@
 # CLAUDE_TAKEOVER_AUDIT — Codex→Claude Code 移管監査（第1run・無変更）
 
-> **解決状況（task/claude-post-pr10-evidence-closure-v1 での更新）**: TK-01・TK-03・TK-04・TK-05・TK-06(申告訂正)・TK-11 は本ブランチで解決済み（`git log b64b5d0..HEAD`）。TK-02（viewer計算のsrc側移管）・TK-06のPNG削除・TK-07・TK-08・TK-09・TK-10・TK-12は未解決（人間裁定または後続タスク）。TK-13はNEEのまま。§7の「無変更」は第1run時点の記述。
+> **解決状況（task/m7-evidence-contracts-main-replay-v1 での更新）**: TK-01・TK-02・TK-03・TK-04・TK-05・TK-06(申告訂正)・TK-11 は本ブランチで解決済み。TK-06のPNG削除・TK-07・TK-08・TK-09・TK-10・TK-12は未解決（人間裁定または後続タスク）。TK-13はNEEのまま。§7の「無変更」は第1run時点の記述。
+
+```text
+TK02_STATUS=RESOLVED
+INDEPENDENT_AUDIT_GREEN=true
+CRITICAL_OPEN_COUNT=0
+HIGH_OPEN_COUNT=0
+```
 
 実施: 2026-09-03／方式: read-only。primary worktree（`LOCAL_WORKTREE`）は無変更（`GIT_OPTIONAL_LOCKS=0`で参照のみ）。監査はbundle `official-data-to-m7-evidence-v1.bundle` をコンテナへ複製し、PR #10 head `b64b5d0` の**detached isolated worktree**で実施。独立サブ監査2班（Opus: D/ABC班＝M7・データ、E/F班＝UI・生成バイト）＋統合者。GitHub API/Webへの照会は行っていない（PR状態・CI runは**pack申告のまま＝未独立確認**）。
 
@@ -49,7 +56,7 @@
 | ID | 重大度 | 所見 | 証拠 |
 |---|---|---|---|
 | TK-01 | HIGH | 配信`viewer/public/data/analysis/*.json`の`official_evidence.source_hashes`のうち6系統が現行repo bytesと不一致（kyoto_status 991ca56c→実3d9b3590、terrain_inventory 3都市、fujisawa facility_receipt 90b0a7b1→実60c63dc0）。レポート更新後に再生成せず同梱。UIの「source hash binding」表に**古いハッシュがそのまま表示**される。他のmaps/official/map-layers.jsonは再ビルドでbyte一致。 | `viewer/scripts/build-map-artifacts.mjs:85-91`, `App.jsx:364-365`; commit c2b8c4b/864c72a |
-| TK-02 | HIGH | DES-14未解消：`viewer/scripts/build-map-artifacts.mjs:104-134`がDijkstra・連結成分・path_matrix・M7集計をviewer配下で計算。ランタイムは表示のみだが「ビューア内で計算しない」境界は未達。 | 同上 |
+| TK-02 | HIGH→RESOLVED | Dijkstra・連結成分・path_matrix・M7集計を`src/analysis`へ移管。viewer artifact buildはcommit済みstatic analysisのhash/parity/fail-closed検証とcopyのみで、graph computation countは0。 | `reports/TK02_STATIC_VIEWER_BOUNDARY_CLOSURE.{md,json}`、`tests/ui/viewer_static_boundary.test.mjs` |
 | TK-03 | MEDIUM→運用HIGH | `reports/OVERNIGHT_NEW_WORK_COMMIT_MANIFEST.json`は**10 commit**、実レンジd029f33..b64b5d0は**12**。欠落=`7cb7c50`（docs: Kyoto parity replay status）と`b64b5d0`（自己除外ポリシー記載あり）。7cb7c50の欠落は未説明。retarget不成立時のreplayでreceiptが黙って落ちる。 | manifest:6-18 |
 | TK-04 | MEDIUM | official層の`copied_sha256`がsourceパスのハッシュ（=artifact_sha256と同値）で、配信先byteを読み直していない。maps層（`:171`,`:155-163`）と非対称。今回一致したが検証として機能せず（SEC-10根本原因の残存）。 | `build-map-artifacts.mjs:68,95` |
 | TK-05 | MEDIUM | `tests/ui/official_data_layers.test.mjs:13-51`はtempへ再ビルドするがコミット済み配信byteと比較しない→TK-01を検出不能。 | 同上 |
@@ -80,7 +87,7 @@
 1. ユーザーのローカルで（primaryは触らず）:
    `git -C <LOCAL_WORKTREE> worktree add --detach <HANDOFF_ROOT>/ablepath-claude-takeover-pr10 b64b5d0c07ee7cc109adb0f5cf5f1f4193ff5800`
    → その中で `git switch -c task/claude-post-pr10-evidence-closure-v1`（PR #10 headから、push前に人間確認）。
-2. 同branchの最初のcommit（順に）: (a) `reports/CLAUDE_TAKEOVER_AUDIT.{md,json}` 追加、(b) TK-01: analysis JSON再生成＋TK-05の「再ビルド=コミット済みbyte」テスト追加、(c) TK-03: commit manifestを`git log d029f33..HEAD`から導出、(d) TK-04: official層copied_sha256を配信先byteで再計算、(e) TK-06: screenshot申告の訂正。TK-02（viewer計算のsrc側移管）は設計判断を要するため人間裁定後。
+2. 同branchの既存remediationに加え、TK-02はPR #12の通常mergeで`src/analysis` authority・viewer static-only境界へ移行済み。closure receiptとarchitecture mutation/parity/stale testsを正本とする。
 3. その後 08_M7_TAKEOVER_PLAN §「具体的な次作業」1〜8（H23幅の結合可否→PLATEAU stable ID照合→setback freeze有無→missing維持→field coverage matrix→現地調査票）。値の捏造なし、computed=0維持。
 
 ## 7. Rollback
