@@ -1,0 +1,70 @@
+problem_id,source_id,priority,shortlist_role,why_needed,supported_claim,not_supported,exact_page_section,transfer_status,target_validation_requirement
+P01,S005,1,BEST_SOURCE_FOR_DEFINITION,Authoritative PLATEAU product provenance,Use version/source/quality metadata,Local presence or freshness,Chapters 3-8,DIRECT,Record product/version/source date per ingest
+P01,S006,2,BEST_SOURCE_FOR_METHOD,Official hazard provenance chain,Preserve river manager/scenario/year semantics,No-flood outside polygon,Content/source/cautions,DIRECT,Compare dataset metadata to provider publication
+P01,S023,3,BEST_SOURCE_FOR_VALIDATION,Independent cross-source validation design,Datasets can disagree by collection/definition,Crowd data as ground truth,pp.1-2 and results,ADAPT,Field-check a sample and preserve disagreement
+P01,S035,4,BEST_SOURCE_FOR_LIMITATION,Translation compilation boundary,Discovery-only material must be traced to original,Any production claim,Entire document,REJECT,Resolve DOI/original before promotion
+P02,S001,1,BEST_SOURCE_FOR_DEFINITION,Normative CRS axis semantics,Axis order is significant,Correctness of a concrete transform,Axis order section,DIRECT,Round-trip known coordinates and assert CRS/axis
+P02,S005,2,BEST_SOURCE_FOR_METHOD,PLATEAU CRS/product rules,Read CRS from current product specification,Assume all cities use identical files,Chapter 5 reference systems,DIRECT,Validate declared CRS and sample bounds
+P02,S006,3,BEST_SOURCE_FOR_VALIDATION,Official hazard dataset declares JGD2011 B/L,Source CRS is explicit,Axis handling by software,Coordinate-system section,DIRECT,Transform control points and compare official map
+P02,S030,4,BEST_SOURCE_FOR_LIMITATION,Fused sources amplify CRS/elevation mismatch,Open-source fusion needs explicit harmonization,That model validates AblePath CRS,Methods,ADAPT,Check horizontal/vertical datum separately
+P03,S002,1,BEST_SOURCE_FOR_DEFINITION,Normative geometry families/validity,Validate geometry before spatial ops,Accessibility semantics,Clauses 6-8,DIRECT,Reject/segregate invalid and mixed families
+P03,S021,2,BEST_SOURCE_FOR_METHOD,Sidewalk graph construction with QA,Automated geometry needs manual QA,Field truth,pp.5-6,ADAPT,Topology review against imagery/field sample
+P03,S022,3,BEST_SOURCE_FOR_VALIDATION,Point-cloud vectorization validation,Vectorization can be measured,Route safety accuracy,pp.497-503,ADAPT,Compare vectors and attributes with surveyed points
+P03,S005,4,BEST_SOURCE_FOR_JAPAN_TRANSFER,Japan PLATEAU quality rules,Use product-specific conformance/quality,Universal geometry repair,Chapter 6,DIRECT,Run product conformance plus local GIS checks
+P04,S021,1,BEST_SOURCE_FOR_METHOD,Explicit sidewalk/crossing graph workflow,Connectivity requires QA,Universal topology accuracy,pp.5-6,ADAPT,Inspect crossings barriers grade separation
+P04,S025,2,BEST_SOURCE_FOR_VALIDATION,Route sensitivity to VGI quality,False/missing links alter route results,Safe route certification,Methods/results,ADAPT,Adversarial tests for disconnected/false-connected edges
+P04,S033,3,BEST_SOURCE_FOR_LIMITATION,Image extraction candidate limits,Extracted sidewalks require topology QA,Visual line equals connection,Sections 3-5,ADAPT,Review intersections/overpasses/entrances
+P04,S005,4,BEST_SOURCE_FOR_JAPAN_TRANSFER,PLATEAU semantics/topology scope,Use only represented relationships,Pedestrian graph completeness,Chapters 4-6,ADAPT,Crosswalk against authoritative/local network
+P05,S024,1,BEST_SOURCE_FOR_DEFINITION,OSM suitability/completeness evidence,Missing tags are unknown not negative,Current Kyoto completeness,Sections 3-5,ADAPT,Compute field-level completeness by area/date
+P05,S020,2,BEST_SOURCE_FOR_METHOD,Effective width with obstruction layers,Nominal width differs from bottleneck width,Kyoto correction factor,pp.7-9 Table 4,ADAPT,Measure sampled bottlenecks and obstacles
+P05,S023,3,BEST_SOURCE_FOR_VALIDATION,Cross-dataset feature validation,Collection definitions create conflict,Government data perfect truth,Results,ADAPT,Match definitions/timestamps before scoring
+P05,S026,4,BEST_SOURCE_FOR_LIMITATION,Participatory audit limits,Crowd labels need provenance/QA,Label as legal finding,Sections 3-6,ADAPT,Double-label and field-check critical items
+P06,S006,1,BEST_SOURCE_FOR_DEFINITION,Official flood-layer semantics,Overlap means scenario polygon intersection,Passability or certainty,Cautions,DIRECT,Preserve category/year/source and uncertainty
+P06,S016,2,BEST_SOURCE_FOR_METHOD,Probabilistic demand-capacity structure,Network impact requires demand/capacity model,Pedestrian thresholds from Haiti,pp.3-6 Eq.1-2,STRUCTURE_ONLY,Recalibrate inputs and profiles locally
+P06,S017,3,BEST_SOURCE_FOR_VALIDATION,Observed-vs-estimated blockage,Even local models retain disagreement,Kyoto accuracy,p.1 and results,ADAPT,Validate against observed events/scenarios
+P06,S008,4,BEST_SOURCE_FOR_LIMITATION,Tsunami uncertainty/scope,Model output is not exact traversability,Wheelchair threshold,Section 1.6.4,ADAPT,Keep uncertainty and prohibit safe-route inference
+P07,S029,1,BEST_SOURCE_FOR_DEFINITION,Profile-aware cost framing,Cost must be profile/constraint specific,Universal safe route,Sections 2-5,STRUCTURE_ONLY,Label metric units/profile/assumptions
+P07,S032,2,BEST_SOURCE_FOR_VALIDATION,Empirical assisted-mobility performance,Device/slope/assistance change travel performance,Production speed constant,pp.6-9,ADAPT,Repeat with target users/devices/routes
+P07,S020,3,BEST_SOURCE_FOR_METHOD,Minimum effective width measurement,Cost inputs should use bottleneck condition,Passability boundary,pp.7-9,ADAPT,Field-validate edge aggregation
+P07,S009,4,BEST_SOURCE_FOR_LIMITATION,Normative-vs-cost boundary,Design criterion is not observed ability,Rou­ting weight,R302/R407,ADAPT,Keep normative flags separate from empirical cost
+P08,S015,1,BEST_SOURCE_FOR_METHOD,Japan debris distribution method,Debris extent is probabilistic and population-specific,Kyoto constants,pp.10-14 Eq.2-3/7,ADAPT,Local building-form/debris validation
+P08,S017,2,BEST_SOURCE_FOR_VALIDATION,Japan blockage validation,Input/model mismatch remains measurable,Universal accuracy,p.1/results,ADAPT,Back-test with observed road damage
+P08,S018,3,BEST_SOURCE_FOR_JAPAN_TRANSFER,Kyoto precedent,Local scenario lineage exists,Current corridor probability,pp.73-82,ADAPT,Update building/network/source data
+P08,S016,4,BEST_SOURCE_FOR_LIMITATION,Haiti transfer counterexample,Structure transfers but coefficients do not,Japanese debris parameters,pp.3-6,STRUCTURE_ONLY,Document population/material mismatch
+P09,S011,1,BEST_SOURCE_FOR_DEFINITION,Japan legal/guidance scope,Legal design rule differs from current condition/ability,Pass/fail decision,Official applicability statement,ADAPT,Legal review plus field/empirical layer
+P09,S009,2,BEST_SOURCE_FOR_METHOD,Current PROWAG normative comparator,Versioned design criteria can be cited,Japanese law or universal ability,R302/R407,ADAPT,Tag jurisdiction/version/scoping
+P09,S032,3,BEST_SOURCE_FOR_VALIDATION,Empirical ability under assistance,Measured performance differs by conditions,Normative compliance,pp.6-9,ADAPT,Test relevant users/devices
+P09,S012,4,BEST_SOURCE_FOR_LIMITATION,Scoped Canada comparison already reconciled in current M6 packet,Use only the verified Preface/§1.2/§8.2.2 comparator with jurisdiction and scope,Japan applicability or executable AblePath profile boundary,"Preface; §1.2; §8.2.2; PDF pp.6, 27, 232",ADAPT,Keep A1-NUM comparison non-executable until legal/domain review and human freeze
+P09,S022,5,BEST_SOURCE_FOR_JAPAN_TRANSFER,Historic-city method plus Italian law boundary,Foreign law can inform comparison only,Japan legality,p.497,ADAPT,Pair with S011 and local validation
+P10,S003,1,BEST_SOURCE_FOR_DEFINITION,CityGML conceptual/ADE boundary,ADE capability is not dataset implementation,PLATEAU coverage,Scope/Clauses 6-8,DIRECT,Inspect actual application schema/instance
+P10,S005,2,BEST_SOURCE_FOR_JAPAN_TRANSFER,Current PLATEAU 5.1 interpretation and delta reference,Distinguish current reference documentation from each package's declared product specification,Equivalence of FY2025/v5 city packages to 5.1 or CityGML3 implementation,Version history/proposal note,DIRECT,Validate each city package against its declared v5 schema/spec and use 5.1 only for current interpretation/delta review
+P10,S028,3,BEST_SOURCE_FOR_METHOD,Research extension example,Mobility semantics can be modelled separately,Official implementation,Sections 3-5,STRUCTURE_ONLY,Map proposed fields to available sources
+P10,S004,4,BEST_SOURCE_FOR_LIMITATION,Delivery-vs-semantics boundary,3D Tiles is portrayal/streaming,Authoritative semantic completeness,Overview,STRUCTURE_ONLY,Trace tiles to source model/metadata
+P11,S014,1,BEST_SOURCE_FOR_DEFINITION,Normative CORS protocol,CORS failure is an HTTP policy outcome,Dataset absence,Section 3.3,DIRECT,Capture request/response status/headers/origin
+P11,S004,2,BEST_SOURCE_FOR_METHOD,Tileset structure/delivery,Validate tileset JSON/content separately,Endpoint policy,Overview/22-025r4,DIRECT,Test root/subresources from deployed origin
+P11,S005,3,BEST_SOURCE_FOR_JAPAN_TRANSFER,PLATEAU product vs delivery distinction,Authoritative source may exist independent of viewer,Remote endpoint uptime,Chapter 7 distribution,ADAPT,Use documented distribution and local copy fallback
+P11,S007,4,BEST_SOURCE_FOR_LIMITATION,Portal aggregation/update behavior,Portal layer state changes over time,Any one endpoint reliability,Update log,ADAPT,Record retrieval time and failure class
+P12,S010,1,BEST_SOURCE_FOR_DEFINITION,Design plus operations scope,Accessibility information includes operational context,Current facility operation,Whole guide,ADAPT,Separate exists/accessible/open-now fields
+P12,S027,2,BEST_SOURCE_FOR_METHOD,Facility-feature detection candidate,Detection only establishes visible candidate,Condition/dimensions/open status,Sections 3-6,STRUCTURE_ONLY,Field/official operations verification
+P12,S032,3,BEST_SOURCE_FOR_VALIDATION,Assisted-use empirical evidence,Existence of device/path does not imply equivalent performance,Facility availability,pp.6-9,ADAPT,Test operational scenario and assistance
+P12,S014,4,BEST_SOURCE_FOR_LIMITATION,Delivery-failure distinction,Remote error cannot prove facility absence,Physical state,Section 3.3,DIRECT,Use independent official/field verification
+P13,S023,1,BEST_SOURCE_FOR_DEFINITION,Cross-source disagreement evidence,Definition/method mismatch causes conflict,Automatic winner,Results,ADAPT,Preserve both claims and scope/date
+P13,S005,2,BEST_SOURCE_FOR_METHOD,Product metadata/quality model,Versioned source and quality support adjudication,Truth of external layers,Chapters 6-8,DIRECT,Conflict record with source lineage
+P13,S020,3,BEST_SOURCE_FOR_VALIDATION,Nominal vs effective-width contradiction,Same feature differs by obstruction model,Kyoto percentage,Table 4,ADAPT,Compare like definitions and timestamp
+P13,S015,4,BEST_SOURCE_FOR_LIMITATION,Population-specific coefficients,Do not average unlike studies,Universal debris equation,pp.10-14,ADAPT,Explain material/building-form scope
+P14,S007,1,BEST_SOURCE_FOR_DEFINITION,Official update log,Layers have independent update dates,Current condition,Update log,DIRECT,Store retrieved/published/valid dates
+P14,S006,2,BEST_SOURCE_FOR_METHOD,Dataset year/scenario metadata,Temporal version belongs to each hazard feature,Real-time hazard,Metadata/cautions,DIRECT,Reject unlabeled versions
+P14,S023,3,BEST_SOURCE_FOR_VALIDATION,Imagery-vs-field time mismatch,Date/method differences explain disagreement,Static truth,Methods/results,ADAPT,Align dates or label stale
+P14,S020,4,BEST_SOURCE_FOR_LIMITATION,Static obstruction scope,Static survey misses dynamic obstacles,Current congestion,pp.1-9,ADAPT,Add time-bounded observation layer
+P15,S010,1,BEST_SOURCE_FOR_DEFINITION,Inclusive information guidance,Presentation must serve diverse users,Validated UI effectiveness,Whole guide,ADAPT,User-test comprehension/action
+P15,S026,2,BEST_SOURCE_FOR_METHOD,Focused audit UI design,Crowd UI can structure observations,Production route UI,Sections 3-6,ADAPT,Test label burden/errors/accessibility
+P15,S023,3,BEST_SOURCE_FOR_VALIDATION,Severity interpretation conflict,UI labels can encode inconsistent severity,Legal status,Results,ADAPT,Use constrained vocabulary and examples
+P15,S029,4,BEST_SOURCE_FOR_LIMITATION,Personalization requirement,One-size UI/route overclaims,Safe route,Sections 2-5,STRUCTURE_ONLY,Test profiles including visual/older users
+P16,S005,1,BEST_SOURCE_FOR_DEFINITION,Version/schema transfer boundary,Transfer requires source-version and actual-class check,Capability implies presence,Version history/Ch.4,DIRECT,Record transfer rationale and rejected fields
+P16,S015,2,BEST_SOURCE_FOR_METHOD,Explicit population transfer limit,Method may adapt while coefficients do not,Kyoto numeric transfer,pp.10-14,ADAPT,Local calibration/holdout
+P16,S016,3,BEST_SOURCE_FOR_VALIDATION,Contrasting calibration domain,Haiti model demonstrates scope dependence,Japan validity,pp.3-6,STRUCTURE_ONLY,Compare materials/damage taxonomies
+P16,S009,4,BEST_SOURCE_FOR_LIMITATION,Standard version/jurisdiction drift,Old draft values conflict with final rule,Universal legal threshold,R302/version history,ADAPT,Pin edition/jurisdiction
+P17,S035,1,BEST_SOURCE_FOR_DEFINITION,Large translation index boundary,Index should route to originals not replace them,Verified claims,Entire document,REJECT,Use DOI/title dedupe and shortlist
+P17,S036,2,BEST_SOURCE_FOR_METHOD,Secondary synthesis discovery,Extract candidates then verify originals,Production evidence,Entire report,REJECT,Promotion gate requires original page
+P17,S023,3,BEST_SOURCE_FOR_VALIDATION,Small cross-source comparison pattern,Focused validation beats context accumulation,Universal method,Methods/results,ADAPT,3-5-source packet per triggered problem
+P17,S005,4,BEST_SOURCE_FOR_LIMITATION,Authoritative specification anchor,Use one current normative source per semantic issue,All implementation answers,Relevant chapter,DIRECT,Open only required clauses when triggered
