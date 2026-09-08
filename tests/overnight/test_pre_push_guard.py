@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import os
 from pathlib import Path
 import shutil
@@ -13,7 +14,13 @@ import pytest
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 GUARD_SOURCE = REPOSITORY_ROOT / "scripts" / "git-hooks" / "pre-push"
+INSTALL_SOURCE = REPOSITORY_ROOT / "scripts" / "git-hooks" / "install.ps1"
+STATUS_SOURCE = REPOSITORY_ROOT / "scripts" / "git-hooks" / "status.ps1"
+CI_WORKFLOW = REPOSITORY_ROOT / ".github" / "workflows" / "ci.yml"
 POWERSHELL = shutil.which("pwsh") or shutil.which("powershell")
+POWERSHELL_SKIP_REASON = (
+    "PowerShell is unavailable; installer/status integration requires pwsh"
+)
 
 
 def _run(
@@ -110,6 +117,103 @@ def _invoke_hook(repository: Path, *update_lines: str) -> subprocess.CompletedPr
         cwd=repository,
         check=False,
     )
+
+
+def test_guard_sources_are_portable_and_fail_closed_without_powershell() -> None:
+    """[software_correctness] Static guard contracts run without invoking PowerShell."""
+
+    for path in (GUARD_SOURCE, INSTALL_SOURCE, STATUS_SOURCE):
+        relative = path.relative_to(REPOSITORY_ROOT).as_posix()
+        source = subprocess.check_output(
+            ["git", "show", f"HEAD:{relative}"], cwd=REPOSITORY_ROOT
+        )
+        assert not source.startswith(b"\xef\xbb\xbf"), f"UTF-8 BOM in {path}"
+        assert b"\r" not in source, f"non-LF line ending in {path}"
+
+    hook = GUARD_SOURCE.read_text(encoding="utf-8")
+    for token in (
+        "set -u",
+        "LOCAL_GUARD_MAIN_PUSH_DENIED",
+        "LOCAL_GUARD_TAG_PUSH_DENIED",
+        "LOCAL_GUARD_NAMESPACE_DENIED",
+        "LOCAL_GUARD_DELETE_DENIED",
+        "LOCAL_GUARD_OBJECT_UNAVAILABLE",
+        "LOCAL_GUARD_NON_FF_DENIED",
+    ):
+        assert token in hook
+
+    install = INSTALL_SOURCE.read_text(encoding="utf-8")
+    for token in (
+        "Refusing to overwrite",
+        "effective core.hooksPath",
+        "unstaged changes",
+        "staged changes",
+        "Installed pre-push hook does not match",
+    ):
+        assert token in install
+
+    status = STATUS_SOURCE.read_text(encoding="utf-8")
+    for token in (
+        "hashMatches",
+        "sourceTrackedClean",
+        "hooksPathConflict",
+        "LOCAL_MAIN_GUARD=",
+        "exit 1",
+    ):
+        assert token in status
+
+
+def test_ci_runs_on_main_and_preserves_read_only_permissions() -> None:
+    """[software_correctness] Hosted CI covers main, PRs, and manual dispatch."""
+
+    workflow = CI_WORKFLOW.read_text(encoding="utf-8").replace("\r\n", "\n")
+    trigger_block = "on:\n" + workflow.split("on:\n", 1)[1].split("permissions:\n", 1)[0]
+    assert trigger_block == (
+        "on:\n"
+        "  push:\n"
+        "  pull_request:\n"
+        "  workflow_dispatch:\n"
+        "\n"
+    )
+    assert "permissions:\n  contents: read" in workflow
+
+
+def test_only_four_installer_status_tests_require_powershell() -> None:
+    """[software_correctness] PowerShell absence cannot skip static/Git guard coverage."""
+
+    source = Path(__file__).read_text(encoding="utf-8")
+    marker = "@" + "pytest.mark.skipif(POWERSHELL is None, reason=POWERSHELL_SKIP_REASON)"
+    expected = {
+        "test_installer_is_idempotent_and_status_verifies_lf_bytes",
+        "test_installer_preserves_a_different_existing_hook",
+        "test_installer_rejects_effective_hooks_path_and_dirty_source",
+        "test_status_detects_installed_hook_tampering",
+    }
+    assert source.count(marker) == len(expected)
+    tree = ast.parse(source)
+    assert not any(
+        isinstance(node, (ast.Assign, ast.AnnAssign))
+        and any(
+            isinstance(target, ast.Name) and target.id == "pytestmark"
+            for target in (
+                node.targets if isinstance(node, ast.Assign) else [node.target]
+            )
+        )
+        for node in ast.walk(tree)
+    )
+    assert not any(
+        isinstance(node, ast.Call) and ast.unparse(node.func) == "pytest.skip"
+        for node in ast.walk(tree)
+    )
+    decorated = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        if any("pytest.mark.skipif" in ast.unparse(item) for item in node.decorator_list):
+            decorated.add(node.name)
+    assert decorated == expected
+    for test_name in expected:
+        assert f"{marker}\ndef {test_name}" in source
 
 
 @pytest.mark.parametrize(
@@ -286,6 +390,7 @@ def test_guard_checks_every_ref_in_a_multi_ref_push(
     assert "LOCAL_GUARD_MAIN_PUSH_DENIED" in result.stderr
 
 
+@pytest.mark.skipif(POWERSHELL is None, reason=POWERSHELL_SKIP_REASON)
 def test_installer_is_idempotent_and_status_verifies_lf_bytes(
     guarded_repository: tuple[Path, Path]
 ) -> None:
@@ -315,6 +420,7 @@ def test_installer_is_idempotent_and_status_verifies_lf_bytes(
     assert "LOCAL_MAIN_GUARD=true" in status_result.stdout
 
 
+@pytest.mark.skipif(POWERSHELL is None, reason=POWERSHELL_SKIP_REASON)
 def test_installer_preserves_a_different_existing_hook(
     guarded_repository: tuple[Path, Path]
 ) -> None:
@@ -331,6 +437,7 @@ def test_installer_preserves_a_different_existing_hook(
     assert installed.read_bytes() == original
 
 
+@pytest.mark.skipif(POWERSHELL is None, reason=POWERSHELL_SKIP_REASON)
 def test_installer_rejects_effective_hooks_path_and_dirty_source(
     guarded_repository: tuple[Path, Path]
 ) -> None:
@@ -351,6 +458,7 @@ def test_installer_rejects_effective_hooks_path_and_dirty_source(
     assert "unstaged changes" in dirty_result.stderr
 
 
+@pytest.mark.skipif(POWERSHELL is None, reason=POWERSHELL_SKIP_REASON)
 def test_status_detects_installed_hook_tampering(
     guarded_repository: tuple[Path, Path]
 ) -> None:

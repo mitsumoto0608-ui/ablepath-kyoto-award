@@ -1,40 +1,40 @@
-# Phase 3 global report authority
+# Global report authority
 
-This index separates current Phase 3 evidence from retained historical snapshots. A historical file may remain useful evidence, but its commit counts, PR number, Hosted run, capability count, or release values must not be presented as the current Phase 3 state.
+This index separates the current Phase 4 machine truth from compatibility mirrors, supporting evidence, and retained historical snapshots. Historical files remain useful audit evidence but are not competing truth roots.
 
 ## CURRENT_AUTHORITATIVE
 
-- `reports/PHASE2_AUTONOMOUS_REALDATA_REPORT.md`: current reviewed Phase 2 engineering/capability narrative.
-- `reports/COMPLETION_LEVELS.json`: current global capability flags with artifact/viewer/model scope separation.
-- `reports/KNOWN_GAPS.md`: current product, data, operations, and human-gate gaps.
-- `reports/ENVIRONMENT_MANIFEST.json`: current PR #2 reviewed-checkpoint and Hosted-run environment snapshot; the truth-sync feature-run fields remain pending until push.
-- `reports/PUBLIC_RELEASE_GATE.md`: current public-release blockers; `PUBLIC_RELEASE_READY=false`.
-- `reports/PHASE3_MAP_UI_STATUS.md`: MAP implementation, scoped viewer capability, provenance, fallback, and contract-resolution evidence.
-- PR #2 (`integration/realdata-model-map-v1` → `main`): draft technical review vehicle at head `1a62a55b1ff6bd047b433bfd594b0c30e91f9f0d`; pull-request run `33330312591` succeeded.
-- PR #3 (`integration/phase3-parallel-v1` → `integration/realdata-model-map-v1`): stacked draft Phase 3 review vehicle. After final verification, its body must record the exact final head, Hosted run, screenshot artifact, deterministic RC SHA, and report-only lanes without changing repository files.
-- RC root `RELEASE_MANIFEST.json`: exists inside each generated deterministic RC ZIP, not as a tracked checkout-root file. Its `source_commit` and payload checksums are authoritative only for that archive.
-- `cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`: hash-bound authority for retained/normalized Kiyomizu real VGI artifacts.
-- `cities/kyoto_kiyomizu/realdata/status.json`: per-city capability status; its true geometry flag is scoped only to `CITYPACK_VALIDATED_ARTIFACT_CAPABILITY`.
+- `reports/PHASE4_ANALYSIS_UI_GATE.json` is the **sole current machine truth root** for the three-city data, topology-analysis, candidate-path UI, and explicit-opt-in viewer scope. It also records every preserved false/not-connected boundary.
+- `reports/COMPLETION_LEVELS.json` is a current **compatibility mirror**. Tests require its global flags to agree with the Phase 4 truth root; it is not an independent authority.
+- `viewer/public/data/maps/map-layers.json` is runtime evidence for the exact three-city VGI `CANDIDATE` artifacts. It is not product-wide safety, model, or administrative authority.
+- `reports/PHASE4_REAL_CITY_MAP_CONNECTION.md` is supporting narrative for the three-city explicit-opt-in candidate viewer connection.
+- `reports/KNOWN_GAPS.md` and `reports/PUBLIC_RELEASE_GATE.md` are current human-readable gap and release-blocker projections.
+- Each city artifact manifest/receipt remains authoritative for that artifact's bytes and provenance within its city pack.
+- RC root `RELEASE_MANIFEST.json` exists inside each generated deterministic RC ZIP, not as a tracked checkout-root file. Its source commit and checksums are authoritative only for that archive.
+
+The scoped current truth is: all three cities have source-traceable VGI real-coordinate `CANDIDATE` geometry and deterministic candidate analysis available through explicit viewer opt-in; all three still default to `SYNTHETIC_DEMO`, route continuity is `NOT_ESTABLISHED`, official hazard analysis covers zero cities, M7 ready/computed counts are zero, M6 is `NOT_COMPUTED`, and model/KPI/Hokonavi production/PLATEAU/facility/administrative/public-release connections remain false.
 
 ## HISTORICAL_SNAPSHOT
 
+- `reports/PHASE3_MAP_UI_STATUS.md` is historical Phase 3 evidence and contains superseded Kiyomizu-only scope literals.
+- `reports/PHASE2_AUTONOMOUS_REALDATA_REPORT.md` and other Phase 2 status reports are historical engineering checkpoints.
+- PR #1, PR #2, and PR #3 records and their Hosted runs are historical review vehicles, not current product truth.
 - `reports/OVERNIGHT_REPORT.md`
 - `reports/TEST_REPORT.txt`
-- PR #1 records and Hosted runs associated with the earlier overnight integration
-- `reports/RELEASE_CANDIDATE_MANIFEST.json` values, including old branch names, commit IDs, test counts, artifact hashes, and PR #1 references
+- `reports/RELEASE_CANDIDATE_MANIFEST.json`
 - `reports/DATA_ACQUISITION_SUMMARY.csv`
 - `reports/DATA_FRESHNESS_MATRIX.csv`
 - `reports/GEOSPATIAL_QA_SUMMARY.md`
 - `reports/HAZARD_SOURCE_MATRIX.csv`
 - `reports/PR_READY.md`
 - `reports/DEPENDENCY_AND_LICENSE_REPORT.md` data-inventory statements
-- `reports/SECURITY_TRUST_BOUNDARY.md` PR/run and pre-Phase2 operational statements
-- `reports/ACTION_PINNING_REPORT.md` PR/run and pre-Phase2 operational statements
+- `reports/SECURITY_TRUST_BOUNDARY.md` earlier operational statements
+- `reports/ACTION_PINNING_REPORT.md` earlier operational statements
 - `reports/BRANCH_MATRIX.md`
 - `reports/RESUME_AND_WATCHDOG_REPORT.md`
-- prior completion/test counts embedded in older reports
+- prior completion/test counts, branch names, commit IDs, PR numbers, and run IDs embedded in older reports
 
-These files are retained for audit history. Reports produced for `overnight-multicity-20260830` and superseded Phase 2 checkpoints are historical unless this index explicitly lists them as current. Where any historical file conflicts with the current authoritative set above, it is not a competing truth root.
+Where a historical file conflicts with `reports/PHASE4_ANALYSIS_UI_GATE.json`, the Phase 4 root controls. Historical text must not be joined into current-truth consistency checks.
 
 ## CURRENT_BUT_PUBLICLY_BLOCKED
 
@@ -44,4 +44,4 @@ These files are retained for audit history. Reports produced for `overnight-mult
 - `reports/THIRD_PARTY_NOTICE_DRAFT.md`
 - `reports/VERSION_DECISION.md`
 
-`PUBLIC_RELEASE_READY=false`. Engineering verification does not close license, attribution/share-alike, public release, administrative validation, or human main-merge gates.
+`PUBLIC_RELEASE_READY=false`. Engineering verification does not close license, attribution/share-alike, safety, public release, administrative validation, or human main-merge gates.

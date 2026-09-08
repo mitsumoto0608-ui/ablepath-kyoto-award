@@ -1,10 +1,90 @@
 {
-  "all_three_data_ingested": true, "all_three_topology_analysis_connected": true, "all_three_candidate_path_ui_connected": true,
-  "official_hazard_analysis_city_count": 0, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0,
-  "safe_route_claim": false, "accessibility_claim": false, "admin_validated": false,
+  "gate_schema_version": "2.0.0",
+  "gate_id": "PHASE4_ANALYSIS_UI_GATE",
+  "authority_role": "SOLE_CURRENT_MACHINE_TRUTH_ROOT",
+  "overall_status": "PARTIAL_COMPLETE",
+  "scope": "Three-city source-traceable VGI CANDIDATE geometry, deterministic topology/path analysis, and explicit-opt-in viewer connection only; default display remains synthetic and no safety, accessibility, operation, model, or administrative claim is made.",
+  "default_viewer_layer": "SYNTHETIC_DEMO",
+  "all_three_data_ingested": true,
+  "all_three_source_traceable_vgi_candidate_geometry": true,
+  "all_three_topology_analysis_connected": true,
+  "all_three_candidate_path_ui_connected": true,
+  "all_three_explicit_opt_in_candidate_viewer_connected": true,
+  "official_hazard_analysis_city_count": 0,
+  "official_hazard_connected": false,
+  "m7_ready_edge_count": 0,
+  "m7_computed_edge_count": 0,
+  "m7_connected_to_real_edges": false,
+  "m6_status": "NOT_COMPUTED",
+  "m6_connected": false,
+  "model_connected": false,
+  "kpi_connected": false,
+  "hokonavi_production_connected": false,
+  "cesium_runtime_implemented": true,
+  "cesium_connected": false,
+  "real_plateau_tileset_connected": false,
+  "official_facilities_connected": false,
+  "route_continuity_established": false,
+  "real_map_complete": false,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "demo_complete": false,
+  "public_release_ready": false,
   "cities": {
-    "kyoto_kiyomizu": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] },
-    "kyoto_arashiyama": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] },
-    "fujisawa_enoshima": { "source_staged": true, "normalized_ingested": true, "topology_analysis": true, "candidate_path_analysis": true, "hazard_overlap_analysis": false, "m7_ready_edge_count": 0, "m7_computed_edge_count": 0, "viewer_connected": true, "blockers": ["official hazard geometry", "M7 inputs", "M6", "administrative validation"] }
+    "kyoto_kiyomizu": {
+      "source_staged": true,
+      "normalized_ingested": true,
+      "topology_analysis": true,
+      "candidate_path_analysis": true,
+      "explicit_opt_in_candidate_viewer_connected": true,
+      "viewer_connection_scope": "VGI_CANDIDATE_ONLY",
+      "route_continuity": "NOT_ESTABLISHED",
+      "hazard_overlap_analysis": false,
+      "m7_ready_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "blockers": [
+        "official hazard geometry",
+        "M7 inputs",
+        "M6",
+        "administrative validation"
+      ]
+    },
+    "kyoto_arashiyama": {
+      "source_staged": true,
+      "normalized_ingested": true,
+      "topology_analysis": true,
+      "candidate_path_analysis": true,
+      "explicit_opt_in_candidate_viewer_connected": true,
+      "viewer_connection_scope": "VGI_CANDIDATE_ONLY",
+      "route_continuity": "NOT_ESTABLISHED",
+      "hazard_overlap_analysis": false,
+      "m7_ready_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "blockers": [
+        "official hazard geometry",
+        "M7 inputs",
+        "M6",
+        "administrative validation"
+      ]
+    },
+    "fujisawa_enoshima": {
+      "source_staged": true,
+      "normalized_ingested": true,
+      "topology_analysis": true,
+      "candidate_path_analysis": true,
+      "explicit_opt_in_candidate_viewer_connected": true,
+      "viewer_connection_scope": "VGI_CANDIDATE_ONLY",
+      "route_continuity": "NOT_ESTABLISHED",
+      "hazard_overlap_analysis": false,
+      "m7_ready_edge_count": 0,
+      "m7_computed_edge_count": 0,
+      "blockers": [
+        "official hazard geometry",
+        "M7 inputs",
+        "M6",
+        "administrative validation"
+      ]
+    }
   }
 }
