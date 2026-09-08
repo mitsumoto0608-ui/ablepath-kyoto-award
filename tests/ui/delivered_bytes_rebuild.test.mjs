@@ -8,8 +8,8 @@ import test from "node:test";
 
 import { assertDeliveredOfficialArtifacts, buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs";
 
-// TK-01 / TK-05 (CLAUDE_TAKEOVER_AUDIT): the committed viewer data must equal a fresh deterministic rebuild
-// from the current repository bytes. Otherwise the UI shows stale source-hash provenance.
+// TK-01 / TK-05 (CLAUDE_TAKEOVER_AUDIT): committed maps/official bytes must equal a fresh deterministic
+// viewer rebuild. Static analysis parity is enforced by the source generator and viewer boundary tests.
 // TK-04: official display_layer.copied_sha256 must be the SHA-256 of the DELIVERED file bytes.
 
 const REPO_ROOT = fileURLToPath(new URL("../../", import.meta.url));
@@ -24,12 +24,12 @@ function listFiles(root, prefix = "") {
   }).sort();
 }
 
-test("[source_conformance] committed viewer maps/official/analysis bytes equal a fresh deterministic rebuild", () => {
+test("[source_conformance] committed viewer maps/official bytes equal a fresh deterministic rebuild", () => {
   const scratch = mkdtempSync(join(tmpdir(), "ablepath-delivered-rebuild-"));
   try {
     const rebuiltRoot = join(scratch, "data");
     buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: join(rebuiltRoot, "maps") });
-    for (const directory of ["maps", "official", "analysis"]) {
+    for (const directory of ["maps", "official"]) {
       const rebuilt = listFiles(join(rebuiltRoot, directory));
       const committed = listFiles(join(DELIVERED_ROOT, directory));
       assert.deepEqual(committed, rebuilt, `${directory}: committed file set must equal the rebuilt file set (no orphan or missing generated files)`);
@@ -96,7 +96,7 @@ test("[software_correctness] official delivered-byte mismatch fails closed befor
   try {
     const officialDirectory = join(scratch, "official");
     buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: join(scratch, "maps") });
-    const analysis = readJson(join(scratch, "analysis", "kyoto_arashiyama.json"));
+    const analysis = readJson(join(DELIVERED_ROOT, "analysis", "kyoto_arashiyama.json"));
     const built = [{ city_id: "kyoto_arashiyama", official_evidence: analysis.official_evidence }];
     assert.doesNotThrow(() => assertDeliveredOfficialArtifacts(built, officialDirectory));
     const target = join(officialDirectory, "a31b_arashiyama_display.geojson");
