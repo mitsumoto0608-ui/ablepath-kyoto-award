@@ -145,7 +145,7 @@
       "id": "TK-12",
       "severity": "LOW",
       "summary": "local repo hygiene: main diverged (112dbe9), stale local branches, 70 prunable worktrees",
-      "file": "C:\\dev\\ablepath-kyoto-award",
+      "file": "LOCAL_WORKTREE",
       "status": "OPEN"
     },
     {

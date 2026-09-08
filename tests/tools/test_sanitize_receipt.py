@@ -5,6 +5,7 @@
 「クエリ全落とし」「原本不変」「冪等」の3点を固定する。
 """
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -33,6 +34,7 @@ LANDING = (
     "/resource/51247b97-0000-4000-8000-000000000000/download/08.zip"
 )
 FIXED_AT = "2026-09-03T00:00:00Z"
+WINDOWS_DRIVE_ABSOLUTE_PATH = re.compile(r"(?i)(?<![A-Za-z0-9])[A-Z]:[\\\\/]")
 
 
 def _receipt():
@@ -155,3 +157,30 @@ def test_no_credential_substrings_in_output(tmp_path):
         assert needle not in body_text
     assert text.endswith("\n")
     assert "\r" not in text
+
+
+def test_takeover_audit_receipts_use_portable_root_identities():
+    """[software_correctness] Both tracked audit receipts preserve findings without local drive roots.
+
+    The source receipts contained six machine-local drive-root references.  Portable
+    root identities must retain the audit roles and TK-12 finding while eliminating
+    every drive-root absolute path from these two deliverables.
+    """
+    json_path = REPO_ROOT / "reports" / "CLAUDE_TAKEOVER_AUDIT.json"
+    md_path = REPO_ROOT / "reports" / "CLAUDE_TAKEOVER_AUDIT.md"
+    json_text = json_path.read_text(encoding="utf-8")
+    md_text = md_path.read_text(encoding="utf-8")
+
+    assert WINDOWS_DRIVE_ABSOLUTE_PATH.search(json_text) is None
+    assert WINDOWS_DRIVE_ABSOLUTE_PATH.search(md_text) is None
+
+    audit = json.loads(json_text)
+    tk12 = next(finding for finding in audit["findings"] if finding["id"] == "TK-12")
+    assert tk12["file"] == "LOCAL_WORKTREE"
+    assert tk12["status"] == "OPEN"
+    assert "local repo hygiene" in tk12["summary"]
+
+    for root_id in ("LOCAL_WORKTREE", "HANDOFF_ROOT", "EXTERNAL_ARTIFACT_ROOT"):
+        assert root_id in md_text
+    assert "TK-12" in md_text
+    assert "GIT_OPTIONAL_LOCKS=0" in md_text

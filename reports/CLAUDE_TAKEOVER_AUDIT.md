@@ -2,7 +2,7 @@
 
 > **解決状況（task/claude-post-pr10-evidence-closure-v1 での更新）**: TK-01・TK-03・TK-04・TK-05・TK-06(申告訂正)・TK-11 は本ブランチで解決済み（`git log b64b5d0..HEAD`）。TK-02（viewer計算のsrc側移管）・TK-06のPNG削除・TK-07・TK-08・TK-09・TK-10・TK-12は未解決（人間裁定または後続タスク）。TK-13はNEEのまま。§7の「無変更」は第1run時点の記述。
 
-実施: 2026-09-03／方式: read-only。primary worktree（C:\dev\ablepath-kyoto-award）は無変更（`GIT_OPTIONAL_LOCKS=0`で参照のみ）。監査はbundle `official-data-to-m7-evidence-v1.bundle` をコンテナへ複製し、PR #10 head `b64b5d0` の**detached isolated worktree**で実施。独立サブ監査2班（Opus: D/ABC班＝M7・データ、E/F班＝UI・生成バイト）＋統合者。GitHub API/Webへの照会は行っていない（PR状態・CI runは**pack申告のまま＝未独立確認**）。
+実施: 2026-09-03／方式: read-only。primary worktree（`LOCAL_WORKTREE`）は無変更（`GIT_OPTIONAL_LOCKS=0`で参照のみ）。監査はbundle `official-data-to-m7-evidence-v1.bundle` をコンテナへ複製し、PR #10 head `b64b5d0` の**detached isolated worktree**で実施。独立サブ監査2班（Opus: D/ABC班＝M7・データ、E/F班＝UI・生成バイト）＋統合者。GitHub API/Webへの照会は行っていない（PR状態・CI runは**pack申告のまま＝未独立確認**）。
 
 ## 1. TAKEOVER_PRE-FLIGHT（照合結果）
 
@@ -27,7 +27,7 @@
 | E2E viewer.spec.mjs | Hosted CI PASS申告 | NOT_RUN（Playwright未導入） | NEE |
 | final RC A/B | 270542…／907 files each | 両方270542…、907 members、`cmp`でbyte一致 | OK |
 | bundle | ed53bfd2… | ed53bfd2…（device側・コンテナ側とも）、`git bundle verify`=complete history、heads=b64b5d0/d029f33 | OK |
-| CORRECTED_V2 zip | 297F6AA0…/17 | pack同梱コピーで**未照合**（C:\dev直下は未接続）→ 後続 | NEE |
+| CORRECTED_V2 zip | 297F6AA0…/17 | pack同梱コピーで**未照合**（`EXTERNAL_ARTIFACT_ROOT`は未接続）→ 後続 | NEE |
 | pack自身 SHA256SUMS | 28件 | 28/28一致 | OK |
 
 ## 2. Phase 1 独立再検証（申告値の再計数）
@@ -78,7 +78,7 @@
 ## 6. 次の安全な1手（人間承認後）
 
 1. ユーザーのローカルで（primaryは触らず）:
-   `git -C C:\dev\ablepath-kyoto-award worktree add --detach C:\dev\ablepath-claude-takeover-pr10 b64b5d0c07ee7cc109adb0f5cf5f1f4193ff5800`
+   `git -C <LOCAL_WORKTREE> worktree add --detach <HANDOFF_ROOT>/ablepath-claude-takeover-pr10 b64b5d0c07ee7cc109adb0f5cf5f1f4193ff5800`
    → その中で `git switch -c task/claude-post-pr10-evidence-closure-v1`（PR #10 headから、push前に人間確認）。
 2. 同branchの最初のcommit（順に）: (a) `reports/CLAUDE_TAKEOVER_AUDIT.{md,json}` 追加、(b) TK-01: analysis JSON再生成＋TK-05の「再ビルド=コミット済みbyte」テスト追加、(c) TK-03: commit manifestを`git log d029f33..HEAD`から導出、(d) TK-04: official層copied_sha256を配信先byteで再計算、(e) TK-06: screenshot申告の訂正。TK-02（viewer計算のsrc側移管）は設計判断を要するため人間裁定後。
 3. その後 08_M7_TAKEOVER_PLAN §「具体的な次作業」1〜8（H23幅の結合可否→PLATEAU stable ID照合→setback freeze有無→missing維持→field coverage matrix→現地調査票）。値の捏造なし、computed=0維持。
@@ -86,7 +86,7 @@
 ## 7. Rollback
 
 - 本runは何も変更していない → rollback対象なし。コンテナ側は `rm -rf /tmp/takeover/repo.git /tmp/takeover/wt-pr10` で消去可。
-- 次runで作るworktree/branchは `git worktree remove C:\dev\ablepath-claude-takeover-pr10` と `git branch -D task/claude-post-pr10-evidence-closure-v1`（**未push・自分で作った場合のみ**、人間が実行）で完全復元。PR #10・composition・main・tagは一切触らないため復元不要。
+- 次runで作るworktree/branchは `git worktree remove <HANDOFF_ROOT>/ablepath-claude-takeover-pr10` と `git branch -D task/claude-post-pr10-evidence-closure-v1`（**未push・自分で作った場合のみ**、人間が実行）で完全復元。PR #10・composition・main・tagは一切触らないため復元不要。
 
 ## 8. 境界確認
 
