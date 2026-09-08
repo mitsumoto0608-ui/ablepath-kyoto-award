@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -9,13 +9,35 @@ import { buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs"
 
 const REPO_ROOT = new URL("../../", import.meta.url);
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
+const CITY_IDS = ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"];
+
+function analysisFixture() {
+  const root = mkdtempSync(join(tmpdir(), "ablepath-analysis-fixture-"));
+  copyFileSync(
+    new URL("../../viewer/public/data/analysis/manifest.json", import.meta.url),
+    join(root, "manifest.json"),
+  );
+  for (const city of CITY_IDS) copyFileSync(
+    new URL(`../../viewer/public/data/analysis/${city}.json`, import.meta.url),
+    join(root, `${city}.json`),
+  );
+  return root;
+}
+
+function refreshFixtureHash(root, city) {
+  const manifestPath = join(root, "manifest.json");
+  const manifest = readJson(manifestPath);
+  const canonical = readFileSync(join(root, `${city}.json`), "utf8").replaceAll("\r\n", "\n");
+  manifest.artifacts[`${city}.json`] = createHash("sha256").update(canonical).digest("hex");
+  writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+}
 
 test("[source_conformance] official analysis separates display connections from scientific and operational states", () => {
   const output = mkdtempSync(join(tmpdir(), "ablepath-official-analysis-"));
   try {
     buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output });
-    const kiyomizu = readJson(join(output, "..", "analysis", "kyoto_kiyomizu.json"));
-    const fujisawa = readJson(join(output, "..", "analysis", "fujisawa_enoshima.json"));
+    const kiyomizu = readJson(new URL("../../viewer/public/data/analysis/kyoto_kiyomizu.json", import.meta.url));
+    const fujisawa = readJson(new URL("../../viewer/public/data/analysis/fujisawa_enoshima.json", import.meta.url));
     const p3 = readJson(new URL("../../reports/M7_ALL_EDGE_EVIDENCE_READINESS.json", import.meta.url));
     assert.equal(kiyomizu.official_evidence.terrain.status, "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED");
     assert.equal(kiyomizu.official_evidence.terrain.connected, false);
@@ -65,22 +87,35 @@ test("[source_conformance] report-byte source hashes are exact LF Git-blob hashe
 
 test("[software_correctness] altered P3 aggregate count or result fails before analysis delivery", () => {
   const output = mkdtempSync(join(tmpdir(), "ablepath-official-analysis-p3-mutated-"));
+  const analysisRoot = analysisFixture();
   try {
-    assert.throws(() => buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output, m7EvidenceOverride: { all_edge_count: 611 } }), /P3 M7 receipt binding/);
-    assert.throws(() => buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output, m7EvidenceOverride: { edges: [{ city_id: "kyoto_kiyomizu", status: "NOT_COMPUTED", m7_result: 1, m7_computed: false, m7_evidence_ready: false }] } }), /P3 M7 receipt binding/);
+    const path = join(analysisRoot, "kyoto_kiyomizu.json");
+    const mutated = readJson(path);
+    mutated.result.m7.ready_edge_count = 1;
+    writeFileSync(path, `${JSON.stringify(mutated, null, 2)}\n`);
+    refreshFixtureHash(analysisRoot, "kyoto_kiyomizu");
+    assert.throws(() => buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output, analysisRoot }), /M7 summary/);
   } finally {
     rmSync(output, { recursive: true, force: true });
+    rmSync(analysisRoot, { recursive: true, force: true });
   }
 });
 
 test("[software_correctness] unsafe official evidence promotion is rejected before analysis delivery", () => {
   const output = mkdtempSync(join(tmpdir(), "ablepath-official-analysis-unsafe-"));
+  const analysisRoot = analysisFixture();
   try {
+    const path = join(analysisRoot, "kyoto_kiyomizu.json");
+    const mutated = readJson(path);
+    mutated.official_evidence.safe_route_claim = true;
+    writeFileSync(path, `${JSON.stringify(mutated, null, 2)}\n`);
+    refreshFixtureHash(analysisRoot, "kyoto_kiyomizu");
     assert.throws(
-      () => buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output, officialEvidenceOverride: { safe_route_claim: true } }),
-      /unsafe official evidence promotion/,
+      () => buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output, analysisRoot }),
+      /forbidden safety or validation promotion/,
     );
   } finally {
     rmSync(output, { recursive: true, force: true });
+    rmSync(analysisRoot, { recursive: true, force: true });
   }
 });
