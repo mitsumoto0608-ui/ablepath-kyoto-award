@@ -20,3 +20,6 @@ tests/realdata/test_kiyomizu_realdata.py text eol=lf
 
 # The frozen allocator checksum is defined over its LF Git-blob bytes.
 src/allocate.py text eol=lf
+viewer/public/data/maps/kyoto_kiyomizu.candidate_edges.geojson text eol=lf
+viewer/public/data/maps/kyoto_arashiyama.candidate_edges.geojson text eol=lf
+viewer/public/data/maps/fujisawa_enoshima.candidate_edges.geojson text eol=lf

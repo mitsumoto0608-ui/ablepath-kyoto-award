@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -10,13 +11,20 @@ import {
   isVerifiedCesiumConnection,
   selectInitialMapMode,
 } from "../../viewer/src/mapDomain.mjs";
-import { buildMapArtifacts, shortestCandidateFixture } from "../../viewer/scripts/build-map-artifacts.mjs";
+import { assertDeliveredMapArtifacts, buildMapArtifacts, shortestCandidateFixture } from "../../viewer/scripts/build-map-artifacts.mjs";
 import { installCesiumFailureListeners, withTimeout } from "../../viewer/src/mapAsync.mjs";
 import { selectInitialState, serializeState } from "../../viewer/src/domain.mjs";
 
 const REPO_ROOT = new URL("../../", import.meta.url);
 const SOURCE_EDGE_SHA = "73e4f2d6965be2c8bb7a13229b4352fdef6886510219ebf9855d9581bbc3da7b";
 const CORRIDOR_SHA = "48b08553a9c2d7f8388bd893e83133287e01ad2efa9326116f5e8d3a31836dc7";
+const SOURCE_EDGE_PATHS = {
+  kyoto_kiyomizu: "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson",
+  kyoto_arashiyama: "cities/kyoto_arashiyama/graph/walk_edges.real.geojson",
+  fujisawa_enoshima: "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson",
+};
+
+const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -36,6 +44,26 @@ test("[source_conformance] build copies all allowlisted city candidate graphs wi
     assert.equal(kiyomizu.real_2d.route_continuity, "NOT_ESTABLISHED");
     assert.equal(result.files.length, 4);
 
+    for (const city of catalog.cities) {
+      const deliveredPath = join(output, city.real_2d.data_path.replace("./data/maps/", ""));
+      assert.equal(
+        city.real_2d.artifact_sha256,
+        sha256(readFileSync(new URL(`../../${SOURCE_EDGE_PATHS[city.city_id]}`, import.meta.url))),
+        `${city.city_id} artifact_sha256 must bind the source bytes`,
+      );
+      assert.equal(
+        city.real_2d.copied_sha256,
+        sha256(readFileSync(deliveredPath)),
+        `${city.city_id} copied_sha256 must bind the delivered bytes`,
+      );
+      assert.deepEqual(
+        readFileSync(deliveredPath),
+        readFileSync(new URL(`../../${SOURCE_EDGE_PATHS[city.city_id]}`, import.meta.url)),
+        `${city.city_id} uses the versioned exact-byte-copy transform`,
+      );
+      assert.ok(city.real_2d.lineage.includes("transform:EXACT_BYTE_COPY@1.0.0"));
+    }
+
     const copied = readJson(join(output, kiyomizu.real_2d.data_path.replace("./data/maps/", "")));
     assert.equal(copied.features.length, 19);
     for (const feature of copied.features) {
@@ -54,17 +82,37 @@ test("[software_correctness] artifact generation is byte deterministic", () => {
   const first = mkdtempSync(join(tmpdir(), "ablepath-map-first-"));
   const second = mkdtempSync(join(tmpdir(), "ablepath-map-second-"));
   try {
-    buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: first });
-    buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: second });
-    assert.deepEqual(readFileSync(join(first, "map-layers.json")), readFileSync(join(second, "map-layers.json")));
-    assert.deepEqual(
-      readFileSync(join(first, "kyoto_kiyomizu.candidate_edges.geojson")),
-      readFileSync(join(second, "kyoto_kiyomizu.candidate_edges.geojson")),
-    );
+    const firstResult = buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: first });
+    const secondResult = buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: second });
+    for (let index = 0; index < firstResult.files.length; index += 1) {
+      assert.deepEqual(readFileSync(firstResult.files[index]), readFileSync(secondResult.files[index]));
+      assert.equal(sha256(readFileSync(firstResult.files[index])), sha256(readFileSync(secondResult.files[index])));
+    }
   } finally {
     rmSync(first, { recursive: true, force: true });
     rmSync(second, { recursive: true, force: true });
   }
+});
+
+test("[source_conformance] delivered-byte validation rejects one-byte mutation", () => {
+  const output = mkdtempSync(join(tmpdir(), "ablepath-map-mutated-"));
+  try {
+    buildMapArtifacts({ repoRoot: REPO_ROOT, outputRoot: output });
+    const catalog = readJson(join(output, "map-layers.json"));
+    const deliveredPath = join(output, catalog.cities[0].real_2d.data_path.replace("./data/maps/", ""));
+    writeFileSync(deliveredPath, Buffer.concat([readFileSync(deliveredPath), Buffer.from(" ")]));
+    assert.throws(
+      () => assertDeliveredMapArtifacts(catalog, output),
+      /delivered byte SHA-256 mismatch/,
+    );
+  } finally {
+    rmSync(output, { recursive: true, force: true });
+  }
+});
+
+test("[source_conformance] tracked three-city catalog binds current destination bytes", () => {
+  const output = new URL("../../viewer/public/data/maps/", import.meta.url);
+  assertDeliveredMapArtifacts(readJson(new URL("map-layers.json", output)), output);
 });
 
 test("[source_conformance] GeoJSON bounds preserve longitude-latitude axis order", () => {
