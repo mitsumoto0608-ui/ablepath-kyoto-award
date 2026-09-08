@@ -100,7 +100,8 @@ test("[software_correctness] official delivered-byte mismatch fails closed befor
     const built = [{ city_id: "kyoto_arashiyama", official_evidence: analysis.official_evidence }];
     assert.doesNotThrow(() => assertDeliveredOfficialArtifacts(built, officialDirectory));
     const target = join(officialDirectory, "a31b_arashiyama_display.geojson");
-    writeFileSync(target, Buffer.concat([readFileSync(target), Buffer.from("\n")]));
+    const lfBytes = readFileSync(target, "utf8");
+    writeFileSync(target, lfBytes.replaceAll("\n", "\r\n"));
     assert.throws(() => assertDeliveredOfficialArtifacts(built, officialDirectory), /official delivered byte SHA-256 mismatch/);
   } finally {
     rmSync(scratch, { recursive: true, force: true });

@@ -113,7 +113,7 @@ export function assertDeliveredOfficialArtifacts(analyses, officialDirectory) {
     for (const layer of [analysis.official_evidence?.facility?.display_layer, analysis.official_evidence?.hazard?.display_layer]) {
       if (!layer) continue;
       const deliveredPath = join(officialDirectory, layer.data_path.replace("./data/official/", ""));
-      const actual = canonicalTextHash(deliveredPath);
+      const actual = hash(deliveredPath);
       if (actual !== layer.artifact_sha256 || actual !== layer.copied_sha256) throw new Error(`${analysis.city_id} official delivered byte SHA-256 mismatch`);
     }
   }
