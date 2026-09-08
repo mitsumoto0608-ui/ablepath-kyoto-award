@@ -30,6 +30,7 @@ implemented explicitly in Python and is never delegated to JSON Schema.
 from __future__ import annotations
 
 import json
+import math
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -133,6 +134,16 @@ def _eligible(reason: str) -> dict:
 _SCHEMA_CACHE: dict[str, dict] = {}
 
 
+def _is_finite_real(value: Any) -> bool:
+    """Return true only for finite JSON-style real numbers, never booleans."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    try:
+        return math.isfinite(value)
+    except (OverflowError, TypeError, ValueError):
+        return False
+
+
 def load_schema(name: str) -> dict:
     """Load one M7 contract schema by short name or by file name."""
     if not isinstance(name, str) or not name:
@@ -159,7 +170,7 @@ def _type_ok(value: Any, expected: Any) -> bool:
             return True
         if name == "integer" and isinstance(value, int) and not isinstance(value, bool):
             return True
-        if name == "number" and isinstance(value, (int, float)) and not isinstance(value, bool):
+        if name == "number" and _is_finite_real(value):
             return True
         if name == "string" and isinstance(value, str):
             return True
@@ -294,6 +305,10 @@ def _setback_errors(record: dict) -> list[str]:
     evidence_status = record.get("evidence_status")
     geometry_role = record.get("building_geometry_role")
     method = record.get("measurement_or_derivation_method")
+    setback_value = record.get("setback_value_m")
+
+    if setback_value is not None and not _is_finite_real(setback_value):
+        errors.append("E_SETBACK_VALUE_INVALID")
 
     # A proxy record is a record only; it can never claim eligibility.
     if setback_status == "PROXY_NOT_SETBACK" and evidence_status == "ACCEPTED":
@@ -343,6 +358,8 @@ def _setback_eligibility(record: dict) -> dict:
         return _ineligible("E_SETBACK_UNKNOWN_NEVER_ELIGIBLE")
     if setback_status == "RESEARCH_DERIVED_EXPERIMENTAL":
         return _ineligible("E_SETBACK_EXPERIMENTAL_NOT_PRODUCTION")
+    if boundary_role == "OFFICIAL_ROAD_BOUNDARY_PROXY":
+        return _ineligible("E_ROAD_BOUNDARY_OFFSET_CONTRACT_NOT_FROZEN")
     if setback_status not in {"OBSERVED_FIELD", "OFFICIAL_BOUNDARY_DERIVED"}:
         return _ineligible("E_SETBACK_STATUS_NOT_ELIGIBLE")
     if record.get("building_geometry_role") not in {"FRONTAGE_LINE", "FOOTPRINT_EDGE"}:
@@ -357,7 +374,8 @@ def _setback_eligibility(record: dict) -> dict:
     if setback_status == "OFFICIAL_BOUNDARY_DERIVED":
         if not record.get("transform_id") or not record.get("transform_version"):
             return _ineligible("E_SETBACK_TRANSFORM_NOT_FROZEN")
-    if not isinstance(record.get("setback_value_m"), (int, float)):
+    setback_value = record.get("setback_value_m")
+    if not _is_finite_real(setback_value):
         return _ineligible("E_SETBACK_VALUE_MISSING")
     return _eligible("ELIGIBLE_CANDIDATE_ACCEPTED_RECEIPT")
 
@@ -399,8 +417,14 @@ def _damage_errors(record: dict) -> list[str]:
             errors.append("E_PROBABILITIES_MISSING")
 
     if isinstance(probabilities, dict) and probabilities:
-        total = sum(probabilities.values())
-        if abs(total - 1.0) > PROBABILITY_SUM_TOLERANCE:
+        probability_values_valid = all(
+            _is_finite_real(value)
+            and 0.0 <= value <= 1.0
+            for value in probabilities.values()
+        )
+        if not probability_values_valid:
+            errors.append("E_PROBABILITY_VALUE_INVALID")
+        elif abs(sum(probabilities.values()) - 1.0) > PROBABILITY_SUM_TOLERANCE:
             errors.append("E_PROBABILITIES_NOT_NORMALISED")
         key = f"{record.get('damage_taxonomy_id')}@{record.get('damage_taxonomy_version')}"
         declared = DECLARED_TAXONOMY_STATES.get(key)
@@ -620,7 +644,7 @@ def _height_errors(record: dict) -> list[str]:
             errors.append("E_HEIGHT_METHOD_FLAG_MISSING")
         elif flag != HEIGHT_METHOD_FLAGS[code]:
             errors.append("E_HEIGHT_METHOD_FLAG_NOT_DISTINCT")
-        if not isinstance(value, (int, float)) or isinstance(value, bool):
+        if not _is_finite_real(value):
             errors.append("E_HEIGHT_VALUE_MISSING")
         elif value <= 0:
             errors.append("E_HEIGHT_VALUE_MISSING")

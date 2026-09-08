@@ -246,6 +246,44 @@ def test_non_allowlisted_projected_crs_is_not_eligible():
         "eligible": False, "reason": "E_CRS_NOT_ALLOWLISTED"}
 
 
+@pytest.mark.parametrize(
+    "bad_value", [True, float("nan"), float("inf"), float("-inf"), 10**1000]
+)
+def test_setback_value_rejects_bool_and_non_finite_numbers(bad_value):
+    """[software_correctness] M7 numeric evidence must be finite and not boolean."""
+    record = fixture("setback_observed_eligible.NON_REAL.json")
+    record["setback_value_m"] = bad_value
+    result = validate_setback_evidence(record)
+    assert result.ok is False
+    assert result.eligibility["eligible"] is False
+    assert "E_SETBACK_VALUE_INVALID" in codes(result)
+
+
+def test_official_road_boundary_proxy_is_not_eligible_without_offset_contract():
+    """[source_conformance] An unbound road-boundary proxy never becomes setback."""
+    record = fixture("setback_observed_eligible.NON_REAL.json")
+    record["boundary_role"] = "OFFICIAL_ROAD_BOUNDARY_PROXY"
+    result = validate_setback_evidence(record)
+    assert result.ok, result.errors
+    assert result.eligibility == {
+        "eligible": False,
+        "reason": "E_ROAD_BOUNDARY_OFFSET_CONTRACT_NOT_FROZEN",
+    }
+
+
+@pytest.mark.parametrize(
+    "bad_value", [True, float("nan"), float("inf"), "0.5", 10**1000]
+)
+def test_damage_probability_rejects_malformed_numeric_values(bad_value):
+    """[software_correctness] Invalid probabilities fail closed without exceptions."""
+    record = fixture("damage_distribution.NON_REAL.json")
+    record["damage_state_probabilities"]["NO_DAMAGE"] = bad_value
+    result = validate_damage_state_evidence(record)
+    assert result.ok is False
+    assert result.eligibility["eligible"] is False
+    assert "E_PROBABILITY_VALUE_INVALID" in codes(result)
+
+
 def test_malformed_crs_is_rejected():
     """[software_correctness] A CRS must be written as EPSG:<code>."""
     record = fixture("setback_observed_eligible.NON_REAL.json")
@@ -450,6 +488,21 @@ def test_height_candidate_classes_need_distinct_method_flags(code, flag):
 
     del record["height_method_flag"]
     assert "E_HEIGHT_METHOD_FLAG_MISSING" in codes(validate_height_evidence(record))
+
+
+@pytest.mark.parametrize("bad_value", [float("nan"), float("inf"), 10**1000])
+def test_height_evidence_rejects_non_finite_or_unrepresentable_values(bad_value):
+    """[source_conformance] Height candidates must contain finite real values."""
+    record = {
+        "official_height_m": bad_value,
+        "height_status": "OFFICIAL_ATTRIBUTE_PRESENT",
+        "height_provenance_lod1HeightType": "2",
+        "height_method_flag": "POINT_CLOUD_MEDIAN",
+    }
+    result = validate_height_evidence(record)
+    assert result.ok is False
+    assert result.eligibility["eligible"] is False
+    assert "E_HEIGHT_VALUE_MISSING" in codes(result)
 
 
 def test_side_coverage_requires_a_complete_receipt():

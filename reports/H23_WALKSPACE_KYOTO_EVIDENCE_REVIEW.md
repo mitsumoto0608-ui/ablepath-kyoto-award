@@ -11,7 +11,7 @@
 | byte size | 62,079（期待値一致） |
 | SHA-256 | `7140bf6d0e4e96c2a40fe0018add57f4d2e6f38039ebef84b5edc7a45fc1f30c`（期待値一致） |
 | receipt | `receipts/receipt-mlit_walkspace_kyoto_h23.json`（status DOWNLOADED, accessed 2026-08-31, HTTP 200, ETag 08dcafb0…, Last-Modified 2016-09-29） |
-| 限定検索 | `C:\dev\ablepath-raw` 配下で size+SHA 一致は上記1件のみ。Dropbox 側検索は不要となったため未実施。「新しいの」配下の別 `08.zip`（神奈川津波道路被害）は未使用 |
+| 限定検索 | `<ablepath-raw>` 配下で size+SHA 一致は上記1件のみ。Dropbox 側検索は不要となったため未実施。「新しいの」配下の別 `08.zip`（神奈川津波道路被害）は未使用 |
 | 再取得 | 不要（exact match のため） |
 
 ## 2. archive inventory
