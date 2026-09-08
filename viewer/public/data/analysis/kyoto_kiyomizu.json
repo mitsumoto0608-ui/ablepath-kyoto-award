@@ -129,12 +129,14 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "kyoto_status_sha256": "991ca56c11a0c50c29f360ddbb42cf4d6fee98c6a382bb4815186e9088171731",
-      "terrain_inventory_sha256": "b7eddd300d3930d93b137fdc5500429a4c4eb05f161b240232af400fac37e81f",
+      "kyoto_status_sha256": "3d9b3590a2b8421a0d698ac4fd325ee36969a08a00e950a49fac060f2aecd79c",
+      "terrain_inventory_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
       "kyoto_parity_sha256": "e8920fcc9b4d4575952215acedbf7b265624b0adf5b37d7e8e80779c269edda7",
       "kyoto_m7_pilot_sha256": "8209d44588d99c004eaee0f5427cb605c63a8d7238e0a86957963179b7c2510a",
       "kyoto_facility_sha256": "f201527c7a822a62e098f1313898ba0871ccdb3db2c00f47484cf8847d7ef312",
-      "kyoto_flood_display_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e"
+      "kyoto_facility_category_status_sha256": "9dd0af84156f771909d8751b5da594a47b8866bd62553ba0d7597746cb73fbe6",
+      "kyoto_flood_display_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e",
+      "plateau_inventory_sha256": "faae961adfee0ab27692206d3427d9d2907caad5fe3146fb23355fef311ca671"
     },
     "subareas": [
       "kiyomizu",
@@ -241,7 +243,7 @@
         "step_inferred": false,
         "terrain_surface_computed": false
       },
-      "receipt_sha256": "b7eddd300d3930d93b137fdc5500429a4c4eb05f161b240232af400fac37e81f",
+      "receipt_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
       "products": [
         {
           "dataset_id": "gsi_523536_dem1a_20250908",

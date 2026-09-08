@@ -12,125 +12,71 @@ const CITY_INPUTS = [
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const hash = (path) => sha256(readFileSync(path));
-function csvRows(path) {
-  const text = readFileSync(path, "utf8").replace(/^\uFEFF/, "").trim(); const rows = []; let row = [], field = "", quoted = false;
-  for (let i = 0; i < text.length; i += 1) { const ch = text[i]; if (ch === '"') { if (quoted && text[i + 1] === '"') { field += ch; i += 1; } else quoted = !quoted; } else if (ch === "," && !quoted) { row.push(field); field = ""; } else if (ch === "\n" && !quoted) { row.push(field.replace(/\r$/, "")); rows.push(row); row = []; field = ""; } else field += ch; }
-  row.push(field.replace(/\r$/, "")); rows.push(row); const [header, ...body] = rows; if (!header?.every(Boolean) || body.some((values) => values.length !== header.length)) throw new Error(`strict CSV parse failed: ${path}`); return body.map((values) => Object.fromEntries(header.map((key, index) => [key, values[index]])));
-}
+const canonicalTextHash = (path) => sha256(Buffer.from(readFileSync(path, "utf8").replaceAll("\r\n", "\n"), "utf8"));
 
-function readOfficialEvidence(root, cityId, override = {}, m7Override = {}) {
-  const promotion = json(join(root, "reports", "OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json"));
-  const kyoto = json(join(root, "reports", "KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json"));
-  const plateau = json(join(root, "reports", "PLATEAU_BUILDING_EVIDENCE_V1.json"));
-  const m7 = json(join(root, "reports", "M7_REAL_EDGE_STATUS.json"));
-  const m7All = { ...json(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json")), ...m7Override };
-  const safety = { safe_route_claim: false, accessibility_claim: false, admin_validated: false, ...override };
-  if (Object.values(safety).some(Boolean) || promotion.closure_derived || promotion.damage_derived || promotion.debris_derived) throw new Error("unsafe official evidence promotion is forbidden");
-  if (m7All.edges.length !== m7All.all_edge_count || m7All.all_edge_count !== m7.all_edge_count || m7All.deep_pilot_count !== m7.deep_pilot_count || m7All.evidence_ready_count !== m7.evidence_ready_count || m7All.computed_count !== m7.computed_count || m7All.edges.some((edge) => edge.status !== "NOT_COMPUTED" || edge.m7_result !== null || edge.m7_computed || edge.m7_evidence_ready)) throw new Error("P3 M7 receipt binding is incomplete or promoted");
-  const edgeReceipts = m7All.edges.filter((edge) => edge.city_id === cityId);
-  const cityTruth = kyoto.cities[cityId];
-  const kyotoParity = cityTruth ? json(join(root, "reports", "KYOTO_PARITY_STATUS.json")) : null;
-  const kyotoPilot = cityTruth ? json(join(root, "reports", "KYOTO_M7_DEEP_PILOT_STATUS.json")) : null;
-  const parityRoot = join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1");
-  const parityGroup = cityId === "kyoto_kiyomizu" ? "kiyomizu_gion" : cityId === "kyoto_arashiyama" ? "arashiyama" : null;
-  const parityAoi = cityId === "kyoto_kiyomizu" ? kyotoParity?.aois?.kiyomizu : cityId === "kyoto_arashiyama" ? kyotoParity?.aois?.arashiyama : null;
-  const subareas = cityTruth?.subareas ?? (cityId === "fujisawa_enoshima" ? ["enoshima_katase"] : []);
-  const terrainCandidate = join(root, "cities", cityId, "terrain", "official", "dem_product_inventory.csv");
-  const terrainPath = existsSync(terrainCandidate) ? terrainCandidate : null;
-  const terrainProducts = terrainPath ? csvRows(terrainPath).map(({ dataset_id, mesh_id, dem_class, horizontal_crs, vertical_datum, aoi, aoi_status, validation_result, terrain_connected, license_status }) => cityTruth ? ({ dataset_id, mesh_id, dem_class, horizontal_crs, vertical_datum, aoi: parityGroup, aoi_status: "AOI_INTERSECTS_REVIEWED_BOUNDS", validation_result: "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT", license_status, terrain_connected: false, status: "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS", legacy_inventory_status: { aoi, aoi_status, validation_result, terrain_connected: terrain_connected === "true" } }) : ({ dataset_id, mesh_id, dem_class, horizontal_crs, vertical_datum, aoi, aoi_status, validation_result, license_status, terrain_connected: terrain_connected === "true", status: "NOT_CONNECTED" })) : [];
-  const fixedAbsentHazardReason = "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived.";
-  const hazardLayers = cityTruth ? subareas.flatMap((subarea) => [["flood", cityTruth.flood_artifact_status, cityTruth.flood_reason], ["landslide", cityTruth.landslide_artifact_status, cityTruth.landslide_reason], ["earthquake", null, null], ["liquefaction", null, null], ["inner_flood", null, null]].map(([layer, artifact_status, reason]) => layer === "flood" && parityAoi ? ({ subarea, layer, status: "CONNECTED_FOR_INTERNAL_DISPLAY_ONLY", connected: true, artifact_status: "AOI_INTERSECTION_SELECTION_HASH_BOUND", reason: parityAoi.flood.reason }) : ({ subarea, layer, status: "NOT_CONNECTED", connected: false, artifact_status: artifact_status ?? "NOT_ACCEPTED", reason: reason ?? fixedAbsentHazardReason }))) : [];
-  const scenarioPaths = cityId === "fujisawa_enoshima" ? [join(root, "cities", cityId, "hazards", "official", "earthquake_scenario_inventory.csv"), join(root, "cities", cityId, "hazards", "official", "liquefaction_scenario_inventory.csv")] : [];
-  const scenarios = scenarioPaths.flatMap((path) => csvRows(path).map(({ dataset_id, scenario, layer_kind, official_source, official_url, version_date, license_review, validation_result, crs, bounds_native }) => ({ dataset_id, scenario, layer_kind, official_source, official_url, version_date, license_review, validation_result, crs, bounds_native, aoi_scope: "enoshima_katase", status: "NOT_CONNECTED", connected: false, reason: "Scenario inventory only; no AOI geometry connection or closure derivation." })));
-  const facility = cityId === "fujisawa_enoshima"
-    ? (() => {
-      const table = json(join(root, "cities", cityId, "facilities", "official", "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json"));
-      return { status: promotion.fujisawa_accessibility_facilities.status, geometry_status: "ADDRESS_ONLY", marker_policy: "TABLE_ONLY_NO_MARKERS_OR_GEOCODING", record_count: table.records.length, records: table.records, reason: "57 address-only records are displayed as a table; coordinates, map markers, geocoding, accessibility, opening, and disaster availability are not inferred." };
-    })()
-    : cityTruth ? (() => {
-      const categoryStatus = json(join(parityRoot, "facility_category_status.json"));
-      const allRecords = json(join(parityRoot, "facility_records.json")).records;
-      const records = allRecords.filter((record) => record.aoi_group === parityGroup);
-      const categories = Object.fromEntries(Object.entries(categoryStatus.categories).map(([category, value]) => [category, {
-        ...value,
-        record_count: value.map_connected ? records.filter((record) => record.category === category).length : 0,
-        count_scope: parityGroup,
-      }]));
-      const pointPath = join(parityRoot, `facility_points_${parityGroup}.geojson`);
-      const pointData = json(pointPath);
-      return {
-        status: "PARTIAL_3_OF_5_CATEGORIES_SOURCE_COORDINATES",
-        geometry_status: "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
-        marker_policy: "SOURCE_COORDINATES_ONLY_NO_GEOCODING",
-        record_count: records.length,
-        records,
-        categories,
-        display_layer: { data_path: `./data/official/facility_points_${parityGroup}.geojson`, artifact_sha256: hash(pointPath), copied_sha256: hash(pointPath), feature_count: pointData.features.length },
-        reason: "Three official categories are displayed from source-provided longitude/latitude only. Emergency-open-space and temporary-stay rows remain metadata-only; opening, entrance, accessibility, safety, and disaster usability are UNKNOWN.",
-      };
-    })() : { status: "NOT_CONNECTED", record_count: 0, reason: "No official facility evidence is connected." };
-  const plateauInventory = cityTruth ? csvRows(join(root, "inputs", "staging", "PLATEAU-BUILDING-EVIDENCE-V1", "PLATEAU_BUILDING_AOI_INVENTORY.csv")).filter((row) => row.city_id === cityId) : [];
-  const kyotoPilotEdges = cityTruth ? kyotoPilot.edges.filter((row) => row.aoi_group === parityGroup) : [];
-  const floodPath = parityGroup ? join(parityRoot, `a31b_${parityGroup}_display.geojson`) : null;
-  const floodData = floodPath ? json(floodPath) : null;
-  const terrainReason = cityTruth
-    ? `DEM products were found, but terrain is NOT_CONNECTED: CRS/AOI/vertical datum review remains unresolved.`
-    : "No terrain product has been connected to this city analysis.";
-  const hazardReason = cityTruth
-    ? `No closure is derived. Flood: ${cityTruth.flood_reason} Landslide: ${cityTruth.landslide_reason}`
-    : "No official hazard geometry is connected; earthquake and liquefaction inventories remain scenario metadata and do not derive CLOSED or FAIL.";
-  return {
-    source_status: promotion.status,
-    source_hashes: {
-      promotion_sha256: hash(join(root, "reports", "OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json")),
-      plateau_sha256: hash(join(root, "reports", "PLATEAU_BUILDING_EVIDENCE_V1.json")),
-      m7_sha256: hash(join(root, "reports", "M7_REAL_EDGE_STATUS.json")),
-      ...(cityTruth ? { kyoto_status_sha256: hash(join(root, "reports", "KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json")) } : {}),
-      ...(terrainPath ? { terrain_inventory_sha256: hash(terrainPath) } : {}),
-      ...(cityTruth ? { kyoto_parity_sha256: hash(join(root, "reports", "KYOTO_PARITY_STATUS.json")), kyoto_m7_pilot_sha256: hash(join(root, "reports", "KYOTO_M7_DEEP_PILOT_STATUS.json")), kyoto_facility_sha256: hash(join(parityRoot, "facility_records.json")), kyoto_flood_display_sha256: hash(floodPath) } : {}),
-      ...(cityId === "fujisawa_enoshima" ? { facility_receipt_sha256: hash(join(root, "cities", cityId, "facilities", "official", "facility_source_receipt.json")), facility_table_sha256: hash(join(root, "cities", cityId, "facilities", "official", "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json")), earthquake_inventory_sha256: hash(join(root, "cities", cityId, "hazards", "official", "earthquake_scenario_inventory.csv")), liquefaction_inventory_sha256: hash(join(root, "cities", cityId, "hazards", "official", "liquefaction_scenario_inventory.csv")) } : {}),
-    },
-    subareas,
-    terrain: { status: cityTruth ? "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED" : "NOT_CONNECTED", reason: cityTruth ? parityAoi.terrain.reason : terrainReason, connected: false, evidence_ui_connected: Boolean(cityTruth), elevation_sampled: false, step_inferred: false, cross_slope_inferred: false, aoi_validation: cityTruth ? parityAoi.terrain : null, receipt_sha256: terrainPath ? hash(terrainPath) : null, products: terrainProducts },
-    hazard: { status: cityTruth ? "A31B_DISPLAY_CONNECTED_LANDSLIDE_NOT_CONNECTED" : "NOT_CONNECTED", reason: cityTruth ? `A31b is connected for internal display only. Landslide remains NOT_CONNECTED: ${parityAoi.landslide.reason}` : hazardReason, connected: false, display_connected: Boolean(cityTruth), display_feature_count: floodData?.features.length ?? 0, display_layer: cityTruth ? { data_path: `./data/official/a31b_${parityGroup}_display.geojson`, artifact_sha256: hash(floodPath), copied_sha256: hash(floodPath), feature_count: floodData.features.length, display_only: true } : null, closure_derived: false, damage_or_debris_inferred: false, layers: hazardLayers, scenarios },
-    facility,
-    plateau: { status: "NOT_CONNECTED", aoi_count: subareas.length, aoi_scope: subareas, inventory: plateauInventory, inventory_connected: Boolean(cityTruth), fallback: plateau.fallback, m7_evidence_ready_count: plateau.m7_evidence_ready_count, m7_computed_count: plateau.m7_computed_count, reason: "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer." },
-    m7: { status: "NOT_COMPUTED", all_edge_count: m7.all_edge_count, deep_pilot_count: m7.deep_pilot_count, evidence_ready_count: m7.evidence_ready_count, computed_count: m7.computed_count, city_edge_count: edgeReceipts.length, edge_receipts_source_sha256: hash(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json")), kyoto_deep_pilot_edges: kyotoPilotEdges, city_limitations: m7.subarea_limitations[cityId] ?? "No reviewed source-traceable per-edge M7 inputs are connected.", reason: "M7 is not connected to real candidate edges; every Kyoto pilot exposes field-level evidence candidates and next acquisition without inferring setback, damage, or debris." },
-    m6: { status: "NOT_COMPUTED", reason: "M6/profile evaluation is not connected." },
-    ...safety,
+function reportHashPaths(root, cityId) {
+  const paths = {
+    promotion_sha256: join(root, "reports", "OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json"),
+    plateau_sha256: join(root, "reports", "PLATEAU_BUILDING_EVIDENCE_V1.json"),
+    m7_sha256: join(root, "reports", "M7_REAL_EDGE_STATUS.json"),
   };
-}
-
-export function shortestCandidateFixture(adjacency, lengths, from, to) {
-  const best = new Map([[from, [0, []]]]); const queue = [[0, [], from]];
-  while (queue.length) { queue.sort((a, b) => a[0] - b[0] || a[1].join("\0").localeCompare(b[1].join("\0"))); const [cost, route, current] = queue.shift(); const known = best.get(current); if (cost !== known[0] || route.join("\0") !== known[1].join("\0")) continue;
-    for (const [next, edgeId] of (adjacency.get(current) ?? []).sort((a, b) => a[1].localeCompare(b[1]))) { const candidate = [cost + lengths.get(edgeId), [...route, edgeId]]; const prior = best.get(next); if (!prior || candidate[0] < prior[0] || (candidate[0] === prior[0] && candidate[1].join("\0") < prior[1].join("\0"))) { best.set(next, candidate); queue.push([candidate[0], candidate[1], next]); } }
+  const terrain = join(root, "cities", cityId, "terrain", "official", "dem_product_inventory.csv");
+  if (existsSync(terrain)) paths.terrain_inventory_sha256 = terrain;
+  if (cityId.startsWith("kyoto_")) {
+    const group = cityId === "kyoto_kiyomizu" ? "kiyomizu_gion" : "arashiyama";
+    Object.assign(paths, {
+      kyoto_status_sha256: join(root, "reports", "KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json"),
+      kyoto_parity_sha256: join(root, "reports", "KYOTO_PARITY_STATUS.json"),
+      kyoto_m7_pilot_sha256: join(root, "reports", "KYOTO_M7_DEEP_PILOT_STATUS.json"),
+      kyoto_facility_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_records.json"),
+      kyoto_facility_category_status_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_category_status.json"),
+      kyoto_flood_display_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", `a31b_${group}_display.geojson`),
+      plateau_inventory_sha256: join(root, "inputs", "staging", "PLATEAU-BUILDING-EVIDENCE-V1", "PLATEAU_BUILDING_AOI_INVENTORY.csv"),
+    });
   }
-  if (!best.has(to)) return { status: "DISCONNECTED", edge_ids: [], geometric_length: null };
-  return { status: "CONNECTED", edge_ids: best.get(to)[1], geometric_length: best.get(to)[0] };
+  if (cityId === "fujisawa_enoshima") Object.assign(paths, {
+    facility_receipt_sha256: join(root, "cities", cityId, "facilities", "official", "facility_source_receipt.json"),
+    facility_table_sha256: join(root, "cities", cityId, "facilities", "official", "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json"),
+    earthquake_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "earthquake_scenario_inventory.csv"),
+    liquefaction_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "liquefaction_scenario_inventory.csv"),
+  });
+  return paths;
 }
 
-function analysisFor(city) {
-  const edgeFeatures = city.edgeData.features.map((feature) => ({ properties: feature.properties, coordinates: feature.geometry.coordinates }));
-  const edges = edgeFeatures.map((feature) => feature.properties).sort((a, b) => a.edge_id.localeCompare(b.edge_id));
-  const lengths = new Map(edgeFeatures.map(({ properties, coordinates }) => [properties.edge_id, coordinates.slice(1).reduce((sum, point, index) => sum + Math.hypot(point[0] - coordinates[index][0], point[1] - coordinates[index][1]), 0)]));
-  const adjacency = new Map();
-  for (const edge of edges) { for (const [from, to] of [[edge.from_node, edge.to_node], [edge.to_node, edge.from_node]]) adjacency.set(from, [...(adjacency.get(from) ?? []), [to, edge.edge_id]]); }
-  const nodes = [...adjacency.keys()].sort(); const seen = new Set(); const components = [];
-  for (const node of nodes) if (!seen.has(node)) { const component = []; const pending = [node]; seen.add(node); while (pending.length) { const current = pending.pop(); component.push(current); for (const [next] of adjacency.get(current) ?? []) if (!seen.has(next)) { seen.add(next); pending.push(next); } } components.push(component.sort()); }
-  const disconnected = components.length > 1;
-  const selectableNodeIds = components.length > 1 ? [components[0][0], components[0].at(-1), components[1][0]] : components[0].slice(0, 3);
-  const start = selectableNodeIds[0] ?? null; const end = selectableNodeIds[1] ?? null;
-  const previous = new Map([[start, null]]); const pending = [start]; while (pending.length && !previous.has(end)) { const current = pending.shift(); for (const [next, edgeId] of (adjacency.get(current) ?? []).sort((a, b) => a[1].localeCompare(b[1]))) if (!previous.has(next)) { previous.set(next, [current, edgeId]); pending.push(next); } }
-  const route = []; for (let cursor = end; previous.get(cursor); ) { const [prior, edgeId] = previous.get(cursor); route.unshift(edgeId); cursor = prior; }
-  const fixtureFor = (from, to) => {
-    const selected = shortestCandidateFixture(adjacency, lengths, from, to);
-    return { start_node_id: from, end_node_id: to, ...selected, unit: "coordinate_degree", reason: selected.status === "CONNECTED" ? "Candidate connectivity only; accessibility, safety, and operation are unconfirmed." : "No candidate-network connection exists between the selected nodes; accessibility, safety, and operation are unconfirmed." };
-  };
-  const pathMatrix = Object.fromEntries(selectableNodeIds.flatMap((from) => selectableNodeIds.filter((to) => to !== from).map((to) => [`${from}__${to}`, fixtureFor(from, to)])));
-  const pathFixture = pathMatrix[`${start}__${end}`] ?? { start_node_id: start, end_node_id: end, status: "CONNECTED", unit: "coordinate_degree", edge_ids: route, geometric_length: route.reduce((sum, edgeId) => sum + lengths.get(edgeId), 0), reason: "Candidate connectivity only; accessibility, safety, and operation are unconfirmed." };
-  const result = { topology: { node_count: nodes.length, edge_count: edges.length, connected_components: components.length, topology_status: "CANDIDATE_REVIEW_REQUIRED" }, selectable_node_ids: selectableNodeIds, path_matrix: pathMatrix, path_fixture: pathFixture, hazard_overlap: { status: "NOT_CONNECTED", value: null, reason: "No trusted official hazard geometry is connected; no closure is derived." }, m7: { status: city.official_evidence.m7.status, ready_edge_count: city.official_evidence.m7.evidence_ready_count, computed_edge_count: city.official_evidence.m7.computed_count }, m6: { status: "NOT_COMPUTED", reason: "M6/profile evaluation is not connected." } };
-  return { analysis_id: `${city.city_id}:candidate-topology-v2`, analysis_type: "CANDIDATE_TOPOLOGY_STATIC_FIXTURE", city_id: city.city_id, source_artifact_ids: city.source_artifact_ids, source_revision_ids: city.source_revision_ids, input_sha256: city.input_sha256, algorithm: "deterministic-undirected-dijkstra-coordinate-degree", algorithm_version: "2.0.0", parameters: { coordinate_unit: "coordinate_degree", input_binding: "sha256(node_geojson_bytes + 0x00 + edge_geojson_bytes); input order=node,edge", tie_break: "lexical ordered edge-ID tuple" }, generated_at: city.snapshot_at, deterministic: true, result, official_evidence: city.official_evidence, limitations: ["Candidate connectivity only", "coordinate_degree is not a geographic or meter distance", "Hazard, M7, M6, accessibility, safety, operation, and administrative validation are unconnected or not computed"], provenance: { source_class: "VGI", source_id: city.source_id, input_binding: "node bytes then NUL then edge bytes", input_artifacts: city.source_artifact_ids, input_hashes: city.input_hashes }, safety_claim: false, accessibility_claim: false, admin_validated: false, ...result, m7: { ...result.m7, readiness: city.m7_readiness }, interpretation: "Candidate network connectivity only; accessibility, safety, and operation are unconfirmed." };
+export function assertStaticAnalysisArtifacts({ repoRoot, analysisRoot }) {
+  const root = repoRoot instanceof URL ? fileURLToPath(repoRoot) : resolve(repoRoot);
+  const analysis = analysisRoot instanceof URL ? fileURLToPath(analysisRoot) : resolve(analysisRoot ?? join(root, "viewer", "public", "data", "analysis"));
+  const m7 = json(join(root, "reports", "M7_REAL_EDGE_STATUS.json"));
+  const manifestPath = join(analysis, "manifest.json");
+  if (!existsSync(manifestPath)) throw new Error("missing static analysis manifest");
+  const manifest = json(manifestPath);
+  if (manifest.schema_version !== "1.0.0" || manifest.source_analysis_authority !== "src/analysis" || manifest.generator !== "scripts/build_candidate_analysis.py") throw new Error("invalid static analysis manifest authority");
+  for (const input of CITY_INPUTS) {
+    const path = join(analysis, `${input.id}.json`);
+    if (!existsSync(path)) throw new Error(`${input.id} missing static analysis artifact`);
+    if (manifest.artifacts?.[`${input.id}.json`] !== canonicalTextHash(path)) throw new Error(`${input.id} static analysis artifact bytes are stale`);
+    const artifact = json(path);
+    const nodeBytes = readFileSync(join(root, input.nodes));
+    const edgeBytes = readFileSync(join(root, input.edges));
+    const inputSha = sha256(Buffer.concat([nodeBytes, Buffer.from([0]), edgeBytes]));
+    if (artifact.city_id !== input.id || artifact.input_sha256 !== inputSha) throw new Error(`${input.id} static analysis input SHA-256 is stale`);
+    if (artifact.provenance?.input_hashes?.node_sha256 !== sha256(nodeBytes) || artifact.provenance?.input_hashes?.edge_sha256 !== sha256(edgeBytes)) throw new Error(`${input.id} static analysis provenance hash is stale`);
+    if (JSON.stringify(artifact.source_artifact_ids) !== JSON.stringify([input.nodes, input.edges])) throw new Error(`${input.id} static analysis source artifact binding is stale`);
+    const revisions = [...new Set([...JSON.parse(nodeBytes).features, ...JSON.parse(edgeBytes).features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort();
+    if (JSON.stringify(artifact.source_revision_ids) !== JSON.stringify(revisions)) throw new Error(`${input.id} static analysis source revision binding is stale`);
+    for (const [key, sourcePath] of Object.entries(reportHashPaths(root, input.id))) if (artifact.official_evidence?.source_hashes?.[key] !== canonicalTextHash(sourcePath)) throw new Error(`${input.id} static analysis report SHA-256 is stale: ${key}`);
+    const claims = [artifact.safety_claim, artifact.accessibility_claim, artifact.admin_validated, artifact.official_evidence?.safe_route_claim, artifact.official_evidence?.accessibility_claim, artifact.official_evidence?.admin_validated];
+    if (claims.some((value) => value !== false)) throw new Error(`${input.id} static analysis contains a forbidden safety or validation promotion`);
+    if (artifact.result?.m7?.ready_edge_count !== m7.evidence_ready_count || artifact.result?.m7?.computed_edge_count !== m7.computed_count || artifact.m7?.ready_edge_count !== artifact.result?.m7?.ready_edge_count || artifact.m7?.computed_edge_count !== artifact.result?.m7?.computed_edge_count) throw new Error(`${input.id} static analysis M7 summary is stale`);
+    if (artifact.official_evidence?.m7?.edge_receipts_source_sha256 !== canonicalTextHash(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json"))) throw new Error(`${input.id} static analysis M7 readiness source is stale`);
+    if (!Array.isArray(artifact.m7?.readiness) || artifact.m7.readiness.length !== artifact.official_evidence?.m7?.city_edge_count || artifact.m7.readiness.some((row) => row.city_id !== input.id || row.status !== "NOT_COMPUTED" || row.m7_result !== null || row.m7_computed !== false || row.m7_evidence_ready !== false)) throw new Error(`${input.id} static analysis M7 readiness is incomplete or promoted`);
+    if (input.id.startsWith("kyoto_")) {
+      const group = input.id === "kyoto_kiyomizu" ? "kiyomizu_gion" : "arashiyama";
+      const pointHash = canonicalTextHash(join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", `facility_points_${group}.geojson`));
+      if (artifact.official_evidence?.facility?.display_layer?.artifact_sha256 !== pointHash || artifact.official_evidence?.facility?.display_layer?.copied_sha256 !== pointHash) throw new Error(`${input.id} static facility display binding is stale`);
+    }
+  }
+  return true;
 }
 
 function artifact(root, input) {
@@ -162,9 +108,10 @@ export function assertDeliveredMapArtifacts(catalog, outputRoot) {
   return catalog;
 }
 
-export function buildMapArtifacts({ repoRoot, outputRoot, officialEvidenceOverride, m7EvidenceOverride }) {
+export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot }) {
   const root = repoRoot instanceof URL ? fileURLToPath(repoRoot) : resolve(repoRoot); const output = outputRoot instanceof URL ? fileURLToPath(outputRoot) : resolve(outputRoot);
-  const built = CITY_INPUTS.map((input) => { const official_evidence = readOfficialEvidence(root, input.id, officialEvidenceOverride, m7EvidenceOverride); const m7_readiness = json(join(root, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS.json")).edges.filter((edge) => edge.city_id === input.id); return { ...artifact(root, input), official_evidence, m7_readiness }; }); mkdirSync(output, { recursive: true });
+  assertStaticAnalysisArtifacts({ repoRoot: root, analysisRoot });
+  const built = CITY_INPUTS.map((input) => artifact(root, input)); mkdirSync(output, { recursive: true });
   for (const city of built) {
     const deliveredPath = join(output, `${city.city_id}.candidate_edges.geojson`);
     writeFileSync(deliveredPath, city.edgeBytes);
@@ -175,9 +122,7 @@ export function buildMapArtifacts({ repoRoot, outputRoot, officialEvidenceOverri
   for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
     copyFileSync(join(parityRoot, filename), join(officialDirectory, filename));
   }
-  const analysisDirectory = join(dirname(output), "analysis"); mkdirSync(analysisDirectory, { recursive: true });
-  for (const city of built) writeFileSync(join(analysisDirectory, `${city.city_id}.json`), `${JSON.stringify(analysisFor(city), null, 2)}\n`);
-  const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, official_evidence, m7_readiness, ...city }) => city) };
+  const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => city) };
   assertSupportedMapCatalog(catalog); assertDeliveredMapArtifacts(catalog, output); writeFileSync(join(output, "map-layers.json"), `${JSON.stringify(catalog, null, 2)}\n`);
   return { files: [...built.map((city) => join(output, `${city.city_id}.candidate_edges.geojson`)), ...["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"].map((filename) => join(officialDirectory, filename)), join(output, "map-layers.json")] };
 }
