@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.local/schemas/m7_debris_presence_evidence_v2.schema.json",
+  "title": "AblePath M7 debris-presence evidence record (V2 candidate input contract)",
+  "description": "Evidence-level record for the per-building boolean debris_present consumed by the frozen M7 residual-width core. debris_present is PRESENCE, not EXTENT: the Moya extent relation D = 0.31h + 1.10 remains the frozen M7 core and is never used to decide presence. A validating record is a well-formed EVIDENCE RECORD only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "building_id",
+    "scenario_id",
+    "damage_state_evidence_id",
+    "debris_evidence_kind",
+    "source_id",
+    "revision_id",
+    "source_sha256",
+    "conditional_on_damage_state",
+    "probability_model_id",
+    "probability_model_version",
+    "probability_of_presence",
+    "realization_method",
+    "realization_seed",
+    "realization_id",
+    "realized_debris_present",
+    "observed_debris_present",
+    "extent_model_id",
+    "extent_variant",
+    "mapping_to_m7_core",
+    "validation_status",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "building_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "damage_state_evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "Identity of the damage-state evidence record this presence record is conditioned on (m7_damage_state_evidence_v2)."
+    },
+    "debris_evidence_kind": {
+      "enum": [
+        "OBSERVED",
+        "OFFICIAL_ASSET_LEVEL_SCENARIO",
+        "CONDITIONAL_PROBABILITY",
+        "EXPERIMENTAL_STOCHASTIC_REALIZATION",
+        "UNKNOWN"
+      ]
+    },
+    "source_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "revision_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "source_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "null only permitted while debris_evidence_kind is UNKNOWN."
+    },
+    "conditional_on_damage_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "The damage state the probability or realization is conditioned on. A collapsed building does NOT automatically imply debris reaching the road (cf. Moya P[D=0|h] = 1.5 e^(-0.43 h))."
+    },
+    "probability_model_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "probability_model_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "probability_of_presence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Conditional probability of debris presence. It can never become a boolean through an arbitrary threshold."
+    },
+    "realization_method": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "realization_seed": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Required (non-null) for EXPERIMENTAL_STOCHASTIC_REALIZATION; an unseeded realization is rejected."
+    },
+    "realization_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "realized_debris_present": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "null unless debris_evidence_kind is EXPERIMENTAL_STOCHASTIC_REALIZATION."
+    },
+    "observed_debris_present": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "null unless debris_evidence_kind is OBSERVED or OFFICIAL_ASSET_LEVEL_SCENARIO."
+    },
+    "extent_model_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "Identity of the frozen M7 core extent model (Moya). Recorded for traceability only; extent is NEVER used as presence."
+    },
+    "extent_variant": {
+      "enum": [
+        "mean_case",
+        "sensitivity_high_case",
+        null
+      ],
+      "description": "Frozen M7 core variant name. Recorded for traceability only; never used as presence."
+    },
+    "mapping_to_m7_core": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "The core boolean debris_present, or null when no core mapping is asserted. There is no unknown -> false fallback. Note the frozen core rejects damage_state=DAMAGED together with debris_present=true."
+    },
+    "validation_status": {
+      "enum": [
+        "ACCEPTED",
+        "PENDING_HUMAN_FREEZE",
+        "REJECTED",
+        "RECORD_ONLY"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "debris_evidence_kind": {
+            "enum": [
+              "CONDITIONAL_PROBABILITY",
+              "UNKNOWN"
+            ]
+          }
+        },
+        "required": [
+          "debris_evidence_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "mapping_to_m7_core": {
+            "type": "null"
+          },
+          "realized_debris_present": {
+            "type": "null"
+          },
+          "observed_debris_present": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "debris_evidence_kind": {
+            "const": "CONDITIONAL_PROBABILITY"
+          }
+        },
+        "required": [
+          "debris_evidence_kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "probability_model_id",
+          "probability_model_version",
+          "probability_of_presence",
+          "conditional_on_damage_state"
+        ],
+        "properties": {
+          "probability_model_id": {
+            "type": "string"
+          },
+          "probability_model_version": {
+            "type": "string"
+          },
+          "probability_of_presence": {
+            "type": "number"
+          },
+          "conditional_on_damage_state": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "debris_evidence_kind": {
+            "const": "EXPERIMENTAL_STOCHASTIC_REALIZATION"
+          }
+        },
+        "required": [
+          "debris_evidence_kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "realization_method",
+          "realization_seed",
+          "realization_id",
+          "realized_debris_present",
+          "scenario_id"
+        ],
+        "properties": {
+          "realization_method": {
+            "type": "string"
+          },
+          "realization_seed": {
+            "type": "integer"
+          },
+          "realization_id": {
+            "type": "string"
+          },
+          "realized_debris_present": {
+            "type": "boolean"
+          },
+          "scenario_id": {
+            "type": "string"
+          },
+          "observed_debris_present": {
+            "type": "null"
+          },
+          "mapping_to_m7_core": {
+            "type": "null"
+          },
+          "validation_status": {
+            "enum": [
+              "PENDING_HUMAN_FREEZE",
+              "REJECTED",
+              "RECORD_ONLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "debris_evidence_kind": {
+            "enum": [
+              "OBSERVED",
+              "OFFICIAL_ASSET_LEVEL_SCENARIO"
+            ]
+          }
+        },
+        "required": [
+          "debris_evidence_kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "observed_debris_present",
+          "source_id",
+          "revision_id",
+          "source_sha256"
+        ],
+        "properties": {
+          "observed_debris_present": {
+            "type": "boolean"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "revision_id": {
+            "type": "string"
+          },
+          "source_sha256": {
+            "type": "string"
+          },
+          "realized_debris_present": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mapping_to_m7_core": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "mapping_to_m7_core"
+        ]
+      },
+      "then": {
+        "properties": {
+          "debris_evidence_kind": {
+            "enum": [
+              "OBSERVED",
+              "OFFICIAL_ASSET_LEVEL_SCENARIO"
+            ]
+          },
+          "validation_status": {
+            "const": "ACCEPTED"
+          }
+        },
+        "required": [
+          "damage_state_evidence_id"
+        ]
+      }
+    }
+  ],
+  "x-ablepath": {
+    "contract_id": "M7_DEBRIS_PRESENCE_INPUT_CONTRACT_V2",
+    "contract_doc_path": "docs/review/M7_DEBRIS_PRESENCE_INPUT_CONTRACT_V2.md",
+    "core_api_unchanged": true,
+    "core_field": "left_buildings[].debris_present / right_buildings[].debris_present",
+    "presence_is_not_extent": "debris_present is a boolean presence flag. The Moya extent relation (D = 0.31h + 1.10, sigma = 1.11) and its variants mean_case / sensitivity_high_case remain the frozen M7 core and are recorded here only as extent_model_id / extent_variant. Extent is never used to decide presence.",
+    "m7_eligibility": {
+      "OBSERVED": "eligible after an accepted observed boolean with source/revision/sha256",
+      "OFFICIAL_ASSET_LEVEL_SCENARIO": "eligible after an accepted official building-level boolean",
+      "CONDITIONAL_PROBABILITY": "never directly eligible; a probability is not a boolean",
+      "EXPERIMENTAL_STOCHASTIC_REALIZATION": "not production eligible until human-frozen via m7_scenario_realization_v1",
+      "UNKNOWN": "never eligible; UNKNOWN stays UNKNOWN and never becomes false"
+    },
+    "prohibited_derivations": [
+      "debris extent (Moya D) used as the presence boolean",
+      "collapse assumed to imply debris reaching the road",
+      "conditional probability converted to a boolean by an arbitrary threshold",
+      "unknown debris defaulted to false",
+      "unseeded or scenario-less stochastic realization promoted to M7 input",
+      "records missing source_id / revision_id / source_sha256 promoted to M7 input",
+      "presence asserted without a linked damage_state_evidence_id",
+      "alteration of the frozen Moya extent equations in the M7 core"
+    ],
+    "core_mapping_allowed_from": [
+      "debris_evidence_kind=OBSERVED with validation_status=ACCEPTED",
+      "debris_evidence_kind=OFFICIAL_ASSET_LEVEL_SCENARIO (building-level) with validation_status=ACCEPTED",
+      "debris_evidence_kind=EXPERIMENTAL_STOCHASTIC_REALIZATION only after a human freeze recorded in schemas/m7_scenario_realization_v1.schema.json (human_freeze_id non-null)"
+    ],
+    "validator_additional_checks": [
+      "probability_of_presence in [0,1] and never thresholded into mapping_to_m7_core",
+      "realized_debris_present is null unless debris_evidence_kind=EXPERIMENTAL_STOCHASTIC_REALIZATION",
+      "observed_debris_present is null unless debris_evidence_kind is OBSERVED or OFFICIAL_ASSET_LEVEL_SCENARIO",
+      "source_sha256 matches ^[0-9a-f]{64}$ when non-null; null only for debris_evidence_kind=UNKNOWN",
+      "extent_model_id / extent_variant never influence mapping_to_m7_core",
+      "Moya Eq.7 must be verified against the original paper before any conditional model is encoded"
+    ],
+    "current_v2_values": {
+      "M7_REAL_DEBRIS_BOOL_READY_COUNT": 0
+    }
+  }
+}

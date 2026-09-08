@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "M7_SETBACK_DEFINITION_DECISION",
+  "generated_at": "2026-09-03",
+  "source_file": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json",
+  "candidate_count": 347,
+  "unique_building_count": 288,
+  "m7_invoked": false,
+  "policy_status": {
+    "M7_SETBACK_POLICY_READY": false,
+    "setback_method_status": "PROPOSAL_REQUIRED_NOT_FROZEN",
+    "setback_m_in_v2": null,
+    "setback_m_may_enter_m7_input": false,
+    "centroid_distance_forbidden": true,
+    "centroid_used": false,
+    "recorded_proxy_field": {
+      "new_name": "nearest_geometry_distance_m",
+      "previous_name": "proximity_min_footprint_vertex_to_edge_m",
+      "method_status": "PROXY_NOT_SETBACK",
+      "m7_eligible": false,
+      "definition": "lod0RoofEdge 頂点と OSM 由来 candidate edge 折れ線との最短距離（局所等距円筒近似、m）",
+      "rename_performed_by": "MAIN_AGENT"
+    }
+  },
+  "moya_relation": {
+    "formula": "D = 0.31h + 1.10 [m]",
+    "sigma_m": 1.11,
+    "n": 738,
+    "transfer": "ADAPT",
+    "s_definition_required": "歩行空間（道路・歩道）の縁から建物前面までの水平距離",
+    "m7_side_formulas": [
+      "I_side = max(D - S, 0)",
+      "remaining = max(W_clear - I_L - I_R, 0)"
+    ]
+  },
+  "options": [
+    {
+      "option_id": "A",
+      "label": "歩行空間境界 → 建物 footprint 最短水平距離",
+      "scientific_meaning": "Moya の S に定義上最も近い。歩行可能面の縁から建物面までの距離で max(D-S,0) が物理的に成立する。",
+      "required_source": "歩行空間境界の公式または実測定義 + PLATEAU lod0RoofEdge footprint + metric CRS",
+      "computability": "NOT_NOW_REQUIRES_WALKABLE_BOUNDARY_GEOMETRY",
+      "circular_dependency_with_clear_width": "none",
+      "moya_model_compatibility": "high（ただし京町家の連担へは TRANSFER=ADAPT）",
+      "uncertainty": "境界線の定義揺れ、lod0RoofEdge（屋根外周）と壁面線のずれ、投影誤差。定量値は UNKNOWN。",
+      "m7_eligibility": "ELIGIBLE_AFTER_FREEZE",
+      "human_checkbox": "[ ] 選択肢 A を目標定義として採用する"
+    },
+    {
+      "option_id": "A-field",
+      "label": "現地実測 S（有効幅員と同一測点）",
+      "scientific_meaning": "A の定義を測定手順として固定する。W_clear と同一断面で S を測るため左右の差し引きが整合する。",
+      "required_source": "reports/M7_PILOT_FIELD_MEASUREMENT_PLAN.csv（別途作成中）の測点での現地実測。PLATEAU footprint は建物同定のみに使用。",
+      "computability": "AFTER_FIELD_MEASUREMENT",
+      "circular_dependency_with_clear_width": "none",
+      "moya_model_compatibility": "high",
+      "uncertainty": "測定手順・器差・測点間隔・許容誤差が未凍結（HUMAN_DECISION_REQUIRED）",
+      "m7_eligibility": "RECOMMENDED_PATH_PENDING_FIELD_DATA",
+      "human_checkbox": "[ ] A-field を推奨経路として承認する"
+    },
+    {
+      "option_id": "B",
+      "label": "公式の道路／歩道境界 → footprint 最短水平距離",
+      "scientific_meaning": "行政定義の道路区域線・歩道境界を縁とみなす代理。道路区域線は必ずしも歩行可能面の縁ではない。",
+      "required_source": "公式の道路区域／歩道境界ベクタデータ（取得可否 UNKNOWN）+ footprint + metric CRS",
+      "computability": "AFTER_OFFICIAL_BOUNDARY_DATA_ACQUISITION",
+      "circular_dependency_with_clear_width": "none（ただし W_clear が同一データ由来なら誤差を共有する点に注意）",
+      "moya_model_compatibility": "medium（歩行可能面の縁との差分だけ S が系統的にずれる。符号は場所依存、大きさ UNKNOWN）",
+      "uncertainty": "境界データの更新年次、区域線と実地物のずれ、歩道の有無",
+      "m7_eligibility": "CONDITIONAL_AFTER_SOURCE_ACQUISITION",
+      "human_checkbox": "[ ] 選択肢 B を A の代替／補完として使う条件（差分の記録必須）を承認する"
+    },
+    {
+      "option_id": "C",
+      "label": "candidate edge 中心線からの距離（PROXY ONLY）",
+      "scientific_meaning": "現行 nearest_geometry_distance_m。S ではない。OSM 中心線は歩行空間境界ではなく経路の位相を表す線。",
+      "required_source": "OSM candidate edge（VGI）+ footprint（既に存在）",
+      "computability": "NOW_BUT_NOT_S",
+      "circular_dependency_with_clear_width": "あり: 左右対称を仮定すると 中心線→footprint 距離 = clear_width/2 + S となり、S の取り出しに W_clear が必要で循環する。非対称の実道路ではこの分解自体が成立しない。",
+      "moya_model_compatibility": "low（I_side を系統的に過小評価する）",
+      "uncertainty": "VGI 位置精度、中心線の描画方針、局所等距円筒近似の投影誤差（許容誤差未凍結）",
+      "m7_eligibility": "NOT_ELIGIBLE_PROXY_ONLY",
+      "human_checkbox": "[ ] 選択肢 C を M7 入力に使わない（レビュー用近接指標に限定）ことを確認する"
+    },
+    {
+      "option_id": "X",
+      "label": "建物 centroid からの距離",
+      "scientific_meaning": "重心は建物前面位置を表さず、建物規模に依存して S を任意に膨らませる。",
+      "required_source": "N/A",
+      "computability": "FORBIDDEN",
+      "circular_dependency_with_clear_width": "N/A",
+      "moya_model_compatibility": "none",
+      "uncertainty": "N/A",
+      "m7_eligibility": "FORBIDDEN",
+      "human_checkbox": "[ ] centroid 距離を使用しないことを確認する"
+    }
+  ],
+  "freeze_items": [
+    {"id": "FR-1", "item": "歩行空間境界の定義", "status": "HUMAN_DECISION_REQUIRED"},
+    {"id": "FR-2", "item": "edge 方向の安定化規則", "status": "NOT_FROZEN"},
+    {"id": "FR-3", "item": "metric CRS（京都 EPSG:6674 / 藤沢 EPSG:6677 が候補）", "status": "SEPARATE_DECISION", "reference": "reports/M7_METRIC_CRS_VALIDATION.md / .json", "reference_status": "PRESENT"},
+    {"id": "FR-4", "item": "影響区間（edge split）の規則", "status": "NOT_FROZEN"},
+    {"id": "FR-5", "item": "許容誤差と UNKNOWN 化規則", "status": "NOT_FROZEN"},
+    {"id": "FR-6", "item": "S の provenance 記録方式", "status": "NOT_FROZEN"}
+  ],
+  "recommended_path": "A-field（有効幅員と同一測点での S 現地実測、PLATEAU footprint は建物同定のみ）→ 単独検証 → 人間 freeze → M7 入力解禁",
+  "human_checkboxes": [
+    {"id": "SB-01", "text": "歩行空間境界の定義を凍結した", "checked": false},
+    {"id": "SB-02", "text": "edge 方向の安定化規則を凍結した", "checked": false},
+    {"id": "SB-03", "text": "metric CRS を凍結した（reports/M7_METRIC_CRS_VALIDATION.* の判断に従う）", "checked": false},
+    {"id": "SB-04", "text": "影響区間（edge split）の規則を凍結した", "checked": false},
+    {"id": "SB-05", "text": "許容誤差と UNKNOWN 化規則を凍結した", "checked": false},
+    {"id": "SB-06", "text": "S の provenance 記録方式を凍結した", "checked": false},
+    {"id": "SB-07", "text": "選択肢 A（または A-field）を目標定義として採用した", "checked": false},
+    {"id": "SB-08", "text": "選択肢 C を M7 入力に使わないことを確認した", "checked": false},
+    {"id": "SB-09", "text": "centroid 距離を使用しないことを確認した", "checked": false},
+    {"id": "SB-10", "text": "上記が揃うまで setback_m を M7 入力へ渡さないことを確認した", "checked": false}
+  ],
+  "open_items": {
+    "field_measurement_procedure": "HUMAN_DECISION_REQUIRED",
+    "official_boundary_data_availability_and_license": "UNKNOWN",
+    "roof_edge_vs_wall_line_difference_m": "UNKNOWN",
+    "representative_building_selection_per_section": "HUMAN_DECISION_REQUIRED"
+  },
+  "not_claimed": [
+    "safety_validation",
+    "accessibility_validation",
+    "administrative_validation",
+    "m7_result"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "building_taxonomy_mapping": {
+    "model_id": "NON-REAL-TAXONOMY",
+    "model_version": "0.1",
+    "source_sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "damage_distribution_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+  "debris_probability_model": {
+    "model_id": "NON-REAL-DEBRIS-P",
+    "model_version": "0.1",
+    "source_sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "experimental_only": true,
+  "exposure_model": {
+    "model_id": "NON-REAL-EXPOSURE",
+    "model_version": "0.1",
+    "source_sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "fragility_model": {
+    "model_id": "NON-REAL-FRAGILITY",
+    "model_version": "0.1",
+    "source_sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "hazard_model": {
+    "model_id": "NON-REAL-HAZARD",
+    "model_version": "0.1",
+    "source_sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "human_freeze_id": null,
+  "limitations": [
+    "NON_REAL synthetic fixture.",
+    "A realization is not an observation."
+  ],
+  "production_eligible": false,
+  "random_generator": "python.random.Random(Mersenne Twister)",
+  "realization_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+  "sample_index": 0,
+  "scenario_id": "NON-REAL-SCENARIO-001",
+  "scenario_version": "0.1",
+  "schema_version": "1.0.0",
+  "seed": 20260903
+}

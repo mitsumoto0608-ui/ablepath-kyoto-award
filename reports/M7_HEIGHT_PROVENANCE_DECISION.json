@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "M7_HEIGHT_PROVENANCE_DECISION",
+  "generated_at": "2026-09-03",
+  "source_file": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json",
+  "source_schema_version": "2.0.0",
+  "source_method_status": "CANDIDATE_ENUMERATION_ONLY_SETBACK_NOT_FROZEN",
+  "candidate_count": 347,
+  "unique_building_count": 288,
+  "m7_invoked": false,
+  "policy_status": {
+    "M7_HEIGHT_POLICY_READY": false,
+    "reason": "human_checkboxes_not_all_checked",
+    "requires_height_provenance_code_per_building": true,
+    "requires_cross_city_method_flag": true,
+    "class_a_and_b_are_same_method": false
+  },
+  "official_definition_reference": {
+    "attribute": "bldg:measuredHeight",
+    "uom": "m",
+    "specification": "PLATEAU 3D都市モデル標準製品仕様書 (v5) bldg:measuredHeight",
+    "verbatim_text_status": "TO_BE_QUOTED_BY_HUMAN",
+    "codelist": "codelists/DataQualityAttribute_lod1HeightType.xml"
+  },
+  "moya_relation": {
+    "formula": "D = 0.31h + 1.10 [m]",
+    "sigma_m": 1.11,
+    "n": 738,
+    "n_note": "D>0 の部分標本（全1,099棟）",
+    "zero_debris_probability": "P[D=0|h,倒壊] = 1.5e^(-0.43h)",
+    "transfer": "ADAPT",
+    "d_sensitivity_per_metre_of_h_m": 0.31,
+    "which_h_definition_is_correct": "HUMAN_DECISION_REQUIRED",
+    "delta_h_between_class_a_and_b_m": "UNKNOWN",
+    "m7_side_formulas": [
+      "I_side = max(D - S, 0)",
+      "remaining = max(W_clear - I_L - I_R, 0)"
+    ]
+  },
+  "class_counts_note": "クラスCの唯一の候補はクラスD（sentinel）でもある。C は一律値ポリシーの分類、D は値が無効の分類で直交軸。",
+  "classes": [
+    {
+      "class_id": "A",
+      "label": "京都市 点群から取得_中央値",
+      "source_code": "uro:lod1HeightType=2",
+      "city_code": "26100",
+      "survey_year": "2025",
+      "thematic_src_codes": ["201", "700", "701", "802"],
+      "candidate_count": 333,
+      "unique_building_count": 280,
+      "official_definition": "bldg:measuredHeight（標準製品仕様書 v5、逐語は TO_BE_QUOTED_BY_HUMAN）+ codelist ラベル「点群から取得_中央値」",
+      "unit": "m",
+      "method": "点群から建物ごとに取得した高さの中央値（最高点ではなく分布代表値）",
+      "uncertainty": {
+        "qualitative": "点群密度・欠測・植生や庇の混入・中央値化による最高部の切り捨て",
+        "unknown": [
+          "点群の公称精度",
+          "建物単位の分散",
+          "起算面（地盤面 or DTM）",
+          "庇・付属物の扱い",
+          "Moya の h 定義との整合"
+        ],
+        "d_shift_per_1m_of_h_m": 0.31
+      },
+      "m7_eligibility_recommendation": "OFFICIAL_DIRECT_HEIGHT_CANDIDATE",
+      "cross_city_comparability": "クラスB（code 6）とは別方法。混在集計は method flag 必須。",
+      "limitations": "中央値と最高高さの差の符号・大きさは未計測（UNKNOWN）。京町家の連担条件は Moya 較正母集団と異なる（TRANSFER=ADAPT）。",
+      "human_checkbox": "[ ] クラス A を M7 高さ入力として許可する"
+    },
+    {
+      "class_id": "B",
+      "label": "藤沢市 航空写真図化_最高高さ",
+      "source_code": "uro:lod1HeightType=6",
+      "city_code": "14205",
+      "survey_year": "2021",
+      "candidate_count": 10,
+      "unique_building_count": 6,
+      "official_definition": "bldg:measuredHeight（標準製品仕様書 v5、逐語は TO_BE_QUOTED_BY_HUMAN）+ codelist ラベル「航空写真図化_最高高さ」",
+      "unit": "m",
+      "method": "航空写真の図化により取得した最高高さ（上側の値、代表値ではない）",
+      "uncertainty": {
+        "qualitative": "図化者判断・写真縮尺・オクルージョン・撮影年（2021、京都2025と4年差）",
+        "unknown": [
+          "図化精度の公称値",
+          "起算面",
+          "クラスAとの系統差 Δh"
+        ],
+        "d_shift_per_1m_of_h_m": 0.31,
+        "note": "方法差は Moya の σ=1.11 に含まれない系統誤差として別扱いが必要"
+      },
+      "m7_eligibility_recommendation": "OFFICIAL_DIRECT_HEIGHT_CANDIDATE_DIFFERENT_METHOD",
+      "cross_city_comparability": "クラスAと同一視しない。A/B 混在の集計値は method flag なしで提示しない。",
+      "limitations": "件数が少なく（10候補/6建物）方法差の統計評価もできない。年次差により現況と乖離しうる。",
+      "human_checkbox": "[ ] クラス B を M7 高さ入力として許可し、A と別方法として記録・表示する"
+    },
+    {
+      "class_id": "C",
+      "label": "藤沢市 取得不可のため一律値（3m）",
+      "source_code": "uro:lod1HeightType=0",
+      "city_code": "14205",
+      "survey_year": "2021",
+      "candidate_count": 1,
+      "unique_building_count": 1,
+      "official_definition": "codelist 上「取得不可のため一律値（3m）」。測定値ではない既定値。",
+      "unit": "m",
+      "method": "測定ではなく既定値の代入。個別建物の実高さ情報を持たない。",
+      "uncertainty": {
+        "qualitative": "実質的に非有界。3m は仮値であり実高さの保証がない。",
+        "unknown": ["真の高さ", "誤差範囲"],
+        "d_shift_per_1m_of_h_m": 0.31
+      },
+      "m7_eligibility_recommendation": "OFFICIAL_UNIFORM_VALUE_NOT_EVIDENCE_READY",
+      "cross_city_comparability": "比較不可。集計に混ぜると高さ分布・D 分布を歪める。",
+      "limitations": "除外時は「建物が無い」ではなく「高さ証拠が無い」として UNKNOWN 表示を維持すること。",
+      "human_checkbox": "[ ] クラス C を M7 入力から除外し HEIGHT_UNKNOWN として扱う"
+    },
+    {
+      "class_id": "D",
+      "label": "measuredHeight=-9999（欠測番兵値）",
+      "source_code": "height_status=INVALID_SENTINEL",
+      "city_code": ["26100", "14205"],
+      "survey_year": ["2025", "2021"],
+      "candidate_count": 4,
+      "unique_building_count": 2,
+      "breakdown": {
+        "lod1HeightType=2": {"candidate_count": 3, "unique_building_count": 1},
+        "lod1HeightType=0": {"candidate_count": 1, "unique_building_count": 1}
+      },
+      "official_height_m": null,
+      "official_definition": "高さ値としての定義は成立しない（欠測を表す番兵値）",
+      "unit": "N/A",
+      "method": "なし（欠測）",
+      "uncertainty": {
+        "qualitative": "値そのものが無効。数値として一切使用しない。",
+        "unknown": ["真の高さ"],
+        "d_shift_per_1m_of_h_m": null
+      },
+      "m7_eligibility_recommendation": "INVALID_SENTINEL",
+      "cross_city_comparability": "N/A",
+      "limitations": "-9999 を演算へ流すと D が負の巨大値になり得る。入力段バリデーション頼みにせず事前除外を明示する。",
+      "human_checkbox": "[ ] クラス D を M7 入力から恒久除外し補完しない"
+    }
+  ],
+  "human_checkboxes": [
+    {"id": "HP-01", "text": "bldg:measuredHeight の公式定義文（起算面を含む）を標準製品仕様書 v5 から逐語確認し TO_BE_QUOTED_BY_HUMAN を置換した", "checked": false},
+    {"id": "HP-02", "text": "Moya 2020 の h の定義（最高高さか代表値か）を原論文で確認し、クラス A / B のどちらが整合するかを記録した", "checked": false},
+    {"id": "HP-03", "text": "クラス A を M7 高さ入力として許可する", "checked": false},
+    {"id": "HP-04", "text": "クラス B を M7 高さ入力として許可し、A と別方法として記録・表示する", "checked": false},
+    {"id": "HP-05", "text": "クラス C（一律値 3m）を除外し HEIGHT_UNKNOWN として扱う", "checked": false},
+    {"id": "HP-06", "text": "クラス D（-9999）を恒久除外し補完しない", "checked": false},
+    {"id": "HP-07", "text": "M7 実行時に建物ごと height_provenance_code を出力へ記録する実装方針を承認した", "checked": false},
+    {"id": "HP-08", "text": "都市間比較の出力に method flag を付す方針を承認した", "checked": false}
+  ],
+  "open_items": {
+    "delta_h_class_a_vs_b_m": "UNKNOWN",
+    "vertical_datum": "UNKNOWN",
+    "method_difference_handling": "HUMAN_DECISION_REQUIRED"
+  },
+  "not_claimed": [
+    "safety_validation",
+    "accessibility_validation",
+    "administrative_validation",
+    "m7_result"
+  ]
+}

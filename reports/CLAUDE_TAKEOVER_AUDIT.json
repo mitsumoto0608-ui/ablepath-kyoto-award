@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "CLAUDE_TAKEOVER_AUDIT_V1",
+  "date": "2026-09-03",
+  "verdict": "GREEN_WITH_NOTES",
+  "preflight": {
+    "origin_main": "515955000d3df28b5b20e468a6312a006f7f95ea",
+    "baseline_tag": "0c3289b9174bf624c95faeaa3c1643664e31c2eb",
+    "pr6_head": "fdd780f75fff25f688c5a6b51f0dbf59d1d5b464",
+    "pr7_head": "7380e02aee2a40931f851ec77847565311e70cf4",
+    "pr8_head": "1cb145fbf63b6c1ce5c9a0767867ab81fc2809a1",
+    "pr9_head": "c5dcdd062d8a79302605ad5e44936039553e5066",
+    "composition_head": "d029f339806c5e2e0613901ae97e7e9bf9654d50",
+    "composition_tree": "48f835d5805df29b070339a1f7dad3a8530ffdfa",
+    "pr10_head": "b64b5d0c07ee7cc109adb0f5cf5f1f4193ff5800",
+    "pr10_tree": "10daa14dd87ab81d603c201df0bc5ae55b663e65",
+    "pr10_changed_files": 91,
+    "runner_sha256": "96ea1404c305531ae55c6c81900887efc3423c85b89e9af88851deefd053e3c1",
+    "allocate_sha256": "2e5c6f7fb994cd2b1790daf9414e3761c6682634725583881222520d01efd15b",
+    "pytest_linux": "564 passed, 4 skipped",
+    "viewer_unit": "60 passed",
+    "rc_a_sha256": "270542162cc974bbdef23251738d2ad4744f2ea59307092bf6373a23c2d182d6",
+    "rc_b_sha256": "270542162cc974bbdef23251738d2ad4744f2ea59307092bf6373a23c2d182d6",
+    "rc_members": 907,
+    "rc_ab_byte_identical": true,
+    "bundle_sha256": "ed53bfd26db4d4f31a203902318f0f90318406f628861677902139d55c8b5a55",
+    "bundle_verify": "complete_history",
+    "handoff_pack_sha256sums": "28/28 match",
+    "github_state_verified": false,
+    "e2e_run": false
+  },
+  "recount": {
+    "kyoto_a31b_kiyomizu_gion": 366,
+    "kyoto_a31b_arashiyama": 136,
+    "kyoto_facilities": [
+      58,
+      19,
+      77
+    ],
+    "fujisawa_rows": [
+      339,
+      119,
+      57,
+      17
+    ],
+    "plateau_aoi": 5,
+    "m7": {
+      "candidate_edges": 612,
+      "deep_pilot": 15,
+      "structurally_callable": 0,
+      "evidence_ready": 0,
+      "computed": 0,
+      "implicit_defaults_used": 0,
+      "hazard_derived_damage_debris": 0
+    },
+    "m6_status": "NOT_COMPUTED",
+    "raw_tracked": 0,
+    "absolute_data_paths": 0
+  },
+  "claims": {
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false,
+    "public_release_ready": false
+  },
+  "findings": [
+    {
+      "id": "TK-01",
+      "severity": "HIGH",
+      "summary": "viewer analysis JSON source_hashes stale vs repo bytes (6 hashes)",
+      "file": "viewer/public/data/analysis/*.json; viewer/scripts/build-map-artifacts.mjs:85-91",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "TK-02",
+      "severity": "HIGH",
+      "summary": "DES-14 unresolved: viewer build script computes Dijkstra/path_matrix/M7 aggregation",
+      "file": "viewer/scripts/build-map-artifacts.mjs:104-134",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-03",
+      "severity": "MEDIUM",
+      "summary": "commit manifest lists 10 of 12 commits (missing 7cb7c50, b64b5d0)",
+      "file": "reports/OVERNIGHT_NEW_WORK_COMMIT_MANIFEST.json",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "TK-04",
+      "severity": "MEDIUM",
+      "summary": "official layer copied_sha256 hashes source path, not delivered bytes",
+      "file": "viewer/scripts/build-map-artifacts.mjs:68,95",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "TK-05",
+      "severity": "MEDIUM",
+      "summary": "rebuild test does not compare against committed delivered bytes",
+      "file": "tests/ui/official_data_layers.test.mjs:13-51",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "TK-06",
+      "severity": "MEDIUM",
+      "summary": "screenshot_binary_committed:false is false; 3 PNG (1.94MB) tracked",
+      "file": "reports/OFFICIAL_DATA_TO_M7_FINAL_STATUS.json:46; reports/UI_SCREENSHOTS/",
+      "status": "CLAIM_CORRECTED_PNG_REMOVAL_HUMAN_DECISION"
+    },
+    {
+      "id": "TK-07",
+      "severity": "MEDIUM",
+      "summary": "generator of M7_ALL_EDGE_EVIDENCE_READINESS.json not tracked (verifiable, not regenerable)",
+      "file": "reports/M7_ALL_EDGE_EVIDENCE_READINESS.json",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-08",
+      "severity": "MEDIUM",
+      "summary": "receipts missing license/CRS/source_url fields",
+      "file": "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/source_receipts.json; OFFICIAL-LOCAL-ARTIFACT-PROMOTION-V2/source_bindings.json",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-09",
+      "severity": "MEDIUM",
+      "summary": "exact-count assertions (non-zero) will break on legitimate additions",
+      "file": "tests/data,tests/realdata,tests/ui",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-10",
+      "severity": "LOW",
+      "summary": "evidence_ready_count literal 0; synthetic facility_record_id for blank IDs",
+      "file": "scripts/build_kyoto_official_parity.py:414,220",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-11",
+      "severity": "LOW",
+      "summary": "analysis JSON / map-layers.json not in LF allowlist",
+      "file": ".gitattributes",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "TK-12",
+      "severity": "LOW",
+      "summary": "local repo hygiene: main diverged (112dbe9), stale local branches, 70 prunable worktrees",
+      "file": "C:\\dev\\ablepath-kyoto-award",
+      "status": "OPEN"
+    },
+    {
+      "id": "TK-13",
+      "severity": "NEE",
+      "summary": "GitHub PR/CI state, E2E, CORRECTED_V2 SHA, raw Dropbox SHA not independently verified",
+      "file": "-",
+      "status": "OPEN"
+    }
+  ],
+  "next_branch": "task/claude-post-pr10-evidence-closure-v1",
+  "next_branch_base": "b64b5d0c07ee7cc109adb0f5cf5f1f4193ff5800",
+  "changes_made_this_run": false,
+  "boundaries": {
+    "primary_repo_modified": false,
+    "github_written": false,
+    "branches_tags_modified": false,
+    "m6_hokonavi_frozen": false,
+    "m7_inputs_guessed": false
+  },
+  "resolution_branch": "task/claude-post-pr10-evidence-closure-v1"
+}

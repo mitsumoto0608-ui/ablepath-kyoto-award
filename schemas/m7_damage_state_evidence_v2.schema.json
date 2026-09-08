@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ablepath.local/schemas/m7_damage_state_evidence_v2.schema.json",
+  "title": "AblePath M7 building damage-state evidence record (V2 candidate input contract)",
+  "description": "Evidence-level record for a per-building damage state. The frozen M7 core accepts only the categorical values COLLAPSED and DAMAGED (src/analysis/candidate_network.py M7_DAMAGE_STATES, src/residual_width.py _DAMAGE_STATES); this contract does not change that. A validating record is a well-formed EVIDENCE RECORD only and is never by itself sufficient to enter M7 production.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "building_id",
+    "scenario_id",
+    "damage_taxonomy_id",
+    "damage_taxonomy_version",
+    "evidence_kind",
+    "observation_or_model_time",
+    "source_id",
+    "revision_id",
+    "source_sha256",
+    "building_taxonomy",
+    "intensity_measure_type",
+    "intensity_measure_value",
+    "fragility_model_id",
+    "fragility_model_version",
+    "damage_state_probabilities",
+    "realization_method",
+    "realization_seed",
+    "realization_id",
+    "realized_state",
+    "mapping_to_m7_core",
+    "mapping_status",
+    "validation_status",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "building_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "null only for OBSERVED_POST_EVENT records, which describe a real event rather than a scenario."
+    },
+    "damage_taxonomy_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "damage_taxonomy_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "A taxonomy mapping without a version is rejected by the validator."
+    },
+    "evidence_kind": {
+      "enum": [
+        "OBSERVED_POST_EVENT",
+        "OFFICIAL_ASSET_LEVEL_SCENARIO",
+        "MODEL_PROBABILITY_DISTRIBUTION",
+        "MODEL_REALIZATION_EXPERIMENTAL",
+        "UNKNOWN"
+      ]
+    },
+    "observation_or_model_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "revision_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "source_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "null only permitted while evidence_kind is UNKNOWN."
+    },
+    "building_taxonomy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "Structural class vocabulary of the exposure record (e.g. wooden low-rise). Building age alone is not a taxonomy and never determines a state."
+    },
+    "intensity_measure_type": {
+      "enum": [
+        "PGA",
+        "PGV",
+        "SA",
+        "SI",
+        "JMA_INSTRUMENTAL_SEISMIC_INTENSITY",
+        "INUNDATION_DEPTH",
+        "LANDSLIDE_ZONE_OVERLAP",
+        "LIQUEFACTION_ZONE_OVERLAP",
+        "HAZARD_EXPOSURE_ONLY",
+        "NOT_APPLICABLE",
+        "UNKNOWN"
+      ],
+      "description": "500 m intensity grids, PGA, SI, flood, landslide and liquefaction zone overlap are HAZARD_EXPOSURE_ONLY in effect: exposure never becomes DAMAGED or COLLAPSED. The validator flags exposure-only intensity measures and forbids core mapping from them."
+    },
+    "intensity_measure_value": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fragility_model_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "fragility_model_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "damage_state_probabilities": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Object of damage-state name (taxonomy-scoped, from damage_taxonomy_id/version) to probability in [0,1]. The Python validator additionally checks that the probabilities sum to approximately 1 (abs(sum-1) <= 1e-6) and that every key exists in the declared taxonomy version. A distribution can NEVER be mapped directly to the core categorical state.",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minProperties": 2
+    },
+    "realization_method": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "realization_seed": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Required (non-null) whenever evidence_kind is MODEL_REALIZATION_EXPERIMENTAL: an unseeded stochastic realization is rejected."
+    },
+    "realization_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "realized_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "Taxonomy-scoped realized/observed state name. MUST be null unless evidence_kind is OBSERVED_POST_EVENT, OFFICIAL_ASSET_LEVEL_SCENARIO or MODEL_REALIZATION_EXPERIMENTAL."
+    },
+    "mapping_to_m7_core": {
+      "enum": [
+        "COLLAPSED",
+        "DAMAGED",
+        null
+      ],
+      "description": "The only two categorical values the frozen M7 core accepts are COLLAPSED and DAMAGED. null means no core mapping is asserted. There is no fallback to DAMAGED. Note the frozen core rejects the combination damage_state=DAMAGED with debris_present=true."
+    },
+    "mapping_status": {
+      "enum": [
+        "MAPPED_EXPLICIT",
+        "NOT_MAPPED",
+        "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+        "PENDING_HUMAN_FREEZE"
+      ]
+    },
+    "validation_status": {
+      "enum": [
+        "ACCEPTED",
+        "PENDING_HUMAN_FREEZE",
+        "REJECTED",
+        "RECORD_ONLY"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mapping_status": {
+            "const": "MAPPED_EXPLICIT"
+          }
+        },
+        "required": [
+          "mapping_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "damage_taxonomy_id",
+          "damage_taxonomy_version",
+          "source_id",
+          "revision_id",
+          "source_sha256"
+        ],
+        "properties": {
+          "mapping_to_m7_core": {
+            "enum": [
+              "COLLAPSED",
+              "DAMAGED"
+            ]
+          },
+          "realized_state": {
+            "type": "string"
+          },
+          "damage_taxonomy_id": {
+            "type": "string"
+          },
+          "damage_taxonomy_version": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "revision_id": {
+            "type": "string"
+          },
+          "source_sha256": {
+            "type": "string"
+          },
+          "evidence_kind": {
+            "enum": [
+              "OBSERVED_POST_EVENT",
+              "OFFICIAL_ASSET_LEVEL_SCENARIO",
+              "MODEL_REALIZATION_EXPERIMENTAL"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mapping_status": {
+            "enum": [
+              "NOT_MAPPED",
+              "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+              "PENDING_HUMAN_FREEZE"
+            ]
+          }
+        },
+        "required": [
+          "mapping_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "mapping_to_m7_core": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "enum": [
+              "MODEL_PROBABILITY_DISTRIBUTION",
+              "UNKNOWN"
+            ]
+          }
+        },
+        "required": [
+          "evidence_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "realized_state": {
+            "type": "null"
+          },
+          "mapping_to_m7_core": {
+            "type": "null"
+          },
+          "mapping_status": {
+            "enum": [
+              "NOT_MAPPED",
+              "MAPPING_FORBIDDEN_EXPOSURE_ONLY",
+              "PENDING_HUMAN_FREEZE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_kind": {
+            "const": "MODEL_REALIZATION_EXPERIMENTAL"
+          }
+        },
+        "required": [
+          "evidence_kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "realization_method",
+          "realization_seed",
+          "realization_id",
+          "scenario_id"
+        ],
+        "properties": {
+          "realization_method": {
+            "type": "string"
+          },
+          "realization_seed": {
+            "type": "integer"
+          },
+          "realization_id": {
+            "type": "string"
+          },
+          "scenario_id": {
+            "type": "string"
+          },
+          "validation_status": {
+            "enum": [
+              "PENDING_HUMAN_FREEZE",
+              "REJECTED",
+              "RECORD_ONLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "intensity_measure_type": {
+            "enum": [
+              "HAZARD_EXPOSURE_ONLY",
+              "LANDSLIDE_ZONE_OVERLAP",
+              "LIQUEFACTION_ZONE_OVERLAP",
+              "INUNDATION_DEPTH",
+              "JMA_INSTRUMENTAL_SEISMIC_INTENSITY",
+              "PGA",
+              "SI"
+            ]
+          }
+        },
+        "required": [
+          "intensity_measure_type"
+        ]
+      },
+      "then": {
+        "if": {
+          "properties": {
+            "evidence_kind": {
+              "enum": [
+                "MODEL_PROBABILITY_DISTRIBUTION",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "required": [
+            "evidence_kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "mapping_status": {
+              "const": "MAPPING_FORBIDDEN_EXPOSURE_ONLY"
+            },
+            "mapping_to_m7_core": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "x-ablepath": {
+    "contract_id": "M7_DAMAGE_STATE_INPUT_CONTRACT_V2",
+    "contract_doc_path": "docs/review/M7_DAMAGE_STATE_INPUT_CONTRACT_V2.md",
+    "core_api_unchanged": true,
+    "core_field": "left_buildings[].damage_state / right_buildings[].damage_state",
+    "core_accepted_values": [
+      "COLLAPSED",
+      "DAMAGED"
+    ],
+    "core_contradiction_rule": "damage_state=DAMAGED together with debris_present=true is rejected by the frozen core.",
+    "m7_eligibility": {
+      "OBSERVED_POST_EVENT": "eligible after an accepted, versioned, explicit taxonomy mapping to COLLAPSED or DAMAGED",
+      "OFFICIAL_ASSET_LEVEL_SCENARIO": "eligible after an accepted, versioned, explicit building-level taxonomy mapping",
+      "MODEL_PROBABILITY_DISTRIBUTION": "never directly eligible; a distribution is not a categorical state",
+      "MODEL_REALIZATION_EXPERIMENTAL": "not production eligible; eligible only via a human-frozen deterministic scenario realization",
+      "UNKNOWN": "never eligible; UNKNOWN stays UNKNOWN and never becomes DAMAGED"
+    },
+    "hazard_exposure_only": [
+      "500 m mesh seismic intensity",
+      "PGA",
+      "SI",
+      "flood inundation overlap",
+      "landslide zone overlap",
+      "liquefaction zone overlap",
+      "PLATEAU uro:bldgDisasterRiskAttribute / uro:LandSlideRiskAttribute zone overlap"
+    ],
+    "prohibited_derivations": [
+      "intensity grid or hazard-zone overlap mapped to a damage state",
+      "building age alone used to determine a state",
+      "probability distribution mapped directly to the core categorical enum",
+      "arbitrary probability threshold used to pick a categorical state",
+      "unknown damage state defaulted to DAMAGED",
+      "any fallback to DAMAGED",
+      "taxonomy mapping without damage_taxonomy_version",
+      "records missing source_id / revision_id / source_sha256 promoted to M7 input",
+      "unseeded stochastic realization promoted to M7 input"
+    ],
+    "core_mapping_allowed_from": [
+      "evidence_kind=OBSERVED_POST_EVENT with validation_status=ACCEPTED and mapping_status=MAPPED_EXPLICIT",
+      "evidence_kind=OFFICIAL_ASSET_LEVEL_SCENARIO (building-level, not zone-level) with validation_status=ACCEPTED and mapping_status=MAPPED_EXPLICIT",
+      "evidence_kind=MODEL_REALIZATION_EXPERIMENTAL only after a human freeze recorded in schemas/m7_scenario_realization_v1.schema.json (human_freeze_id non-null)"
+    ],
+    "validator_additional_checks": [
+      "damage_state_probabilities values sum to approximately 1 (tolerance 1e-6)",
+      "every damage_state_probabilities key belongs to the declared damage_taxonomy_id/version",
+      "realized_state is null unless evidence_kind is OBSERVED_POST_EVENT / OFFICIAL_ASSET_LEVEL_SCENARIO / MODEL_REALIZATION_EXPERIMENTAL",
+      "source_sha256 matches ^[0-9a-f]{64}$ when non-null; null only for evidence_kind=UNKNOWN",
+      "mapping_to_m7_core is null unless mapping_status=MAPPED_EXPLICIT"
+    ],
+    "current_v2_values": {
+      "M7_REAL_BUILDING_DAMAGE_STATE_READY_COUNT": 0
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0.0",
+  "task_id": "PLATEAU-BUILDING-EVIDENCE-V2",
+  "inspected_at": "2026-09-03",
+  "inspection_mode": "READ_ONLY_OUTSIDE_GIT",
+  "packages": [
+    {
+      "dataset_id": "plateau_kyoto_2025_citygml_v5",
+      "city_code": "26100",
+      "original_filename": "26100_kyoto-shi_city_2025_citygml_1_op.zip",
+      "byte_size": 2700713512,
+      "archive_member_count": 97678,
+      "sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+      "sha256_verified": true,
+      "receipt_id": "receipt-plateau_kyoto_2025_citygml_v5",
+      "members_inspected": [
+        {
+          "member": "udx/bldg/52353692_bldg_6697_op.gml",
+          "sha256": "4d82af404696cc0ee480e2d0993a449cf7240379da7b5d47aeb509f619a69795",
+          "byte_size": 59603577
+        },
+        {
+          "member": "udx/bldg/52354514_bldg_6697_op.gml",
+          "sha256": "0920bdd9bb7dbd1e5b4dc34c3e53a8287a5884949c0ec088580bed81092983db",
+          "byte_size": 23993522
+        },
+        {
+          "member": "udx/bldg/52354602_bldg_6697_op.gml",
+          "sha256": "da121509db28c91428e53564747b37ac0aa2d74969eae0d620c2433367221a35",
+          "byte_size": 51314981
+        },
+        {
+          "member": "codelists/DataQualityAttribute_lod1HeightType.xml"
+        },
+        {
+          "member": "codelists/DataQualityAttribute_geometrySrcDesc.xml"
+        },
+        {
+          "member": "codelists/DataQualityAttribute_thematicSrcDesc.xml"
+        }
+      ]
+    },
+    {
+      "dataset_id": "plateau_fujisawa_2025_citygml_v5",
+      "city_code": "14205",
+      "original_filename": "14205_fujisawa-shi_city_2025_citygml_1_op.zip",
+      "byte_size": 736037983,
+      "archive_member_count": 4928,
+      "sha256": "7e85ff8e1642b9c2cc627f356acedbe792e95fac25febe2ee70c9312d6c415ea",
+      "sha256_verified": true,
+      "receipt_id": "receipt-plateau_fujisawa_2025_citygml_v5",
+      "members_inspected": [
+        {
+          "member": "udx/bldg/52397368_bldg_6697_op.gml",
+          "sha256": "0f69833ffb27721257ac740e99674d4405108853a4d5695821934b37d96ab09d",
+          "byte_size": 18480651
+        }
+      ]
+    }
+  ],
+  "mesh_envelopes": {
+    "52353692_bldg_6697_op.gml": {
+      "srs": "http://www.opengis.net/def/crs/EPSG/0/6697",
+      "lat": [
+        34.991511835683475,
+        35.00017546038772
+      ],
+      "lon": [
+        135.77471694477765,
+        135.78602205485475
+      ]
+    },
+    "52354514_bldg_6697_op.gml": {
+      "srs": "http://www.opengis.net/def/crs/EPSG/0/6697",
+      "lat": [
+        35.0082497870482,
+        35.01681994114788
+      ],
+      "lon": [
+        135.67498205740358,
+        135.68755473897508
+      ]
+    },
+    "52354602_bldg_6697_op.gml": {
+      "srs": "http://www.opengis.net/def/crs/EPSG/0/6697",
+      "lat": [
+        34.9995975298485,
+        35.00861928187889
+      ],
+      "lon": [
+        135.77486566216746,
+        135.78758399319454
+      ]
+    },
+    "52397368_bldg_6697_op.gml": {
+      "srs": "http://www.opengis.net/def/crs/EPSG/0/6697",
+      "lat": [
+        35.29995440314814,
+        35.30842340933747
+      ],
+      "lon": [
+        139.47885053831425,
+        139.48720291138463
+      ]
+    }
+  },
+  "buildings_per_mesh": {
+    "52353692_bldg_6697_op.gml": 2300,
+    "52354514_bldg_6697_op.gml": 2376,
+    "52354602_bldg_6697_op.gml": 2172,
+    "52397368_bldg_6697_op.gml": 327
+  },
+  "raw_tracked_in_git": false,
+  "derived_bytes_in_git": "candidate attribute lists only (IDs, heights, codes, proximity); no geometry"
+}
