@@ -50,9 +50,37 @@ test("[ui_regression] KPI and evidence gaps remain visible and reasoned", async 
   await expect(page.getByRole("heading", { name: "source・facility・gap一覧" })).toBeVisible();
   await expect(page.getByText("kyoto_kiyomizu_gion_evacuation_plan", { exact: true })).toBeVisible();
   await expect(page.getByText("Verified facility entrance, capacity, and current operation records are unavailable.")).toBeVisible();
+  const facilityReadiness = page.getByLabel("横スクロール可能なfacility readiness一覧");
   for (const readiness of ["facility", "entrance", "capacity", "operation", "demand", "origin", "profile (M6)"]) {
-    await expect(page.getByRole("row", { name: new RegExp(`^${readiness.replace(/[()]/g, "\\$&")}`) })).toBeVisible();
+    await expect(facilityReadiness.getByRole("row", { name: new RegExp(`^${readiness.replace(/[()]/g, "\\$&")}`) })).toBeVisible();
   }
+});
+
+test("[source_conformance] Kyoto connects display evidence without promoting scientific or operational state", async ({ page }) => {
+  await page.goto("/?city=kyoto_kiyomizu&layer=real");
+  const official = page.locator(".official-evidence");
+  await expect(official).toContainText("AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED");
+  await expect(official).toContainText("A31b is connected for internal display only");
+  await expect(official).toContainText("612 edges / deep pilot 15 / ready 0 / computed 0");
+  await expect(official.getByLabel("京都公式施設5カテゴリ接続状態")).toContainText("public_tourist_toilet");
+  await expect(official.getByLabel("京都の公式座標施設一覧")).toContainText("SOURCE_PROVIDED_LONGITUDE_LATITUDE");
+  await expect(official.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (366)");
+  await expect(page.locator(".map-runtime-status")).toContainText(/official facilities AVAILABLE/);
+  await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
+  await expect(page.locator(".map-runtime-status")).not.toContainText("official hazard AVAILABLE (366)");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (136)");
+  await expect(page.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  await expect(page.getByText(/公式施設 57件/)).toBeVisible();
+  await expect(page.locator(".official-evidence tbody tr").filter({ hasText: "fujisawa-accessibility-" })).toHaveCount(57);
+  await expect(page.locator(".official-evidence").getByText(/ADDRESS_ONLY、地図markerなし/)).toBeVisible();
+  await expect(page.locator(".official-evidence").getByText("UNKNOWN / UNKNOWN / UNKNOWN")).toHaveCount(57);
+  await expect(page.locator(".official-evidence .map-marker, .official-evidence [data-marker]")).toHaveCount(0);
+  const text = await page.locator("body").innerText();
+  expect(text).not.toContain("安全な避難ルート");
+  expect(text).not.toContain("CLOSEDを導出");
 });
 
 test("[ui_regression] map uses text marks and is keyboard operable", async ({ page }) => {
@@ -131,7 +159,7 @@ test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ p
   await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
-  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
   await page.screenshot({
     path: testInfo.outputPath("kyoto_kiyomizu-real-candidate-2d.png"),
@@ -146,7 +174,7 @@ test("[ui_regression] desktop captures the deterministic unverified-PLATEAU fall
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&view=2d&layer=real");
-  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
   await page.getByRole("button", { name: "3D" }).click();
   await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
@@ -214,7 +242,7 @@ test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap
   await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("continuity NOT_ESTABLISHED", { exact: true })).toBeVisible();
-  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
+  await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
   await expect(page.getByRole("link", { name: "© OpenStreetMap contributors" })).toHaveAttribute("href", "https://www.openstreetmap.org/copyright");
   await expect(page.getByRole("link", { name: "ODbL 1.0" })).toHaveAttribute("href", "https://opendatacommons.org/licenses/odbl/1-0/");
@@ -234,7 +262,7 @@ test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap
   await skipMap.press("Enter");
   await expect(page.locator("#edge-table")).toBeFocused();
   await page.reload();
-  await expect(page.getByRole("row", { name: new RegExp(second) })).toHaveClass(/active-row/);
+  await expect(page.getByRole("table", { name: /実座標候補edge/ }).getByRole("row", { name: new RegExp(second) })).toHaveClass(/active-row/);
 });
 
 test("[ui_regression] all three cities allow explicit real candidate mode", async ({ page }) => {
@@ -379,4 +407,48 @@ test("[ui_regression] real map remains within 320 360 375 and 400 CSS pixels", a
     expect(dimensions.scrollWidth, `viewport ${width}`).toBeLessThanOrEqual(dimensions.width + 1);
     await expect(page.getByRole("link", { name: /OpenStreetMap contributors/ })).toBeVisible();
   }
+});
+
+test("[ui_regression] official evidence tables remain page-width responsive at 320 through 400 CSS pixels", async ({ page }) => {
+  for (const width of [320, 360, 375, 400]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/?city=fujisawa_enoshima&layer=synthetic");
+    await expect(page.getByText(/公式施設 57件/)).toBeVisible();
+    const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+    expect(dimensions.scrollWidth, `official evidence viewport ${width}`).toBeLessThanOrEqual(dimensions.width + 1);
+  }
+});
+
+test("[ui_regression] desktop captures the required V2 official-evidence artifact names", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
+  test.skip(testInfo.project.name !== "desktop-chromium", "V2 evidence screenshots are desktop review artifacts");
+  const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  for (const name of ["kiyomizu-gion-terrain-hazard.png", "kiyomizu-gion-official-facilities.png", "kiyomizu-gion-plateau-or-fallback.png", "kyoto-m7-evidence-not-computed-or-result.png", "kiyomizu-terrain-analysis.png", "m7-evidence-not-computed.png", "fallback.png"]) await capture(name);
+  await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  for (const name of ["arashiyama-terrain-flood.png", "arashiyama-official-facilities.png", "arashiyama-plateau-or-fallback.png", "arashiyama-terrain-analysis.png"]) await capture(name);
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  for (const name of ["fujisawa-earthquake-scenario.png", "fujisawa-liquefaction-scenario.png", "fujisawa-accessibility-table.png"]) await capture(name);
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  await capture("mobile-320-kyoto-official-data.png");
+  await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
+  await capture("mobile-320-official-data.png");
+});
+
+test("[ui_regression] desktop captures Kyoto parity overlays and reasoned-null evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "Kyoto parity screenshots are desktop review artifacts");
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
+  const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
+  await page.goto("/?city=kyoto_kiyomizu&layer=real");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (366)");
+  await expect(page.getByLabel("京都公式施設5カテゴリ接続状態")).toBeVisible();
+  await expect(page.getByLabel("京都M7 deep pilot reasoned null")).toContainText("NOT_COMPUTED / null");
+  await capture("kyoto-kiyomizu-gion-parity.png");
+  await page.getByLabel("京都M7 deep pilot reasoned null").screenshot({ path: testInfo.outputPath("kyoto-m7-reasoned-null.png"), animations: "disabled", caret: "hide" });
+  await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (136)");
+  await expect(page.getByLabel("京都PLATEAU 2025 building evidence inventory")).toContainText("EXISTING_DETERMINISTIC_2D");
+  await capture("kyoto-arashiyama-parity.png");
 });

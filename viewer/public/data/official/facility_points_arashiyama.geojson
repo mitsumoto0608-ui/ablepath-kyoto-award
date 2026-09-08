@@ -1,0 +1,519 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          135.67604713,
+          35.0216645
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:233",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-1543",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68797469,
+          35.01281298
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨五島町1",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:268",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+        "operation_status": "UNKNOWN",
+        "phone": "075-864-7858",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68641668,
+          35.0074608
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山東海道町46",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:292",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山東小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-881-5120",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67697549,
+          35.01023829
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山虚空蔵山町68-3",
+        "aoi_group": "arashiyama",
+        "category": "designated_emergency_evacuation_place",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_emergency_shelters_r80818:314",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "法輪寺",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-0069",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_emergency_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67604713,
+          35.0216645
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨釈迦堂大門町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:263",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-1543",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6866803,
+          35.01344068
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨柳田町35-1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:265",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-872-1466",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68797469,
+          35.01281298
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市右京区嵯峨五島町1",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:307",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨美術大学・嵯峨美術短期大学サガビジュツダイガクサガビジュツタンキダイガク",
+        "operation_status": "UNKNOWN",
+        "phone": "075-864-7858",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.68641668,
+          35.0074608
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山東海道町46",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:329",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山東小学校",
+        "operation_status": "UNKNOWN",
+        "phone": "075-881-5120",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.67697549,
+          35.01023829
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "京都市西京区嵐山虚空蔵山町68-3",
+        "aoi_group": "arashiyama",
+        "category": "designated_shelter",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_designated_shelters_r80818:358",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "法輪寺",
+        "operation_status": "UNKNOWN",
+        "phone": "075-861-0069",
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_designated_shelters_r80818",
+        "source_version_or_valid_as_of": "R8.8.18"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6859469,
+          35.0003239
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵐山宮町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:39",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "松尾大社観光トイレマツオタイシャカンコウ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.677900819701,
+          35.0153000892413
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺造路町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:51",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐電嵐山駅観光トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.681568,
+          35.018601
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺車道町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "JR嵯峨嵐山駅前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.672824722119,
+          35.0198080167197
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺立石町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１１",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵯峨公園トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6790738,
+          35.0141743
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺造路町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－２",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山観光駐車場トイレアラシヤマカンコウチュウシャジョウ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.674161,
+          35.01350355
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨天龍寺芒ノ馬場町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－３",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "天龍寺南門前公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6729689,
+          35.0133267
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨亀ノ尾町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－４",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "亀山公園下公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6791715,
+          35.0118186
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨中ノ島町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－５",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山中ノ島公園東公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6782837,
+          35.0115747
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨中ノ島町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－６",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山中ノ島公園西公衆トイレ\n（嵐山さくらトイレ）アラシヤマ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          135.6761808,
+          35.0117719
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "accessibility_status": "UNKNOWN",
+        "address": "嵯峨元禄山町",
+        "aoi_group": "arashiyama",
+        "category": "public_tourist_toilet",
+        "coordinate_method": "SOURCE_PROVIDED_LONGITUDE_LATITUDE",
+        "entrance_status": "UNKNOWN",
+        "facility_record_id": "kyoto_public_toilets_00307:Ｂ－７",
+        "limitations": "Official source row and source-provided coordinates only; current opening, entrance, accessibility, safety, and disaster usability are not inferred.",
+        "name": "嵐山渡月小橋西公衆トイレ",
+        "operation_status": "UNKNOWN",
+        "phone": null,
+        "safety_status": "UNKNOWN",
+        "silent_geocoding": false,
+        "source_id": "kyoto_public_toilets_00307",
+        "source_version_or_valid_as_of": "2026-03-06"
+      },
+      "type": "Feature"
+    }
+  ],
+  "name": "Kyoto official facility source-coordinate points — arashiyama",
+  "type": "FeatureCollection"
+}

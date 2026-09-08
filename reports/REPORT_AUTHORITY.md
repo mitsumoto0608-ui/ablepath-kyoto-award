@@ -12,7 +12,7 @@ This index separates the current Phase 4 machine truth from compatibility mirror
 - Each city artifact manifest/receipt remains authoritative for that artifact's bytes and provenance within its city pack.
 - RC root `RELEASE_MANIFEST.json` exists inside each generated deterministic RC ZIP, not as a tracked checkout-root file. Its source commit and checksums are authoritative only for that archive.
 
-The scoped current truth is: all three cities have source-traceable VGI real-coordinate `CANDIDATE` geometry and deterministic candidate analysis available through explicit viewer opt-in; all three still default to `SYNTHETIC_DEMO`, route continuity is `NOT_ESTABLISHED`, official hazard analysis covers zero cities, M7 ready/computed counts are zero, M6 is `NOT_COMPUTED`, and model/KPI/Hokonavi production/PLATEAU/facility/administrative/public-release connections remain false.
+The scoped current truth is: all three cities have source-traceable VGI real-coordinate `CANDIDATE` geometry and deterministic candidate analysis available through explicit viewer opt-in; all three still default to `SYNTHETIC_DEMO`, and route continuity is `NOT_ESTABLISHED`. Kyoto additionally has DEM inventory evidence, two AOI-specific A31b source-feature selections, and 77 source-coordinate facility records connected for internal evidence display. Those scoped display connections do not change the global production truth: official hazard edge analysis covers zero cities; operational/entrance/accessibility facility connection, real PLATEAU 3D, model/KPI/Hokonavi, and administrative/public-release connections remain false; M7 ready/computed counts are zero; and M6 is `NOT_COMPUTED`.
 
 ## HISTORICAL_SNAPSHOT
 

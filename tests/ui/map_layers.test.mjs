@@ -11,7 +11,7 @@ import {
   isVerifiedCesiumConnection,
   selectInitialMapMode,
 } from "../../viewer/src/mapDomain.mjs";
-import { assertDeliveredMapArtifacts, buildMapArtifacts, shortestCandidateFixture } from "../../viewer/scripts/build-map-artifacts.mjs";
+import { assertDeliveredMapArtifacts, buildMapArtifacts } from "../../viewer/scripts/build-map-artifacts.mjs";
 import { installCesiumFailureListeners, withTimeout } from "../../viewer/src/mapAsync.mjs";
 import { selectInitialState, serializeState } from "../../viewer/src/domain.mjs";
 
@@ -42,7 +42,14 @@ test("[source_conformance] build copies all allowlisted city candidate graphs wi
     assert.equal(kiyomizu.real_2d.feature_count, 19);
     assert.equal(kiyomizu.real_2d.topology_status, "CANDIDATE_REVIEW_REQUIRED");
     assert.equal(kiyomizu.real_2d.route_continuity, "NOT_ESTABLISHED");
-    assert.equal(result.files.length, 4);
+    assert.equal(result.files.length, 8);
+    for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
+      assert.deepEqual(
+        readFileSync(join(output, "..", "official", filename)),
+        readFileSync(new URL(`../../inputs/staging/KYOTO-OFFICIAL-PARITY-V1/${filename}`, import.meta.url)),
+        `${filename} must remain an exact-byte-copy delivery`,
+      );
+    }
 
     for (const city of catalog.cities) {
       const deliveredPath = join(output, city.real_2d.data_path.replace("./data/maps/", ""));
@@ -131,18 +138,6 @@ test("[ui_regression] real mode is explicit for every allowlisted city", () => {
   assert.equal(selectInitialMapMode(validated, "kyoto_kiyomizu", "?layer=synthetic"), "synthetic");
   assert.equal(selectInitialMapMode(validated, "kyoto_arashiyama", "?layer=real"), "real");
   assert.equal(selectInitialMapMode(validated, "fujisawa_enoshima", "?layer=real"), "real");
-});
-
-test("[software_correctness] candidate fixture uses geometric Dijkstra, lexical ties, and reasoned disconnection", () => {
-  const adjacency = new Map([
-    ["a", [["d", "direct"], ["b", "a-b"], ["c", "a-c"]]],
-    ["b", [["a", "a-b"], ["d", "b-d"]]],
-    ["c", [["a", "a-c"], ["d", "c-d"]]],
-    ["d", [["a", "direct"], ["b", "b-d"], ["c", "c-d"]]],
-  ]);
-  const lengths = new Map([["direct", 10], ["a-b", 1], ["b-d", 1], ["a-c", 1], ["c-d", 1]]);
-  assert.deepEqual(shortestCandidateFixture(adjacency, lengths, "a", "d"), { status: "CONNECTED", edge_ids: ["a-b", "b-d"], geometric_length: 2 });
-  assert.deepEqual(shortestCandidateFixture(adjacency, lengths, "a", "missing"), { status: "DISCONNECTED", edge_ids: [], geometric_length: null });
 });
 
 test("[source_conformance] every city allowlist fails closed on an artifact hash mismatch", () => {

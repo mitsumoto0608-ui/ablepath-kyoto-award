@@ -1,0 +1,16 @@
+{
+  "dataset_id": "gsi_dem_5m10m_current",
+  "outer_original_filename": "20260902014842719-001.zip",
+  "outer_sha256": "6b67adaabe15908189316eb34dd574bfe5854b9db509f29902eab7ecfc3a88db",
+  "subareas": ["kiyomizu", "gion", "kiyomizu_gion_connector"],
+  "mesh_candidates": ["523536", "523546"],
+  "product_inventory_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
+  "product_count": 6,
+  "horizontal_crs": ["fguuid:jgd2024.bl", "fguuid:jgd2011.bl"],
+  "axis_semantics": "GML formal latitude_longitude; GeoJSON longitude_latitude is separate",
+  "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+  "aoi_status": "CANDIDATE_MESH_ONLY_AOI_INTERSECTION_PENDING",
+  "validation_result": "CRS_REVIEW_REQUIRED",
+  "terrain_connected": false,
+  "limitations": "No sampling or elevation analysis. DEM is not evidence of step, curb, cross-slope, or accessibility."
+}

@@ -1,0 +1,45 @@
+{
+  "task_id": "ABLEPATH-TK02-STATIC-VIEWER-BOUNDARY-AND-FINAL-INTEGRATION-V1",
+  "finding_id": "TK-02",
+  "status": "RESOLVED_PENDING_HOSTED_CI_AND_INDEPENDENT_REVIEW",
+  "source_analysis_authority": "src/analysis/candidate_network.py",
+  "source_generator": "scripts/build_candidate_analysis.py",
+  "viewer_analysis_mode": "STATIC_READ_ONLY",
+  "viewer_graph_computation_count": 0,
+  "analysis_output_byte_identical": false,
+  "analysis_value_parity": true,
+  "byte_delta_reason": "The predecessor artifacts bound CRLF working-tree representations for several tracked text evidence files. The successor uses cross-platform canonical-LF text bindings and adds two previously unbound Kyoto evidence dependency hashes; graph, selectable nodes, path matrix, path fixture, M7 values, reason text, ordering, and UI semantics are unchanged.",
+  "pre_tk02_sha256": {
+    "kyoto_kiyomizu": "e47d38b18d2f5f17954492d0704c6a406fac4d32cc03aadaa774c0b850846050",
+    "kyoto_arashiyama": "2e739a5645182fb3b6d2bc071f0e3c6d06b09109d4e77eaeaf4ed3d0310673b5",
+    "fujisawa_enoshima": "a801bf4b2378be151a04444c55255eca176559816d594218bc5f637bff94a098"
+  },
+  "successor_sha256": {
+    "kyoto_kiyomizu": "9abc8824003b6270cf6eb0faaee21e3976845b2c9d103743691f706abd4ca921",
+    "kyoto_arashiyama": "1ba2c82e7ee2acfce94182a8a285cedea41cd73a6630cbcce51050d818abb22b",
+    "fujisawa_enoshima": "b382ba453cf2166e9242fa32433682c36a2f38b5b87062cdbc7ba4c92fc4ad37"
+  },
+  "invariants": {
+    "city_count": 3,
+    "all_edge_count": 612,
+    "deep_pilot_count": 15,
+    "m7_evidence_ready_count": 0,
+    "m7_computed_count": 0,
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false,
+    "public_release_ready": false
+  },
+  "tests": {
+    "red_commit_present": true,
+    "source_generator_parity": true,
+    "stale_input_detection": true,
+    "viewer_boundary": true,
+    "architecture_mutations_killed": true,
+    "hosted_ci_green": null,
+    "independent_audit_green": true,
+    "critical_open_count": 0,
+    "high_open_count": 0
+  },
+  "model_route_verified": false
+}

@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 from heapq import heappop, heappush
-from math import hypot, isfinite
+from itertools import count
+from math import isfinite, sqrt
 from numbers import Real
 
 M7_API_FIELDS = (
@@ -156,6 +157,22 @@ def assess_m7_readiness(edge_id: str, props: dict) -> dict:
         raise TypeError("M7 edge properties must be a dict")
     return _m7_readiness(edge_id, props)
 
+
+def _javascript_hypot2(first: float, second: float) -> float:
+    """Match ECMAScript Math.hypot for byte-compatible legacy viewer output."""
+    values = (abs(first), abs(second))
+    maximum = max(values)
+    if maximum == 0:
+        return 0.0
+    total = 0.0
+    compensation = 0.0
+    for value in values:
+        summand = (value / maximum) ** 2 - compensation
+        temporary = total + summand
+        compensation = (temporary - total) - summand
+        total = temporary
+    return sqrt(total) * maximum
+
 def _node_ids(nodes):
     ids = []
     for node in nodes:
@@ -166,52 +183,132 @@ def _node_ids(nodes):
     return sorted(ids)
 
 def _edge_length(edge):
-    coords = edge.get("geometry", {}).get("coordinates") if isinstance(edge, dict) else None
+    geometry = edge.get("geometry", {}) if isinstance(edge, dict) else {}
+    coords = geometry.get("coordinates")
+    if geometry.get("type") not in (None, "LineString"):
+        raise ValueError("candidate edge must be a LineString")
     if not isinstance(coords, list) or len(coords) < 2: raise ValueError("candidate edge must have at least two coordinate positions")
     length = 0.0
     for first, second in zip(coords, coords[1:]):
         if not (isinstance(first, list) and isinstance(second, list) and len(first) >= 2 and len(second) >= 2): raise ValueError("candidate edge coordinates must be positions")
-        if not all(isinstance(value, (int, float)) and isfinite(value) for value in [*first[:2], *second[:2]]): raise ValueError("candidate edge coordinates must be finite")
-        length += hypot(second[0] - first[0], second[1] - first[1])
+        if not all(not isinstance(value, bool) and isinstance(value, (int, float)) and isfinite(value) for value in [*first[:2], *second[:2]]): raise ValueError("candidate edge coordinates must be finite")
+        length += _javascript_hypot2(second[0] - first[0], second[1] - first[1])
     if length <= 0: raise ValueError("candidate edge must have non-zero coordinate-degree length")
     return length
+
+
+def build_candidate_graph(edges: list[dict]):
+    """Return the canonical sorted undirected graph and exact edge lengths."""
+    if not isinstance(edges, list):
+        raise ValueError("candidate edges must be a list")
+    adjacency = {}
+    lengths = {}
+    identifiers = set()
+    normalized = []
+    for edge in edges:
+        props = edge.get("properties", {}) if isinstance(edge, dict) else {}
+        edge_id, start, end = props.get("edge_id"), props.get("from_node"), props.get("to_node")
+        if not all(isinstance(value, str) and value for value in (edge_id, start, end)):
+            raise ValueError("candidate edge identifiers and endpoints must be non-empty strings")
+        if edge_id in identifiers:
+            raise ValueError("candidate edge_id values must be unique")
+        if start == end:
+            raise ValueError("candidate edge cannot have the same endpoint twice")
+        identifiers.add(edge_id)
+        normalized.append((edge_id, start, end, _edge_length(edge)))
+    for edge_id, start, end, length in sorted(normalized):
+        adjacency.setdefault(start, []).append((end, edge_id))
+        adjacency.setdefault(end, []).append((start, edge_id))
+        lengths[edge_id] = length
+    return adjacency, lengths
+
+
+def candidate_components(adjacency: dict, extra_nodes=()):
+    """Return deterministic connected components, including explicit isolated nodes."""
+    complete = {node: list(neighbours) for node, neighbours in adjacency.items()}
+    for node in extra_nodes:
+        complete.setdefault(node, [])
+    seen = set()
+    components = []
+    for node in sorted(complete):
+        if node in seen:
+            continue
+        component = []
+        pending = [node]
+        seen.add(node)
+        while pending:
+            current = pending.pop()
+            component.append(current)
+            for neighbour, _ in complete[current]:
+                if neighbour not in seen:
+                    seen.add(neighbour)
+                    pending.append(neighbour)
+        components.append(sorted(component))
+    return components
+
+
+def shortest_candidate_fixture(adjacency: dict, lengths: dict, start: str, end: str):
+    """Return the canonical lexical-tie deterministic candidate path."""
+    sequence = count()
+    best = {start: (0.0, ())}
+    queue = [(0.0, (), next(sequence), start)]
+    while queue:
+        cost, route, _, current = heappop(queue)
+        if (cost, route) != best.get(current):
+            continue
+        for neighbour, edge_id in sorted(adjacency.get(current, []), key=lambda row: row[1]):
+            candidate = (cost + lengths[edge_id], route + (edge_id,))
+            if candidate < best.get(neighbour, (float("inf"), ())):
+                best[neighbour] = candidate
+                heappush(queue, (candidate[0], candidate[1], next(sequence), neighbour))
+    if end not in best:
+        return {"status": "DISCONNECTED", "edge_ids": [], "geometric_length": None}
+    return {"status": "CONNECTED", "edge_ids": list(best[end][1]), "geometric_length": best[end][0]}
+
+
+def choose_selectable_node_ids(edges: list[dict], extra_nodes=()):
+    """Choose the exact deterministic three-node viewer fixture."""
+    adjacency, _ = build_candidate_graph(edges)
+    components = candidate_components(adjacency, extra_nodes)
+    if not components:
+        return []
+    if len(components) > 1:
+        return [components[0][0], components[0][-1], components[1][0]]
+    return components[0][:3]
+
+
+def build_path_matrix(edges: list[dict], selectable_node_ids: list[str]):
+    """Build all ordered canonical paths for the selectable-node fixture."""
+    adjacency, lengths = build_candidate_graph(edges)
+    matrix = {}
+    for start in selectable_node_ids:
+        for end in selectable_node_ids:
+            if start == end:
+                continue
+            selected = shortest_candidate_fixture(adjacency, lengths, start, end)
+            matrix[f"{start}__{end}"] = {
+                "start_node_id": start,
+                "end_node_id": end,
+                **selected,
+                "unit": "coordinate_degree",
+                "reason": CONNECTED_REASON if selected["status"] == "CONNECTED" else DISCONNECTED_REASON,
+            }
+    return matrix
 
 def summarize(nodes: list[dict], edges: list[dict], start: str, end: str) -> dict:
     """Return deterministic candidate-only topology/path and reasoned-null readiness."""
     if not isinstance(nodes, list) or not isinstance(edges, list): raise ValueError("candidate nodes and edges must be lists")
     node_ids = _node_ids(nodes); known = set(node_ids)
     if start not in known or end not in known: raise ValueError("selected node is not in the candidate graph")
-    adjacency = {node_id: [] for node_id in node_ids}; edge_ids = set(); normalized_edges = []
+    adjacency, lengths = build_candidate_graph(edges)
+    for node_id in node_ids: adjacency.setdefault(node_id, [])
+    normalized_edges = []
     for edge in edges:
         props = edge.get("properties", {}) if isinstance(edge, dict) else {}
         edge_id, a, b = props.get("edge_id"), props.get("from_node"), props.get("to_node")
-        if not all(isinstance(value, str) and value for value in (edge_id, a, b)): raise ValueError("candidate edge identifiers and endpoints must be non-empty strings")
-        if edge_id in edge_ids: raise ValueError("candidate edge_id values must be unique")
         if a not in known or b not in known: raise ValueError("edge endpoint is not a candidate node")
-        if a == b: raise ValueError("candidate edge cannot have the same endpoint twice")
-        edge_ids.add(edge_id); length = _edge_length(edge)
-        adjacency[a].append((b, edge_id, length)); adjacency[b].append((a, edge_id, length)); normalized_edges.append((edge_id, props))
-    for neighbours in adjacency.values(): neighbours.sort(key=lambda row: (row[1], row[0]))
-    unseen, components = set(node_ids), 0
-    while unseen:
-        components += 1; pending = [min(unseen)]; unseen.remove(pending[0])
-        while pending:
-            current = pending.pop()
-            for nxt, _, _ in adjacency[current]:
-                if nxt in unseen: unseen.remove(nxt); pending.append(nxt)
-    queue = [(0.0, (), start)]; previous = {start: None}; best = {start: (0.0, ())}
-    while queue:
-        cost, route, current = heappop(queue)
-        if (cost, route) != best.get(current): continue
-        for nxt, edge_id, length in adjacency[current]:
-            candidate = (cost + length, route + (edge_id,))
-            if candidate < best.get(nxt, (float("inf"), ())):
-                best[nxt] = candidate; previous[nxt] = (current, edge_id, length); heappush(queue, (candidate[0], candidate[1], nxt))
-    if end in previous:
-        route, cursor = [], end
-        while previous[cursor] is not None: cursor, edge_id, _ = previous[cursor]; route.append(edge_id)
-        path = {"status": "CONNECTED", "edge_ids": list(reversed(route)), "geometric_length": best[end][0], "unit": "coordinate_degree", "reason": CONNECTED_REASON}
-    else:
-        path = {"status": "DISCONNECTED", "edge_ids": [], "geometric_length": None, "unit": "coordinate_degree", "reason": DISCONNECTED_REASON}
+        normalized_edges.append((edge_id, props))
+    selected = shortest_candidate_fixture(adjacency, lengths, start, end)
+    path = {**selected, "unit": "coordinate_degree", "reason": CONNECTED_REASON if selected["status"] == "CONNECTED" else DISCONNECTED_REASON}
     readiness = [assess_m7_readiness(edge_id, props) for edge_id, props in sorted(normalized_edges)]
-    return {"topology": {"nodes": len(nodes), "edges": len(edges), "connected_components": components}, "path": path, "hazard_overlap": {"status": "NOT_CONNECTED", "reason": "No trusted official hazard geometry is connected; no closure is derived."}, "m7": {"ready_edge_count": sum(row["m7_evidence_ready"] for row in readiness), "computed_edge_count": sum(row["m7_computed"] for row in readiness), "readiness": readiness}, "m6": {"status": "NOT_COMPUTED", "reason": "Human freeze is pending."}}
+    return {"topology": {"nodes": len(nodes), "edges": len(edges), "connected_components": len(candidate_components(adjacency, node_ids))}, "path": path, "hazard_overlap": {"status": "NOT_CONNECTED", "reason": "No trusted official hazard geometry is connected; no closure is derived."}, "m7": {"ready_edge_count": sum(row["m7_evidence_ready"] for row in readiness), "computed_edge_count": sum(row["m7_computed"] for row in readiness), "readiness": readiness}, "m6": {"status": "NOT_COMPUTED", "reason": "Human freeze is pending."}}

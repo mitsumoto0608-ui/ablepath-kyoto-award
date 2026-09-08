@@ -1,0 +1,7 @@
+field,structural_missing_edge_count,evidence_missing_edge_count,blocked_edge_count,count_basis,next_acquisition,prohibited_derivation
+clear_width_m,612,612,612,CURRENT_612_EDGE_SCAN,"Reviewed H23 walking-space evidence, explicit source-tagged width, or verified field measurement","No highway-class, raster, visual, or missing-to-zero inference"
+left_buildings,612,612,612,CURRENT_612_EDGE_SCAN,Official PLATEAU stable building IDs plus COMPLETE left-side coverage receipt,No centroid setback; no empty list without complete coverage
+right_buildings,612,612,612,CURRENT_612_EDGE_SCAN,Official PLATEAU stable building IDs plus COMPLETE right-side coverage receipt,No centroid setback; no empty list without complete coverage
+variant,612,612,612,CURRENT_612_EDGE_SCAN,Reviewed pilot decision recording mean_case or sensitivity_high_case,No silent default and no route-state inference
+official_closure,597,612,612,CURRENT_612_EDGE_SCAN,Official closure evidence or bounded source query receipt preserving None,No hazard/facility polygon to closure conversion; None is not False
+hazard_data_status,612,612,612,CURRENT_612_EDGE_SCAN,Verified connected hazard context or bounded UNKNOWN decision receipt,No missing-source to silent UNKNOWN and no road-state interpretation

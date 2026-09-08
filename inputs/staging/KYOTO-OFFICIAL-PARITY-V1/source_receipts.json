@@ -1,0 +1,61 @@
+{
+  "dem_inventory_binding": {
+    "elevation_sampled": false,
+    "path": "inputs/staging/OFFICIAL-LOCAL-ARTIFACT-PROMOTION-V2/dem_product_inventory.csv",
+    "scope": "PACKAGE_BOUNDS_DECLARED_HORIZONTAL_CRS_FORMAL_GML_AXIS_AOI_INTERSECTION_ONLY",
+    "sha256": "fed8bfd3d0976713598fa007945f33c51e5fbbbf44ebc9f0ec5b2d1449f59796"
+  },
+  "raw_tracked": false,
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "dataset_id": "nlni_a31b_2025_kyoto_flood",
+      "license": "CC BY 4.0",
+      "official_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip",
+      "raw_locator": "raw-root:kyoto_arashiyama/A31b-25_10_5235_GEOJSON.zip",
+      "sha256": "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c",
+      "version": "2025"
+    },
+    {
+      "dataset_id": "kyoto_emergency_shelters_r80818",
+      "integrity": "ZIP_SIGNATURE_PASS",
+      "official_url": "https://data.city.kyoto.lg.jp/resource/?id=7855",
+      "raw_locator": "raw-root:human-actions/auto-download-kyoto-emergency-shelters-20260901T1912JST/current-r80818.xlsx",
+      "sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "version": "R8.8.18"
+    },
+    {
+      "dataset_id": "kyoto_designated_shelters_r80818",
+      "integrity": "ZIP_SIGNATURE_PASS",
+      "official_url": "https://data.city.kyoto.lg.jp/resource/?id=7854",
+      "raw_locator": "raw-root:human-actions/auto-download-kyoto-shelters-20260901T1910JST/current-r80818.xlsx",
+      "sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "version": "R8.8.18"
+    },
+    {
+      "dataset_id": "kyoto_public_toilets_00307",
+      "license": "CC BY 4.0",
+      "official_url": "https://data.city.kyoto.lg.jp/resource/?id=20314",
+      "raw_locator": "raw-root:phase4-multicity-data-acquisition/raw/shared/kyoto_public_toilets_00307/current.xlsx",
+      "sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "version": "2026-03-06"
+    }
+  ],
+  "transform": {
+    "address_geocoding_used": false,
+    "aoi_inputs": {
+      "arashiyama": {
+        "path": "inputs/staging/PHASE4-MULTICITY-DATA-ACQUISITION/city_aoi/aoi_kyoto_arashiyama_v1.geojson",
+        "sha256": "4769189aa40ff7153acb5e3f598cbd84f76ca415a06d65aea1edd5bbba0f2161"
+      },
+      "kiyomizu_gion": {
+        "path": "inputs/staging/PHASE4-MULTICITY-DATA-ACQUISITION/city_aoi/aoi_kyoto_kiyomizu_gion_v1.geojson",
+        "sha256": "d268d99a34bf4eb5dde257d4ad485996e206c501cc7b7cea9b9a59bcc059f9ee"
+      }
+    },
+    "dem_to_step_or_cross_slope": false,
+    "hazard_to_closure_damage_debris": false,
+    "plateau_to_setback": false,
+    "script": "scripts/build_kyoto_official_parity.py"
+  }
+}

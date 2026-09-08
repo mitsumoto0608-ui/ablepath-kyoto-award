@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "candidate_count": 0,
+  "method_status": "NOT_RUN_INPUT_EVIDENCE_UNVERIFIED",
+  "stable_edge_direction_required": true,
+  "centroid_distance_forbidden": true,
+  "multiple_buildings_policy": "SPLIT_BY_INFLUENCE_INTERVAL_PROPOSAL_REQUIRED",
+  "empty_list_semantics": "NO_CANDIDATE_PUBLISHED_NOT_EVIDENCE_OF_NO_BUILDINGS",
+  "areas": [
+    {
+      "city_id": "kyoto_kiyomizu",
+      "subarea_id": "kiyomizu",
+      "left_candidates": [],
+      "right_candidates": [],
+      "coverage_status": "INCOMPLETE",
+      "coverage_receipt": null,
+      "m7_evidence_ready": false,
+      "missing_fields": ["stable_building_id", "footprint", "height_m", "setback_m", "side_coverage"],
+      "reason": "The raw CityGML package and target-AOI building instances were not available in the authorized scope."
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "subarea_id": "gion",
+      "left_candidates": [],
+      "right_candidates": [],
+      "coverage_status": "INCOMPLETE",
+      "coverage_receipt": null,
+      "m7_evidence_ready": false,
+      "missing_fields": ["stable_building_id", "footprint", "height_m", "setback_m", "side_coverage"],
+      "reason": "The raw CityGML package and target-AOI building instances were not available in the authorized scope."
+    },
+    {
+      "city_id": "kyoto_kiyomizu",
+      "subarea_id": "kiyomizu_gion_connector",
+      "left_candidates": [],
+      "right_candidates": [],
+      "coverage_status": "INCOMPLETE",
+      "coverage_receipt": null,
+      "m7_evidence_ready": false,
+      "missing_fields": ["stable_building_id", "footprint", "height_m", "setback_m", "side_coverage"],
+      "reason": "The raw CityGML package and target-AOI building instances were not available in the authorized scope."
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "subarea_id": "arashiyama",
+      "left_candidates": [],
+      "right_candidates": [],
+      "coverage_status": "INCOMPLETE",
+      "coverage_receipt": null,
+      "m7_evidence_ready": false,
+      "missing_fields": ["stable_building_id", "footprint", "height_m", "setback_m", "side_coverage"],
+      "reason": "The raw CityGML package and target-AOI building instances were not available in the authorized scope."
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "subarea_id": "enoshima_katase",
+      "left_candidates": [],
+      "right_candidates": [],
+      "coverage_status": "INCOMPLETE",
+      "coverage_receipt": null,
+      "m7_evidence_ready": false,
+      "missing_fields": ["stable_building_id", "footprint", "height_m", "setback_m", "side_coverage"],
+      "reason": "The raw CityGML package and target-AOI building instances were not available in the authorized scope."
+    }
+  ]
+}
