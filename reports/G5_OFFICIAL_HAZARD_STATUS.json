@@ -1,0 +1,26 @@
+{
+  "gate": "G5_OFFICIAL_HAZARD",
+  "status": "PARTIAL",
+  "connected_cities": [],
+  "layers": [],
+  "city_status": {
+    "kyoto_kiyomizu": {
+      "status": "NOT_CONNECTED",
+      "reason": "The available Kyoto official hazard preview is quarantined/metadata-only; the READY_FOR_INGESTION flood archive remains outside Git and has no reviewed AOI-clipped artifact in this lane."
+    },
+    "kyoto_arashiyama": {
+      "status": "NOT_CONNECTED",
+      "reason": "The READY_FOR_INGESTION A31b source receipt is present, but no reviewed AOI-clipped artifact was generated in this lane."
+    },
+    "fujisawa_enoshima": {
+      "status": "NOT_CONNECTED",
+      "reason": "The tsunami source is LICENSE_REVIEW_REQUIRED; no official geometry is promoted."
+    }
+  },
+  "closure_derived": false,
+  "safety_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "actual_model": "UNVERIFIED",
+  "model_route_verified": false
+}

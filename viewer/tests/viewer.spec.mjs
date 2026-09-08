@@ -141,7 +141,7 @@ test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ p
   });
 });
 
-test("[ui_regression] desktop captures mocked 3D failure after deterministic 2D fallback", async ({ page }, testInfo) => {
+test("[ui_regression] desktop captures the deterministic unverified-PLATEAU fallback", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "deterministic 3D-fallback screenshot is a desktop artifact");
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.abort("failed"));
@@ -149,11 +149,8 @@ test("[ui_regression] desktop captures mocked 3D failure after deterministic 2D 
   await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
-  await expect(page).toHaveURL(/view=2d.*layer=real/);
-  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
-  await expect(page.locator(".map-runtime-status")).toContainText("local overlay AVAILABLE");
-  await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
+  await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(/CORS・AOI・child tiles の検証 receipt が未完了/)).toBeVisible();
   await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toHaveCount(0);
   await page.screenshot({
     path: testInfo.outputPath("kyoto_kiyomizu-3d-fallback.png"),
@@ -279,7 +276,7 @@ test("[ui_regression] precomputed candidate path controls change fixtures withou
   if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath("mobile-320-analysis.png"), fullPage: true });
 });
 
-test("[ui_regression] Cesium is lazy-loaded and a mocked local tileset gates runtime success", async ({ page }) => {
+test("[ui_regression] unverified PLATEAU metadata stays NOT_CONNECTED even when a tileset is mocked", async ({ page }) => {
   const requestedScripts = [];
   let tilesetRequests = 0;
   page.on("request", (request) => {
@@ -303,15 +300,15 @@ test("[ui_regression] Cesium is lazy-loaded and a mocked local tileset gates run
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   expect(requestedScripts).toHaveLength(0);
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toBeVisible();
-  expect(requestedScripts.length).toBeGreaterThan(0);
+  await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
+  expect(requestedScripts).toHaveLength(0);
   await expect(page.getByText("OFFICIAL_METADATA_ONLY", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("PLATEAU_3D_CONNECTED=false", { exact: false })).toBeVisible();
+  await expect(page.getByText(/CORS・AOI・child tiles の検証 receipt が未完了/)).toBeVisible();
   await page.waitForTimeout(500);
-  expect(tilesetRequests).toBe(1);
+  expect(tilesetRequests).toBe(0);
 });
 
-test("[ui_regression] Cesium child-tile failure after root load returns to 2D", async ({ page }) => {
+test("[ui_regression] an unverified child-tile fixture never starts a Cesium request", async ({ page }) => {
   let childRequests = 0;
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.fulfill({
     contentType: "application/json",
@@ -332,26 +329,25 @@ test("[ui_regression] Cesium child-tile failure after root load returns to 2D", 
   });
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible({ timeout: 15_000 });
-  await expect(page).toHaveURL(/view=2d.*layer=real/);
-  expect(childRequests).toBeGreaterThan(0);
-  await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
+  await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
+  expect(childRequests).toBe(0);
 });
 
-test("[ui_regression] Cesium CORS failure returns to 2D and preserves real-layer URL state", async ({ page }) => {
-  await page.addInitScript(() => { globalThis.__ABLEPATH_CESIUM_TIMEOUT_MS__ = 100; });
-  await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.abort("failed"));
+test("[ui_regression] missing CORS receipt preserves selected real-layer state without a request", async ({ page }) => {
+  let requests = 0;
+  await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => { requests += 1; return route.abort("failed"); });
   const selected = "KK-OSM-W1251544286-S01";
   await page.goto(`/?city=kyoto_kiyomizu&view=2d&layer=real&map_edge=${selected}`);
   await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
-  await expect(page).toHaveURL(new RegExp(`view=2d.*layer=real.*map_edge=${selected}`));
-  await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
+  await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveURL(new RegExp(`view=3d.*layer=real.*map_edge=${selected}`));
+  expect(requests).toBe(0);
 });
 
-test("[ui_regression] Cesium timeout returns to 2D and ignores a late root response", async ({ page }) => {
-  await page.addInitScript(() => { globalThis.__ABLEPATH_CESIUM_TIMEOUT_MS__ = 100; });
+test("[ui_regression] a late mocked root response cannot promote metadata-only PLATEAU", async ({ page }) => {
+  let requests = 0;
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", async (route) => {
+    requests += 1;
     await new Promise((resolve) => setTimeout(resolve, 600));
     await route.fulfill({
       contentType: "application/json",
@@ -367,10 +363,9 @@ test("[ui_regression] Cesium timeout returns to 2D and ignores a late root respo
     });
   });
   await page.goto("/?city=kyoto_kiyomizu&view=3d&layer=real");
-  await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible({ timeout: 15_000 });
-  await expect(page).toHaveURL(/view=2d.*layer=real/);
-  await expect(page.getByText("3Dから2Dへfallback", { exact: true })).toBeVisible();
-  await page.waitForTimeout(750);
+  await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
+  await page.waitForTimeout(100);
+  expect(requests).toBe(0);
   await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toHaveCount(0);
 });
 

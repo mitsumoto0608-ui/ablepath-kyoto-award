@@ -1,0 +1,70 @@
+{
+  "gate8_plateau_3d": {
+    "status": "PARTIAL",
+    "connected_cities": [],
+    "real_tileset": false,
+    "sources": [
+      {
+        "city_id": "kyoto_kiyomizu",
+        "city_code": "26100",
+        "source_id": "plateau_kyoto_bldg_tileset_20260830",
+        "source_url": "https://api.plateauview.mlit.go.jp/datacatalog/3dtiles/26100-bldg-lod2-texture-2025/tileset.json",
+        "version": "Kyoto City 2025 candidate tileset snapshot",
+        "license": "PLATEAU Site Policy / dataset-specific terms require review",
+        "pdl_verified": false,
+        "source_crs": "3D Tiles coordinate metadata; runtime interpretation deferred",
+        "sha256": "ce58a92bb9da595d9251cd72b7b77af6da9a3748628a0e8370ffc6fbc6312242",
+        "cors_verified": false,
+        "aoi_verified": false,
+        "child_tiles_verified": false,
+        "connection_mode": "NOT_CONNECTED",
+        "reason": "The retained root metadata is hash-bound, but its source terms, runtime CORS, child availability, and Kiyomizu AOI coverage have no reviewed receipt."
+      },
+      {
+        "city_id": "kyoto_arashiyama",
+        "city_code": "26100",
+        "source_id": "plateau_kyoto_2025_citygml_v5",
+        "source_url": "https://assets.cms.plateau.reearth.io/assets/c8/4c6540-2bcf-4773-b21d-74ad2d9f1ba1/26100_kyoto-shi_city_2025_citygml_1_op.zip",
+        "version": "FY2025 / product specification v5",
+        "license": "PLATEAU Site Policy section 3 / embedded source terms",
+        "pdl_verified": false,
+        "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+        "sha256": "3ea8f10ac188b7042d151efdf29534f060196e523b1d66e8eb892e82a7ec293c",
+        "cors_verified": false,
+        "aoi_verified": false,
+        "child_tiles_verified": false,
+        "connection_mode": "NOT_CONNECTED",
+        "reason": "The large raw CityGML package remains outside Git and requires package CRS, integrity, license, and Arashiyama AOI review before any bounded derivative or remote tileset can connect."
+      },
+      {
+        "city_id": "fujisawa_enoshima",
+        "city_code": "14205",
+        "source_id": "plateau_fujisawa_2025_citygml_v5",
+        "source_url": "https://assets.cms.plateau.reearth.io/assets/f6/937d63-b787-4319-a5a5-bedcafde2cc7/14205_fujisawa-shi_city_2025_citygml_1_op.zip",
+        "version": "FY2025 / product specification v5",
+        "license": "PLATEAU Site Policy section 3 / embedded source terms",
+        "pdl_verified": false,
+        "source_crs": "NOT_EXPLICIT_UNTIL_PACKAGE_INSPECTION",
+        "sha256": "7e85ff8e1642b9c2cc627f356acedbe792e95fac25febe2ee70c9312d6c415ea",
+        "cors_verified": false,
+        "aoi_verified": false,
+        "child_tiles_verified": false,
+        "connection_mode": "NOT_CONNECTED",
+        "reason": "The large raw CityGML package is LICENSE_REVIEW_REQUIRED and no CORS-compatible official tileset or bounded derivative receipt was acquired."
+      }
+    ],
+    "fallback": "Deterministic existing 2D view; no Cesium request is started from metadata-only records."
+  },
+  "gate8_facilities": {
+    "status": "BLOCKED",
+    "connected_sources": [],
+    "operation_inferred": false,
+    "table_only_sources": [],
+    "reason": "The tracked handoff has official landing-page metadata but no reviewed facility rows with direct coordinates. Addresses are not geocoded. Capacity, opening, entrance, fire_safe, and accessibility remain null with reasons in the existing evidence table."
+  },
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "model_route": "UNVERIFIED",
+  "MODEL_ROUTE_VERIFIED": false
+}

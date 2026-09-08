@@ -143,3 +143,19 @@ test("[source_conformance] authoritative docs state the same scoped map truth wi
     assert.ok(!joined.includes(unsafeClaim), `unsafe claim found: ${unsafeClaim}`);
   }
 });
+
+test("[source_conformance] Gate 8 records incomplete official evidence as fail-closed status", () => {
+  const gate8 = readJson("reports/G8_PLATEAU_FACILITY_STATUS.json");
+  assert.equal(gate8.gate8_plateau_3d.status, "PARTIAL");
+  assert.deepEqual(gate8.gate8_plateau_3d.connected_cities, []);
+  assert.equal(gate8.gate8_plateau_3d.real_tileset, false);
+  assert.equal(gate8.gate8_facilities.status, "BLOCKED");
+  assert.deepEqual(gate8.gate8_facilities.connected_sources, []);
+  assert.equal(gate8.gate8_facilities.operation_inferred, false);
+  for (const source of gate8.gate8_plateau_3d.sources) {
+    assert.equal(source.cors_verified, false);
+    assert.equal(source.aoi_verified, false);
+    assert.equal(source.connection_mode, "NOT_CONNECTED");
+    assert.match(source.sha256, /^[a-f0-9]{64}$/);
+  }
+});

@@ -1,0 +1,36 @@
+{
+  "gate5_official_hazard": {
+    "status": "PARTIAL",
+    "connected_cities": [],
+    "connected_layers": [],
+    "closure_derived": false
+  },
+  "gate6_m7_real_edge": {
+    "status": "PARTIAL",
+    "selected_edge_count": 15,
+    "evidence_ready_count": 0,
+    "computed_count": 0
+  },
+  "gate7_m6": {
+    "status": "READY_FOR_HUMAN_FREEZE",
+    "production_connected": false
+  },
+  "gate7_hokonavi": {
+    "status": "READY_FOR_HUMAN_FREEZE",
+    "production_connected": false
+  },
+  "gate8_plateau_3d": {
+    "status": "PARTIAL",
+    "connected_cities": [],
+    "real_tileset": false
+  },
+  "gate8_facilities": {
+    "status": "BLOCKED",
+    "connected_sources": [],
+    "operation_inferred": false
+  },
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "public_release_ready": false
+}

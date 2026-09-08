@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import { isVerifiedCesiumConnection } from "./mapDomain.mjs";
 
 export function CesiumPanel({ config, onFallback, onAnnouncement }) {
   const [Scene, setScene] = useState(null);
   const [runtimeStatus, setRuntimeStatus] = useState("LAZY_LOADING_RUNTIME");
+  const verifiedConnection = isVerifiedCesiumConnection(config);
   const handleConnected = useCallback(() => {
     setRuntimeStatus("SESSION_ROOT_TILESET_LOADED");
     onAnnouncement("PLATEAU root tileset metadataをこのセッションで読み込みました");
@@ -10,12 +12,13 @@ export function CesiumPanel({ config, onFallback, onAnnouncement }) {
   const handleFailure = useCallback((reason) => onFallback(`3D通信失敗: ${reason}`), [onFallback]);
 
   useEffect(() => {
+    if (!verifiedConnection) return undefined;
     let active = true;
     import("./CesiumScene.jsx")
       .then((module) => active && setScene(() => module.default))
       .catch((error) => active && onFallback(`Cesium runtimeの読込に失敗しました: ${error.message}`));
     return () => { active = false; };
-  }, [onFallback]);
+  }, [onFallback, verifiedConnection]);
 
   if (!config) {
     return (
@@ -24,6 +27,22 @@ export function CesiumPanel({ config, onFallback, onAnnouncement }) {
         <h2 id="three-d-title">この都市の3D layerは未設定です</h2>
         <p>実在しないtilesetを補完せず、合成2Dへ戻せます。</p>
         <button type="button" onClick={() => onFallback("この都市に3D metadataがないため2Dへ戻りました")}>2Dへ戻る</button>
+      </section>
+    );
+  }
+
+  if (!verifiedConnection) {
+    return (
+      <section className="three-d-notice" aria-labelledby="three-d-title">
+        <p className="eyebrow"><span>OFFICIAL PLATEAU METADATA</span> / <strong>NOT_CONNECTED</strong></p>
+        <h2 id="three-d-title">3Dは未接続です</h2>
+        <div className="layer-facts">
+          <span>{config.data_class}</span><span>{config.source_class}</span><span>{config.lod}</span><span>accessed {config.accessed_at}</span>
+        </div>
+        <p>CORS・AOI・child tiles の検証 receipt が未完了のため、保持済みmetadataやmock tilesetを実PLATEAU接続として扱わず、Cesiumの通信は開始しません。</p>
+        <p>施設の位置・容量・入口・開設／運用・fire_safe・accessibility の原典行データも未接続です。未確認値は null／理由付きのtable証跡に留めます。</p>
+        <p className="map-attribution"><a href={config.license_url} target="_blank" rel="noreferrer">{config.attribution}</a></p>
+        <button type="button" onClick={() => onFallback("検証済みPLATEAU connection receiptがないため2Dへ戻りました")}>2Dへ戻る</button>
       </section>
     );
   }
