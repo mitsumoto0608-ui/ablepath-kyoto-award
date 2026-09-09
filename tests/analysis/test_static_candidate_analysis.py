@@ -151,6 +151,12 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
     with pytest.raises(ValueError, match="review checklist contract"):
         validate_static_candidate_analysis(ROOT, wrong_path)
 
+    missing_m7_unknown = deepcopy(artifact)
+    connected_key = next(key for key, path_row in missing_m7_unknown["path_matrix"].items() if path_row["status"] == "CONNECTED")
+    missing_m7_unknown["review_checklists"][connected_key]["rows"][0]["unknowns"].remove("M7")
+    with pytest.raises(ValueError, match="review checklist contract"):
+        validate_static_candidate_analysis(ROOT, missing_m7_unknown)
+
     fujisawa = json.loads((generated / "fujisawa_enoshima.json").read_text(encoding="utf-8"))
     invented_time = deepcopy(fujisawa)
     invented_time["official_evidence"]["facility"]["source_catalog"]["fujisawa_webgis_toilets_accessibility"]["acquired_at"] = "2030-01-01"

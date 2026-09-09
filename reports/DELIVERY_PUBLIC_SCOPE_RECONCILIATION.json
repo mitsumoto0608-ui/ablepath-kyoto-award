@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-09-10",
+  "repository": "mitsumoto0608-ui/ablepath-kyoto-award",
+  "observation_receipt": "reports/DELIVERY_PUBLIC_SCOPE_OBSERVATION.json",
+  "repository_selected_response_sha256": "e0143721e0a4f9ee1550f70f63807b6ab08dd586d798d1269666c7d6af946e65",
+  "release_selected_response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "github_api_observation": {"private": false, "visibility": "PUBLIC", "release_count": 0},
+  "authorized_scope": {"authority": "reports/F1_F6_DECISION_BINDING.json", "public_git": false, "public_rc": false, "public_demo": false},
+  "visibility_authorization_mismatch": true,
+  "already_publicly_visible_classes": ["repository_content_and_history", "branches", "pull_requests", "actions_metadata_and_logs_subject_to_GitHub_visibility"],
+  "github_release_found": false,
+  "remote_write_gate": "BLOCKED_PENDING_OWNER_SCOPE_DECISION",
+  "visibility_change_authorized": false,
+  "new_push_authorized": false,
+  "merge_authorized": false,
+  "public_attachment_authorized": false,
+  "confidential_strings_republished": false,
+  "historical_private_operation_claimed": false,
+  "required_owner_decision": "Reconcile current public repository visibility with F6 before any new remote write or public attachment."
+}

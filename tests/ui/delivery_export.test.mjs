@@ -33,7 +33,7 @@ const checklist = {
 test("[ui_regression] review exports retain provenance and neutralize CSV/HTML injection", () => {
   const exportChecklist = { ...checklist, facility: { ...checklist.facility, records: [{ facility_record_id: "f1", name: " <script>alert(2)</script>", address: "address", source_id: "official-facility", source_version_or_valid_as_of: "v1", source_sha256: "b".repeat(64), source_url: "https://example.invalid/facility", license_status: "FIXTURE_ONLY", source_published_at: null, source_valid_as_of: "v1", source_acquired_at: null, source_temporal_status_reason: "timestamps unavailable", limitations: "fixture facility only", source_attributes: { listed: " =cmd" }, current_operation_status: "UNKNOWN", entrance_status: "UNKNOWN", unlock_status: "UNKNOWN", accessibility_status: "UNKNOWN", step_free_status: "UNKNOWN", disaster_availability_status: "UNKNOWN" }] }, rows: checklist.rows.map((row) => ({ ...row, hazards: [hazard] })) };
   const csv = checklistToCsv(exportChecklist);
-  assert.match(csv, /^row_kind,edge_id,scenario_id,relation,coverage_status,/);
+  assert.match(csv, /^row_kind,city_id,path_key,path_status,checklist_status,candidate_distance,candidate_distance_unit,path_reason,filters,sort_by,safe_route_claim,accessibility_claim,admin_validated,/);
   assert.match(csv, /' =formula/);
   assert.match(csv, /official-facility/);
   assert.match(csv, /a{64}/);
@@ -55,6 +55,68 @@ test("[ui_regression] review exports retain provenance and neutralize CSV/HTML i
   assert.match(html, /metric overlap/);
   assert.match(html, /fixture facility only/);
   assert.match(html, /valid-as-of v1/);
+});
+
+function exportChecklist(analysis, pathKey) {
+  const checklist = structuredClone(analysis.review_checklists[pathKey]);
+  const exposure = new Map(analysis.official_evidence.hazard.edge_exposures.map((row) => [`${row.edge_id}\0${row.scenario_id}\0${row.source_id}`, row]));
+  checklist.rows = checklist.rows.map((row) => ({ ...row, hazards: row.hazard_refs.map((key) => exposure.get(key)) }));
+  checklist.facility.records = analysis.official_evidence.facility.records;
+  checklist.filters = { scenario: "ALL", relation: "ALL", owner: "ALL", unknown_only: false };
+  checklist.sort_by = "EDGE";
+  return checklist;
+}
+
+test("[ui_regression] Kyoto connected and disconnected exports preserve identical selection filters and row sets", () => {
+  const examples = [
+    ["kyoto_kiyomizu", "KK-OSM-N1697644482__KK-OSM-N5315789346", "KK-OSM-N1697644482__KK-OSM-N3752885643"],
+    ["kyoto_arashiyama", "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-014102818768", "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-001212123705"],
+  ];
+  for (const [cityId, connectedKey, disconnectedKey] of examples) {
+    const analysis = JSON.parse(readFileSync(new URL(`../../viewer/public/data/analysis/${cityId}.json`, import.meta.url), "utf8"));
+    for (const [pathKey, expectedStatus] of [[connectedKey, "CONNECTED"], [disconnectedKey, "DISCONNECTED"]]) {
+      const selected = exportChecklist(analysis, pathKey);
+      const csv = checklistToCsv(selected);
+      const json = JSON.parse(checklistToJson(selected));
+      const html = checklistToPrintableHtml(selected);
+      assert.equal(json.path_key, pathKey);
+      assert.equal(json.path_status, expectedStatus);
+      assert.match(csv, new RegExp(pathKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+      assert.match(html, new RegExp(pathKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+      assert.match(csv, /"\{""owner"":""ALL""/u);
+      assert.match(html, /filters:/);
+      const exportedCandidateEdges = csv.split("\n").slice(1).filter((line) => line.startsWith('"candidate_edge"')).map((line) => selected.rows.find((row) => line.includes(row.edge_id))?.edge_id).filter(Boolean);
+      assert.deepEqual([...new Set(exportedCandidateEdges)], selected.rows.map((row) => row.edge_id));
+      for (const row of selected.rows) assert.match(html, new RegExp(row.edge_id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+      if (expectedStatus === "DISCONNECTED") {
+        assert.equal(selected.rows.length, 0);
+        assert.equal(json.candidate_distance, null);
+        assert.match(csv, /"path_summary"/);
+        assert.match(csv, new RegExp(selected.path_reason.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+        assert.match(html, new RegExp(selected.path_reason.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+        assert.match(csv, /accessibility \| passability \| current_facility_operation \| M6 \| M7/);
+      } else {
+        assert.ok(selected.rows.length > 0);
+        assert.equal(json.candidate_distance, analysis.path_matrix[pathKey].geometric_length);
+      }
+      assert.equal(json.safe_route_claim, false);
+      assert.equal(json.accessibility_claim, false);
+      assert.equal(json.admin_validated, false);
+      assert.match(csv, /,"false","false","false",/);
+      assert.match(html, /safe_route_claim=false \/ accessibility_claim=false \/ admin_validated=false/);
+      assert.match(html, /official_closure=null \/ damage_state=null \/ debris_present=null/);
+      assert.match(csv, /current_operation_status,entrance_status,unlock_status,accessibility_status,step_free_status,disaster_availability_status/);
+      if (expectedStatus === "CONNECTED") {
+        for (const line of csv.split("\n").filter((value) => value.startsWith('"candidate_edge"'))) assert.match(line, /,"null","null","null",/);
+      }
+    }
+    const filteredToZero = exportChecklist(analysis, connectedKey);
+    filteredToZero.rows = [];
+    const filteredCsv = checklistToCsv(filteredToZero);
+    assert.match(filteredCsv, /"path_summary"/);
+    assert.match(filteredCsv, /accessibility \| passability \| current_facility_operation \| M6 \| M7/);
+    assert.doesNotMatch(filteredCsv, /"candidate_edge"/);
+  }
 });
 
 test("[ui_regression] delivery analysis rejects promoted claims and missing checklist contract", () => {
@@ -80,6 +142,10 @@ test("[ui_regression] delivery analysis rejects promoted claims and missing chec
     (value) => {
       const [key] = Object.keys(value.review_checklists).filter((candidate) => value.path_matrix[candidate].status === "CONNECTED");
       value.review_checklists[key].rows[0].edge_id = "other-edge";
+    },
+    (value) => {
+      const [key] = Object.keys(value.review_checklists).filter((candidate) => value.path_matrix[candidate].status === "CONNECTED");
+      value.review_checklists[key].rows[0].unknowns = value.review_checklists[key].rows[0].unknowns.filter((entry) => entry !== "M7");
     },
     (value) => {
       const [key] = Object.keys(value.review_checklists);

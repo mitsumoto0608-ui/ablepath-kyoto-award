@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import csv
+import hashlib
 import json
 from pathlib import Path
 
@@ -176,3 +178,71 @@ def test_source_selection_transforms_aoi_crs_before_intersection() -> None:
     source = [_polygon({"id": "inside"}, ring)]
     assert select_intersecting_source_features(source, aoi, source_crs="EPSG:6674", coverage_crs="EPSG:4326") == source
     assert select_intersecting_source_features(source, aoi, source_crs="EPSG:6674", coverage_crs="EPSG:6674") == []
+
+
+def test_delivery_binding_authority_and_public_scope_fail_closed() -> None:
+    """[source_conformance] Current F1-F6 authority cannot inherit public permission from its historical record."""
+    authority = json.loads(Path("reports/DELIVERY_DECISION_BINDING_AUTHORITY.json").read_text(encoding="utf-8"))
+    scope = json.loads(Path("reports/LICENSE_FINAL_SCOPE_DECISION.json").read_text(encoding="utf-8"))
+    visibility = json.loads(Path("reports/DELIVERY_PUBLIC_SCOPE_RECONCILIATION.json").read_text(encoding="utf-8"))
+    observation = json.loads(Path("reports/DELIVERY_PUBLIC_SCOPE_OBSERVATION.json").read_text(encoding="utf-8"))
+    assert authority["current_authority"] == {
+        "policy_binding": "reports/F1_F6_DECISION_BINDING.json",
+        "scope_decision": "reports/LICENSE_FINAL_SCOPE_DECISION.json",
+        "role": "CURRENT_MACHINE_AUTHORITY",
+    }
+    assert authority["historical_record"]["role"] == "HISTORICAL_PRE_DECISION_RECORD"
+    assert authority["historical_record"]["may_override_current_authority"] is False
+    assert authority["license_research_reopened"] is False
+    assert authority["f1_f6_reapproval_required"] is False
+    assert all(authority[key] is False for key in ("public_git", "public_rc", "public_demo"))
+    assert authority["m7_ready_count"] == authority["m7_computed_count"] == 0
+    assert authority["field_measurement_deferred"] is True
+    assert scope["source_binding"] == authority["current_authority"]["policy_binding"]
+    assert all(scope[key] == "NOT_AUTHORIZED" for key in ("public_git", "public_rc", "public_demo"))
+    assert visibility["github_api_observation"] == {"private": False, "visibility": "PUBLIC", "release_count": 0}
+    assert visibility["visibility_authorization_mismatch"] is True
+    assert visibility["remote_write_gate"] == "BLOCKED_PENDING_OWNER_SCOPE_DECISION"
+    assert all(visibility[key] is False for key in ("new_push_authorized", "merge_authorized", "public_attachment_authorized", "visibility_change_authorized"))
+    assert visibility["historical_private_operation_claimed"] is False
+    assert visibility["observation_receipt"] == "reports/DELIVERY_PUBLIC_SCOPE_OBSERVATION.json"
+    repository_bytes = json.dumps(observation["repository_query"]["selected_response"], separators=(",", ":"), ensure_ascii=False).encode()
+    release_bytes = json.dumps(observation["release_query"]["selected_response"], separators=(",", ":"), ensure_ascii=False).encode()
+    assert hashlib.sha256(repository_bytes).hexdigest() == observation["repository_query"]["selected_response_sha256"] == visibility["repository_selected_response_sha256"]
+    assert hashlib.sha256(release_bytes).hexdigest() == observation["release_query"]["selected_response_sha256"] == visibility["release_selected_response_sha256"]
+    assert observation["repository_query"]["selected_response"]["visibility"] == "PUBLIC"
+    assert observation["release_query"]["selected_response"] == []
+    assert observation["authentication_headers_recorded"] is observation["credential_material_recorded"] is False
+    changed_response = {**observation["repository_query"]["selected_response"], "visibility": "PRIVATE"}
+    assert hashlib.sha256(json.dumps(changed_response, separators=(",", ":")).encode()).hexdigest() != observation["repository_query"]["selected_response_sha256"]
+
+
+def test_delivery_gaps_separate_existing_source_work_from_human_judgment() -> None:
+    """[source_conformance] Existing-source reconciliation proceeds without guessing datum, CRS, or hazard taxonomy."""
+    with Path("reports/DELIVERY_SPRINT_DATA_GAPS.csv").open(encoding="utf-8", newline="") as stream:
+        rows = {row["gap_id"]: row for row in csv.DictReader(stream)}
+    assert set(rows) == {f"DS-G{number:02d}" for number in range(1, 9)}
+    for gap_id in ("DS-G01", "DS-G02", "DS-G03", "DS-G04"):
+        assert rows[gap_id]["resolution_track"] == "SOURCE_SPEC_RECONCILIATION_THEN_HUMAN_IF_UNRESOLVED"
+        assert rows[gap_id]["can_progress_without_new_policy"] == "true"
+    assert rows["DS-G05"]["resolution_track"] == "SOURCE_SPEC_RECONCILIATION"
+    assert "threshold" in rows["DS-G05"]["human_or_field_gate"].lower()
+    assert "CRS override" in rows["DS-G04"]["human_or_field_gate"]
+    assert "silent geocoding" in rows["DS-G07"]["existing_evidence_action"]
+    assert rows["DS-G08"]["resolution_track"] == "HUMAN_OR_FIELD_EVIDENCE_REQUIRED"
+    assert "zero" in rows["DS-G08"]["existing_evidence_action"]
+
+
+def test_delivery_export_evidence_uses_existing_paths_and_keeps_m7_zero() -> None:
+    """[ui_regression] Receipt examples name canonical path-matrix rows without promoting M7 or safety claims."""
+    receipt = json.loads(Path("reports/DELIVERY_EXPORT_EVIDENCE.json").read_text(encoding="utf-8"))
+    assert receipt["viewer_computation_added"] is False
+    assert receipt["formats"] == ["CSV", "JSON", "PRINT_HTML"]
+    assert receipt["m7_ready_count"] == receipt["m7_computed_count"] == 0
+    assert all(receipt[key] is False for key in ("safe_route_claim", "accessibility_claim", "admin_validated"))
+    for example in receipt["examples"]:
+        artifact = json.loads(Path(f"viewer/public/data/analysis/{example['city_id']}.json").read_text(encoding="utf-8"))
+        assert artifact["path_matrix"][example["connected_path_key"]]["status"] == "CONNECTED"
+        assert artifact["path_matrix"][example["disconnected_path_key"]]["status"] == "DISCONNECTED"
+        assert artifact["review_checklists"][example["disconnected_path_key"]]["rows"] == []
+        assert artifact["m7"]["ready_edge_count"] == artifact["m7"]["computed_edge_count"] == 0

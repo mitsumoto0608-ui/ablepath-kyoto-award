@@ -491,6 +491,7 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         for edge_id in {key[0] for key in exposure_by_key}
     }
     path_matrix = artifact.get("path_matrix", {})
+    checklist_unknowns = {"accessibility", "passability", "current_facility_operation", "M6", "M7"}
     if set(checklists) != set(path_matrix) or any(
         item.get("path_key") != key
         or item.get("city_id") != city_id
@@ -502,10 +503,33 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         or sorted(item.get("facility", {}).get("record_ids", [])) != facility_ids
         or item.get("facility", {}).get("record_count") != len(facility_ids)
         or any(not row.get("owner_candidate_types") for row in item.get("rows", []))
+        or any(not isinstance(row.get("unknowns"), list) or len(row["unknowns"]) != len(checklist_unknowns) or set(row["unknowns"]) != checklist_unknowns for row in item.get("rows", []))
         or any(not isinstance(row.get("hazard_refs"), list) or sorted(row["hazard_refs"]) != exposure_refs_by_edge.get(row.get("edge_id"), []) for row in item.get("rows", []))
         for key, item in checklists.items()
     ):
         raise ValueError(f"{city_id} review checklist contract is stale or unsafe")
+    for key, item in checklists.items():
+        path = path_matrix[key]
+        if path.get("status") == "CONNECTED":
+            if (
+                item.get("status") != "READY_FOR_REVIEW"
+                or item.get("candidate_distance") != path.get("geometric_length")
+                or item.get("candidate_distance_unit") != path.get("unit")
+                or item.get("path_reason") != path.get("reason")
+                or not item.get("rows")
+            ):
+                raise ValueError(f"{city_id} connected review checklist is stale")
+        elif (
+            path.get("status") != "DISCONNECTED"
+            or item.get("status") != "SUPPORTED_UNCOMPUTED"
+            or item.get("candidate_distance") is not None
+            or item.get("candidate_distance_unit") != path.get("unit")
+            or item.get("path_reason") != path.get("reason")
+            or not isinstance(item.get("path_reason"), str)
+            or not item.get("path_reason")
+            or item.get("rows") != []
+        ):
+            raise ValueError(f"{city_id} disconnected review checklist is stale")
     displays = hazard.get("display_layers", [])
     if not displays:
         raise ValueError(f"{city_id} delivery hazard display binding is missing")
