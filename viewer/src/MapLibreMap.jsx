@@ -59,6 +59,13 @@ async function loadOfficialOverlay(config, kind) {
   }
 }
 
+async function loadOfficialOverlays(configs, kind) {
+  const list = Array.isArray(configs) ? configs : configs ? [configs] : [];
+  if (!list.length) return null;
+  const loaded = await Promise.all(list.map((config) => loadOfficialOverlay(config, kind)));
+  return { type: "FeatureCollection", features: loaded.flatMap((value) => value.features) };
+}
+
 function RealEdgeDetails({ feature, m7Readiness }) {
   if (!feature) return <p className="real-edge-empty">地図または表から候補edgeを選択すると、source属性を確認できます。</p>;
   const properties = feature.properties;
@@ -103,7 +110,7 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
 
   useEffect(() => {
     let active = true;
-    Promise.all([loadOfficialOverlay(officialLayers.hazard, "hazard"), loadOfficialOverlay(officialLayers.facility, "facility")])
+    Promise.all([loadOfficialOverlays(officialLayers.hazard, "hazard"), loadOfficialOverlay(officialLayers.facility, "facility")])
       .then(([hazard, facility]) => {
         if (active) setOfficialOverlays({ hazard, facility });
       })

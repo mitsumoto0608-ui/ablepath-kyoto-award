@@ -122,9 +122,9 @@
       "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
     },
     "hazard_overlap": {
-      "status": "NOT_CONNECTED",
+      "status": "CONNECTED_PRECOMPUTED_PER_EDGE",
       "value": null,
-      "reason": "No trusted official hazard geometry is connected; no closure is derived."
+      "reason": "See scenario-separated edge_exposures and review_checklists; no operational state is derived."
     },
     "m7": {
       "status": "NOT_COMPUTED",
@@ -140,13 +140,16 @@
     "source_status": "PARTIAL_FAIL_CLOSED",
     "source_hashes": {
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
-      "plateau_sha256": "1648afedc3dcd486cafdc74105e514707c99c621df263bc10c2c1d1c4e3a0551",
+      "plateau_sha256": "f0869a7291d07d3a121bf95d7524fe2b2821f81e591df9d2f7b05745dff70bfc",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
+      "f1_f6_binding_sha256": "dc2800c5ffe0e44c06440947054b3a01f8bdde5ca4cd06d79a6fb40cc872f025",
+      "delivery_source_binding_sha256": "464b0b651ab50f40afb2d9f54f3ce8d5f1aadef72f68cfaa15acf36917bee016",
       "terrain_inventory_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
       "facility_receipt_sha256": "60c63dc005405acfd208803ee938479f1a1b8c357d9a152166ff3ec99399ba83",
       "facility_table_sha256": "770cdde2a68e81aed808d4366398f7d8f5c2170e014e9079c55779b1c326b8ed",
       "earthquake_inventory_sha256": "8c3946c3f6f0bb1f100870278aec8bf9f5588db2bdc6c41198d9eb2ad2a75257",
-      "liquefaction_inventory_sha256": "8fa9338328afbe7360c6174ce1bffa56bf27639981e7ca16de7ac52119d29b1e"
+      "liquefaction_inventory_sha256": "8fa9338328afbe7360c6174ce1bffa56bf27639981e7ca16de7ac52119d29b1e",
+      "delivery_tsunami_sha256": "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c"
     },
     "subareas": [
       "enoshima_katase"
@@ -204,12 +207,385 @@
       ]
     },
     "hazard": {
-      "status": "NOT_CONNECTED",
-      "reason": "No official hazard geometry is connected; earthquake and liquefaction inventories remain scenario metadata and do not derive CLOSED or FAIL.",
-      "connected": false,
-      "display_connected": false,
-      "display_feature_count": 0,
-      "display_layer": null,
+      "status": "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED",
+      "reason": "Official source geometry is connected to candidate edges as scenario-separated overlap evidence only; no CLOSED, FAIL, damage, debris, passability, or safety state is derived.",
+      "connected": true,
+      "operational_state_connected": false,
+      "display_connected": true,
+      "display_feature_count": 783,
+      "display_layers": [
+        {
+          "data_path": "./data/official/fujisawa_enoshima.delivery_hazards.geojson",
+          "artifact_sha256": "585a2f54790c946ab400d3392bded880184e2f8feea9600fa676c0a96a8d12df",
+          "copied_sha256": "585a2f54790c946ab400d3392bded880184e2f8feea9600fa676c0a96a8d12df",
+          "feature_count": 783,
+          "display_only": true
+        }
+      ],
+      "connected_scenarios": [
+        "A40_TSUNAMI_2020"
+      ],
+      "source_catalog": {
+        "nlni_a40_2020_kanagawa_tsunami": {
+          "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip",
+          "license_status": "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY",
+          "limitations": "Private/internal F6 scope only. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.",
+          "coverage_selection_sha256": "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c"
+        }
+      },
+      "edge_exposures": [
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-018BDD155711677D",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 26.62661725490461,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 15.074563286075643,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554",
+            "A40-20_14:66631"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満",
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-062F75C8425C2252",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 8.361971965769104,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66587"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 7.654512320373444,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-215A5178BF215505",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 35.414352766029445,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 5.6375445516156075,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-42405D906C055F26",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 10.85113063259785,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-4489A45ACA6EAC2F",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 7.670427166714957,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-64C790B90BA45925",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 22.83215153419987,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-6AA1F16F8F33134A",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 45.20875776867173,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-790B757348C9BC93",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 10.296611890899692,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 8.129774926965734,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554",
+            "A40-20_14:66662"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満",
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 46.969186565863254,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554",
+            "A40-20_14:66631"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満",
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-BF27EB5B0C5124E6",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "ZERO_OVERLAP_WITHIN_KNOWN_COVERAGE",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 0,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [],
+          "source_classes": [],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "No source geometry overlaps an edge wholly inside declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        },
+        {
+          "city_id": "fujisawa_enoshima",
+          "edge_id": "FJ-OSM-E-F30BE41F1FBDD11F",
+          "scenario_id": "A40_TSUNAMI_2020",
+          "relation": "INTERSECTS",
+          "coverage_status": "WITHIN_KNOWN_COVERAGE",
+          "overlap_length_m": 43.868814420324426,
+          "metric_crs": "EPSG:6677",
+          "source_id": "nlni_a40_2020_kanagawa_tsunami",
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+          "source_feature_ids": [
+            "A40-20_14:63554",
+            "A40-20_14:66641"
+          ],
+          "source_classes": [
+            "A40_002=14;A40_003=4m以上 〜 5m未満",
+            "A40_002=14;A40_003=5m以上 〜 10m未満"
+          ],
+          "official_closure": null,
+          "damage_state": null,
+          "debris_present": null,
+          "reason": "Metric overlap is computed only within complete declared coverage.",
+          "interpretation": "Official hazard overlap evidence only; no closure, passability, safety, damage, or debris state is derived."
+        }
+      ],
+      "numeric_serialization": "FULL_PYTHON_FLOAT_NO_DECISION_TOLERANCE",
+      "decision_threshold_applied": false,
       "closure_derived": false,
       "damage_or_debris_inferred": false,
       "layers": [],
@@ -526,7 +902,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1066",
@@ -544,7 +936,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1067",
@@ -562,7 +970,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1068",
@@ -580,7 +1004,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1072",
@@ -598,7 +1038,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1077",
@@ -616,7 +1072,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1078",
@@ -634,7 +1106,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1111",
@@ -652,7 +1140,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1183",
@@ -670,7 +1174,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1185",
@@ -688,7 +1208,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1196",
@@ -706,7 +1242,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1213",
@@ -724,7 +1276,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1226",
@@ -742,7 +1310,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1234",
@@ -760,7 +1344,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1235",
@@ -778,7 +1378,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1247",
@@ -796,7 +1412,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1265",
@@ -814,7 +1446,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1285",
@@ -832,7 +1480,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1338",
@@ -850,7 +1514,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1345",
@@ -868,7 +1548,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1346",
@@ -886,7 +1582,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1347",
@@ -904,7 +1616,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1348",
@@ -922,7 +1650,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1349",
@@ -940,7 +1684,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1350",
@@ -958,7 +1718,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1351",
@@ -976,7 +1752,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1354",
@@ -994,7 +1786,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1356",
@@ -1012,7 +1820,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1358",
@@ -1030,7 +1854,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1359",
@@ -1048,7 +1888,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1368",
@@ -1066,7 +1922,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1369",
@@ -1084,7 +1956,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1377",
@@ -1102,7 +1990,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1378",
@@ -1120,7 +2024,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1379",
@@ -1138,7 +2058,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1380",
@@ -1156,7 +2092,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1382",
@@ -1174,7 +2126,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1386",
@@ -1192,7 +2160,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1390",
@@ -1210,7 +2194,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1392",
@@ -1228,7 +2228,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1394",
@@ -1246,7 +2262,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1396",
@@ -1264,7 +2296,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1398",
@@ -1282,7 +2330,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1400",
@@ -1300,7 +2364,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1402",
@@ -1318,7 +2398,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1404",
@@ -1336,7 +2432,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1406",
@@ -1354,7 +2466,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1408",
@@ -1372,7 +2500,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1410",
@@ -1390,7 +2534,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1412",
@@ -1408,7 +2568,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1414",
@@ -1426,7 +2602,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1415",
@@ -1444,7 +2636,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1417",
@@ -1462,7 +2670,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1422",
@@ -1480,7 +2704,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1423",
@@ -1498,7 +2738,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1424",
@@ -1516,7 +2772,23 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": true
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              true
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         },
         {
           "facility_record_id": "fujisawa-accessibility-1425",
@@ -1534,10 +2806,42 @@
           "step_free": null,
           "opening_status": null,
           "disaster_availability": null,
-          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability."
+          "limitations": "Address-only official table row; no silent geocoding; ostomate detail does not imply accessibility, entrance, step-free, opening, operation, or disaster availability.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "source_attributes": {
+            "ostomate_detail_available": false
+          },
+          "source_attribute_entries": [
+            [
+              "ostomate_detail_available",
+              false
+            ]
+          ],
+          "current_operation_status": "UNKNOWN",
+          "entrance_status": "UNKNOWN",
+          "unlock_status": "UNKNOWN",
+          "accessibility_status": "UNKNOWN",
+          "step_free_status": "UNKNOWN",
+          "disaster_availability_status": "UNKNOWN"
         }
       ],
-      "reason": "57 address-only records are displayed as a table; coordinates, map markers, geocoding, accessibility, opening, and disaster availability are not inferred."
+      "source_catalog": {
+        "fujisawa_webgis_toilets_accessibility": {
+          "source_url": "https://webgis.alandis.jp/fujisawa14/portal/index.html",
+          "license_status": "LICENSE_REVIEW_REQUIRED",
+          "published_at": null,
+          "valid_as_of": null,
+          "acquired_at": null,
+          "temporal_status_reason": "Published, valid-as-of, and acquisition timestamps are unavailable in the bound receipt; currentness is not inferred.",
+          "limitations": "ostomate_detail_available is the only positive attribute. Coordinates, wheelchair access, entrance, step-free status, opening, disaster availability, operation and currentness remain unknown.",
+          "source_sha256": "71bd70b0703086017e26d71cf4d73b76bcb0d14aaa0143c351e4763442b4530d",
+          "allowed_attribute_keys": [
+            "ostomate_detail_available"
+          ]
+        }
+      },
+      "source_receipt_sha256": "60c63dc005405acfd208803ee938479f1a1b8c357d9a152166ff3ec99399ba83",
+      "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred."
     },
     "plateau": {
       "status": "NOT_CONNECTED",
@@ -1550,7 +2854,7 @@
       "fallback": "EXISTING_DETERMINISTIC_2D",
       "m7_evidence_ready_count": 0,
       "m7_computed_count": 0,
-      "reason": "The PLATEAU 2025 evidence inventory is connected, but verified package bytes, building IDs, footprints, direct height, side coverage, and real 3D remain unavailable. Existing source-traceable candidate 2D is the deterministic fallback, not a PLATEAU-derived footprint layer."
+      "reason": "PLATEAU 2025 package SHA, EPSG:6697 axis semantics, stable IDs, roof-edge footprints, height provenance codes, and pilot-buffer mesh coverage are inventoried. Real 3D and M7 remain NOT_CONNECTED: setback is not frozen, field confirmation is deferred, and candidate building/height evidence is not promoted. Existing source-traceable candidate 2D is the deterministic fallback."
     },
     "m7": {
       "status": "NOT_COMPUTED",
@@ -1695,9 +2999,9 @@
     "reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed."
   },
   "hazard_overlap": {
-    "status": "NOT_CONNECTED",
+    "status": "CONNECTED_PRECOMPUTED_PER_EDGE",
     "value": null,
-    "reason": "No trusted official hazard geometry is connected; no closure is derived."
+    "reason": "See scenario-separated edge_exposures and review_checklists; no operational state is derived."
   },
   "m7": {
     "status": "NOT_COMPUTED",
@@ -2415,5 +3719,1254 @@
     "status": "NOT_COMPUTED",
     "reason": "M6/profile evaluation is not connected."
   },
-  "interpretation": "Candidate network connectivity only; accessibility, safety, and operation are unconfirmed."
+  "interpretation": "Candidate network connectivity only; accessibility, safety, and operation are unconfirmed.",
+  "review_checklists": {
+    "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0006177099536968896,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "hazard_refs": [
+            "FJ-OSM-E-0382789A9EC7F022\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "hazard_refs": [
+            "FJ-OSM-E-B4CC42C7826CE525\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    },
+    "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-3028DFD1A9E8CD85": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-3028DFD1A9E8CD85:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-3028DFD1A9E8CD85",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0001309253588273629,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "hazard_refs": [
+            "FJ-OSM-E-32EA7FD65F7F2373\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "hazard_refs": [
+            "FJ-OSM-E-9B1FB3AF3A7E1DC3\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    },
+    "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-1922FF848B18A1BF": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-1922FF848B18A1BF:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-1922FF848B18A1BF",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0006177099536968896,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "hazard_refs": [
+            "FJ-OSM-E-B4CC42C7826CE525\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "hazard_refs": [
+            "FJ-OSM-E-0382789A9EC7F022\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    },
+    "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-3028DFD1A9E8CD85": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-3028DFD1A9E8CD85:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-2174B5DE701CA180__FJ-OSM-N-3028DFD1A9E8CD85",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0007486353125242525,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "hazard_refs": [
+            "FJ-OSM-E-B4CC42C7826CE525\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "hazard_refs": [
+            "FJ-OSM-E-0382789A9EC7F022\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "hazard_refs": [
+            "FJ-OSM-E-32EA7FD65F7F2373\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "hazard_refs": [
+            "FJ-OSM-E-9B1FB3AF3A7E1DC3\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    },
+    "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-1922FF848B18A1BF": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-1922FF848B18A1BF:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-1922FF848B18A1BF",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0001309253588273629,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "hazard_refs": [
+            "FJ-OSM-E-9B1FB3AF3A7E1DC3\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "hazard_refs": [
+            "FJ-OSM-E-32EA7FD65F7F2373\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    },
+    "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-2174B5DE701CA180": {
+      "checklist_id": "fujisawa_enoshima:FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-2174B5DE701CA180:review-v1",
+      "city_id": "fujisawa_enoshima",
+      "path_key": "FJ-OSM-N-3028DFD1A9E8CD85__FJ-OSM-N-2174B5DE701CA180",
+      "path_status": "CONNECTED",
+      "status": "READY_FOR_REVIEW",
+      "candidate_distance": 0.0007486353125242526,
+      "candidate_distance_unit": "coordinate_degree",
+      "path_reason": "Candidate connectivity only; accessibility, safety, and operation are unconfirmed.",
+      "terrain": {
+        "status": "NOT_CONNECTED",
+        "reason": "No terrain product has been connected to this city analysis.",
+        "connected": false,
+        "evidence_ui_connected": false,
+        "elevation_sampled": false,
+        "step_inferred": false,
+        "cross_slope_inferred": false,
+        "aoi_validation": null,
+        "receipt_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
+        "products": [
+          {
+            "dataset_id": "gsi_523973_dem1a_20250613",
+            "mesh_id": "523973",
+            "dem_class": "DEM1A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5a_20250620",
+            "mesh_id": "523973",
+            "dem_class": "DEM5A",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          },
+          {
+            "dataset_id": "gsi_523973_dem5b_20250609",
+            "mesh_id": "523973",
+            "dem_class": "DEM5B",
+            "horizontal_crs": "fguuid:jgd2024.bl",
+            "vertical_datum": "NOT_EXPLICIT_IN_INSPECTED_GML",
+            "aoi": "CANDIDATE:fujisawa_enoshima; AOI_INTERSECTION_PENDING",
+            "aoi_status": "AOI_INTERSECTION_PENDING",
+            "validation_result": "CRS_REVIEW_REQUIRED",
+            "license_status": "LICENSE_REVIEW_REQUIRED",
+            "terrain_connected": false,
+            "status": "NOT_CONNECTED"
+          }
+        ],
+        "sampled": false
+      },
+      "facility": {
+        "status": "READY_FOR_TABLE_ONLY",
+        "record_count": 57,
+        "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+        "record_ids": [
+          "fujisawa-accessibility-1064",
+          "fujisawa-accessibility-1066",
+          "fujisawa-accessibility-1067",
+          "fujisawa-accessibility-1068",
+          "fujisawa-accessibility-1072",
+          "fujisawa-accessibility-1077",
+          "fujisawa-accessibility-1078",
+          "fujisawa-accessibility-1111",
+          "fujisawa-accessibility-1183",
+          "fujisawa-accessibility-1185",
+          "fujisawa-accessibility-1196",
+          "fujisawa-accessibility-1213",
+          "fujisawa-accessibility-1226",
+          "fujisawa-accessibility-1234",
+          "fujisawa-accessibility-1235",
+          "fujisawa-accessibility-1247",
+          "fujisawa-accessibility-1265",
+          "fujisawa-accessibility-1285",
+          "fujisawa-accessibility-1338",
+          "fujisawa-accessibility-1345",
+          "fujisawa-accessibility-1346",
+          "fujisawa-accessibility-1347",
+          "fujisawa-accessibility-1348",
+          "fujisawa-accessibility-1349",
+          "fujisawa-accessibility-1350",
+          "fujisawa-accessibility-1351",
+          "fujisawa-accessibility-1354",
+          "fujisawa-accessibility-1356",
+          "fujisawa-accessibility-1358",
+          "fujisawa-accessibility-1359",
+          "fujisawa-accessibility-1368",
+          "fujisawa-accessibility-1369",
+          "fujisawa-accessibility-1377",
+          "fujisawa-accessibility-1378",
+          "fujisawa-accessibility-1379",
+          "fujisawa-accessibility-1380",
+          "fujisawa-accessibility-1382",
+          "fujisawa-accessibility-1386",
+          "fujisawa-accessibility-1390",
+          "fujisawa-accessibility-1392",
+          "fujisawa-accessibility-1394",
+          "fujisawa-accessibility-1396",
+          "fujisawa-accessibility-1398",
+          "fujisawa-accessibility-1400",
+          "fujisawa-accessibility-1402",
+          "fujisawa-accessibility-1404",
+          "fujisawa-accessibility-1406",
+          "fujisawa-accessibility-1408",
+          "fujisawa-accessibility-1410",
+          "fujisawa-accessibility-1412",
+          "fujisawa-accessibility-1414",
+          "fujisawa-accessibility-1415",
+          "fujisawa-accessibility-1417",
+          "fujisawa-accessibility-1422",
+          "fujisawa-accessibility-1423",
+          "fujisawa-accessibility-1424",
+          "fujisawa-accessibility-1425"
+        ]
+      },
+      "rows": [
+        {
+          "edge_id": "FJ-OSM-E-9B1FB3AF3A7E1DC3",
+          "hazard_refs": [
+            "FJ-OSM-E-9B1FB3AF3A7E1DC3\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-32EA7FD65F7F2373",
+          "hazard_refs": [
+            "FJ-OSM-E-32EA7FD65F7F2373\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+          "hazard_refs": [
+            "FJ-OSM-E-0382789A9EC7F022\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        },
+        {
+          "edge_id": "FJ-OSM-E-B4CC42C7826CE525",
+          "hazard_refs": [
+            "FJ-OSM-E-B4CC42C7826CE525\u0000A40_TSUNAMI_2020\u0000nlni_a40_2020_kanagawa_tsunami"
+          ],
+          "terrain_status": "NOT_CONNECTED",
+          "terrain_sampled": false,
+          "terrain_reason": "No terrain product has been connected to this city analysis.",
+          "facility_status": "READY_FOR_TABLE_ONLY",
+          "owner_candidate_types": [
+            "HAZARD_DATA_STEWARD",
+            "TERRAIN_DATA_STEWARD",
+            "FACILITY_OPERATOR",
+            "M6_M7_CONTRACT_OWNER"
+          ],
+          "unknowns": [
+            "accessibility",
+            "passability",
+            "current_facility_operation",
+            "M6",
+            "M7"
+          ]
+        }
+      ],
+      "safe_route_claim": false,
+      "accessibility_claim": false,
+      "admin_validated": false
+    }
+  },
+  "decision_binding": {
+    "schema_version": "1.0.0",
+    "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1",
+    "decision_recorded_at": "2026-09-09",
+    "authority": "USER_EXPLICIT_APPROVAL_IN_CODEX_SESSION",
+    "source_sha256": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
+    "source_artifacts": {
+      "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
+      "F1_F6_ONE_PAGE_DECISION_FORM.md": "fa3aac71f5c8da692276f371170e76fc37a5abbdbf1f16f55da828bc9940b46d",
+      "F1_SETBACK_CRS_DECISION.md": "bd7e58209e530be572a45ea22d300857ab32a5dd406c860638def31417562089",
+      "F2_DAMAGE_MAPPING_DECISION.md": "55666534e2d531da428806ebda339c2ea5de822bee62c4a3f114cfef94ae5061",
+      "F3_DEBRIS_REALIZATION_DECISION.md": "ff0ceba3028397356947626d215939ec6d6b7cf64ae6d2aeca4a35003051bae1",
+      "F4_HEIGHT_PROVENANCE_DECISION.md": "52483cf23406fc0a8daea155d5902e8d2351b8ffb4b93ee925475955b706eb2b",
+      "F5_DEFERRED_FIELD_MEASUREMENT_PLAN.md": "eb1ac0c8ef38504ee989bb7c9fa1d55f244c40ab93da1a69b58d3e146b7c62a3",
+      "F6_LICENSE_SCOPE_BINDING.md": "30e4b4c865f2769a4c3a280d89187752817a7f8ae6e40383f644779786cf5c31",
+      "POST_DECISION_IMPLEMENTATION_PLAN.md": "0f983ba84cc07101091e240e5df49cb4c69e705ed65800daa2b800122c1193a4",
+      "ROLLBACK.md": "6b93637acbf9b06b026e37c54861140c365e74b4715d4c7054280ff3ecd21087"
+    },
+    "policy_approved": true,
+    "policy_bound": true,
+    "binding_implemented": true,
+    "production_value_implementation": false,
+    "value_available": false,
+    "f1": {
+      "target": "FIELD_CONFIRMED_WALKABLE_SPACE_BOUNDARY_TO_TARGET_BUILDING_FRONTAGE_GEOMETRY_SHORTEST_HORIZONTAL_DISTANCE",
+      "metric_crs": {
+        "kyoto": "EPSG:6674",
+        "fujisawa": "EPSG:6677"
+      },
+      "rejected_inputs": [
+        "CANDIDATE_CENTERLINE",
+        "CENTROID_DISTANCE",
+        "ARBITRARY_NEAREST_GEOMETRY"
+      ],
+      "unapproved_details": [
+        "tolerance",
+        "station_interval",
+        "long_edge_split",
+        "unknown_rules"
+      ]
+    },
+    "f2": {
+      "eligible_source_classes": [
+        "ACCEPTED_OBSERVED_POST_EVENT_STATE",
+        "ACCEPTED_OFFICIAL_ASSET_LEVEL_SCENARIO_STATE"
+      ],
+      "concrete_taxonomy_mapping_approved": false
+    },
+    "f3": {
+      "eligible_source_classes": [
+        "ACCEPTED_OBSERVED_BOOL",
+        "ACCEPTED_OFFICIAL_ASSET_LEVEL_BOOL"
+      ],
+      "probability_realization": "EXPERIMENTAL_ONLY"
+    },
+    "f4": {
+      "conditional_candidates": [
+        "KYOTO_POINT_CLOUD_MEDIAN",
+        "FUJISAWA_AERIAL_PHOTOGRAMMETRY_MAXIMUM"
+      ],
+      "methods_must_remain_distinct": true,
+      "height_values_accepted": false,
+      "excluded": [
+        "UNIFORM_3M",
+        "NEGATIVE_9999_SENTINEL"
+      ]
+    },
+    "f5": {
+      "field_measurement_deferred": true,
+      "measurement_value_count": 0
+    },
+    "f6": {
+      "private_internal": true,
+      "private_git": true,
+      "internal_rc": true,
+      "public_git": false,
+      "public_rc": false,
+      "public_demo": false
+    },
+    "m7_ready_count": 0,
+    "m7_computed_count": 0,
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "passability_claim": false,
+    "admin_validated": false,
+    "public_release_ready": false
+  }
 }

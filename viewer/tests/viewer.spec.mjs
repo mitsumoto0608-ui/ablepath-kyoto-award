@@ -1,4 +1,47 @@
 import { expect, test } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+
+test("[ui_regression] three regions export source-bound CSV JSON and printable HTML", async ({ page }, testInfo) => {
+  for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+    await page.goto(`/?city=${cityId}&layer=real`);
+    await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible();
+    await expect(page.getByLabel("選択区間の確認リスト")).toContainText("UNKNOWN");
+    await expect(page.getByLabel("確認リスト・exportのsource scenario")).toBeEnabled();
+    await expect(page.getByLabel("source revision")).toBeEnabled();
+    await expect(page.getByLabel("coverage status")).toBeEnabled();
+    await expect(page.getByLabel("missing field")).toBeEnabled();
+    await expect(page.getByLabel("担当候補の種別")).toBeEnabled();
+    await expect(page.getByLabel("確認リストの並び順")).toBeEnabled();
+    if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath(`delivery-${cityId}.png`), fullPage: true, animations: "disabled", caret: "hide" });
+    if (cityId === "kyoto_kiyomizu") {
+      const selector = page.getByLabel("確認リスト・exportのsource scenario");
+      const selected = await selector.locator("option").nth(1).getAttribute("value");
+      const excluded = await selector.locator("option").nth(2).getAttribute("value");
+      await selector.selectOption(selected);
+      const waiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: "CSVを保存" }).click();
+      const filtered = await readFile(await (await waiting).path(), "utf8");
+      expect(filtered).toContain(selected);
+      expect(filtered).not.toContain(excluded);
+      for (const button of ["JSONを保存", "印刷用HTMLを保存"]) {
+        const nextDownload = page.waitForEvent("download");
+        await page.getByRole("button", { name: button }).click();
+        const nextContent = await readFile(await (await nextDownload).path(), "utf8");
+        expect(nextContent).toContain(selected);
+        expect(nextContent).not.toContain(excluded);
+      }
+    }
+    for (const [button, marker] of [["CSVを保存", "source_sha256"], ["JSONを保存", '"safe_route_claim": false'], ["印刷用HTMLを保存", "印刷用確認リスト"]]) {
+      const waiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: button }).click();
+      const download = await waiting;
+      const content = await readFile(await download.path(), "utf8");
+      expect(content).toContain(marker);
+      expect(content).not.toContain("C:\\dev\\");
+      expect(content).not.toContain("安全な避難ルート");
+    }
+  }
+});
 
 test("[ui_regression] city state is reproducible and unconnected result selectors stay inactive", async ({ page }) => {
   await page.goto("/");
@@ -60,17 +103,17 @@ test("[source_conformance] Kyoto connects display evidence without promoting sci
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   const official = page.locator(".official-evidence");
   await expect(official).toContainText("AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED");
-  await expect(official).toContainText("A31b is connected for internal display only");
+  await expect(official).toContainText("SOURCE_SIDE_EDGE_OVERLAP_CONNECTED");
   await expect(official).toContainText("612 edges / deep pilot 15 / ready 0 / computed 0");
   await expect(official.getByLabel("京都公式施設5カテゴリ接続状態")).toContainText("public_tourist_toilet");
   await expect(official.getByLabel("京都の公式座標施設一覧")).toContainText("SOURCE_PROVIDED_LONGITUDE_LATITUDE");
   await expect(official.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
-  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (366)");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (412)");
   await expect(page.locator(".map-runtime-status")).toContainText(/official facilities AVAILABLE/);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
-  await expect(page.locator(".map-runtime-status")).not.toContainText("official hazard AVAILABLE (366)");
-  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (136)");
+  await expect(page.locator(".map-runtime-status")).not.toContainText("official hazard AVAILABLE (412)");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (159)");
   await expect(page.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
   await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
   await expect(page.getByText(/公式施設 57件/)).toBeVisible();
@@ -283,7 +326,7 @@ test("[ui_regression] precomputed candidate path controls change fixtures withou
     await expect(page.getByLabel("candidate path analysis")).toContainText("coordinate_degree");
     await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
     await expect(page.getByLabel("candidate path analysis")).toContainText(/ordered edge IDs: (?!—)/);
-    await expect(page.getByLabel("candidate path analysis")).toContainText("hazard: NOT_CONNECTED");
+    await expect(page.getByLabel("candidate path analysis")).toContainText("hazard: CONNECTED_PRECOMPUTED_PER_EDGE");
     await expect(page.getByLabel("candidate path analysis")).toContainText("M7 NOT_COMPUTED");
     if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath({ kyoto_kiyomizu: "kiyomizu-real-analysis.png", kyoto_arashiyama: "arashiyama-real-analysis.png", fujisawa_enoshima: "fujisawa-real-analysis.png" }[cityId]), fullPage: true });
   }
@@ -441,14 +484,14 @@ test("[ui_regression] desktop captures Kyoto parity overlays and reasoned-null e
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
-  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (366)");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (412)");
   await expect(page.getByLabel("京都公式施設5カテゴリ接続状態")).toBeVisible();
   await expect(page.getByLabel("京都M7 deep pilot reasoned null")).toContainText("NOT_COMPUTED / null");
   await capture("kyoto-kiyomizu-gion-parity.png");
   await page.getByLabel("京都M7 deep pilot reasoned null").screenshot({ path: testInfo.outputPath("kyoto-m7-reasoned-null.png"), animations: "disabled", caret: "hide" });
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
-  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (136)");
+  await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (159)");
   await expect(page.getByLabel("京都PLATEAU 2025 building evidence inventory")).toContainText("EXISTING_DETERMINISTIC_2D");
   await capture("kyoto-arashiyama-parity.png");
 });

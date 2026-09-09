@@ -1,0 +1,9 @@
+gap_id,city,scope,status,reason,next_action,human_gate
+DS-G01,kyoto_kiyomizu,terrain,BLOCKED,Vertical datum is not explicit in the retained accepted evidence,Bind an authoritative vertical datum before native-cell sampling,true
+DS-G02,kyoto_arashiyama,terrain,BLOCKED,Vertical datum is not explicit in the retained accepted evidence,Bind an authoritative vertical datum before native-cell sampling,true
+DS-G03,fujisawa_enoshima,terrain,BLOCKED,Accepted AOI DEM bytes and vertical datum are not connected,Acquire and validate the official package under the existing source protocol,true
+DS-G04,fujisawa_enoshima,earthquake,BLOCKED,Scenario inventory only; AOI geometry/CRS/license binding incomplete,Resolve the listed source-specific evidence gaps,true
+DS-G05,fujisawa_enoshima,liquefaction,BLOCKED,Scenario inventory only; AOI geometry/CRS/license binding incomplete,Resolve the listed source-specific evidence gaps,true
+DS-G06,kyoto,facility_categories,PARTIAL,Emergency open spaces and temporary-stay rows lack bounded original coordinate records,Acquire direct official coordinates or retain table-only UNKNOWN,true
+DS-G07,fujisawa_enoshima,facilities,PARTIAL,57 records are address-only with no coordinate or current operation evidence,Obtain source-provided coordinates and current operational evidence; do not geocode silently,true
+DS-G08,all,m7,BLOCKED,Source-traceable per-edge M7 inputs remain incomplete,Complete remaining F1-F5 evidence without proxy promotion,true

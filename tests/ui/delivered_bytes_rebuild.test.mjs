@@ -49,7 +49,7 @@ test("[source_conformance] committed viewer maps/official bytes equal a fresh de
 test("[source_conformance] analysis source_hashes bind to the current repository report bytes", () => {
   const bindings = {
     promotion_sha256: "reports/OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json",
-    plateau_sha256: "reports/PLATEAU_BUILDING_EVIDENCE_V1.json",
+    plateau_sha256: "reports/PLATEAU_BUILDING_EVIDENCE_V2.json",
     m7_sha256: "reports/M7_REAL_EDGE_STATUS.json",
     kyoto_status_sha256: "reports/KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json",
     kyoto_parity_sha256: "reports/KYOTO_PARITY_STATUS.json",
@@ -71,7 +71,7 @@ test("[source_conformance] analysis source_hashes bind to the current repository
     const hashes = analysis.official_evidence.source_hashes;
     for (const [key, relative] of Object.entries({ ...bindings, ...extra })) {
       if (!(key in hashes)) continue;
-      assert.equal(hashes[key], sha256(readFileSync(join(REPO_ROOT, relative))), `${cityId}.${key} must equal sha256(${relative})`);
+      assert.equal(hashes[key], sha256(Buffer.from(readFileSync(join(REPO_ROOT, relative), "utf8").replaceAll("\r\n", "\n"), "utf8")), `${cityId}.${key} must equal canonical text sha256(${relative})`);
     }
     assert.equal(analysis.official_evidence.terrain.receipt_sha256, hashes.terrain_inventory_sha256, `${cityId} terrain receipt hash`);
   }
@@ -80,7 +80,7 @@ test("[source_conformance] analysis source_hashes bind to the current repository
 test("[source_conformance] official display_layer copied_sha256 equals delivered bytes and source bytes", () => {
   for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama"]) {
     const analysis = readJson(join(DELIVERED_ROOT, "analysis", `${cityId}.json`));
-    for (const layer of [analysis.official_evidence.facility.display_layer, analysis.official_evidence.hazard.display_layer]) {
+    for (const layer of [analysis.official_evidence.facility.display_layer, ...analysis.official_evidence.hazard.display_layers]) {
       assert.ok(layer, `${cityId} display_layer present`);
       const delivered = readFileSync(join(DELIVERED_ROOT, "official", layer.data_path.replace("./data/official/", "")));
       assert.equal(layer.copied_sha256, sha256(delivered), `${cityId} ${layer.data_path} copied_sha256 must be delivered-byte hash`);
@@ -106,4 +106,11 @@ test("[software_correctness] official delivered-byte mismatch fails closed befor
   } finally {
     rmSync(scratch, { recursive: true, force: true });
   }
+});
+
+test("[software_correctness] official display paths cannot escape their static directory", () => {
+  const analysis = readJson(join(DELIVERED_ROOT, "analysis", "kyoto_arashiyama.json"));
+  const mutated = structuredClone(analysis.official_evidence);
+  mutated.hazard.display_layers[0].data_path = "./data/official/../analysis/kyoto_arashiyama.json";
+  assert.throws(() => assertDeliveredOfficialArtifacts([{ city_id: "kyoto_arashiyama", official_evidence: mutated }], join(DELIVERED_ROOT, "official")), /not confined/);
 });

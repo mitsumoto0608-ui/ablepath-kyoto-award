@@ -1,6 +1,6 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、公式hazard、行政PoCとpublic releaseは未完成です。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、行政PoCとpublic releaseは未完成です。公式hazardのglobal/operational接続は未完成ですが、`ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1`ではprivate/internal scopeに限り、京都A31b・京都土砂・藤沢A40のsource-side edge overlapをscenario別の証拠として接続しました。これはCLOSED/FAIL・damage・debris・通行可能性・安全性を生成しません。task-scoped current truthは`reports/DELIVERY_SPRINT_STATUS.json`、従来のPhase 4 gateはこの追加接続以前のhistorical snapshotです。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 

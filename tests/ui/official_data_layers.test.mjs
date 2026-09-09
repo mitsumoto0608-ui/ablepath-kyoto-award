@@ -45,8 +45,11 @@ test("[source_conformance] official analysis separates display connections from 
     assert.equal(kiyomizu.official_evidence.terrain.elevation_sampled, false);
     assert.equal(kiyomizu.official_evidence.terrain.products.length, 6);
     assert.equal(kiyomizu.official_evidence.hazard.layers.length, 15);
-    assert.equal(kiyomizu.official_evidence.hazard.layers.filter((row) => row.layer === "flood" && row.connected).length, 3);
-    assert.ok(kiyomizu.official_evidence.hazard.layers.filter((row) => row.layer !== "flood").every((row) => row.connected === false && row.status === "NOT_CONNECTED" && row.reason));
+    assert.equal(kiyomizu.official_evidence.hazard.layers.filter((row) => ["flood", "landslide"].includes(row.layer) && row.connected).length, 6);
+    assert.ok(kiyomizu.official_evidence.hazard.layers.filter((row) => !["flood", "landslide"].includes(row.layer)).every((row) => row.connected === false && row.status === "NOT_CONNECTED" && row.reason));
+    assert.equal(kiyomizu.official_evidence.hazard.status, "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED");
+    assert.ok(kiyomizu.official_evidence.hazard.edge_exposures.some((row) => row.relation === "INTERSECTS"));
+    assert.ok(kiyomizu.official_evidence.hazard.edge_exposures.every((row) => row.official_closure === null && row.damage_state === null && row.debris_present === null));
     assert.equal(kiyomizu.official_evidence.hazard.closure_derived, false);
     assert.equal(kiyomizu.official_evidence.hazard.damage_or_debris_inferred, false);
     assert.equal(kiyomizu.official_evidence.facility.marker_policy, "SOURCE_COORDINATES_ONLY_NO_GEOCODING");
@@ -57,6 +60,7 @@ test("[source_conformance] official analysis separates display connections from 
     assert.equal(fujisawa.official_evidence.terrain.products.length, 3);
     assert.equal(fujisawa.official_evidence.hazard.scenarios.length, 18);
     assert.ok(fujisawa.official_evidence.hazard.scenarios.every((row) => row.connected === false && row.status === "NOT_CONNECTED" && row.aoi_scope === "enoshima_katase"));
+    assert.deepEqual(fujisawa.official_evidence.hazard.connected_scenarios, ["A40_TSUNAMI_2020"]);
     assert.equal(fujisawa.official_evidence.facility.records.length, 57);
     assert.ok(fujisawa.official_evidence.facility.records.every((record) => record.geometry_status === "ADDRESS_ONLY" && record.latitude === null && record.longitude === null));
     assert.equal(kiyomizu.official_evidence.m7.all_edge_count, 612);

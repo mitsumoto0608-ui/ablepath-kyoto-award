@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1",
+  "decision_recorded_at": "2026-09-09",
+  "authority": "USER_EXPLICIT_APPROVAL_IN_CODEX_SESSION",
+  "source_zip_sha256": "d76c60e8285931bf61ffde05a48fda20cc107c845b89a6f83d42c80528911a9f",
+  "source_sha256": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
+  "source_artifacts": {
+    "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
+    "F1_F6_ONE_PAGE_DECISION_FORM.md": "fa3aac71f5c8da692276f371170e76fc37a5abbdbf1f16f55da828bc9940b46d",
+    "F1_SETBACK_CRS_DECISION.md": "bd7e58209e530be572a45ea22d300857ab32a5dd406c860638def31417562089",
+    "F2_DAMAGE_MAPPING_DECISION.md": "55666534e2d531da428806ebda339c2ea5de822bee62c4a3f114cfef94ae5061",
+    "F3_DEBRIS_REALIZATION_DECISION.md": "ff0ceba3028397356947626d215939ec6d6b7cf64ae6d2aeca4a35003051bae1",
+    "F4_HEIGHT_PROVENANCE_DECISION.md": "52483cf23406fc0a8daea155d5902e8d2351b8ffb4b93ee925475955b706eb2b",
+    "F5_DEFERRED_FIELD_MEASUREMENT_PLAN.md": "eb1ac0c8ef38504ee989bb7c9fa1d55f244c40ab93da1a69b58d3e146b7c62a3",
+    "F6_LICENSE_SCOPE_BINDING.md": "30e4b4c865f2769a4c3a280d89187752817a7f8ae6e40383f644779786cf5c31",
+    "POST_DECISION_IMPLEMENTATION_PLAN.md": "0f983ba84cc07101091e240e5df49cb4c69e705ed65800daa2b800122c1193a4",
+    "ROLLBACK.md": "6b93637acbf9b06b026e37c54861140c365e74b4715d4c7054280ff3ecd21087"
+  },
+  "policy_approved": true,
+  "policy_bound": true,
+  "binding_implemented": true,
+  "production_value_implementation": false,
+  "value_available": false,
+  "f1": {
+    "target": "FIELD_CONFIRMED_WALKABLE_SPACE_BOUNDARY_TO_TARGET_BUILDING_FRONTAGE_GEOMETRY_SHORTEST_HORIZONTAL_DISTANCE",
+    "metric_crs": {"kyoto": "EPSG:6674", "fujisawa": "EPSG:6677"},
+    "rejected_inputs": ["CANDIDATE_CENTERLINE", "CENTROID_DISTANCE", "ARBITRARY_NEAREST_GEOMETRY"],
+    "unapproved_details": ["tolerance", "station_interval", "long_edge_split", "unknown_rules"]
+  },
+  "f2": {
+    "eligible_source_classes": ["ACCEPTED_OBSERVED_POST_EVENT_STATE", "ACCEPTED_OFFICIAL_ASSET_LEVEL_SCENARIO_STATE"],
+    "concrete_taxonomy_mapping_approved": false
+  },
+  "f3": {
+    "eligible_source_classes": ["ACCEPTED_OBSERVED_BOOL", "ACCEPTED_OFFICIAL_ASSET_LEVEL_BOOL"],
+    "probability_realization": "EXPERIMENTAL_ONLY"
+  },
+  "f4": {
+    "conditional_candidates": ["KYOTO_POINT_CLOUD_MEDIAN", "FUJISAWA_AERIAL_PHOTOGRAMMETRY_MAXIMUM"],
+    "methods_must_remain_distinct": true,
+    "height_values_accepted": false,
+    "excluded": ["UNIFORM_3M", "NEGATIVE_9999_SENTINEL"]
+  },
+  "f5": {"field_measurement_deferred": true, "measurement_value_count": 0},
+  "f6": {
+    "private_internal": true,
+    "private_git": true,
+    "internal_rc": true,
+    "public_git": false,
+    "public_rc": false,
+    "public_demo": false
+  },
+  "m7_ready_count": 0,
+  "m7_computed_count": 0,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "passability_claim": false,
+  "admin_validated": false,
+  "public_release_ready": false
+}

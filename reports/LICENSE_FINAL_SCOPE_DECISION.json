@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "decision_recorded_at": "2026-09-09",
+  "authority": "USER_EXPLICIT_APPROVAL_IN_CODEX_SESSION",
+  "source_binding": "reports/F1_F6_DECISION_BINDING.json",
+  "license_review_process_complete": true,
+  "private_internal_analysis": "AUTHORIZED",
+  "private_git": "AUTHORIZED",
+  "internal_rc": "AUTHORIZED_INTERNAL_ONLY",
+  "public_git": "NOT_AUTHORIZED",
+  "public_rc": "NOT_AUTHORIZED",
+  "public_demo": "NOT_AUTHORIZED",
+  "public_release_ready": false,
+  "legal_conclusion": false
+}

@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertSupportedMapCatalog, computeGeoJsonBounds } from "../src/mapDomain.mjs";
+import { validateDeliveryAnalysis } from "../src/analysisDomain.mjs";
 
 const CITY_INPUTS = [
   { id: "kyoto_kiyomizu", nodes: "cities/kyoto_kiyomizu/graph/real/candidate_nodes.geojson", edges: "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson", corridor: "cities/kyoto_kiyomizu/geography/real/corridor.osm.geojson", topology: "cities/kyoto_kiyomizu/graph/real/topology_qa.json", manifest: "cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json", source: "openstreetmap_kiyomizu_named_corridor_20260830", snapshot: "2026-08-30T00:00:00Z" },
@@ -17,8 +18,10 @@ const canonicalTextHash = (path) => sha256(Buffer.from(readFileSync(path, "utf8"
 function reportHashPaths(root, cityId) {
   const paths = {
     promotion_sha256: join(root, "reports", "OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json"),
-    plateau_sha256: join(root, "reports", "PLATEAU_BUILDING_EVIDENCE_V1.json"),
+    plateau_sha256: join(root, "reports", "PLATEAU_BUILDING_EVIDENCE_V2.json"),
     m7_sha256: join(root, "reports", "M7_REAL_EDGE_STATUS.json"),
+    f1_f6_binding_sha256: join(root, "reports", "F1_F6_DECISION_BINDING.json"),
+    delivery_source_binding_sha256: join(root, "inputs", "staging", "DELIVERY-SPRINT-V1", "source_bindings.json"),
   };
   const terrain = join(root, "cities", cityId, "terrain", "official", "dem_product_inventory.csv");
   if (existsSync(terrain)) paths.terrain_inventory_sha256 = terrain;
@@ -31,7 +34,8 @@ function reportHashPaths(root, cityId) {
       kyoto_facility_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_records.json"),
       kyoto_facility_category_status_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_category_status.json"),
       kyoto_flood_display_sha256: join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", `a31b_${group}_display.geojson`),
-      plateau_inventory_sha256: join(root, "inputs", "staging", "PLATEAU-BUILDING-EVIDENCE-V1", "PLATEAU_BUILDING_AOI_INVENTORY.csv"),
+      plateau_inventory_sha256: join(root, "inputs", "staging", "PLATEAU-BUILDING-EVIDENCE-V2", "PLATEAU_BUILDING_AOI_INVENTORY.csv"),
+      delivery_landslide_sha256: join(root, "inputs", "staging", "DELIVERY-SPRINT-V1", cityId, "landslide_aoi_selection.geojson"),
     });
   }
   if (cityId === "fujisawa_enoshima") Object.assign(paths, {
@@ -39,6 +43,7 @@ function reportHashPaths(root, cityId) {
     facility_table_sha256: join(root, "cities", cityId, "facilities", "official", "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json"),
     earthquake_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "earthquake_scenario_inventory.csv"),
     liquefaction_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "liquefaction_scenario_inventory.csv"),
+    delivery_tsunami_sha256: join(root, "inputs", "staging", "DELIVERY-SPRINT-V1", "fujisawa_enoshima", "tsunami_a40_aoi_selection.geojson"),
   });
   return paths;
 }
@@ -56,6 +61,7 @@ export function assertStaticAnalysisArtifacts({ repoRoot, analysisRoot }) {
     if (!existsSync(path)) throw new Error(`${input.id} missing static analysis artifact`);
     if (manifest.artifacts?.[`${input.id}.json`] !== canonicalTextHash(path)) throw new Error(`${input.id} static analysis artifact bytes are stale`);
     const artifact = json(path);
+    validateDeliveryAnalysis(artifact, input.id);
     const nodeBytes = readFileSync(join(root, input.nodes));
     const edgeBytes = readFileSync(join(root, input.edges));
     const inputSha = sha256(Buffer.concat([nodeBytes, Buffer.from([0]), edgeBytes]));
@@ -109,10 +115,13 @@ export function assertDeliveredMapArtifacts(catalog, outputRoot) {
 }
 
 export function assertDeliveredOfficialArtifacts(analyses, officialDirectory) {
+  const officialRoot = resolve(officialDirectory);
   for (const analysis of analyses) {
-    for (const layer of [analysis.official_evidence?.facility?.display_layer, analysis.official_evidence?.hazard?.display_layer]) {
+    for (const layer of [analysis.official_evidence?.facility?.display_layer, ...(analysis.official_evidence?.hazard?.display_layers ?? [])]) {
       if (!layer) continue;
-      const deliveredPath = join(officialDirectory, layer.data_path.replace("./data/official/", ""));
+      if (typeof layer.data_path !== "string" || !/^\.\/data\/official\/[A-Za-z0-9._-]+\.geojson$/.test(layer.data_path)) throw new Error(`${analysis.city_id} official data path is not confined`);
+      const deliveredPath = resolve(officialRoot, basename(layer.data_path));
+      if (dirname(deliveredPath) !== officialRoot || !existsSync(deliveredPath)) throw new Error(`${analysis.city_id} official data path is missing or escaped`);
       const actual = hash(deliveredPath);
       if (actual !== layer.artifact_sha256 || actual !== layer.copied_sha256) throw new Error(`${analysis.city_id} official delivered byte SHA-256 mismatch`);
     }
@@ -130,14 +139,23 @@ export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot }) {
     writeFileSync(deliveredPath, city.edgeBytes);
     city.real_2d.copied_sha256 = hash(deliveredPath);
   }
-  const officialDirectory = join(dirname(output), "official"); mkdirSync(officialDirectory, { recursive: true });
+  // Production writes data/maps and data/official as siblings. Test callers
+  // may pass a unique temporary directory directly; keep their official
+  // copies inside that unique root so parallel tests never share temp/official.
+  const officialDirectory = basename(output) === "maps" ? join(dirname(output), "official") : join(output, "official");
+  mkdirSync(officialDirectory, { recursive: true });
   const parityRoot = join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1");
   for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
     copyFileSync(join(parityRoot, filename), join(officialDirectory, filename));
   }
+  const sourceOfficialDirectory = join(dirname(analysisDirectory), "official");
+  for (const input of CITY_INPUTS) {
+    const filename = `${input.id}.delivery_hazards.geojson`;
+    copyFileSync(join(sourceOfficialDirectory, filename), join(officialDirectory, filename));
+  }
   assertDeliveredOfficialArtifacts(CITY_INPUTS.map((input) => json(join(analysisDirectory, `${input.id}.json`))), officialDirectory);
   const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => city) };
   assertSupportedMapCatalog(catalog); assertDeliveredMapArtifacts(catalog, output); writeFileSync(join(output, "map-layers.json"), `${JSON.stringify(catalog, null, 2)}\n`);
-  return { files: [...built.map((city) => join(output, `${city.city_id}.candidate_edges.geojson`)), ...["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"].map((filename) => join(officialDirectory, filename)), join(output, "map-layers.json")] };
+  return { files: [...built.map((city) => join(output, `${city.city_id}.candidate_edges.geojson`)), ...["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson", ...CITY_INPUTS.map((input) => `${input.id}.delivery_hazards.geojson`)].map((filename) => join(officialDirectory, filename)), join(output, "map-layers.json")] };
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) buildMapArtifacts({ repoRoot: resolve(".."), outputRoot: resolve("public/data/maps") });
