@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertSupportedMapCatalog, computeGeoJsonBounds } from "../src/mapDomain.mjs";
@@ -148,12 +148,12 @@ export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot }) {
   mkdirSync(officialDirectory, { recursive: true });
   const parityRoot = join(root, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1");
   for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
-    copyFileSync(join(parityRoot, filename), join(officialDirectory, filename));
+    writeFileSync(join(officialDirectory, filename), canonicalTextBytes(readFileSync(join(parityRoot, filename))));
   }
   const sourceOfficialDirectory = join(dirname(analysisDirectory), "official");
   for (const input of CITY_INPUTS) {
     const filename = `${input.id}.delivery_hazards.geojson`;
-    copyFileSync(join(sourceOfficialDirectory, filename), join(officialDirectory, filename));
+    writeFileSync(join(officialDirectory, filename), canonicalTextBytes(readFileSync(join(sourceOfficialDirectory, filename))));
   }
   assertDeliveredOfficialArtifacts(CITY_INPUTS.map((input) => json(join(analysisDirectory, `${input.id}.json`))), officialDirectory);
   const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => city) };
