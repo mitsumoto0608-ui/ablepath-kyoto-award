@@ -64,3 +64,6 @@ viewer/public/data/analysis/kyoto_kiyomizu.json text eol=lf
 viewer/public/data/analysis/kyoto_arashiyama.json text eol=lf
 viewer/public/data/analysis/fujisawa_enoshima.json text eol=lf
 viewer/public/data/maps/map-layers.json text eol=lf
+viewer/public/data/official/kyoto_kiyomizu.delivery_hazards.geojson text eol=lf
+viewer/public/data/official/kyoto_arashiyama.delivery_hazards.geojson text eol=lf
+viewer/public/data/official/fujisawa_enoshima.delivery_hazards.geojson text eol=lf
