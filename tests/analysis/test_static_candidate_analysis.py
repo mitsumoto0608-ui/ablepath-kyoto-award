@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from copy import deepcopy
 from hashlib import sha256
 from pathlib import Path
@@ -33,7 +34,7 @@ def _edge(edge_id: str, start: str, end: str, coordinates: list[list[float]]) ->
 
 
 def test_generator_reproduces_committed_three_city_bytes_twice(tmp_path: Path):
-    """[source_conformance] Two source-side builds are byte-identical within one pinned native runtime."""
+    """[source_conformance] Windows is the canonical byte builder; every runtime must be internally deterministic."""
     first = tmp_path / "first"
     second = tmp_path / "second"
 
@@ -51,7 +52,12 @@ def test_generator_reproduces_committed_three_city_bytes_twice(tmp_path: Path):
         assert first_bytes == second_bytes
         assert sha256(first_bytes).hexdigest() == sha256(second_bytes).hexdigest()
         assert sha256(committed_bytes).hexdigest() == manifest["artifacts"][f"{city_id}.json"]
+        if sys.platform == "win32":
+            assert first_bytes == committed_bytes
+            assert second_bytes == committed_bytes
     assert (first / "manifest.json").read_bytes() == (second / "manifest.json").read_bytes()
+    if sys.platform == "win32":
+        assert (first / "manifest.json").read_bytes() == (ROOT / "viewer/public/data/analysis/manifest.json").read_bytes().replace(b"\r\n", b"\n")
 
 
 def test_canonical_text_hash_is_checkout_newline_independent():
