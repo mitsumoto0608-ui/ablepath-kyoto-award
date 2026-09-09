@@ -37,6 +37,11 @@ const EXPECTED_CONTENT_FINGERPRINTS = {
   kyoto_arashiyama: { hazard_catalog: "f2a23071675c5cdc", facility_catalog: "836dfce99eed520f", facility_records: "cea3061e9d13e1da" },
   fujisawa_enoshima: { hazard_catalog: "a5511ec143d37f66", facility_catalog: "92cbbf02e9cb3cba", facility_records: "5ad50528022431a3", scenarios: "fcec6c60971bf8fb" },
 };
+const EXPECTED_ANALYSIS_SHA256 = {
+  fujisawa_enoshima: "1166925c5244c60c2aa27af084e17a698efa360032792e368c85827b8d9bb7f8",
+  kyoto_arashiyama: "b01b1055cf3d239c666768db4d36d602e06a2599c92741bb5db40215da554194",
+  kyoto_kiyomizu: "b0bc3f6fb33395e6ec0eab24c68754d2019d8e876923935f5419c9e86d613cca",
+};
 const APPROVED_DECISION_HASHES = {
   "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
   "F1_F6_ONE_PAGE_DECISION_FORM.md": "fa3aac71f5c8da692276f371170e76fc37a5abbdbf1f16f55da828bc9940b46d",
@@ -186,7 +191,9 @@ export async function loadDeliveryAnalysis(fetchImpl, path, expectedCityId, time
     const manifest = JSON.parse(manifestText);
     assert(manifest?.schema_version === "1.0.0" && manifest?.source_analysis_authority === "src/analysis" && manifest?.generator === "scripts/build_candidate_analysis.py", "analysis manifest authority is invalid");
     const expectedSha = manifest.artifacts?.[`${expectedCityId}.json`];
-    assert(SHA256.test(expectedSha) && await sha256Text(text) === expectedSha, "analysis bytes do not match the committed manifest");
+    const actualSha = await sha256Text(text);
+    assert(SHA256.test(expectedSha) && actualSha === expectedSha, "analysis bytes do not match the committed manifest");
+    assert(actualSha === EXPECTED_ANALYSIS_SHA256[expectedCityId], "analysis bytes do not match the canonical delivery artifact");
     return validateDeliveryAnalysis(JSON.parse(text), expectedCityId);
   } finally {
     clearTimeout(timer);

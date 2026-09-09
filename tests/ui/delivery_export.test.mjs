@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 
 import {
   checklistToCsv,
@@ -104,6 +105,12 @@ test("[source_conformance] runtime analysis bytes must match the committed manif
   const tamperedText = `${JSON.stringify(changed, null, 2)}\n`;
   const tamperedFetch = async (url) => response(url.endsWith("manifest.json") ? manifestText : tamperedText);
   await assert.rejects(() => loadDeliveryAnalysis(tamperedFetch, "./data/analysis/kyoto_kiyomizu.json", "kyoto_kiyomizu"), /committed manifest/);
+
+  const matchingTamperedManifest = JSON.parse(manifestText);
+  matchingTamperedManifest.artifacts["kyoto_kiyomizu.json"] = createHash("sha256").update(tamperedText).digest("hex");
+  const matchingTamperedManifestText = `${JSON.stringify(matchingTamperedManifest, null, 2)}\n`;
+  const jointlyTamperedFetch = async (url) => response(url.endsWith("manifest.json") ? matchingTamperedManifestText : tamperedText);
+  await assert.rejects(() => loadDeliveryAnalysis(jointlyTamperedFetch, "./data/analysis/kyoto_kiyomizu.json", "kyoto_kiyomizu"), /canonical delivery artifact/);
 });
 
 test("[source_conformance] canonical Fujisawa evidence mutations fail closed", () => {
