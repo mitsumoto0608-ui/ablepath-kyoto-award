@@ -116,6 +116,18 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
     with pytest.raises(ValueError, match="report SHA-256"):
         validate_static_candidate_analysis(ROOT, stale_report)
 
+    stale_hazard_source = deepcopy(artifact)
+    hazard_source = stale_hazard_source["official_evidence"]["hazard"]["source_catalog"]["nlni_a31b_2025_kyoto_flood"]
+    hazard_source["source_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="hazard source provenance"):
+        validate_static_candidate_analysis(ROOT, stale_hazard_source)
+
+    stale_hazard_revision = deepcopy(artifact)
+    hazard_source = stale_hazard_revision["official_evidence"]["hazard"]["source_catalog"]["nlni_a31b_2025_kyoto_flood"]
+    hazard_source["source_revision"] = "invented"
+    with pytest.raises(ValueError, match="hazard source provenance"):
+        validate_static_candidate_analysis(ROOT, stale_hazard_revision)
+
     promoted_terrain = deepcopy(artifact)
     promoted_terrain["official_evidence"]["terrain"]["products"][0]["terrain_connected"] = True
     with pytest.raises(ValueError, match="terrain evidence"):

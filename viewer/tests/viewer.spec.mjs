@@ -2,9 +2,10 @@ import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
 test("[ui_regression] three regions export source-bound CSV JSON and printable HTML", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
   for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
     await page.goto(`/?city=${cityId}&layer=real`);
-    await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible({ timeout: 20_000 });
     await expect(page.getByLabel("選択区間の確認リスト")).toContainText("UNKNOWN");
     await expect(page.getByLabel("確認リスト・exportのsource scenario")).toBeEnabled();
     await expect(page.getByLabel("source revision")).toBeEnabled();

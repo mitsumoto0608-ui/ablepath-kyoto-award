@@ -129,7 +129,7 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "f0869a7291d07d3a121bf95d7524fe2b2821f81e591df9d2f7b05745dff70bfc",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "f1_f6_binding_sha256": "dc2800c5ffe0e44c06440947054b3a01f8bdde5ca4cd06d79a6fb40cc872f025",
+      "f1_f6_binding_sha256": "41cf1d73a8d07d60c965cd1b8b2077fdc76aed2a84a050c197aac97a25585e16",
       "delivery_source_binding_sha256": "464b0b651ab50f40afb2d9f54f3ce8d5f1aadef72f68cfaa15acf36917bee016",
       "kyoto_status_sha256": "3d9b3590a2b8421a0d698ac4fd325ee36969a08a00e950a49fac060f2aecd79c",
       "terrain_inventory_sha256": "74fdc85f1df57a88106d80c410417e3879c1c4f9309a4a66153625e1023eb478",
@@ -401,12 +401,16 @@
       ],
       "source_catalog": {
         "nlni_a31b_2025_kyoto_flood": {
+          "source_revision": "2025",
+          "source_sha256": "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c",
           "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip",
           "license_status": "PERMITTED_WITH_OBLIGATIONS",
           "limitations": "Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.",
           "coverage_selection_sha256": "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e"
         },
         "kyoto_city_landslide_gis_20260830": {
+          "source_revision": "2026-01-22",
+          "source_sha256": "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828",
           "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload",
           "license_status": "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY",
           "limitations": "Private/internal F6 scope only. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.",
@@ -11459,6 +11463,7 @@
     "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1",
     "decision_recorded_at": "2026-09-09",
     "authority": "USER_EXPLICIT_APPROVAL_IN_CODEX_SESSION",
+    "source_zip_sha256": "d76c60e8285931bf61ffde05a48fda20cc107c845b89a6f83d42c80528911a9f",
     "source_sha256": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
     "source_artifacts": {
       "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",

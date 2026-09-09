@@ -120,6 +120,8 @@ test("[source_conformance] canonical Fujisawa evidence mutations fail closed", (
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.license_status = "PUBLIC_UNRESTRICTED"; },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.source_url = "https://example.invalid"; },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.coverage_selection_sha256 = "0".repeat(64); },
+    (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.source_sha256 = "0".repeat(64); },
+    (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.source_revision = "invented"; },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.limitations = "unrestricted"; },
     (value) => { value.official_evidence.facility.source_catalog.fujisawa_webgis_toilets_accessibility.license_status = "APPROVED"; },
     (value) => { value.official_evidence.facility.source_catalog.fujisawa_webgis_toilets_accessibility.acquired_at = "2030-01-01"; },

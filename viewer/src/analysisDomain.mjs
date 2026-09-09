@@ -33,9 +33,9 @@ const EXPECTED_FACILITY_SOURCES = {
   },
 };
 const EXPECTED_CONTENT_FINGERPRINTS = {
-  kyoto_kiyomizu: { hazard_catalog: "bdb5073488512030", facility_catalog: "836dfce99eed520f", facility_records: "135edb69fd555311" },
-  kyoto_arashiyama: { hazard_catalog: "2f53f5ba8a81b0d9", facility_catalog: "836dfce99eed520f", facility_records: "cea3061e9d13e1da" },
-  fujisawa_enoshima: { hazard_catalog: "1cf22f3d4742642f", facility_catalog: "92cbbf02e9cb3cba", facility_records: "5ad50528022431a3", scenarios: "fcec6c60971bf8fb" },
+  kyoto_kiyomizu: { hazard_catalog: "84d869687bbb4621", facility_catalog: "836dfce99eed520f", facility_records: "135edb69fd555311" },
+  kyoto_arashiyama: { hazard_catalog: "f2a23071675c5cdc", facility_catalog: "836dfce99eed520f", facility_records: "cea3061e9d13e1da" },
+  fujisawa_enoshima: { hazard_catalog: "a5511ec143d37f66", facility_catalog: "92cbbf02e9cb3cba", facility_records: "5ad50528022431a3", scenarios: "fcec6c60971bf8fb" },
 };
 const APPROVED_DECISION_HASHES = {
   "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",

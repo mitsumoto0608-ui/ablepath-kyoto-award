@@ -142,7 +142,7 @@
       "promotion_sha256": "1e0bcd2a0687c863421576f60a256ce52072d2ed7e7d4abe19b83a8befc26505",
       "plateau_sha256": "f0869a7291d07d3a121bf95d7524fe2b2821f81e591df9d2f7b05745dff70bfc",
       "m7_sha256": "8d57dd0e2c0c355ea4615ff8c7702f9d11f48cbe533bd37027aadd31a994dfc8",
-      "f1_f6_binding_sha256": "dc2800c5ffe0e44c06440947054b3a01f8bdde5ca4cd06d79a6fb40cc872f025",
+      "f1_f6_binding_sha256": "41cf1d73a8d07d60c965cd1b8b2077fdc76aed2a84a050c197aac97a25585e16",
       "delivery_source_binding_sha256": "464b0b651ab50f40afb2d9f54f3ce8d5f1aadef72f68cfaa15acf36917bee016",
       "terrain_inventory_sha256": "b3fb2e6020f8bc14f7c444871e05962aac30947db39135f5343088f297e31f51",
       "facility_receipt_sha256": "60c63dc005405acfd208803ee938479f1a1b8c357d9a152166ff3ec99399ba83",
@@ -227,6 +227,8 @@
       ],
       "source_catalog": {
         "nlni_a40_2020_kanagawa_tsunami": {
+          "source_revision": "2020",
+          "source_sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
           "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip",
           "license_status": "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY",
           "limitations": "Private/internal F6 scope only. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.",
@@ -4887,6 +4889,7 @@
     "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1",
     "decision_recorded_at": "2026-09-09",
     "authority": "USER_EXPLICIT_APPROVAL_IN_CODEX_SESSION",
+    "source_zip_sha256": "d76c60e8285931bf61ffde05a48fda20cc107c845b89a6f83d42c80528911a9f",
     "source_sha256": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",
     "source_artifacts": {
       "F1_F6_DECISION_STATE.json": "101083468c4824de45260c1696a75786ce17e5996db1570eda14d1b50241c817",

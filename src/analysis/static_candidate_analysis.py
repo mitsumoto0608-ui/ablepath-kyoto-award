@@ -33,15 +33,15 @@ CITY_INPUTS = (
 )
 EXPECTED_HAZARD_SOURCES = {
     "kyoto_kiyomizu": {
-        "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e"),
-        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "a3a8976c8708b95f1ccc5d5b8aaefdb4c0d7aaa0e8eb879a64d28e812818fdd6"),
+        "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e", "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c", "2025"),
+        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "a3a8976c8708b95f1ccc5d5b8aaefdb4c0d7aaa0e8eb879a64d28e812818fdd6", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
     },
     "kyoto_arashiyama": {
-        "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7"),
-        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "9935a4b22f656f3ef66d120bbc94c0d97e42e71a7956db181b6e8f0002700b4f"),
+        "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7", "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c", "2025"),
+        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "9935a4b22f656f3ef66d120bbc94c0d97e42e71a7956db181b6e8f0002700b4f", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
     },
     "fujisawa_enoshima": {
-        "nlni_a40_2020_kanagawa_tsunami": ("https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c"),
+        "nlni_a40_2020_kanagawa_tsunami": ("https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c", "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479", "2020"),
     },
 }
 EXPECTED_FUJISAWA_SCENARIO_IDS = sorted([
@@ -63,9 +63,9 @@ EXPECTED_FACILITY_SOURCES = {
     },
 }
 EXPECTED_CONTENT_SHA256 = {
-    "kyoto_kiyomizu": {"hazard_catalog": "1d132efd779015d1ebde870f2505a6689e5d0b6dc30e5f02f6f42c91b3a2ec34", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "d8d74884e7e7194439cabf7da0f9675b9a6c91dec5926160ae838f92e7af0102"},
-    "kyoto_arashiyama": {"hazard_catalog": "824f5e77cffc583cb6cf1fa44e8b0c91fda825221430c6098b170d5ff8b7217b", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "7a7cafb3bb85b38aaf6de39a950d4e26c6ccf08af76627199739e1c65243246d"},
-    "fujisawa_enoshima": {"hazard_catalog": "7fe9407c48fe95b4b4a4e4695db467de47b93ba7bed7c037ae37c4b893eded9a", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "cec9079847c72a970124e7602ba0f2d1227ee1078e37bad4ece6589132f5b350", "scenarios": "6c3f29846985e5d27cb944bcc30915e03c18f72c4caf90f4062f9b0bca1d5d5b"},
+    "kyoto_kiyomizu": {"hazard_catalog": "a84328d279f9996640aae1df1530a730e26e46472bc3ffb711423fd203aaae96", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "d8d74884e7e7194439cabf7da0f9675b9a6c91dec5926160ae838f92e7af0102"},
+    "kyoto_arashiyama": {"hazard_catalog": "7fd336b831f5dd86bb6aeef23cb8473e57f75dec67e445f240e8ac818c99482f", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "7a7cafb3bb85b38aaf6de39a950d4e26c6ccf08af76627199739e1c65243246d"},
+    "fujisawa_enoshima": {"hazard_catalog": "0bb2729ec316f9dd8638c0dd15da9eb0240802eafad2c1924c005735bb977330", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "cec9079847c72a970124e7602ba0f2d1227ee1078e37bad4ece6589132f5b350", "scenarios": "6c3f29846985e5d27cb944bcc30915e03c18f72c4caf90f4062f9b0bca1d5d5b"},
 }
 
 
@@ -409,6 +409,8 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         or not isinstance(source.get("license_status"), str) or not source["license_status"]
         or not isinstance(source.get("limitations"), str) or not source["limitations"]
         or not _is_sha256(source.get("coverage_selection_sha256"))
+        or not _is_sha256(source.get("source_sha256"))
+        or not isinstance(source.get("source_revision"), str) or not source["source_revision"] or "\0" in source["source_revision"]
         for source in source_catalog.values()
     ):
         raise ValueError(f"{city_id} delivery hazard source catalog is invalid")
@@ -417,6 +419,8 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         source_catalog[source_id].get("source_url") != expected[0]
         or source_catalog[source_id].get("license_status") != expected[1]
         or source_catalog[source_id].get("coverage_selection_sha256") != expected[2]
+        or source_catalog[source_id].get("source_sha256") != expected[3]
+        or source_catalog[source_id].get("source_revision") != expected[4]
         for source_id, expected in expected_hazard_sources.items()
     ):
         raise ValueError(f"{city_id} delivery hazard source provenance is not exact")
@@ -450,7 +454,8 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
     if not exposures or any(
         row.get("metric_crs") != expected_crs
         or row.get("source_id") not in source_catalog
-        or not _is_sha256(row.get("source_sha256"))
+        or row.get("source_sha256") != source_catalog.get(row.get("source_id"), {}).get("source_sha256")
+        or row.get("source_revision") != source_catalog.get(row.get("source_id"), {}).get("source_revision")
         or not all(isinstance(row.get(key), str) and row[key] and "\0" not in row[key] for key in ("edge_id", "scenario_id", "source_id", "source_revision"))
         or row.get("official_closure") is not None
         or row.get("damage_state") is not None
