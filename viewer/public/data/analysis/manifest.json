@@ -3,8 +3,8 @@
   "source_analysis_authority": "src/analysis",
   "generator": "scripts/build_candidate_analysis.py",
   "artifacts": {
-    "fujisawa_enoshima.json": "95f4c06c015ccf25ae080c7a77dbc3bc5d25d0af8c605d3b659e4a9ad815c1b1",
-    "kyoto_arashiyama.json": "0913dfd43ef29301482151e67c95f9ea45c3e2022ed9f5ffb690bbc0968c9cbe",
-    "kyoto_kiyomizu.json": "0ea5294f62a4e9ca33a0e18160b8291ccb5edae62e3ffb419a5a0ba6f4735b58"
+    "fujisawa_enoshima.json": "1166925c5244c60c2aa27af084e17a698efa360032792e368c85827b8d9bb7f8",
+    "kyoto_arashiyama.json": "b01b1055cf3d239c666768db4d36d602e06a2599c92741bb5db40215da554194",
+    "kyoto_kiyomizu.json": "b0bc3f6fb33395e6ec0eab24c68754d2019d8e876923935f5419c9e86d613cca"
   }
 }

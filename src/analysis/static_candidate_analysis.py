@@ -15,9 +15,14 @@ from src.analysis.candidate_network import (
 from src.analysis.delivery_sprint import validate_f1_f6_binding
 
 
+def canonical_text_bytes(payload: bytes) -> bytes:
+    """Return canonical Git text bytes independent of Windows checkout newlines."""
+    return payload.replace(b"\r\n", b"\n")
+
+
 def canonical_text_sha256_bytes(payload: bytes) -> str:
     """Hash canonical Git text bytes independent of Windows checkout newlines."""
-    return sha256(payload.replace(b"\r\n", b"\n")).hexdigest()
+    return sha256(canonical_text_bytes(payload)).hexdigest()
 
 
 def canonical_text_sha256(path: Path) -> str:
@@ -217,7 +222,7 @@ def build_static_candidate_analysis(
         "algorithm_version": "2.0.0",
         "parameters": {
             "coordinate_unit": "coordinate_degree",
-            "input_binding": "sha256(node_geojson_bytes + 0x00 + edge_geojson_bytes); input order=node,edge",
+            "input_binding": "sha256(LF-canonical node_geojson_bytes + 0x00 + LF-canonical edge_geojson_bytes); input order=node,edge",
             "tie_break": "lexical ordered edge-ID tuple",
         },
         "generated_at": context["snapshot_at"],
@@ -232,7 +237,7 @@ def build_static_candidate_analysis(
         "provenance": {
             "source_class": "VGI",
             "source_id": context["source_id"],
-            "input_binding": "node bytes then NUL then edge bytes",
+            "input_binding": "LF-canonical node bytes then NUL then LF-canonical edge bytes",
             "input_artifacts": context["source_artifact_ids"],
             "input_hashes": context["input_hashes"],
         },
@@ -259,8 +264,8 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         city = next(item for item in CITY_INPUTS if item["id"] == city_id)
     except StopIteration as exc:
         raise ValueError("unsupported static analysis city") from exc
-    node_bytes = (root / city["nodes"]).read_bytes()
-    edge_bytes = (root / city["edges"]).read_bytes()
+    node_bytes = canonical_text_bytes((root / city["nodes"]).read_bytes())
+    edge_bytes = canonical_text_bytes((root / city["edges"]).read_bytes())
     expected_input = sha256(node_bytes + b"\0" + edge_bytes).hexdigest()
     if artifact.get("input_sha256") != expected_input:
         raise ValueError(f"{city_id} static analysis input SHA-256 is stale")

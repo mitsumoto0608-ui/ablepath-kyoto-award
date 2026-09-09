@@ -16,6 +16,7 @@ from src.analysis.static_candidate_analysis import (
     CITY_INPUTS,
     authoritative_report_paths,
     build_static_candidate_analysis,
+    canonical_text_bytes,
     canonical_text_sha256,
     canonical_text_sha256_bytes,
     validate_static_candidate_analysis,
@@ -273,8 +274,8 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
 def _artifact_for(root: Path, city: dict) -> dict:
     node_path = root / city["nodes"]
     edge_path = root / city["edges"]
-    node_bytes = node_path.read_bytes()
-    edge_bytes = edge_path.read_bytes()
+    node_bytes = canonical_text_bytes(node_path.read_bytes())
+    edge_bytes = canonical_text_bytes(edge_path.read_bytes())
     nodes = json.loads(node_bytes)["features"]
     edges = json.loads(edge_bytes)["features"]
     revisions = sorted({feature.get("properties", {}).get("revision_id") for feature in [*nodes, *edges] if feature.get("properties", {}).get("revision_id")})

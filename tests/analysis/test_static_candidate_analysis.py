@@ -13,6 +13,7 @@ import scripts.build_candidate_analysis as generator
 from scripts.build_candidate_analysis import generate_static_candidate_analyses
 from src.analysis.static_candidate_analysis import (
     build_static_candidate_analysis,
+    canonical_text_bytes,
     canonical_text_sha256_bytes,
     validate_static_candidate_analysis,
 )
@@ -57,6 +58,7 @@ def test_generator_reproduces_committed_three_city_bytes_twice(tmp_path: Path):
 def test_canonical_text_hash_is_checkout_newline_independent():
     """[software_correctness] LF and CRLF checkouts bind the same canonical tracked-text content."""
     assert canonical_text_sha256_bytes(b"alpha\nbeta\n") == canonical_text_sha256_bytes(b"alpha\r\nbeta\r\n")
+    assert canonical_text_bytes(b"alpha\r\nbeta\r\n") == b"alpha\nbeta\n"
 
 
 def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(tmp_path: Path):

@@ -14,7 +14,7 @@
   "algorithm_version": "2.0.0",
   "parameters": {
     "coordinate_unit": "coordinate_degree",
-    "input_binding": "sha256(node_geojson_bytes + 0x00 + edge_geojson_bytes); input order=node,edge",
+    "input_binding": "sha256(LF-canonical node_geojson_bytes + 0x00 + LF-canonical edge_geojson_bytes); input order=node,edge",
     "tie_break": "lexical ordered edge-ID tuple"
   },
   "generated_at": "2026-08-30T00:00:00Z",
@@ -2886,7 +2886,7 @@
   "provenance": {
     "source_class": "VGI",
     "source_id": "OSM_CANDIDATE_SOURCE",
-    "input_binding": "node bytes then NUL then edge bytes",
+    "input_binding": "LF-canonical node bytes then NUL then LF-canonical edge bytes",
     "input_artifacts": [
       "cities/fujisawa_enoshima/graph/candidate_walk_nodes.real.geojson",
       "cities/fujisawa_enoshima/graph/candidate_walk_edges.real.geojson"

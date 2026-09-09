@@ -13,7 +13,8 @@ const CITY_INPUTS = [
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const hash = (path) => sha256(readFileSync(path));
-const canonicalTextHash = (path) => sha256(Buffer.from(readFileSync(path, "utf8").replaceAll("\r\n", "\n"), "utf8"));
+const canonicalTextBytes = (bytes) => Buffer.from(bytes.toString("utf8").replaceAll("\r\n", "\n"), "utf8");
+const canonicalTextHash = (path) => sha256(canonicalTextBytes(readFileSync(path)));
 
 function reportHashPaths(root, cityId) {
   const paths = {
@@ -62,8 +63,8 @@ export function assertStaticAnalysisArtifacts({ repoRoot, analysisRoot }) {
     if (manifest.artifacts?.[`${input.id}.json`] !== canonicalTextHash(path)) throw new Error(`${input.id} static analysis artifact bytes are stale`);
     const artifact = json(path);
     validateDeliveryAnalysis(artifact, input.id);
-    const nodeBytes = readFileSync(join(root, input.nodes));
-    const edgeBytes = readFileSync(join(root, input.edges));
+    const nodeBytes = canonicalTextBytes(readFileSync(join(root, input.nodes)));
+    const edgeBytes = canonicalTextBytes(readFileSync(join(root, input.edges)));
     const inputSha = sha256(Buffer.concat([nodeBytes, Buffer.from([0]), edgeBytes]));
     if (artifact.city_id !== input.id || artifact.input_sha256 !== inputSha) throw new Error(`${input.id} static analysis input SHA-256 is stale`);
     if (artifact.provenance?.input_hashes?.node_sha256 !== sha256(nodeBytes) || artifact.provenance?.input_hashes?.edge_sha256 !== sha256(edgeBytes)) throw new Error(`${input.id} static analysis provenance hash is stale`);
@@ -96,11 +97,12 @@ function artifact(root, input) {
   const manifest = json(paths.manifest); const topologySha = hash(paths.topology); const manifestSha = hash(paths.manifest);
   const dataPath = `./data/maps/${input.id}.candidate_edges.geojson`;
   const nodeBytes = readFileSync(paths.nodes); const nodeData = JSON.parse(nodeBytes); const sourceArtifactIds = [input.nodes, input.edges]; const sourceRevisionIds = [...new Set([...(nodeData.features ?? []), ...edgeData.features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort();
+  const canonicalNodeBytes = canonicalTextBytes(nodeBytes); const canonicalEdgeBytes = canonicalTextBytes(edgeBytes);
   return {
     city_id: input.id,
     real_2d: { data_path: dataPath, artifact_sha256: edgeSha, copied_sha256: null, corridor_sha256: hash(paths.corridor), source_sha256: input.id === "kyoto_kiyomizu" ? "3d21ce674776c5c3e37c507c09a9458e062d2d31f5718b3e702313838ef7d2ec" : input.id === "kyoto_arashiyama" ? "1cde93d68bebf633989e825cbd5ac1e772cee81508043f44beb311250a1e8013" : "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04", query_sha256: input.id === "kyoto_kiyomizu" ? "f32964329548d7d715c79cf05da6a28a7ac8230781acc4852f9174ba9f4dfb7b" : input.id === "kyoto_arashiyama" ? "b5c52b3ea7542261159b5764956aa9662673c0422b3509dc59e4866f00c14603" : "c016cd4d6e2e6de4c5a43ba181dd24ec34f3ae774fbd83662fd795f700ad3d04", topology_sha256: topologySha, manifest_sha256: manifestSha, source_id: input.source, source_class: "VGI", data_class: "REAL", geometry_status: "SOURCE_TRACEABLE_REAL", topology_status: "CANDIDATE_REVIEW_REQUIRED", route_continuity: "NOT_ESTABLISHED", snapshot_at: input.snapshot, feature_count: edgeData.features.length, bounds: computeGeoJsonBounds(edgeData), license: "Open Data Commons Open Database License (ODbL) 1.0", license_url: "https://opendatacommons.org/licenses/odbl/1-0/", copyright_url: "https://www.openstreetmap.org/copyright", attribution: "© OpenStreetMap contributors / Data available under ODbL 1.0", lineage: [`artifact:${edgeSha}`, "transform:EXACT_BYTE_COPY@1.0.0", `corridor:${hash(paths.corridor)}`, `topology:${topologySha}`, `manifest:${manifestSha}`, `manifest_schema:${manifest.schema_version ?? "unknown"}`] },
     cesium: input.id === "kyoto_kiyomizu" ? { available: true, data_class: "OFFICIAL_METADATA_ONLY", source_id: "plateau_26100_bldg_maxlod2_latest_20260830", source_class: "OFFICIAL", accessed_at: "2026-08-30", valid_as_of: null, valid_as_of_reason: "Latest endpoint is dynamic; retained ETag response must be rechecked", lod: "LOD2", tileset_url: "https://assets.cms.plateau.reearth.io/assets/25/dd4c50-5342-4a0b-ac51-05ffb138b8b5/26100_kyoto-shi_city_2025_citygml_1_op_bldg_3dtiles_26105_higashiyama-ku_lod2/tileset.json", license: "Public Data License 1.0 (PDL1.0), CC BY 4.0 compatible", license_url: "https://www.mlit.go.jp/plateau/site-policy/", attribution: "出典：国土交通省 3D都市モデル（Project PLATEAU）京都市2025 / PDL1.0", connected: false, requires_commercial_token: false, metadata_sha256: "2a1e4c71370f58f0f40dc8b6eb9ae120b7f694b6caca1260a8a0efbbfeda78d3", retained_response_sha256: "ce58a92bb9da595d9251cd72b7b77af6da9a3748628a0e8370ffc6fbc6312242", query_sha256: "eb9400f69b5ee88b802e972f426b4ff624ab759fe372776f67ecd83978221e40" } : null,
-    edgeBytes, edgeData, source_artifact_ids: sourceArtifactIds, source_revision_ids: sourceRevisionIds, input_sha256: sha256(Buffer.concat([nodeBytes, Buffer.from([0]), edgeBytes])), input_hashes: { node_sha256: sha256(nodeBytes), edge_sha256: edgeSha }, snapshot_at: input.snapshot, source_id: input.source,
+    edgeBytes, edgeData, source_artifact_ids: sourceArtifactIds, source_revision_ids: sourceRevisionIds, input_sha256: sha256(Buffer.concat([canonicalNodeBytes, Buffer.from([0]), canonicalEdgeBytes])), input_hashes: { node_sha256: sha256(canonicalNodeBytes), edge_sha256: sha256(canonicalEdgeBytes) }, snapshot_at: input.snapshot, source_id: input.source,
   };
 }
 
