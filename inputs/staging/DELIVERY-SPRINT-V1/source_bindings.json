@@ -1,0 +1,52 @@
+{
+  "closure_derived": false,
+  "counts": {
+    "fujisawa_enoshima_tsunami": 783,
+    "kyoto_arashiyama_landslide": 23,
+    "kyoto_facility_source_fields": 77,
+    "kyoto_kiyomizu_landslide": 46
+  },
+  "damage_derived": false,
+  "debris_derived": false,
+  "geojson_coordinate_order": "longitude_latitude",
+  "geometry_transform": "NONE_WHOLE_SOURCE_FEATURE_INTERSECTION_SELECTION",
+  "raw_mutated": false,
+  "schema_version": "1.0.0",
+  "source_crs": "EPSG:6668",
+  "sources": {
+    "fujisawa_tsunami": {
+      "license_scope": "PUBLIC_REDISTRIBUTION_ALLOWED_WITH_ATTRIBUTION",
+      "license_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A40-v2_0.html",
+      "license_receipt_sha256": "0a3e5ac59f80648b3b1e1faa67819bc50d319ac080f0b1d622b604b3621568d0",
+      "attribution": "国土数値情報（津波浸水想定データ、2020年度、神奈川県）を加工して作成",
+      "revision": "2020",
+      "sha256": "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479",
+      "source_id": "nlni_a40_2020_kanagawa_tsunami"
+    },
+    "kyoto_designated_shelters_r80818": {
+      "filename": "20260825185151_01指定避難所R80818現在.xlsx",
+      "read_only": true,
+      "sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246"
+    },
+    "kyoto_emergency_shelters_r80818": {
+      "filename": "20260825185105_02指定緊急避難場所水害・土砂災害R80818現在.xlsx",
+      "read_only": true,
+      "sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639"
+    },
+    "kyoto_landslide": {
+      "license_scope": "PUBLIC_REUSE_ALLOWED_WITH_ATTRIBUTION",
+      "license_url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html",
+      "license_receipt_sha256": "22a68dfe83832baa9f4d055d3b2918beccbabf4841259be4056fd92946baa1b4",
+      "attribution": "出典：京都市防災情報マップ（加工して作成）",
+      "revision": "2026-01-22",
+      "sha256": "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828",
+      "source_id": "kyoto_city_landslide_gis_20260830"
+    },
+    "kyoto_public_toilets_00307": {
+      "filename": "20260306112900_オープンデータ（公衆トイレ、観光トイレ）.xlsx",
+      "read_only": true,
+      "sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764"
+    }
+  },
+  "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1"
+}

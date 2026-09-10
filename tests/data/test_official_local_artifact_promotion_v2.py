@@ -76,8 +76,8 @@ def test_dem_products_and_aoi_are_separated_without_vertical_datum_inference() -
     assert all(row["validation_result"] == "CRS_REVIEW_REQUIRED" for row in rows)
 
 
-def test_scenario_and_facility_outputs_preserve_unknowns() -> None:
-    """[target_validation] Eight scenarios per hazard and 339/119 plus 57/17 address-only rows remain isolated."""
+def test_scenario_outputs_and_facility_receipt_preserve_unknowns() -> None:
+    """[target_validation] Hazard scenarios stay fail-closed and unlicensed facility rows stay outside the public tip."""
 
     earthquake = _rows(ROOT / "cities" / "fujisawa_enoshima" / "hazards" / "official" / "earthquake_scenario_inventory.csv")
     liquefaction = _rows(ROOT / "cities" / "fujisawa_enoshima" / "hazards" / "official" / "liquefaction_scenario_inventory.csv")
@@ -87,26 +87,17 @@ def test_scenario_and_facility_outputs_preserve_unknowns() -> None:
     assert len({row["dataset_id"] for row in liquefaction}) == 9
     assert all("DO_NOT_DERIVE_CLOSED" in row["safety_boundary"] for row in earthquake + liquefaction)
 
-    full = _rows(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "facility_table_339.csv")
-    aoi = _rows(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "enoshima_katase_facility_table_57.csv")
-    assert len(full) == 339
-    assert sum(row["ostomate_detail_marker"] == "true" for row in full) == 119
-    assert len(aoi) == 57
-    assert sum(row["ostomate_detail_available"] == "true" for row in aoi) == 17
-    assert all(row["geometry_status"] == "ADDRESS_ONLY" for row in aoi)
-    assert all(row["map_ready"] == "false" for row in aoi)
-    assert all(row["wheelchair_accessible"] == "UNKNOWN" for row in aoi)
-    assert all(row["accessible_entrance"] == "UNKNOWN" for row in aoi)
-    assert all(row["opening_status"] == "UNKNOWN" for row in aoi)
-
-    full_json = _json(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json")
-    aoi_json = _json(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json")
-    assert len(full_json["records"]) == 339
-    assert len(aoi_json["records"]) == 57
-    assert all(record["facility_record_id"] for record in full_json["records"])
-    assert all(record["geometry_status"] == "ADDRESS_ONLY" for record in full_json["records"] + aoi_json["records"])
-    assert all(record["latitude"] is None and record["longitude"] is None for record in full_json["records"] + aoi_json["records"])
-    assert all(record["wheelchair_accessible"] is None for record in full_json["records"] + aoi_json["records"])
+    facility_dir = ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official"
+    receipt = _json(facility_dir / "facility_source_receipt.json")
+    assert receipt["license_status"] == "LICENSE_REVIEW_REQUIRED"
+    assert receipt["provider_redistribution_permission_bound"] is False
+    assert receipt["public_payload_files_present"] is False
+    assert receipt["historical_public_git_reachability"] is True
+    assert receipt["history_rewrite_performed"] is False
+    for name, expected in receipt["historical_derived_output_identities"].items():
+        assert not (facility_dir / name).exists()
+        assert re.fullmatch(r"[0-9a-f]{64}", expected["sha256"])
+        assert expected["rows"] in {57, 339}
 
     hazard_receipt = _json(
         ROOT / "cities" / "fujisawa_enoshima" / "hazards" / "official" / "source_receipt.json"
@@ -144,11 +135,12 @@ def test_kyoto_scoped_display_connection_does_not_claim_analysis_or_safety() -> 
         assert truth["official_facility_map_connected"] is True
         assert truth["official_facility_connection_scope"].endswith("SOURCE_PROVIDED_COORDINATES_ONLY")
 
+    receipt = _json(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "facility_source_receipt.json")
     for relative in (
         "cities/fujisawa_enoshima/facilities/official/facility_table_339.csv",
         "cities/fujisawa_enoshima/facilities/official/enoshima_katase_facility_table_57.csv",
         "cities/fujisawa_enoshima/facilities/official/FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json",
         "cities/fujisawa_enoshima/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json",
     ):
-        expected = _json(ROOT / "cities" / "fujisawa_enoshima" / "facilities" / "official" / "facility_source_receipt.json")["derived_outputs"][Path(relative).name]
-        assert _sha256(ROOT / relative) == expected["sha256"]
+        assert not (ROOT / relative).exists()
+        assert Path(relative).name in receipt["historical_derived_output_identities"]

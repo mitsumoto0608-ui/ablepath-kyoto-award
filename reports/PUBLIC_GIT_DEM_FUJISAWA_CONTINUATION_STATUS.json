@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-PUBLIC-GIT-DEM-FUJISAWA-CONTINUATION-V1",
+  "status": "DELIVERED_PARTIAL",
+  "owner_public_git_authorized": true,
+  "repository_visibility_policy_mismatch_resolved": true,
+  "third_party_redistribution_scope": "PER_SOURCE_VERIFIED_ONLY",
+  "public_git_scope": "REVIEWED_CODE_AND_REDISTRIBUTABLE_DERIVED_ARTIFACTS",
+  "public_rc_publication_authorized": false,
+  "public_demo_deployment_authorized": false,
+  "main_merge_authorized": false,
+  "dem": {
+    "sampling_method": "EXACT_NATIVE_CELL_NO_INTERPOLATION",
+    "products_connected": ["DEM1A", "DEM5A"],
+    "implicit_product_precedence": false,
+    "cities": {
+      "kyoto_kiyomizu": {"status": "DONE", "node_count": 21, "edge_vertex_count": 159, "sample_record_count": 360, "unique_coordinate_count": 142, "numeric_record_count": 360, "null_record_count": 0, "null_coordinate_count": 0},
+      "kyoto_arashiyama": {"status": "DONE", "node_count": 530, "edge_vertex_count": 1156, "sample_record_count": 3372, "unique_coordinate_count": 530, "numeric_record_count": 3372, "null_record_count": 0, "null_coordinate_count": 0},
+      "fujisawa_enoshima": {"status": "DONE", "node_count": 16, "edge_vertex_count": 30, "sample_record_count": 92, "unique_coordinate_count": 16, "numeric_record_count": 86, "null_record_count": 6, "null_coordinate_count": 1, "products": {"DEM1A": {"sample_record_count": 46, "unique_coordinate_count": 16, "numeric_record_count": 43, "null_record_count": 3, "null_coordinate_count": 1}, "DEM5A": {"sample_record_count": 46, "unique_coordinate_count": 16, "numeric_record_count": 43, "null_record_count": 3, "null_coordinate_count": 1}}}
+    },
+    "step_inferred": false,
+    "cross_slope_inferred": false,
+    "walking_surface_claim": false
+  },
+  "fujisawa_hazards": {
+    "liquefaction_distribution": {"status": "CONNECTED", "scenario_count": 8, "aoi_feature_count_per_scenario": 44, "source_crs": "EPSG:4612"},
+    "shaking_susceptibility": {"status": "CONNECTED", "layer_count": 1, "aoi_feature_count": 44, "source_crs": "EPSG:4612"},
+    "liquefaction_hazard": {"status": "CONNECTED", "layer_count": 1, "aoi_feature_count": 44, "source_crs": "EPSG:4612"},
+    "intensity_distribution": {"status": "NOT_CONNECTED", "scenario_count": 8, "reason": "CRS_UNRESOLVED: bundled EPSG:4301 declaration conflicts with projected-looking native bounds; no CRS inferred from appearance."},
+    "closure_derived": false,
+    "damage_or_debris_inferred": false
+  },
+  "public_payload_exclusions": {
+    "fujisawa_address_only_facility_rows": {
+      "historical_full_row_count": 339,
+      "historical_aoi_row_count": 57,
+      "public_viewer_row_count": 0,
+      "current_public_git_row_derivative_count": 0,
+      "ci_artifact_row_count": 0,
+      "status": "CURRENT_TIP_EXCLUDED_HISTORY_REACHABLE_LICENSE_REVIEW_REQUIRED",
+      "provider_redistribution_permission_bound": false,
+      "historical_public_git_reachability": true,
+      "history_rewrite_performed": false,
+      "reason": "Provider redistribution permission is not bound; row derivatives are excluded from the current public Git tip, viewer, and CI artifacts, while prior public history remains reachable."
+    }
+  },
+  "csv_json_html_parity_required": true,
+  "m7_real_edge_evidence_ready_count": 0,
+  "m7_computed_edge_count": 0,
+  "field_measurement_value_count": 0,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "public_release_ready": false
+}

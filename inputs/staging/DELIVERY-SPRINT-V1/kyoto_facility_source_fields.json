@@ -1,0 +1,1509 @@
+{
+  "binding_method": "OFFICIAL_NUMBER_OR_EXACT_SOURCE_COORDINATES",
+  "current_operation_inferred": false,
+  "records": [
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:153",
+      "source_attributes": {
+        "administrative_district": "14中京",
+        "community_disaster_group": "立誠学区",
+        "listed_maximum_capacity": 154,
+        "official_number": 153
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:155",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "清水学区",
+        "listed_maximum_capacity": 210,
+        "official_number": 155
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:156",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "新道学区",
+        "listed_maximum_capacity": 211,
+        "official_number": 156
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:158",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "有済学区",
+        "listed_maximum_capacity": 347,
+        "official_number": 158
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:159",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "六原学区",
+        "listed_maximum_capacity": 4271,
+        "official_number": 159
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:163",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "listed_maximum_capacity": 630,
+        "official_number": 163
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:166",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "listed_maximum_capacity": 692,
+        "official_number": 166
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:168",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "修道学区",
+        "listed_maximum_capacity": 1323,
+        "official_number": 168
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:169",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "修道学区",
+        "listed_maximum_capacity": 107,
+        "official_number": 169
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:170",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "清水学区",
+        "listed_maximum_capacity": 417,
+        "official_number": 170
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:171",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "六原学区",
+        "listed_maximum_capacity": 172,
+        "official_number": 171
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:172",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "新道学区",
+        "listed_maximum_capacity": 160,
+        "official_number": 172
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:173",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "listed_maximum_capacity": 249,
+        "official_number": 173
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:177",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "listed_maximum_capacity": 75,
+        "official_number": 177
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:178",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "listed_maximum_capacity": 102,
+        "official_number": 178
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:179",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "貞教学区",
+        "listed_maximum_capacity": 322,
+        "official_number": 179
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:180",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "貞教学区",
+        "listed_maximum_capacity": 495,
+        "official_number": 180
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:182",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "有済学区",
+        "listed_maximum_capacity": 215,
+        "official_number": 182
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:234",
+      "source_attributes": {
+        "administrative_district": "17下京",
+        "community_disaster_group": "開智学区",
+        "listed_maximum_capacity": 275,
+        "official_number": 234
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:236",
+      "source_attributes": {
+        "administrative_district": "17下京",
+        "community_disaster_group": "永松学区",
+        "listed_maximum_capacity": 839,
+        "official_number": 236
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:263",
+      "source_attributes": {
+        "administrative_district": "19右京",
+        "community_disaster_group": "嵯峨学区",
+        "listed_maximum_capacity": 1954,
+        "official_number": 263
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:265",
+      "source_attributes": {
+        "administrative_district": "19右京",
+        "community_disaster_group": "嵐山学区",
+        "listed_maximum_capacity": 1214,
+        "official_number": 265
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:307",
+      "source_attributes": {
+        "administrative_district": "19右京",
+        "community_disaster_group": "嵐山学区",
+        "listed_maximum_capacity": 475,
+        "official_number": 307
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:329",
+      "source_attributes": {
+        "administrative_district": "20西京",
+        "community_disaster_group": "嵐山東学区",
+        "listed_maximum_capacity": 1656,
+        "official_number": 329
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_designated_shelters_r80818:358",
+      "source_attributes": {
+        "administrative_district": "20西京",
+        "community_disaster_group": "嵐山東学区",
+        "listed_maximum_capacity": 31,
+        "official_number": 358
+      },
+      "source_id": "kyoto_designated_shelters_r80818",
+      "source_sha256": "a30cf1556380359a1fa8fc69e4641fbfb7c3c099595818ac24c01417c9e28246",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:127",
+      "source_attributes": {
+        "administrative_district": "14中京",
+        "community_disaster_group": "立誠学区",
+        "flood_evacuation_target_districts": "立誠",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 127
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:129",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "清水学区",
+        "flood_evacuation_target_districts": "-",
+        "landslide_evacuation_target_districts": "清水",
+        "official_number": 129
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:130",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "新道学区",
+        "flood_evacuation_target_districts": "新道",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 130
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:132",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "有済学区",
+        "flood_evacuation_target_districts": "有済",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 132
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:133",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "六原学区",
+        "flood_evacuation_target_districts": "六原",
+        "landslide_evacuation_target_districts": "六原",
+        "official_number": 133
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:137",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "flood_evacuation_target_districts": "弥栄",
+        "landslide_evacuation_target_districts": "弥栄",
+        "official_number": 137
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:140",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "flood_evacuation_target_districts": "弥栄",
+        "landslide_evacuation_target_districts": "弥栄",
+        "official_number": 140
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:141",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "修道学区",
+        "flood_evacuation_target_districts": "修道",
+        "landslide_evacuation_target_districts": "修道",
+        "official_number": 141
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:142",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "修道学区",
+        "flood_evacuation_target_districts": "修道",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 142
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:143",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "清水学区",
+        "flood_evacuation_target_districts": "-",
+        "landslide_evacuation_target_districts": "清水",
+        "official_number": 143
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:144",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "六原学区",
+        "flood_evacuation_target_districts": "六原",
+        "landslide_evacuation_target_districts": "六原",
+        "official_number": 144
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:145",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "flood_evacuation_target_districts": "弥栄",
+        "landslide_evacuation_target_districts": "弥栄",
+        "official_number": 145
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:149",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "flood_evacuation_target_districts": "弥栄",
+        "landslide_evacuation_target_districts": "弥栄",
+        "official_number": 149
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:150",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "弥栄学区",
+        "flood_evacuation_target_districts": "-",
+        "landslide_evacuation_target_districts": "弥栄",
+        "official_number": 150
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:151",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "貞教学区",
+        "flood_evacuation_target_districts": "貞教",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 151
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:152",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "貞教学区",
+        "flood_evacuation_target_districts": "貞教",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 152
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:153",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "六原学区",
+        "flood_evacuation_target_districts": "-",
+        "landslide_evacuation_target_districts": "六原",
+        "official_number": 153
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:155",
+      "source_attributes": {
+        "administrative_district": "15東山",
+        "community_disaster_group": "有済学区",
+        "flood_evacuation_target_districts": "有済",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 155
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:204",
+      "source_attributes": {
+        "administrative_district": "17下京",
+        "community_disaster_group": "開智学区",
+        "flood_evacuation_target_districts": "開智",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 204
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:206",
+      "source_attributes": {
+        "administrative_district": "17下京",
+        "community_disaster_group": "永松学区",
+        "flood_evacuation_target_districts": "永松",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 206
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:233",
+      "source_attributes": {
+        "administrative_district": "19右京",
+        "community_disaster_group": "嵯峨学区",
+        "flood_evacuation_target_districts": "嵯峨",
+        "landslide_evacuation_target_districts": "嵯峨",
+        "official_number": 233
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:268",
+      "source_attributes": {
+        "administrative_district": "19右京",
+        "community_disaster_group": "嵐山学区",
+        "flood_evacuation_target_districts": "嵐山",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 268
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:292",
+      "source_attributes": {
+        "administrative_district": "20西京",
+        "community_disaster_group": "嵐山東学区",
+        "flood_evacuation_target_districts": "嵐山東",
+        "landslide_evacuation_target_districts": "嵐山東",
+        "official_number": 292
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_emergency_shelters_r80818:314",
+      "source_attributes": {
+        "administrative_district": "20西京",
+        "community_disaster_group": "嵐山東学区",
+        "flood_evacuation_target_districts": "嵐山東",
+        "landslide_evacuation_target_districts": "-",
+        "official_number": 314
+      },
+      "source_id": "kyoto_emergency_shelters_r80818",
+      "source_sha256": "e1c03e4e0f830d10430b6a0fb1e1669886c3708cdc61164e5471cea7f9a4d639",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:22",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器４基、大便器２基\n女子大便器５基\n多機能１室",
+        "listed_opening_hours": "午前8時から\n午後8時まで",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": 22,
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330531.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:39",
+      "source_attributes": {
+        "administrative_district": "西京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器５基、大便器２基\n女子大便器６基\n多機能１室",
+        "listed_opening_hours": "午前7時から\n午後6時まで",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": 39,
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000331467.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:51",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器３基、大便器２基\n女子大便器７基\n多機能１室",
+        "listed_opening_hours": "午前8時から\n午前0時まで",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "○",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": 51,
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330558.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－１",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器３基\n多機能１室",
+        "listed_opening_hours": "午前6時から\n午後6時まで\n（7月、8月は\n午後6時30分）",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "○",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ａ－１",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000329491.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－１０",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器１基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－１０",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330432.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－１１",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器１基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－１１",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330437.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－１２",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器１基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－１２",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330438.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－１３",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器１基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－１３",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330439.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－２",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器６基、大便器２基\n女子大便器７基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－２",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330382.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－３",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器３基、大便器１基\n女子大便器４基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ａ－３",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330386.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－４",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器２基（うち多機能１室）\n女子大便器３基（うち多機能１室）",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ａ－４",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330390.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－５",
+      "source_attributes": {
+        "administrative_district": "下京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "○",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ａ－５",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330416.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－６",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－６",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330424.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－７",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "○",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－７",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330425.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－８",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－８",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330426.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ａ－９",
+      "source_attributes": {
+        "administrative_district": "東山区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ａ－９",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330431.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器１基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－１",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330278.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－１１",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器１基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－１１",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330547.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－２",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器６基、大便器２基\n女子大便器６基\n多機能２室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "○",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－２",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330532.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－３",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ｂ－３",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330533.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－４",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器３基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－４",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330534.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－５",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－５",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330537.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－６",
+      "source_attributes": {
+        "administrative_district": "右京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "女子大便器６基（うち多機能１室）\n※　女性専用トイレ",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｂ－６",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330538.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｂ－７",
+      "source_attributes": {
+        "administrative_district": "西京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器１基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ｂ－７",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330541.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｄ－３",
+      "source_attributes": {
+        "administrative_district": "中京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器３基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ｄ－３",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330595.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｄ－４",
+      "source_attributes": {
+        "administrative_district": "中京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器１基\n多機能１室",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "○",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "○",
+        "official_map_number": "Ｄ－４",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330596.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｄ－５",
+      "source_attributes": {
+        "administrative_district": "中京区",
+        "listed_baby_support": "○",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器１基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ｄ－５",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330597.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "current_operation_status": "UNKNOWN",
+      "disaster_availability_status": "UNKNOWN",
+      "entrance_status": "UNKNOWN",
+      "facility_record_id": "kyoto_public_toilets_00307:Ｄ－６",
+      "source_attributes": {
+        "administrative_district": "中京区",
+        "listed_baby_support": "×",
+        "listed_fixture_count_text": "男子小便器２基、大便器１基\n女子大便器２基",
+        "listed_opening_hours": "終日",
+        "listed_ostomate_support": "×",
+        "listed_washlet_support": "×",
+        "listed_western_style": "○",
+        "listed_wheelchair_support": "×",
+        "official_map_number": "Ｄ－６",
+        "official_page_url": "https://www.city.kyoto.lg.jp/kankyo/page/0000330598.html"
+      },
+      "source_id": "kyoto_public_toilets_00307",
+      "source_sha256": "a46448d7bb6fe814631b1230e69ce6d825d36ccf0ddb35dc339bc49ed60fc764",
+      "step_free_status": "UNKNOWN",
+      "unlock_status": "UNKNOWN"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "silent_geocoding": false
+}

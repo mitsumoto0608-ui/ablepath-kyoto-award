@@ -1,6 +1,6 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、公式hazard、行政PoCとpublic releaseは未完成です。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、行政PoCとpublic releaseは未完成です。公式hazardのglobal/operational接続は未完成ですが、source-side analysisは京都A31b・京都土砂・藤沢A40に加え、藤沢の検証済みEPSG:4612の液状化8 scenario、ゆれやすさ1 layer、液状化危険度1 layerを接続しています。GSI DEM1A/5Aは3都市でnative-cell値を別productとして接続しています。これらはCLOSED/FAIL・damage・debris・段差・勾配・通行可能性・安全性を生成しません。藤沢震度8 scenarioはCRS矛盾により未接続です。task-scoped current truthは`reports/PUBLIC_GIT_DEM_FUJISAWA_CONTINUATION_STATUS.json`、従来のPhase 4 gateはこの追加接続以前のhistorical snapshotです。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 
@@ -14,7 +14,8 @@
 
 ```text
 OVERALL_STATUS=PARTIAL_COMPLETE
-CURRENT_MACHINE_TRUTH_AUTHORITY=reports/PHASE4_ANALYSIS_UI_GATE.json
+CURRENT_TASK_TRUTH_AUTHORITY=reports/PUBLIC_GIT_DEM_FUJISAWA_CONTINUATION_STATUS.json
+HISTORICAL_GLOBAL_GATE=reports/PHASE4_ANALYSIS_UI_GATE.json
 ENGINEERING_UI_SHELL_COMPLETE=true
 TWO_D_IMPLEMENTATION=HYBRID_SYNTHETIC_DEFAULT_WITH_THREE_CITY_REAL_CANDIDATE_OPT_IN
 REAL_GEOMETRY_CONNECTED=true
@@ -47,7 +48,7 @@ DEMO_COMPLETE=false
 PUBLIC_RELEASE_READY=false
 ```
 
-現在のmachine-readableな全体正本は`reports/PHASE4_ANALYSIS_UI_GATE.json`です。`reports/COMPLETION_LEVELS.json`はそのcompatibility mirrorです。3都市のhash-bound artifactとprovenanceは各city packのmanifest/receiptが正本で、清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、artifact authorityは`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。実座標edgeであることは通行可能性や安全性を意味しません。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`で、M6/M7・KPI・modelへ未接続です。公式hazard analysisは0都市で、清水のpreviewもquarantineのままです。
+今回scopeのmachine-readable正本は`reports/PUBLIC_GIT_DEM_FUJISAWA_CONTINUATION_STATUS.json`です。`reports/PHASE4_ANALYSIS_UI_GATE.json`と`reports/COMPLETION_LEVELS.json`は今回接続以前のhistorical global gate/mirrorとして保持しています。3都市のhash-bound artifactとprovenanceは各city packのmanifest/receiptが正本で、清水のv1 source catalogueは`cities/kyoto_kiyomizu/sources/source_manifest.csv`、artifact authorityは`cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json`です。実座標edgeであることは通行可能性や安全性を意味しません。幅・勾配・段差・access・operationは`UNKNOWN`または`null + reason`で、M6/M7・KPI・modelへ未接続です。公式hazardのoperational/global completionは未達ですが、京都と藤沢の限定source-side overlap evidenceは接続済みです。
 
 ## 30秒で動かす
 

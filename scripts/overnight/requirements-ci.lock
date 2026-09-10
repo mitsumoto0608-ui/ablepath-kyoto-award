@@ -1,5 +1,6 @@
 # Python 3.12 CI lock generated from the green external verification environment.
 # Install this file first, then install the local project with --no-deps.
+certifi==2026.5.20
 colorama==0.4.6
 iniconfig==2.3.0
 networkx==3.6.1
@@ -7,10 +8,15 @@ numpy==2.5.2
 packaging==26.3
 pandas==3.0.5
 pluggy==1.6.0
+pyproj==3.7.2
+pyshp==2.3.1
 Pygments==2.21.0
 pytest==9.1.1
 python-dateutil==2.9.0.post0
 PyYAML==6.0.3
 scipy==1.18.1
+shapely==2.1.2
 six==1.17.0
 tzdata==2026.3
+et-xmlfile==2.0.0
+openpyxl==3.1.5
