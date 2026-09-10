@@ -245,8 +245,8 @@ def build(repo: Path, raw_root: Path) -> dict:
         "source_crs": "EPSG:6668",
         "geojson_coordinate_order": "longitude_latitude",
         "sources": {
-            "kyoto_landslide": {"source_id": "kyoto_city_landslide_gis_20260830", "revision": "2026-01-22", "sha256": expected[landslide_zip], "license_scope": "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY"},
-            "fujisawa_tsunami": {"source_id": "nlni_a40_2020_kanagawa_tsunami", "revision": "2020", "sha256": expected[a40_zip], "license_scope": "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY"},
+            "kyoto_landslide": {"source_id": "kyoto_city_landslide_gis_20260830", "revision": "2026-01-22", "sha256": expected[landslide_zip], "license_scope": "PUBLIC_REUSE_ALLOWED_WITH_ATTRIBUTION", "license_url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html", "license_receipt_sha256": "22a68dfe83832baa9f4d055d3b2918beccbabf4841259be4056fd92946baa1b4", "attribution": "出典：京都市防災情報マップ（加工して作成）"},
+            "fujisawa_tsunami": {"source_id": "nlni_a40_2020_kanagawa_tsunami", "revision": "2020", "sha256": expected[a40_zip], "license_scope": "PUBLIC_REDISTRIBUTION_ALLOWED_WITH_ATTRIBUTION", "license_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A40-v2_0.html", "license_receipt_sha256": "0a3e5ac59f80648b3b1e1faa67819bc50d319ac080f0b1d622b604b3621568d0", "attribution": "国土数値情報（津波浸水想定データ、2020年度、神奈川県）を加工して作成"},
             **facility_sources,
         },
         "counts": counts,

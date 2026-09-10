@@ -51,6 +51,9 @@ test("[source_conformance] analysis source_hashes bind to the current repository
     promotion_sha256: "reports/OFFICIAL_LOCAL_ARTIFACT_PROMOTION_V2.json",
     plateau_sha256: "reports/PLATEAU_BUILDING_EVIDENCE_V2.json",
     m7_sha256: "reports/M7_REAL_EDGE_STATUS.json",
+    public_git_scope_amendment_sha256: "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
+    public_official_evidence_sha256: "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json",
+    public_official_source_receipt_sha256: "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_source_receipt.json",
     kyoto_status_sha256: "reports/KYOTO_OFFICIAL_DATA_PROMOTION_STATUS.json",
     kyoto_parity_sha256: "reports/KYOTO_PARITY_STATUS.json",
     kyoto_m7_pilot_sha256: "reports/KYOTO_M7_DEEP_PILOT_STATUS.json",
@@ -73,7 +76,7 @@ test("[source_conformance] analysis source_hashes bind to the current repository
       if (!(key in hashes)) continue;
       assert.equal(hashes[key], sha256(Buffer.from(readFileSync(join(REPO_ROOT, relative), "utf8").replaceAll("\r\n", "\n"), "utf8")), `${cityId}.${key} must equal canonical text sha256(${relative})`);
     }
-    assert.equal(analysis.official_evidence.terrain.receipt_sha256, hashes.terrain_inventory_sha256, `${cityId} terrain receipt hash`);
+    assert.equal(analysis.official_evidence.terrain.receipt_sha256, hashes.public_official_evidence_sha256, `${cityId} terrain receipt hash`);
   }
 });
 

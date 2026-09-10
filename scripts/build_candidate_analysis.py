@@ -77,7 +77,8 @@ def _normalized_hazard_layers(root: Path, city_id: str) -> tuple[list[dict], lis
                 normalized = {**feature, "properties": {**props, "source_class": f"NATURALC={props['NATURALC']};KINDC={props['KINDC']}", "source_id": "kyoto_city_landslide_gis_20260830", "scenario_id": f"KYOTO_LANDSLIDE_2026_{layer_id}"}}
                 selected.append(normalized)
                 display_features.append(normalized)
-            layers.append({"source_id": binding["sources"]["kyoto_landslide"]["source_id"], "source_revision": binding["sources"]["kyoto_landslide"]["revision"], "source_sha256": binding["sources"]["kyoto_landslide"]["sha256"], "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "license_status": binding["sources"]["kyoto_landslide"]["license_scope"], "limitations": "Private/internal F6 scope only. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.", "scenario_id": f"KYOTO_LANDSLIDE_2026_{layer_id}", "source_crs": "EPSG:6668", "coverage": coverage, "coverage_crs": "EPSG:4326", "coverage_evidence": {"status": "FULL_SOURCE_SCAN_INTERSECTED_WITH_BOUND_AOI", "selection_sha256": _hash(landslide_path)}, "class_field": "source_class", "features": selected})
+            source = binding["sources"]["kyoto_landslide"]
+            layers.append({"source_id": source["source_id"], "source_revision": source["revision"], "source_sha256": source["sha256"], "source_url": "https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "license_status": source["license_scope"], "license_url": source["license_url"], "license_receipt_sha256": source["license_receipt_sha256"], "attribution": source["attribution"], "limitations": "Public reuse requires the recorded Kyoto City attribution. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.", "scenario_id": f"KYOTO_LANDSLIDE_2026_{layer_id}", "source_crs": "EPSG:6668", "coverage": coverage, "coverage_crs": "EPSG:4326", "coverage_evidence": {"status": "FULL_SOURCE_SCAN_INTERSECTED_WITH_BOUND_AOI", "selection_sha256": _hash(landslide_path)}, "class_field": "source_class", "features": selected})
     else:
         path = root / "inputs/staging/DELIVERY-SPRINT-V1/fujisawa_enoshima/tsunami_a40_aoi_selection.geojson"
         selected = []
@@ -87,7 +88,12 @@ def _normalized_hazard_layers(root: Path, city_id: str) -> tuple[list[dict], lis
             selected.append(normalized)
             display_features.append(normalized)
         source = binding["sources"]["fujisawa_tsunami"]
-        layers.append({"source_id": source["source_id"], "source_revision": source["revision"], "source_sha256": source["sha256"], "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "license_status": source["license_scope"], "limitations": "Private/internal F6 scope only. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.", "scenario_id": "A40_TSUNAMI_2020", "source_crs": "EPSG:6668", "coverage": coverage, "coverage_crs": "EPSG:4326", "coverage_evidence": {"status": "FULL_SOURCE_SCAN_INTERSECTED_WITH_BOUND_AOI", "selection_sha256": _hash(path)}, "class_field": "source_class", "features": selected})
+        layers.append({"source_id": source["source_id"], "source_revision": source["revision"], "source_sha256": source["sha256"], "source_url": "https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "license_status": source["license_scope"], "license_url": source["license_url"], "license_receipt_sha256": source["license_receipt_sha256"], "attribution": source["attribution"], "limitations": "Public redistribution is allowed for Kanagawa under the recorded 2020 A40 terms with attribution. Hazard overlap is evidence only and does not imply closure, passability, damage, debris, accessibility, or safety.", "scenario_id": "A40_TSUNAMI_2020", "source_crs": "EPSG:6668", "coverage": coverage, "coverage_crs": "EPSG:4326", "coverage_evidence": {"status": "FULL_SOURCE_SCAN_INTERSECTED_WITH_BOUND_AOI", "selection_sha256": _hash(path)}, "class_field": "source_class", "features": selected})
+        public = _load_json(root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json")["fujisawa_hazards"]
+        if public.get("license_status") != "CC-BY" or public.get("closure_derived") is not False or public.get("damage_or_debris_inferred") is not False:
+            raise ValueError("public Fujisawa hazard derivative contract is invalid")
+        layers.extend(public["layers"])
+        display_features.extend(public["display_features"])
     return layers, display_features
 
 
@@ -97,6 +103,21 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
     plateau = _load_json(root / "reports/PLATEAU_BUILDING_EVIDENCE_V2.json")
     m7 = _load_json(root / "reports/M7_REAL_EDGE_STATUS.json")
     m7_all = _load_json(root / "reports/M7_ALL_EDGE_EVIDENCE_READINESS.json")
+    public_evidence = _load_json(root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json")
+    dem_city = public_evidence["dem"]["cities"][city_id]
+    # Keep the exhaustive, verbose raw-to-cell receipt in staging.  The static
+    # viewer artifact carries only the fields needed to validate and display a
+    # sample, avoiding thousands of copies of invariant source metadata.
+    terrain_sample_fields = {
+        "sample_id", "sample_role", "node_id", "edge_id",
+        "vertex_index", "product", "query_longitude", "query_latitude",
+        "unit", "member_sha256", "status", "elevation_m", "surface_type",
+        "step_inferred", "cross_slope_inferred",
+    }
+    terrain_samples = [
+        {key: value for key, value in sample.items() if key in terrain_sample_fields}
+        for sample in dem_city["samples"]
+    ]
     if promotion.get("closure_derived") or promotion.get("damage_derived") or promotion.get("debris_derived"):
         raise ValueError("unsafe official evidence promotion is forbidden")
     if (
@@ -118,14 +139,17 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
     subareas = city_truth["subareas"] if city_truth else (["enoshima_katase"] if city_id == "fujisawa_enoshima" else [])
     terrain_path = root / f"cities/{city_id}/terrain/official/dem_product_inventory.csv"
     terrain_rows = _csv_rows(terrain_path) if terrain_path.exists() else []
-    terrain_products = []
-    for row in terrain_rows:
-        selected = {key: row[key] for key in ("dataset_id", "mesh_id", "dem_class", "horizontal_crs", "vertical_datum")}
-        if city_truth:
-            selected.update({"aoi": parity_group, "aoi_status": "AOI_INTERSECTS_REVIEWED_BOUNDS", "validation_result": "HORIZONTAL_CRS_AXIS_AOI_VALIDATED_VERTICAL_DATUM_NOT_EXPLICIT", "license_status": row["license_status"], "terrain_connected": False, "status": "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS", "legacy_inventory_status": {"aoi": row["aoi"], "aoi_status": row["aoi_status"], "validation_result": row["validation_result"], "terrain_connected": row["terrain_connected"] == "true"}})
-        else:
-            selected.update({"aoi": row["aoi"], "aoi_status": row["aoi_status"], "validation_result": row["validation_result"], "license_status": row["license_status"], "terrain_connected": row["terrain_connected"] == "true", "status": "NOT_CONNECTED"})
-        terrain_products.append(selected)
+    terrain_products = dem_city["products"]
+    sample_ids_by_edge = {}
+    for sample in terrain_samples:
+        if sample.get("sample_role") == "EDGE_VERTEX":
+            sample_ids_by_edge.setdefault(sample["edge_id"], []).append(sample["sample_id"])
+    terrain_edge_samples = {
+        edge["properties"]["edge_id"]: sorted(
+            sample_ids_by_edge.get(edge["properties"]["edge_id"], []),
+        )
+        for edge in edges
+    }
     fixed_absent = "No accepted source-traceable AOI artifact in P1; no closure, damage, debris, or FAIL state is derived."
     hazard_layers = []
     if city_truth:
@@ -141,15 +165,35 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
                     hazard_layers.append({"subarea": subarea, "layer": layer, "status": "NOT_CONNECTED", "connected": False, "artifact_status": artifact_status or "NOT_ACCEPTED", "reason": reason or fixed_absent})
     scenarios = []
     if city_id == "fujisawa_enoshima":
-        for filename in ("earthquake_scenario_inventory.csv", "liquefaction_scenario_inventory.csv"):
-            for row in _csv_rows(root / f"cities/{city_id}/hazards/official/{filename}"):
-                scenarios.append({key: row[key] for key in ("dataset_id", "scenario", "layer_kind", "official_source", "official_url", "version_date", "license_review", "validation_result", "crs", "bounds_native")} | {"aoi_scope": "enoshima_katase", "status": "NOT_CONNECTED", "connected": False, "reason": "Scenario inventory only; no AOI geometry connection or closure derivation."})
+        for row in _csv_rows(root / f"cities/{city_id}/hazards/official/earthquake_scenario_inventory.csv"):
+            if row["dataset_id"].startswith("fujisawa_earthquake_intensity_scenario_"):
+                scenarios.append({key: row[key] for key in ("dataset_id", "scenario", "layer_kind", "official_source", "official_url", "version_date", "license_review", "validation_result", "crs", "bounds_native")} | {"aoi_scope": "enoshima_katase", "status": "NOT_CONNECTED", "connected": False, "reason": "The distributed SHP bounds conflict with the bundled EPSG:4301 declaration; no CRS is inferred from coordinate appearance."})
+        connected_by_scenario = {layer["scenario_id"]: layer for layer in public_evidence["fujisawa_hazards"]["layers"]}
+        scenarios.extend({
+            "dataset_id": layer["scenario_id"], "scenario": layer["scenario_label"], "layer_kind": layer["layer_kind"],
+            "official_source": "Kanagawa Prefecture earthquake damage estimation study (March 2025)",
+            "official_url": layer["source_url"], "version_date": layer["source_revision"], "license_review": layer["license_status"],
+            "dataset_publication_date": layer["dataset_publication_date"],
+            "definition_resource_id": layer["definition_resource_id"], "definition_sha256": layer["definition_sha256"],
+            "crs_sidecar_sha256": layer["crs_sidecar_sha256"],
+            "source_member_id": layer["source_member_id"], "source_member_receipt": layer["source_member_receipt"],
+            "validation_result": "SOURCE_SHA_CRS_DEFINITION_AND_AOI_SELECTION_BOUND", "crs": layer["source_crs"],
+            "bounds_native": "AOI_SELECTION_FROM_FULL_SOURCE_SCAN", "aoi_scope": "enoshima_katase",
+            "status": "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED", "connected": True,
+            "reason": "Official source mesh geometry is connected as source-side overlap evidence only; no operational or safety state is derived.",
+        } for layer in connected_by_scenario.values())
     if city_id == "fujisawa_enoshima":
         table = _load_json(root / f"cities/{city_id}/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json")
         receipt = _load_json(root / f"cities/{city_id}/facilities/official/facility_source_receipt.json")
-        records = [{**row, "source_sha256": receipt["raw_sha256"], "source_attributes": {"ostomate_detail_available": row["ostomate_detail_available"]}, "source_attribute_entries": [["ostomate_detail_available", row["ostomate_detail_available"]]], "current_operation_status": "UNKNOWN", "entrance_status": "UNKNOWN", "unlock_status": "UNKNOWN", "accessibility_status": "UNKNOWN", "step_free_status": "UNKNOWN", "disaster_availability_status": "UNKNOWN"} for row in table["records"]]
+        if len(table["records"]) != 57 or receipt["license_status"] != "LICENSE_REVIEW_REQUIRED":
+            raise ValueError("Fujisawa facility receipt changed without public-scope review")
+        # The existing address-only derivative remains available in its source
+        # lane, but its provider terms are not yet bound for public
+        # redistribution. Do not republish those rows inside the public static
+        # viewer artifact.
+        records = []
         facility = {
-            "status": promotion["fujisawa_accessibility_facilities"]["status"],
+            "status": "NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED",
             "geometry_status": "ADDRESS_ONLY",
             "marker_policy": "TABLE_ONLY_NO_MARKERS_OR_GEOCODING",
             "record_count": len(records),
@@ -168,7 +212,7 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
                 }
             },
             "source_receipt_sha256": _hash(root / f"cities/{city_id}/facilities/official/facility_source_receipt.json"),
-            "reason": "57 address-only records are displayed as a source-bound table; coordinates, map markers, geocoding, accessibility, entrance, unlock, step-free, current opening, and disaster availability are not inferred.",
+            "reason": "The verified 57-row address-only derivative is not republished in the public viewer artifact because its provider terms remain LICENSE_REVIEW_REQUIRED; no records, coordinates, markers, geocoding, or current state are inferred.",
         }
     elif city_truth:
         category_status = _load_json(parity_root / "facility_category_status.json")
@@ -237,7 +281,19 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
             "source_url": layer["source_url"],
             "license_status": layer["license_status"],
             "limitations": layer["limitations"],
+            "license_url": layer.get("license_url"),
+            "license_receipt_sha256": layer.get("license_receipt_sha256"),
+            "attribution": layer.get("attribution"),
+            "source_crs": layer["source_crs"],
+            "dataset_publication_date": layer.get("dataset_publication_date"),
+            "scenario_label": layer.get("scenario_label"),
+            "layer_kind": layer.get("layer_kind"),
+            "definition_resource_id": layer.get("definition_resource_id"),
+            "definition_sha256": layer.get("definition_sha256"),
+            "definition_resource_response_sha256": layer.get("definition_resource_response_sha256"),
+            "crs_sidecar_sha256": layer.get("crs_sidecar_sha256"),
             "coverage_selection_sha256": layer["coverage_evidence"]["selection_sha256"],
+            **({"source_member_id": layer["source_member_id"], "source_member_receipt": layer["source_member_receipt"]} if layer.get("source_member_id") else {}),
         }
         for layer in normalized_layers
     }
@@ -258,7 +314,7 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
         "source_status": promotion["status"],
         "source_hashes": source_hashes,
         "subareas": subareas,
-        "terrain": {"status": "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED" if city_truth else "NOT_CONNECTED", "reason": parity_aoi["terrain"]["reason"] if city_truth else terrain_reason, "connected": False, "evidence_ui_connected": bool(city_truth), "elevation_sampled": False, "step_inferred": False, "cross_slope_inferred": False, "aoi_validation": parity_aoi["terrain"] if city_truth else None, "receipt_sha256": _hash(terrain_path) if terrain_path.exists() else None, "products": terrain_products},
+        "terrain": {"status": "NATIVE_CELL_SAMPLES_CONNECTED", "reason": "GSI DEM1A and DEM5A are shown as separate exact native-cell samples; no interpolation, product precedence, step, or cross-slope inference is applied.", "connected": True, "evidence_ui_connected": True, "elevation_sampled": True, "step_inferred": False, "cross_slope_inferred": False, "aoi_validation": parity_aoi["terrain"] if city_truth else None, "receipt_sha256": _hash(root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json"), "products": terrain_products, "samples": terrain_samples, "edge_samples": terrain_edge_samples},
         "hazard": {"status": "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED", "reason": hazard_reason, "connected": True, "operational_state_connected": False, "display_connected": True, "display_feature_count": sum(layer["feature_count"] for layer in display_layers), "display_layers": display_layers, "connected_scenarios": connected_scenarios, "source_catalog": source_catalog, "edge_exposures": edge_exposures, "display_features": delivery_display_features, "numeric_serialization": "FULL_PYTHON_FLOAT_NO_DECISION_TOLERANCE", "decision_threshold_applied": False, "closure_derived": False, "damage_or_debris_inferred": False, "layers": hazard_layers, "scenarios": scenarios},
         "facility": facility,
         "plateau": {"status": "NOT_CONNECTED", "aoi_count": len(subareas), "aoi_scope": subareas, "inventory": plateau_inventory, "inventory_connected": bool(city_truth), "fallback": plateau["fallback"], "m7_evidence_ready_count": plateau["m7_evidence_ready_count"], "m7_computed_count": plateau["m7_computed_count"], "reason": "PLATEAU 2025 package SHA, EPSG:6697 axis semantics, stable IDs, roof-edge footprints, height provenance codes, and pilot-buffer mesh coverage are inventoried. Real 3D and M7 remain NOT_CONNECTED: setback is not frozen, field confirmation is deferred, and candidate building/height evidence is not promoted. Existing source-traceable candidate 2D is the deterministic fallback."},
@@ -309,7 +365,10 @@ def _javascript_json_values(value):
 
 def _serialize(artifact: dict) -> bytes:
     compatible = _javascript_json_values(artifact)
-    return (json.dumps(compatible, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    # These are machine-consumed static artifacts. Canonical compact JSON keeps
+    # the largest city below the repository public-artifact size gate without
+    # dropping any evidence rows or changing their values.
+    return (json.dumps(compatible, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
 
 
 def generate_static_candidate_analyses(repo_root: Path, output_root: Path, *, check: bool = False) -> dict:

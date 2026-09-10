@@ -2,7 +2,7 @@
 
 Status: **PARTIAL** (`COMPLETE=false`, `P0_COMPLETE=false`, `USER_VALIDATED=false`).
 
-Remote delivery is paused. Read-only GitHub API inspection on 2026-09-10 found the repository public while current F6 authorizes no public Git, RC, or demo. See `DELIVERY_PUBLIC_SCOPE_RECONCILIATION.json`; no new push, merge, public attachment, or visibility change is authorized until the owner reconciles that mismatch.
+The 2026-09-10 owner amendment authorizes public Git for reviewed code and redistributable derived artifacts. The earlier visibility/F6 mismatch is retained as history in `DELIVERY_PUBLIC_SCOPE_RECONCILIATION.md` and is resolved by `PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json`. Existing-workflow Hosted CI artifacts are limited to scanned reviewed reports/static outputs/test evidence; manual public attachments, public RC/demo/release, visibility changes, and `main` merge remain unauthorized.
 
 The existing real-coordinate/CANDIDATE view now provides a source-side, static review workflow for Kiyomizu/Gion/connector, Arashiyama, and Enoshima/Katase. Select the city, explicitly switch to **実座標 / CANDIDATE**, select a precomputed candidate origin/destination fixture, inspect scenario-separated hazard overlap, terrain status, facility evidence and unknowns, then save CSV, JSON, or printable HTML.
 
@@ -13,18 +13,19 @@ Implemented:
 - Fujisawa A40 tsunami geometry;
 - explicit EPSG:4326/EPSG:6668 inputs projected independently into EPSG:6674 (Kyoto) or EPSG:6677 (Fujisawa) before source-side edge intersection;
 - full-source-scan/AOI selection receipts and retained-archive-member byte checks;
-- Kyoto 77 original-source facility records and attributes, and Fujisawa 57 address-only records;
+- Kyoto 77 original-source facility records and attributes. The verified Fujisawa 57-row address-only derivative remains in its source lane but is excluded from the public viewer artifact while its provider terms remain `LICENSE_REVIEW_REQUIRED`;
 - scenario/revision/coverage/missing-field/reason/owner-filtered, provenance-bearing CSV/JSON/printable HTML exports containing source URL, revision, license scope, selection/source hashes, feature IDs and limitations;
 - no viewer graph, topology, path, hazard-intersection, or M7 calculation.
 - connected and disconnected Kyoto examples are now named in `DELIVERY_EXPORT_EVIDENCE.json`; CSV, JSON, and printable HTML preserve the same path selection, filters, sort and candidate-edge set. The disconnected examples remain explicit reasoned-null negative cases with zero candidate rows.
+- GSI DEM1A and DEM5A native-cell values are connected independently for all three city graphs, with product, member SHA, grid index, surface type, vertical reference, null reason and no-interpolation method preserved in UI/export.
+- Fujisawa's eight official liquefaction-distribution scenarios, one shaking-susceptibility reference layer, and one liquefaction-hazard reference layer are connected as raw source classes under the official Kanagawa catalog/definition receipt. They remain exposure evidence only.
 
 Blocked or partial:
 
-- GSI DEM elevation sampling is blocked because the retained inventory does not establish the vertical datum. Existing GML must first be compared with an authoritative official specification located and hash-bound from existing controlled holdings; no such specification is claimed to be present in this repository. Only a missing or unresolved authoritative-spec result becomes a human gate. No elevation, step, curb, longitudinal slope, cross-slope, M6 or accessibility value is inferred.
-- Existing bounds establish that Fujisawa DEM1A and DEM5A contain the candidate AOI and DEM5B is outside it. Hash-mounting the retained originals and checking official product metadata can proceed without new policy; product selection, fusion, interpolation, unresolved datum interpretation and field-derived accessibility remain gated.
-- Fujisawa earthquake remains inventory-only. Its declared EPSG:4301 conflicts with projected-looking native bounds; an authoritative specification found and hash-bound from existing controlled holdings may resolve this mechanically, otherwise no CRS override is permitted.
-- Fujisawa liquefaction remains inventory-only. Existing EPSG:4612 files can proceed if exact official source/version/license/codebook receipts are found and hash-bound in existing controlled holdings, but no such complete receipt set is claimed here and no threshold or taxonomy may derive closure, damage, debris, safety or passability.
-- Kyoto emergency open spaces and temporary-stay facilities remain metadata-only; Fujisawa facilities remain address-only with no markers or geocoding.
+- DEM5B remains outside the verified candidate AOIs and is not silently substituted or mosaicked. DEM1A/5A samples are DEM-cell elevation, not surveyed walking-surface elevation; step, curb, longitudinal/cross slope, M6 and accessibility remain unknown/not computed.
+- Fujisawa intensity distribution remains `CRS_UNRESOLVED`/`NOT_CONNECTED`: its declared EPSG:4301 conflicts with projected-looking native bounds and no provider correction has been found. No CRS is inferred from coordinate appearance.
+- Fujisawa connected liquefaction/shaking layers preserve each official raw class and scenario. No threshold or taxonomy derives closure, damage, debris, safety or passability.
+- Kyoto emergency open spaces and temporary-stay facilities remain metadata-only. Fujisawa's verified address-only facility derivative remains in its source lane but its 57 rows are excluded from the public viewer payload pending explicit redistribution permission; no markers or geocoding are created.
 - PLATEAU real 3D is not connected. Existing candidate 2D is the deterministic fallback.
 - M7 evidence-ready/computed counts remain 0/0. No setback, damage or debris value is inferred.
 

@@ -17,6 +17,11 @@
     "POST_DECISION_IMPLEMENTATION_PLAN.md": "0f983ba84cc07101091e240e5df49cb4c69e705ed65800daa2b800122c1193a4",
     "ROLLBACK.md": "6b93637acbf9b06b026e37c54861140c365e74b4715d4c7054280ff3ecd21087"
   },
+  "scope_amendment": {
+    "path": "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
+    "sha256": "1df66ac07ba476a2a2a412f034775559879206a685d6abb27fbe69e7e915f4f6",
+    "authority": "USER_EXPLICIT_OWNER_INSTRUCTION_IN_CODEX_SESSION"
+  },
   "policy_approved": true,
   "policy_bound": true,
   "binding_implemented": true,
@@ -45,9 +50,9 @@
   "f5": {"field_measurement_deferred": true, "measurement_value_count": 0},
   "f6": {
     "private_internal": true,
-    "private_git": true,
+    "private_git": false,
     "internal_rc": true,
-    "public_git": false,
+    "public_git": true,
     "public_rc": false,
     "public_demo": false
   },

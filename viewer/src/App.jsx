@@ -368,7 +368,7 @@ function OfficialEvidencePanel({ evidence }) {
       <p>source receiptに結合した表示です。未接続の地形・ハザードからCLOSED/FAILを導出せず、建物setback・damage・debrisも推定しません。</p>
       <div className="table-scroll" tabIndex="0" aria-label="公式データ接続状態一覧"><table><caption>subareas: {evidence.subareas.join(" / ") || "not specified"}</caption><thead><tr><th scope="col">対象</th><th scope="col">状態</th><th scope="col">根拠・未解決理由</th></tr></thead><tbody>{rows.map(([name, status, reason]) => <tr key={name}><th scope="row">{name}</th><td>{status}</td><td>{reason}</td></tr>)}</tbody></table></div>
       <div className="table-scroll" tabIndex="0" aria-label="source hash binding"><table><caption>source hash binding</caption><tbody>{Object.entries(evidence.source_hashes).map(([name, value]) => <tr key={name}><th scope="row">{name}</th><td><code>{value}</code></td></tr>)}</tbody></table></div>
-      {evidence.terrain.products.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="terrain product inventory"><table><caption>terrain products — receipt <code>{evidence.terrain.receipt_sha256}</code></caption><thead><tr><th>mesh</th><th>DEM</th><th>horizontal CRS</th><th>vertical datum</th><th>AOI</th><th>validation</th><th>license</th><th>status</th></tr></thead><tbody>{evidence.terrain.products.map((row) => <tr key={row.dataset_id}><td>{row.mesh_id}</td><td>{row.dem_class}</td><td>{row.horizontal_crs}</td><td>{row.vertical_datum}</td><td>{row.aoi}</td><td>{row.validation_result}</td><td>{row.license_status}</td><td>{row.status}</td></tr>)}</tbody></table></div>}
+      {evidence.terrain.products.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="terrain product inventory"><table><caption>terrain products — receipt <code>{evidence.terrain.receipt_sha256}</code></caption><thead><tr><th>mesh</th><th>DEM</th><th>horizontal CRS</th><th>vertical datum</th><th>AOI</th><th>validation</th><th>license</th><th>status</th></tr></thead><tbody>{evidence.terrain.products.map((row) => <tr key={row.dataset_id}><td>{(row.mesh_ids ?? [row.mesh_id]).join(", ")}</td><td>{row.dem_class}</td><td>{row.horizontal_crs}</td><td>{row.vertical_datum}</td><td>{row.aoi}</td><td>{row.validation_result}</td><td>{row.license_status}</td><td>{row.status} ({row.numeric_sample_count}/{row.sample_count})</td></tr>)}</tbody></table></div>}
       {evidence.hazard.layers.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Kyoto hazard layer status"><table><caption>Kyoto subarea hazard layers</caption><thead><tr><th>subarea</th><th>layer</th><th>artifact</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.layers.map((row) => <tr key={`${row.subarea}-${row.layer}`}><td>{row.subarea}</td><td>{row.layer}</td><td>{row.artifact_status}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       {evidence.hazard.scenarios.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Fujisawa hazard scenario inventory"><table><caption>Fujisawa scenario inventory (AOI: enoshima_katase)</caption><thead><tr><th>dataset</th><th>scenario</th><th>layer</th><th>source</th><th>version</th><th>license/validation</th><th>CRS/bounds</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.scenarios.map((row) => <tr key={row.dataset_id}><td>{row.dataset_id}</td><td>{row.scenario}</td><td>{row.layer_kind}</td><td>{row.official_source} / {row.official_url}</td><td>{row.version_date}</td><td>{row.license_review} / {row.validation_result}</td><td>{row.crs} / {row.bounds_native}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       <p className="model-caveat">PLATEAU: {evidence.plateau.aoi_count} AOIs ({evidence.plateau.aoi_scope.join(" / ")}) / {evidence.plateau.fallback}。実tilesは接続していません。</p>
@@ -392,7 +392,7 @@ function downloadText(filename, type, content) {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
-function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalog, hazardExposures }) {
+function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalog, hazardExposures, terrainSamples }) {
   const [scenario, setScenario] = useState("ALL");
   const [revision, setRevision] = useState("ALL");
   const [coverage, setCoverage] = useState("ALL");
@@ -400,11 +400,19 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
   const [owner, setOwner] = useState("ALL");
   const [reasonQuery, setReasonQuery] = useState("");
   const [sortBy, setSortBy] = useState("EDGE");
-  useEffect(() => { setScenario("ALL"); setRevision("ALL"); setCoverage("ALL"); setUnknown("ALL"); setOwner("ALL"); setReasonQuery(""); setSortBy("EDGE"); }, [checklist?.checklist_id]);
+  const [terrainProduct, setTerrainProduct] = useState("ALL");
+  useEffect(() => { setScenario("ALL"); setRevision("ALL"); setCoverage("ALL"); setUnknown("ALL"); setOwner("ALL"); setReasonQuery(""); setSortBy("EDGE"); setTerrainProduct("ALL"); }, [checklist?.checklist_id]);
   if (!checklist) return null;
   const sourceCatalog = checklist.source_catalog ?? {};
   const exposureByRef = new Map(hazardExposures.map((hazard) => [`${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`, { ...hazard, ...sourceCatalog[hazard.source_id] }]));
-  const hydratedRows = checklist.rows.map((row) => ({ ...row, hazards: row.hazard_refs.map((ref) => exposureByRef.get(ref)) }));
+  const terrainById = new Map(terrainSamples.map((sample) => [sample.sample_id, sample]));
+  for (const row of checklist.rows) {
+    for (const id of row.terrain_sample_ids ?? []) {
+      if (!terrainById.has(id)) throw new Error(`Missing required terrain sample: ${id}`);
+    }
+  }
+  const terrainProducts = [...new Set(terrainSamples.map((sample) => sample.product))].sort();
+  const hydratedRows = checklist.rows.map((row) => ({ ...row, terrain_samples: (row.terrain_sample_ids ?? []).map((id) => terrainById.get(id)).filter((sample) => terrainProduct === "ALL" || sample.product === terrainProduct), hazards: row.hazard_refs.map((ref) => exposureByRef.get(ref)).filter(Boolean) }));
   const allHazards = hydratedRows.flatMap((row) => row.hazards);
   const scenarios = [...new Set(allHazards.map((hazard) => hazard.scenario_id))].sort();
   const revisions = [...new Set(allHazards.map((hazard) => hazard.source_revision))].sort();
@@ -439,7 +447,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
       source_temporal_status_reason: source.temporal_status_reason,
     };
   });
-  const exportedChecklist = { ...checklist, facility: { ...checklist.facility, records: exportFacilityRecords }, rows: visibleRows.map((row) => ({ ...row, hazard_refs: row.hazards.map((hazard) => `${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`) })), filters: { scenario, revision, coverage, unknown, owner, reason: reasonQuery }, sort_by: sortBy };
+  const exportedChecklist = { ...checklist, facility: { ...checklist.facility, records: exportFacilityRecords }, rows: visibleRows.map((row) => ({ ...row, hazard_refs: row.hazards.map((hazard) => `${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`) })), filters: { scenario, revision, coverage, terrain_product: terrainProduct, unknown, owner, reason: reasonQuery }, sort_by: sortBy };
   const filename = checklist.checklist_id.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/[. ]+$/g, "") || "ablepath-review";
   return (
     <section className="review-checklist" aria-labelledby="review-checklist-title">
@@ -448,6 +456,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
       <p>候補道路と公式証拠の空間的な重なりを確認する資料です。安全性・アクセシビリティ・通行可能性・行政検証を示しません。</p>
       <label>確認リスト・exportのsource scenario<select aria-label="確認リスト・exportのsource scenario" value={scenario} onChange={(event) => setScenario(event.target.value)}><option value="ALL">ALL（scenario別、相互unionなし）</option>{scenarios.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label>source revision<select aria-label="source revision" value={revision} onChange={(event) => setRevision(event.target.value)}><option value="ALL">ALL</option>{revisions.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
+      <label>DEM product<select aria-label="DEM product" value={terrainProduct} onChange={(event) => setTerrainProduct(event.target.value)}><option value="ALL">ALL（product別、優先順位なし）</option>{terrainProducts.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label>coverage status<select aria-label="coverage status" value={coverage} onChange={(event) => setCoverage(event.target.value)}><option value="ALL">ALL</option>{coverageStatuses.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label>missing field<select aria-label="missing field" value={unknown} onChange={(event) => setUnknown(event.target.value)}><option value="ALL">ALL</option>{unknowns.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label>担当候補の種別<select aria-label="担当候補の種別" value={owner} onChange={(event) => setOwner(event.target.value)}><option value="ALL">ALL</option>{owners.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
@@ -464,7 +473,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
         <button type="button" onClick={() => downloadText(`${filename}.json`, "application/json", checklistToJson(exportedChecklist))}>JSONを保存</button>
         <button type="button" onClick={() => downloadText(`${filename}.html`, "text/html;charset=utf-8", checklistToPrintableHtml(exportedChecklist))}>印刷用HTMLを保存</button>
       </div>
-      <div className="table-scroll" tabIndex="0" aria-label="選択区間の確認リスト"><table><caption>{scenario} / {visibleRows.length} candidate edges</caption><thead><tr><th>edge</th><th>hazard evidence</th><th>terrain</th><th>facility</th><th>unknowns</th></tr></thead><tbody>{visibleRows.map((row) => <tr key={row.edge_id}><th scope="row"><code>{row.edge_id}</code></th><td>{row.hazards.length ? row.hazards.map((hazard) => <p key={`${hazard.scenario_id}-${hazard.source_id}`}>{hazard.scenario_id}: {hazard.relation} / {hazard.overlap_length_m ?? "null"} m / {hazard.source_classes.join(" | ") || "class none"}<br /><code>{hazard.source_id}@{hazard.source_revision} / {hazard.source_sha256}</code><br />{hazard.reason}</p>) : "NO_DATA for selected scenario"}</td><td>{row.terrain_status} — {row.terrain_reason}</td><td>{row.facility_status}</td><td>UNKNOWN: {row.unknowns.join(", ")}</td></tr>)}</tbody></table></div>
+      <div className="table-scroll" tabIndex="0" aria-label="選択区間の確認リスト"><table><caption>{scenario} / {visibleRows.length} candidate edges</caption><thead><tr><th>edge</th><th>hazard evidence</th><th>terrain</th><th>facility</th><th>unknowns</th></tr></thead><tbody>{visibleRows.map((row) => <tr key={row.edge_id}><th scope="row"><code>{row.edge_id}</code></th><td>{row.hazards.length ? row.hazards.map((hazard) => <p key={`${hazard.scenario_id}-${hazard.source_id}`}>{hazard.scenario_id}: {hazard.relation} / {hazard.overlap_length_m ?? "null"} m / {hazard.source_classes.join(" | ") || "class none"}<br /><code>{hazard.source_id}@{hazard.source_revision} / {hazard.source_sha256}</code><br />{hazard.reason}</p>) : "NO_DATA for selected scenario"}</td><td>{row.terrain_status} — {row.terrain_reason}{(row.terrain_samples ?? []).map((sample) => <p key={sample.sample_id}><code>{sample.node_id ?? `${sample.edge_id}#${sample.vertex_index}`} / {sample.product}</code>: {sample.elevation_m ?? "null"} {sample.unit} ({sample.surface_type ?? sample.status})</p>)}</td><td>{row.facility_status}</td><td>UNKNOWN: {row.unknowns.join(", ")}</td></tr>)}</tbody></table></div>
     </section>
   );
 }
@@ -583,7 +592,7 @@ export function App() {
         </div>
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
         {realMode && cityAnalysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></section>}
-        {realMode && <ReviewChecklistPanel checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} />}
+        {realMode && <ReviewChecklistPanel checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} terrainSamples={cityAnalysis?.official_evidence?.terrain?.samples ?? []} />}
         <OfficialEvidencePanel evidence={cityAnalysis?.official_evidence} />
         <EvidenceTables city={state.city} />
         <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>

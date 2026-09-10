@@ -57,12 +57,13 @@ test("[ui_regression] review exports retain provenance and neutralize CSV/HTML i
   assert.match(html, /valid-as-of v1/);
 });
 
-function exportChecklist(analysis, pathKey) {
+function exportChecklist(analysis, pathKey, terrainProduct = "ALL") {
   const checklist = structuredClone(analysis.review_checklists[pathKey]);
   const exposure = new Map(analysis.official_evidence.hazard.edge_exposures.map((row) => [`${row.edge_id}\0${row.scenario_id}\0${row.source_id}`, row]));
-  checklist.rows = checklist.rows.map((row) => ({ ...row, hazards: row.hazard_refs.map((key) => exposure.get(key)) }));
+  const terrain = new Map(analysis.official_evidence.terrain.samples.map((row) => [row.sample_id, row]));
+  checklist.rows = checklist.rows.map((row) => ({ ...row, terrain_samples: row.terrain_sample_ids.map((key) => terrain.get(key)).filter((sample) => terrainProduct === "ALL" || sample.product === terrainProduct), hazards: row.hazard_refs.map((key) => exposure.get(key)) }));
   checklist.facility.records = analysis.official_evidence.facility.records;
-  checklist.filters = { scenario: "ALL", relation: "ALL", owner: "ALL", unknown_only: false };
+  checklist.filters = { scenario: "ALL", relation: "ALL", owner: "ALL", unknown_only: false, terrain_product: terrainProduct };
   checklist.sort_by = "EDGE";
   return checklist;
 }
@@ -98,6 +99,17 @@ test("[ui_regression] Kyoto connected and disconnected exports preserve identica
       } else {
         assert.ok(selected.rows.length > 0);
         assert.equal(json.candidate_distance, analysis.path_matrix[pathKey].geometric_length);
+        assert.ok(json.rows.every((row) => row.terrain_samples.length > 0));
+        assert.match(csv, /DEM1A/);
+        assert.match(csv, /DEM5A/);
+        assert.match(html, /SAMPLED_NATIVE_CELL/);
+        const dem1a = exportChecklist(analysis, pathKey, "DEM1A");
+        const dem1aCsv = checklistToCsv(dem1a);
+        const dem1aJson = JSON.parse(checklistToJson(dem1a));
+        const dem1aHtml = checklistToPrintableHtml(dem1a);
+        assert.ok(dem1aJson.rows.every((row) => row.terrain_samples.every((sample) => sample.product === "DEM1A")));
+        assert.match(dem1aCsv, /terrain_product/);
+        assert.match(dem1aHtml, /DEM1A/);
       }
       assert.equal(json.safe_route_claim, false);
       assert.equal(json.accessibility_claim, false);
@@ -134,7 +146,9 @@ test("[ui_regression] delivery analysis rejects promoted claims and missing chec
   }
   for (const mutate of [
     (value) => { value.official_evidence.terrain.status = "ELEVATION_SAMPLED"; },
-    (value) => { value.official_evidence.terrain.products[0].terrain_connected = true; },
+    (value) => { value.official_evidence.terrain.products[0].terrain_connected = false; },
+    (value) => { value.official_evidence.terrain.samples[0].elevation_m = true; },
+    (value) => { value.review_checklists[Object.keys(value.review_checklists).find((key) => value.path_matrix[key].status === "CONNECTED")].rows[0].terrain_sample_ids[0] = "stale-sample-id"; },
     (value) => { value.official_evidence.facility.records[0].source_id = "invented"; },
     (value) => { value.official_evidence.facility.records[0].source_attributes = { wheelchair: true }; },
     (value) => { value.official_evidence.hazard.edge_exposures[0].source_sha256 = "0".repeat(64); },
@@ -177,6 +191,14 @@ test("[source_conformance] runtime analysis bytes must match the committed manif
   const matchingTamperedManifestText = `${JSON.stringify(matchingTamperedManifest, null, 2)}\n`;
   const jointlyTamperedFetch = async (url) => response(url.endsWith("manifest.json") ? matchingTamperedManifestText : tamperedText);
   await assert.rejects(() => loadDeliveryAnalysis(jointlyTamperedFetch, "./data/analysis/kyoto_kiyomizu.json", "kyoto_kiyomizu"), /canonical delivery artifact/);
+
+  const arashiyamaText = readFileSync(new URL("../../viewer/public/data/analysis/kyoto_arashiyama.json", import.meta.url), "utf8");
+  assert.ok(new TextEncoder().encode(arashiyamaText).byteLength < 8_000_000);
+  const arashiyamaFetch = async (url) => response(url.endsWith("manifest.json") ? manifestText : arashiyamaText);
+  await assert.doesNotReject(() => loadDeliveryAnalysis(arashiyamaFetch, "./data/analysis/kyoto_arashiyama.json", "kyoto_arashiyama"));
+
+  const oversizedFetch = async (url) => response(url.endsWith("manifest.json") ? manifestText : " ".repeat(8_000_001));
+  await assert.rejects(() => loadDeliveryAnalysis(oversizedFetch, "./data/analysis/kyoto_arashiyama.json", "kyoto_arashiyama"), /exceeds static viewer byte limit/);
 });
 
 test("[source_conformance] canonical Fujisawa evidence mutations fail closed", () => {
@@ -195,18 +217,12 @@ test("[source_conformance] canonical Fujisawa evidence mutations fail closed", (
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.coverage_selection_sha256 = "0".repeat(64); },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.source_sha256 = "0".repeat(64); },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.source_revision = "invented"; },
+    (value) => { value.official_evidence.hazard.source_catalog.kanagawa_r7_liquefaction_distribution_01.source_member_receipt.dbf_sha256 = "0".repeat(64); },
     (value) => { value.official_evidence.hazard.source_catalog.nlni_a40_2020_kanagawa_tsunami.limitations = "unrestricted"; },
     (value) => { value.official_evidence.facility.source_catalog.fujisawa_webgis_toilets_accessibility.license_status = "APPROVED"; },
     (value) => { value.official_evidence.facility.source_catalog.fujisawa_webgis_toilets_accessibility.acquired_at = "2030-01-01"; },
     (value) => { value.official_evidence.facility.source_catalog.fujisawa_webgis_toilets_accessibility.temporal_status_reason = "current"; },
-    (value) => { value.official_evidence.facility.records[0].source_attributes.ostomate_detail_available = !value.official_evidence.facility.records[0].source_attributes.ostomate_detail_available; },
-    (value) => {
-      const replacement = !value.official_evidence.facility.records[0].source_attributes.ostomate_detail_available;
-      value.official_evidence.facility.records[0].source_attributes.ostomate_detail_available = replacement;
-      value.official_evidence.facility.records[0].source_attribute_entries[0][1] = replacement;
-    },
-    (value) => { value.official_evidence.facility.records[0].source_id = "invented"; },
-    (value) => { value.official_evidence.facility.records[0].source_attributes = { wheelchair: true }; },
+    (value) => { value.official_evidence.facility.records.push({ facility_record_id: "republished-without-license" }); value.official_evidence.facility.record_count = 1; },
     (value) => {
       const [key] = Object.keys(value.review_checklists).filter((candidate) => value.path_matrix[candidate].status === "CONNECTED");
       value.review_checklists[key].rows.reverse();

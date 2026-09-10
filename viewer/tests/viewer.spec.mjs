@@ -103,7 +103,14 @@ test("[ui_regression] KPI and evidence gaps remain visible and reasoned", async 
 test("[source_conformance] Kyoto connects display evidence without promoting scientific or operational state", async ({ page }) => {
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   const official = page.locator(".official-evidence");
-  await expect(official).toContainText("AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED");
+  // The approved continuation replaces the former not-sampled state with
+  // source-bound native-cell samples. Keep the stronger provenance and
+  // non-inference contract visible in the same regression.
+  await expect(official).toContainText("NATIVE_CELL_SAMPLES_CONNECTED");
+  await expect(official).toContainText("OFFICIAL_SPEC_AND_RAW_SHA_BOUND_NATIVE_CELL_SAMPLING");
+  await expect(official).toContainText("DEM1A");
+  await expect(official).toContainText("DEM5A");
+  await expect(official).toContainText("no interpolation, product precedence, step, or cross-slope inference");
   await expect(official).toContainText("SOURCE_SIDE_EDGE_OVERLAP_CONNECTED");
   await expect(official).toContainText("612 edges / deep pilot 15 / ready 0 / computed 0");
   await expect(official.getByLabel("京都公式施設5カテゴリ接続状態")).toContainText("public_tourist_toilet");
@@ -117,10 +124,9 @@ test("[source_conformance] Kyoto connects display evidence without promoting sci
   await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (159)");
   await expect(page.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
   await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
-  await expect(page.getByText(/公式施設 57件/)).toBeVisible();
-  await expect(page.locator(".official-evidence tbody tr").filter({ hasText: "fujisawa-accessibility-" })).toHaveCount(57);
-  await expect(page.locator(".official-evidence").getByText(/ADDRESS_ONLY、地図markerなし/)).toBeVisible();
-  await expect(page.locator(".official-evidence").getByText("UNKNOWN / UNKNOWN / UNKNOWN")).toHaveCount(57);
+  await expect(page.getByText(/公式施設 0件/)).toBeVisible();
+  await expect(page.locator(".official-evidence")).toContainText("NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED");
+  await expect(page.locator(".official-evidence tbody tr").filter({ hasText: "fujisawa-accessibility-" })).toHaveCount(0);
   await expect(page.locator(".official-evidence .map-marker, .official-evidence [data-marker]")).toHaveCount(0);
   const text = await page.locator("body").innerText();
   expect(text).not.toContain("安全な避難ルート");
@@ -457,7 +463,8 @@ test("[ui_regression] official evidence tables remain page-width responsive at 3
   for (const width of [320, 360, 375, 400]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/?city=fujisawa_enoshima&layer=synthetic");
-    await expect(page.getByText(/公式施設 57件/)).toBeVisible();
+    await expect(page.getByText(/公式施設 0件/)).toBeVisible();
+    await expect(page.locator(".official-evidence")).toContainText("NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED");
     const dimensions = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
     expect(dimensions.scrollWidth, `official evidence viewport ${width}`).toBeLessThanOrEqual(dimensions.width + 1);
   }

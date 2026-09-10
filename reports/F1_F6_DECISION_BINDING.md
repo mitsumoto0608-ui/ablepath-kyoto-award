@@ -9,6 +9,6 @@ The Git-external human decision recorded on 2026-09-09 is bound here only to its
 - F3 keeps probability realization experimental and core-disabled. UNKNOWN never becomes false.
 - F4 keeps Kyoto point-cloud median and Fujisawa photogrammetric maximum as distinct conditional candidates; no height value is accepted.
 - F5 preserves the approved plan and `FIELD_MEASUREMENT_DEFERRED=true`, with zero values.
-- F6 authorizes private internal analysis, private Git, and internal-only RC. Every public scope remains unauthorized.
+- F6 originally authorized private internal analysis, private Git, and internal-only RC. That historical decision remains recorded in the bound source packet. The owner's 2026-09-10 amendment, recorded in `PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json`, now authorizes public Git for reviewed code and redistributable derived artifacts only. Internal analysis and internal-only RC remain authorized; public RC, public demo, public release, and `main` merge remain unauthorized.
 
 This binding creates no setback, damage, debris, height, measurement, safety, accessibility, passability, administrative-validation, or M7 result. `M7_REAL_EDGE_EVIDENCE_READY_COUNT=0` and `M7_COMPUTED_EDGE_COUNT=0` remain unchanged.

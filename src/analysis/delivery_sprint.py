@@ -29,6 +29,7 @@ _DECISION_HASHES = {
     "ROLLBACK.md": "6b93637acbf9b06b026e37c54861140c365e74b4715d4c7054280ff3ecd21087",
 }
 _SHA256 = re.compile(r"[0-9a-f]{64}")
+_PUBLIC_GIT_AMENDMENT_SHA256 = "1df66ac07ba476a2a2a412f034775559879206a685d6abb27fbe69e7e915f4f6"
 
 
 def _finite_coordinates(value: Any) -> bool:
@@ -88,10 +89,17 @@ def validate_f1_f6_binding(binding: dict[str, Any]) -> dict[str, Any]:
     if f5.get("field_measurement_deferred") is not True or f5.get("measurement_value_count") != 0:
         raise ValueError("field measurement remains deferred with zero values")
     f6 = binding.get("f6", {})
-    if any(f6.get(key) is not True for key in ("private_internal", "private_git", "internal_rc")):
-        raise ValueError("approved private scope is incomplete")
-    if any(f6.get(key) is not False for key in ("public_git", "public_rc", "public_demo")):
-        raise ValueError("public scope remains unauthorized")
+    if any(f6.get(key) is not True for key in ("private_internal", "internal_rc", "public_git")):
+        raise ValueError("approved internal/public-Git scope is incomplete")
+    if any(f6.get(key) is not False for key in ("private_git", "public_rc", "public_demo")):
+        raise ValueError("public Git amendment must not authorize private Git, public RC, or public demo")
+    amendment = binding.get("scope_amendment", {})
+    if amendment != {
+        "path": "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
+        "sha256": _PUBLIC_GIT_AMENDMENT_SHA256,
+        "authority": "USER_EXPLICIT_OWNER_INSTRUCTION_IN_CODEX_SESSION",
+    }:
+        raise ValueError("current F6 public Git amendment is missing or stale")
     if binding.get("m7_ready_count") != 0 or binding.get("m7_computed_count") != 0:
         raise ValueError("decision binding must not promote M7 readiness or computation")
     if any(binding.get(key) is not False for key in ("safe_route_claim", "accessibility_claim", "passability_claim", "admin_validated", "public_release_ready")):
@@ -103,8 +111,8 @@ def _validate_layer(layer: dict[str, Any]) -> None:
     required = ("source_id", "source_revision", "source_sha256", "source_url", "license_status", "limitations", "scenario_id", "source_crs", "coverage", "coverage_crs", "coverage_evidence", "class_field", "features")
     if any(key not in layer for key in required):
         raise ValueError("hazard layer contract is incomplete")
-    if layer["source_crs"] != "EPSG:6668":
-        raise ValueError("hazard source CRS must be explicit EPSG:6668")
+    if layer["source_crs"] not in {"EPSG:6668", "EPSG:4612"}:
+        raise ValueError("hazard source CRS must be explicit EPSG:6668 or EPSG:4612")
     if layer["coverage_crs"] != "EPSG:4326":
         raise ValueError("hazard AOI coverage CRS must remain explicit EPSG:4326")
     if not isinstance(layer["source_sha256"], str) or not _SHA256.fullmatch(layer["source_sha256"]):
@@ -113,6 +121,16 @@ def _validate_layer(layer: dict[str, Any]) -> None:
         raise ValueError("hazard source/scenario identity is invalid")
     if not isinstance(layer["source_url"], str) or not layer["source_url"].startswith("https://") or not layer["license_status"] or not layer["limitations"]:
         raise ValueError("hazard source URL/license/limitations are invalid")
+    if (
+        ("PUBLIC_" in layer["license_status"] or layer["license_status"] == "CC-BY")
+        and (
+            not isinstance(layer.get("license_url"), str)
+            or not layer["license_url"].startswith("https://")
+            or not isinstance(layer.get("attribution"), str)
+            or not layer["attribution"]
+        )
+    ):
+        raise ValueError("public hazard derivative lacks license URL or attribution")
     if shape(layer["coverage"]["geometry"]).geom_type not in {"Polygon", "MultiPolygon"}:
         raise ValueError("hazard coverage must be polygonal")
     evidence = layer["coverage_evidence"]
@@ -155,12 +173,14 @@ def build_edge_hazard_exposure(
             line = transform(edge_project, line_source)
             if not line.intersects(coverage):
                 relation = "OUTSIDE_COVERAGE"
+                canonical_relation = "OUTSIDE_COVERAGE"
                 coverage_status = "OUTSIDE_KNOWN_COVERAGE"
                 overlap_length = None
                 reason = "Candidate edge is outside the declared source coverage; overlap is unknown, not zero."
                 matched: list[tuple[Any, dict[str, Any]]] = []
             elif not coverage.covers(line):
                 relation = "PARTIAL_COVERAGE"
+                canonical_relation = "NODATA_OR_UNRESOLVED"
                 coverage_status = "PARTIAL_KNOWN_COVERAGE"
                 overlap_length = None
                 reason = "Candidate edge is only partly inside declared source coverage; no complete-edge overlap value is reported."
@@ -172,14 +192,17 @@ def build_edge_hazard_exposure(
                 intersection = unary_union(positive) if positive else line.intersection(unary_union([geometry for geometry, _ in matched])) if matched else line.intersection(coverage).difference(line.intersection(coverage))
                 if positive:
                     relation = "INTERSECTS"
+                    canonical_relation = "INTERSECTS"
                     overlap_length = intersection.length
                     reason = "Metric overlap is computed only within complete declared coverage."
                 elif matched:
                     relation = "TOUCHES"
+                    canonical_relation = "BOUNDARY_ONLY"
                     overlap_length = 0.0
                     reason = "Source geometry touches the candidate edge but has zero metric line overlap."
                 else:
                     relation = "ZERO_OVERLAP_WITHIN_KNOWN_COVERAGE"
+                    canonical_relation = "NO_INTERSECTION_WITHIN_VERIFIED_COVERAGE"
                     overlap_length = 0.0
                     reason = "No source geometry overlaps an edge wholly inside declared coverage."
             rows.append({
@@ -187,6 +210,7 @@ def build_edge_hazard_exposure(
                 "edge_id": edge_id,
                 "scenario_id": layer["scenario_id"],
                 "relation": relation,
+                "canonical_relation": canonical_relation,
                 "coverage_status": coverage_status,
                 "overlap_length_m": overlap_length,
                 "metric_crs": target_crs,
@@ -219,6 +243,10 @@ def build_review_checklists(
     for row in exposures:
         by_edge[row["edge_id"]].append(row)
     result: dict[str, dict[str, Any]] = {}
+    terrain_summary = {
+        key: value for key, value in terrain.items()
+        if key not in {"samples", "edge_samples"}
+    }
     for key, path in sorted(path_matrix.items()):
         connected = path.get("status") == "CONNECTED"
         result[key] = {
@@ -230,7 +258,7 @@ def build_review_checklists(
             "candidate_distance": path.get("geometric_length"),
             "candidate_distance_unit": path.get("unit"),
             "path_reason": path.get("reason"),
-            "terrain": terrain,
+            "terrain": terrain_summary,
             "facility": {"status": facility.get("status"), "record_count": facility.get("record_count", 0), "reason": facility.get("reason"), "record_ids": sorted(record["facility_record_id"] for record in facility.get("records", []))},
             "rows": [
                 {
@@ -239,6 +267,7 @@ def build_review_checklists(
                     "terrain_status": terrain.get("status"),
                     "terrain_sampled": terrain.get("sampled", terrain.get("elevation_sampled", False)),
                     "terrain_reason": terrain.get("reason"),
+                    "terrain_sample_ids": list(terrain.get("edge_samples", {}).get(edge_id, [])),
                     "facility_status": facility.get("status"),
                     "owner_candidate_types": ["HAZARD_DATA_STEWARD", "TERRAIN_DATA_STEWARD", "FACILITY_OPERATOR", "M6_M7_CONTRACT_OWNER"],
                     "unknowns": [

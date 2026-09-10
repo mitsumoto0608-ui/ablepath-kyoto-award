@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from hashlib import sha256
 from pathlib import Path
 
@@ -39,16 +40,23 @@ CITY_INPUTS = (
 EXPECTED_HAZARD_SOURCES = {
     "kyoto_kiyomizu": {
         "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "d10455a376ee3d89b9618b77be85c51da5ebcc6687d17e92c492573f056e699e", "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c", "2025"),
-        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "a3a8976c8708b95f1ccc5d5b8aaefdb4c0d7aaa0e8eb879a64d28e812818fdd6", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
+        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PUBLIC_REUSE_ALLOWED_WITH_ATTRIBUTION", "a3a8976c8708b95f1ccc5d5b8aaefdb4c0d7aaa0e8eb879a64d28e812818fdd6", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
     },
     "kyoto_arashiyama": {
         "nlni_a31b_2025_kyoto_flood": ("https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-25/A31b-25_10_5235_GEOJSON.zip", "PERMITTED_WITH_OBLIGATIONS", "2f02464358d7671c82bf69c346914f9c765e6558a20dca9af233aa54a5bfdbd7", "5879b87f51b14414ae3698432d765cc565e5a9d48be4b62eb1ce646da5b7e96c", "2025"),
-        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "9935a4b22f656f3ef66d120bbc94c0d97e42e71a7956db181b6e8f0002700b4f", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
+        "kyoto_city_landslide_gis_20260830": ("https://www.bousaimap.city.kyoto.lg.jp/GisDownload", "PUBLIC_REUSE_ALLOWED_WITH_ATTRIBUTION", "9935a4b22f656f3ef66d120bbc94c0d97e42e71a7956db181b6e8f0002700b4f", "ac40e0b7116d81516dc10e279f5ca67ba48bbece68dc1164ec8f1d3e0c095828", "2026-01-22"),
     },
     "fujisawa_enoshima": {
-        "nlni_a40_2020_kanagawa_tsunami": ("https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "PRIVATE_INTERNAL_AND_PRIVATE_GIT_ONLY", "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c", "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479", "2020"),
+        "nlni_a40_2020_kanagawa_tsunami": ("https://nlftp.mlit.go.jp/ksj/gml/data/A40/A40-20/A40-20_14_GML.zip", "PUBLIC_REDISTRIBUTION_ALLOWED_WITH_ATTRIBUTION", "5dc5a3351b57f1b13b2a1d3571d82e789d8e7f859a1acf9c131749726260cb8c", "6b3192e4ed4f8f28d057e4738ecc0d2e7bef232d6adc3022f2d6aec8375f7479", "2020"),
     },
 }
+EXPECTED_HAZARD_SOURCES["fujisawa_enoshima"].update({
+    **{f"kanagawa_r7_liquefaction_distribution_{index:02d}": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/1f94e194-1764-46db-baf9-e8b017ae458d", "CC-BY", selection_sha, "91f721e0f37114379d7535f5a9c09eac03ffa9c4d3dc1a2088d6d8ee5f47d023", "R7_MARCH_2025_SCENARIO_SET") for index, selection_sha in enumerate((
+        "5d37e622abc6c4bf28b93362016f7d7bbe64c5c1103220cbe467ba94c577690d", "1cf28d1ce1b89873302deac16eee5ad429926307aa5889308fde765d68f5d029", "d0fa5f079eb18c1ac7971c6c75320239c83ada6767e53458d7696357bf10e983", "86a375a1981712ff30ae1f2e547d120ef32bd931d54bc21a7c05707223bc0949", "b37720d8c2dffcda8f292799e1486850cb45a52562a5fa1432d0a55d62fe6341", "c4f788db34ddccbc011167480ccecb64f0508db347a0591733565f3e1cab4fbf", "d0750f3a40e14c6d88fa4c8339d14a10a5207ddc2bd1a98fdb2b03876dd5aee9", "835c9e16cfd046f0c05cb20bf9d28d70babea0b610b3eb0ca736da4882315b67",
+    ), 1)},
+    "kanagawa_r7_shaking_susceptibility": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/0511f2b8-db28-4eae-a5a9-83ac58d31fbc", "CC-BY", "10298a53d8e5ab3084ee68d84fe727a5cb63f28812fd0578e55626b392e47de1", "281f43260b2a0d18f8b4afb4fdbfdba79464692ed175d1d0be3c8f88df6dcaa3", "R6_UPDATE_2025-02-05"),
+    "kanagawa_r7_liquefaction_hazard": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/cd7619e9-b6f8-48ad-a251-f8fa9cc84462", "CC-BY", "54af719e9815befcc950f9bacf40512eab57fe878014f191c5622ae9e870ae22", "fb18d09991f63eae642483334c2eb1657b139cc746aa4c4af083260a070146de", "R6_UPDATE_2025-02-15_V01"),
+})
 EXPECTED_FUJISAWA_SCENARIO_IDS = sorted([
     *(f"fujisawa_earthquake_intensity_scenario_{index:02d}" for index in range(1, 9)),
     "fujisawa_shaking_susceptibility_r6_01",
@@ -68,9 +76,9 @@ EXPECTED_FACILITY_SOURCES = {
     },
 }
 EXPECTED_CONTENT_SHA256 = {
-    "kyoto_kiyomizu": {"hazard_catalog": "a84328d279f9996640aae1df1530a730e26e46472bc3ffb711423fd203aaae96", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "d8d74884e7e7194439cabf7da0f9675b9a6c91dec5926160ae838f92e7af0102"},
-    "kyoto_arashiyama": {"hazard_catalog": "7fd336b831f5dd86bb6aeef23cb8473e57f75dec67e445f240e8ac818c99482f", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "7a7cafb3bb85b38aaf6de39a950d4e26c6ccf08af76627199739e1c65243246d"},
-    "fujisawa_enoshima": {"hazard_catalog": "0bb2729ec316f9dd8638c0dd15da9eb0240802eafad2c1924c005735bb977330", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "cec9079847c72a970124e7602ba0f2d1227ee1078e37bad4ece6589132f5b350", "scenarios": "6c3f29846985e5d27cb944bcc30915e03c18f72c4caf90f4062f9b0bca1d5d5b"},
+    "kyoto_kiyomizu": {"hazard_catalog": "f4ad20c463de90e7e52b81afd55c78a938fc7c4ea592fcdcaf6a1158fa33ccbc", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "d8d74884e7e7194439cabf7da0f9675b9a6c91dec5926160ae838f92e7af0102"},
+    "kyoto_arashiyama": {"hazard_catalog": "0319376da1a250956930e1ee6980af4fe43150f25d4dcf50161adb81fbcbcc96", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "7a7cafb3bb85b38aaf6de39a950d4e26c6ccf08af76627199739e1c65243246d"},
+    "fujisawa_enoshima": {"hazard_catalog": "245a64deeb8bb89c25776bb7cd5a9e3a6e4d6578bac4308d4694102d9f186d60", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945", "scenarios": "d062461f61b01828a913e82f0428b88b440d8375bcbc3925b03581f50dacd498"},
 }
 
 
@@ -90,6 +98,9 @@ def authoritative_report_paths(root: Path, city_id: str) -> dict[str, Path]:
         "plateau_sha256": root / "reports/PLATEAU_BUILDING_EVIDENCE_V2.json",
         "m7_sha256": root / "reports/M7_REAL_EDGE_STATUS.json",
         "f1_f6_binding_sha256": root / "reports/F1_F6_DECISION_BINDING.json",
+        "public_git_scope_amendment_sha256": root / "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
+        "public_official_evidence_sha256": root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json",
+        "public_official_source_receipt_sha256": root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_source_receipt.json",
         "delivery_source_binding_sha256": root / "inputs/staging/DELIVERY-SPRINT-V1/source_bindings.json",
     }
     if city_id.startswith("kyoto_"):
@@ -316,25 +327,84 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         if display.get("artifact_sha256") != point_hash or display.get("copied_sha256") != point_hash:
             raise ValueError(f"{city_id} static facility display binding is stale")
     terrain = official.get("terrain", {})
-    expected_terrain_status = (
-        "NOT_CONNECTED" if city_id == "fujisawa_enoshima"
-        else "AOI_COVERAGE_VALIDATED_ELEVATION_NOT_SAMPLED"
-    )
-    expected_product_status = "NOT_CONNECTED" if city_id == "fujisawa_enoshima" else "EVIDENCE_UI_ONLY_NOT_ELEVATION_ANALYSIS"
     if (
-        terrain.get("status") != expected_terrain_status
-        or terrain.get("connected") is not False
-        or terrain.get("elevation_sampled") is not False
+        terrain.get("status") != "NATIVE_CELL_SAMPLES_CONNECTED"
+        or terrain.get("connected") is not True
+        or terrain.get("elevation_sampled") is not True
         or terrain.get("step_inferred") is not False
         or terrain.get("cross_slope_inferred") is not False
+        or len(terrain.get("products", [])) != 2
         or any(
-            product.get("terrain_connected") is not False
-            or product.get("status") != expected_product_status
-            or product.get("vertical_datum") != "NOT_EXPLICIT_IN_INSPECTED_GML"
+            product.get("terrain_connected") is not True
+            or product.get("status") != "NATIVE_CELL_SAMPLES_CONNECTED"
+            or product.get("vertical_datum") != "JGD2024_VERTICAL_JAPAN_DATUM_2024"
+            or product.get("implicit_precedence") is not False
+            or product.get("mosaic_applied") is not False
             for product in terrain.get("products", [])
         )
+        or any(
+            sample.get("product") not in {"DEM1A", "DEM5A"}
+            or sample.get("unit") != "m"
+            or sample.get("status") not in {"SAMPLED_NATIVE_CELL", "NODATA", "SURFACE_VALUE_UNRESOLVED", "OMITTED_SEQUENCE_VALUE", "AMBIGUOUS_CELL_BOUNDARY", "AMBIGUOUS_OR_MISSING_MEMBER"}
+            or (
+                sample.get("status") == "SAMPLED_NATIVE_CELL"
+                and (
+                    isinstance(sample.get("elevation_m"), bool)
+                    or not isinstance(sample.get("elevation_m"), (int, float))
+                    or not math.isfinite(sample["elevation_m"])
+                )
+            )
+            or (sample.get("status") != "SAMPLED_NATIVE_CELL" and sample.get("elevation_m") is not None)
+            for sample in terrain.get("samples", [])
+        )
     ):
-        raise ValueError(f"{city_id} terrain evidence was promoted")
+        raise ValueError(f"{city_id} terrain native-cell evidence is stale or unsafe")
+    city_input = next(city for city in CITY_INPUTS if city["id"] == city_id)
+    source_nodes = json.loads((root / city_input["nodes"]).read_text(encoding="utf-8"))["features"]
+    source_edges = json.loads((root / city_input["edges"]).read_text(encoding="utf-8"))["features"]
+    expected_sample_coordinates = {}
+    for node in source_nodes:
+        node_id = node["properties"]["node_id"]
+        for product in ("DEM1A", "DEM5A"):
+            expected_sample_coordinates[f"{city_id}:node:{node_id}:{product}"] = ("GRAPH_NODE", node["geometry"]["coordinates"])
+    expected_edge_sample_ids = {}
+    for edge in source_edges:
+        edge_id = edge["properties"]["edge_id"]
+        edge_ids = []
+        for vertex_index, coordinate in enumerate(edge["geometry"]["coordinates"]):
+            for product in ("DEM1A", "DEM5A"):
+                sample_id = f"{city_id}:edge:{edge_id}:{vertex_index}:{product}"
+                expected_sample_coordinates[sample_id] = ("EDGE_VERTEX", coordinate)
+                edge_ids.append(sample_id)
+        expected_edge_sample_ids[edge_id] = sorted(edge_ids)
+    samples = terrain.get("samples", [])
+    sample_ids = [sample.get("sample_id") for sample in samples]
+    if (
+        len(sample_ids) != len(set(sample_ids))
+        or set(sample_ids) != set(expected_sample_coordinates)
+        or set(terrain.get("edge_samples", {})) != set(expected_edge_sample_ids)
+        or any(sorted(terrain["edge_samples"][edge_id]) != expected for edge_id, expected in expected_edge_sample_ids.items())
+    ):
+        raise ValueError(f"{city_id} terrain sample identity/reference set is stale")
+    for sample in samples:
+        expected_role, expected_coordinate = expected_sample_coordinates[sample["sample_id"]]
+        if (
+            sample.get("sample_role") != expected_role
+            or sample.get("query_longitude") != expected_coordinate[0]
+            or sample.get("query_latitude") != expected_coordinate[1]
+            or not _is_sha256(sample.get("member_sha256"))
+            or (expected_role == "GRAPH_NODE" and not sample.get("node_id"))
+            or (expected_role == "EDGE_VERTEX" and (not sample.get("edge_id") or isinstance(sample.get("vertex_index"), bool) or not isinstance(sample.get("vertex_index"), int)))
+        ):
+            raise ValueError(f"{city_id} terrain sample provenance is stale")
+    member_hashes = {
+        member.get("member_sha256")
+        for product in terrain.get("products", [])
+        for member in product.get("members", [])
+        if _is_sha256(member.get("member_sha256")) and _is_sha256(member.get("nested_zip_sha256"))
+    }
+    if len(member_hashes) == 0 or any(sample.get("member_sha256") not in member_hashes for sample in samples):
+        raise ValueError(f"{city_id} terrain member provenance is stale")
     facility = official.get("facility", {})
     facility_catalog = facility.get("source_catalog", {})
     facility_records = facility.get("records", [])
@@ -419,7 +489,22 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         for source in source_catalog.values()
     ):
         raise ValueError(f"{city_id} delivery hazard source catalog is invalid")
-    expected_hazard_sources = EXPECTED_HAZARD_SOURCES[city_id]
+    expected_hazard_sources = dict(EXPECTED_HAZARD_SOURCES[city_id])
+    if city_id == "fujisawa_enoshima":
+        public = json.loads((root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json").read_text(encoding="utf-8"))["fujisawa_hazards"]
+        for layer in public["layers"]:
+            expected_hazard_sources[layer["source_id"]] = (
+                layer["source_url"], layer["license_status"], layer["coverage_evidence"]["selection_sha256"],
+                layer["source_sha256"], layer["source_revision"],
+            )
+        public_by_source = {layer["source_id"]: layer for layer in public["layers"]}
+        if any(
+            source_catalog[source_id].get("source_member_id") != layer.get("source_member_id")
+            or source_catalog[source_id].get("source_member_receipt") != layer.get("source_member_receipt")
+            or not all(_is_sha256(layer.get("source_member_receipt", {}).get(key)) for key in ("member_path_sha256", "shp_sha256", "shx_sha256", "dbf_sha256", "txt_sha256"))
+            for source_id, layer in public_by_source.items()
+        ):
+            raise ValueError("Fujisawa hazard member identity is stale")
     if set(source_catalog) != set(expected_hazard_sources) or any(
         source_catalog[source_id].get("source_url") != expected[0]
         or source_catalog[source_id].get("license_status") != expected[1]
@@ -433,28 +518,17 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         raise ValueError(f"{city_id} delivery hazard source catalog content is stale")
     if city_id == "fujisawa_enoshima" and (
         _canonical_object_sha256(hazard.get("scenarios", [])) != expected_content["scenarios"]
-        or
-        sorted(row.get("dataset_id") for row in hazard.get("scenarios", [])) != EXPECTED_FUJISAWA_SCENARIO_IDS
+        or sorted(row.get("dataset_id") for row in hazard.get("scenarios", [])) != EXPECTED_FUJISAWA_SCENARIO_IDS
+        or sum(row.get("connected") is True for row in hazard.get("scenarios", [])) != 10
+        or sum(row.get("connected") is False for row in hazard.get("scenarios", [])) != 8
         or any(
-        row.get("connected") is not False
-        or row.get("status") != "NOT_CONNECTED"
-        or row.get("aoi_scope") != "enoshima_katase"
-        or row.get("official_source") != "Kanagawa Prefecture candidate; source binding requires receipt review"
-        or row.get("official_url") != "UNKNOWN_NO_SOURCE_URL_OR_ACQUISITION_RECEIPT_IN_SCOPED_FOLDER"
-        or row.get("version_date") != "2025-02-05/15 where encoded in layer name; otherwise source receipt required"
-        or row.get("license_review") != "LICENSE_REVIEW_REQUIRED"
+        row.get("aoi_scope") != "enoshima_katase"
         or not isinstance(row.get("reason"), str) or not row["reason"]
-        or (
-            row.get("layer_kind") == "震度分布"
-            and (row.get("validation_result") != "CRS_REVIEW_REQUIRED" or not str(row.get("crs", "")).startswith("CRS_CONTRADICTION:"))
-        )
-        or (
-            row.get("layer_kind") != "震度分布"
-            and (row.get("validation_result") != "LICENSE_REVIEW_REQUIRED" or row.get("crs") != "EPSG:4612")
-        )
+        or (row.get("connected") is False and (row.get("status") != "NOT_CONNECTED" or row.get("validation_result") != "CRS_REVIEW_REQUIRED" or not str(row.get("crs", "")).startswith("CRS_CONTRADICTION:")))
+        or (row.get("connected") is True and (row.get("status") != "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED" or row.get("validation_result") != "SOURCE_SHA_CRS_DEFINITION_AND_AOI_SELECTION_BOUND" or row.get("crs") != "EPSG:4612" or row.get("license_review") != "CC-BY"))
         for row in hazard.get("scenarios", []))
     ):
-        raise ValueError("Fujisawa earthquake/liquefaction scenario inventory was promoted")
+        raise ValueError("Fujisawa earthquake/liquefaction scenario inventory contract is stale")
     exposures = hazard.get("edge_exposures", [])
     if not exposures or any(
         row.get("metric_crs") != expected_crs
@@ -505,6 +579,7 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         or any(not row.get("owner_candidate_types") for row in item.get("rows", []))
         or any(not isinstance(row.get("unknowns"), list) or len(row["unknowns"]) != len(checklist_unknowns) or set(row["unknowns"]) != checklist_unknowns for row in item.get("rows", []))
         or any(not isinstance(row.get("hazard_refs"), list) or sorted(row["hazard_refs"]) != exposure_refs_by_edge.get(row.get("edge_id"), []) for row in item.get("rows", []))
+        or any(not isinstance(row.get("terrain_sample_ids"), list) or sorted(row["terrain_sample_ids"]) != expected_edge_sample_ids.get(row.get("edge_id"), []) for row in item.get("rows", []))
         for key, item in checklists.items()
     ):
         raise ValueError(f"{city_id} review checklist contract is stale or unsafe")

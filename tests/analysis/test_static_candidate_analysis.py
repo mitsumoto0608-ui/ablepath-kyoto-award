@@ -67,7 +67,7 @@ def test_canonical_text_hash_is_checkout_newline_independent():
 
 
 def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(tmp_path: Path):
-    """[source_conformance] Approved delivery outputs replace the predecessor-only hash invariant with ten Kyoto layers and one Fuji layer, while null safety fields remain unchanged."""
+    """[source_conformance] The approved continuation adds ten CC-BY Fuji layers while keeping null safety fields unchanged."""
     generated = tmp_path / "analysis"
     generate_static_candidate_analyses(ROOT, generated)
 
@@ -82,7 +82,12 @@ def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(t
         assert len(hazard["connected_scenarios"]) == 10
 
     fuji = json.loads((generated / "fujisawa_enoshima.json").read_text(encoding="utf-8"))
-    assert fuji["official_evidence"]["hazard"]["connected_scenarios"] == ["A40_TSUNAMI_2020"]
+    assert set(fuji["official_evidence"]["hazard"]["connected_scenarios"]) == {
+        "A40_TSUNAMI_2020",
+        *(f"fujisawa_liquefaction_distribution_scenario_{index:02d}" for index in range(1, 9)),
+        "fujisawa_shaking_susceptibility_r6_01",
+        "fujisawa_liquefaction_hazard_r6_01",
+    }
 
     for city_id in CITY_IDS:
         artifact = json.loads((generated / f"{city_id}.json").read_text(encoding="utf-8"))
@@ -99,6 +104,27 @@ def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(t
                 assert row["overlap_length_m"] == 0
             elif row["coverage_status"] in {"OUTSIDE_KNOWN_COVERAGE", "PARTIAL_KNOWN_COVERAGE"}:
                 assert row["overlap_length_m"] is None
+
+
+def test_public_dem_and_fujisawa_hazard_truth_is_source_bound_and_fail_closed():
+    """[source_conformance] Native DEM cells and ten reviewed hazard layers connect while eight intensity layers stay unresolved."""
+    # Every graph node and every ordered edge vertex is sampled independently
+    # for both DEM1A and DEM5A: (21 + 159) * 2, (530 + 1156) * 2,
+    # and (16 + 30) * 2 respectively.
+    expected_samples = {"kyoto_kiyomizu": 360, "kyoto_arashiyama": 3372, "fujisawa_enoshima": 92}
+    for city_id, count in expected_samples.items():
+        artifact = json.loads((ROOT / f"viewer/public/data/analysis/{city_id}.json").read_text(encoding="utf-8"))
+        terrain = artifact["official_evidence"]["terrain"]
+        assert terrain["status"] == "NATIVE_CELL_SAMPLES_CONNECTED"
+        assert terrain["connected"] is terrain["elevation_sampled"] is True
+        assert terrain["step_inferred"] is terrain["cross_slope_inferred"] is False
+        assert len(terrain["samples"]) == count
+        assert {sample["product"] for sample in terrain["samples"]} == {"DEM1A", "DEM5A"}
+    fuji = json.loads((ROOT / "viewer/public/data/analysis/fujisawa_enoshima.json").read_text(encoding="utf-8"))
+    scenarios = fuji["official_evidence"]["hazard"]["scenarios"]
+    assert sum(row["connected"] is True for row in scenarios) == 10
+    assert sum(row["connected"] is False for row in scenarios) == 8
+    assert all(row["crs"].startswith("CRS_CONTRADICTION:") for row in scenarios if not row["connected"])
 
 
 def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Path):
@@ -136,9 +162,20 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
         validate_static_candidate_analysis(ROOT, stale_hazard_revision)
 
     promoted_terrain = deepcopy(artifact)
-    promoted_terrain["official_evidence"]["terrain"]["products"][0]["terrain_connected"] = True
-    with pytest.raises(ValueError, match="terrain evidence"):
+    promoted_terrain["official_evidence"]["terrain"]["products"][0]["terrain_connected"] = False
+    with pytest.raises(ValueError, match="terrain native-cell evidence"):
         validate_static_candidate_analysis(ROOT, promoted_terrain)
+
+    bool_terrain = deepcopy(artifact)
+    bool_terrain["official_evidence"]["terrain"]["samples"][0]["elevation_m"] = True
+    with pytest.raises(ValueError, match="terrain native-cell evidence"):
+        validate_static_candidate_analysis(ROOT, bool_terrain)
+
+    stale_terrain_reference = deepcopy(artifact)
+    connected_key = next(key for key, row in stale_terrain_reference["path_matrix"].items() if row["status"] == "CONNECTED")
+    stale_terrain_reference["review_checklists"][connected_key]["rows"][0]["terrain_sample_ids"][0] = "missing-sample"
+    with pytest.raises(ValueError, match="review checklist contract"):
+        validate_static_candidate_analysis(ROOT, stale_terrain_reference)
 
     invented_facility_source = deepcopy(artifact)
     invented_facility_source["official_evidence"]["facility"]["records"][0]["source_id"] = "invented"
@@ -160,15 +197,15 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
     fujisawa = json.loads((generated / "fujisawa_enoshima.json").read_text(encoding="utf-8"))
     invented_time = deepcopy(fujisawa)
     invented_time["official_evidence"]["facility"]["source_catalog"]["fujisawa_webgis_toilets_accessibility"]["acquired_at"] = "2030-01-01"
-    with pytest.raises(ValueError, match="facility canonical content"):
+    with pytest.raises(ValueError, match="facility (canonical content|source binding)"):
         validate_static_candidate_analysis(ROOT, invented_time)
 
     rewritten_attribute = deepcopy(fujisawa)
-    record = rewritten_attribute["official_evidence"]["facility"]["records"][0]
-    replacement = not record["source_attributes"]["ostomate_detail_available"]
-    record["source_attributes"]["ostomate_detail_available"] = replacement
-    record["source_attribute_entries"][0][1] = replacement
-    with pytest.raises(ValueError, match="facility canonical content"):
+    rewritten_attribute["official_evidence"]["facility"]["records"].append(
+        {"facility_record_id": "republished-without-license"}
+    )
+    rewritten_attribute["official_evidence"]["facility"]["record_count"] = 1
+    with pytest.raises(ValueError, match="facility (canonical content|source binding)"):
         validate_static_candidate_analysis(ROOT, rewritten_attribute)
 
     rewritten_scenario = deepcopy(fujisawa)

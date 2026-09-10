@@ -5,11 +5,13 @@
   "source_binding": "reports/F1_F6_DECISION_BINDING.json",
   "license_review_process_complete": true,
   "private_internal_analysis": "AUTHORIZED",
-  "private_git": "AUTHORIZED",
+  "private_git": "HISTORICAL_AUTHORIZATION_SUPERSEDED_FOR_CURRENT_PUBLIC_REPOSITORY",
   "internal_rc": "AUTHORIZED_INTERNAL_ONLY",
-  "public_git": "NOT_AUTHORIZED",
+  "public_git": "AUTHORIZED_REVIEWED_CODE_AND_REDISTRIBUTABLE_DERIVED_ARTIFACTS",
   "public_rc": "NOT_AUTHORIZED",
   "public_demo": "NOT_AUTHORIZED",
   "public_release_ready": false,
-  "legal_conclusion": false
+  "legal_conclusion": false,
+  "scope_amendment": "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
+  "historical_public_git_decision_retained_in_git_history": true
 }

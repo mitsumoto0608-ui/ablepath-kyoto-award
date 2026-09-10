@@ -102,11 +102,15 @@ def test_hazard_overlap_preserves_touch_zero_outside_and_scenario_separation() -
     assert by_key[("cross", "flood-a")]["source_classes"] == ["SOURCE_CLASS_1", "SOURCE_CLASS_2"]
     assert by_key[("cross", "flood-b")]["source_classes"] == ["OTHER"]
     assert by_key[("touch", "flood-a")]["relation"] == "TOUCHES"
+    assert by_key[("touch", "flood-a")]["canonical_relation"] == "BOUNDARY_ONLY"
     assert by_key[("touch", "flood-a")]["overlap_length_m"] == 0
     assert by_key[("zero", "flood-a")]["relation"] == "ZERO_OVERLAP_WITHIN_KNOWN_COVERAGE"
+    assert by_key[("zero", "flood-a")]["canonical_relation"] == "NO_INTERSECTION_WITHIN_VERIFIED_COVERAGE"
     assert by_key[("outside", "flood-a")]["relation"] == "OUTSIDE_COVERAGE"
+    assert by_key[("outside", "flood-a")]["canonical_relation"] == "OUTSIDE_COVERAGE"
     assert by_key[("outside", "flood-a")]["overlap_length_m"] is None
     assert by_key[("partial", "flood-a")]["relation"] == "PARTIAL_COVERAGE"
+    assert by_key[("partial", "flood-a")]["canonical_relation"] == "NODATA_OR_UNRESOLVED"
     assert by_key[("partial", "flood-a")]["overlap_length_m"] is None
     assert by_key[("cross", "flood-a")]["metric_crs"] == "EPSG:6674"
     for row in rows:
@@ -135,12 +139,13 @@ def test_review_checklists_are_precomputed_for_each_path_fixture() -> None:
         "a__c": {"status": "DISCONNECTED", "edge_ids": [], "geometric_length": None, "unit": "coordinate_degree", "reason": "no candidate connection"},
     }
     exposures = [{"edge_id": "e1", "scenario_id": "flood", "relation": "INTERSECTS", "overlap_length_m": 12.5, "source_id": "official", "source_revision": "v1", "source_sha256": "e" * 64, "source_classes": ["raw-class"], "official_closure": None, "damage_state": None, "debris_present": None}]
-    terrain = {"status": "BLOCKED_VERTICAL_DATUM_UNRESOLVED", "sampled": False, "reason": "vertical datum unresolved"}
+    terrain = {"status": "BLOCKED_VERTICAL_DATUM_UNRESOLVED", "sampled": False, "reason": "vertical datum unresolved", "edge_samples": {"e1": ["sample-a"], "e2": ["sample-b"]}}
     facility = {"status": "TABLE_ONLY", "record_count": 57, "reason": "entrance and operation UNKNOWN"}
     checklists = build_review_checklists("fujisawa_enoshima", matrix, exposures, terrain, facility)
     assert checklists["a__b"]["path_status"] == "CONNECTED"
     assert checklists["a__b"]["rows"][0]["hazard_refs"] == ["e1\0flood\0official"]
     assert checklists["a__b"]["rows"][1]["hazard_refs"] == []
+    assert checklists["a__b"]["rows"][0]["terrain_sample_ids"] == ["sample-a"]
     assert checklists["a__b"]["terrain"]["sampled"] is False
     assert checklists["a__c"]["status"] == "SUPPORTED_UNCOMPUTED"
     assert checklists["a__c"]["rows"] == []
@@ -181,7 +186,7 @@ def test_source_selection_transforms_aoi_crs_before_intersection() -> None:
 
 
 def test_delivery_binding_authority_and_public_scope_fail_closed() -> None:
-    """[source_conformance] Current F1-F6 authority cannot inherit public permission from its historical record."""
+    """[source_conformance] The 2026-09-10 owner amendment enables only reviewed public Git payloads."""
     authority = json.loads(Path("reports/DELIVERY_DECISION_BINDING_AUTHORITY.json").read_text(encoding="utf-8"))
     scope = json.loads(Path("reports/LICENSE_FINAL_SCOPE_DECISION.json").read_text(encoding="utf-8"))
     visibility = json.loads(Path("reports/DELIVERY_PUBLIC_SCOPE_RECONCILIATION.json").read_text(encoding="utf-8"))
@@ -189,21 +194,27 @@ def test_delivery_binding_authority_and_public_scope_fail_closed() -> None:
     assert authority["current_authority"] == {
         "policy_binding": "reports/F1_F6_DECISION_BINDING.json",
         "scope_decision": "reports/LICENSE_FINAL_SCOPE_DECISION.json",
+        "scope_amendment": "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json",
         "role": "CURRENT_MACHINE_AUTHORITY",
     }
     assert authority["historical_record"]["role"] == "HISTORICAL_PRE_DECISION_RECORD"
     assert authority["historical_record"]["may_override_current_authority"] is False
     assert authority["license_research_reopened"] is False
     assert authority["f1_f6_reapproval_required"] is False
-    assert all(authority[key] is False for key in ("public_git", "public_rc", "public_demo"))
+    assert authority["public_git"] is True
+    assert all(authority[key] is False for key in ("public_rc", "public_demo"))
     assert authority["m7_ready_count"] == authority["m7_computed_count"] == 0
     assert authority["field_measurement_deferred"] is True
     assert scope["source_binding"] == authority["current_authority"]["policy_binding"]
-    assert all(scope[key] == "NOT_AUTHORIZED" for key in ("public_git", "public_rc", "public_demo"))
+    assert scope["public_git"] == "AUTHORIZED_REVIEWED_CODE_AND_REDISTRIBUTABLE_DERIVED_ARTIFACTS"
+    assert all(scope[key] == "NOT_AUTHORIZED" for key in ("public_rc", "public_demo"))
     assert visibility["github_api_observation"] == {"private": False, "visibility": "PUBLIC", "release_count": 0}
-    assert visibility["visibility_authorization_mismatch"] is True
-    assert visibility["remote_write_gate"] == "BLOCKED_PENDING_OWNER_SCOPE_DECISION"
-    assert all(visibility[key] is False for key in ("new_push_authorized", "merge_authorized", "public_attachment_authorized", "visibility_change_authorized"))
+    assert visibility["visibility_authorization_mismatch"] is False
+    assert visibility["remote_write_gate"] == "AUTHORIZED_FOR_REVIEWED_CODE_AND_REDISTRIBUTABLE_DERIVED_ARTIFACTS"
+    assert visibility["new_push_authorized"] is True
+    assert all(visibility[key] is False for key in ("merge_authorized", "public_attachment_authorized", "visibility_change_authorized"))
+    assert visibility["hosted_ci_artifact_authorized"] is True
+    assert "NO_RAW" in visibility["hosted_ci_artifact_scope"]
     assert visibility["historical_private_operation_claimed"] is False
     assert visibility["observation_receipt"] == "reports/DELIVERY_PUBLIC_SCOPE_OBSERVATION.json"
     repository_bytes = json.dumps(observation["repository_query"]["selected_response"], separators=(",", ":"), ensure_ascii=False).encode()
@@ -222,12 +233,15 @@ def test_delivery_gaps_separate_existing_source_work_from_human_judgment() -> No
     with Path("reports/DELIVERY_SPRINT_DATA_GAPS.csv").open(encoding="utf-8", newline="") as stream:
         rows = {row["gap_id"]: row for row in csv.DictReader(stream)}
     assert set(rows) == {f"DS-G{number:02d}" for number in range(1, 9)}
-    for gap_id in ("DS-G01", "DS-G02", "DS-G03", "DS-G04"):
-        assert rows[gap_id]["resolution_track"] == "SOURCE_SPEC_RECONCILIATION_THEN_HUMAN_IF_UNRESOLVED"
+    for gap_id in ("DS-G01", "DS-G02", "DS-G03"):
+        assert rows[gap_id]["resolution_track"] == "SOURCE_SPEC_RECONCILED"
+        assert rows[gap_id]["status"] == "RESOLVED_NATIVE_CELL_CONNECTED"
         assert rows[gap_id]["can_progress_without_new_policy"] == "true"
-    assert rows["DS-G05"]["resolution_track"] == "SOURCE_SPEC_RECONCILIATION"
+    assert rows["DS-G04"]["resolution_track"] == "SOURCE_SPEC_RECONCILIATION"
+    assert rows["DS-G04"]["status"] == "BLOCKED_SOURCE_CRS_UNRESOLVED"
+    assert rows["DS-G05"]["resolution_track"] == "SOURCE_SPEC_RECONCILED"
     assert "threshold" in rows["DS-G05"]["human_or_field_gate"].lower()
-    assert "CRS override" in rows["DS-G04"]["human_or_field_gate"]
+    assert "authoritative CRS" in rows["DS-G04"]["human_or_field_gate"]
     assert "silent geocoding" in rows["DS-G07"]["existing_evidence_action"]
     assert rows["DS-G08"]["resolution_track"] == "HUMAN_OR_FIELD_EVIDENCE_REQUIRED"
     assert "zero" in rows["DS-G08"]["existing_evidence_action"]
