@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
 test("[ui_regression] three regions export source-bound CSV JSON and printable HTML", async ({ page }, testInfo) => {
-  // The matrix deliberately exercises three regions and all three export formats.
-  // Hosted runners are substantially slower at serial download handling than local
-  // Chromium, so keep the assertions unchanged and give the acceptance matrix room.
-  test.setTimeout(600_000);
+  test.setTimeout(180_000);
   const parseCsvLine = (line) => {
     const cells = [];
     let cell = "";

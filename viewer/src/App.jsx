@@ -392,7 +392,8 @@ function downloadText(filename, type, content) {
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 0);
+  // Keep the object URL alive long enough for slower browsers to begin reading it.
+  setTimeout(() => URL.revokeObjectURL(url), 1_000);
 }
 
 function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalog, hazardExposures, terrainSamples }) {
