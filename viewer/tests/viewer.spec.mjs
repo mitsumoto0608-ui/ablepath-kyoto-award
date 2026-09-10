@@ -10,11 +10,10 @@ const EXPORT_BUTTONS = {
 const EXPORT_CASE_TIMEOUT_MS = 60_000;
 const EXPORT_OPERATION_TIMEOUT_MS = 15_000;
 
-// Acceptance map from the former 139-download mega-test:
-// baseline/products = UI controls + DEM1A/DEM5A + common safety/public markers;
-// source-filters = scenario/revision/coverage; review-filters = missing/owner/search;
-// sort-a = EDGE/REVISION/COVERAGE; sort-b = REASON/OWNER.
-// Every mapped case still performs real CSV/JSON/HTML clicks, downloads, and file reads.
+// Acceptance map from the former 139-download mega-test. Each city/product/filter/sort
+// case owns a fresh browser context and exactly one real CSV/JSON/HTML download triplet.
+// This preserves every former assertion without crossing Chromium's repeated-download
+// boundary inside a single page/context.
 function parseCsvLine(line) {
   const cells = [];
   let cell = "";
@@ -117,25 +116,10 @@ function assertSortOrder(payload, sortBy) {
 }
 
 for (const cityId of EXPORT_CITIES) {
-  test(`[ui_regression] ${cityId} exports baseline and DEM products`, async ({ page }, testInfo) => {
+  test(`[ui_regression] ${cityId} exports baseline`, async ({ page }, testInfo) => {
     test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
     await openExportPage(page, cityId);
-    const download = createDownloadObserver(page, cityId, "baseline-products", testInfo.project.name);
-    const terrainProduct = page.getByLabel("DEM product");
-    for (const [product, excludedProduct] of [["DEM1A", "DEM5A"], ["DEM5A", "DEM1A"]]) {
-      await terrainProduct.selectOption(product);
-      await expect(terrainProduct).toHaveValue(product);
-      const displayedSamples = await page.getByLabel("選択区間の確認リスト").locator("tbody td:nth-child(3) code").allTextContents();
-      expect(displayedSamples.length).toBeGreaterThan(0);
-      expect(displayedSamples.every((value) => value.endsWith(` / ${product}`))).toBe(true);
-      expect(displayedSamples.every((value) => !value.endsWith(` / ${excludedProduct}`))).toBe(true);
-      const exported = await assertScreenMatchesExports(page, download);
-      expect(exported.payload.filters.terrain_product).toBe(product);
-      expect(exported.payload.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product))).toBe(true);
-      expect(exported.csv).toContain(product);
-      expect(exported.html).toContain(product);
-    }
-    await terrainProduct.selectOption("ALL");
+    const download = createDownloadObserver(page, cityId, "baseline", testInfo.project.name);
     const baseline = await assertScreenMatchesExports(page, download);
     expect(baseline.csv).toContain("source_sha256");
     expect(baseline.payload.safe_route_claim).toBe(false);
@@ -158,11 +142,31 @@ for (const cityId of EXPORT_CITIES) {
     if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath(`delivery-${cityId}.png`), fullPage: true, animations: "disabled", caret: "hide" });
   });
 
-  test(`[ui_regression] ${cityId} exports source filters`, async ({ page }, testInfo) => {
-    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
-    await openExportPage(page, cityId);
-    const download = createDownloadObserver(page, cityId, "source-filters", testInfo.project.name);
-    for (const label of ["確認リスト・exportのsource scenario", "source revision", "coverage status"]) {
+  for (const [product, excludedProduct] of [["DEM1A", "DEM5A"], ["DEM5A", "DEM1A"]]) {
+    test(`[ui_regression] ${cityId} exports ${product}`, async ({ page }, testInfo) => {
+      test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+      await openExportPage(page, cityId);
+      const download = createDownloadObserver(page, cityId, `product-${product}`, testInfo.project.name);
+      const terrainProduct = page.getByLabel("DEM product");
+      await terrainProduct.selectOption(product);
+      await expect(terrainProduct).toHaveValue(product);
+      const displayedSamples = await page.getByLabel("選択区間の確認リスト").locator("tbody td:nth-child(3) code").allTextContents();
+      expect(displayedSamples.length).toBeGreaterThan(0);
+      expect(displayedSamples.every((value) => value.endsWith(` / ${product}`))).toBe(true);
+      expect(displayedSamples.every((value) => !value.endsWith(` / ${excludedProduct}`))).toBe(true);
+      const exported = await assertScreenMatchesExports(page, download);
+      expect(exported.payload.filters.terrain_product).toBe(product);
+      expect(exported.payload.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product))).toBe(true);
+      expect(exported.csv).toContain(product);
+      expect(exported.html).toContain(product);
+    });
+  }
+
+  for (const [caseId, label] of [["scenario-filter", "確認リスト・exportのsource scenario"], ["revision-filter", "source revision"], ["coverage-filter", "coverage status"]]) {
+    test(`[ui_regression] ${cityId} exports ${caseId}`, async ({ page }, testInfo) => {
+      test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+      await openExportPage(page, cityId);
+      const download = createDownloadObserver(page, cityId, caseId, testInfo.project.name);
       const selector = page.getByLabel(label);
       const optionCount = await selector.locator("option").count();
       expect(optionCount, `${cityId} must expose ${label}`).toBeGreaterThan(1);
@@ -178,15 +182,14 @@ for (const cityId of EXPORT_CITIES) {
         expect(content).toContain(selected);
         if (cityId === "kyoto_kiyomizu" && excluded) expect(content).not.toContain(excluded);
       }
-      await selector.selectOption("ALL");
-    }
-  });
+    });
+  }
 
-  test(`[ui_regression] ${cityId} exports review filters`, async ({ page }, testInfo) => {
-    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
-    await openExportPage(page, cityId);
-    const download = createDownloadObserver(page, cityId, "review-filters", testInfo.project.name);
-    for (const label of ["missing field", "担当候補の種別"]) {
+  for (const [caseId, label] of [["missing-filter", "missing field"], ["owner-filter", "担当候補の種別"]]) {
+    test(`[ui_regression] ${cityId} exports ${caseId}`, async ({ page }, testInfo) => {
+      test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+      await openExportPage(page, cityId);
+      const download = createDownloadObserver(page, cityId, caseId, testInfo.project.name);
       const selector = page.getByLabel(label);
       expect(await selector.locator("option").count(), `${cityId} must expose ${label}`).toBeGreaterThan(1);
       const selected = await selector.locator("option").nth(1).getAttribute("value");
@@ -196,10 +199,15 @@ for (const cityId of EXPORT_CITIES) {
       expect(filtered.payload.rows.length).toBeGreaterThan(0);
       const field = label === "missing field" ? "unknowns" : "owner_candidate_types";
       expect(filtered.payload.rows.every((row) => row[field].includes(selected))).toBe(true);
-      await selector.selectOption("ALL");
-    }
-    const baseline = await assertScreenMatchesExports(page, download);
-    const sourceNeedle = baseline.payload.rows.flatMap((row) => row.hazards).find(Boolean)?.source_id?.slice(0, 10);
+    });
+  }
+
+  test(`[ui_regression] ${cityId} exports reason/source search`, async ({ page }, testInfo) => {
+    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+    await openExportPage(page, cityId);
+    const download = createDownloadObserver(page, cityId, "reason-source-search", testInfo.project.name);
+    const sourceCell = await page.getByLabel("選択区間の確認リスト").locator("tbody td:nth-child(2) code").first().textContent();
+    const sourceNeedle = sourceCell?.split("@")[0].slice(0, 10);
     expect(sourceNeedle, `${cityId} must expose a source for reason/source search`).toBeTruthy();
     await page.getByLabel("reason/source検索").fill(sourceNeedle);
     const filtered = await assertScreenMatchesExports(page, download);
@@ -208,17 +216,15 @@ for (const cityId of EXPORT_CITIES) {
     for (const content of [filtered.csv, JSON.stringify(filtered.payload), filtered.html]) expect(content).toContain(sourceNeedle);
   });
 
-  for (const [caseId, sortValues] of [["sort-a", ["EDGE", "REVISION", "COVERAGE"]], ["sort-b", ["REASON", "OWNER"]]]) {
-    test(`[ui_regression] ${cityId} exports ${caseId}`, async ({ page }, testInfo) => {
+  for (const sortBy of ["EDGE", "REVISION", "COVERAGE", "REASON", "OWNER"]) {
+    test(`[ui_regression] ${cityId} exports sort-${sortBy.toLowerCase()}`, async ({ page }, testInfo) => {
       test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
       await openExportPage(page, cityId);
-      const download = createDownloadObserver(page, cityId, caseId, testInfo.project.name);
-      for (const sortBy of sortValues) {
-        await page.getByLabel("確認リストの並び順").selectOption(sortBy);
-        const exported = await assertScreenMatchesExports(page, download);
-        expect(exported.payload.sort_by).toBe(sortBy);
-        assertSortOrder(exported.payload, sortBy);
-      }
+      const download = createDownloadObserver(page, cityId, `sort-${sortBy.toLowerCase()}`, testInfo.project.name);
+      await page.getByLabel("確認リストの並び順").selectOption(sortBy);
+      const exported = await assertScreenMatchesExports(page, download);
+      expect(exported.payload.sort_by).toBe(sortBy);
+      assertSortOrder(exported.payload, sortBy);
     });
   }
 }
