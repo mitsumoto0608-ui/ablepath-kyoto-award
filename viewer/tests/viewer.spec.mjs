@@ -1,32 +1,126 @@
 import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
-test("[ui_regression] three regions export source-bound CSV JSON and printable HTML", async ({ page }, testInfo) => {
-  test.setTimeout(180_000);
-  const parseCsvLine = (line) => {
-    const cells = [];
-    let cell = "";
-    let quoted = false;
-    for (let index = 0; index < line.length; index += 1) {
-      const char = line[index];
-      if (char === '"' && quoted && line[index + 1] === '"') { cell += '"'; index += 1; }
-      else if (char === '"') quoted = !quoted;
-      else if (char === "," && !quoted) { cells.push(cell); cell = ""; }
-      else cell += char;
-    }
-    cells.push(cell);
-    return cells;
+const EXPORT_CITIES = ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"];
+const EXPORT_BUTTONS = {
+  CSV: "CSVを保存",
+  JSON: "JSONを保存",
+  HTML: "印刷用HTMLを保存",
+};
+const EXPORT_CASE_TIMEOUT_MS = 60_000;
+const EXPORT_OPERATION_TIMEOUT_MS = 15_000;
+
+// Acceptance map from the former 139-download mega-test:
+// baseline/products = UI controls + DEM1A/DEM5A + common safety/public markers;
+// source-filters = scenario/revision/coverage; review-filters = missing/owner/search;
+// sort-a = EDGE/REVISION/COVERAGE; sort-b = REASON/OWNER.
+// Every mapped case still performs real CSV/JSON/HTML clicks, downloads, and file reads.
+function parseCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (char === '"' && quoted && line[index + 1] === '"') { cell += '"'; index += 1; }
+    else if (char === '"') quoted = !quoted;
+    else if (char === "," && !quoted) { cells.push(cell); cell = ""; }
+    else cell += char;
+  }
+  cells.push(cell);
+  return cells;
+}
+
+async function openExportPage(page, cityId) {
+  await page.goto(`/?city=${cityId}&layer=real`);
+  await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByLabel("選択区間の確認リスト")).toContainText("UNKNOWN");
+  for (const label of ["確認リスト・exportのsource scenario", "source revision", "coverage status", "missing field", "担当候補の種別", "確認リストの並び順"]) {
+    await expect(page.getByLabel(label)).toBeEnabled();
+  }
+}
+
+function createDownloadObserver(page, cityId, caseId, projectName) {
+  const caseStartedAt = Date.now();
+  let sequence = 0;
+  return async (format) => {
+    sequence += 1;
+    const downloadSequence = sequence;
+    const elapsed = () => Date.now() - caseStartedAt;
+    const log = (stage, detail = {}) => console.log(`[export-e2e] ${JSON.stringify({ city: cityId, case: caseId, format, download_sequence: downloadSequence, stage, elapsed_ms: elapsed(), project: projectName, ...detail })}`);
+    return test.step(`${cityId}/${caseId}/${format}/${downloadSequence}`, async () => {
+      const waiting = page.waitForEvent("download", { timeout: EXPORT_OPERATION_TIMEOUT_MS });
+      log("waiter_registered");
+      log("click_started");
+      await page.getByRole("button", { name: EXPORT_BUTTONS[format] }).click();
+      log("click_completed");
+      const download = await waiting;
+      log("download_started", { suggested_filename: download.suggestedFilename() });
+      const failure = await download.failure();
+      expect(failure).toBeNull();
+      const savedPath = await download.path();
+      expect(savedPath).not.toBeNull();
+      const content = await readFile(savedPath, "utf8");
+      expect(Buffer.byteLength(content, "utf8")).toBeGreaterThan(0);
+      expect(download.suggestedFilename()).toMatch(new RegExp(`\\.${format === "HTML" ? "html" : format.toLowerCase()}$`));
+      log("download_completed", { suggested_filename: download.suggestedFilename(), bytes: Buffer.byteLength(content, "utf8"), failure });
+      return content;
+    });
   };
-  for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
-    await page.goto(`/?city=${cityId}&layer=real`);
-    await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByLabel("選択区間の確認リスト")).toContainText("UNKNOWN");
-    await expect(page.getByLabel("確認リスト・exportのsource scenario")).toBeEnabled();
-    await expect(page.getByLabel("source revision")).toBeEnabled();
-    await expect(page.getByLabel("coverage status")).toBeEnabled();
-    await expect(page.getByLabel("missing field")).toBeEnabled();
-    await expect(page.getByLabel("担当候補の種別")).toBeEnabled();
-    await expect(page.getByLabel("確認リストの並び順")).toBeEnabled();
+}
+
+async function assertScreenMatchesExports(page, download) {
+  const screenEdges = await page.getByLabel("選択区間の確認リスト").locator("tbody th code").allTextContents();
+  const json = await download("JSON");
+  const payload = JSON.parse(json);
+  expect(payload.rows.map((row) => row.edge_id)).toEqual(screenEdges);
+
+  const csv = await download("CSV");
+  const csvLines = csv.trimEnd().split("\n");
+  const csvHeader = parseCsvLine(csvLines[0]);
+  const rowKindIndex = csvHeader.indexOf("row_kind");
+  const edgeIndex = csvHeader.indexOf("edge_id");
+  const csvEdges = [...new Set(csvLines.slice(1).map(parseCsvLine).filter((row) => row[rowKindIndex] === "candidate_edge").map((row) => row[edgeIndex]))];
+  expect(csvEdges).toEqual(screenEdges);
+
+  const html = await download("HTML");
+  const candidateTableStart = html.indexOf("<tbody>", html.indexOf("<table>"));
+  expect(candidateTableStart).toBeGreaterThanOrEqual(0);
+  const candidateTableEnd = html.indexOf("</tbody>", candidateTableStart);
+  expect(candidateTableEnd).toBeGreaterThan(candidateTableStart);
+  const candidateTable = html.slice(candidateTableStart, candidateTableEnd);
+  const htmlEdges = [...new Set([...candidateTable.matchAll(/<tr><th>([^<]+)<\/th>/g)].map((match) => match[1]).filter((edgeId) => edgeId !== "null"))];
+  expect(htmlEdges).toEqual(screenEdges);
+  return { payload, csv, html };
+}
+
+function assertSourceFilterRows(payload, label, selected) {
+  const field = {
+    "確認リスト・exportのsource scenario": "scenario_id",
+    "source revision": "source_revision",
+    "coverage status": "coverage_status",
+  }[label];
+  expect(field).toBeTruthy();
+  expect(payload.rows.length).toBeGreaterThan(0);
+  expect(payload.rows.every((row) => row.hazards.length > 0 && row.hazards.every((hazard) => hazard[field] === selected))).toBe(true);
+}
+
+function assertSortOrder(payload, sortBy) {
+  const sortValue = (row) => ({
+    EDGE: row.edge_id,
+    REVISION: row.hazards[0]?.source_revision,
+    COVERAGE: row.hazards[0]?.coverage_status,
+    REASON: row.hazards[0]?.reason,
+    OWNER: row.owner_candidate_types[0],
+  })[sortBy];
+  const expected = [...payload.rows].sort((left, right) => String(sortValue(left) ?? "").localeCompare(String(sortValue(right) ?? ""), "ja") || left.edge_id.localeCompare(right.edge_id));
+  expect(payload.rows.map((row) => row.edge_id)).toEqual(expected.map((row) => row.edge_id));
+}
+
+for (const cityId of EXPORT_CITIES) {
+  test(`[ui_regression] ${cityId} exports baseline and DEM products`, async ({ page }, testInfo) => {
+    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+    await openExportPage(page, cityId);
+    const download = createDownloadObserver(page, cityId, "baseline-products", testInfo.project.name);
     const terrainProduct = page.getByLabel("DEM product");
     for (const [product, excludedProduct] of [["DEM1A", "DEM5A"], ["DEM5A", "DEM1A"]]) {
       await terrainProduct.selectOption(product);
@@ -35,102 +129,121 @@ test("[ui_regression] three regions export source-bound CSV JSON and printable H
       expect(displayedSamples.length).toBeGreaterThan(0);
       expect(displayedSamples.every((value) => value.endsWith(` / ${product}`))).toBe(true);
       expect(displayedSamples.every((value) => !value.endsWith(` / ${excludedProduct}`))).toBe(true);
-      for (const button of ["CSVを保存", "JSONを保存", "印刷用HTMLを保存"]) {
-        const productDownload = page.waitForEvent("download");
-        await page.getByRole("button", { name: button }).click();
-        const productContent = await readFile(await (await productDownload).path(), "utf8");
-        expect(productContent).toContain(product);
-        if (button === "JSONを保存") {
-          const payload = JSON.parse(productContent);
-          expect(payload.filters.terrain_product).toBe(product);
-          expect(payload.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product))).toBe(true);
-        }
-      }
+      const exported = await assertScreenMatchesExports(page, download);
+      expect(exported.payload.filters.terrain_product).toBe(product);
+      expect(exported.payload.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product))).toBe(true);
+      expect(exported.csv).toContain(product);
+      expect(exported.html).toContain(product);
     }
     await terrainProduct.selectOption("ALL");
-    const assertScreenMatchesExports = async () => {
-      const waiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: "JSONを保存" }).click();
-      const payload = JSON.parse(await readFile(await (await waiting).path(), "utf8"));
-      const screenEdges = await page.getByLabel("選択区間の確認リスト").locator("tbody th code").allTextContents();
-      expect(payload.rows.map((row) => row.edge_id)).toEqual(screenEdges);
-      const csvWaiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: "CSVを保存" }).click();
-      const csv = await readFile(await (await csvWaiting).path(), "utf8");
-      const csvLines = csv.trimEnd().split("\n");
-      const csvHeader = parseCsvLine(csvLines[0]);
-      const rowKindIndex = csvHeader.indexOf("row_kind");
-      const edgeIndex = csvHeader.indexOf("edge_id");
-      const csvEdges = [...new Set(csvLines.slice(1).map(parseCsvLine).filter((row) => row[rowKindIndex] === "candidate_edge").map((row) => row[edgeIndex]))];
-      expect(csvEdges).toEqual(screenEdges);
-      const htmlWaiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: "印刷用HTMLを保存" }).click();
-      const html = await readFile(await (await htmlWaiting).path(), "utf8");
-      const candidateTableStart = html.indexOf("<tbody>", html.indexOf("<table>"));
-      const candidateTable = html.slice(candidateTableStart, html.indexOf("</tbody>", candidateTableStart));
-      const htmlEdges = [...new Set([...candidateTable.matchAll(/<tr><th>([^<]+)<\/th>/g)].map((match) => match[1]))];
-      expect(htmlEdges).toEqual(screenEdges);
-      return payload;
-    };
-    for (const label of ["確認リスト・exportのsource scenario", "source revision", "coverage status", "missing field", "担当候補の種別"]) {
-      const selector = page.getByLabel(label);
-      if ((await selector.locator("option").count()) > 1) {
-        await selector.selectOption(await selector.locator("option").nth(1).getAttribute("value"));
-        await assertScreenMatchesExports();
-        await selector.selectOption("ALL");
-      }
-    }
-    const baselinePayload = await assertScreenMatchesExports();
-    const sourceNeedle = baselinePayload.rows.flatMap((row) => row.hazards).find(Boolean)?.source_id?.slice(0, 10);
-    if (sourceNeedle) {
-      await page.getByLabel("reason/source検索").fill(sourceNeedle);
-      await assertScreenMatchesExports();
-      await page.getByLabel("reason/source検索").fill("");
-    }
-    for (const sortBy of ["EDGE", "REVISION", "COVERAGE", "REASON", "OWNER"]) {
-      await page.getByLabel("確認リストの並び順").selectOption(sortBy);
-      const payload = await assertScreenMatchesExports();
-      expect(payload.sort_by).toBe(sortBy);
-    }
-    await page.getByLabel("確認リストの並び順").selectOption("EDGE");
-    if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath(`delivery-${cityId}.png`), fullPage: true, animations: "disabled", caret: "hide" });
-    if (cityId === "kyoto_kiyomizu") {
-      const selector = page.getByLabel("確認リスト・exportのsource scenario");
-      const selected = await selector.locator("option").nth(1).getAttribute("value");
-      const excluded = await selector.locator("option").nth(2).getAttribute("value");
-      await selector.selectOption(selected);
-      const waiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: "CSVを保存" }).click();
-      const filtered = await readFile(await (await waiting).path(), "utf8");
-      expect(filtered).toContain(selected);
-      expect(filtered).not.toContain(excluded);
-      for (const button of ["JSONを保存", "印刷用HTMLを保存"]) {
-        const nextDownload = page.waitForEvent("download");
-        await page.getByRole("button", { name: button }).click();
-        const nextContent = await readFile(await (await nextDownload).path(), "utf8");
-        expect(nextContent).toContain(selected);
-        expect(nextContent).not.toContain(excluded);
-      }
-    }
-    if (cityId === "fujisawa_enoshima") {
-      const waiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: "JSONを保存" }).click();
-      const payload = JSON.parse(await readFile(await (await waiting).path(), "utf8"));
-      expect(payload.terrain_unresolved_summary).toEqual({ record_count: 6, unique_coordinate_count: 1 });
-      expect(payload.terrain_unresolved_records).toHaveLength(6);
-      expect(payload.terrain_unresolved_records.every((sample) => sample.elevation_m === null && sample.status === "SURFACE_VALUE_UNRESOLVED" && sample.reason)).toBe(true);
-    }
-    for (const [button, marker] of [["CSVを保存", "source_sha256"], ["JSONを保存", '"safe_route_claim": false'], ["印刷用HTMLを保存", "印刷用確認リスト"]]) {
-      const waiting = page.waitForEvent("download");
-      await page.getByRole("button", { name: button }).click();
-      const download = await waiting;
-      const content = await readFile(await download.path(), "utf8");
-      expect(content).toContain(marker);
+    const baseline = await assertScreenMatchesExports(page, download);
+    expect(baseline.csv).toContain("source_sha256");
+    expect(baseline.payload.safe_route_claim).toBe(false);
+    expect(baseline.html).toContain("印刷用確認リスト");
+    for (const content of [baseline.csv, JSON.stringify(baseline.payload), baseline.html]) {
       expect(content).not.toContain("C:\\dev\\");
       expect(content).not.toContain("安全な避難ルート");
     }
+    if (cityId === "fujisawa_enoshima") {
+      expect(baseline.payload.terrain_unresolved_summary).toEqual({ record_count: 6, unique_coordinate_count: 1 });
+      expect(baseline.payload.terrain_unresolved_records).toHaveLength(6);
+      expect(baseline.payload.terrain_unresolved_records.every((sample) => sample.elevation_m === null && sample.status === "SURFACE_VALUE_UNRESOLVED" && sample.reason)).toBe(true);
+      for (const sample of baseline.payload.terrain_unresolved_records) {
+        expect(baseline.csv).toContain(sample.sample_id);
+        expect(baseline.csv).toContain(sample.reason);
+        expect(baseline.html).toContain(sample.sample_id);
+        expect(baseline.html).toContain(sample.reason);
+      }
+    }
+    if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath(`delivery-${cityId}.png`), fullPage: true, animations: "disabled", caret: "hide" });
+  });
+
+  test(`[ui_regression] ${cityId} exports source filters`, async ({ page }, testInfo) => {
+    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+    await openExportPage(page, cityId);
+    const download = createDownloadObserver(page, cityId, "source-filters", testInfo.project.name);
+    for (const label of ["確認リスト・exportのsource scenario", "source revision", "coverage status"]) {
+      const selector = page.getByLabel(label);
+      const optionCount = await selector.locator("option").count();
+      expect(optionCount, `${cityId} must expose ${label}`).toBeGreaterThan(1);
+      const selected = await selector.locator("option").nth(1).getAttribute("value");
+      expect(selected, `${cityId} ${label} selection`).toBeTruthy();
+      const excluded = label === "確認リスト・exportのsource scenario" && optionCount > 2
+        ? await selector.locator("option").nth(2).getAttribute("value")
+        : null;
+      await selector.selectOption(selected);
+      const exported = await assertScreenMatchesExports(page, download);
+      assertSourceFilterRows(exported.payload, label, selected);
+      for (const content of [exported.csv, JSON.stringify(exported.payload), exported.html]) {
+        expect(content).toContain(selected);
+        if (cityId === "kyoto_kiyomizu" && excluded) expect(content).not.toContain(excluded);
+      }
+      await selector.selectOption("ALL");
+    }
+  });
+
+  test(`[ui_regression] ${cityId} exports review filters`, async ({ page }, testInfo) => {
+    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+    await openExportPage(page, cityId);
+    const download = createDownloadObserver(page, cityId, "review-filters", testInfo.project.name);
+    for (const label of ["missing field", "担当候補の種別"]) {
+      const selector = page.getByLabel(label);
+      expect(await selector.locator("option").count(), `${cityId} must expose ${label}`).toBeGreaterThan(1);
+      const selected = await selector.locator("option").nth(1).getAttribute("value");
+      expect(selected, `${cityId} ${label} selection`).toBeTruthy();
+      await selector.selectOption(selected);
+      const filtered = await assertScreenMatchesExports(page, download);
+      expect(filtered.payload.rows.length).toBeGreaterThan(0);
+      const field = label === "missing field" ? "unknowns" : "owner_candidate_types";
+      expect(filtered.payload.rows.every((row) => row[field].includes(selected))).toBe(true);
+      await selector.selectOption("ALL");
+    }
+    const baseline = await assertScreenMatchesExports(page, download);
+    const sourceNeedle = baseline.payload.rows.flatMap((row) => row.hazards).find(Boolean)?.source_id?.slice(0, 10);
+    expect(sourceNeedle, `${cityId} must expose a source for reason/source search`).toBeTruthy();
+    await page.getByLabel("reason/source検索").fill(sourceNeedle);
+    const filtered = await assertScreenMatchesExports(page, download);
+    expect(filtered.payload.rows.length).toBeGreaterThan(0);
+    expect(filtered.payload.rows.every((row) => row.hazards.length > 0 && row.hazards.every((hazard) => [hazard.reason, hazard.limitations, hazard.source_id].some((value) => String(value).toLocaleLowerCase("ja").includes(sourceNeedle.toLocaleLowerCase("ja")))))).toBe(true);
+    for (const content of [filtered.csv, JSON.stringify(filtered.payload), filtered.html]) expect(content).toContain(sourceNeedle);
+  });
+
+  for (const [caseId, sortValues] of [["sort-a", ["EDGE", "REVISION", "COVERAGE"]], ["sort-b", ["REASON", "OWNER"]]]) {
+    test(`[ui_regression] ${cityId} exports ${caseId}`, async ({ page }, testInfo) => {
+      test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+      await openExportPage(page, cityId);
+      const download = createDownloadObserver(page, cityId, caseId, testInfo.project.name);
+      for (const sortBy of sortValues) {
+        await page.getByLabel("確認リストの並び順").selectOption(sortBy);
+        const exported = await assertScreenMatchesExports(page, download);
+        expect(exported.payload.sort_by).toBe(sortBy);
+        assertSortOrder(exported.payload, sortBy);
+      }
+    });
   }
-});
+}
+
+for (const [cityId, disconnectedPath] of [
+  ["kyoto_kiyomizu", "KK-OSM-N1697644482__KK-OSM-N3752885643"],
+  ["kyoto_arashiyama", "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-001212123705"],
+]) {
+  test(`[ui_regression] ${cityId} exports disconnected reason and empty row set`, async ({ page }, testInfo) => {
+    test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
+    await openExportPage(page, cityId);
+    const [startNode, endNode] = disconnectedPath.split("__");
+    await page.getByLabel("出発node（candidate fixture）").selectOption(startNode);
+    await page.getByLabel("目的node（candidate fixture）").selectOption(endNode);
+    const download = createDownloadObserver(page, cityId, "disconnected", testInfo.project.name);
+    const exported = await assertScreenMatchesExports(page, download);
+    expect(exported.payload.path_key).toBe(disconnectedPath);
+    expect(exported.payload.path_status).toBe("DISCONNECTED");
+    expect(exported.payload.rows).toEqual([]);
+    expect(exported.payload.candidate_distance).toBeNull();
+    expect(exported.payload.path_reason).toBeTruthy();
+    expect(exported.csv).toContain(exported.payload.path_reason);
+    expect(exported.html).toContain(exported.payload.path_reason);
+  });
+}
 
 test("[ui_regression] city state is reproducible and unconnected result selectors stay inactive", async ({ page }) => {
   await page.goto("/");
