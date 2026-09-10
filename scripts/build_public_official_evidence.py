@@ -184,10 +184,14 @@ def _build_dem(repo: Path, raw_root: Path) -> dict:
                 "aoi": city_id, "aoi_status": "FULL_MEMBER_LEVEL_NODE_COVERAGE",
                 "validation_result": "OFFICIAL_SPEC_AND_RAW_SHA_BOUND_NATIVE_CELL_SAMPLING",
                 "license_status": "GSI_TERMS_WITH_ATTRIBUTION", "terrain_connected": True,
-                "status": "NATIVE_CELL_SAMPLES_CONNECTED", "connected": True, "sample_count": len(product_samples),
+                "status": "NATIVE_CELL_SAMPLES_CONNECTED", "connected": True,
+                "sample_count": len(product_samples), "sample_record_count": len(product_samples),
+                "unique_coordinate_count": len({(row["query_longitude"], row["query_latitude"]) for row in product_samples}),
                 "node_sample_count": len(nodes), "edge_vertex_sample_count": sum(len(edge["geometry"]["coordinates"]) for edge in edges),
                 "numeric_sample_count": sum(row["elevation_m"] is not None for row in product_samples),
                 "null_sample_count": sum(row["elevation_m"] is None for row in product_samples),
+                "null_record_count": sum(row["elevation_m"] is None for row in product_samples),
+                "null_coordinate_count": len({(row["query_longitude"], row["query_latitude"]) for row in product_samples if row["elevation_m"] is None}),
                 "member_count": len(members),
                 "members": [
                     {"nested_zip_name": nested_name, "nested_zip_sha256": nested_sha, "member_name": member_name, "member_sha256": member_sha, "mesh_id": grid.mesh_id, "srs_name": grid.srs_name}
@@ -195,7 +199,15 @@ def _build_dem(repo: Path, raw_root: Path) -> dict:
                 ],
                 "implicit_precedence": False, "mosaic_applied": False,
             })
-        cities[city_id] = {"status": "NATIVE_CELL_SAMPLES_CONNECTED", "connected": True, "products": city_products, "samples": city_samples}
+        cities[city_id] = {
+            "status": "NATIVE_CELL_SAMPLES_CONNECTED", "connected": True,
+            "sample_record_count": len(city_samples),
+            "unique_coordinate_count": len({(row["query_longitude"], row["query_latitude"]) for row in city_samples}),
+            "numeric_record_count": sum(row["elevation_m"] is not None for row in city_samples),
+            "null_record_count": sum(row["elevation_m"] is None for row in city_samples),
+            "null_coordinate_count": len({(row["query_longitude"], row["query_latitude"]) for row in city_samples if row["elevation_m"] is None}),
+            "products": city_products, "samples": city_samples,
+        }
     return {
         "schema_version": "1.0.0", "source_id": "gsi_fundamental_geospatial_dem",
         "source_url": "https://service.gsi.go.jp/kiban/app/spec_update_info/",

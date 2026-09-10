@@ -120,7 +120,6 @@ def authoritative_report_paths(root: Path, city_id: str) -> dict[str, Path]:
         paths.update({
             "terrain_inventory_sha256": root / f"cities/{city_id}/terrain/official/dem_product_inventory.csv",
             "facility_receipt_sha256": root / f"cities/{city_id}/facilities/official/facility_source_receipt.json",
-            "facility_table_sha256": root / f"cities/{city_id}/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json",
             "earthquake_inventory_sha256": root / f"cities/{city_id}/hazards/official/earthquake_scenario_inventory.csv",
             "liquefaction_inventory_sha256": root / f"cities/{city_id}/hazards/official/liquefaction_scenario_inventory.csv",
             "delivery_tsunami_sha256": root / "inputs/staging/DELIVERY-SPRINT-V1/fujisawa_enoshima/tsunami_a40_aoi_selection.geojson",
@@ -347,6 +346,10 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
             or sample.get("unit") != "m"
             or sample.get("status") not in {"SAMPLED_NATIVE_CELL", "NODATA", "SURFACE_VALUE_UNRESOLVED", "OMITTED_SEQUENCE_VALUE", "AMBIGUOUS_CELL_BOUNDARY", "AMBIGUOUS_OR_MISSING_MEMBER"}
             or (
+                sample.get("status") != "SAMPLED_NATIVE_CELL"
+                and (not isinstance(sample.get("reason"), str) or not sample["reason"].strip())
+            )
+            or (
                 sample.get("status") == "SAMPLED_NATIVE_CELL"
                 and (
                     isinstance(sample.get("elevation_m"), bool)
@@ -359,6 +362,33 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         )
     ):
         raise ValueError(f"{city_id} terrain native-cell evidence is stale or unsafe")
+    samples = terrain.get("samples", [])
+    coordinates = {(sample["query_longitude"], sample["query_latitude"]) for sample in samples}
+    null_samples = [sample for sample in samples if sample["elevation_m"] is None]
+    if (
+        terrain.get("sample_record_count") != len(samples)
+        or terrain.get("unique_coordinate_count") != len(coordinates)
+        or terrain.get("numeric_record_count") != len(samples) - len(null_samples)
+        or terrain.get("null_record_count") != len(null_samples)
+        or terrain.get("null_coordinate_count")
+        != len({(sample["query_longitude"], sample["query_latitude"]) for sample in null_samples})
+    ):
+        raise ValueError(f"{city_id} terrain record/location summary is stale")
+    for product in terrain["products"]:
+        product_samples = [sample for sample in samples if sample["product"] == product["product"]]
+        product_nulls = [sample for sample in product_samples if sample["elevation_m"] is None]
+        if (
+            product.get("sample_count") != len(product_samples)
+            or product.get("sample_record_count") != len(product_samples)
+            or product.get("unique_coordinate_count")
+            != len({(sample["query_longitude"], sample["query_latitude"]) for sample in product_samples})
+            or product.get("numeric_sample_count") != len(product_samples) - len(product_nulls)
+            or product.get("null_sample_count") != len(product_nulls)
+            or product.get("null_record_count") != len(product_nulls)
+            or product.get("null_coordinate_count")
+            != len({(sample["query_longitude"], sample["query_latitude"]) for sample in product_nulls})
+        ):
+            raise ValueError(f"{city_id} terrain product record/location summary is stale")
     city_input = next(city for city in CITY_INPUTS if city["id"] == city_id)
     source_nodes = json.loads((root / city_input["nodes"]).read_text(encoding="utf-8"))["features"]
     source_edges = json.loads((root / city_input["edges"]).read_text(encoding="utf-8"))["features"]
@@ -377,7 +407,6 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
                 expected_sample_coordinates[sample_id] = ("EDGE_VERTEX", coordinate)
                 edge_ids.append(sample_id)
         expected_edge_sample_ids[edge_id] = sorted(edge_ids)
-    samples = terrain.get("samples", [])
     sample_ids = [sample.get("sample_id") for sample in samples]
     if (
         len(sample_ids) != len(set(sample_ids))

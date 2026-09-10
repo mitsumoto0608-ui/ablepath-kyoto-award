@@ -17,6 +17,8 @@ import {
   checklistToJson,
   checklistToPrintableHtml,
   loadDeliveryAnalysis,
+  selectChecklistRows,
+  selectUnresolvedTerrainRecords,
 } from "./analysisDomain.mjs";
 
 const KPI_LABELS = {
@@ -368,7 +370,8 @@ function OfficialEvidencePanel({ evidence }) {
       <p>source receiptに結合した表示です。未接続の地形・ハザードからCLOSED/FAILを導出せず、建物setback・damage・debrisも推定しません。</p>
       <div className="table-scroll" tabIndex="0" aria-label="公式データ接続状態一覧"><table><caption>subareas: {evidence.subareas.join(" / ") || "not specified"}</caption><thead><tr><th scope="col">対象</th><th scope="col">状態</th><th scope="col">根拠・未解決理由</th></tr></thead><tbody>{rows.map(([name, status, reason]) => <tr key={name}><th scope="row">{name}</th><td>{status}</td><td>{reason}</td></tr>)}</tbody></table></div>
       <div className="table-scroll" tabIndex="0" aria-label="source hash binding"><table><caption>source hash binding</caption><tbody>{Object.entries(evidence.source_hashes).map(([name, value]) => <tr key={name}><th scope="row">{name}</th><td><code>{value}</code></td></tr>)}</tbody></table></div>
-      {evidence.terrain.products.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="terrain product inventory"><table><caption>terrain products — receipt <code>{evidence.terrain.receipt_sha256}</code></caption><thead><tr><th>mesh</th><th>DEM</th><th>horizontal CRS</th><th>vertical datum</th><th>AOI</th><th>validation</th><th>license</th><th>status</th></tr></thead><tbody>{evidence.terrain.products.map((row) => <tr key={row.dataset_id}><td>{(row.mesh_ids ?? [row.mesh_id]).join(", ")}</td><td>{row.dem_class}</td><td>{row.horizontal_crs}</td><td>{row.vertical_datum}</td><td>{row.aoi}</td><td>{row.validation_result}</td><td>{row.license_status}</td><td>{row.status} ({row.numeric_sample_count}/{row.sample_count})</td></tr>)}</tbody></table></div>}
+      {evidence.terrain.products.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="terrain product inventory"><table><caption>terrain products — receipt <code>{evidence.terrain.receipt_sha256}</code></caption><thead><tr><th>mesh</th><th>DEM</th><th>horizontal CRS</th><th>vertical datum</th><th>AOI</th><th>validation</th><th>license</th><th>records / locations / null</th></tr></thead><tbody>{evidence.terrain.products.map((row) => <tr key={row.dataset_id}><td>{(row.mesh_ids ?? [row.mesh_id]).join(", ")}</td><td>{row.dem_class}</td><td>{row.horizontal_crs}</td><td>{row.vertical_datum}</td><td>{row.aoi}</td><td>{row.validation_result}</td><td>{row.license_status}</td><td>{row.status}: records {row.sample_record_count}, unique locations {row.unique_coordinate_count}, numeric {row.numeric_sample_count}, null records {row.null_record_count}, null locations {row.null_coordinate_count}</td></tr>)}</tbody></table></div>}
+      {evidence.terrain.samples.some((sample) => sample.elevation_m === null) && <div className="table-scroll" tabIndex="0" aria-label="terrain unresolved native-cell records"><table><caption>unresolved native-cell records（record数と独立地点数を分離）</caption><thead><tr><th>sample</th><th>DEM</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.terrain.samples.filter((sample) => sample.elevation_m === null).map((sample) => <tr key={sample.sample_id}><td><code>{sample.sample_id}</code></td><td>{sample.product}</td><td>{sample.status}</td><td>{sample.reason}</td></tr>)}</tbody></table></div>}
       {evidence.hazard.layers.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Kyoto hazard layer status"><table><caption>Kyoto subarea hazard layers</caption><thead><tr><th>subarea</th><th>layer</th><th>artifact</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.layers.map((row) => <tr key={`${row.subarea}-${row.layer}`}><td>{row.subarea}</td><td>{row.layer}</td><td>{row.artifact_status}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       {evidence.hazard.scenarios.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Fujisawa hazard scenario inventory"><table><caption>Fujisawa scenario inventory (AOI: enoshima_katase)</caption><thead><tr><th>dataset</th><th>scenario</th><th>layer</th><th>source</th><th>version</th><th>license/validation</th><th>CRS/bounds</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.scenarios.map((row) => <tr key={row.dataset_id}><td>{row.dataset_id}</td><td>{row.scenario}</td><td>{row.layer_kind}</td><td>{row.official_source} / {row.official_url}</td><td>{row.version_date}</td><td>{row.license_review} / {row.validation_result}</td><td>{row.crs} / {row.bounds_native}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       <p className="model-caveat">PLATEAU: {evidence.plateau.aoi_count} AOIs ({evidence.plateau.aoi_scope.join(" / ")}) / {evidence.plateau.fallback}。実tilesは接続していません。</p>
@@ -419,22 +422,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
   const coverageStatuses = [...new Set(allHazards.map((hazard) => hazard.coverage_status))].sort();
   const unknowns = [...new Set(hydratedRows.flatMap((row) => row.unknowns))].sort();
   const owners = [...new Set(hydratedRows.flatMap((row) => row.owner_candidate_types))].sort();
-  const normalizedReason = reasonQuery.trim().toLocaleLowerCase("ja");
-  const filteredRows = hydratedRows.map((row) => ({
-    ...row,
-    hazards: row.hazards.filter((hazard) =>
-      (scenario === "ALL" || hazard.scenario_id === scenario)
-      && (revision === "ALL" || hazard.source_revision === revision)
-      && (coverage === "ALL" || hazard.coverage_status === coverage)
-      && (!normalizedReason || [hazard.reason, hazard.limitations, hazard.source_id].some((value) => String(value).toLocaleLowerCase("ja").includes(normalizedReason))),
-    ),
-  })).filter((row) =>
-    (scenario === "ALL" && revision === "ALL" && coverage === "ALL" && !normalizedReason || row.hazards.length > 0)
-    && (unknown === "ALL" || row.unknowns.includes(unknown))
-    && (owner === "ALL" || row.owner_candidate_types.includes(owner)),
-  );
-  const sortValue = (row) => sortBy === "REVISION" ? row.hazards[0]?.source_revision : sortBy === "COVERAGE" ? row.hazards[0]?.coverage_status : sortBy === "REASON" ? row.hazards[0]?.reason : sortBy === "OWNER" ? row.owner_candidate_types[0] : row.edge_id;
-  const visibleRows = [...filteredRows].sort((left, right) => String(sortValue(left) ?? "").localeCompare(String(sortValue(right) ?? ""), "ja") || left.edge_id.localeCompare(right.edge_id));
+  const visibleRows = selectChecklistRows(hydratedRows, { scenario, revision, coverage, unknown, owner, reason: reasonQuery }, sortBy);
   const exportFacilityRecords = facilityRecords.map((record) => {
     const source = facilitySourceCatalog[record.source_id];
     return {
@@ -447,7 +435,8 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
       source_temporal_status_reason: source.temporal_status_reason,
     };
   });
-  const exportedChecklist = { ...checklist, facility: { ...checklist.facility, records: exportFacilityRecords }, rows: visibleRows.map((row) => ({ ...row, hazard_refs: row.hazards.map((hazard) => `${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`) })), filters: { scenario, revision, coverage, terrain_product: terrainProduct, unknown, owner, reason: reasonQuery }, sort_by: sortBy };
+  const terrainUnresolved = selectUnresolvedTerrainRecords(terrainSamples, terrainProduct);
+  const exportedChecklist = { ...checklist, facility: { ...checklist.facility, records: exportFacilityRecords }, rows: visibleRows.map((row) => ({ ...row, hazard_refs: row.hazards.map((hazard) => `${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`) })), terrain_unresolved_records: terrainUnresolved.records, terrain_unresolved_summary: terrainUnresolved.summary, filters: { scenario, revision, coverage, terrain_product: terrainProduct, unknown, owner, reason: reasonQuery }, sort_by: sortBy };
   const filename = checklist.checklist_id.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/[. ]+$/g, "") || "ablepath-review";
   return (
     <section className="review-checklist" aria-labelledby="review-checklist-title">

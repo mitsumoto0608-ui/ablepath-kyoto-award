@@ -26,10 +26,6 @@ viewer/public/data/maps/fujisawa_enoshima.candidate_edges.geojson text eol=lf
 
 # Phase 4 evidence receipts bind these exact Git-blob bytes by SHA-256.
 # Keep the allowlist path-specific so unrelated text files retain repository policy.
-cities/fujisawa_enoshima/facilities/official/facility_table_339.csv text eol=lf
-cities/fujisawa_enoshima/facilities/official/enoshima_katase_facility_table_57.csv text eol=lf
-cities/fujisawa_enoshima/facilities/official/FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json text eol=lf
-cities/fujisawa_enoshima/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json text eol=lf
 cities/fujisawa_enoshima/hazards/official/earthquake_scenario_inventory.csv text eol=lf
 cities/fujisawa_enoshima/hazards/official/liquefaction_scenario_inventory.csv text eol=lf
 cities/fujisawa_enoshima/terrain/official/dem_product_inventory.csv text eol=lf

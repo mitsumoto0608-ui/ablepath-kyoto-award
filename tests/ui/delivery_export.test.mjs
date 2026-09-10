@@ -7,6 +7,8 @@ import {
   checklistToJson,
   checklistToPrintableHtml,
   loadDeliveryAnalysis,
+  selectChecklistRows,
+  selectUnresolvedTerrainRecords,
   validateDeliveryAnalysis,
 } from "../../viewer/src/analysisDomain.mjs";
 import { readFileSync } from "node:fs";
@@ -63,19 +65,27 @@ function exportChecklist(analysis, pathKey, terrainProduct = "ALL") {
   const terrain = new Map(analysis.official_evidence.terrain.samples.map((row) => [row.sample_id, row]));
   checklist.rows = checklist.rows.map((row) => ({ ...row, terrain_samples: row.terrain_sample_ids.map((key) => terrain.get(key)).filter((sample) => terrainProduct === "ALL" || sample.product === terrainProduct), hazards: row.hazard_refs.map((key) => exposure.get(key)) }));
   checklist.facility.records = analysis.official_evidence.facility.records;
+  const unresolved = selectUnresolvedTerrainRecords(analysis.official_evidence.terrain.samples, terrainProduct);
+  checklist.terrain_unresolved_records = unresolved.records;
+  checklist.terrain_unresolved_summary = unresolved.summary;
   checklist.filters = { scenario: "ALL", relation: "ALL", owner: "ALL", unknown_only: false, terrain_product: terrainProduct };
   checklist.sort_by = "EDGE";
   return checklist;
 }
 
-test("[ui_regression] Kyoto connected and disconnected exports preserve identical selection filters and row sets", () => {
+test("[ui_regression] three-region connected and disconnected exports preserve selection, DEM filter, sort, and row sets", () => {
   const examples = [
     ["kyoto_kiyomizu", "KK-OSM-N1697644482__KK-OSM-N5315789346", "KK-OSM-N1697644482__KK-OSM-N3752885643"],
     ["kyoto_arashiyama", "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-014102818768", "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-001212123705"],
+    ["fujisawa_enoshima", "FJ-OSM-N-1922FF848B18A1BF__FJ-OSM-N-2174B5DE701CA180", null],
   ];
-  for (const [cityId, connectedKey, disconnectedKey] of examples) {
+  for (const [cityId, configuredConnected, configuredDisconnected] of examples) {
     const analysis = JSON.parse(readFileSync(new URL(`../../viewer/public/data/analysis/${cityId}.json`, import.meta.url), "utf8"));
-    for (const [pathKey, expectedStatus] of [[connectedKey, "CONNECTED"], [disconnectedKey, "DISCONNECTED"]]) {
+    const connectedKey = configuredConnected ?? Object.keys(analysis.path_matrix).find((key) => analysis.path_matrix[key].status === "CONNECTED");
+    const disconnectedKey = configuredDisconnected === null ? null : configuredDisconnected;
+    const pathCases = [[connectedKey, "CONNECTED"]];
+    if (disconnectedKey !== null) pathCases.push([disconnectedKey, "DISCONNECTED"]);
+    for (const [pathKey, expectedStatus] of pathCases) {
       const selected = exportChecklist(analysis, pathKey);
       const csv = checklistToCsv(selected);
       const json = JSON.parse(checklistToJson(selected));
@@ -103,13 +113,23 @@ test("[ui_regression] Kyoto connected and disconnected exports preserve identica
         assert.match(csv, /DEM1A/);
         assert.match(csv, /DEM5A/);
         assert.match(html, /SAMPLED_NATIVE_CELL/);
-        const dem1a = exportChecklist(analysis, pathKey, "DEM1A");
-        const dem1aCsv = checklistToCsv(dem1a);
-        const dem1aJson = JSON.parse(checklistToJson(dem1a));
-        const dem1aHtml = checklistToPrintableHtml(dem1a);
-        assert.ok(dem1aJson.rows.every((row) => row.terrain_samples.every((sample) => sample.product === "DEM1A")));
-        assert.match(dem1aCsv, /terrain_product/);
-        assert.match(dem1aHtml, /DEM1A/);
+        for (const product of ["DEM1A", "DEM5A"]) {
+          const filtered = exportChecklist(analysis, pathKey, product);
+          const filteredCsv = checklistToCsv(filtered);
+          const filteredJson = JSON.parse(checklistToJson(filtered));
+          const filteredHtml = checklistToPrintableHtml(filtered);
+          assert.equal(filteredJson.city_id, cityId);
+          assert.equal(filteredJson.path_key, pathKey);
+          assert.equal(filteredJson.filters.terrain_product, product);
+          assert.equal(filteredJson.sort_by, "EDGE");
+          assert.ok(filteredJson.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product)));
+          assert.match(filteredCsv, /terrain_product/);
+          assert.match(filteredHtml, new RegExp(product));
+          const expectedEdges = filteredJson.rows.map((row) => row.edge_id);
+          const csvEdges = filteredCsv.split("\n").slice(1).filter((line) => line.startsWith('"candidate_edge"')).map((line) => expectedEdges.find((edgeId) => line.includes(edgeId))).filter(Boolean);
+          assert.deepEqual([...new Set(csvEdges)], expectedEdges);
+          for (const edgeId of expectedEdges) assert.match(filteredHtml, new RegExp(edgeId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+        }
       }
       assert.equal(json.safe_route_claim, false);
       assert.equal(json.accessibility_claim, false);
@@ -131,6 +151,79 @@ test("[ui_regression] Kyoto connected and disconnected exports preserve identica
   }
 });
 
+test("[ui_regression] Fujisawa unresolved native-cell records remain null and reasoned in every export format", () => {
+  const analysis = JSON.parse(readFileSync(new URL("../../viewer/public/data/analysis/fujisawa_enoshima.json", import.meta.url), "utf8"));
+  const connectedKey = Object.keys(analysis.path_matrix).find((key) => analysis.path_matrix[key].status === "CONNECTED");
+  for (const [product, expectedRecords] of [["ALL", 6], ["DEM1A", 3], ["DEM5A", 3]]) {
+    const selected = exportChecklist(analysis, connectedKey, product);
+    const csv = checklistToCsv(selected);
+    const json = JSON.parse(checklistToJson(selected));
+    const html = checklistToPrintableHtml(selected);
+    assert.equal(json.terrain_unresolved_records.length, expectedRecords);
+    assert.equal(json.terrain_unresolved_summary.record_count, expectedRecords);
+    assert.equal(json.terrain_unresolved_summary.unique_coordinate_count, 1);
+    assert.equal(csv.split("\n").filter((line) => line.startsWith('"terrain_unresolved"')).length, expectedRecords);
+    for (const sample of json.terrain_unresolved_records) {
+      assert.equal(sample.elevation_m, null);
+      assert.equal(sample.status, "SURFACE_VALUE_UNRESOLVED");
+      assert.ok(sample.reason);
+      assert.match(csv, new RegExp(sample.sample_id));
+      assert.match(csv, /,"null",/);
+      assert.match(html, new RegExp(sample.sample_id));
+      assert.match(html, new RegExp(sample.reason.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    }
+  }
+  const twoLocations = selectUnresolvedTerrainRecords([
+    { elevation_m: null, product: "DEM1A", query_longitude: 135.0, query_latitude: 35.0 },
+    { elevation_m: null, product: "DEM1A", query_longitude: 135.1, query_latitude: 35.1 },
+  ]);
+  assert.deepEqual(twoLocations.summary, { record_count: 2, unique_coordinate_count: 2 });
+});
+
+test("[ui_regression] every review filter and sort preserves screen-equivalent row order across CSV JSON and HTML", () => {
+  for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+    const analysis = JSON.parse(readFileSync(new URL(`../../viewer/public/data/analysis/${cityId}.json`, import.meta.url), "utf8"));
+    const pathKey = Object.keys(analysis.path_matrix).find((key) => analysis.path_matrix[key].status === "CONNECTED");
+    const base = exportChecklist(analysis, pathKey);
+    const sourceCatalog = base.source_catalog ?? {};
+    const exposures = new Map(analysis.official_evidence.hazard.edge_exposures.map((hazardRow) => [`${hazardRow.edge_id}\0${hazardRow.scenario_id}\0${hazardRow.source_id}`, { ...hazardRow, ...sourceCatalog[hazardRow.source_id] }]));
+    const hydratedRows = base.rows.map((row) => ({ ...row, hazards: row.hazard_refs.map((ref) => exposures.get(ref)).filter(Boolean) }));
+    const hazards = hydratedRows.flatMap((row) => row.hazards);
+    const representativeFilters = [
+      { scenario: hazards[0]?.scenario_id },
+      { revision: hazards[0]?.source_revision },
+      { coverage: hazards[0]?.coverage_status },
+      { unknown: hydratedRows[0]?.unknowns[0] },
+      { owner: hydratedRows[0]?.owner_candidate_types[0] },
+      { reason: hazards[0]?.source_id.slice(0, 10) },
+    ].filter((entry) => Object.values(entry)[0]);
+    for (const filters of [{}, ...representativeFilters]) {
+      for (const sortBy of ["EDGE", "REVISION", "COVERAGE", "REASON", "OWNER"]) {
+        const rows = selectChecklistRows(hydratedRows, filters, sortBy);
+        const selected = { ...base, rows, filters: { scenario: "ALL", revision: "ALL", coverage: "ALL", unknown: "ALL", owner: "ALL", reason: "", ...filters }, sort_by: sortBy };
+        const json = JSON.parse(checklistToJson(selected));
+        const csv = checklistToCsv(selected);
+        const html = checklistToPrintableHtml(selected);
+        const expectedOrder = rows.map((row) => row.edge_id);
+        assert.deepEqual(json.rows.map((row) => row.edge_id), expectedOrder);
+        let previousPosition = -1;
+        for (const edgeId of expectedOrder) {
+          assert.match(csv, new RegExp(edgeId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+          const position = html.indexOf(edgeId);
+          assert.ok(position > previousPosition);
+          previousPosition = position;
+        }
+        const csvOrder = [...new Set(csv.split("\n").filter((line) => line.startsWith('"candidate_edge"')).map((line) => base.rows.map((row) => row.edge_id).find((edgeId) => line.includes(`"${edgeId}"`))).filter(Boolean))];
+        assert.deepEqual(csvOrder, expectedOrder);
+        const htmlOrder = base.rows.map((row) => [row.edge_id, html.indexOf(row.edge_id)]).filter(([, position]) => position >= 0).sort((left, right) => left[1] - right[1]).map(([edgeId]) => edgeId);
+        assert.deepEqual(htmlOrder, expectedOrder);
+        assert.match(csv, new RegExp(`"${sortBy}"`));
+        assert.match(html, new RegExp(`sort: ${sortBy}`));
+      }
+    }
+  }
+});
+
 test("[ui_regression] delivery analysis rejects promoted claims and missing checklist contract", () => {
   const analysis = JSON.parse(readFileSync(new URL("../../viewer/public/data/analysis/kyoto_kiyomizu.json", import.meta.url), "utf8"));
   assert.equal(validateDeliveryAnalysis(analysis, "kyoto_kiyomizu"), analysis);
@@ -148,6 +241,7 @@ test("[ui_regression] delivery analysis rejects promoted claims and missing chec
     (value) => { value.official_evidence.terrain.status = "ELEVATION_SAMPLED"; },
     (value) => { value.official_evidence.terrain.products[0].terrain_connected = false; },
     (value) => { value.official_evidence.terrain.samples[0].elevation_m = true; },
+    (value) => { value.official_evidence.terrain.sample_record_count += 1; },
     (value) => { value.review_checklists[Object.keys(value.review_checklists).find((key) => value.path_matrix[key].status === "CONNECTED")].rows[0].terrain_sample_ids[0] = "stale-sample-id"; },
     (value) => { value.official_evidence.facility.records[0].source_id = "invented"; },
     (value) => { value.official_evidence.facility.records[0].source_attributes = { wheelchair: true }; },

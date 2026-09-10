@@ -51,7 +51,7 @@ jobs:
         run: python scripts/overnight/verify_repository.py --root .
       # actions/upload-artifact v7.0.1
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
-        if: always()
+        if: success()
         with:
           name: python-linux-reports
           path: reports/
@@ -98,6 +98,7 @@ jobs:
 
   viewer:
     name: Static viewer / Node 22
+    needs: python-linux
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -138,9 +139,12 @@ jobs:
         if: steps.viewer.outputs.present == 'true'
         working-directory: viewer
         run: npm run test:e2e
+      - name: Verify tracked public payload before artifact upload
+        if: steps.viewer.outputs.present == 'true'
+        run: python scripts/overnight/verify_repository.py --root .
       # actions/upload-artifact v7.0.1
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
-        if: always() && steps.viewer.outputs.present == 'true'
+        if: success() && steps.viewer.outputs.present == 'true'
         with:
           name: viewer-artifacts
           path: |

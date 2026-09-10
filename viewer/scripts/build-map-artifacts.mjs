@@ -41,7 +41,6 @@ function reportHashPaths(root, cityId) {
   }
   if (cityId === "fujisawa_enoshima") Object.assign(paths, {
     facility_receipt_sha256: join(root, "cities", cityId, "facilities", "official", "facility_source_receipt.json"),
-    facility_table_sha256: join(root, "cities", cityId, "facilities", "official", "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json"),
     earthquake_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "earthquake_scenario_inventory.csv"),
     liquefaction_inventory_sha256: join(root, "cities", cityId, "hazards", "official", "liquefaction_scenario_inventory.csv"),
     delivery_tsunami_sha256: join(root, "inputs", "staging", "DELIVERY-SPRINT-V1", "fujisawa_enoshima", "tsunami_a40_aoi_selection.geojson"),

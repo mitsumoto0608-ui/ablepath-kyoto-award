@@ -112,10 +112,14 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
         "sample_id", "sample_role", "node_id", "edge_id",
         "vertex_index", "product", "query_longitude", "query_latitude",
         "unit", "member_sha256", "status", "elevation_m", "surface_type",
-        "step_inferred", "cross_slope_inferred",
+        "reason", "step_inferred", "cross_slope_inferred",
     }
     terrain_samples = [
-        {key: value for key, value in sample.items() if key in terrain_sample_fields}
+        {
+            key: value
+            for key, value in sample.items()
+            if key in terrain_sample_fields and (key != "reason" or sample.get("status") != "SAMPLED_NATIVE_CELL")
+        }
         for sample in dem_city["samples"]
     ]
     if promotion.get("closure_derived") or promotion.get("damage_derived") or promotion.get("debris_derived"):
@@ -139,7 +143,26 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
     subareas = city_truth["subareas"] if city_truth else (["enoshima_katase"] if city_id == "fujisawa_enoshima" else [])
     terrain_path = root / f"cities/{city_id}/terrain/official/dem_product_inventory.csv"
     terrain_rows = _csv_rows(terrain_path) if terrain_path.exists() else []
-    terrain_products = dem_city["products"]
+    terrain_products = []
+    for source_product in dem_city["products"]:
+        product = dict(source_product)
+        product_samples = [sample for sample in terrain_samples if sample["product"] == product["product"]]
+        null_samples = [sample for sample in product_samples if sample["elevation_m"] is None]
+        product.update({
+            "sample_record_count": len(product_samples),
+            "unique_coordinate_count": len({(sample["query_longitude"], sample["query_latitude"]) for sample in product_samples}),
+            "null_record_count": len(null_samples),
+            "null_coordinate_count": len({(sample["query_longitude"], sample["query_latitude"]) for sample in null_samples}),
+        })
+        terrain_products.append(product)
+    null_terrain_samples = [sample for sample in terrain_samples if sample["elevation_m"] is None]
+    terrain_summary = {
+        "sample_record_count": len(terrain_samples),
+        "unique_coordinate_count": len({(sample["query_longitude"], sample["query_latitude"]) for sample in terrain_samples}),
+        "numeric_record_count": len(terrain_samples) - len(null_terrain_samples),
+        "null_record_count": len(null_terrain_samples),
+        "null_coordinate_count": len({(sample["query_longitude"], sample["query_latitude"]) for sample in null_terrain_samples}),
+    }
     sample_ids_by_edge = {}
     for sample in terrain_samples:
         if sample.get("sample_role") == "EDGE_VERTEX":
@@ -183,14 +206,16 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
             "reason": "Official source mesh geometry is connected as source-side overlap evidence only; no operational or safety state is derived.",
         } for layer in connected_by_scenario.values())
     if city_id == "fujisawa_enoshima":
-        table = _load_json(root / f"cities/{city_id}/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json")
         receipt = _load_json(root / f"cities/{city_id}/facilities/official/facility_source_receipt.json")
-        if len(table["records"]) != 57 or receipt["license_status"] != "LICENSE_REVIEW_REQUIRED":
+        if (
+            receipt["row_counts"]["enoshima_katase"] != 57
+            or receipt["license_status"] != "LICENSE_REVIEW_REQUIRED"
+            or receipt["public_payload_files_present"] is not False
+            or receipt["provider_redistribution_permission_bound"] is not False
+        ):
             raise ValueError("Fujisawa facility receipt changed without public-scope review")
-        # The existing address-only derivative remains available in its source
-        # lane, but its provider terms are not yet bound for public
-        # redistribution. Do not republish those rows inside the public static
-        # viewer artifact.
+        # Row-bearing derivatives are retained outside the current public Git
+        # tip. Only their non-row metadata receipt is used here.
         records = []
         facility = {
             "status": "NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED",
@@ -212,7 +237,7 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
                 }
             },
             "source_receipt_sha256": _hash(root / f"cities/{city_id}/facilities/official/facility_source_receipt.json"),
-            "reason": "The verified 57-row address-only derivative is not republished in the public viewer artifact because its provider terms remain LICENSE_REVIEW_REQUIRED; no records, coordinates, markers, geocoding, or current state are inferred.",
+            "reason": "The 57-row address-only derivative is excluded from the current public Git tip, viewer, and CI artifacts because provider redistribution permission is not bound. Historical Git reachability is recorded; no records, coordinates, markers, geocoding, or current state are inferred.",
         }
     elif city_truth:
         category_status = _load_json(parity_root / "facility_category_status.json")
@@ -314,7 +339,7 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
         "source_status": promotion["status"],
         "source_hashes": source_hashes,
         "subareas": subareas,
-        "terrain": {"status": "NATIVE_CELL_SAMPLES_CONNECTED", "reason": "GSI DEM1A and DEM5A are shown as separate exact native-cell samples; no interpolation, product precedence, step, or cross-slope inference is applied.", "connected": True, "evidence_ui_connected": True, "elevation_sampled": True, "step_inferred": False, "cross_slope_inferred": False, "aoi_validation": parity_aoi["terrain"] if city_truth else None, "receipt_sha256": _hash(root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json"), "products": terrain_products, "samples": terrain_samples, "edge_samples": terrain_edge_samples},
+        "terrain": {"status": "NATIVE_CELL_SAMPLES_CONNECTED", "reason": "GSI DEM1A and DEM5A are shown as separate exact native-cell samples; record counts and independent query locations are reported separately, with no interpolation, product precedence, step, or cross-slope inference.", "connected": True, "evidence_ui_connected": True, "elevation_sampled": True, "step_inferred": False, "cross_slope_inferred": False, "aoi_validation": parity_aoi["terrain"] if city_truth else None, "receipt_sha256": _hash(root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json"), **terrain_summary, "products": terrain_products, "samples": terrain_samples, "edge_samples": terrain_edge_samples},
         "hazard": {"status": "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED", "reason": hazard_reason, "connected": True, "operational_state_connected": False, "display_connected": True, "display_feature_count": sum(layer["feature_count"] for layer in display_layers), "display_layers": display_layers, "connected_scenarios": connected_scenarios, "source_catalog": source_catalog, "edge_exposures": edge_exposures, "display_features": delivery_display_features, "numeric_serialization": "FULL_PYTHON_FLOAT_NO_DECISION_TOLERANCE", "decision_threshold_applied": False, "closure_derived": False, "damage_or_debris_inferred": False, "layers": hazard_layers, "scenarios": scenarios},
         "facility": facility,
         "plateau": {"status": "NOT_CONNECTED", "aoi_count": len(subareas), "aoi_scope": subareas, "inventory": plateau_inventory, "inventory_connected": bool(city_truth), "fallback": plateau["fallback"], "m7_evidence_ready_count": plateau["m7_evidence_ready_count"], "m7_computed_count": plateau["m7_computed_count"], "reason": "PLATEAU 2025 package SHA, EPSG:6697 axis semantics, stable IDs, roof-edge footprints, height provenance codes, and pilot-buffer mesh coverage are inventoried. Real 3D and M7 remain NOT_CONNECTED: setback is not frozen, field confirmation is deferred, and candidate building/height evidence is not promoted. Existing source-traceable candidate 2D is the deterministic fallback."},

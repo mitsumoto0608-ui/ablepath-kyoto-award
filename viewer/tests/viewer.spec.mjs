@@ -2,7 +2,21 @@ import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
 test("[ui_regression] three regions export source-bound CSV JSON and printable HTML", async ({ page }, testInfo) => {
-  test.setTimeout(90_000);
+  test.setTimeout(180_000);
+  const parseCsvLine = (line) => {
+    const cells = [];
+    let cell = "";
+    let quoted = false;
+    for (let index = 0; index < line.length; index += 1) {
+      const char = line[index];
+      if (char === '"' && quoted && line[index + 1] === '"') { cell += '"'; index += 1; }
+      else if (char === '"') quoted = !quoted;
+      else if (char === "," && !quoted) { cells.push(cell); cell = ""; }
+      else cell += char;
+    }
+    cells.push(cell);
+    return cells;
+  };
   for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
     await page.goto(`/?city=${cityId}&layer=real`);
     await expect(page.getByRole("heading", { name: "地域・区間の確認リスト" })).toBeVisible({ timeout: 20_000 });
@@ -13,6 +27,72 @@ test("[ui_regression] three regions export source-bound CSV JSON and printable H
     await expect(page.getByLabel("missing field")).toBeEnabled();
     await expect(page.getByLabel("担当候補の種別")).toBeEnabled();
     await expect(page.getByLabel("確認リストの並び順")).toBeEnabled();
+    const terrainProduct = page.getByLabel("DEM product");
+    for (const [product, excludedProduct] of [["DEM1A", "DEM5A"], ["DEM5A", "DEM1A"]]) {
+      await terrainProduct.selectOption(product);
+      await expect(terrainProduct).toHaveValue(product);
+      const displayedSamples = await page.getByLabel("選択区間の確認リスト").locator("tbody td:nth-child(3) code").allTextContents();
+      expect(displayedSamples.length).toBeGreaterThan(0);
+      expect(displayedSamples.every((value) => value.endsWith(` / ${product}`))).toBe(true);
+      expect(displayedSamples.every((value) => !value.endsWith(` / ${excludedProduct}`))).toBe(true);
+      for (const button of ["CSVを保存", "JSONを保存", "印刷用HTMLを保存"]) {
+        const productDownload = page.waitForEvent("download");
+        await page.getByRole("button", { name: button }).click();
+        const productContent = await readFile(await (await productDownload).path(), "utf8");
+        expect(productContent).toContain(product);
+        if (button === "JSONを保存") {
+          const payload = JSON.parse(productContent);
+          expect(payload.filters.terrain_product).toBe(product);
+          expect(payload.rows.every((row) => row.terrain_samples.every((sample) => sample.product === product))).toBe(true);
+        }
+      }
+    }
+    await terrainProduct.selectOption("ALL");
+    const assertScreenMatchesExports = async () => {
+      const waiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: "JSONを保存" }).click();
+      const payload = JSON.parse(await readFile(await (await waiting).path(), "utf8"));
+      const screenEdges = await page.getByLabel("選択区間の確認リスト").locator("tbody th code").allTextContents();
+      expect(payload.rows.map((row) => row.edge_id)).toEqual(screenEdges);
+      const csvWaiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: "CSVを保存" }).click();
+      const csv = await readFile(await (await csvWaiting).path(), "utf8");
+      const csvLines = csv.trimEnd().split("\n");
+      const csvHeader = parseCsvLine(csvLines[0]);
+      const rowKindIndex = csvHeader.indexOf("row_kind");
+      const edgeIndex = csvHeader.indexOf("edge_id");
+      const csvEdges = [...new Set(csvLines.slice(1).map(parseCsvLine).filter((row) => row[rowKindIndex] === "candidate_edge").map((row) => row[edgeIndex]))];
+      expect(csvEdges).toEqual(screenEdges);
+      const htmlWaiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: "印刷用HTMLを保存" }).click();
+      const html = await readFile(await (await htmlWaiting).path(), "utf8");
+      const candidateTableStart = html.indexOf("<tbody>", html.indexOf("<table>"));
+      const candidateTable = html.slice(candidateTableStart, html.indexOf("</tbody>", candidateTableStart));
+      const htmlEdges = [...new Set([...candidateTable.matchAll(/<tr><th>([^<]+)<\/th>/g)].map((match) => match[1]))];
+      expect(htmlEdges).toEqual(screenEdges);
+      return payload;
+    };
+    for (const label of ["確認リスト・exportのsource scenario", "source revision", "coverage status", "missing field", "担当候補の種別"]) {
+      const selector = page.getByLabel(label);
+      if ((await selector.locator("option").count()) > 1) {
+        await selector.selectOption(await selector.locator("option").nth(1).getAttribute("value"));
+        await assertScreenMatchesExports();
+        await selector.selectOption("ALL");
+      }
+    }
+    const baselinePayload = await assertScreenMatchesExports();
+    const sourceNeedle = baselinePayload.rows.flatMap((row) => row.hazards).find(Boolean)?.source_id?.slice(0, 10);
+    if (sourceNeedle) {
+      await page.getByLabel("reason/source検索").fill(sourceNeedle);
+      await assertScreenMatchesExports();
+      await page.getByLabel("reason/source検索").fill("");
+    }
+    for (const sortBy of ["EDGE", "REVISION", "COVERAGE", "REASON", "OWNER"]) {
+      await page.getByLabel("確認リストの並び順").selectOption(sortBy);
+      const payload = await assertScreenMatchesExports();
+      expect(payload.sort_by).toBe(sortBy);
+    }
+    await page.getByLabel("確認リストの並び順").selectOption("EDGE");
     if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath(`delivery-${cityId}.png`), fullPage: true, animations: "disabled", caret: "hide" });
     if (cityId === "kyoto_kiyomizu") {
       const selector = page.getByLabel("確認リスト・exportのsource scenario");
@@ -31,6 +111,14 @@ test("[ui_regression] three regions export source-bound CSV JSON and printable H
         expect(nextContent).toContain(selected);
         expect(nextContent).not.toContain(excluded);
       }
+    }
+    if (cityId === "fujisawa_enoshima") {
+      const waiting = page.waitForEvent("download");
+      await page.getByRole("button", { name: "JSONを保存" }).click();
+      const payload = JSON.parse(await readFile(await (await waiting).path(), "utf8"));
+      expect(payload.terrain_unresolved_summary).toEqual({ record_count: 6, unique_coordinate_count: 1 });
+      expect(payload.terrain_unresolved_records).toHaveLength(6);
+      expect(payload.terrain_unresolved_records.every((sample) => sample.elevation_m === null && sample.status === "SURFACE_VALUE_UNRESOLVED" && sample.reason)).toBe(true);
     }
     for (const [button, marker] of [["CSVを保存", "source_sha256"], ["JSONを保存", '"safe_route_claim": false'], ["印刷用HTMLを保存", "印刷用確認リスト"]]) {
       const waiting = page.waitForEvent("download");
@@ -128,6 +216,14 @@ test("[source_conformance] Kyoto connects display evidence without promoting sci
   await expect(page.locator(".official-evidence")).toContainText("NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED");
   await expect(page.locator(".official-evidence tbody tr").filter({ hasText: "fujisawa-accessibility-" })).toHaveCount(0);
   await expect(page.locator(".official-evidence .map-marker, .official-evidence [data-marker]")).toHaveCount(0);
+  const terrainInventory = page.getByLabel("terrain product inventory");
+  await expect(terrainInventory).toContainText("DEM1A");
+  await expect(terrainInventory).toContainText("DEM5A");
+  await expect(terrainInventory).toContainText("records 46, unique locations 16, numeric 43, null records 3, null locations 1");
+  const unresolvedTerrain = page.getByLabel("terrain unresolved native-cell records");
+  await expect(unresolvedTerrain.getByRole("row")).toHaveCount(7);
+  await expect(unresolvedTerrain).toContainText("SURFACE_VALUE_UNRESOLVED");
+  await expect(unresolvedTerrain).toContainText("A -9999 value with a non-no-data surface label is not promoted to elevation.");
   const text = await page.locator("body").innerText();
   expect(text).not.toContain("安全な避難ルート");
   expect(text).not.toContain("CLOSEDを導出");

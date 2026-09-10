@@ -13,7 +13,7 @@ Implemented:
 - Fujisawa A40 tsunami geometry;
 - explicit EPSG:4326/EPSG:6668 inputs projected independently into EPSG:6674 (Kyoto) or EPSG:6677 (Fujisawa) before source-side edge intersection;
 - full-source-scan/AOI selection receipts and retained-archive-member byte checks;
-- Kyoto 77 original-source facility records and attributes. The verified Fujisawa 57-row address-only derivative remains in its source lane but is excluded from the public viewer artifact while its provider terms remain `LICENSE_REVIEW_REQUIRED`;
+- Kyoto 77 original-source facility records and attributes. Fujisawa's 339/57-row address-only derivatives are excluded from the current public Git tip, viewer, and CI artifacts because provider redistribution permission is not bound; their hashes/counts remain in a metadata receipt and the prior public history remains reachable;
 - scenario/revision/coverage/missing-field/reason/owner-filtered, provenance-bearing CSV/JSON/printable HTML exports containing source URL, revision, license scope, selection/source hashes, feature IDs and limitations;
 - no viewer graph, topology, path, hazard-intersection, or M7 calculation.
 - connected and disconnected Kyoto examples are now named in `DELIVERY_EXPORT_EVIDENCE.json`; CSV, JSON, and printable HTML preserve the same path selection, filters, sort and candidate-edge set. The disconnected examples remain explicit reasoned-null negative cases with zero candidate rows.
@@ -25,7 +25,7 @@ Blocked or partial:
 - DEM5B remains outside the verified candidate AOIs and is not silently substituted or mosaicked. DEM1A/5A samples are DEM-cell elevation, not surveyed walking-surface elevation; step, curb, longitudinal/cross slope, M6 and accessibility remain unknown/not computed.
 - Fujisawa intensity distribution remains `CRS_UNRESOLVED`/`NOT_CONNECTED`: its declared EPSG:4301 conflicts with projected-looking native bounds and no provider correction has been found. No CRS is inferred from coordinate appearance.
 - Fujisawa connected liquefaction/shaking layers preserve each official raw class and scenario. No threshold or taxonomy derives closure, damage, debris, safety or passability.
-- Kyoto emergency open spaces and temporary-stay facilities remain metadata-only. Fujisawa's verified address-only facility derivative remains in its source lane but its 57 rows are excluded from the public viewer payload pending explicit redistribution permission; no markers or geocoding are created.
+- Kyoto emergency open spaces and temporary-stay facilities remain metadata-only. Fujisawa facility row data is excluded from the current public tip and all delivery payloads pending explicit provider permission; no markers or geocoding are created. The historical public exposure is recorded rather than rewritten.
 - PLATEAU real 3D is not connected. Existing candidate 2D is the deterministic fallback.
 - M7 evidence-ready/computed counts remain 0/0. No setback, damage or debris value is inferred.
 

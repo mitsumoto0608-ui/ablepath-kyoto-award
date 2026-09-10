@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-09-10",
+  "starting_head": "d855ebf031c81d6215bd054573b7c8b8babc8610",
+  "status": "CONDITIONAL_HUMAN_MERGE_REVIEW",
+  "surface_checks": {
+    "PUBLIC_VIEWER_PAYLOAD_CHECK": {
+      "status": "PASS",
+      "fujisawa_facility_record_count": 0,
+      "reason": "Static viewer remains fail-closed and contains no Fujisawa facility rows or markers."
+    },
+    "PUBLIC_GIT_TRACKED_PAYLOAD_CHECK": {
+      "status": "PASS_CURRENT_TIP_HISTORY_REMAINS_REACHABLE",
+      "current_tip_row_derivative_count": 0,
+      "provider_redistribution_permission_bound": false,
+      "historical_introducing_commit": "a2bb042556b052385ba2c1e1176654021e3351e4",
+      "historical_public_git_reachability": true,
+      "history_rewrite_performed": false
+    },
+    "CI_ARTIFACT_PAYLOAD_CHECK": {
+      "status": "PASS_FAIL_CLOSED_AFTER_SCAN",
+      "python_report_upload_requires_success": true,
+      "viewer_job_requires_python_linux": true,
+      "viewer_upload_requires_success_after_repository_verification": true
+    }
+  },
+  "facility_evidence": {
+    "license_status": "LICENSE_REVIEW_REQUIRED",
+    "provider_redistribution_permission_bound": false,
+    "public_git_current_tip_status": "METADATA_ONLY_ROW_DERIVATIVES_EXCLUDED",
+    "historical_row_counts": {"full": 339, "aoi": 57},
+    "internal_retention_zip_sha256": "4e6e49f671684a621b40d5e2381510ac7c3aca32fcf7d873f32a76909616178e"
+  },
+  "functional_acceptance": {
+    "three_regions": ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"],
+    "dem_products": ["DEM1A", "DEM5A"],
+    "screen_csv_json_html_selection_parity": true,
+    "fujisawa_terrain_record_count": 92,
+    "fujisawa_terrain_unique_coordinate_count": 16,
+    "fujisawa_null_record_count": 6,
+    "fujisawa_null_coordinate_count": 1,
+    "fujisawa_null_reason_preserved": true,
+    "unconnected_intensity_scenario_count": 8,
+    "unconnected_intensity_scenarios_promoted": false,
+    "viewer_static_load_validate_render": true,
+    "m7_evidence_ready_count": 0,
+    "m7_computed_count": 0,
+    "field_measurement_deferred": true,
+    "safe_route_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false
+  },
+  "merge_gate": {
+    "functional_acceptance_ready_after_green_ci": true,
+    "global_public_history_clearance": false,
+    "human_review_required": true,
+    "reason": "Merging the forward exclusion removes row data from the current main tip but cannot remove the already-public reachable history."
+  }
+}

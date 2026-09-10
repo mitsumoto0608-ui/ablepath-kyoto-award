@@ -14,9 +14,9 @@
     "products_connected": ["DEM1A", "DEM5A"],
     "implicit_product_precedence": false,
     "cities": {
-      "kyoto_kiyomizu": {"status": "DONE", "node_count": 21, "edge_vertex_count": 159, "sample_count": 360, "numeric_count": 360, "null_count": 0, "products": {"DEM1A": {"sample_count": 180, "numeric_count": 180, "null_count": 0}, "DEM5A": {"sample_count": 180, "numeric_count": 180, "null_count": 0}}},
-      "kyoto_arashiyama": {"status": "DONE", "node_count": 530, "edge_vertex_count": 1156, "sample_count": 3372, "numeric_count": 3372, "null_count": 0, "products": {"DEM1A": {"sample_count": 1686, "numeric_count": 1686, "null_count": 0}, "DEM5A": {"sample_count": 1686, "numeric_count": 1686, "null_count": 0}}},
-      "fujisawa_enoshima": {"status": "DONE", "node_count": 16, "edge_vertex_count": 30, "sample_count": 92, "numeric_count": 86, "null_count": 6, "products": {"DEM1A": {"sample_count": 46, "numeric_count": 43, "null_count": 3}, "DEM5A": {"sample_count": 46, "numeric_count": 43, "null_count": 3}}}
+      "kyoto_kiyomizu": {"status": "DONE", "node_count": 21, "edge_vertex_count": 159, "sample_record_count": 360, "unique_coordinate_count": 142, "numeric_record_count": 360, "null_record_count": 0, "null_coordinate_count": 0},
+      "kyoto_arashiyama": {"status": "DONE", "node_count": 530, "edge_vertex_count": 1156, "sample_record_count": 3372, "unique_coordinate_count": 530, "numeric_record_count": 3372, "null_record_count": 0, "null_coordinate_count": 0},
+      "fujisawa_enoshima": {"status": "DONE", "node_count": 16, "edge_vertex_count": 30, "sample_record_count": 92, "unique_coordinate_count": 16, "numeric_record_count": 86, "null_record_count": 6, "null_coordinate_count": 1, "products": {"DEM1A": {"sample_record_count": 46, "unique_coordinate_count": 16, "numeric_record_count": 43, "null_record_count": 3, "null_coordinate_count": 1}, "DEM5A": {"sample_record_count": 46, "unique_coordinate_count": 16, "numeric_record_count": 43, "null_record_count": 3, "null_coordinate_count": 1}}}
     },
     "step_inferred": false,
     "cross_slope_inferred": false,
@@ -32,10 +32,16 @@
   },
   "public_payload_exclusions": {
     "fujisawa_address_only_facility_rows": {
-      "verified_source_lane_row_count": 57,
+      "historical_full_row_count": 339,
+      "historical_aoi_row_count": 57,
       "public_viewer_row_count": 0,
-      "status": "LICENSE_REVIEW_REQUIRED",
-      "reason": "Provider redistribution permission is not bound; the existing source-lane derivative is not republished in the public static viewer artifact."
+      "current_public_git_row_derivative_count": 0,
+      "ci_artifact_row_count": 0,
+      "status": "CURRENT_TIP_EXCLUDED_HISTORY_REACHABLE_LICENSE_REVIEW_REQUIRED",
+      "provider_redistribution_permission_bound": false,
+      "historical_public_git_reachability": true,
+      "history_rewrite_performed": false,
+      "reason": "Provider redistribution permission is not bound; row derivatives are excluded from the current public Git tip, viewer, and CI artifacts, while prior public history remains reachable."
     }
   },
   "csv_json_html_parity_required": true,

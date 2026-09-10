@@ -108,7 +108,8 @@ def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(t
 
 def test_public_dem_and_fujisawa_hazard_truth_is_source_bound_and_fail_closed():
     """[source_conformance] Native DEM cells and ten reviewed hazard layers connect while eight intensity layers stay unresolved."""
-    # Every graph node and every ordered edge vertex is sampled independently
+    # Every graph-node and ordered edge-vertex record retains its role. Coordinates
+    # may repeat, so record counts and independent query locations are separate.
     # for both DEM1A and DEM5A: (21 + 159) * 2, (530 + 1156) * 2,
     # and (16 + 30) * 2 respectively.
     expected_samples = {"kyoto_kiyomizu": 360, "kyoto_arashiyama": 3372, "fujisawa_enoshima": 92}
@@ -119,12 +120,25 @@ def test_public_dem_and_fujisawa_hazard_truth_is_source_bound_and_fail_closed():
         assert terrain["connected"] is terrain["elevation_sampled"] is True
         assert terrain["step_inferred"] is terrain["cross_slope_inferred"] is False
         assert len(terrain["samples"]) == count
+        assert terrain["sample_record_count"] == count
+        assert terrain["unique_coordinate_count"] == len({(row["query_longitude"], row["query_latitude"]) for row in terrain["samples"]})
         assert {sample["product"] for sample in terrain["samples"]} == {"DEM1A", "DEM5A"}
     fuji = json.loads((ROOT / "viewer/public/data/analysis/fujisawa_enoshima.json").read_text(encoding="utf-8"))
     scenarios = fuji["official_evidence"]["hazard"]["scenarios"]
     assert sum(row["connected"] is True for row in scenarios) == 10
     assert sum(row["connected"] is False for row in scenarios) == 8
     assert all(row["crs"].startswith("CRS_CONTRADICTION:") for row in scenarios if not row["connected"])
+    terrain = fuji["official_evidence"]["terrain"]
+    assert (terrain["sample_record_count"], terrain["unique_coordinate_count"]) == (92, 16)
+    assert (terrain["numeric_record_count"], terrain["null_record_count"], terrain["null_coordinate_count"]) == (86, 6, 1)
+    for product in terrain["products"]:
+        assert (product["sample_record_count"], product["unique_coordinate_count"]) == (46, 16)
+        assert (product["numeric_sample_count"], product["null_record_count"], product["null_coordinate_count"]) == (43, 3, 1)
+    nulls = [sample for sample in terrain["samples"] if sample["elevation_m"] is None]
+    assert all(sample["status"] == "SURFACE_VALUE_UNRESOLVED" for sample in nulls)
+    assert {sample["reason"] for sample in nulls} == {
+        "A -9999 value with a non-no-data surface label is not promoted to elevation."
+    }
 
 
 def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Path):
@@ -171,6 +185,11 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
     with pytest.raises(ValueError, match="terrain native-cell evidence"):
         validate_static_candidate_analysis(ROOT, bool_terrain)
 
+    stale_record_count = deepcopy(artifact)
+    stale_record_count["official_evidence"]["terrain"]["sample_record_count"] += 1
+    with pytest.raises(ValueError, match="record/location summary"):
+        validate_static_candidate_analysis(ROOT, stale_record_count)
+
     stale_terrain_reference = deepcopy(artifact)
     connected_key = next(key for key, row in stale_terrain_reference["path_matrix"].items() if row["status"] == "CONNECTED")
     stale_terrain_reference["review_checklists"][connected_key]["rows"][0]["terrain_sample_ids"][0] = "missing-sample"
@@ -195,6 +214,10 @@ def test_static_analysis_detects_stale_source_and_summary_mutations(tmp_path: Pa
         validate_static_candidate_analysis(ROOT, missing_m7_unknown)
 
     fujisawa = json.loads((generated / "fujisawa_enoshima.json").read_text(encoding="utf-8"))
+    missing_null_reason = deepcopy(fujisawa)
+    next(sample for sample in missing_null_reason["official_evidence"]["terrain"]["samples"] if sample["elevation_m"] is None)["reason"] = ""
+    with pytest.raises(ValueError, match="terrain native-cell evidence"):
+        validate_static_candidate_analysis(ROOT, missing_null_reason)
     invented_time = deepcopy(fujisawa)
     invented_time["official_evidence"]["facility"]["source_catalog"]["fujisawa_webgis_toilets_accessibility"]["acquired_at"] = "2030-01-01"
     with pytest.raises(ValueError, match="facility (canonical content|source binding)"):

@@ -64,7 +64,6 @@ test("[source_conformance] analysis source_hashes bind to the current repository
     fujisawa_enoshima: {
       terrain_inventory_sha256: "cities/fujisawa_enoshima/terrain/official/dem_product_inventory.csv",
       facility_receipt_sha256: "cities/fujisawa_enoshima/facilities/official/facility_source_receipt.json",
-      facility_table_sha256: "cities/fujisawa_enoshima/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json",
       earthquake_inventory_sha256: "cities/fujisawa_enoshima/hazards/official/earthquake_scenario_inventory.csv",
       liquefaction_inventory_sha256: "cities/fujisawa_enoshima/hazards/official/liquefaction_scenario_inventory.csv",
     },

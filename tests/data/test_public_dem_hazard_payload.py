@@ -25,6 +25,12 @@ PUBLIC_DERIVATIVES = (
     ROOT / "viewer/public/data/analysis/fujisawa_enoshima.json",
     ROOT / "viewer/public/data/official/fujisawa_enoshima.delivery_hazards.geojson",
 )
+FACILITY_ROW_DERIVATIVES = (
+    ROOT / "cities/fujisawa_enoshima/facilities/official/facility_table_339.csv",
+    ROOT / "cities/fujisawa_enoshima/facilities/official/enoshima_katase_facility_table_57.csv",
+    ROOT / "cities/fujisawa_enoshima/facilities/official/FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json",
+    ROOT / "cities/fujisawa_enoshima/facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json",
+)
 FORBIDDEN = (
     re.compile(r"[A-Za-z]:\\Users\\[^\\\s]+", re.IGNORECASE),
     re.compile(r"[A-Za-z]:\\[^\r\n]*Dropbox", re.IGNORECASE),
@@ -93,3 +99,42 @@ def test_gsi_public_sample_scope_is_bound_to_official_terms_receipt() -> None:
     assert terms["url"] == evidence["license_url"]
     assert terms["legal_compliance_claim"] is evidence["legal_compliance_claim"] is False
     assert "NOT_RAW_PACKAGE_BLANKET" in evidence["license_scope"]
+
+
+def test_unlicensed_fujisawa_facility_rows_are_excluded_but_historical_identity_is_retained() -> None:
+    """[source_conformance] Missing provider permission excludes row data without erasing the auditable history."""
+    receipt_path = ROOT / "cities/fujisawa_enoshima/facilities/official/facility_source_receipt.json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["license_status"] == "LICENSE_REVIEW_REQUIRED"
+    assert receipt["provider_redistribution_permission_bound"] is False
+    assert receipt["public_git_current_tip_status"] == "METADATA_ONLY_ROW_DERIVATIVES_EXCLUDED"
+    assert receipt["public_payload_files_present"] is False
+    assert receipt["historical_public_git_reachability"] is True
+    assert receipt["history_rewrite_performed"] is False
+    for path in FACILITY_ROW_DERIVATIVES:
+        assert not path.exists()
+        identity = receipt["historical_derived_output_identities"][path.name]
+        assert re.fullmatch(r"[0-9a-f]{64}", identity["sha256"])
+        assert identity["rows"] in {57, 339}
+
+
+def test_ci_art_uploads_only_after_public_payload_and_repository_gates_succeed() -> None:
+    """[source_conformance] Reports, screenshots, and static dist cannot upload from a failed or unscanned job."""
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    assert "if: always()" not in workflow
+    assert "viewer:\n    name: Static viewer / Node 22\n    needs: python-linux" in workflow
+    viewer_scan = workflow.index("Verify tracked public payload before artifact upload")
+    viewer_upload = workflow.index("name: viewer-artifacts", viewer_scan)
+    assert viewer_scan < viewer_upload
+    assert workflow.count("if: success()") >= 2
+
+
+def test_ci_uploads_are_fail_closed_behind_repository_scan() -> None:
+    """[software_correctness] Public CI artifacts upload only after scans and successful producer jobs."""
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    assert "if: always()" not in workflow
+    assert "needs: python-linux" in workflow
+    viewer_scan = workflow.index("Verify tracked public payload before artifact upload")
+    viewer_upload = workflow.index("name: viewer-artifacts")
+    assert viewer_scan < viewer_upload
+    assert workflow.count("python scripts/overnight/verify_repository.py --root .") >= 2
