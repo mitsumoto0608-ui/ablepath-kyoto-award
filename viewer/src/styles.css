@@ -213,3 +213,41 @@ footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5r
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* T-A2: admin check workflow screen. Status words carry the meaning; colour never does. */
+.admin-checklist { margin-top: 2rem; }
+.admin-print-header { border: 1px solid currentColor; padding: .75rem 1rem; margin: 1rem 0; }
+.admin-print-header p { margin: .15rem 0; overflow-wrap: anywhere; }
+.admin-internal-note { margin: .5rem 0; overflow-wrap: anywhere; }
+.admin-filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+.admin-filter { border: 1px solid currentColor; padding: .5rem .75rem; min-width: 0; }
+.admin-filter legend { padding: 0 .25rem; font-weight: 600; }
+.admin-filter label { display: inline-flex; align-items: center; gap: .3rem; margin-right: .75rem; }
+.admin-counts { margin: .75rem 0; }
+.admin-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+.admin-checklist-table table { font-size: .82rem; }
+.admin-checklist-table td, .admin-checklist-table th { vertical-align: top; overflow-wrap: anywhere; }
+.admin-row-button { background: none; border: 0; padding: 0; font: inherit; text-align: left; text-decoration: underline; cursor: pointer; }
+.admin-row-selected { outline: 2px solid currentColor; outline-offset: -2px; }
+.admin-human-field { min-width: 6rem; border-bottom: 1px solid currentColor; }
+.admin-exposure-cell { max-width: 22rem; }
+.admin-checklist-detail div { display: grid; grid-template-columns: 16rem 1fr; gap: .5rem; padding: .25rem 0; border-top: 1px solid currentColor; }
+.admin-checklist-detail dd { margin: 0; overflow-wrap: anywhere; }
+.admin-detail-empty { margin: .5rem 0; }
+
+@media (max-width: 720px) {
+  .admin-checklist-detail div { grid-template-columns: 1fr; gap: .2rem; }
+}
+
+@media print {
+  body > *:not(#root) { display: none !important; }
+  #root, .app-shell { display: block !important; }
+  .app-shell > *:not(main), main > *:not(.admin-checklist) { display: none !important; }
+  .admin-checklist { display: block !important; margin: 0; }
+  .admin-actions, .admin-filters { display: none !important; }
+  .admin-row-button { text-decoration: none; cursor: auto; }
+  .admin-checklist-table { max-height: none; overflow: visible; }
+  .admin-checklist-table table { font-size: 9px; }
+  .admin-print-header { break-inside: avoid; }
+  .admin-human-field { min-width: 4rem; }
+}
