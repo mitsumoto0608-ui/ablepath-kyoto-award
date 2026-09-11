@@ -91,6 +91,21 @@ def _verified_bytes(path: Path, expected: str) -> bytes:
     return payload
 
 
+def _normalized_member_name(archive: zipfile.ZipFile, name: str) -> str:
+    """Return the provider's own CP932 member path.
+
+    These archives are written on a CP932 system without the ZIP UTF-8 flag, so
+    ``zipfile`` falls back to CP437. Normalizing back makes every member path
+    hash identical regardless of the machine that runs the build.
+    """
+    if archive.getinfo(name).flag_bits & 0x800:
+        return name
+    try:
+        return name.encode("cp437").decode("cp932")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return name
+
+
 def _mesh_from_name(name: str) -> str | None:
     match = re.search(r"FG-GML-(\d{4})-(\d{2})-(\d{2})-", name)
     return "".join(match.groups()) if match else None
@@ -244,7 +259,7 @@ def _safe_properties(record: dict, kind: str, expected_fields: list[str]) -> dic
     return dict(zip(output_keys, (record[field] for field in expected_fields)))
 
 
-def _shape_features(archive: zipfile.ZipFile, shp_name: str, kind: str, expected_fields: list[str]) -> tuple[list[dict], dict]:
+def _shape_features(archive: zipfile.ZipFile, shp_name: str, path_sha256: str, kind: str, expected_fields: list[str]) -> tuple[list[dict], dict]:
     base = shp_name[:-4]
     required = {extension: base + extension for extension in (".shp", ".shx", ".dbf", ".txt")}
     missing = [name for name in required.values() if name not in archive.namelist()]
@@ -265,7 +280,7 @@ def _shape_features(archive: zipfile.ZipFile, shp_name: str, kind: str, expected
         props["source_class"] = json.dumps(props, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         result.append({"type": "Feature", "properties": props, "geometry": mapping(shape(shape_record.shape.__geo_interface__))})
     member_receipt = {
-        "member_path_sha256": _digest(shp_name.encode("utf-8")),
+        "member_path_sha256": path_sha256,
         "shp_sha256": _digest(archive.read(required[".shp"])),
         "shx_sha256": _digest(archive.read(required[".shx"])),
         "dbf_sha256": _digest(archive.read(required[".dbf"])),
@@ -274,7 +289,7 @@ def _shape_features(archive: zipfile.ZipFile, shp_name: str, kind: str, expected
     return result, member_receipt
 
 
-def _bind_hazard_member_inventory(observed: list[dict], contracts: list[tuple]) -> list[dict]:
+def _bind_hazard_member_inventory(observed: list[dict], contracts: list[tuple], *, shp_sha256: str = _COMMON_HAZARD_SHP_SHA256, txt_sha256: str = _COMMON_HAZARD_TXT_SHA256) -> list[dict]:
     """Bind source members by exact identity; input order must have no semantic effect."""
     by_path_hash = {row["member_path_sha256"]: row for row in observed}
     expected_path_hashes = {contract[2] for contract in contracts}
@@ -283,11 +298,11 @@ def _bind_hazard_member_inventory(observed: list[dict], contracts: list[tuple]) 
     bound = []
     for member_id, scenario_label, path_sha256, expected_dbf_sha256 in contracts:
         row = by_path_hash[path_sha256]
-        if row["shp_sha256"] != _COMMON_HAZARD_SHP_SHA256:
+        if row["shp_sha256"] != shp_sha256:
             raise ValueError(f"unexpected SHP bytes for {member_id}")
         if row["dbf_sha256"] != expected_dbf_sha256:
             raise ValueError(f"unexpected DBF bytes for {member_id}")
-        if row["txt_sha256"] != _COMMON_HAZARD_TXT_SHA256:
+        if row["txt_sha256"] != txt_sha256:
             raise ValueError(f"unexpected CRS sidecar bytes for {member_id}")
         bound.append({**row, "member_id": member_id, "scenario_label": scenario_label})
     return bound
@@ -304,7 +319,7 @@ def _validated_shape_members(archive: zipfile.ZipFile, filename: str) -> list[di
             raise ValueError(f"missing shape member companions: {missing}")
         observed.append({
             "shp_name": shp_name,
-            "member_path_sha256": _digest(shp_name.encode("utf-8")),
+            "member_path_sha256": _digest(_normalized_member_name(archive, shp_name).encode("utf-8")),
             "shp_sha256": _digest(archive.read(base + ".shp")),
             "dbf_sha256": _digest(archive.read(base + ".dbf")),
             "txt_sha256": _digest(archive.read(base + ".txt")),
@@ -343,7 +358,7 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
             member_id = bound_member["member_id"]
             bound_scenario_label = bound_member["scenario_label"]
             shp_name = bound_member["shp_name"]
-            all_features, member_receipt = _shape_features(archive, shp_name, source["kind"], source["fields"])
+            all_features, member_receipt = _shape_features(archive, shp_name, bound_member["member_path_sha256"], source["kind"], source["fields"])
             selected = select_intersecting_source_features(all_features, coverage, source_crs="EPSG:4612", coverage_crs="EPSG:4326")
             scenario_suffix = f"_{layer_index:02d}" if len(members) > 1 else ""
             if source["kind"] == "LIQUEFACTION_SCENARIO":
