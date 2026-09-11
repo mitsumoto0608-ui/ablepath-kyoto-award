@@ -11,9 +11,14 @@ import pytest
 
 from scripts.build_public_official_evidence import (
     HAZARD_MEMBER_CONTRACTS,
+    INTENSITY_CENTRE_TOLERANCE_DEG,
+    INTENSITY_CROSS_CHECK_TOLERANCE_M,
     _COMMON_HAZARD_SHP_SHA256,
     _COMMON_HAZARD_TXT_SHA256,
+    _COMMON_INTENSITY_SHP_SHA256,
+    _COMMON_INTENSITY_TXT_SHA256,
     _bind_hazard_member_inventory,
+    _jis_quarter_mesh_cell,
 )
 
 
@@ -138,6 +143,106 @@ def test_ci_uploads_are_fail_closed_behind_repository_scan() -> None:
     viewer_upload = workflow.index("name: viewer-artifacts")
     assert viewer_scan < viewer_upload
     assert workflow.count("python scripts/overnight/verify_repository.py --root .") >= 2
+
+
+def _public_evidence() -> dict:
+    return json.loads(PUBLIC_DERIVATIVES[0].read_text(encoding="utf-8"))
+
+
+def test_fujisawa_intensity_members_are_bound_by_exact_identity_not_archive_order() -> None:
+    """[source_conformance] Each intensity scenario binds one exact member; substitution fails closed."""
+    contracts = HAZARD_MEMBER_CONTRACTS["01_.zip"]
+    common = {"shp_sha256": _COMMON_INTENSITY_SHP_SHA256, "txt_sha256": _COMMON_INTENSITY_TXT_SHA256}
+    observed = [
+        {"shp_name": f"01_/{member_id}.shp", "member_path_sha256": path_sha256, "dbf_sha256": dbf_sha256, **common}
+        for member_id, _label, path_sha256, dbf_sha256 in contracts
+    ]
+    expected_ids = [contract[0] for contract in contracts]
+    assert [row["member_id"] for row in _bind_hazard_member_inventory(list(reversed(observed)), contracts, **common)] == expected_ids
+    assert len({contract[2] for contract in contracts}) == len({contract[3] for contract in contracts}) == 8
+    substituted = deepcopy(observed)
+    substituted[0]["dbf_sha256"] = observed[1]["dbf_sha256"]
+    with pytest.raises(ValueError, match="DBF bytes"):
+        _bind_hazard_member_inventory(substituted, contracts, **common)
+    # The liquefaction SHP/sidecar bytes must never satisfy an intensity member.
+    foreign = deepcopy(observed)
+    foreign[0]["shp_sha256"] = _COMMON_HAZARD_SHP_SHA256
+    with pytest.raises(ValueError, match="SHP bytes"):
+        _bind_hazard_member_inventory(foreign, contracts, **common)
+
+
+def test_fujisawa_intensity_crs_closure_is_recorded_and_within_verification_tolerance() -> None:
+    """[source_conformance] The provider-declared closure and the erroneous sidecar are both recorded."""
+    hazards = _public_evidence()["fujisawa_hazards"]
+    summary = hazards["intensity_distribution"]
+    assert summary["status"] == "CONNECTED"
+    assert summary["scenario_count"] == 8
+    assert summary["exposure_only"] is True and summary["scenario_averaged"] is False
+    layers = [layer for layer in hazards["layers"] if layer["layer_kind"] == "震度分布"]
+    assert len(layers) == summary["scenario_count"]
+    for layer in layers:
+        closure = layer["crs_closure"]
+        assert closure["decision"] == "EPSG:6677_JGD2011_ZONE_IX_PROVIDER_DECLARED"
+        assert closure["display_geometry_source"] == "JIS_X_0410_MESH_CODE_EPSG_6668"
+        assert closure["tolerance_m"] == INTENSITY_CROSS_CHECK_TOLERANCE_M
+        assert closure["tolerance_scope"] == "VERIFICATION_ONLY_NOT_REGISTRY_NOT_EVALUATION"
+        assert closure["scope"] == "APPLIES_ONLY_TO_01_INTENSITY_SCENARIO_MEMBERS"
+        assert 0 < closure["max_vertex_error_m"] <= INTENSITY_CROSS_CHECK_TOLERANCE_M
+        assert 0 < closure["max_sibling_vertex_error_m"] <= INTENSITY_CROSS_CHECK_TOLERANCE_M
+        assert closure["erroneous_sidecar"] == {
+            "text_sha256": _COMMON_INTENSITY_TXT_SHA256,
+            "declared": "GCS_Tokyo",
+            "status": "ERRONEOUS_SIDECAR_RECORDED_NOT_USED",
+        }
+        assert layer["source_crs"] == "EPSG:6668"
+        assert "HAZARD_EXPOSURE_ONLY" in layer["limitations"] and "not averaged" in layer["limitations"]
+
+
+def test_intensity_tolerance_breach_fails_closed() -> None:
+    """[software_correctness] A tightened tolerance rejects the observed cross-check instead of passing."""
+    observed = max(layer["crs_closure"]["max_vertex_error_m"] for layer in _public_evidence()["fujisawa_hazards"]["layers"] if layer["layer_kind"] == "震度分布")
+    import scripts.build_public_official_evidence as builder
+
+    builder._assert_intensity_cross_check(observed, 0.0, "IntS-01")
+    original = builder.INTENSITY_CROSS_CHECK_TOLERANCE_M
+    try:
+        builder.INTENSITY_CROSS_CHECK_TOLERANCE_M = 0.0
+        with pytest.raises(ValueError, match="cross-check exceeded"):
+            builder._assert_intensity_cross_check(observed, 0.0, "IntS-01")
+    finally:
+        builder.INTENSITY_CROSS_CHECK_TOLERANCE_M = original
+
+
+def test_intensity_features_carry_mesh_centre_attributes_and_no_derived_state() -> None:
+    """[source_conformance] Every displayed cell is its own mesh-code cell and derives no state."""
+    hazards = _public_evidence()["fujisawa_hazards"]
+    forbidden = {"damage_state", "debris_present", "official_closure", "closed", "passable", "safety_state", "rank", "scenario_average"}
+    feature_count = 0
+    for layer in (row for row in hazards["layers"] if row["layer_kind"] == "震度分布"):
+        for feature in layer["features"]:
+            props = feature["properties"]
+            assert not forbidden & set(props)
+            longitude, latitude, delta_longitude, delta_latitude = _jis_quarter_mesh_cell(props["mesh_code"])
+            assert abs(longitude + delta_longitude / 2 - props["longitude_raw"]) <= INTENSITY_CENTRE_TOLERANCE_DEG
+            assert abs(latitude + delta_latitude / 2 - props["latitude_raw"]) <= INTENSITY_CENTRE_TOLERANCE_DEG
+            ring = feature["geometry"]["coordinates"][0]
+            assert ring[0] == ring[-1] == [longitude, latitude] and len(ring) == 5
+            feature_count += 1
+    assert feature_count == hazards["intensity_distribution"]["selected_feature_count"]
+    assert hazards["closure_derived"] is False and hazards["damage_or_debris_inferred"] is False
+
+
+def test_dem_section_is_reused_verbatim_and_recorded_as_such() -> None:
+    """[source_conformance] The frozen DEM evidence is carried forward with an explicit reuse receipt."""
+    payload = _public_evidence()
+    rebuild = payload["dem_rebuild"]
+    assert rebuild["mode"] == "REUSED_VERBATIM_FROM_COMMITTED_EVIDENCE"
+    assert re.fullmatch(r"[0-9a-f]{64}", rebuild["source_sha256"])
+    assert "DEM re-acquisition explicitly not repeated" in rebuild["reason"]
+    dem = payload["dem"]
+    assert dem["outer_sha256"] == "6b67adaabe15908189316eb34dd574bfe5854b9db509f29902eab7ecfc3a88db"
+    assert sorted(dem["cities"]) == ["fujisawa_enoshima", "kyoto_arashiyama", "kyoto_kiyomizu"]
+    assert dem["no_interpolation"] is dem["no_step_inference"] is True
 
 
 def test_reused_dem_section_rejects_a_tampered_or_foreign_source(tmp_path: Path) -> None:

@@ -188,20 +188,19 @@ def _official_evidence(root: Path, city_id: str, edges: list[dict]) -> tuple[dic
                     hazard_layers.append({"subarea": subarea, "layer": layer, "status": "NOT_CONNECTED", "connected": False, "artifact_status": artifact_status or "NOT_ACCEPTED", "reason": reason or fixed_absent})
     scenarios = []
     if city_id == "fujisawa_enoshima":
-        for row in _csv_rows(root / f"cities/{city_id}/hazards/official/earthquake_scenario_inventory.csv"):
-            if row["dataset_id"].startswith("fujisawa_earthquake_intensity_scenario_"):
-                scenarios.append({key: row[key] for key in ("dataset_id", "scenario", "layer_kind", "official_source", "official_url", "version_date", "license_review", "validation_result", "crs", "bounds_native")} | {"aoi_scope": "enoshima_katase", "status": "NOT_CONNECTED", "connected": False, "reason": "The distributed SHP bounds conflict with the bundled EPSG:4301 declaration; no CRS is inferred from coordinate appearance."})
         connected_by_scenario = {layer["scenario_id"]: layer for layer in public_evidence["fujisawa_hazards"]["layers"]}
         scenarios.extend({
             "dataset_id": layer["scenario_id"], "scenario": layer["scenario_label"], "layer_kind": layer["layer_kind"],
             "official_source": "Kanagawa Prefecture earthquake damage estimation study (March 2025)",
             "official_url": layer["source_url"], "version_date": layer["source_revision"], "license_review": layer["license_status"],
+            **({"license_note": layer["license_note"]} if layer.get("license_note") else {}),
             "dataset_publication_date": layer["dataset_publication_date"],
             "definition_resource_id": layer["definition_resource_id"], "definition_sha256": layer["definition_sha256"],
             "crs_sidecar_sha256": layer["crs_sidecar_sha256"],
             "source_member_id": layer["source_member_id"], "source_member_receipt": layer["source_member_receipt"],
             "validation_result": "SOURCE_SHA_CRS_DEFINITION_AND_AOI_SELECTION_BOUND", "crs": layer["source_crs"],
             "bounds_native": "AOI_SELECTION_FROM_FULL_SOURCE_SCAN", "aoi_scope": "enoshima_katase",
+            **({"crs_closure": layer["crs_closure"]} if layer.get("crs_closure") else {}),
             "status": "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED", "connected": True,
             "reason": "Official source mesh geometry is connected as source-side overlap evidence only; no operational or safety state is derived.",
         } for layer in connected_by_scenario.values())
