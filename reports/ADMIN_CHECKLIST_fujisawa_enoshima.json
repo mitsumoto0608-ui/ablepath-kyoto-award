@@ -176,7 +176,7 @@
           "string",
           "null"
         ],
-        "description": "根拠artifactの実バイトSHA-256（生成時に再計算。receiptからの転記ではない）。",
+        "description": "根拠artifactのLF正規化バイトのSHA-256（生成時に再計算。receiptからの転記ではない）。入力はLFであるため生バイトのSHA-256と一致する。",
         "pattern": "^[0-9a-f]{64}$"
       },
       "unknown_reason": {

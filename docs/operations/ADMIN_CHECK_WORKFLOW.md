@@ -42,6 +42,11 @@
 - manifest の各 shard には `path` / `section` / `part` / `row_count` / `sha256` / `bytes` が入る。
 - 画面の loader は **全 shard の SHA-256 と `row_count`、および合計行数を検証してから**描画する。
   1 本でも欠落・不一致があれば fail-closed で停止し、部分描画は行わない。
+- **これは spec からの逸脱である。** spec WANT#2 は「`reports/ADMIN_CHECKLIST_<city_id>.json` は viewer 配下と同一 bytes」
+  と定めているが、shard 化により viewer 側は manifest（行なし）となり、両者は同一 bytes ではなくなった。
+  行の内容・並び・件数は完全に同一で、`reports/` 側が全行の正本である。
+  また `viewer/public/data/admin/<city_id>/*.rows.json` は spec の ALLOWED_PATHS（`viewer/public/data/admin/<city_id>.checklist.json`）
+  に列挙されていないパスであり、これも逸脱である。いずれも §8 に記載する。
 - `reports/` は画面が取得しないため 2 MiB 上限の対象外である（repo 側の上限は公開派生物の 10 MiB）。
   `reports/ADMIN_CHECKLIST_kyoto_arashiyama.json` は約 6.4 MiB の完全版であり、これが全行の正本である。
 
@@ -119,5 +124,22 @@
 - **shard に scenario 次元は無い** — checklist の行に hazard scenario を割り当てる receipt が存在しないため、
   shard の分割軸は section（`object_type`）と決定論的な part 番号だけである。scenario 別の分割は行わない
   （無い次元を作らない）。
+- **R7 に「照会先」列は無い** — `reports/PHASE4_DATA_ACQUISITION_MATRIX.csv` は city × subarea × category ごとの
+  未取得作業を並べた表であり、部署名・担当者・連絡先の列を持たない。したがって施設・plaza 行の
+  `verification_target.label` は receipt の `notes` を逐語コピーした**制約の説明**であって、照会先そのものではない。
+  誰に照会するかは HUMAN_GATE 3 で人間が決める。該当行が複数ある場合は、行順に依存しないよう
+  distinct な `notes` をコードポイント順に並べて ` / ` で連結する（先頭行を採らない）。
 - **照会先が receipt に無い行がある** — その行は `verification_target.label = "NO_TARGET_IN_RECEIPTS"`、
   `export_ready = false` となる。行を落とさず、原因を `unknown_reason` に残す。
+
+## 8. spec からの逸脱一覧
+
+| # | 逸脱 | 理由 | 影響 |
+| --- | --- | --- | --- |
+| 1 | R5 の行データ（`FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json`）が repo に無い | `public_git_current_tip_status = METADATA_ONLY_ROW_DERIVATIVES_EXCLUDED` | 藤沢施設行 0 件。件数から行を捏造しない。状態語を header に記録（§7） |
+| 2 | WANT#2「reports JSON == viewer JSON bytes」を満たさない | 2 MiB ポータビリティ上限を、行を落とさずに満たすため shard 化した | viewer 側は manifest、`reports/` 側が全行の正本。行の内容・並び・件数は同一（§2.1） |
+| 3 | `viewer/public/data/admin/<city_id>/*.rows.json` は spec の ALLOWED_PATHS に無い | 同上（shard の置き場） | 生成物のみ。生成器・画面・テスト以外のコードには触れていない |
+| 4 | shard の分割軸に scenario を使わない | checklist の行に hazard scenario を割り当てる receipt が存在しない | 分割軸は section（`object_type`）＋決定論的 part 番号のみ（§7） |
+| 5 | 生成物の並び順に `localeCompare` を使わない | ICU データ依存で生成 bytes が機械依存になるため、コードポイント比較に統一 | 並び順の実測差分はゼロ |
+| 6 | SHA-256 は LF 正規化後のバイトに対して計算する | 既存の `canonicalTextHash` 流儀に合わせたため | 入力はすべて LF なので生バイトの SHA-256 と一致する |
+| 7 | `viewer` に Blob / `window.print` が無いという spec の前提が現状と不一致 | 既に `ReviewChecklistPanel` が `downloadText`（Blob）を使っている | 新機構を発明せず既存流儀に揃えた |

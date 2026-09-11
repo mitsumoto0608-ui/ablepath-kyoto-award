@@ -18,8 +18,11 @@ import {
   toChecklistCsv,
 } from "../../viewer/src/adminChecklistCsv.mjs";
 import {
+  ADMIN_CONNECTOR_SUBAREA_ID,
   ADMIN_NOT_CONNECTED_WORDS,
   ADMIN_VERIFICATION_METHOD_BY_ATTRIBUTE,
+  adminMatrixLabel,
+  adminPriorityRule,
   buildAdminChecklists,
 } from "../../viewer/scripts/build-map-artifacts.mjs";
 
@@ -167,12 +170,14 @@ test("[fatal] no checklist row carries a four-state verdict and status stays ins
 test("[fatal] forbidden expressions appear nowhere outside the verbatim allowlist", () => {
   const scanned = [
     ...CITY_IDS.map((cityId) => join(ADMIN_ROOT, `${cityId}.checklist.json`)),
+    // Every shard the browser fetches is scanned too, not only the manifest.
+    ...CITY_IDS.flatMap((cityId) => readJson(join(ADMIN_ROOT, `${cityId}.checklist.json`)).shards.map((shard) => join(ADMIN_ROOT, shard.path.replace("./data/admin/", "")))),
     ...CITY_IDS.flatMap((cityId) => [join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.json`), join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.csv`)]),
     join(REPO_ROOT, "docs", "operations", "ADMIN_CHECK_WORKFLOW.md"),
     // adminChecklistCsv.mjs is the definition site of the forbidden-word list itself and is not scanned.
     ...["AdminChecklistPanel.jsx", "AdminChecklistTable.jsx", "AdminChecklistPrint.jsx"].map((name) => join(REPO_ROOT, "viewer", "src", name)),
   ].filter((path) => existsSync(path));
-  assert.ok(scanned.length >= 9, "the scan must cover the generated payloads, the docs and the screen sources");
+  assert.ok(scanned.length >= 15, "the scan must cover every generated payload including the row shards, the docs and the screen sources");
   for (const path of scanned) assert.deepEqual(scanForbiddenExpressions(readFileSync(path, "utf8")), [], `${path} contains a forbidden expression outside the allowlist`);
   // The allowlist itself must stay verbatim fixed sentences: no wildcard, no regular expression.
   for (const sentence of ADMIN_CHECKLIST_ALLOWED_TEXTS) {
@@ -315,10 +320,12 @@ test("[software_correctness] the default ordering is priority_rank then object_t
       assert.ok([1, 2, 3].includes(item.priority_rank));
       assert.ok(["PILOT_EDGE", "CONNECTOR_SCOPED", "FACILITY_WITH_SOURCE_COORDINATES", "DEFAULT"].includes(item.priority_rule));
     }
-    // CONNECTOR_SCOPED is implemented but no receipt assigns an object to the connector,
-    // so its row count is counted from the data rather than asserted as a literal.
+    // CONNECTOR_SCOPED rows equal the connector-assigned rows in the receipts.
+    // That equality is vacuous while no receipt assigns the connector, so the rule
+    // itself is exercised separately below on synthetic inputs.
     const connectorRows = items.filter((item) => item.priority_rule === "CONNECTOR_SCOPED").length;
-    assert.equal(connectorRows, items.filter((item) => item.subarea_id === "kiyomizu_gion_connector").length, "CONNECTOR_SCOPED rows must equal the connector-assigned rows in the receipts");
+    assert.equal(connectorRows, items.filter((item) => item.subarea_id === ADMIN_CONNECTOR_SUBAREA_ID).length, "CONNECTOR_SCOPED rows must equal the connector-assigned rows in the receipts");
+    for (const item of items) assert.deepEqual({ priority_rank: item.priority_rank, priority_rule: item.priority_rule }, adminPriorityRule({ deepPilot: item.priority_rule === "PILOT_EDGE", subareaId: item.subarea_id, facilityCoordinateConfirmed: item.priority_rule === "FACILITY_WITH_SOURCE_COORDINATES" }), `${item.item_id} priority must come from the one rule function`);
     for (const item of items) {
       if (item.object_type === "edge") assert.equal(item.subarea_id, "SUBAREA_NOT_ASSIGNED_IN_RECEIPTS", `${item.item_id} edge subarea must stay unassigned`);
     }
@@ -404,4 +411,21 @@ test("[fatal] every file the browser fetches stays under the portability cap and
   walk("");
   for (const relative of everyAdminFile) assert.ok(readFileSync(join(ADMIN_ROOT, relative)).byteLength <= ADMIN_SHARD_BYTE_CAP, `viewer/public/data/admin/${relative} exceeds the portability cap`);
   assert.ok(everyAdminFile.length >= CITY_IDS.length * 2);
+});
+
+test("[software_correctness] the D8 ordering rule and the R7 label selection are order-independent", () => {
+  // Rule 2 fires on a synthetic receipt row assigning the connector subarea, even
+  // though no current receipt does; rules apply in order and the first match wins.
+  assert.deepEqual(adminPriorityRule({ deepPilot: true, subareaId: ADMIN_CONNECTOR_SUBAREA_ID }), { priority_rank: 1, priority_rule: "PILOT_EDGE" });
+  assert.deepEqual(adminPriorityRule({ subareaId: ADMIN_CONNECTOR_SUBAREA_ID }), { priority_rank: 2, priority_rule: "CONNECTOR_SCOPED" });
+  assert.deepEqual(adminPriorityRule({ subareaId: ADMIN_CONNECTOR_SUBAREA_ID, facilityCoordinateConfirmed: true }), { priority_rank: 2, priority_rule: "CONNECTOR_SCOPED" });
+  assert.deepEqual(adminPriorityRule({ subareaId: "arashiyama", facilityCoordinateConfirmed: true }), { priority_rank: 2, priority_rule: "FACILITY_WITH_SOURCE_COORDINATES" });
+  assert.deepEqual(adminPriorityRule({ subareaId: "SUBAREA_NOT_ASSIGNED_IN_RECEIPTS" }), { priority_rank: 3, priority_rule: "DEFAULT" });
+  assert.deepEqual(adminPriorityRule(), { priority_rank: 3, priority_rule: "DEFAULT" });
+  // R7 has no contact column: every distinct note is kept, sorted by code point,
+  // so the label never depends on the receipt's row order.
+  const rows = [{ subarea_id: "gion", notes: "b" }, { subarea_id: "kiyomizu", notes: "a" }, { subarea_id: "x", notes: "b" }, { subarea_id: "y", notes: "" }];
+  assert.equal(adminMatrixLabel(rows), "a / b");
+  assert.equal(adminMatrixLabel([...rows].reverse()), "a / b", "row order must not change the label");
+  assert.equal(adminMatrixLabel([]), "NO_TARGET_IN_RECEIPTS");
 });

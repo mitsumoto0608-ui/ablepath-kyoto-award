@@ -4,7 +4,7 @@ import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertSupportedMapCatalog, computeGeoJsonBounds } from "../src/mapDomain.mjs";
 import { validateDeliveryAnalysis } from "../src/analysisDomain.mjs";
-import { ADMIN_CHECKLIST_GUARD_TEXTS, ADMIN_CHECKLIST_SCHEMA, EXPOSURE_NOTE, sortChecklistItems, toChecklistCsv } from "../src/adminChecklistCsv.mjs";
+import { ADMIN_CHECKLIST_GUARD_TEXTS, ADMIN_CHECKLIST_SCHEMA, EXPOSURE_NOTE, compareCodePoints, sortChecklistItems, toChecklistCsv } from "../src/adminChecklistCsv.mjs";
 
 const CITY_INPUTS = [
   { id: "kyoto_kiyomizu", nodes: "cities/kyoto_kiyomizu/graph/real/candidate_nodes.geojson", edges: "cities/kyoto_kiyomizu/graph/real/candidate_edges.geojson", corridor: "cities/kyoto_kiyomizu/geography/real/corridor.osm.geojson", topology: "cities/kyoto_kiyomizu/graph/real/topology_qa.json", manifest: "cities/kyoto_kiyomizu/realdata/artifact_manifest.v2.json", source: "openstreetmap_kiyomizu_named_corridor_20260830", snapshot: "2026-08-30T00:00:00Z" },
@@ -69,7 +69,7 @@ export function assertStaticAnalysisArtifacts({ repoRoot, analysisRoot }) {
     if (artifact.city_id !== input.id || artifact.input_sha256 !== inputSha) throw new Error(`${input.id} static analysis input SHA-256 is stale`);
     if (artifact.provenance?.input_hashes?.node_sha256 !== sha256(nodeBytes) || artifact.provenance?.input_hashes?.edge_sha256 !== sha256(edgeBytes)) throw new Error(`${input.id} static analysis provenance hash is stale`);
     if (JSON.stringify(artifact.source_artifact_ids) !== JSON.stringify([input.nodes, input.edges])) throw new Error(`${input.id} static analysis source artifact binding is stale`);
-    const revisions = [...new Set([...JSON.parse(nodeBytes).features, ...JSON.parse(edgeBytes).features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort();
+    const revisions = [...new Set([...JSON.parse(nodeBytes).features, ...JSON.parse(edgeBytes).features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort(compareCodePoints);
     if (JSON.stringify(artifact.source_revision_ids) !== JSON.stringify(revisions)) throw new Error(`${input.id} static analysis source revision binding is stale`);
     for (const [key, sourcePath] of Object.entries(reportHashPaths(root, input.id))) if (artifact.official_evidence?.source_hashes?.[key] !== canonicalTextHash(sourcePath)) throw new Error(`${input.id} static analysis report SHA-256 is stale: ${key}`);
     const claims = [artifact.safety_claim, artifact.accessibility_claim, artifact.admin_validated, artifact.official_evidence?.safe_route_claim, artifact.official_evidence?.accessibility_claim, artifact.official_evidence?.admin_validated];
@@ -96,7 +96,7 @@ function artifact(root, input) {
   }
   const manifest = json(paths.manifest); const topologySha = hash(paths.topology); const manifestSha = hash(paths.manifest);
   const dataPath = `./data/maps/${input.id}.candidate_edges.geojson`;
-  const nodeBytes = readFileSync(paths.nodes); const nodeData = JSON.parse(nodeBytes); const sourceArtifactIds = [input.nodes, input.edges]; const sourceRevisionIds = [...new Set([...(nodeData.features ?? []), ...edgeData.features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort();
+  const nodeBytes = readFileSync(paths.nodes); const nodeData = JSON.parse(nodeBytes); const sourceArtifactIds = [input.nodes, input.edges]; const sourceRevisionIds = [...new Set([...(nodeData.features ?? []), ...edgeData.features].map((feature) => feature.properties?.revision_id).filter(Boolean))].sort(compareCodePoints);
   const canonicalNodeBytes = canonicalTextBytes(nodeBytes); const canonicalEdgeBytes = canonicalTextBytes(edgeBytes);
   return {
     city_id: input.id,
@@ -167,6 +167,35 @@ const ADMIN_RECEIPT_PATHS = Object.freeze({
   R9: "reports/KYOTO_M7_DEEP_PILOT_STATUS.json",
 });
 
+/** The subarea value a receipt uses for the Kiyomizu/Gion connector. */
+export const ADMIN_CONNECTOR_SUBAREA_ID = "kiyomizu_gion_connector";
+
+/**
+ * D8: the ordering rule. This is a machine ordering rule, not a ranking of
+ * importance. Rules are applied in order and the first match wins.
+ * Rule 2 (CONNECTOR_SCOPED) fires whenever a receipt assigns the object to the
+ * connector subarea; no current receipt does, so its row count is counted from
+ * the data rather than assumed.
+ */
+export function adminPriorityRule({ deepPilot = false, subareaId = null, facilityCoordinateConfirmed = false } = {}) {
+  if (deepPilot === true) return { priority_rank: 1, priority_rule: "PILOT_EDGE" };
+  if (subareaId === ADMIN_CONNECTOR_SUBAREA_ID) return { priority_rank: 2, priority_rule: "CONNECTOR_SCOPED" };
+  if (facilityCoordinateConfirmed === true) return { priority_rank: 2, priority_rule: "FACILITY_WITH_SOURCE_COORDINATES" };
+  return { priority_rank: 3, priority_rule: "DEFAULT" };
+}
+
+/**
+ * R7 (PHASE4_DATA_ACQUISITION_MATRIX) has no contact column: it lists the
+ * outstanding acquisition work per city/subarea/category. The label is therefore
+ * a limitation note copied verbatim from the receipt, not the name of a contact.
+ * Rows are selected deterministically (sorted by subarea_id, then by note) and
+ * every distinct note is kept, so the result never depends on row order.
+ */
+export function adminMatrixLabel(rows) {
+  const notes = [...new Set(rows.map((row) => row.notes).filter((note) => typeof note === "string" && note !== ""))].sort(compareCodePoints);
+  return notes.length === 0 ? NO_TARGET : notes.join(" / ");
+}
+
 function parseCsv(text) {
   const rows = []; let row = []; let field = ""; let quoted = false;
   const source = text.replaceAll("\r\n", "\n");
@@ -197,10 +226,10 @@ function exposureFlagsFor(edgeId, exposureByEdge) {
     const key = record.a31b_flood_overlap ?? "NOT_JOINED";
     counts[key] = (counts[key] ?? 0) + 1;
   }
-  const distinct = (field) => [...new Set(records.map((record) => record[field]).filter((value) => typeof value === "string"))].sort().join("|") || "NOT_JOINED";
+  const distinct = (field) => [...new Set(records.map((record) => record[field]).filter((value) => typeof value === "string"))].sort(compareCodePoints).join("|") || "NOT_JOINED";
   return {
     records: records.length,
-    a31b_overlap_counts: Object.fromEntries(Object.keys(counts).sort().map((key) => [key, counts[key]])),
+    a31b_overlap_counts: Object.fromEntries(Object.keys(counts).sort(compareCodePoints).map((key) => [key, counts[key]])),
     landslide: distinct("landslide_status"),
     earthquake: distinct("earthquake_scenario_status"),
     // R2 carries no liquefaction or tsunami field; no number is invented for them.
@@ -251,7 +280,8 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
       }
       const resolved = verificationTarget !== null && verificationTarget.label !== NO_TARGET;
       if (!resolved) verificationTarget = target(NO_TARGET, ADMIN_RECEIPT_PATHS.R1, [], null);
-      const priority = edge.deep_pilot === true ? { priority_rank: 1, priority_rule: "PILOT_EDGE" } : { priority_rank: 3, priority_rule: "DEFAULT" };
+      // No receipt assigns an edge to a subarea, so CONNECTOR_SCOPED cannot fire here today.
+      const priority = adminPriorityRule({ deepPilot: edge.deep_pilot === true, subareaId: "SUBAREA_NOT_ASSIGNED_IN_RECEIPTS" });
       items.push({
         item_id: `${cityId}:edge:${edge.edge_id}:${attribute}`,
         city_id: cityId,
@@ -275,8 +305,9 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
   if (cityId.startsWith("kyoto_")) {
     const group = cityId === "kyoto_kiyomizu" ? "kiyomizu_gion" : "arashiyama";
     const facilitySha = canonicalTextHash(join(root, ADMIN_RECEIPT_PATHS.R4_records));
-    const facilityMatrix = matrixRows.filter((row) => row.category === "accessibility facilities");
-    const facilityDatasetIds = [...new Set(facilityMatrix.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort();
+    const facilityMatrix = matrixRows.filter((row) => row.category === "accessibility facilities").sort((left, right) => compareCodePoints(left.subarea_id, right.subarea_id) || compareCodePoints(left.notes, right.notes));
+    const facilityLabel = adminMatrixLabel(facilityMatrix);
+    const facilityDatasetIds = [...new Set(facilityMatrix.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort(compareCodePoints);
     for (const record of r4Records.records ?? []) {
       if (record.aoi_group !== group) continue;
       const coordinateConfirmed = record.coordinate_method === "SOURCE_PROVIDED_LONGITUDE_LATITUDE" && record.silent_geocoding === false;
@@ -296,19 +327,18 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
           verification_method: confirmed ? "NOT_APPLICABLE" : "OFFICIAL_QUERY",
           verification_target: confirmed
             ? target(NO_TARGET, ADMIN_RECEIPT_PATHS.R4_records, [], record.limitations ?? null)
-            : target(facilityMatrix[0]?.notes ?? NO_TARGET, ADMIN_RECEIPT_PATHS.R7, facilityDatasetIds, record.limitations ?? null),
-          priority_rank: coordinateConfirmed ? 2 : 3,
-          priority_rule: coordinateConfirmed ? "FACILITY_WITH_SOURCE_COORDINATES" : "DEFAULT",
+            : target(facilityLabel, ADMIN_RECEIPT_PATHS.R7, facilityDatasetIds, record.limitations ?? null),
+          ...adminPriorityRule({ subareaId: record.aoi_group, facilityCoordinateConfirmed: coordinateConfirmed }),
           exposure_flags: null,
           human_fields: emptyHumanFields(),
-          export_ready: confirmed || (facilityMatrix[0]?.notes ?? NO_TARGET) !== NO_TARGET,
+          export_ready: confirmed || facilityLabel !== NO_TARGET,
           internal_use_only: false,
         });
       }
     }
     // D5 — plaza rows for categories the receipt marks map_connected=false.
-    const plazaDatasetIds = [...new Set(matrixRows.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort();
-    for (const [category, entry] of Object.entries(r4Categories.categories ?? {}).sort(([left], [right]) => left.localeCompare(right))) {
+    const plazaDatasetIds = [...new Set(matrixRows.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort(compareCodePoints);
+    for (const [category, entry] of Object.entries(r4Categories.categories ?? {}).sort(([left], [right]) => compareCodePoints(left, right))) {
       if (entry.map_connected !== false) continue;
       const objectId = `${cityId}:${category}`;
       items.push({
@@ -320,7 +350,7 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
         unknown_reason: entry.status,
         verification_method: "OFFICIAL_QUERY",
         verification_target: target(entry.next_acquisition_method ?? NO_TARGET, ADMIN_RECEIPT_PATHS.R4_categories, plazaDatasetIds, entry.reason ?? null),
-        priority_rank: 3, priority_rule: "DEFAULT",
+        ...adminPriorityRule({ subareaId: group }),
         exposure_flags: null,
         human_fields: emptyHumanFields(),
         export_ready: (entry.next_acquisition_method ?? NO_TARGET) !== NO_TARGET,
@@ -340,8 +370,9 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
       fujisawaFacilityStatus = r5Receipt.public_git_current_tip_status;
     } else {
       fujisawaFacilityStatus = "ROW_SOURCE_PRESENT";
-      const matrix = matrixRows.filter((row) => row.category === "accessibility facilities");
-      const datasetIds = [...new Set(matrix.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort();
+      const matrix = matrixRows.filter((row) => row.category === "accessibility facilities").sort((left, right) => compareCodePoints(left.subarea_id, right.subarea_id) || compareCodePoints(left.notes, right.notes));
+      const matrixLabel = adminMatrixLabel(matrix);
+      const datasetIds = [...new Set(matrix.flatMap((row) => row.dataset_ids.split(";").filter(Boolean)))].sort(compareCodePoints);
       const rows = Array.isArray(r5Table) ? r5Table : r5Table.records ?? r5Table.rows ?? [];
       for (const record of rows) {
         const recordId = String(record.facility_record_id ?? record.id ?? record.record_id ?? "");
@@ -357,11 +388,11 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
             source_id: null, source_revision: null, source_sha256: null,
             unknown_reason: geometry ? r5Receipt.geometry_status : r5Receipt.license_status,
             verification_method: "OFFICIAL_QUERY",
-            verification_target: target(matrix[0]?.notes ?? NO_TARGET, ADMIN_RECEIPT_PATHS.R7, datasetIds, r5Receipt.semantic_guard),
-            priority_rank: 3, priority_rule: "DEFAULT",
+            verification_target: target(matrixLabel, ADMIN_RECEIPT_PATHS.R7, datasetIds, r5Receipt.semantic_guard),
+            ...adminPriorityRule({ subareaId: "enoshima_katase" }),
             exposure_flags: null,
             human_fields: emptyHumanFields(),
-            export_ready: (matrix[0]?.notes ?? NO_TARGET) !== NO_TARGET,
+            export_ready: matrixLabel !== NO_TARGET,
             internal_use_only: true,
           });
         }
@@ -375,7 +406,7 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
   const countBy = (key) => {
     const counts = {};
     for (const item of sorted) counts[item[key]] = (counts[item[key]] ?? 0) + 1;
-    return Object.fromEntries(Object.keys(counts).sort().map((name) => [name, counts[name]]));
+    return Object.fromEntries(Object.keys(counts).sort(compareCodePoints).map((name) => [name, counts[name]]));
   };
   return {
     schema_version: "1.0.0",
@@ -384,7 +415,7 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
     generator: "viewer/scripts/build-map-artifacts.mjs",
     include_internal_use_only: includeInternalUseOnly === true,
     fujisawa_facility_row_source_status: fujisawaFacilityStatus,
-    generated_from: Object.fromEntries(Object.values(ADMIN_RECEIPT_PATHS).filter((relative) => existsSync(join(root, relative))).sort().map((relative) => [relative, canonicalTextHash(join(root, relative))])),
+    generated_from: Object.fromEntries(Object.values(ADMIN_RECEIPT_PATHS).filter((relative) => existsSync(join(root, relative))).sort(compareCodePoints).map((relative) => [relative, canonicalTextHash(join(root, relative))])),
     counts: { items: sorted.length, by_object_type: countBy("object_type"), by_status: countBy("status"), by_verification_method: countBy("verification_method"), by_priority_rank: countBy("priority_rank") },
     safety_claim: false,
     accessibility_claim: false,
