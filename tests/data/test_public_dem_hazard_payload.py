@@ -138,3 +138,28 @@ def test_ci_uploads_are_fail_closed_behind_repository_scan() -> None:
     viewer_upload = workflow.index("name: viewer-artifacts")
     assert viewer_scan < viewer_upload
     assert workflow.count("python scripts/overnight/verify_repository.py --root .") >= 2
+
+
+def test_reused_dem_section_rejects_a_tampered_or_foreign_source(tmp_path: Path) -> None:
+    """[software_correctness] Reuse copies frozen DEM evidence only after verifying its identity."""
+    from scripts.build_public_official_evidence import _reused_dem_section
+
+    accepted = json.loads(PUBLIC_DERIVATIVES[0].read_text(encoding="utf-8"))["dem"]
+    good = tmp_path / "good.json"
+    good.write_text(json.dumps({"dem": accepted}, ensure_ascii=False), encoding="utf-8")
+    section, receipt = _reused_dem_section(good)
+    assert section == accepted
+    assert receipt["mode"] == "REUSED_VERBATIM_FROM_COMMITTED_EVIDENCE"
+
+    for mutate, message in (
+        (lambda dem: {}, "no `dem` section"),
+        (lambda dem: {**dem, "outer_sha256": "0" * 64}, "different DEM raw package"),
+        (lambda dem: {key: value for key, value in dem.items() if key != "no_step_inference"}, "lacks required keys"),
+        (lambda dem: {**dem, "cities": {"kyoto_kiyomizu": dem["cities"]["kyoto_kiyomizu"]}}, "exactly the bound cities"),
+        (lambda dem: {**dem, "no_interpolation": False}, "no-inference contract"),
+    ):
+        tampered = tmp_path / "tampered.json"
+        payload = mutate(deepcopy(accepted))
+        tampered.write_text(json.dumps({"dem": payload} if payload else payload, ensure_ascii=False), encoding="utf-8")
+        with pytest.raises(ValueError, match=message):
+            _reused_dem_section(tampered)

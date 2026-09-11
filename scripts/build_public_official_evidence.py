@@ -412,14 +412,51 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
     }
 
 
+REUSED_DEM_REQUIRED_KEYS = ("cities", "outer_sha256", "no_interpolation", "no_smoothing", "no_step_inference", "no_cross_slope_inference")
+
+
+def _reused_dem_section(source: Path) -> tuple[dict, dict]:
+    """Copy the `dem` section verbatim from an existing evidence file, fail-closed.
+
+    The DEM raw package is explicitly not re-acquired (PR14 freeze receipt).
+    Nothing is synthesized, and an arbitrary or tampered file is rejected rather
+    than silently promoted into the public evidence payload.
+    """
+    source_bytes = source.read_bytes()
+    payload = json.loads(source_bytes.decode("utf-8"))
+    if not isinstance(payload, dict) or not isinstance(payload.get("dem"), dict):
+        raise ValueError(f"reuse source has no `dem` section: {source.name}")
+    dem = payload["dem"]
+    missing = [key for key in REUSED_DEM_REQUIRED_KEYS if key not in dem]
+    if missing:
+        raise ValueError(f"reuse source `dem` section lacks required keys: {missing}")
+    if dem["outer_sha256"] != OUTER_DEM[1]:
+        raise ValueError("reuse source `dem` section is bound to a different DEM raw package")
+    if not isinstance(dem["cities"], dict) or set(dem["cities"]) != set(DEM_PRODUCTS):
+        raise ValueError("reuse source `dem` section does not cover exactly the bound cities")
+    if any(dem[key] is not True for key in ("no_interpolation", "no_smoothing", "no_step_inference", "no_cross_slope_inference")):
+        raise ValueError("reuse source `dem` section does not retain the no-inference contract")
+    return dem, {
+        "mode": "REUSED_VERBATIM_FROM_COMMITTED_EVIDENCE",
+        "source_sha256": _digest(source_bytes),
+        "reason": "DEM re-acquisition explicitly not repeated (PR14 freeze receipt); DEM raw package absent in this run",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, required=True)
     parser.add_argument("--raw-root", type=Path, required=True)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--reuse-dem-from", type=Path, help="Copy the `dem` section verbatim from an existing official_evidence.json instead of re-reading the DEM raw package.")
     args = parser.parse_args()
     output = args.output or args.repo_root / "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json"
-    payload = {"dem": _build_dem(args.repo_root, args.raw_root), "fujisawa_hazards": _build_hazards(args.repo_root, args.raw_root)}
+    if args.reuse_dem_from:
+        dem, dem_rebuild = _reused_dem_section(args.reuse_dem_from)
+    else:
+        dem = _build_dem(args.repo_root, args.raw_root)
+        dem_rebuild = {"mode": "REBUILT_FROM_VERIFIED_RAW_PACKAGE", "source_sha256": OUTER_DEM[1], "reason": "The verified DEM raw package was present in this run."}
+    payload = {"dem": dem, "dem_rebuild": dem_rebuild, "fujisawa_hazards": _build_hazards(args.repo_root, args.raw_root)}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"output": str(output), "sha256": _digest(output.read_bytes())}, ensure_ascii=False))
