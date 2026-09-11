@@ -22,11 +22,28 @@
 
 | path | 内容 |
 | --- | --- |
-| `viewer/public/data/admin/<city_id>.checklist.json` | 画面が読む正本（公開ビルド。`internal_use_only` 行を含まない） |
-| `reports/ADMIN_CHECKLIST_<city_id>.json` | 上と同一 bytes |
+| `viewer/public/data/admin/<city_id>.checklist.json` | 画面が読む **manifest**（header・counts・`shards[]`。行そのものは持たない） |
+| `viewer/public/data/admin/<city_id>/<section>.partNN.rows.json` | 行 shard（compact JSON）。1 ファイル 2 MiB 以下 |
+| `reports/ADMIN_CHECKLIST_<city_id>.json` | 行を含む完全版（pretty） |
 | `reports/ADMIN_CHECKLIST_<city_id>.csv` | 同一 serializer（`toChecklistCsv`）由来の CSV |
 
 再生成は `cd viewer && npm run build:data`。決定論的であり、再ビルドは byte 一致しなければならない。
+
+### 2.1 shard 分割（2 MiB ポータビリティ上限）
+
+ブラウザが取得するファイルは 1 本あたり **2 MiB 以下**でなければならない。行を間引いたり要約したりして縮めることは
+してはならないので、代わりに**分割**する。
+
+- 行は決定論的な並び順（`priority_rank` → `object_type` → `object_id` → `attribute`）のまま、
+  section（`object_type`）が変わる位置と、次の行を足すと上限を超える位置で切る。
+  したがって **manifest の順に shard を連結すると、分割前とまったく同じ並びの全行が得られる**。
+- 行 shard は compact `JSON.stringify`（pretty 出力をやめるのは**書式の選択**であって内容の変更ではない）。
+  manifest と `reports/` の完全版は従来どおり pretty のままである。
+- manifest の各 shard には `path` / `section` / `part` / `row_count` / `sha256` / `bytes` が入る。
+- 画面の loader は **全 shard の SHA-256 と `row_count`、および合計行数を検証してから**描画する。
+  1 本でも欠落・不一致があれば fail-closed で停止し、部分描画は行わない。
+- `reports/` は画面が取得しないため 2 MiB 上限の対象外である（repo 側の上限は公開派生物の 10 MiB）。
+  `reports/ADMIN_CHECKLIST_kyoto_arashiyama.json` は約 6.4 MiB の完全版であり、これが全行の正本である。
 
 ## 3. 誰が何を埋めるか
 
@@ -69,7 +86,7 @@
 2. `object_type` / `status` / `verification_method` で絞り込む。件数は常に「絞り込み後 / 全体」で表示される。
 3. 行を選んで詳細（出所・SHA-256・照会先・露出集計・priority_rule）を確認する。
 4. 「印刷」で紙に出し、`human_fields` の 4 欄を手で埋める。
-5. CSV が必要なら「CSVを保存」。JSON は生成済み静的ファイルへのリンクから取得する。
+5. CSV が必要なら「CSVを保存」（画面が連結した全行を同一 serializer に通すため、`reports/` の CSV と byte 一致する）。JSON manifest は生成済み静的ファイルへのリンクから取得する。全行入りの JSON は `reports/ADMIN_CHECKLIST_<city_id>.json`。
 
 ## 6. 人間ゲート（Codex / 自動処理では閉じない）
 
@@ -99,5 +116,8 @@
   生成器は receipt の件数（57）から行を捏造せず、0 行を出し、`fujisawa_facility_row_source_status` にその状態語を残す。
   行データが内部で復元された場合のみ `includeInternalUseOnly: true` のビルドで 57 record 分が現れる。
 - **住所から座標を作らない** — 藤沢施設の `geometry_status` は `ADDRESS_ONLY` のまま `NOT_CONNECTED` である。
+- **shard に scenario 次元は無い** — checklist の行に hazard scenario を割り当てる receipt が存在しないため、
+  shard の分割軸は section（`object_type`）と決定論的な part 番号だけである。scenario 別の分割は行わない
+  （無い次元を作らない）。
 - **照会先が receipt に無い行がある** — その行は `verification_target.label = "NO_TARGET_IN_RECEIPTS"`、
   `export_ready = false` となる。行を落とさず、原因を `unknown_reason` に残す。

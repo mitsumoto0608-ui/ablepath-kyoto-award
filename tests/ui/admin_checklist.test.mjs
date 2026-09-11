@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -37,7 +37,14 @@ const KYOTO_FACILITY_ATTRIBUTE_COUNT = 5;
 
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
-const committed = (cityId) => readJson(join(ADMIN_ROOT, `${cityId}.checklist.json`));
+const ADMIN_SHARD_BYTE_CAP = 2 * 1024 * 1024;
+/** Read the committed manifest and concatenate its shards in manifest order. */
+function committedAt(adminRoot, cityId) {
+  const manifest = readJson(join(adminRoot, `${cityId}.checklist.json`));
+  const items = manifest.shards.flatMap((shard) => readJson(join(adminRoot, shard.path.replace("./data/admin/", ""))));
+  return { ...manifest, items };
+}
+const committed = (cityId) => committedAt(ADMIN_ROOT, cityId);
 const r1 = readJson(join(REPO_ROOT, "reports", "M7_ALL_EDGE_EVIDENCE_READINESS_V2.json"));
 const r4Records = readJson(join(REPO_ROOT, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_records.json"));
 const r4Categories = readJson(join(REPO_ROOT, "inputs", "staging", "KYOTO-OFFICIAL-PARITY-V1", "facility_category_status.json"));
@@ -198,13 +205,15 @@ test("[fatal] a fresh rebuild reproduces the committed admin bytes exactly", () 
   const scratch = mkdtempSync(join(tmpdir(), "ablepath-admin-rebuild-"));
   try {
     const { files } = buildAdminChecklists({ repoRoot: REPO_ROOT, outputRoot: join(scratch, "admin"), reportsRoot: join(scratch, "reports") });
-    assert.equal(files.length, CITY_IDS.length * 3, "each city produces one viewer JSON, one report JSON and one report CSV");
+    assert.ok(files.length > CITY_IDS.length * 3, "each city produces a manifest, its row shards, one report JSON and one report CSV");
     for (const cityId of CITY_IDS) {
-      const rebuiltJson = readFileSync(join(scratch, "admin", `${cityId}.checklist.json`));
-      assert.equal(sha256(readFileSync(join(ADMIN_ROOT, `${cityId}.checklist.json`))), sha256(rebuiltJson), `${cityId} committed viewer bytes are stale; run \`npm run build:data\` in viewer/`);
-      assert.equal(sha256(readFileSync(join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.json`))), sha256(rebuiltJson), `${cityId} report JSON must equal the viewer JSON byte for byte`);
+      const manifest = readJson(join(scratch, "admin", `${cityId}.checklist.json`));
+      for (const relative of [`${cityId}.checklist.json`, ...manifest.shards.map((shard) => shard.path.replace("./data/admin/", ""))]) {
+        assert.equal(sha256(readFileSync(join(ADMIN_ROOT, relative))), sha256(readFileSync(join(scratch, "admin", relative))), `admin/${relative} committed bytes are stale; run \`npm run build:data\` in viewer/`);
+      }
+      assert.equal(sha256(readFileSync(join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.json`))), sha256(readFileSync(join(scratch, "reports", `ADMIN_CHECKLIST_${cityId}.json`))), `${cityId} report JSON bytes are stale`);
       assert.equal(sha256(readFileSync(join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.csv`))), sha256(readFileSync(join(scratch, "reports", `ADMIN_CHECKLIST_${cityId}.csv`))), `${cityId} report CSV bytes are stale`);
-      for (const path of [join(ADMIN_ROOT, `${cityId}.checklist.json`), join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.csv`)]) {
+      for (const path of [join(ADMIN_ROOT, `${cityId}.checklist.json`), join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.csv`), ...manifest.shards.map((shard) => join(ADMIN_ROOT, shard.path.replace("./data/admin/", "")))]) {
         const bytes = readFileSync(path);
         assert.equal(bytes.includes(Buffer.from("\r\n")), false, `${path} must be LF`);
         assert.equal(bytes.at(-1), 0x0a, `${path} must end with a newline`);
@@ -333,6 +342,12 @@ test("[source_conformance] the screen reads the generated artifact and reuses th
   for (const option of ["OBJECT_TYPES", "STATUSES", "METHODS"]) assert.ok(panel.includes(option), `the panel offers the ${option} filter`);
   assert.ok(panel.includes("絞り込み後 / 全体"), "counts are always shown as filtered / total");
   assert.ok(panel.includes("internal_use_only === true"), "the loader fails closed on internal rows");
+  // Sharded payload: the loader must verify every shard before any row is rendered.
+  assert.ok(panel.includes("await sha256Text(shardText) !== shard.sha256"), "the loader verifies each shard SHA-256");
+  assert.ok(panel.includes("rows.length !== shard.row_count"), "the loader verifies each shard row_count");
+  assert.ok(panel.includes("items.length !== manifest.counts?.items"), "the loader verifies the row total against the manifest");
+  assert.ok(panel.includes("shard path is not confined"), "shard paths cannot escape the admin directory");
+  assert.ok(panel.includes("items.push(...rows)"), "rows are concatenated in manifest order");
   // Row detail must show every provenance field, and status words must be printed verbatim.
   for (const field of ["source_id", "source_revision", "source_sha256", "verification_target.dataset_ids", "priority_rule", "exposure_flags"]) {
     assert.ok(table.includes(field), `the row detail shows ${field}`);
@@ -348,4 +363,45 @@ test("[source_conformance] the print stylesheet hides everything except the chec
   assert.ok(printBlock.includes(".admin-checklist { display: block !important;"), "the checklist section stays visible when printing");
   assert.ok(printBlock.includes(".admin-actions, .admin-filters { display: none !important; }"), "controls are not printed");
   assert.deepEqual(scanForbiddenExpressions(css), [], "the stylesheet carries no forbidden expression");
+});
+
+test("[fatal] every file the browser fetches stays under the portability cap and its shards verify", () => {
+  for (const cityId of CITY_IDS) {
+    const manifestBytes = readFileSync(join(ADMIN_ROOT, `${cityId}.checklist.json`));
+    assert.ok(manifestBytes.byteLength <= ADMIN_SHARD_BYTE_CAP, `${cityId} manifest must stay under the portability cap`);
+    const manifest = JSON.parse(manifestBytes.toString("utf8"));
+    assert.equal(manifest.items, undefined, "the manifest carries no rows");
+    assert.equal(manifest.row_payload, "SHARDED");
+    assert.equal(manifest.shard_byte_cap, ADMIN_SHARD_BYTE_CAP);
+    assert.ok(manifest.shards.length >= 1, `${cityId} must have at least one shard`);
+    let total = 0;
+    for (const shard of manifest.shards) {
+      assert.match(shard.path, new RegExp(`^\\./data/admin/${cityId}/[a-z]+\\.part[0-9]{2}\\.rows\\.json$`), "shard paths stay confined to the city directory");
+      const bytes = readFileSync(join(ADMIN_ROOT, shard.path.replace("./data/admin/", "")));
+      assert.ok(bytes.byteLength <= ADMIN_SHARD_BYTE_CAP, `${shard.path} must stay under the portability cap`);
+      assert.equal(bytes.byteLength, shard.bytes, `${shard.path} manifest byte length must match the file`);
+      assert.equal(sha256(bytes), shard.sha256, `${shard.path} manifest SHA-256 must match the file bytes`);
+      const rows = JSON.parse(bytes.toString("utf8"));
+      assert.equal(rows.length, shard.row_count, `${shard.path} manifest row_count must match the file`);
+      assert.ok(rows.every((row) => row.object_type === shard.section), `${shard.path} holds one section only`);
+      total += rows.length;
+    }
+    assert.equal(total, manifest.counts.items, `${cityId} shard rows must add up to the manifest count`);
+    // No row is dropped, summarised or reordered: concatenation in manifest order
+    // is exactly the deterministic ordering the unsharded payload used.
+    const concatenated = committed(cityId).items;
+    assert.equal(concatenated.length, manifest.counts.items);
+    assert.deepEqual(concatenated.map((item) => item.item_id), sortChecklistItems(concatenated).map((item) => item.item_id), `${cityId} concatenation order must equal the deterministic order`);
+    assert.deepEqual(concatenated, JSON.parse(readFileSync(join(REPORTS_ROOT, `ADMIN_CHECKLIST_${cityId}.json`), "utf8")).items, `${cityId} sharded rows must equal the full report copy`);
+  }
+  const everyAdminFile = [];
+  const walk = (prefix) => {
+    for (const name of readdirSync(join(ADMIN_ROOT, prefix), { withFileTypes: true })) {
+      const relative = prefix ? `${prefix}/${name.name}` : name.name;
+      if (name.isDirectory()) walk(relative); else everyAdminFile.push(relative);
+    }
+  };
+  walk("");
+  for (const relative of everyAdminFile) assert.ok(readFileSync(join(ADMIN_ROOT, relative)).byteLength <= ADMIN_SHARD_BYTE_CAP, `viewer/public/data/admin/${relative} exceeds the portability cap`);
+  assert.ok(everyAdminFile.length >= CITY_IDS.length * 2);
 });

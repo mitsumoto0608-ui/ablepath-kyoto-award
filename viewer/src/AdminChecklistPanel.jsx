@@ -9,20 +9,47 @@ const OBJECT_TYPES = ["edge", "facility", "plaza"];
 const STATUSES = ["CONFIRMED", "UNKNOWN", "NOT_CONNECTED", "PERMISSION_REQUIRED"];
 const METHODS = ["FIELD_MEASUREMENT", "OFFICIAL_QUERY", "DOCUMENT_REVIEW", "NOT_APPLICABLE"];
 
-/** Load the generated checklist. Same timeout / notice convention as loadCatalog. */
+const SHARD_BYTE_CAP = 2 * 1024 * 1024;
+
+async function sha256Text(text) {
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Load the generated checklist: a small manifest plus row shards, each under the
+ * portability cap. Every shard is verified by SHA-256 and row_count before any
+ * row is used, and the rows are concatenated in manifest order, which is the
+ * same deterministic order the build script wrote. Fails closed: a bad or
+ * missing shard raises instead of rendering a partial table.
+ */
 export async function loadAdminChecklist(fetchImpl, path, expectedCityId, timeoutMs = 5000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetchImpl(path, { signal: controller.signal });
     if (!response.ok) throw new Error(`admin checklist HTTP ${response.status}`);
-    const text = await response.text();
-    if (new TextEncoder().encode(text).byteLength > 16_000_000) throw new Error("admin checklist payload exceeds the static viewer byte limit");
-    const checklist = JSON.parse(text);
-    if (checklist?.city_id !== expectedCityId) throw new Error("admin checklist city binding mismatch");
-    if (!Array.isArray(checklist.items)) throw new Error("admin checklist has no items");
-    if (checklist.items.some((item) => item.internal_use_only === true)) throw new Error("admin checklist contains internal_use_only rows");
-    return checklist;
+    const manifestText = await response.text();
+    if (new TextEncoder().encode(manifestText).byteLength > SHARD_BYTE_CAP) throw new Error("admin checklist manifest exceeds the portability cap");
+    const manifest = JSON.parse(manifestText);
+    if (manifest?.city_id !== expectedCityId) throw new Error("admin checklist city binding mismatch");
+    if (!Array.isArray(manifest.shards)) throw new Error("admin checklist manifest carries no shard list");
+    const base = path.slice(0, path.lastIndexOf("/data/admin/"));
+    const items = [];
+    for (const shard of manifest.shards) {
+      if (typeof shard.path !== "string" || !/^\.\/data\/admin\/[A-Za-z0-9_]+\/[A-Za-z0-9_.]+\.rows\.json$/.test(shard.path)) throw new Error("admin checklist shard path is not confined");
+      const shardResponse = await fetchImpl(`${base}${shard.path.slice(1)}`, { signal: controller.signal });
+      if (!shardResponse.ok) throw new Error(`admin checklist shard HTTP ${shardResponse.status}`);
+      const shardText = await shardResponse.text();
+      if (new TextEncoder().encode(shardText).byteLength > SHARD_BYTE_CAP) throw new Error("admin checklist shard exceeds the portability cap");
+      if (await sha256Text(shardText) !== shard.sha256) throw new Error(`admin checklist shard bytes do not match the manifest: ${shard.path}`);
+      const rows = JSON.parse(shardText);
+      if (!Array.isArray(rows) || rows.length !== shard.row_count) throw new Error(`admin checklist shard row count does not match the manifest: ${shard.path}`);
+      items.push(...rows);
+    }
+    if (items.length !== manifest.counts?.items) throw new Error("admin checklist row total does not match the manifest count");
+    if (items.some((item) => item.internal_use_only === true)) throw new Error("admin checklist contains internal_use_only rows");
+    return { ...manifest, items };
   } finally {
     clearTimeout(timer);
   }
@@ -107,7 +134,7 @@ export function AdminChecklistPanel({ checklist, notice }) {
       <div className="admin-actions">
         <button type="button" onClick={() => window.print()}>印刷</button>
         <button type="button" onClick={saveCsv}>CSVを保存（全{checklist.counts.items}行）</button>
-        <a href={`./data/admin/${checklist.city_id}.checklist.json`} download={`${checklist.city_id}.checklist.json`}>JSON（生成済みファイル）</a>
+        <a href={`./data/admin/${checklist.city_id}.checklist.json`} download={`${checklist.city_id}.checklist.json`}>JSON manifest（生成済みファイル）</a>
       </div>
       <AdminChecklistTable items={visible} selectedItemId={selectedItemId} onSelect={setSelectedItemId} />
       <div className="admin-detail">

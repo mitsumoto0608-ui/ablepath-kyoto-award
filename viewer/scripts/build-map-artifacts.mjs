@@ -398,6 +398,40 @@ function buildCityChecklist(root, cityId, sources, includeInternalUseOnly) {
 }
 
 /**
+ * Portability cap for anything the browser fetches. The row payload is split
+ * into shards under this cap; no row is dropped, summarised or reordered.
+ */
+export const ADMIN_SHARD_BYTE_CAP = 2 * 1024 * 1024;
+
+/**
+ * Split the deterministically ordered items into shards. A cut is made where the
+ * section (object_type) changes and wherever another row would cross the cap, so
+ * concatenating the shards in manifest order reproduces the same ordering.
+ * Rows are serialised compactly: a serialisation choice, not a content change.
+ */
+export function shardChecklistItems(items, byteCap = ADMIN_SHARD_BYTE_CAP) {
+  const shards = [];
+  const partBySection = new Map();
+  let current = null;
+  const close = () => { if (current) shards.push(current); current = null; };
+  for (const item of items) {
+    const encoded = JSON.stringify(item);
+    const addedBytes = Buffer.byteLength(encoded, "utf8") + 1;
+    if (current && (current.section !== item.object_type || current.bytes + addedBytes > byteCap)) close();
+    if (!current) {
+      const part = (partBySection.get(item.object_type) ?? 0) + 1;
+      partBySection.set(item.object_type, part);
+      // "[" + "]" + trailing newline
+      current = { section: item.object_type, part, items: [], bytes: 3 };
+    }
+    current.items.push(item);
+    current.bytes += addedBytes;
+  }
+  close();
+  return shards;
+}
+
+/**
  * Generate the admin-check checklists. Deterministic: same repository bytes in,
  * same output bytes out. `includeInternalUseOnly` defaults to false; a true
  * build must be given an output root outside `viewer/public/data`.
@@ -430,8 +464,27 @@ export function buildAdminChecklists({ repoRoot, outputRoot, reportsRoot, includ
     const checklist = buildCityChecklist(root, cityId, sources, includeInternalUseOnly);
     const bytes = `${JSON.stringify(checklist, null, 2)}\n`;
     const csv = toChecklistCsv(checklist.items);
+    // The viewer reads a small manifest plus row shards, each under the portability
+    // cap. The manifest carries no rows; `items` stays in the reports copy.
+    const { items, ...header } = checklist;
+    const cityDirectory = join(adminDirectory, cityId);
+    mkdirSync(cityDirectory, { recursive: true });
+    const shardRecords = [];
+    for (const shard of shardChecklistItems(items)) {
+      const filename = `${shard.section}.part${String(shard.part).padStart(2, "0")}.rows.json`;
+      const shardPath = join(cityDirectory, filename);
+      const shardBytes = `${JSON.stringify(shard.items)}\n`;
+      writeFileSync(shardPath, shardBytes);
+      const byteLength = Buffer.byteLength(shardBytes, "utf8");
+      if (byteLength > ADMIN_SHARD_BYTE_CAP) throw new Error(`${cityId} shard ${filename} exceeds the portability cap`);
+      shardRecords.push({ path: `./data/admin/${cityId}/${filename}`, section: shard.section, part: shard.part, row_count: shard.items.length, sha256: sha256(Buffer.from(shardBytes, "utf8")), bytes: byteLength });
+      files.push(shardPath);
+    }
+    const manifest = { ...header, row_payload: "SHARDED", shard_byte_cap: ADMIN_SHARD_BYTE_CAP, shards: shardRecords };
+    const manifestBytes = `${JSON.stringify(manifest, null, 2)}\n`;
+    if (Buffer.byteLength(manifestBytes, "utf8") > ADMIN_SHARD_BYTE_CAP) throw new Error(`${cityId} admin checklist manifest exceeds the portability cap`);
     const checklistPath = join(adminDirectory, `${cityId}.checklist.json`);
-    writeFileSync(checklistPath, bytes);
+    writeFileSync(checklistPath, manifestBytes);
     files.push(checklistPath);
     if (reports) {
       const reportJson = join(reports, `ADMIN_CHECKLIST_${cityId}.json`);
