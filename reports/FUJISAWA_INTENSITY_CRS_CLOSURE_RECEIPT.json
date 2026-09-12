@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "location_note": "Report-level mapping to the existing city closure; no additional citypack artifact or citypack manifest modification.",
+  "scope": "01_.zip EIGHT_INTENSITY_SCENARIOS_ONLY",
+  "source_harness_receipt": "inputs/staging/FUJISAWA-INTENSITY-CRS-V1/crs_closure_receipt.json",
+  "source_harness_receipt_sha256": "a53fc95ceee63eca82ce9eee670eb45c1ca427bfec6e92f198716bb15a24b4c6",
+  "source_harness_date": "2026-09-11",
+  "implementation_artifact": "inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json",
+  "implementation_summary_pointer": "/fujisawa_hazards/intensity_distribution",
+  "implementation_layer_closures": "/fujisawa_hazards/layers/*/crs_closure",
+  "evidence_map": {
+    "K1": "historical findings K1; implementation sibling_source_sha256 and sibling_sidecar_sha256",
+    "K2": "historical findings K2; current GRS80 centre_tolerance_m=0.06 and max_centre_error_m for all source records",
+    "K3": "historical findings K3; implementation EPSG:6677 selected-AOI vertex cross-check tolerance_m=0.05",
+    "K4": "historical findings K4; method document page statement retained as supplied evidence, not a newly page-verified quotation"
+  },
+  "crs_adoption_basis": "Sibling provider JGD2011 Zone IX declaration plus identical mesh correspondence and JIS X 0410 KEY_CODE reconstruction; not visual coordinate guessing.",
+  "direct_provider_correction_of_01_confirmed": false,
+  "definition_workbook_sha256": "e197e30502da7aa2d6e9f84c20d18c9aeb8daad457f24c2632615acebbe556f1",
+  "definition_workbook_scope": "Column definitions: longitude, latitude, JMA, PGA, SI; no explicit CRS declaration found.",
+  "historical_human_item_successors": {
+    "H1": "Existing workbook SHA and fields verified; not represented as a direct provider CRS correction.",
+    "H2": "inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json"
+  },
+  "historical_inventory_reason_authority": "Earlier LICENSE_RECEIPT_PENDING strings describe the pre-binding checkpoint; current resource-specific license authority is the H2 successor.",
+  "centre_contract": "T-B METHOD#3 restored from 1e-5 degree box to <=0.06 m GRS80 distance; no new tolerance or scientific constant.",
+  "cross_check_scope": "VERIFICATION_ONLY_NOT_M7_NOT_MEASUREMENT_ACCURACY",
+  "other_layer_crs_generalization": false,
+  "m7_ready_count": 0,
+  "m7_computed_count": 0,
+  "field_measurement_deferred": true,
+  "public_history_review_required": true,
+  "public_release_ready": false
+}

@@ -20,6 +20,7 @@ import {
   selectChecklistRows,
   selectUnresolvedTerrainRecords,
 } from "./analysisDomain.mjs";
+import { AdminChecklistPanel, loadAdminChecklist } from "./AdminChecklistPanel.jsx";
 
 const KPI_LABELS = {
   physically_reachable: "物理的に到達可能",
@@ -484,6 +485,8 @@ export function App() {
   const [announcement, setAnnouncement] = useState("起動中");
   const [fallbackNotice, setFallbackNotice] = useState("");
   const [analysis, setAnalysis] = useState(null);
+  const [adminChecklist, setAdminChecklist] = useState(null);
+  const [adminNotice, setAdminNotice] = useState(null);
   const [selectedPathNodes, setSelectedPathNodes] = useState([null, null]);
 
   useEffect(() => {
@@ -512,6 +515,17 @@ export function App() {
     let active = true;
     setAnalysis(null);
     loadDeliveryAnalysis(fetch, `./data/analysis/${state.city.city_id}.json`, state.city.city_id).then((data) => { if (!active) return; setAnalysis(data); setSelectedPathNodes([data.path_fixture.start_node_id, data.path_fixture.end_node_id]); }).catch((loadError) => active && setError(loadError.message));
+    return () => { active = false; };
+  }, [state?.city.city_id]);
+
+  useEffect(() => {
+    if (!state) return undefined;
+    let active = true;
+    setAdminChecklist(null);
+    setAdminNotice(null);
+    loadAdminChecklist(fetch, `./data/admin/${state.city.city_id}.checklist.json`, state.city.city_id)
+      .then((data) => { if (active) setAdminChecklist(data); })
+      .catch((loadError) => { if (active) setAdminNotice(`行政確認ワークフローの確認票を読み込めませんでした: ${loadError.message}`); });
     return () => { active = false; };
   }, [state?.city.city_id]);
 
@@ -583,6 +597,7 @@ export function App() {
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
         {realMode && cityAnalysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></section>}
         {realMode && <ReviewChecklistPanel checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} terrainSamples={cityAnalysis?.official_evidence?.terrain?.samples ?? []} />}
+        <AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} />
         <OfficialEvidencePanel evidence={cityAnalysis?.official_evidence} />
         <EvidenceTables city={state.city} />
         <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>

@@ -84,6 +84,7 @@ def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(t
     fuji = json.loads((generated / "fujisawa_enoshima.json").read_text(encoding="utf-8"))
     assert set(fuji["official_evidence"]["hazard"]["connected_scenarios"]) == {
         "A40_TSUNAMI_2020",
+        *(f"fujisawa_earthquake_intensity_scenario_{index:02d}" for index in range(1, 9)),
         *(f"fujisawa_liquefaction_distribution_scenario_{index:02d}" for index in range(1, 9)),
         "fujisawa_shaking_susceptibility_r6_01",
         "fujisawa_liquefaction_hazard_r6_01",
@@ -107,7 +108,7 @@ def test_delivery_sprint_hazard_expansion_is_scenario_complete_and_fail_closed(t
 
 
 def test_public_dem_and_fujisawa_hazard_truth_is_source_bound_and_fail_closed():
-    """[source_conformance] Native DEM cells and ten reviewed hazard layers connect while eight intensity layers stay unresolved."""
+    """[source_conformance] Native DEM cells and all eighteen reviewed hazard layers connect as exposure-only evidence."""
     # Every graph-node and ordered edge-vertex record retains its role. Coordinates
     # may repeat, so record counts and independent query locations are separate.
     # for both DEM1A and DEM5A: (21 + 159) * 2, (530 + 1156) * 2,
@@ -125,9 +126,9 @@ def test_public_dem_and_fujisawa_hazard_truth_is_source_bound_and_fail_closed():
         assert {sample["product"] for sample in terrain["samples"]} == {"DEM1A", "DEM5A"}
     fuji = json.loads((ROOT / "viewer/public/data/analysis/fujisawa_enoshima.json").read_text(encoding="utf-8"))
     scenarios = fuji["official_evidence"]["hazard"]["scenarios"]
-    assert sum(row["connected"] is True for row in scenarios) == 10
-    assert sum(row["connected"] is False for row in scenarios) == 8
-    assert all(row["crs"].startswith("CRS_CONTRADICTION:") for row in scenarios if not row["connected"])
+    assert sum(row["connected"] is True for row in scenarios) == 18
+    assert sum(row["connected"] is False for row in scenarios) == 0
+    assert all(row["crs"] in {"EPSG:4612", "EPSG:6668"} for row in scenarios)
     terrain = fuji["official_evidence"]["terrain"]
     assert (terrain["sample_record_count"], terrain["unique_coordinate_count"]) == (92, 16)
     assert (terrain["numeric_record_count"], terrain["null_record_count"], terrain["null_coordinate_count"]) == (86, 6, 1)

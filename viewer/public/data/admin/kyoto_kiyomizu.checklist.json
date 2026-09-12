@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0.0",
+  "city_id": "kyoto_kiyomizu",
+  "generated_at": "2026-09-03",
+  "generator": "viewer/scripts/build-map-artifacts.mjs",
+  "include_internal_use_only": false,
+  "fujisawa_facility_row_source_status": null,
+  "generated_from": {
+    "cities/fujisawa_enoshima/facilities/official/facility_source_receipt.json": "14ad64b69365325bbf698745cf7ea8b031233b902ab8062f0ab51ba7fdcf07f7",
+    "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_category_status.json": "9dd0af84156f771909d8751b5da594a47b8866bd62553ba0d7597746cb73fbe6",
+    "inputs/staging/KYOTO-OFFICIAL-PARITY-V1/facility_records.json": "f201527c7a822a62e098f1313898ba0871ccdb3db2c00f47484cf8847d7ef312",
+    "inputs/staging/M7-CLOSURE-STATUS-RECEIPTS-V1/closure_and_hazard_status_receipts.json": "195ff6ec8e4cfa386132274b747c7f40b8c9a7a6ac05afdd3b5d8f3a36391af8",
+    "reports/KYOTO_M7_DEEP_PILOT_STATUS.json": "8209d44588d99c004eaee0f5427cb605c63a8d7238e0a86957963179b7c2510a",
+    "reports/KYOTO_TARGET_AREA_WIDTH_SOURCE_SEARCH.json": "a216e43b3d46ce13f39a1855b28e81c5d5fda22cd696ec3ae0f0a91d3f9ea841",
+    "reports/M7_ALL_EDGE_EVIDENCE_READINESS_V2.json": "c3d7477aa415fc57062abafd4c30f73655171f93690f4c62599d7e1d408863b3",
+    "reports/M7_PILOT_EXPOSURE_ONLY_JOIN_V1.json": "c4fae0abbbf5621028b8b484694adf6d01eff54a098f97ac330f374b5337027b",
+    "reports/M7_PILOT_FIELD_MEASUREMENT_PLAN.csv": "57f4f4e0b0410941b9d38dc8aabeaecea7d2dfecb9e7988cf3a6fb64c3a3b9aa",
+    "reports/PHASE4_DATA_ACQUISITION_MATRIX.csv": "c7c923039aa931dcb20e4e1e63927b793e82840a821b72eed42b1c8b7f4b74d4"
+  },
+  "counts": {
+    "items": 444,
+    "by_object_type": {
+      "edge": 152,
+      "facility": 290,
+      "plaza": 2
+    },
+    "by_status": {
+      "CONFIRMED": 58,
+      "NOT_CONNECTED": 44,
+      "UNKNOWN": 342
+    },
+    "by_verification_method": {
+      "DOCUMENT_REVIEW": 76,
+      "FIELD_MEASUREMENT": 38,
+      "NOT_APPLICABLE": 58,
+      "OFFICIAL_QUERY": 272
+    },
+    "by_priority_rank": {
+      "1": 40,
+      "2": 290,
+      "3": 114
+    }
+  },
+  "safety_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "m6_status": "NOT_COMPUTED",
+  "m7_status": "NOT_COMPUTED",
+  "guard_texts": [
+    "この表は行政による検証結果ではありません。通行可否・安全性・アクセシビリティの判定を含みません。",
+    "露出は被害ではない。",
+    "UNKNOWNは通行不可でも可でもない。",
+    "priority_rank は並び順の機械規則であり、危険度・重要度ではありません。",
+    "露出は被害ではない。damage_state・debris_present・official_closure・通行可否を導出しない。"
+  ],
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://ablepath.local/schemas/admin_checklist_item_v1.json",
+    "title": "AblePath admin checklist item v1",
+    "description": "行政確認ワークフローの1行。既存receiptの機械変換のみで生成される。通行可否・安全性・アクセシビリティの判定を含まない。UNKNOWNは通行不可でも可でもない。露出は被害ではない。",
+    "schema_version": "1.0.0",
+    "draft_status": "CONTRACT_EMBEDDED_FROM_ADMIN_CHECKLIST_SCHEMA_DRAFT_V1",
+    "safety_claim": false,
+    "accessibility_claim": false,
+    "admin_validated": false,
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "item_id",
+      "city_id",
+      "subarea_id",
+      "object_type",
+      "object_id",
+      "attribute",
+      "status",
+      "source_id",
+      "source_revision",
+      "source_sha256",
+      "unknown_reason",
+      "verification_method",
+      "verification_target",
+      "priority_rank",
+      "priority_rule",
+      "exposure_flags",
+      "human_fields",
+      "export_ready",
+      "internal_use_only"
+    ],
+    "properties": {
+      "item_id": {
+        "type": "string",
+        "description": "\"<city_id>:<object_type>:<object_id>:<attribute>\"。全city横断で一意。",
+        "pattern": "^[a-z_]+:(edge|facility|plaza):.+:[A-Za-z0-9_.]+$"
+      },
+      "city_id": {
+        "type": "string",
+        "enum": [
+          "kyoto_kiyomizu",
+          "kyoto_arashiyama",
+          "fujisawa_enoshima"
+        ]
+      },
+      "subarea_id": {
+        "type": "string",
+        "description": "receiptがsubareaを明示している場合のみ実値。edgeにはsubareaを割り当てるreceiptが存在しないため SUBAREA_NOT_ASSIGNED_IN_RECEIPTS。幾何からの推定で埋めない。 ／ 注: kiyomizu / gion / kiyomizu_gion_connector は現時点の receipt からは生成されない値（幾何推定で埋めないこと）",
+        "enum": [
+          "kiyomizu",
+          "gion",
+          "kiyomizu_gion_connector",
+          "kiyomizu_gion",
+          "arashiyama",
+          "enoshima_katase",
+          "SUBAREA_NOT_ASSIGNED_IN_RECEIPTS"
+        ]
+      },
+      "object_type": {
+        "type": "string",
+        "enum": [
+          "edge",
+          "facility",
+          "plaza"
+        ]
+      },
+      "object_id": {
+        "type": "string",
+        "description": "edge_id / facility_record_id / \"<city_id>:<category>\"。",
+        "minLength": 1
+      },
+      "attribute": {
+        "type": "string",
+        "description": "edgeはcontract_v2の8フィールド、施設は facility.<field>、plazaは plaza.category_row_connection。",
+        "enum": [
+          "clear_width_m",
+          "height_m",
+          "setback_m",
+          "damage_state",
+          "debris_present",
+          "official_closure",
+          "hazard_data_status",
+          "side_coverage",
+          "facility.coordinate",
+          "facility.operation_status",
+          "facility.entrance_status",
+          "facility.accessibility_status",
+          "facility.safety_status",
+          "facility.geometry",
+          "facility.accessible_entrance",
+          "facility.wheelchair_accessible",
+          "facility.step_free",
+          "facility.opening_status",
+          "facility.disaster_availability",
+          "plaza.category_row_connection"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "description": "4値のみ。PASS/CONDITIONAL/FAIL/OPENへ変換しない。",
+        "enum": [
+          "CONFIRMED",
+          "UNKNOWN",
+          "NOT_CONNECTED",
+          "PERMISSION_REQUIRED"
+        ]
+      },
+      "source_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "status=CONFIRMEDのとき必須。それ以外はnull。"
+      },
+      "source_revision": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "source_version_or_valid_as_of 等。CONFIRMED以外はnull。"
+      },
+      "source_sha256": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "根拠artifactのLF正規化バイトのSHA-256（生成時に再計算。receiptからの転記ではない）。入力はLFであるため生バイトのSHA-256と一致する。",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "unknown_reason": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "receipt内に実在する状態語の逐語コピー。新しい理由語を作らない。CONFIRMEDのときnull。"
+      },
+      "verification_method": {
+        "type": "string",
+        "enum": [
+          "FIELD_MEASUREMENT",
+          "OFFICIAL_QUERY",
+          "DOCUMENT_REVIEW",
+          "NOT_APPLICABLE"
+        ]
+      },
+      "verification_target": {
+        "type": "object",
+        "description": "誰に聞くか／何を測るか。label・noteはreceiptの文字列をコピーし、要約や言い換えをしない。",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "receipt_path",
+          "dataset_ids",
+          "note"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "receipt_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "priority_rank": {
+        "type": "integer",
+        "description": "並び順の機械規則。危険度・重要度・リスクではない。",
+        "enum": [
+          1,
+          2,
+          3
+        ]
+      },
+      "priority_rule": {
+        "type": "string",
+        "enum": [
+          "PILOT_EDGE",
+          "CONNECTOR_SCOPED",
+          "FACILITY_WITH_SOURCE_COORDINATES",
+          "DEFAULT"
+        ]
+      },
+      "exposure_flags": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "edge行のみ。M7_PILOT_EXPOSURE_ONLY_JOIN_V1 の集計。facility/plazaではnull。",
+        "additionalProperties": false,
+        "required": [
+          "records",
+          "a31b_overlap_counts",
+          "landslide",
+          "earthquake",
+          "liquefaction",
+          "tsunami",
+          "note"
+        ],
+        "properties": {
+          "records": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "a31b_overlap_counts": {
+            "type": "object",
+            "description": "a31b_flood_overlap の値別件数。キーはreceiptの値をそのまま使う。",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "landslide": {
+            "type": "string"
+          },
+          "earthquake": {
+            "type": "string"
+          },
+          "liquefaction": {
+            "type": "string",
+            "const": "NOT_CONNECTED"
+          },
+          "tsunami": {
+            "type": "string",
+            "const": "NOT_CONNECTED"
+          },
+          "note": {
+            "type": "string",
+            "const": "露出は被害ではない。damage_state・debris_present・official_closure・通行可否を導出しない。"
+          }
+        }
+      },
+      "human_fields": {
+        "type": "object",
+        "description": "人が印刷物または内部運用で埋める欄。生成物では常に空（null）。",
+        "additionalProperties": false,
+        "required": [
+          "assignee",
+          "due",
+          "result",
+          "note"
+        ],
+        "properties": {
+          "assignee": {
+            "type": "null"
+          },
+          "due": {
+            "type": "null"
+          },
+          "result": {
+            "type": "null"
+          },
+          "note": {
+            "type": "null"
+          }
+        }
+      },
+      "export_ready": {
+        "type": "boolean",
+        "description": "status・verification_method・verification_target・priority_rankがすべて規則から決まった行のみtrue。falseの行も落とさず、原因をunknown_reasonに残す。"
+      },
+      "internal_use_only": {
+        "type": "boolean",
+        "description": "trueの行は公開ビルドに含めない（藤沢施設行）。既定ビルドにtrueが1件でもあればfail-closedで停止。"
+      },
+      "_example": {
+        "type": "string",
+        "description": "Present only on synthetic examples (EXAMPLE_SYNTHETIC_NOT_A_RECEIPT_VALUE); never in generated data"
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "status": {
+              "const": "CONFIRMED"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        "then": {
+          "properties": {
+            "source_id": {
+              "type": "string"
+            },
+            "source_sha256": {
+              "type": "string"
+            },
+            "unknown_reason": {
+              "type": "null"
+            },
+            "verification_method": {
+              "const": "NOT_APPLICABLE"
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "source_id": {
+              "type": "null"
+            },
+            "source_revision": {
+              "type": "null"
+            },
+            "source_sha256": {
+              "type": "null"
+            },
+            "unknown_reason": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "object_type": {
+              "const": "edge"
+            }
+          },
+          "required": [
+            "object_type"
+          ]
+        },
+        "then": {
+          "properties": {
+            "exposure_flags": {
+              "type": "object"
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "exposure_flags": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "row_payload": "SHARDED",
+  "shard_byte_cap": 2097152,
+  "shards": [
+    {
+      "path": "./data/admin/kyoto_kiyomizu/edge.part01.rows.json",
+      "section": "edge",
+      "part": 1,
+      "row_count": 40,
+      "sha256": "92f515ecfe63d2e77f7f03822cc1fb81db40493179e6ddca0ba8370340bbdfb7",
+      "bytes": 46622
+    },
+    {
+      "path": "./data/admin/kyoto_kiyomizu/facility.part01.rows.json",
+      "section": "facility",
+      "part": 1,
+      "row_count": 290,
+      "sha256": "5687c40e65714f504ad1b044b317092b72e522a467975791804888d08ab61c0d",
+      "bytes": 305206
+    },
+    {
+      "path": "./data/admin/kyoto_kiyomizu/edge.part02.rows.json",
+      "section": "edge",
+      "part": 2,
+      "row_count": 112,
+      "sha256": "a6a064c3f7d51f83eedac74dc7d746befff0332229f627aeb1550893d5a6395c",
+      "bytes": 109932
+    },
+    {
+      "path": "./data/admin/kyoto_kiyomizu/plaza.part01.rows.json",
+      "section": "plaza",
+      "part": 1,
+      "row_count": 2,
+      "sha256": "ec63143c4c54446da57462243fc24b40a4ab4cf550970bdb5eb67171f1a63c72",
+      "bytes": 2831
+    }
+  ]
+}

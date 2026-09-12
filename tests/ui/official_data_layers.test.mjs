@@ -61,10 +61,29 @@ test("[source_conformance] official analysis separates display connections from 
     assert.equal(fujisawa.official_evidence.facility.status, "NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED");
     assert.equal(fujisawa.official_evidence.terrain.products.length, 2);
     assert.equal(fujisawa.official_evidence.terrain.samples.length, 92);
+    // Counts are derived from the bound public evidence, never written as literals here.
+    const publicEvidence = readJson(new URL("../../inputs/staging/PUBLIC-GIT-DEM-FUJISAWA-V1/official_evidence.json", import.meta.url)).fujisawa_hazards;
+    const publicScenarioIds = new Set(publicEvidence.layers.map((layer) => layer.scenario_id));
+    const earthquakeScenarios = fujisawa.official_evidence.hazard.scenarios.filter((row) => row.layer_kind === "震度分布");
+    // Both a literal expectation and the independently bound evidence count must agree.
+    assert.equal(earthquakeScenarios.length, 8);
+    assert.equal(earthquakeScenarios.length, publicEvidence.intensity_distribution.scenario_count);
+    assert.equal(publicEvidence.intensity_distribution.status, "CONNECTED");
+    assert.ok(earthquakeScenarios.length > 0);
+    assert.ok(earthquakeScenarios.every((row) => row.connected === true && row.status === "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED" && row.reason));
+    assert.ok(earthquakeScenarios.every((row) => row.crs_closure.max_vertex_error_m <= row.crs_closure.tolerance_m && row.crs_closure.erroneous_sidecar.status === "ERRONEOUS_SIDECAR_RECORDED_NOT_USED"));
+    assert.ok(earthquakeScenarios.every((row) => publicEvidence.layers.find((layer) => layer.scenario_id === row.dataset_id).limitations.includes("HAZARD_EXPOSURE_ONLY")));
     assert.equal(fujisawa.official_evidence.hazard.scenarios.length, 18);
-    assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => row.connected).length, 10);
-    assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => !row.connected).length, 8);
-    assert.equal(fujisawa.official_evidence.hazard.connected_scenarios.length, 11);
+    assert.equal(fujisawa.official_evidence.hazard.scenarios.length, publicScenarioIds.size);
+    assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => row.connected).length, 18);
+    assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => !row.connected).length, 0);
+    // Current 01_ resource-specific receipt supersedes the historical pending
+    // label; it never changes municipal facility or public-history authority.
+    const licenseBinding = readJson(new URL("inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json", REPO_ROOT));
+    assert.equal(licenseBinding.status, "CC-BY-4.0");
+    assert.equal(licenseBinding.fujisawa_city_facility_permission_granted, false);
+    assert.ok(earthquakeScenarios.every((row) => row.license_review === licenseBinding.status && row.license_note.includes("license_binding.json")));
+    assert.equal(fujisawa.official_evidence.hazard.connected_scenarios.length, publicScenarioIds.size + 1);
     assert.equal(fujisawa.official_evidence.facility.records.length, 0);
     assert.ok(fujisawa.official_evidence.facility.records.every((record) => record.geometry_status === "ADDRESS_ONLY" && record.latitude === null && record.longitude === null));
     assert.equal(kiyomizu.official_evidence.m7.all_edge_count, 612);

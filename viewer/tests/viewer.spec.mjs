@@ -50,7 +50,7 @@ function createDownloadObserver(page, cityId, caseId, projectName) {
       const waiting = page.waitForEvent("download", { timeout: EXPORT_OPERATION_TIMEOUT_MS });
       log("waiter_registered");
       log("click_started");
-      await page.getByRole("button", { name: EXPORT_BUTTONS[format] }).click();
+      await page.getByRole("button", { name: EXPORT_BUTTONS[format], exact: true }).click();
       log("click_completed");
       const download = await waiting;
       log("download_started", { suggested_filename: download.suggestedFilename() });
@@ -539,9 +539,13 @@ test("[ui_regression] all three cities allow explicit real candidate mode", asyn
   await expect(page.getByLabel("candidate path analysis")).toContainText(/ordered edge IDs: (?!—)/);
 });
 
-test("[ui_regression] precomputed candidate path controls change fixtures without runtime graph calculation", async ({ page }, testInfo) => {
-  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
-  for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+// Acceptance map: the former multi-city test exhausted its shared 30 s budget
+// on its seventh full-page screenshot in Hosted run 34690792994. Keep every
+// assertion and all seven screenshot names, but give each independent city /
+// path state its own standard test/context. No timeout, retry or export changes.
+for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+  test(`[ui_regression] precomputed candidate path controls: ${cityId} connected fixture`, async ({ page }, testInfo) => {
+    await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
     await page.goto(`/?city=${cityId}&layer=real`);
     await expect(page.getByLabel("出発node（candidate fixture）")).toBeEnabled();
     await expect(page.getByLabel("目的node（candidate fixture）")).toBeEnabled();
@@ -551,17 +555,27 @@ test("[ui_regression] precomputed candidate path controls change fixtures withou
     await expect(page.getByLabel("candidate path analysis")).toContainText("hazard: CONNECTED_PRECOMPUTED_PER_EDGE");
     await expect(page.getByLabel("candidate path analysis")).toContainText("M7 NOT_COMPUTED");
     if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath({ kyoto_kiyomizu: "kiyomizu-real-analysis.png", kyoto_arashiyama: "arashiyama-real-analysis.png", fujisawa_enoshima: "fujisawa-real-analysis.png" }[cityId]), fullPage: true });
-  }
+  });
+}
+
+test("[ui_regression] precomputed candidate path controls: Kiyomizu disconnected fixture", async ({ page }, testInfo) => {
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
-  const start = page.getByLabel("出発node（candidate fixture）");
   const end = page.getByLabel("目的node（candidate fixture）");
+  await expect(end).toBeEnabled();
+  await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
   if (testInfo.project.name === "desktop-chromium") await page.screenshot({ path: testInfo.outputPath("candidate-path-selected.png"), fullPage: true });
   await end.selectOption((await end.locator("option").nth(2).getAttribute("value")));
   await expect(page.getByLabel("candidate path analysis")).toContainText("DISCONNECTED");
   await expect(page.getByLabel("candidate path analysis")).toContainText("coordinate-degree distance: —");
   await expect(page.getByLabel("candidate path analysis")).toContainText("ordered edge IDs: —");
   if (testInfo.project.name === "desktop-chromium") { await page.screenshot({ path: testInfo.outputPath("disconnected-path.png"), fullPage: true }); await page.screenshot({ path: testInfo.outputPath("hazard-overlay-or-not-connected.png"), fullPage: true }); }
+});
+
+test("[ui_regression] precomputed candidate path controls: Arashiyama disconnected fixture at 320px", async ({ page }, testInfo) => {
+  await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_arashiyama&layer=real");
+  await expect(page.getByLabel("目的node（candidate fixture）")).toBeEnabled();
   await page.getByLabel("目的node（candidate fixture）").selectOption((await page.getByLabel("目的node（candidate fixture）").locator("option").nth(2).getAttribute("value")));
   await expect(page.getByLabel("candidate path analysis")).toContainText("DISCONNECTED");
   await page.setViewportSize({ width: 320, height: 900 });
