@@ -286,6 +286,8 @@ def main() -> None:
     parser.add_argument("--raw-root", type=Path, required=True)
     args = parser.parse_args()
     root = args.repo_root.resolve()
+    if (root / "reports/PUBLIC_SAFE_SNAPSHOT_SCOPE.json").exists():
+        raise SystemExit("Public snapshot: historical raw rebuild is disabled; use reviewed public staged inputs and build_candidate_analysis.py.")
     raw = args.raw_root.resolve()
     paths = {
         "a31b": raw / "kyoto_arashiyama" / "A31b-25_10_5235_GEOJSON.zip",

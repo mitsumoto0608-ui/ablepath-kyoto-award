@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-KYOTO-FUJISAWA-DELIVERY-SPRINT-V1",
+  "overall_status": "PARTIAL",
+  "complete": false,
+  "p0_complete": false,
+  "user_validated": false,
+  "source_analysis_authority": "src/analysis",
+  "viewer_analysis_mode": "STATIC_LOAD_VALIDATE_DISPLAY_EXPORT",
+  "decision_binding": {"f1_f6": "DONE_POLICY_ONLY", "value_available": false, "taxonomy_mapping_approved": false, "tolerance_approved": false, "long_edge_split_approved": false},
+  "cities": {
+    "kyoto_kiyomizu": {"scope": ["kiyomizu", "gion", "kiyomizu_gion_connector"], "candidate_edges": 19, "hazard_scenarios_connected": 10, "edge_scenario_rows": 190, "hazard": "DONE_A31B_AND_LANDSLIDE", "terrain": "BLOCKED_VERTICAL_DATUM_NOT_EXPLICIT", "facility": "PARTIAL_3_OF_5_CATEGORIES_58_RECORDS", "ui_export": "DONE"},
+    "kyoto_arashiyama": {"scope": ["arashiyama"], "candidate_edges": 578, "hazard_scenarios_connected": 10, "edge_scenario_rows": 5780, "hazard": "DONE_A31B_AND_LANDSLIDE", "terrain": "BLOCKED_VERTICAL_DATUM_NOT_EXPLICIT", "facility": "PARTIAL_3_OF_5_CATEGORIES_19_RECORDS", "ui_export": "DONE"},
+    "fujisawa_enoshima": {"scope": ["enoshima", "katase"], "candidate_edges": 15, "hazard_scenarios_connected": 1, "edge_scenario_rows": 15, "hazard": "PARTIAL_A40_TSUNAMI_DONE_EARTHQUAKE_LIQUEFACTION_BLOCKED", "terrain": "BLOCKED_SOURCE_ARTIFACT_NOT_CONNECTED", "facility": "PARTIAL_ADDRESS_ONLY_57_RECORDS", "ui_export": "DONE"}
+  },
+  "m7_real_edge_evidence_ready_count": 0,
+  "m7_computed_edge_count": 0,
+  "field_measurement_deferred": true,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "passability_claim": false,
+  "admin_validated": false,
+  "public_release_ready": false
+}

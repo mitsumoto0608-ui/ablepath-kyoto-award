@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "current_authority": {"policy_binding": "reports/F1_F6_DECISION_BINDING.json", "scope_decision": "reports/LICENSE_FINAL_SCOPE_DECISION.json", "scope_amendment": "reports/PUBLIC_GIT_SCOPE_AMENDMENT_20260910.json", "role": "CURRENT_MACHINE_AUTHORITY"},
+  "historical_record": {"path": "reports/M7_LICENSE_DECISION_BINDING.json", "role": "HISTORICAL_PRE_DECISION_RECORD", "machine_binding_status": "NOT_YET_MACHINE_BOUND", "may_override_current_authority": false},
+  "license_research_reopened": false,
+  "f1_f6_reapproval_required": false,
+  "public_git": true,
+  "public_rc": false,
+  "public_demo": false,
+  "m7_ready_count": 0,
+  "m7_computed_count": 0,
+  "field_measurement_deferred": true
+}

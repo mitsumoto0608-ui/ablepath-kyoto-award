@@ -4,10 +4,14 @@ version = "0.2.0"
 description = "清水・祇園 観光×地震・火災・大雨 検証ツール（シナリオ計算エンジン）— PLATEAU AWARD 2026"
 requires-python = ">=3.10"
 dependencies = [
+  "openpyxl==3.1.5",
   "pandas",
   "scipy",
   "networkx",
   "pyyaml",
+  "pyproj",
+  "pyshp",
+  "shapely",
 ]
 
 [project.optional-dependencies]

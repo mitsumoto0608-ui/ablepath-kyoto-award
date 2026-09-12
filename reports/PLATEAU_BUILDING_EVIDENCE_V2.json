@@ -1,150 +1,154 @@
 {
-  "schema_version": "2.0.0",
-  "generated_at": "2026-09-03",
-  "task_id": "PLATEAU-BUILDING-EVIDENCE-V2",
-  "staging_dir": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2",
-  "packages_sha256_verified": true,
+  "accessibility_claim": false,
+  "admin_validated": false,
   "aoi_count": 5,
-  "pilot_edge_count": 15,
+  "buildings_aggregated": false,
   "candidate_count": 347,
-  "unique_building_count": 288,
+  "centroid_used": false,
+  "connection_mode": "NOT_CONNECTED",
+  "count_scope": "HISTORICAL_SOURCE_ENUMERATION_NOT_CURRENT_PUBLIC_PAYLOAD",
+  "fallback": "EXISTING_DETERMINISTIC_2D",
+  "generated_at": "2026-09-03",
+  "geometry_derived_height": "DERIVED_CANDIDATE_NOT_FROZEN_NOT_COMPUTED",
+  "hazard_derived_damage_or_debris": false,
+  "license_status": "LICENSE_REVIEW_REQUIRED",
+  "m7_computed_count": 0,
+  "m7_evidence_ready_count": 0,
+  "m7_invoked": false,
+  "official_direct_height": "PRESENT_WITH_PROVENANCE_CODE",
+  "packages_sha256_verified": true,
   "per_edge": [
     {
       "city_id": "kyoto_kiyomizu",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "KK-OSM-W1251544286-S01",
+      "invalid_height": 0,
       "left": 13,
-      "right": 11,
-      "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 11
     },
     {
       "city_id": "kyoto_kiyomizu",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "KK-OSM-W1491152444-S01",
-      "left": 6,
-      "right": 9,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 6,
+      "right": 9
     },
     {
       "city_id": "kyoto_kiyomizu",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "KK-OSM-W1491152444-S02",
+      "invalid_height": 0,
       "left": 9,
-      "right": 18,
-      "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 18
     },
     {
       "city_id": "kyoto_kiyomizu",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "KK-OSM-W157527438-S01",
-      "left": 20,
-      "right": 12,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 20,
+      "right": 12
     },
     {
       "city_id": "kyoto_kiyomizu",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "KK-OSM-W174762077-S01",
+      "invalid_height": 0,
       "left": 110,
-      "right": 83,
-      "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 83
     },
     {
       "city_id": "kyoto_arashiyama",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-000243776548-001215761678",
-      "left": 11,
-      "right": 1,
       "invalid_height": 1,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 11,
+      "right": 1
     },
     {
       "city_id": "kyoto_arashiyama",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-001215761678-003255952277",
+      "invalid_height": 1,
       "left": 8,
-      "right": 0,
-      "invalid_height": 1,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 0
     },
     {
       "city_id": "kyoto_arashiyama",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003255952277-003832838076",
+      "invalid_height": 1,
       "left": 11,
-      "right": 1,
-      "invalid_height": 1,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 1
     },
     {
       "city_id": "kyoto_arashiyama",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-003832838076-014102818766",
-      "left": 6,
-      "right": 0,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 6,
+      "right": 0
     },
     {
       "city_id": "kyoto_arashiyama",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "kyoto-arashiyama:osm-way-000022727319:nodes-013805963837-014102818766",
+      "invalid_height": 0,
       "left": 7,
-      "right": 0,
-      "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 0
     },
     {
       "city_id": "fujisawa_enoshima",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "FJ-OSM-E-018BDD155711677D",
-      "left": 0,
-      "right": 2,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 0,
+      "right": 2
     },
     {
       "city_id": "fujisawa_enoshima",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "FJ-OSM-E-0382789A9EC7F022",
+      "invalid_height": 0,
       "left": 1,
-      "right": 1,
-      "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "right": 1
     },
     {
       "city_id": "fujisawa_enoshima",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "FJ-OSM-E-062F75C8425C2252",
-      "left": 3,
-      "right": 2,
       "invalid_height": 1,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 3,
+      "right": 2
     },
     {
       "city_id": "fujisawa_enoshima",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "FJ-OSM-E-0D2835DBF8B3A7CC",
-      "left": 0,
-      "right": 2,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 0,
+      "right": 2
     },
     {
       "city_id": "fujisawa_enoshima",
+      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED",
       "edge_id": "FJ-OSM-E-215A5178BF215505",
-      "left": 0,
-      "right": 0,
       "invalid_height": 0,
-      "coverage_status": "PACKAGE_COMPLETE_WITHIN_30M_BUFFER_REAL_WORLD_UNVERIFIED"
+      "left": 0,
+      "right": 0
     }
   ],
-  "official_direct_height": "PRESENT_WITH_PROVENANCE_CODE",
-  "geometry_derived_height": "DERIVED_CANDIDATE_NOT_FROZEN_NOT_COMPUTED",
-  "setback_method_status": "PROPOSAL_REQUIRED_NOT_FROZEN",
-  "setback_values_generated": 0,
-  "centroid_used": false,
-  "buildings_aggregated": false,
-  "hazard_derived_damage_or_debris": false,
-  "m7_invoked": false,
-  "m7_evidence_ready_count": 0,
-  "m7_computed_count": 0,
-  "connection_mode": "NOT_CONNECTED",
-  "fallback": "EXISTING_DETERMINISTIC_2D",
-  "license_status": "LICENSE_REVIEW_REQUIRED",
+  "pilot_edge_count": 15,
+  "public_candidate_count": 0,
+  "public_exclusion_reason": "PROVIDER_PUBLIC_REDISTRIBUTION_BINDING_NOT_FOUND_PUBLIC_ROWS_EXCLUDED",
+  "public_unique_building_count": 0,
   "raw_tracked_in_git": false,
   "safe_route_claim": false,
-  "accessibility_claim": false,
-  "admin_validated": false
+  "schema_version": "2.0.0",
+  "setback_method_status": "PROPOSAL_REQUIRED_NOT_FROZEN",
+  "setback_values_generated": 0,
+  "staging_dir": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2",
+  "task_id": "PLATEAU-BUILDING-EVIDENCE-V2",
+  "unique_building_count": 288
 }

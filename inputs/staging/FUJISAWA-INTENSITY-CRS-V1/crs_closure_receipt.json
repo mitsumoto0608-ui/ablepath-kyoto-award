@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "FUJISAWA-INTENSITY-CRS-V1",
+  "task": "task/fujisawa-intensity-crs-closure-v1",
+  "generated_at": "2026-09-11",
+  "mode": "READ_ONLY_ANALYSIS_NO_CONNECTION_PERFORMED",
+  "provider": "神奈川県くらし安全防災局「地震被害想定調査（令和7年3月）」",
+  "catalog_dataset_id": "fdc2ffe1fd3cb572d95d0f954f6c72eb",
+  "license": "CC BY 4.0",
+  "attribution": "出典 神奈川県「地震被害想定調査（令和7年3月）」",
+  "raw_tracked_in_git": false,
+  "raw_root_note": "原本 ZIP は ablepath-raw 側の trust root 配下。manifest の raw-root: 相対ロケータで参照し、絶対パスは記録しない。",
+  "subject": {
+    "archive": "01_.zip",
+    "sha256": "03989508e8e715496c700f92e30ac8c3feaaec163d19438aa28b3bcb3738b442",
+    "bytes": 14572236,
+    "matches_repo_source_bindings": true,
+    "scenario_count": 8,
+    "records_per_scenario": 37962,
+    "fields": ["KEY_CODE", "ﾒｯｼｭｺｰﾄﾞ", "LON", "LAT", "JMA", "PGA", "SI"],
+    "prj_present": false,
+    "scenarios": [
+      "三浦半島断層群の地震_region",
+      "元禄型関東地震_region",
+      "南海トラフ巨大地震_region",
+      "大正型関東地震_region",
+      "東海地震_region",
+      "相模トラフ沿いの最大クラスの地震_region",
+      "神奈川県西部地震_region",
+      "都心南部直下地震_region"
+    ]
+  },
+  "findings": [
+    {
+      "id": "K1",
+      "kind": "PROVIDER_DECLARATION_PLUS_GEOMETRY_IDENTITY",
+      "statement": "提供元が同一 dataset の姉妹レイヤ 00_基礎データ/250mesh_人口_region に付した sidecar が PROJCS「JGD_2011_Japan_Zone_9」（Transverse_Mercator, 中央子午線 139.8333333333333, k0 0.9999, 原点緯度 36, 単位 Meter）を宣言しており、その geometry は同一 KEY_CODE で震度 geometry と一致する。",
+      "numbers": {
+        "intensity_keys": 37962,
+        "pop_keys": 38117,
+        "bld_keys": 38086,
+        "common_inten_pop": 37961,
+        "geom_identity_max_diff_m": 0.026610409942061236
+      },
+      "basis": "provider declaration + geometry identity",
+      "inference_from_appearance": false
+    },
+    {
+      "id": "K2",
+      "kind": "PROVIDER_ATTRIBUTE_PLUS_STANDARD",
+      "statement": "震度レコードの LON/LAT 属性は、KEY_CODE（JIS X 0410 10桁・4分の1地域メッシュ、約250 m）のセル中心と全サンプルで一致する。",
+      "numbers": {
+        "lonlat_vs_jis_centre_max_m": 0.05864512200278555
+      },
+      "basis": "provider attribute + JIS X 0410 standard",
+      "inference_from_appearance": false
+    },
+    {
+      "id": "K3",
+      "kind": "VERIFICATION_NOT_BASIS_OF_DECISION",
+      "statement": "JIS X 0410 セル4隅を EPSG:6677（JGD2011 / 平面直角座標系 IX 系）で投影すると、全 8 シナリオ・各 950 サンプルセルで polygon 頂点誤差 ≤0.018 m（平均 0.013 m）。EPSG:2451（JGD2000/IX）は同一結果でこの縮尺では datum 差が判別不能。.txt sidecar が主張する EPSG:30169（Tokyo/IX）は 8.915〜13.152 m ずれる。",
+      "numbers": {
+        "per_scenario_sample_n": 950,
+        "epsg_6677_from_6668": {"max_m": 0.018, "mean_m": 0.013},
+        "epsg_2451_from_4612": {"max_m": 0.018, "mean_m": 0.013},
+        "epsg_30169_from_4301": {"max_m": 13.152, "mean_m": 8.915},
+        "bld_corner_vs_jis_corner_max_m": 0.04392342578967636,
+        "uniform_across_all_8_scenarios": true
+      },
+      "basis": "verification of K1/K2, not the basis of the decision",
+      "inference_from_appearance": false
+    },
+    {
+      "id": "K4",
+      "kind": "PROVIDER_DOCUMENT",
+      "statement": "手法編 第1章 p.23 に「4分の1地域メッシュ（約250ｍ）での震度への変換」と記載があり、K2 と整合する。",
+      "basis": "provider document",
+      "inference_from_appearance": false
+    }
+  ],
+  "decision": {
+    "crs_of_intensity_geometry": "EPSG:6677 (JGD2011 / Japan Plane Rectangular CS IX)",
+    "authority": "提供元宣言（同一 dataset 姉妹レイヤ sidecar）＋ geometry 同一性。JGD2000（EPSG:2451）は本データの精度では判別不能のため、提供元宣言 JGD2011 を正とする。",
+    "preferred_connection_geometry": "KEY_CODE（JIS X 0410）から地理座標 JGD2011（EPSG:6668）でセルを再構成する。投影 .shp は cross-check 専用。",
+    "cross_check_tolerance_m": 0.05,
+    "connection_scope": "EXPOSURE_DISPLAY_ONLY",
+    "closure_derived": false,
+    "damage_derived": false,
+    "debris_derived": false,
+    "scenario_averaged": false,
+    "connect_now": false,
+    "reason_not_connected_now": "接続は Codex タスク T-B がテスト付きで実施する。本 receipt はその authoritative 入力。"
+  },
+  "erroneous_sidecar": {
+    "files": "01_ 各シナリオ *_region.txt（8 ファイル）",
+    "declared_text": "GEOGCS[\"GCS_Tokyo\",DATUM[\"D_Tokyo\",Bessel_1841]…]",
+    "declared_epsg_equivalent": "EPSG:4301 / 投影は EPSG:30169 相当",
+    "conflict": "宣言は地理座標だが実座標値は平面直角座標系の値であり矛盾する。Tokyo datum で投影すると 8.915〜13.152 m ずれる。",
+    "status": "ERRONEOUS_SIDECAR_RECORDED_NOT_USED"
+  },
+  "other_sidecars_observed": {
+    "00_ 250mesh_人口_region.txt": "PROJCS「JGD_2011_Japan_Zone_9」— 確定の一次根拠",
+    "00_ 250mesh_棟数_region.txt": "GEOGCS GCS_JGD_2000 (EPSG:4612) — 同アーカイブ内で不整合、使用しない",
+    "13_ ゆれやすさ .txt": "GEOGCS GCS_JGD_2000 (EPSG:4612)",
+    "04_ .prj": "GEOGCS GCS_WGS_1984",
+    "99_ 微地形 .txt": "GEOGCS unnamed / DATUM D_North_American_1983 with GRS80 — SIDECAR_ANOMALY"
+  },
+  "companion_archive": {
+    "archive": "00_.zip",
+    "sha256": "93b0adea6b7ae45fa3732e4051dbcaeb5fa63bf6f5bd1aa61e041a2679c3c1da",
+    "bytes": 4335804,
+    "role": "K1 の根拠レイヤ。cross-check 用途のみ。"
+  },
+  "archive_duplicates_observed": {
+    "03_ (1)": "03_",
+    "07 1": "07"
+  },
+  "human_items": [
+    {
+      "id": "H1",
+      "item": "data_definition.xlsx（シェープデータ定義書）を download し、SHA-256 とともに receipt 化して宣言 CRS 文言を確認する。",
+      "blocker_for_internal_display": false
+    },
+    {
+      "id": "H2",
+      "item": "ライセンス receipt の取得（CC BY 4.0、出典 神奈川県「地震被害想定調査（令和7年3月）」）。外部公開・配布はこれが揃うまで行わない。",
+      "blocker_for_internal_display": false
+    }
+  ]
+}

@@ -31,10 +31,13 @@ def test_v2_matrix_counts_are_derived_from_v1_and_preserve_zero_ready():
 
 
 def test_exposure_only_join_never_generates_damage_debris_or_closure():
-    """[source_conformance] HAZARD_EXPOSURE_ONLY records keep damage_state/debris_present null; counts derived."""
+    """[source_conformance] 347 historical joins are excluded from public rows, not zero exposure; no damage, debris or closure generated."""
     j = _load("reports/M7_PILOT_EXPOSURE_ONLY_JOIN_V1.json")
     assert j["label"] == "HAZARD_EXPOSURE_ONLY"
     assert j["record_count"] == len(j["records"])
+    assert j["record_count"] == 0 and j["historical_record_count"] == 347
+    assert sum(j["historical_summary"].values()) == 347 and j["summary"] is None
+    assert j["public_exclusion_reason"]
     assert j["damage_state_generated"] == 0 and j["debris_present_generated"] == 0 and j["closure_generated"] == 0
     for r in j["records"]:
         assert r["exposure_class"] == "HAZARD_EXPOSURE_ONLY" and r["damage_state"] is None and r["debris_present"] is None

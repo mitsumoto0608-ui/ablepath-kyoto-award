@@ -1,6 +1,6 @@
 {
   "status": "NOT_CONNECTED",
-  "earthquake": {"scenario_count": 8, "susceptibility_layer_count": 1, "inventory_sha256": "8c3946c3f6f0bb1f100870278aec8bf9f5588db2bdc6c41198d9eb2ad2a75257", "blocker": "CRS_CONTRADICTION_AND_LICENSE_RECEIPT_REQUIRED"},
+  "earthquake": {"scenario_count": 8, "susceptibility_layer_count": 1, "inventory_sha256": "82dfb63e9ec5fd3912959085cad8bb37b58c27f9031bdf7a2ffbda1e114e074d", "blocker": "NONE_CONNECTED_AS_EXPOSURE_ONLY", "crs_closure": "EPSG:6677_JGD2011_ZONE_IX_PROVIDER_DECLARED_DISPLAY_VIA_EPSG_6668_MESH_CODE", "connection_scope": "HAZARD_EXPOSURE_ONLY", "license_review": "LICENSE_REVIEW_REQUIRED", "license_note": "catalog_declares: CC-BY-4.0 (receipt not retained this run)"},
   "liquefaction": {"scenario_count": 8, "hazard_layer_count": 1, "inventory_sha256": "8fa9338328afbe7360c6174ce1bffa56bf27639981e7ca16de7ac52119d29b1e", "blocker": "LICENSE_AND_SOURCE_RECEIPT_REQUIRED"},
   "scenario_averaged": false,
   "closure_derived": false,

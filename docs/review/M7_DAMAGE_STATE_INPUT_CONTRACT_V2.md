@@ -121,7 +121,7 @@ core の API・語彙は不変。本契約は `left_buildings[].damage_state` / 
 ```json
 {
   "schema_version": "2.0.0",
-  "building_id": "26100-bldg-000000",
+  "building_id": "FIXTURE_BUILDING_A",
   "scenario_id": null,
   "damage_taxonomy_id": "JP-MLIT-BUILDING-DAMAGE-CLASS",
   "damage_taxonomy_version": "2024.1",
@@ -155,7 +155,7 @@ core の API・語彙は不変。本契約は `left_buildings[].damage_state` / 
 ```json
 {
   "schema_version": "2.0.0",
-  "building_id": "26100-bldg-000001",
+  "building_id": "FIXTURE_BUILDING_B",
   "scenario_id": "KYOTO-SEISMIC-SCENARIO-500M",
   "damage_taxonomy_id": null,
   "damage_taxonomy_version": null,

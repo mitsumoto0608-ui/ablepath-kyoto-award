@@ -160,7 +160,7 @@
     {
       "fingerprint": "PYTEST_TEMP_ROOT_UNAVAILABLE",
       "count": 2,
-      "resolution": "Used a dedicated writable C:/dev test temp parent; unchanged suite then passed 529 tests"
+      "resolution": "Used a dedicated writable <LOCAL_TEST_TEMP_ROOT> test temp parent; unchanged suite then passed 529 tests"
     },
     {
       "fingerprint": "HOSTED_CI_MACHINE_LOCAL_RAW_TEST_DEPENDENCY",

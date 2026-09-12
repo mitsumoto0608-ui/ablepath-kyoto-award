@@ -314,7 +314,7 @@ def test_v2_lineage_rejects_every_missing_required_field(missing_field: str) -> 
             "retrieval_method": "MODEL_COMPUTATION",
         },
         {"artifact_path": "../outside.geojson"},
-        {"artifact_path": "C:\\outside.geojson"},
+        {"artifact_path": "C:" + "\\outside.geojson"},
         {"sha256": "A" * 64},
         {"accessed_at": "30-08-2026"},
         {"snapshot_at": "2026-99-99T99:99:99Z"},

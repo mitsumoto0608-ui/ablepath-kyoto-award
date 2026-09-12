@@ -76,10 +76,6 @@ def test_required_citypack_files_exist():
         "hazards/official/earthquake_scenario_inventory.csv",
         "hazards/official/liquefaction_scenario_inventory.csv",
         "hazards/official/source_receipt.json",
-        "facilities/official/facility_table_339.csv",
-        "facilities/official/enoshima_katase_facility_table_57.csv",
-        "facilities/official/FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json",
-        "facilities/official/FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json",
         "facilities/official/facility_source_receipt.json",
         "sources/receipts/official_local_promotion_v2.json",
     }

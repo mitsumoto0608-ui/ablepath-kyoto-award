@@ -94,7 +94,7 @@
       "current_source": "none",
       "current_value_in_repo": "inputs/staging/PLATEAU-BUILDING-EVIDENCE-V2/M7_BUILDING_SIDE_CANDIDATES.json の全建物候補で null（`damage_state: null`）。",
       "exact_missing_evidence": [
-        "V2 が列挙した PLATEAU stable building ID（例 26100-bldg-489494 / 14205-bldg-…）単位で damage_state を与える、建物別の公式被害想定成果物",
+        "V2 が列挙した PLATEAU stable building ID（例 EXCLUDED_BUILDING_ID_PERMISSION_REQUIRED / 14205-bldg-…）単位で damage_state を与える、建物別の公式被害想定成果物",
         "その成果物の source receipt（発行主体・版・取得日・URL・SHA-256・利用条件）",
         "scenario 識別子（どの想定地震に対する damage_state か）と、edge 側 scenario 指定との対応表",
         "建物 ID 突合の receipt（公式成果物の建物識別子 ↔ uro:buildingID の対応根拠）"

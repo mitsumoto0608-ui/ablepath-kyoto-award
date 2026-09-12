@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-PUBLIC-GIT-DEM-FUJISAWA-CONTINUATION-V1",
+  "decision_recorded_at": "2026-09-10",
+  "authority": "USER_EXPLICIT_OWNER_INSTRUCTION_IN_CODEX_SESSION",
+  "user_instruction_exact": "公開にする、DEM・藤沢ハザードへ進めます",
+  "owner_public_git_authorized": true,
+  "desired_repository_visibility": "PUBLIC",
+  "public_git_scope": "REVIEWED_CODE_AND_REDISTRIBUTABLE_DERIVED_ARTIFACTS",
+  "third_party_rights_granted_by_this_instruction": false,
+  "raw_blanket_publication_authorized": false,
+  "public_release_ready": false,
+  "public_rc_publication_authorized": false,
+  "public_demo_deployment_authorized": false,
+  "hosted_ci_artifact_authorized": true,
+  "hosted_ci_artifact_scope": "EXISTING_WORKFLOW_OUTPUTS_AFTER_PUBLIC_PAYLOAD_SCAN_ONLY",
+  "manual_public_attachment_authorized": false,
+  "main_merge_authorized": false,
+  "field_measurement_deferred": true,
+  "m7_real_edge_compute_authorized": false,
+  "historical_receipts_retained": true
+}

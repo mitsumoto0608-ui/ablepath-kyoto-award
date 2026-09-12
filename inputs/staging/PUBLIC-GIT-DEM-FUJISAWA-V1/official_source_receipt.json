@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at": "2026-09-10",
+  "network_payloads_retained_outside_git": true,
+  "sources": {
+    "gsi_dem_specification_v5_3": {
+      "url": "https://service.gsi.go.jp/kiban/contents/screen/basismap/documents/FGD_DLFileSpecV5.3.pdf",
+      "response_sha256": "b96f524cf407c7dc73347f79d21a8c152edffaf6a049abdc9d50bb764ee82dbb",
+      "version": "5.3",
+      "bound_topics": ["DEM tupleList", "startPoint", "+x-y sequenceRule", "no-data sentinel", "elevation unit"]
+    },
+    "gsi_spec_update": {
+      "url": "https://service.gsi.go.jp/kiban/app/spec_update_info/",
+      "response_sha256": "b0ee88c7feafc1f4fba10166322c402e2cae7ca56566fecfe019e41b951d4ebd",
+      "bound_topics": ["2025-07-31 provision change", "JGD2024 elevation"]
+    },
+    "gsi_datum_revision": {
+      "url": "https://web2.gsi.go.jp/sokuchikijun/hyoko2024rev.html",
+      "response_sha256": "a01eb54761186b6fbefd1ee2ad69f10324121deb26c44981d1eb4088ee847be2",
+      "bound_topics": ["horizontal definition unchanged", "vertical datum revised"]
+    },
+    "gsi_content_terms": {
+      "url": "https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html",
+      "response_sha256": "5388d2854a05f3e7b41cb980ecfb2de75b315de68e0d9c94b9334c11e580739e",
+      "scope": "Official GSI content terms and source-attribution guidance are bound for the small native-cell derived samples; this is not a blanket grant for retained raw packages or third-party content.",
+      "attribution": "基盤地図情報（国土地理院）を加工して作成",
+      "legal_compliance_claim": false
+    },
+    "kanagawa_r7_dataset": {
+      "url": "https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb",
+      "response_sha256": "62208c40000f8bb6a40ecb693fbf0d6c0c50101a8945d4a89a9193d5092008f3",
+      "license": "CC-BY",
+      "attribution": "神奈川県『地震被害想定調査（令和7年3月）』を加工して作成"
+    },
+    "kanagawa_definition": {
+      "url": "https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/5a584282-4a05-4c0a-b05c-bd75f9dd15f3",
+      "response_sha256": "f6675eb85dde9d8b3bfbff8a0a5a059bca68f43da9800dc5f79bded2424754c8",
+      "retained_workbook_sha256": "e197e30502da7aa2d6e9f84c20d18c9aeb8daad457f24c2632615acebbe556f1"
+    },
+    "kanagawa_liquefaction_distribution_resource": {
+      "url": "https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/1f94e194-1764-46db-baf9-e8b017ae458d",
+      "response_sha256": "e80a05d87a45ebb9b5a72e93958fed0881f0548d540ba96b379ba26b0a9c2e76",
+      "retained_archive_sha256": "91f721e0f37114379d7535f5a9c09eac03ffa9c4d3dc1a2088d6d8ee5f47d023"
+    },
+    "kanagawa_shaking_susceptibility_resource": {
+      "url": "https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/0511f2b8-db28-4eae-a5a9-83ac58d31fbc",
+      "response_sha256": "e2a722ecab192b0e360c39fa6f7d89cebb70106c510933be778e4fe6ff035559",
+      "retained_archive_sha256": "281f43260b2a0d18f8b4afb4fdbfdba79464692ed175d1d0be3c8f88df6dcaa3"
+    },
+    "kanagawa_liquefaction_hazard_resource": {
+      "url": "https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/cd7619e9-b6f8-48ad-a251-f8fa9cc84462",
+      "response_sha256": "5e24aa081789fdd1b10766ebab6ad04f83a705df6fbff81e902d0e21230c63fb",
+      "retained_archive_sha256": "fb18d09991f63eae642483334c2eb1657b139cc746aa4c4af083260a070146de"
+    },
+    "kyoto_city_gis_terms": {
+      "url": "https://www.bousaimap.city.kyoto.lg.jp/help/attention.html",
+      "response_sha256": "22a68dfe83832baa9f4d055d3b2918beccbabf4841259be4056fd92946baa1b4",
+      "public_reuse_condition": "GIS data may be processed, edited, and reproduced free of charge with source attribution.",
+      "attribution": "出典：京都市防災情報マップ（加工して作成）"
+    },
+    "nlni_a40_v2_0_terms": {
+      "url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A40-v2_0.html",
+      "response_sha256": "0a3e5ac59f80648b3b1e1faa67819bc50d319ac080f0b1d622b604b3621568d0",
+      "scope": "Kanagawa 2020 A40 is listed as open data usable commercially and redistributable.",
+      "attribution": "国土数値情報（津波浸水想定データ、2020年度、神奈川県）を加工して作成"
+    }
+  },
+  "raw_files_tracked": false,
+  "signed_urls_recorded": false,
+  "credentials_recorded": false
+}

@@ -216,7 +216,7 @@ viewer/vite.config.js
 
 - `ALLOWED_PATHS_AUDIT=PASS`: 差分は上記21ファイルだけ。
 - `WORKING_TREE_CLEAN=PASS`: detached verification worktree
-  `C:/dev/ablepath-map-ui-completion`を`d910fb1966c40c7c7083e71501daf21beacd3151`で作成し、
+  `<LOCAL_WORKTREE>`を`d910fb1966c40c7c7083e71501daf21beacd3151`で作成し、
   `git status --porcelain=v1`が空であることを確認。共有worktreeのscope外dirtyは変更していない。
 - `SOURCE_CLASS_LICENSE_UNKNOWN_TRUTH=PASS`: OSMは`VGI / REAL geometry / ODbL 1.0`、
   PLATEAUは`OFFICIAL_METADATA_ONLY / PDL1.0`。candidate edgeのaccessibility・operationは全件`UNKNOWN`。

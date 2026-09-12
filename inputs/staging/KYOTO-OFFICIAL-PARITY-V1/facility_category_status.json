@@ -1,30 +1,66 @@
 {
   "categories": {
     "designated_emergency_evacuation_place": {
-      "map_connected": true,
-      "record_count": 24,
-      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+      "historical_counts_by_aoi": {
+        "arashiyama": 4,
+        "kiyomizu_gion": 20
+      },
+      "historical_record_count": 24,
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "map_connected": false,
+      "next_acquisition_method": "Bind provider redistribution terms for this exact resource/version before restoring public rows. Originals remain internal.",
+      "public_record_count": 0,
+      "reason": "PROVIDER_PUBLIC_REDISTRIBUTION_BINDING_NOT_FOUND_PUBLIC_ROWS_EXCLUDED",
+      "record_count": 0,
+      "status": "NOT_CONNECTED_PERMISSION_REQUIRED"
     },
     "designated_shelter": {
-      "map_connected": true,
-      "record_count": 25,
-      "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
+      "historical_counts_by_aoi": {
+        "arashiyama": 5,
+        "kiyomizu_gion": 20
+      },
+      "historical_record_count": 25,
+      "license_status": "LICENSE_REVIEW_REQUIRED",
+      "map_connected": false,
+      "next_acquisition_method": "Bind provider redistribution terms for this exact resource/version before restoring public rows. Originals remain internal.",
+      "public_record_count": 0,
+      "reason": "PROVIDER_PUBLIC_REDISTRIBUTION_BINDING_NOT_FOUND_PUBLIC_ROWS_EXCLUDED",
+      "record_count": 0,
+      "status": "NOT_CONNECTED_PERMISSION_REQUIRED"
     },
     "emergency_open_space": {
+      "historical_counts_by_aoi": {
+        "arashiyama": 0,
+        "kiyomizu_gion": 0
+      },
+      "historical_record_count": 0,
       "map_connected": false,
       "next_acquisition_method": "Acquire the current official emergency-open-space row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "public_record_count": 0,
       "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
       "record_count": 0,
       "status": "METADATA_ONLY_NOT_CONNECTED"
     },
     "public_tourist_toilet": {
+      "historical_counts_by_aoi": {
+        "arashiyama": 10,
+        "kiyomizu_gion": 18
+      },
+      "historical_record_count": 28,
       "map_connected": true,
+      "public_record_count": 28,
       "record_count": 28,
       "status": "CONNECTED_SOURCE_COORDINATES_INTERNAL_UI"
     },
     "temporary_stay_facility": {
+      "historical_counts_by_aoi": {
+        "arashiyama": 0,
+        "kiyomizu_gion": 0
+      },
+      "historical_record_count": 0,
       "map_connected": false,
       "next_acquisition_method": "Acquire the current official temporary-stay facility row list and preserve stable IDs, direct coordinates, version, licence, and row lineage.",
+      "public_record_count": 0,
       "reason": "The official landing page is source-bound, but no reviewed current row-level original with source-provided coordinates is present in the bounded trust scope.",
       "record_count": 0,
       "status": "METADATA_ONLY_NOT_CONNECTED"
@@ -32,5 +68,5 @@
   },
   "schema_version": "1.0.0",
   "silent_geocoding": false,
-  "status": "PARTIAL_SOURCE_COORDINATE_CONNECTION"
+  "status": "PARTIAL_PUBLIC_TOILET_ONLY_SOURCE_COORDINATE_CONNECTION"
 }

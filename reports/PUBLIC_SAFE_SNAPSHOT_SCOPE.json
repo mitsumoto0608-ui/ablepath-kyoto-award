@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-PR14-PR15-PUBLIC-SAFE-SNAPSHOT-INTEGRATION-V1",
+  "authority": "USER_APPROVED_PUBLIC_PROJECTION_2026_09_13",
+  "base_main": "184c06e4bf4abf6fdc294fa8f980b5e29db11557",
+  "source_final_tip": "cc4ea2812435ac5a623da0452b63220e92bcdfac",
+  "snapshot_net_diff_starting_path_count": 98,
+  "source_commits_replayed_or_merged": 0,
+  "provider_permission_granted_by_owner_instruction": false,
+  "reason": "Existing provider scope binding was not found for the named row payloads. Exclude public rows while preserving originals, source identity receipts and historical counts.",
+  "kyoto_facilities": {
+    "historical_original_selection_count": 77,
+    "current_public_count": 28,
+    "excluded_count": 49,
+    "excluded_source_ids": ["kyoto_designated_shelters_r80818", "kyoto_emergency_shelters_r80818"],
+    "provider_permission_status": "LICENSE_REVIEW_REQUIRED",
+    "retained_source_id": "kyoto_public_toilets_00307",
+    "retained_license": "CC BY 4.0",
+    "by_city": {
+      "kyoto_kiyomizu": {"historical_count": 58, "current_public_count": 18, "excluded_count": 40},
+      "kyoto_arashiyama": {"historical_count": 19, "current_public_count": 10, "excluded_count": 9}
+    }
+  },
+  "fujisawa_facilities": {
+    "historical_whole_table_count": 339,
+    "historical_aoi_table_count": 57,
+    "current_public_count": 0,
+    "provider_permission_status": "LICENSE_REVIEW_REQUIRED"
+  },
+  "plateau_individual_payload": {
+    "historical_candidate_count": 347,
+    "historical_unique_building_count": 288,
+    "current_public_candidate_count": 0,
+    "current_public_unique_building_count": 0,
+    "individual_ids_in_field_plan_and_examples": 0,
+    "provider_permission_status": "HOLD",
+    "current_exposure_count": null,
+    "reason": "Individual row payload excluded pending provider scope binding; this does not mean no buildings or zero exposure.",
+    "retained_aggregate_scope": "HISTORICAL_15_EDGE_COUNTS_AND_SOURCE_PROVENANCE_NOT_CURRENT_INDIVIDUAL_BUILDING_EVIDENCE"
+  },
+  "retained_capabilities": ["THREE_CITY_CANDIDATE_GRAPH_AND_PATH", "DEM1A_DEM5A_NATIVE_CELL", "BOUND_KYOTO_FLOOD_AND_LANDSLIDE", "BOUND_FUJISAWA_TSUNAMI_LIQUEFACTION_SHAKING_INTENSITY", "KYOTO_TOILET_SOURCE_ATTRIBUTES", "STATIC_VIEWER_AND_CSV_JSON_PRINT", "ADMIN_CHECKLIST"],
+  "candidate_edge_count": 612,
+  "deep_pilot_edge_count": 15,
+  "m7_evidence_ready_count": 0,
+  "m7_computed_count": 0,
+  "field_measurement_deferred": true,
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "HISTORICAL_PUBLIC_REACHABILITY_STATUS": "UNRESOLVED_PREEXISTING_HISTORY_RETAINED",
+  "historical_report_policy": "Older task reports describe their original snapshots, not current public row counts. This receipt is current public projection authority; no history was rewritten.",
+  "main_merge_authorized": false,
+  "public_release_ready": false,
+  "public_rc_bundle_attachment_authorized": false,
+  "public_deployment_authorized": false,
+  "MODEL_ROUTE_VERIFIED": false
+}
