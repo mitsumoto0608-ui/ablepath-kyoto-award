@@ -9,15 +9,23 @@
   "valid_as_of": null,
   "accessed_at": null,
   "license_status": "LICENSE_REVIEW_REQUIRED",
+  "public_git_current_tip_status": "METADATA_ONLY_ROW_DERIVATIVES_EXCLUDED",
+  "public_payload_files_present": false,
+  "provider_redistribution_permission_bound": false,
+  "historical_introducing_commit": "a2bb042556b052385ba2c1e1176654021e3351e4",
+  "historical_public_git_reachability": true,
+  "history_rewrite_performed": false,
+  "internal_retention_zip_sha256": "4e6e49f671684a621b40d5e2381510ac7c3aca32fcf7d873f32a76909616178e",
   "geometry_status": "ADDRESS_ONLY",
   "table_status": "READY_FOR_TABLE_ONLY",
   "map_ready": false,
   "row_counts": {"all": 339, "ostomate_detail": 119, "enoshima_katase": 57, "enoshima_katase_ostomate_detail": 17},
-  "derived_outputs": {
+  "historical_derived_output_identities": {
     "facility_table_339.csv": {"sha256": "20b29b19f2218367e73fe404a87b4d70f5012b87d31c7007f4a36e7e60434520", "rows": 339},
     "enoshima_katase_facility_table_57.csv": {"sha256": "c46134fabe23a55037e49382b5ff6ef1334ca7596704929101fe93d52ae2ecfd", "rows": 57},
     "FUJISAWA_ACCESSIBILITY_FACILITY_TABLE.json": {"sha256": "701700cd6b72379da6ed2b26a5219de9da199216910ea363002919429951f071", "rows": 339},
     "FUJISAWA_ENOSHIMA_KATASE_FACILITY_TABLE.json": {"sha256": "770cdde2a68e81aed808d4366398f7d8f5c2170e014e9079c55779b1c326b8ed", "rows": 57}
   },
-  "semantic_guard": "ostomate_detail_available is the only positive attribute. Coordinates, wheelchair access, entrance, step-free status, opening, disaster availability, operation and currentness remain unknown."
+  "semantic_guard": "ostomate_detail_available is the only positive attribute. Coordinates, wheelchair access, entrance, step-free status, opening, disaster availability, operation and currentness remain unknown.",
+  "public_exclusion_reason": "Provider redistribution permission and source terms are not bound. Row-bearing derivatives are retained outside the current public Git tip; hashes and counts remain as metadata, while prior public history remains reachable."
 }

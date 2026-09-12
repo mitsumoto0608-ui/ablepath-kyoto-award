@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "source_authority": "viewer/public/data/analysis/* path_matrix and review_checklists",
+  "viewer_computation_added": false,
+  "examples": [
+    {"city_id": "kyoto_kiyomizu", "connected_path_key": "KK-OSM-N1697644482__KK-OSM-N5315789346", "disconnected_path_key": "KK-OSM-N1697644482__KK-OSM-N3752885643"},
+    {"city_id": "kyoto_arashiyama", "connected_path_key": "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-014102818768", "disconnected_path_key": "kyoto-arashiyama:osm-node-000243776546__kyoto-arashiyama:osm-node-001212123705"}
+  ],
+  "formats": ["CSV", "JSON", "PRINT_HTML"],
+  "parity_contract": "Same city path selection filters sort and candidate-edge row set; disconnected rows remain empty with a reasoned-null path summary.",
+  "safe_route_claim": false,
+  "accessibility_claim": false,
+  "admin_validated": false,
+  "m7_ready_count": 0,
+  "m7_computed_count": 0
+}

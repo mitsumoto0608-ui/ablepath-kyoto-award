@@ -12,40 +12,39 @@ def _side():
 
 
 def test_v2_candidates_never_carry_setback_damage_or_debris():
-    """[source_conformance] every candidate keeps setback_m/damage_state/debris_present null and proximity is not setback."""
+    """[source_conformance] Public exclusion preserves 15 pilot scopes but exposes zero of the 347 historical individual rows; this is not evidence of no buildings."""
     side = _side()
     assert side["method_status"] == "CANDIDATE_ENUMERATION_ONLY_SETBACK_NOT_FROZEN"
     assert side["centroid_used"] is False and side["hazard_derived_damage_or_debris"] is False and side["m7_invoked"] is False
     candidates = [c for a in side["areas"] for c in a["left_candidates"] + a["right_candidates"]]
-    assert candidates, "V2 must list at least one candidate"
-    for c in candidates:
-        assert c["setback_m"] is None and c["damage_state"] is None and c["debris_present"] is None
-        assert c["method_status"] == "PROXY_NOT_SETBACK" and c["m7_eligible"] is False
-        assert "nearest_geometry_distance_m" in c and "proximity_min_footprint_vertex_to_edge_m" not in c
-        assert c["stable_building_id"], "stable uro:buildingID required"
-        if c["height_status"] == "INVALID_SENTINEL":
-            assert c["official_height_m"] is None
-        else:
-            assert c["official_height_m"] is not None and c["official_height_m"] > 0 and c["height_uom"] == "m"
+    assert candidates == [] and side["candidate_count"] == 0
+    assert side["historical_candidate_count"] == 347 and side["historical_unique_building_count"] == 288
+    assert side["empty_list_semantics"] == "PUBLIC_PAYLOAD_EXCLUDED_NOT_EVIDENCE_OF_NO_BUILDINGS"
+    assert len(side["areas"]) == 15
     for a in side["areas"]:
         assert a["m7_evidence_ready"] is False
-        assert a["coverage_status"].startswith("PACKAGE_COMPLETE") or a["coverage_status"] == "INCOMPLETE"
+        assert a["coverage_status"] == "PUBLIC_PAYLOAD_EXCLUDED"
+        assert a["coverage_receipt"]["empty_side_meaning"] == side["empty_list_semantics"]
+        assert a["historical_coverage_status"].startswith("PACKAGE_COMPLETE") or a["historical_coverage_status"] == "INCOMPLETE"
         assert "setback_m (method not frozen)" in a["missing_fields"]
 
 
 def test_v2_matrix_and_report_derive_from_side_candidates():
-    """[source_conformance] height matrix rows and report counts equal the side-candidate file (no hardcoded totals)."""
+    """[source_conformance] Historical matrix totals match historical side counts; public counts are separately zero after approved payload exclusion."""
     side = _side()
     rows = list(csv.DictReader((STAGING / "M7_HEIGHT_EVIDENCE_MATRIX.csv").open(encoding="utf-8")))
     by_edge = {a["edge_id"]: a for a in side["areas"]}
     assert {r["edge_id"] for r in rows} == set(by_edge)
     for r in rows:
         a = by_edge[r["edge_id"]]
-        assert int(r["candidate_count"]) == a["left_count"] + a["right_count"] == len(a["left_candidates"]) + len(a["right_candidates"])
+        assert int(r["candidate_count"]) == a["historical_left_count"] + a["historical_right_count"]
+        assert a["left_count"] + a["right_count"] == len(a["left_candidates"]) + len(a["right_candidates"]) == 0
         assert r["usable_as_m7_height_evidence"] == "false"
         assert r["geometry_derived_height_status"] == "DERIVED_CANDIDATE_NOT_FROZEN_NOT_COMPUTED"
     report = json.loads((ROOT / "reports" / "PLATEAU_BUILDING_EVIDENCE_V2.json").read_text(encoding="utf-8"))
-    assert report["candidate_count"] == sum(a["left_count"] + a["right_count"] for a in side["areas"])
+    assert report["candidate_count"] == sum(a["historical_left_count"] + a["historical_right_count"] for a in side["areas"])
+    assert report["count_scope"] == "HISTORICAL_SOURCE_ENUMERATION_NOT_CURRENT_PUBLIC_PAYLOAD"
+    assert report["public_candidate_count"] == 0
     assert report["m7_evidence_ready_count"] == 0 and report["m7_computed_count"] == 0 and report["setback_values_generated"] == 0
     readiness = json.loads((ROOT / "reports" / "M7_ALL_EDGE_EVIDENCE_READINESS.json").read_text(encoding="utf-8"))
     pilot_ids = {e["edge_id"] for e in readiness["edges"] if e["deep_pilot"]}

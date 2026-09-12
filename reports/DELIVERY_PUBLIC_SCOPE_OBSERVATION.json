@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "observed_at_utc": "2026-09-09T19:35:54Z",
+  "method": "authenticated GitHub CLI read-only selected-field queries",
+  "repository_query": {
+    "command_shape": "gh repo view OWNER/REPO --json nameWithOwner,isPrivate,visibility,url",
+    "selected_response": {"isPrivate": false, "nameWithOwner": "mitsumoto0608-ui/ablepath-kyoto-award", "url": "https://github.com/mitsumoto0608-ui/ablepath-kyoto-award", "visibility": "PUBLIC"},
+    "selected_response_sha256": "e0143721e0a4f9ee1550f70f63807b6ab08dd586d798d1269666c7d6af946e65"
+  },
+  "release_query": {
+    "command_shape": "gh release list --repo OWNER/REPO --limit 100 --json tagName,isDraft,isPrerelease,publishedAt",
+    "selected_response": [],
+    "selected_response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "authentication_headers_recorded": false,
+  "credential_material_recorded": false
+}

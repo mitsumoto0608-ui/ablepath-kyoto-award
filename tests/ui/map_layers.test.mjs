@@ -42,10 +42,10 @@ test("[source_conformance] build copies all allowlisted city candidate graphs wi
     assert.equal(kiyomizu.real_2d.feature_count, 19);
     assert.equal(kiyomizu.real_2d.topology_status, "CANDIDATE_REVIEW_REQUIRED");
     assert.equal(kiyomizu.real_2d.route_continuity, "NOT_ESTABLISHED");
-    assert.equal(result.files.length, 8);
+    assert.equal(result.files.length, 11);
     for (const filename of ["a31b_kiyomizu_gion_display.geojson", "a31b_arashiyama_display.geojson", "facility_points_kiyomizu_gion.geojson", "facility_points_arashiyama.geojson"]) {
       assert.deepEqual(
-        readFileSync(join(output, "..", "official", filename)),
+        readFileSync(join(output, "official", filename)),
         readFileSync(new URL(`../../inputs/staging/KYOTO-OFFICIAL-PARITY-V1/${filename}`, import.meta.url)),
         `${filename} must remain an exact-byte-copy delivery`,
       );

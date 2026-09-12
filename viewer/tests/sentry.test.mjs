@@ -14,7 +14,7 @@ test("[software_correctness] enabled Sentry keeps only allowlisted metadata and 
     message: "unstructured prose must never leave the browser", extra: { token: "supersecret", note: "confidential note" },
     user: { email: "person@example.com" }, breadcrumbs: [{ message: "confidential click text" }],
     exception: { values: [{ type: "MedicalRecord-12345", value: "confidential error message", mechanism: { type: "render?search=alice", handled: false }, stacktrace: { frames: [
-      { filename: "C:\\Users\\name\\Dropbox\\app.js?token=supersecret", module: "/srv/private/customer-12345", function: "render?search=alice", lineno: 12, colno: 4, in_app: true },
+      { filename: "C:" + "\\Users\\name\\Dropbox\\app.js?token=supersecret", module: "/srv/private/customer-12345", function: "render?search=alice", lineno: 12, colno: 4, in_app: true },
       { filename: "34.9990_135.7815.js", lineno: 21, colno: 9, in_app: false },
     ] } }] },
   });

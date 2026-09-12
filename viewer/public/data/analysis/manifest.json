@@ -1,10 +1,1 @@
-{
-  "schema_version": "1.0.0",
-  "source_analysis_authority": "src/analysis",
-  "generator": "scripts/build_candidate_analysis.py",
-  "artifacts": {
-    "fujisawa_enoshima.json": "b382ba453cf2166e9242fa32433682c36a2f38b5b87062cdbc7ba4c92fc4ad37",
-    "kyoto_arashiyama.json": "1ba2c82e7ee2acfce94182a8a285cedea41cd73a6630cbcce51050d818abb22b",
-    "kyoto_kiyomizu.json": "9abc8824003b6270cf6eb0faaee21e3976845b2c9d103743691f706abd4ca921"
-  }
-}
+{"artifacts":{"fujisawa_enoshima.json":"2f5ddf66b9bef56fb8982021224283b4bac978347df700b1f16c7474a9b7e858","kyoto_arashiyama.json":"f8db4e9f92df0b0d493831564ee9c2c79e629a738e75142c6368e65ba382d0b4","kyoto_kiyomizu.json":"3aaf4a791362069718c930673e432f67b8eeada7a9e6dad2b25c806f2aa25c51"},"generator":"scripts/build_candidate_analysis.py","schema_version":"1.0.0","source_analysis_authority":"src/analysis"}

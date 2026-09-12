@@ -90,9 +90,9 @@ core の API は不変。`debris_present` は従来どおり厳密な `bool`。`
 ```json
 {
   "schema_version": "2.0.0",
-  "building_id": "26100-bldg-000000",
+  "building_id": "FIXTURE_BUILDING_A",
   "scenario_id": null,
-  "damage_state_evidence_id": "DMG-OBS-26100-bldg-000000-0001",
+  "damage_state_evidence_id": "DMG-OBS-FIXTURE_BUILDING_A-0001",
   "debris_evidence_kind": "OBSERVED",
   "source_id": "OBSERVED-SURVEY-0001",
   "revision_id": "r1",
@@ -124,9 +124,9 @@ core の API は不変。`debris_present` は従来どおり厳密な `bool`。`
 ```json
 {
   "schema_version": "2.0.0",
-  "building_id": "26100-bldg-000001",
+  "building_id": "FIXTURE_BUILDING_B",
   "scenario_id": "KYOTO-SEISMIC-SCENARIO-EXP-001",
-  "damage_state_evidence_id": "DMG-MODEL-26100-bldg-000001-0001",
+  "damage_state_evidence_id": "DMG-MODEL-FIXTURE_BUILDING_B-0001",
   "debris_evidence_kind": "CONDITIONAL_PROBABILITY",
   "source_id": "MOYA-2020-EQ7-CANDIDATE",
   "revision_id": "unverified",

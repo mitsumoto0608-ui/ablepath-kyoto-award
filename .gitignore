@@ -42,6 +42,8 @@ field/videos_original/
 # Temporary outputs
 results/tmp/
 results/debug/
+# Generated acceptance screenshots: scanned/uploaded by CI, never source commits.
+reports/UI_SCREENSHOTS/admin-*.png
 
 # NOTE: results/all_runs.json と results/summary.md は仕様差分の確認用に
 # 当面Git管理する（.gitignoreに入れない）。安定後に外す判断はFable。

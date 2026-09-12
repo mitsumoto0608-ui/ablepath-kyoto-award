@@ -5,7 +5,7 @@
 ## 1. 展開場所
 
 ```
-C:\dev\ablepath-kyoto-award\
+<LOCAL_WORKTREE>
 ```
 
 **Dropboxの中に展開しない**（`.git`の同期競合を避ける）。
@@ -13,7 +13,7 @@ C:\dev\ablepath-kyoto-award\
 ## 2. 動作確認（PowerShell）
 
 ```powershell
-cd C:\dev\ablepath-kyoto-award
+cd <LOCAL_WORKTREE>
 pip install pandas scipy networkx pytest pyyaml
 python -m pytest tests -q        # 55 passed を確認
 python -m src.runner data/       # 120ラン
@@ -25,7 +25,7 @@ git log --oneline -3             # baseline commit と v0.2.0-baseline タグを
 GitHub上で `myablepathway-svg/ablepath-kyoto-award` を **Private** で新規作成（README等は追加しない・空のまま）。その後：
 
 ```powershell
-cd C:\dev\ablepath-kyoto-award
+cd <LOCAL_WORKTREE>
 git config user.name  "mitsumoto"                 # 必要なら自分の名義に
 git config user.email "mitsumoto0608@gmail.com"
 git remote add origin https://github.com/myablepathway-svg/ablepath-kyoto-award.git
@@ -39,7 +39,7 @@ git push origin --tags
 git switch -c task/m7-residual-width-tests
 ```
 
-Codexにはこのリポジトリ（C:\dev\ablepath-kyoto-award）だけを開かせ、AGENTS.mdを読ませてから作業させる。
+Codexにはこのリポジトリ（<LOCAL_WORKTREE>）だけを開かせ、AGENTS.mdを読ませてから作業させる。
 
 ## 5. Dropboxとの分担
 
