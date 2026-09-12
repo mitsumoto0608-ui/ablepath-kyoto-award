@@ -51,7 +51,7 @@ EXPECTED_HAZARD_SOURCES = {
     },
 }
 EXPECTED_HAZARD_SOURCES["fujisawa_enoshima"].update({
-    **{f"kanagawa_r7_intensity_distribution_{index:02d}": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/704a2ee0-0040-4a96-b92a-c8e36b559d3d", "LICENSE_REVIEW_REQUIRED", selection_sha, "03989508e8e715496c700f92e30ac8c3feaaec163d19438aa28b3bcb3738b442", "R7_MARCH_2025_SCENARIO_SET") for index, selection_sha in enumerate((
+    **{f"kanagawa_r7_intensity_distribution_{index:02d}": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/704a2ee0-0040-4a96-b92a-c8e36b559d3d", "CC-BY-4.0", selection_sha, "03989508e8e715496c700f92e30ac8c3feaaec163d19438aa28b3bcb3738b442", "R7_MARCH_2025_SCENARIO_SET") for index, selection_sha in enumerate((
         "1748165a3d296fac37f4c8298a3bc013e28d3869c24d8fc9b6af7d10db660595", "28636eefca222b65c5c29ec6e2f66dc63939864a3a1b185aa46b0c210811ca4d", "621401abd0c56324be78d97b34a63e1833e173cd178c66b101ec7ac65d128b1a", "f13dc5d92d7e7bd743da1c1567bee9f0cd03a12b2e9748f37a8a59586ebb7d3b", "acdef6ce4c816a8332966f9a35b119f4b60c4074af03eb75a0c4e649c8ac41d3", "fda1ba2847dfd9d9bfe1a69f3ea930f312db654d5f0d326f59d6c8a3ca2db195", "eb3ca595ee5976f36b340acdcd07f913134cdb422aeb7acdd58079cb1ef20b36", "c8be7d19522b39d81f058f5a5196f49408b6c60cd4db8afd6933b0729771df66",
     ), 1)},
     **{f"kanagawa_r7_liquefaction_distribution_{index:02d}": ("https://catalog.opendata.pref.kanagawa.jp/dataset/fdc2ffe1fd3cb572d95d0f954f6c72eb/resource/1f94e194-1764-46db-baf9-e8b017ae458d", "CC-BY", selection_sha, "91f721e0f37114379d7535f5a9c09eac03ffa9c4d3dc1a2088d6d8ee5f47d023", "R7_MARCH_2025_SCENARIO_SET") for index, selection_sha in enumerate((
@@ -81,7 +81,7 @@ EXPECTED_FACILITY_SOURCES = {
 EXPECTED_CONTENT_SHA256 = {
     "kyoto_kiyomizu": {"hazard_catalog": "f4ad20c463de90e7e52b81afd55c78a938fc7c4ea592fcdcaf6a1158fa33ccbc", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "d8d74884e7e7194439cabf7da0f9675b9a6c91dec5926160ae838f92e7af0102"},
     "kyoto_arashiyama": {"hazard_catalog": "0319376da1a250956930e1ee6980af4fe43150f25d4dcf50161adb81fbcbcc96", "facility_catalog": "6a09b762af8ecc69a2637a2177755dfce5a01420611b250779f20300b48e610e", "facility_records": "7a7cafb3bb85b38aaf6de39a950d4e26c6ccf08af76627199739e1c65243246d"},
-    "fujisawa_enoshima": {"hazard_catalog": "f84c26d92534ede0bbc5295e4763156fa3dbb10692f603b36620d89921e25fc6", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945", "scenarios": "5efd762875dd827d4a9894abe24af8e1fe54c58c44f0fba9770362d40843c267"},
+    "fujisawa_enoshima": {"hazard_catalog": "a2f04998401aaebae5754b4643711c7cbfb73752fdc865bae824efd08b0f29ca", "facility_catalog": "f5104b2d859dc0a776c2d9f7899e130dced7162a123d5e2561d267ee81743006", "facility_records": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945", "scenarios": "bb0b68cd7850acf2a08b2eb2e058dfe0db6bfee3b22492472d91ef8a43d469ee"},
 }
 
 
@@ -560,9 +560,8 @@ def validate_static_candidate_analysis(repo_root: Path, artifact: dict) -> dict:
         or row.get("status") != "SOURCE_SIDE_EDGE_OVERLAP_CONNECTED"
         or row.get("validation_result") != "SOURCE_SHA_CRS_DEFINITION_AND_AOI_SELECTION_BOUND"
         or row.get("crs") not in {"EPSG:4612", "EPSG:6668"}
-        # CRS closure and license receipt are separate gates: the mesh-code display
-        # layers connect while their license receipt is still under review.
-        or row.get("license_review") != ("LICENSE_REVIEW_REQUIRED" if row.get("crs") == "EPSG:6668" else "CC-BY")
+        # Exact intensity resource binding is separate from municipal facilities.
+        or row.get("license_review") != ("CC-BY-4.0" if row.get("crs") == "EPSG:6668" else "CC-BY")
         or (row.get("crs") == "EPSG:6668" and "CC-BY-4.0" not in str(row.get("license_note", "")))
         # The intensity scenarios display mesh-code geometry, so their CRS closure
         # receipt travels with the row and is never a derived state.

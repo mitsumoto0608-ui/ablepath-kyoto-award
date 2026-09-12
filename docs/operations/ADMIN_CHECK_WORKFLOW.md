@@ -141,5 +141,29 @@
 | 3 | `viewer/public/data/admin/<city_id>/*.rows.json` は spec の ALLOWED_PATHS に無い | 同上（shard の置き場） | 生成物のみ。生成器・画面・テスト以外のコードには触れていない |
 | 4 | shard の分割軸に scenario を使わない | checklist の行に hazard scenario を割り当てる receipt が存在しない | 分割軸は section（`object_type`）＋決定論的 part 番号のみ（§7） |
 | 5 | 生成物の並び順に `localeCompare` を使わない | ICU データ依存で生成 bytes が機械依存になるため、コードポイント比較に統一 | 並び順の実測差分はゼロ |
-| 6 | SHA-256 は LF 正規化後のバイトに対して計算する | 既存の `canonicalTextHash` 流儀に合わせたため | 入力はすべて LF なので生バイトの SHA-256 と一致する |
+| 6 | SHA-256 は LF 正規化後のバイトに対して計算する | 既存の `canonicalTextHash` 流儀に合わせたため | Git blobの入力はLFで生バイトSHAと一致。WindowsのCRLF checkoutは正規化が必要。配信shardは正規化せず生バイト検証 |
 | 7 | `viewer` に Blob / `window.print` が無いという spec の前提が現状と不一致 | 既に `ReviewChecklistPanel` が `downloadText`（Blob）を使っている | 新機構を発明せず既存流儀に揃えた |
+
+### 2026-09-12 Codex takeover 限定補遺
+
+| 既存の逸脱番号 | 今回の扱い |
+| --- | --- |
+| 2・3 | 所有者指定takeover masterにより限定承認。reports全行が正本、manifest/shardは配信表現 |
+| 1・4 | 入力データの制約。行・scenarioを補わず保持 |
+| 5・6・7 | 既存の決定論・LF・export実装契約との整合として保持 |
+
+manifest順のshard連結はreportsの全行・順序・件数と一致する。
+各manifestのSHAをreview済みアプリに固定し、全shardの生バイトSHA・bytes・件数、
+city・item ID・pathの一意性、内部行の除外を表示前に検証する。
+manifest自己申告だけを真正性証明とはしない。アプリ全体の差し替えを防ぐ署名ではない。
+画面では全行をスクロール表示し、印刷時には高さ制限を解除する。
+CSVはfilter中も全行、JSONリンクはmanifestであり全行JSONではない。
+機械E2EはHUMAN_GATE 5の初見利用者確認を代替しない。HUMAN_GATE 1–5は未完了。
+新しい確認票E2Eに限り、大量行の記録処理による遅延を避けるためtraceのDOM/ARIA snapshotを省く。
+実DOMの全行・filter・詳細・実CSV保存・印刷・破損拒否の検査、既存timeout、画面記録は維持する。
+既存の地域・区間export試験の記録方法は変更しない。
+
+T-Bの現行CRS・利用条件は
+`reports/FUJISAWA_INTENSITY_CRS_CLOSURE_RECEIPT.json`を参照。
+独立receiptの対応表はreportsへ置き、既存citypackのartifact集合・manifestは変更しない。
+県の01_震度8scenarioのbindingは藤沢市施設の許諾や過去の公開履歴へ適用しない。

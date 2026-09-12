@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import math
 import re
 from hashlib import sha256
 from pathlib import Path
@@ -82,11 +83,12 @@ INTENSITY_ERRONEOUS_SIDECAR_DECLARED = "GCS_Tokyo"
 # registered in data/constants_registry.yaml and is never used by any evaluation,
 # score, threshold, or state decision.
 INTENSITY_CROSS_CHECK_TOLERANCE_M = 0.05
-# The DBF stores LON/LAT rounded to 6 decimals, so 1e-5 deg (about 1 m) sits above
-# the provider's own rounding while staying far below the 250 m cell; like the
-# 0.05 m tolerance it is verification-only and is not registered or evaluated.
-INTENSITY_CENTRE_TOLERANCE_DEG = 1e-5
-INTENSITY_LICENSE_NOTE = "catalog_declares: CC-BY-4.0 (receipt not retained this run)"
+# T-B METHOD#3, verification only: GRS80 ellipsoidal distance, not a degree box.
+INTENSITY_CENTRE_TOLERANCE_M = 0.06
+_INTENSITY_GEOD = CRS.from_epsg(6668).get_geod()
+# Canonical JSON section bytes independently matched at PR14 f117f8d and f054ed4.
+FROZEN_DEM_SECTION_SHA256 = "f25b6d51e1ddbe11e8185dd73ebb016e14c9101592d6aecd0e3e0e806ef71a05"
+INTENSITY_LICENSE_NOTE = "CC-BY-4.0; retrospective resource metadata binding: inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json; not a backdated acquisition receipt"
 HAZARD_MEMBER_CONTRACTS = {
     "01_.zip": [
         ("IntS-01", "三浦半島断層群の地震", "e46387fe06fc0d6cf7fe69eaa83d0700e7e5a729d3f3bda41812214a3da0251d", "b8063014b1da3adc1b9d6232f2467c9f5b1d56b9e3806127aa2ec240a3d380cb"),
@@ -301,15 +303,23 @@ def _jis_quarter_mesh_cell(mesh_code: str) -> tuple[float, float, float, float]:
     return longitude, latitude, delta_longitude, delta_latitude
 
 
+def _intensity_centre_error_m(mesh_code: str, longitude: float, latitude: float) -> float:
+    west, south, dx, dy = _jis_quarter_mesh_cell(mesh_code)
+    if any(isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) for value in (longitude, latitude)):
+        raise ValueError(f"invalid JIS X 0410 cell centre: {mesh_code}")
+    distance = _INTENSITY_GEOD.inv(west + dx / 2, south + dy / 2, longitude, latitude)[2]
+    if not math.isfinite(distance) or distance > INTENSITY_CENTRE_TOLERANCE_M:
+        raise ValueError(f"intensity record exceeds the JIS X 0410 cell centre 0.06 m contract: {mesh_code}")
+    return distance
+
+
 def _intensity_cell(record: dict) -> tuple[list[tuple[float, float]], str]:
     """Reconstruct the cell ring from KEY_CODE and fail closed if LON/LAT disagree."""
     mesh_code = f"{int(record['KEY_CODE']):d}"
     if mesh_code != f"{int(record['ﾒｯｼｭｺｰﾄﾞ']):d}":
         raise ValueError(f"intensity mesh-code fields disagree: {mesh_code}")
     longitude, latitude, delta_longitude, delta_latitude = _jis_quarter_mesh_cell(mesh_code)
-    centre = (longitude + delta_longitude / 2, latitude + delta_latitude / 2)
-    if abs(centre[0] - record["LON"]) > INTENSITY_CENTRE_TOLERANCE_DEG or abs(centre[1] - record["LAT"]) > INTENSITY_CENTRE_TOLERANCE_DEG:
-        raise ValueError(f"intensity record LON/LAT is not the JIS X 0410 cell centre: {mesh_code}")
+    _intensity_centre_error_m(mesh_code, record["LON"], record["LAT"])
     ring = [
         (longitude, latitude),
         (longitude + delta_longitude, latitude),
@@ -490,6 +500,15 @@ def _validate_definition_workbook(payload: bytes) -> dict[str, list[str]]:
 
 
 def _build_hazards(repo: Path, raw_root: Path) -> dict:
+    license_path = repo / "inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json"
+    license_bytes = license_path.read_bytes().replace(b"\r\n", b"\n")
+    license_binding = json.loads(license_bytes)
+    if (license_binding.get("resource_id") != HAZARD_SOURCES["01_.zip"]["resource_id"]
+        or license_binding.get("retained_raw", {}).get("sha256") != HAZARD_SOURCES["01_.zip"]["sha256"]
+        or license_binding.get("status") != "CC-BY-4.0"
+        or license_binding.get("scope") != "KANAGAWA_01_INTENSITY_EIGHT_SCENARIOS_ONLY"
+        or license_binding.get("license_url") != "https://creativecommons.org/licenses/by/4.0/deed.ja"):
+        raise ValueError("intensity license binding identity/scope mismatch")
     coverage = json.loads((repo / "inputs/staging/PHASE4-MULTICITY-DATA-ACQUISITION/city_aoi/aoi_fujisawa_enoshima_v1.geojson").read_text(encoding="utf-8"))["features"][0]
     definition_name, definition_sha, definition_resource = DEFINITION
     definition_bytes = _verified_bytes(raw_root / definition_name, definition_sha)
@@ -531,11 +550,13 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
                         f"EPSG:6677 cross-check max vertex error <= {INTENSITY_CROSS_CHECK_TOLERANCE_M} m",
                     ],
                     "tolerance_m": INTENSITY_CROSS_CHECK_TOLERANCE_M,
-                    "centre_tolerance_deg": INTENSITY_CENTRE_TOLERANCE_DEG,
+                    "centre_tolerance_m": INTENSITY_CENTRE_TOLERANCE_M,
+                    "max_centre_error_m": max(_intensity_centre_error_m(f["properties"]["mesh_code"], f["properties"]["longitude_raw"], f["properties"]["latitude_raw"]) for f in all_features),
                     "tolerance_scope": "VERIFICATION_ONLY_NOT_REGISTRY_NOT_EVALUATION",
-                    "tolerance_rationale": "0.05 m bounds the EPSG:6677 vertex cross-check; 1e-5 deg (~1 m) bounds the LON/LAT-to-mesh-centre check above the provider's 6-decimal rounding. Both are verification-only, not registry constants and not used by any evaluation.",
-                    "license_review": "LICENSE_REVIEW_REQUIRED",
+                    "tolerance_rationale": "T-B METHOD#3: GRS80 centre distance <= 0.06 m for every source record; METHOD#7: EPSG:6677 vertex cross-check <= 0.05 m. Verification only, not measurement accuracy or M7 evaluation.",
+                    "license_review": "CC-BY-4.0",
                     "license_note": INTENSITY_LICENSE_NOTE,
+                    "license_binding_sha256": _digest(license_bytes),
                     "max_vertex_error_m": max_vertex_error_m,
                     "max_sibling_vertex_error_m": max_sibling_error_m,
                     "sibling_source_sha256": INTENSITY_SIBLING["sha256"],
@@ -581,12 +602,11 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
                 "source_sha256": source["sha256"],
                 "source_url": f"{KANAGAWA_DATASET}/resource/{source['resource_id']}",
                 "resource_response_sha256": source["resource_response_sha256"],
-                # CRS closure and license receipt are separate gates: the intensity
-                # resource response was not retained in this run, so its license stays
-                # under review even though the layer connects as exposure-only evidence.
-                "license_status": "LICENSE_REVIEW_REQUIRED" if crs_closure else "CC-BY",
+                # Current metadata binding supersedes the historical pending receipt,
+                # only for this resource, never Fujisawa municipal facility records.
+                "license_status": "CC-BY-4.0" if crs_closure else "CC-BY",
                 **({"license_note": INTENSITY_LICENSE_NOTE} if crs_closure else {}),
-                "license_url": KANAGAWA_DATASET,
+                "license_url": license_binding["license_url"] if crs_closure else KANAGAWA_DATASET,
                 "attribution": "神奈川県『地震被害想定調査（令和7年3月）』を加工して作成",
                 "definition_resource_id": definition_resource,
                 "definition_resource_response_sha256": KANAGAWA_DEFINITION_RESPONSE_SHA256,
@@ -604,7 +624,7 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
             layers.append(layer)
             to_wgs84 = Transformer.from_crs(source_crs, "EPSG:4326", always_xy=True, allow_ballpark=False).transform
             for feature in selected:
-                display_features.append({"type": "Feature", "geometry": mapping(transform(to_wgs84, shape(feature["geometry"]))), "properties": {**feature["properties"], "source_id": layer_source_id, "scenario_id": scenario_id}})
+                display_features.append({"type": "Feature", "geometry": mapping(transform(to_wgs84, shape(feature["geometry"]))), "properties": {**feature["properties"], "source_id": layer_source_id, "scenario_id": scenario_id, **({"_ablepath_display_only": True, "_ablepath_exposure_only": True} if crs_closure else {})}})
     return {
         "schema_version": "1.0.0", "dataset_url": KANAGAWA_DATASET,
         "dataset_response_sha256": KANAGAWA_DATASET_RESPONSE_SHA256,
@@ -620,7 +640,8 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
                 "decision": "EPSG:6677_JGD2011_ZONE_IX_PROVIDER_DECLARED",
                 "display_geometry_source": "JIS_X_0410_MESH_CODE_EPSG_6668",
                 "tolerance_m": INTENSITY_CROSS_CHECK_TOLERANCE_M,
-                "centre_tolerance_deg": INTENSITY_CENTRE_TOLERANCE_DEG,
+                "centre_tolerance_m": INTENSITY_CENTRE_TOLERANCE_M,
+                "max_centre_error_m": max(layer["crs_closure"]["max_centre_error_m"] for layer in layers if "crs_closure" in layer),
                 "tolerance_scope": "VERIFICATION_ONLY_NOT_REGISTRY_NOT_EVALUATION",
                 "max_vertex_error_m": intensity_summary["max_vertex_error_m"],
                 "max_sibling_vertex_error_m": intensity_summary["max_sibling_vertex_error_m"],
@@ -629,7 +650,8 @@ def _build_hazards(repo: Path, raw_root: Path) -> dict:
                 "erroneous_sidecar_status": "ERRONEOUS_SIDECAR_RECORDED_NOT_USED",
             },
             "exposure_only": True, "scenario_averaged": False,
-            "license_review": "LICENSE_REVIEW_REQUIRED", "license_note": INTENSITY_LICENSE_NOTE,
+            "license_review": "CC-BY-4.0", "license_note": INTENSITY_LICENSE_NOTE,
+            "license_binding_sha256": _digest(license_bytes),
             "reason": "The provider's own sibling-layer PROJCS declaration and the JIS X 0410 mesh-code centres close the CRS question; display geometry is rebuilt from KEY_CODE and the projected SHP is used only as a cross-check. Exposure display only.",
         },
         "layers": layers, "display_features": display_features,
@@ -661,10 +683,15 @@ def _reused_dem_section(source: Path) -> tuple[dict, dict]:
         raise ValueError("reuse source `dem` section does not cover exactly the bound cities")
     if any(dem[key] is not True for key in ("no_interpolation", "no_smoothing", "no_step_inference", "no_cross_slope_inference")):
         raise ValueError("reuse source `dem` section does not retain the no-inference contract")
+    section_sha = _digest(json.dumps(dem, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+    if section_sha != FROZEN_DEM_SECTION_SHA256:
+        raise ValueError("reuse source differs from the frozen DEM section")
     return dem, {
         "mode": "REUSED_VERBATIM_FROM_COMMITTED_EVIDENCE",
         "source_sha256": _digest(source_bytes),
-        "reason": "DEM re-acquisition explicitly not repeated (PR14 freeze receipt); DEM raw package absent in this run",
+        "section_sha256": section_sha,
+        "section_hash_format": "UTF8_JSON_SORT_KEYS_COMPACT",
+        "reason": "DEM re-acquisition explicitly not repeated (PR14 freeze receipt); frozen DEM section verified without re-reading the DEM raw package",
     }
 
 

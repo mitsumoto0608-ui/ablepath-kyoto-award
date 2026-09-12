@@ -50,7 +50,7 @@ function createDownloadObserver(page, cityId, caseId, projectName) {
       const waiting = page.waitForEvent("download", { timeout: EXPORT_OPERATION_TIMEOUT_MS });
       log("waiter_registered");
       log("click_started");
-      await page.getByRole("button", { name: EXPORT_BUTTONS[format] }).click();
+      await page.getByRole("button", { name: EXPORT_BUTTONS[format], exact: true }).click();
       log("click_completed");
       const download = await waiting;
       log("download_started", { suggested_filename: download.suggestedFilename() });

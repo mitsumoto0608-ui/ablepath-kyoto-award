@@ -345,16 +345,20 @@ test("[source_conformance] the screen reads the generated artifact and reuses th
   assert.ok(panel.includes("./data/admin/${checklist.city_id}.checklist.json"), "JSON is the generated static file, not a new download mechanism");
   assert.ok(panel.includes("`./data/admin/${state.city.city_id}.checklist.json`") === false, "the panel does not fetch on its own");
   assert.ok(app.includes("loadAdminChecklist(fetch, `./data/admin/${state.city.city_id}.checklist.json`, state.city.city_id)"), "App fetches the per-city artifact with the city binding");
-  assert.ok(app.includes("<AdminChecklistPanel checklist={adminChecklist} notice={adminNotice} />"), "App renders the panel once");
+  assert.ok(app.includes("<AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} />"), "App resets filters exactly on city changes, not on placeholder hydration");
   for (const option of ["OBJECT_TYPES", "STATUSES", "METHODS"]) assert.ok(panel.includes(option), `the panel offers the ${option} filter`);
   assert.ok(panel.includes("絞り込み後 / 全体"), "counts are always shown as filtered / total");
   assert.ok(panel.includes("internal_use_only === true"), "the loader fails closed on internal rows");
   // Sharded payload: the loader must verify every shard before any row is rendered.
-  assert.ok(panel.includes("await sha256Text(shardText) !== shard.sha256"), "the loader verifies each shard SHA-256");
+  // Raw delivery bytes are authenticated before decoding; the reviewed manifest
+  // anchor prevents simultaneous manifest + shard substitution (E2E mutation).
+  assert.ok(panel.includes("await sha256Bytes(manifestBytes) !== ADMIN_MANIFEST_SHA256[expectedCityId]"));
+  assert.ok(panel.includes("await sha256Bytes(shardBytes) !== shard.sha256"), "the loader verifies each raw shard SHA-256");
+  assert.ok(panel.includes("shardBytes.byteLength !== shard.bytes"));
   assert.ok(panel.includes("rows.length !== shard.row_count"), "the loader verifies each shard row_count");
   assert.ok(panel.includes("items.length !== manifest.counts?.items"), "the loader verifies the row total against the manifest");
-  assert.ok(panel.includes("shard path is not confined"), "shard paths cannot escape the admin directory");
-  assert.ok(panel.includes("items.push(...rows)"), "rows are concatenated in manifest order");
+  assert.ok(panel.includes("shard path is not unique and city-confined"), "shard paths cannot escape the bound city or repeat");
+  assert.ok(panel.includes("items.push(row)"), "validated rows are concatenated in manifest order");
   // Row detail must show every provenance field, and status words must be printed verbatim.
   for (const field of ["source_id", "source_revision", "source_sha256", "verification_target.dataset_ids", "priority_rule", "exposure_flags"]) {
     assert.ok(table.includes(field), `the row detail shows ${field}`);

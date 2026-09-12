@@ -77,7 +77,12 @@ test("[source_conformance] official analysis separates display connections from 
     assert.equal(fujisawa.official_evidence.hazard.scenarios.length, publicScenarioIds.size);
     assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => row.connected).length, 18);
     assert.equal(fujisawa.official_evidence.hazard.scenarios.filter((row) => !row.connected).length, 0);
-    assert.ok(earthquakeScenarios.every((row) => row.license_review === "LICENSE_REVIEW_REQUIRED" && row.license_note.includes("CC-BY-4.0")));
+    // Current 01_ resource-specific receipt supersedes the historical pending
+    // label; it never changes municipal facility or public-history authority.
+    const licenseBinding = readJson(new URL("inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json", REPO_ROOT));
+    assert.equal(licenseBinding.status, "CC-BY-4.0");
+    assert.equal(licenseBinding.fujisawa_city_facility_permission_granted, false);
+    assert.ok(earthquakeScenarios.every((row) => row.license_review === licenseBinding.status && row.license_note.includes("license_binding.json")));
     assert.equal(fujisawa.official_evidence.hazard.connected_scenarios.length, publicScenarioIds.size + 1);
     assert.equal(fujisawa.official_evidence.facility.records.length, 0);
     assert.ok(fujisawa.official_evidence.facility.records.every((record) => record.geometry_status === "ADDRESS_ONLY" && record.latitude === null && record.longitude === null));

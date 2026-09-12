@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ADMIN_CHECKLIST_GUARD_TEXTS, adminChecklistPrintHeaderLines, sortChecklistItems, toChecklistCsv } from "./adminChecklistCsv.mjs";
 import { AdminChecklistDetail, AdminChecklistTable } from "./AdminChecklistTable.jsx";
 
@@ -10,9 +10,16 @@ const STATUSES = ["CONFIRMED", "UNKNOWN", "NOT_CONNECTED", "PERMISSION_REQUIRED"
 const METHODS = ["FIELD_MEASUREMENT", "OFFICIAL_QUERY", "DOCUMENT_REVIEW", "NOT_APPLICABLE"];
 
 const SHARD_BYTE_CAP = 2 * 1024 * 1024;
+// Reviewed Git-blob manifest bytes at f054ed4. Like the analysis loader, this
+// anchor belongs to the reviewed application; it is not a signature of the app.
+export const ADMIN_MANIFEST_SHA256 = {
+  kyoto_kiyomizu: "64017e63cd83940977a7dca8e5fb3656c844c5875e8818c10122d5c3962b76d9",
+  kyoto_arashiyama: "e92b617eb85a25370c35724dbfac8ce1df1e330409d932f9ac8814ac4da48266",
+  fujisawa_enoshima: "6c8fdedfe04e9a2c4a51d51da36f98d73693f7c19533c24e6483d4ad30270880",
+};
 
-async function sha256Text(text) {
-  const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+async function sha256Bytes(bytes) {
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
   return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
 }
 
@@ -29,23 +36,31 @@ export async function loadAdminChecklist(fetchImpl, path, expectedCityId, timeou
   try {
     const response = await fetchImpl(path, { signal: controller.signal });
     if (!response.ok) throw new Error(`admin checklist HTTP ${response.status}`);
-    const manifestText = await response.text();
-    if (new TextEncoder().encode(manifestText).byteLength > SHARD_BYTE_CAP) throw new Error("admin checklist manifest exceeds the portability cap");
-    const manifest = JSON.parse(manifestText);
+    const manifestBytes = await response.arrayBuffer();
+    if (manifestBytes.byteLength > SHARD_BYTE_CAP) throw new Error("admin checklist manifest exceeds the portability cap");
+    if (await sha256Bytes(manifestBytes) !== ADMIN_MANIFEST_SHA256[expectedCityId]) throw new Error("admin checklist manifest differs from the reviewed application binding");
+    const manifest = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(manifestBytes));
     if (manifest?.city_id !== expectedCityId) throw new Error("admin checklist city binding mismatch");
     if (!Array.isArray(manifest.shards)) throw new Error("admin checklist manifest carries no shard list");
     const base = path.slice(0, path.lastIndexOf("/data/admin/"));
     const items = [];
+    const paths = new Set();
+    const itemIds = new Set();
     for (const shard of manifest.shards) {
-      if (typeof shard.path !== "string" || !/^\.\/data\/admin\/[A-Za-z0-9_]+\/[A-Za-z0-9_.]+\.rows\.json$/.test(shard.path)) throw new Error("admin checklist shard path is not confined");
+      if (typeof shard.path !== "string" || !/^\.\/data\/admin\/[A-Za-z0-9_]+\/[A-Za-z0-9_]+\.part[0-9]+\.rows\.json$/.test(shard.path) || !shard.path.startsWith(`./data/admin/${expectedCityId}/`) || paths.has(shard.path)) throw new Error("admin checklist shard path is not unique and city-confined");
+      paths.add(shard.path);
       const shardResponse = await fetchImpl(`${base}${shard.path.slice(1)}`, { signal: controller.signal });
       if (!shardResponse.ok) throw new Error(`admin checklist shard HTTP ${shardResponse.status}`);
-      const shardText = await shardResponse.text();
-      if (new TextEncoder().encode(shardText).byteLength > SHARD_BYTE_CAP) throw new Error("admin checklist shard exceeds the portability cap");
-      if (await sha256Text(shardText) !== shard.sha256) throw new Error(`admin checklist shard bytes do not match the manifest: ${shard.path}`);
-      const rows = JSON.parse(shardText);
+      const shardBytes = await shardResponse.arrayBuffer();
+      if (shardBytes.byteLength > SHARD_BYTE_CAP || shardBytes.byteLength !== shard.bytes) throw new Error("admin checklist shard byte count does not match the manifest/cap");
+      if (await sha256Bytes(shardBytes) !== shard.sha256) throw new Error(`admin checklist shard bytes do not match the manifest: ${shard.path}`);
+      const rows = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(shardBytes));
       if (!Array.isArray(rows) || rows.length !== shard.row_count) throw new Error(`admin checklist shard row count does not match the manifest: ${shard.path}`);
-      items.push(...rows);
+      for (const row of rows) {
+        if (row?.city_id !== expectedCityId || row.item_id !== `${row.city_id}:${row.object_type}:${row.object_id}:${row.attribute}` || itemIds.has(row.item_id) || row.internal_use_only !== false) throw new Error("admin checklist row identity/city/public boundary mismatch");
+        itemIds.add(row.item_id);
+        items.push(row);
+      }
     }
     if (items.length !== manifest.counts?.items) throw new Error("admin checklist row total does not match the manifest count");
     if (items.some((item) => item.internal_use_only === true)) throw new Error("admin checklist contains internal_use_only rows");
@@ -78,7 +93,8 @@ export function AdminChecklistPanel({ checklist, notice }) {
   const [statuses, setStatuses] = useState([]);
   const [methods, setMethods] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
-  useEffect(() => { setObjectTypes([]); setStatuses([]); setMethods([]); setSelectedItemId(null); }, [checklist?.city_id]);
+  // App keys this panel by the selected city. Do not schedule a second complete
+  // table render merely because the same city's null placeholder became loaded.
 
   const visible = useMemo(() => {
     if (!checklist) return [];
@@ -92,7 +108,7 @@ export function AdminChecklistPanel({ checklist, notice }) {
     return (
       <section className="admin-checklist" aria-labelledby="admin-checklist-title">
         <div className="section-heading"><p className="eyebrow">ADMIN CHECK WORKFLOW</p><h2 id="admin-checklist-title">行政確認ワークフロー</h2></div>
-        <p>{notice ?? "確認票を読み込めませんでした。"}</p>
+        <p>{notice ?? "確認票を読み込み中です。"}</p>
       </section>
     );
   }

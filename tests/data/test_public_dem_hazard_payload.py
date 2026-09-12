@@ -11,7 +11,7 @@ import pytest
 
 from scripts.build_public_official_evidence import (
     HAZARD_MEMBER_CONTRACTS,
-    INTENSITY_CENTRE_TOLERANCE_DEG,
+    INTENSITY_CENTRE_TOLERANCE_M,
     INTENSITY_CROSS_CHECK_TOLERANCE_M,
     _COMMON_HAZARD_SHP_SHA256,
     _COMMON_HAZARD_TXT_SHA256,
@@ -223,8 +223,8 @@ def test_intensity_features_carry_mesh_centre_attributes_and_no_derived_state() 
             props = feature["properties"]
             assert not forbidden & set(props)
             longitude, latitude, delta_longitude, delta_latitude = _jis_quarter_mesh_cell(props["mesh_code"])
-            assert abs(longitude + delta_longitude / 2 - props["longitude_raw"]) <= INTENSITY_CENTRE_TOLERANCE_DEG
-            assert abs(latitude + delta_latitude / 2 - props["latitude_raw"]) <= INTENSITY_CENTRE_TOLERANCE_DEG
+            from pyproj import Geod
+            assert Geod(ellps="GRS80").inv(longitude + delta_longitude / 2, latitude + delta_latitude / 2, props["longitude_raw"], props["latitude_raw"])[2] <= INTENSITY_CENTRE_TOLERANCE_M
             ring = feature["geometry"]["coordinates"][0]
             assert ring[0] == ring[-1] == [longitude, latitude] and len(ring) == 5
             feature_count += 1
@@ -262,9 +262,63 @@ def test_reused_dem_section_rejects_a_tampered_or_foreign_source(tmp_path: Path)
         (lambda dem: {key: value for key, value in dem.items() if key != "no_step_inference"}, "lacks required keys"),
         (lambda dem: {**dem, "cities": {"kyoto_kiyomizu": dem["cities"]["kyoto_kiyomizu"]}}, "exactly the bound cities"),
         (lambda dem: {**dem, "no_interpolation": False}, "no-inference contract"),
+        (lambda dem: {**dem, "cities": {**dem["cities"], "fujisawa_enoshima": {"injected_not_frozen": 123}}}, "frozen DEM section"),
     ):
         tampered = tmp_path / "tampered.json"
         payload = mutate(deepcopy(accepted))
         tampered.write_text(json.dumps({"dem": payload} if payload else payload, ensure_ascii=False), encoding="utf-8")
         with pytest.raises(ValueError, match=message):
             _reused_dem_section(tampered)
+
+
+def test_intensity_centre_uses_the_authorized_metre_contract() -> None:
+    """[source_conformance] T-B METHOD#3 allows 0.06 m, not a per-axis 1e-5 degree box.
+
+    The provider's rounded centre passes; shifting its longitude by 5e-6 degree
+    is independently over 0.06 m (GRS80) and must fail. This restores the supplied
+    verification contract, not a production threshold or a new scientific value.
+    """
+    from pyproj import Geod
+    from scripts.build_public_official_evidence import _intensity_cell
+
+    feature = next(layer for layer in _public_evidence()["fujisawa_hazards"]["layers"] if layer["layer_kind"] == "震度分布")["features"][0]
+    props = feature["properties"]
+    record = {"KEY_CODE": props["mesh_code"], "ﾒｯｼｭｺｰﾄﾞ": props["mesh_code"], "LON": props["longitude_raw"], "LAT": props["latitude_raw"]}
+    _intensity_cell(record)
+    west, south, dx, dy = _jis_quarter_mesh_cell(props["mesh_code"])
+    shifted = {**record, "LON": record["LON"] + 5e-6}
+    assert Geod(ellps="GRS80").inv(west + dx / 2, south + dy / 2, shifted["LON"], shifted["LAT"])[2] > 0.06
+    for invalid in (shifted, {**record, "LON": float("nan")}, {**record, "LAT": float("inf")}):
+        with pytest.raises(ValueError, match="cell centre"):
+            _intensity_cell(invalid)
+
+
+def test_intensity_current_binding_is_resolvable_and_does_not_authorize_facilities() -> None:
+    """[source_conformance] Retrospective 01_ metadata and CRS authority remain scope bound.
+
+    Additional checks cover provenance, not a license assumption from a generic
+    owner approval. Per-feature display flags are required by original T-B §5.
+    """
+    from hashlib import sha256
+
+    mapping = json.loads((ROOT / "reports/FUJISAWA_INTENSITY_CRS_CLOSURE_RECEIPT.json").read_text(encoding="utf-8"))
+    source = (ROOT / mapping["source_harness_receipt"]).read_bytes().replace(b"\r\n", b"\n")
+    assert sha256(source).hexdigest() == mapping["source_harness_receipt_sha256"]
+    assert {row["id"] for row in json.loads(source)["findings"]} == {"K1", "K2", "K3", "K4"}
+    assert mapping["direct_provider_correction_of_01_confirmed"] is False
+    license_bytes = (ROOT / "inputs/staging/FUJISAWA-INTENSITY-CRS-V1/license_binding.json").read_bytes().replace(b"\r\n", b"\n")
+    binding = json.loads(license_bytes)
+    assert binding["resource_id"] == "704a2ee0-0040-4a96-b92a-c8e36b559d3d"
+    assert binding["retained_raw"]["sha256"] == "03989508e8e715496c700f92e30ac8c3feaaec163d19438aa28b3bcb3738b442"
+    assert binding["binding_mode"] == "RETROSPECTIVE_METADATA_MATCH_TO_RETAINED_RAW"
+    assert binding["provider_published_sha256"] is binding["original_downloaded_at"] is None
+    assert binding["fujisawa_city_facility_permission_granted"] is binding["public_history_resolved"] is binding["public_release_ready"] is False
+    hazards = _public_evidence()["fujisawa_hazards"]
+    summary = hazards["intensity_distribution"]
+    assert summary["license_binding_sha256"] == sha256(license_bytes).hexdigest()
+    assert summary["license_review"] == binding["status"] == "CC-BY-4.0"
+    assert 0 < summary["crs_closure"]["max_centre_error_m"] <= 0.06
+    delivered = json.loads((ROOT / "viewer/public/data/official/fujisawa_enoshima.delivery_hazards.geojson").read_text(encoding="utf-8"))
+    selected = [feature for feature in delivered["features"] if "intensity_distribution" in feature["properties"].get("source_id", "")]
+    assert len(selected) == summary["selected_feature_count"]
+    assert all(feature["properties"]["_ablepath_display_only"] is feature["properties"]["_ablepath_exposure_only"] is True for feature in selected)
