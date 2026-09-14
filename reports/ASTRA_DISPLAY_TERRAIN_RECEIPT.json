@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "task": "ASTRA_UI_3D_IMPROVEMENT",
+  "checked_date_jst": "2026-09-15",
+  "scope": "DISPLAY_ONLY_NOT_ANALYSIS_OR_ROAD_SURVEY",
+  "terrain": {
+    "documentation": "https://docs.plateauview.mlit.go.jp/datasets/terrain/",
+    "url": "https://tile.plateauview.mlit.go.jp/terrain",
+    "metadata_sha256": "06c87b519cf3b4050eaf7d0fd23c637cb34f4ee96ffe137a6e1e9bcfb68c5398",
+    "metadata_bytes": 511,
+    "http_status": 200,
+    "access_control_allow_origin": "*",
+    "format": "quantized-mesh-1.0",
+    "metadata_version": "1.11265.0",
+    "projection": "EPSG:4326",
+    "scheme": "tms",
+    "attribution": "PLATEAU | Mapterhorn | 国土地理院",
+    "height_reference": "ELLIPSOIDAL_FIXED_GENERATION_GEOID_NOT_NATIVE_DEM",
+    "geoid_model_revision": null,
+    "generation_date": null,
+    "unresolved_reason": "Official service documentation does not identify the exact geoid revision, generation date or per-location native DEM source resolution.",
+    "analysis_input": false,
+    "road_surface_measurement": false,
+    "streamed_content_frozen": false,
+    "personal_ion_token_required": false
+  },
+  "bounded_content_checks": [
+    { "city_id": "kyoto_kiyomizu", "relative_tile": "14/28742/11377.terrain", "bytes": 4523, "sha256": "0cf7e3325852440ba35a8068a74d1afdc167f028cb39b9f63d8d172d1ea88158", "http": 200, "cors": "*", "vertices": 224 },
+    { "city_id": "kyoto_arashiyama", "relative_tile": "14/28733/11378.terrain", "bytes": 16568, "sha256": "16688659d5c9078a3d00e3428eebb710d0de64ab287c10d0de25e817e2d4a0b3", "http": 200, "cors": "*", "vertices": 833 },
+    { "city_id": "fujisawa_enoshima", "relative_tile": "14/29080/11405.terrain", "bytes": 1772, "sha256": "03d6033ef3b91c53291dd241b5079e34b083e9ccf2012063d9f578d43797be3a", "http": 200, "cors": "*", "vertices": 82 }
+  ],
+  "content_check_limit": "Sample tiles are not proof of whole AOI/all zoom coverage or actual browser drawing. Live screenshots and session operations are separate internal delivery evidence.",
+  "backgrounds": [
+    { "city_scope": ["kyoto_kiyomizu", "kyoto_arashiyama"], "url_template": "https://tile.plateauview.mlit.go.jp/tiles/ortho-2022/{z}/{x}/{y}.png", "documentation": "https://docs.plateauview.mlit.go.jp/datasets/ortho/", "attribution": "PLATEAU／京都市", "year_meaning": "2022_PROVISION_YEAR_NOT_ASSERTED_CAPTURE_YEAR", "sample_http_cors": "200 / *" },
+    { "city_scope": ["fujisawa_enoshima"], "url_template": "https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg", "documentation": "https://maps.gsi.go.jp/development/ichiran.html", "attribution": "地理院タイル（全国最新写真）／国土地理院", "year_meaning": "CAPTURE_DATE_VARIES_BY_LOCATION", "sample_http_cors": "200 / *" }
+  ],
+  "building_receipt_unchanged": "reports/ASTRA_PLATEAU_CONNECTION_RECEIPT.json",
+  "lod1_added": false,
+  "lod1_reason": "Inspected roots did not establish gap-filling coverage beyond the current LOD2 hierarchy. No duplicate building layer or invented geometry added.",
+  "product_visual_acceptance": "PENDING_USER_REVIEW",
+  "m7_evidence_ready_count": 0,
+  "m7_computed_count": 0,
+  "field_measurement": "DEFERRED",
+  "historical_public_reachability": "UNRESOLVED_PREEXISTING_HISTORY_RETAINED"
+}

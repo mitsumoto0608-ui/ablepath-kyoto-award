@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertSupportedMapCatalog, computeGeoJsonBounds } from "../src/mapDomain.mjs";
+import { plateauConfigFromReceipt } from "../src/plateauConnection.mjs";
 import { validateDeliveryAnalysis } from "../src/analysisDomain.mjs";
 import { ADMIN_CHECKLIST_GUARD_TEXTS, ADMIN_CHECKLIST_SCHEMA, EXPOSURE_NOTE, compareCodePoints, sortChecklistItems, toChecklistCsv } from "../src/adminChecklistCsv.mjs";
 
@@ -561,7 +562,10 @@ export function buildMapArtifacts({ repoRoot, outputRoot, analysisRoot, reportsR
     writeFileSync(join(officialDirectory, filename), canonicalTextBytes(readFileSync(join(sourceOfficialDirectory, filename))));
   }
   assertDeliveredOfficialArtifacts(CITY_INPUTS.map((input) => json(join(analysisDirectory, `${input.id}.json`))), officialDirectory);
-  const catalog = { viewer_map_schema_version: "2.0.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => city) };
+  const plateauReceiptPath = join(root, "reports", "ASTRA_PLATEAU_CONNECTION_RECEIPT.json");
+  const plateauReceipt = json(plateauReceiptPath);
+  const plateauReceiptHash = canonicalTextHash(plateauReceiptPath);
+  const catalog = { viewer_map_schema_version: "2.1.0", generated_from: "HASH_VERIFIED_CITY_ARTIFACTS", cities: built.map(({ edgeBytes, edgeData, source_artifact_ids, source_revision_ids, input_sha256, input_hashes, snapshot_at, source_id, ...city }) => ({ ...city, cesium: plateauConfigFromReceipt(plateauReceipt.cities.find((row) => row.city_id === city.city_id), plateauReceiptHash) })) };
   assertSupportedMapCatalog(catalog); assertDeliveredMapArtifacts(catalog, output); writeFileSync(join(output, "map-layers.json"), `${JSON.stringify(catalog, null, 2)}\n`);
   // T-A: additional deterministic generation. Existing outputs above are unchanged.
   const adminDirectory = basename(output) === "maps" ? join(dirname(output), "admin") : join(output, "admin");

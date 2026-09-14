@@ -1,6 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
+async function openDisplayControls(page) {
+  await expect(page.getByRole("heading", { name: "AblePath", exact: true })).toBeVisible();
+  const toggle = page.getByRole("button", { name: "地域・登録地点を選ぶ", exact: true });
+  if (await toggle.isVisible() && await toggle.getAttribute("aria-expanded") === "false") await toggle.click();
+}
+
+async function useMetadataOnlyCatalog(page) {
+  const retained = JSON.parse(await readFile(new URL("../../tests/ui/fixtures/plateau-metadata-only.json", import.meta.url), "utf8"));
+  await page.route("**/data/maps/map-layers.json", async (route) => {
+    const response = await route.fetch();
+    const catalog = await response.json();
+    catalog.cities.find((row) => row.city_id === "kyoto_kiyomizu").cesium = retained;
+    await route.fulfill({ response, json: catalog });
+  });
+}
+
 const EXPORT_CITIES = ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"];
 const EXPORT_BUTTONS = {
   CSV: "CSVを保存",
@@ -237,7 +253,9 @@ for (const [cityId, disconnectedPath] of [
     test.setTimeout(EXPORT_CASE_TIMEOUT_MS);
     await openExportPage(page, cityId);
     const [startNode, endNode] = disconnectedPath.split("__");
+    await openDisplayControls(page);
     await page.getByLabel("出発node（candidate fixture）").selectOption(startNode);
+    await openDisplayControls(page);
     await page.getByLabel("目的node（candidate fixture）").selectOption(endNode);
     const download = createDownloadObserver(page, cityId, "disconnected", testInfo.project.name);
     const exported = await assertScreenMatchesExports(page, download);
@@ -254,6 +272,8 @@ for (const [cityId, disconnectedPath] of [
 test("[ui_regression] city state is reproducible and unconnected result selectors stay inactive", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "AblePath" })).toBeVisible();
+  await openDisplayControls(page);
+  await page.getByText("未接続の計算条件", { exact: true }).click();
   await expect(page.getByLabel("歩行profile（未計算）")).toBeDisabled();
   await expect(page.getByLabel("ハザード・固定シナリオ（未接続）")).toBeDisabled();
   await expect(page.getByLabel("Before/After比較（未接続）")).toBeDisabled();
@@ -263,6 +283,7 @@ test("[ui_regression] city state is reproducible and unconnected result selector
   await expect(evidencePanel).toBeVisible();
   await expect(evidencePanel).toContainText("NOT_COMPUTED — M6未実装");
 
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
   await expect(page.getByRole("heading", { name: "嵐山・渡月橋" })).toBeVisible();
   await expect(page).toHaveURL(/city=kyoto_arashiyama/);
@@ -272,20 +293,24 @@ test("[ui_regression] city state is reproducible and unconnected result selector
 
   await page.reload();
   await expect(page.getByLabel("都市・回廊")).toHaveValue("kyoto_arashiyama");
+  await openDisplayControls(page);
+  await page.getByText("未接続の計算条件", { exact: true }).click();
   await expect(page.getByRole("radio", { name: "厳格" })).toBeChecked();
 });
 
 test("[ui_regression] changing city does not implicitly opt into a real-coordinate layer", async ({ page }) => {
   await page.goto("/?city=kyoto_arashiyama&layer=synthetic");
 
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_kiyomizu");
 
   await expect(page.getByRole("button", { name: "SYNTHETIC_DEMO" })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("button", { name: "実座標 / CANDIDATE" })).toHaveAttribute("aria-pressed", "false");
   await expect(page).toHaveURL(/city=kyoto_kiyomizu.*layer=synthetic/);
 
+  await openDisplayControls(page);
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
-  await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await expect(page.locator(".real-map-shell").getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
   await expect(page).toHaveURL(/city=kyoto_kiyomizu.*layer=real/);
 });
 
@@ -325,11 +350,14 @@ test("[source_conformance] Kyoto connects display evidence without promoting sci
   await expect(official.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
   await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (412)");
   await expect(page.locator(".map-runtime-status")).toContainText(/official facilities AVAILABLE/);
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  await openDisplayControls(page);
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
   await expect(page.locator(".map-runtime-status")).not.toContainText("official hazard AVAILABLE (412)");
   await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (159)");
   await expect(page.getByLabel("京都M7 deep pilot reasoned null").getByRole("row")).toHaveCount(6);
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
   await expect(page.getByText(/公式施設 0件/)).toBeVisible();
   await expect(page.locator(".official-evidence")).toContainText("NOT_CONNECTED_PUBLIC_GIT_LICENSE_REVIEW_REQUIRED");
@@ -363,8 +391,10 @@ test("[ui_regression] map uses text marks and is keyboard operable", async ({ pa
 
 test("[ui_regression] optional 3D failure is visible and 2D remains recoverable", async ({ page }) => {
   await page.goto("/");
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
-  await page.getByRole("button", { name: "3D" }).click();
+  await openDisplayControls(page);
+  await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.getByRole("heading", { name: "この都市の3D layerは未設定です" })).toBeVisible();
   await expect(page.getByText("実在しないtilesetを補完せず、合成2Dへ戻せます。")).toBeVisible();
   await page.getByRole("button", { name: "2Dへ戻る" }).click();
@@ -383,9 +413,10 @@ test("[ui_regression] skip link, page title, and pressed view state are explicit
   await skipMap.focus();
   await skipMap.press("Enter");
   await expect(page.locator("#edge-table")).toBeFocused();
-  await expect(page.getByRole("button", { name: "2D" })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "3D" }).click();
-  await expect(page.getByRole("button", { name: "3D" })).toHaveAttribute("aria-pressed", "true");
+  await openDisplayControls(page);
+  await expect(page.getByRole("button", { name: "2D", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "3D", exact: true }).click();
+  await expect(page.getByRole("button", { name: "3D", exact: true })).toHaveAttribute("aria-pressed", "true");
 });
 
 test("[source_conformance] forbidden safety claims are absent", async ({ page }) => {
@@ -410,6 +441,7 @@ test("[ui_regression] desktop captures all three city 2D states", async ({ page 
   test.skip(testInfo.project.name !== "desktop-chromium", "one deterministic desktop screenshot per city");
   await page.goto("/");
   for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) {
+    await openDisplayControls(page);
     await page.getByLabel("都市・回廊").selectOption(cityId);
     await expect(page.getByLabel("都市・回廊")).toHaveValue(cityId);
     await page.screenshot({ path: testInfo.outputPath(`${cityId}-2d.png`), fullPage: true });
@@ -420,9 +452,11 @@ test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ p
   test.skip(testInfo.project.name !== "desktop-chromium", "deterministic real-mode screenshot is a desktop artifact");
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
+  await openDisplayControls(page);
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
   await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
-  await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await expect(page.locator(".real-map-shell").getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await page.getByText("候補geometryの出典・通信状態", { exact: true }).click();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
   await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
@@ -435,13 +469,15 @@ test("[ui_regression] desktop captures Kiyomizu real candidate mode", async ({ p
 });
 
 test("[ui_regression] desktop captures the deterministic unverified-PLATEAU fallback", async ({ page }, testInfo) => {
+  await useMetadataOnlyCatalog(page);
   test.skip(testInfo.project.name !== "desktop-chromium", "deterministic 3D-fallback screenshot is a desktop artifact");
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&view=2d&layer=real");
   await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
-  await page.getByRole("button", { name: "3D" }).click();
+  await openDisplayControls(page);
+  await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/CORS・AOI・child tiles の検証 receipt が未完了/)).toBeVisible();
   await expect(page.getByText("SESSION_ROOT_TILESET_LOADED", { exact: true })).toHaveCount(0);
@@ -498,28 +534,37 @@ test("[ui_regression] 320 CSS-pixel reflow has no page-level horizontal overflow
 
 test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap failure", async ({ page }) => {
   let artifactRequests = 0;
+  const workerResponse = page.waitForResponse((response) => /maplibre-gl-worker/.test(response.url()));
   page.on("request", (request) => {
     if (new URL(request.url()).pathname.endsWith("/data/maps/kyoto_kiyomizu.candidate_edges.geojson")) artifactRequests += 1;
   });
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
+  const worker = await workerResponse;
+  expect(worker.ok()).toBe(true);
+  expect(worker.headers()["content-type"]).toMatch(/javascript/);
   await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
-  await expect(page.getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await expect(page.locator(".real-map-shell").getByText("REAL COORDINATES / CANDIDATE", { exact: true }).first()).toBeVisible();
+  await page.getByText("候補geometryの出典・通信状態", { exact: true }).click();
   await expect(page.getByText("CANDIDATE_REVIEW_REQUIRED", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("continuity NOT_ESTABLISHED", { exact: true })).toBeVisible();
   await expect(page.locator(".map-runtime-status")).toContainText("candidate overlay AVAILABLE");
   await expect(page.locator(".map-runtime-status")).toContainText("background DEGRADED");
+  await expect.poll(async () => Number(await page.locator(".map-runtime-status").getAttribute("data-visible-candidate-fragments"))).toBeGreaterThan(0);
   await expect(page.getByRole("link", { name: "© OpenStreetMap contributors" })).toHaveAttribute("href", "https://www.openstreetmap.org/copyright");
   await expect(page.getByRole("link", { name: "ODbL 1.0" })).toHaveAttribute("href", "https://opendatacommons.org/licenses/odbl/1-0/");
+  await page.getByText("区間一覧・原典属性（地図の操作代替）", { exact: true }).click();
   await expect(page.getByRole("table", { name: /実座標候補edge/ }).getByRole("row")).toHaveCount(20);
 
   const selected = "KK-OSM-W1251544286-S01";
   await page.getByRole("row", { name: new RegExp(selected) }).getByRole("button", { name: "属性を表示" }).click();
   await expect(page).toHaveURL(new RegExp(`layer=real.*map_edge=${selected}`));
   await expect(page.getByLabel("選択した実座標候補edge")).toContainText(selected);
+  if (await page.getByRole("button", { name: "地図へ戻る", exact: true }).isVisible()) await page.getByRole("button", { name: "地図へ戻る", exact: true }).click();
   const second = "KK-OSM-W1491152444-S01";
   await page.getByRole("row", { name: new RegExp(second) }).getByRole("button", { name: "属性を表示" }).click();
   await expect(page.getByLabel("選択した実座標候補edge")).toContainText(second);
+  if (await page.getByRole("button", { name: "地図へ戻る", exact: true }).isVisible()) await page.getByRole("button", { name: "地図へ戻る", exact: true }).click();
   expect(artifactRequests).toBe(1);
   await expect(page.locator("#edge-table")).toBeAttached();
   const skipMap = page.getByRole("link", { name: /地図を飛ばしてedge一覧へ/ });
@@ -527,11 +572,13 @@ test("[ui_regression] Kiyomizu real coordinates use MapLibre and survive basemap
   await skipMap.press("Enter");
   await expect(page.locator("#edge-table")).toBeFocused();
   await page.reload();
+  await page.getByText("区間一覧・原典属性（地図の操作代替）", { exact: true }).click();
   await expect(page.getByRole("table", { name: /実座標候補edge/ }).getByRole("row", { name: new RegExp(second) })).toHaveClass(/active-row/);
 });
 
 test("[ui_regression] all three cities allow explicit real candidate mode", async ({ page }) => {
   await page.goto("/?city=kyoto_arashiyama&layer=real");
+  await openDisplayControls(page);
   await expect(page.getByRole("button", { name: "実座標 / CANDIDATE" })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("heading", { name: "実座標候補graph" })).toBeVisible();
   await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
@@ -561,6 +608,7 @@ for (const cityId of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]
 test("[ui_regression] precomputed candidate path controls: Kiyomizu disconnected fixture", async ({ page }, testInfo) => {
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
+  await openDisplayControls(page);
   const end = page.getByLabel("目的node（candidate fixture）");
   await expect(end).toBeEnabled();
   await expect(page.getByLabel("candidate path analysis")).toContainText("CONNECTED");
@@ -576,6 +624,7 @@ test("[ui_regression] precomputed candidate path controls: Arashiyama disconnect
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort("failed"));
   await page.goto("/?city=kyoto_arashiyama&layer=real");
   await expect(page.getByLabel("目的node（candidate fixture）")).toBeEnabled();
+  await openDisplayControls(page);
   await page.getByLabel("目的node（candidate fixture）").selectOption((await page.getByLabel("目的node（candidate fixture）").locator("option").nth(2).getAttribute("value")));
   await expect(page.getByLabel("candidate path analysis")).toContainText("DISCONNECTED");
   await page.setViewportSize({ width: 320, height: 900 });
@@ -584,6 +633,7 @@ test("[ui_regression] precomputed candidate path controls: Arashiyama disconnect
 });
 
 test("[ui_regression] unverified PLATEAU metadata stays NOT_CONNECTED even when a tileset is mocked", async ({ page }) => {
+  await useMetadataOnlyCatalog(page);
   const requestedScripts = [];
   let tilesetRequests = 0;
   page.on("request", (request) => {
@@ -606,16 +656,18 @@ test("[ui_regression] unverified PLATEAU metadata stays NOT_CONNECTED even when 
   });
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
   expect(requestedScripts).toHaveLength(0);
-  await page.getByRole("button", { name: "3D" }).click();
+  await openDisplayControls(page);
+  await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
   expect(requestedScripts).toHaveLength(0);
-  await expect(page.getByText("OFFICIAL_METADATA_ONLY", { exact: true }).first()).toBeVisible();
+  await expect(page.locator(".three-d-notice").getByText("OFFICIAL_METADATA_ONLY", { exact: true })).toBeVisible();
   await expect(page.getByText(/CORS・AOI・child tiles の検証 receipt が未完了/)).toBeVisible();
   await page.waitForTimeout(500);
   expect(tilesetRequests).toBe(0);
 });
 
 test("[ui_regression] an unverified child-tile fixture never starts a Cesium request", async ({ page }) => {
+  await useMetadataOnlyCatalog(page);
   let childRequests = 0;
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => route.fulfill({
     contentType: "application/json",
@@ -635,23 +687,27 @@ test("[ui_regression] an unverified child-tile fixture never starts a Cesium req
     return route.abort("failed");
   });
   await page.goto("/?city=kyoto_kiyomizu&layer=real");
-  await page.getByRole("button", { name: "3D" }).click();
+  await openDisplayControls(page);
+  await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
   expect(childRequests).toBe(0);
 });
 
 test("[ui_regression] missing CORS receipt preserves selected real-layer state without a request", async ({ page }) => {
+  await useMetadataOnlyCatalog(page);
   let requests = 0;
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", (route) => { requests += 1; return route.abort("failed"); });
   const selected = "KK-OSM-W1251544286-S01";
   await page.goto(`/?city=kyoto_kiyomizu&view=2d&layer=real&map_edge=${selected}`);
-  await page.getByRole("button", { name: "3D" }).click();
+  await openDisplayControls(page);
+  await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.getByText("NOT_CONNECTED", { exact: true }).first()).toBeVisible();
   await expect(page).toHaveURL(new RegExp(`view=3d.*layer=real.*map_edge=${selected}`));
   expect(requests).toBe(0);
 });
 
 test("[ui_regression] a late mocked root response cannot promote metadata-only PLATEAU", async ({ page }) => {
+  await useMetadataOnlyCatalog(page);
   let requests = 0;
   await page.route("https://assets.cms.plateau.reearth.io/**/tileset.json", async (route) => {
     requests += 1;
@@ -705,13 +761,16 @@ test("[ui_regression] desktop captures the required V2 official-evidence artifac
   const capture = async (name) => page.screenshot({ path: testInfo.outputPath(name), fullPage: true, animations: "disabled", caret: "hide" });
   await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
   for (const name of ["kiyomizu-gion-terrain-hazard.png", "kiyomizu-gion-official-facilities.png", "kiyomizu-gion-plateau-or-fallback.png", "kyoto-m7-evidence-not-computed-or-result.png", "kiyomizu-terrain-analysis.png", "m7-evidence-not-computed.png", "fallback.png"]) await capture(name);
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
   for (const name of ["arashiyama-terrain-flood.png", "arashiyama-official-facilities.png", "arashiyama-plateau-or-fallback.png", "arashiyama-terrain-analysis.png"]) await capture(name);
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
   for (const name of ["fujisawa-earthquake-scenario.png", "fujisawa-liquefaction-scenario.png", "fujisawa-accessibility-table.png"]) await capture(name);
   await page.setViewportSize({ width: 320, height: 900 });
   await page.goto("/?city=kyoto_kiyomizu&layer=synthetic");
   await capture("mobile-320-kyoto-official-data.png");
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("fujisawa_enoshima");
   await capture("mobile-320-official-data.png");
 });
@@ -726,7 +785,9 @@ test("[ui_regression] desktop captures Kyoto parity overlays and reasoned-null e
   await expect(page.getByLabel("京都M7 deep pilot reasoned null")).toContainText("NOT_COMPUTED / null");
   await capture("kyoto-kiyomizu-gion-parity.png");
   await page.getByLabel("京都M7 deep pilot reasoned null").screenshot({ path: testInfo.outputPath("kyoto-m7-reasoned-null.png"), animations: "disabled", caret: "hide" });
+  await openDisplayControls(page);
   await page.getByLabel("都市・回廊").selectOption("kyoto_arashiyama");
+  await openDisplayControls(page);
   await page.getByRole("button", { name: "実座標 / CANDIDATE" }).click();
   await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE (159)");
   await expect(page.getByLabel("京都PLATEAU 2025 building evidence inventory")).toContainText("EXISTING_DETERMINISTIC_2D");

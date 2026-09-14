@@ -111,7 +111,7 @@ test("[source_conformance] Phase 4 gate is the sole three-city machine truth aut
   }
 });
 
-test("[ui_regression] runtime catalog preserves explicit candidate mode and disconnected PLATEAU", () => {
+test("[ui_regression] runtime catalog preserves candidate mode and scopes reviewed PLATEAU to source capability", () => {
   const catalog = assertSupportedMapCatalog(
     readJson("viewer/public/data/maps/map-layers.json"),
   );
@@ -121,10 +121,13 @@ test("[ui_regression] runtime catalog preserves explicit candidate mode and disc
     assert.equal(city.real_2d.route_continuity, "NOT_ESTABLISHED");
     assert.equal(selectInitialMapMode(catalog, city.city_id, ""), "synthetic");
     assert.equal(selectInitialMapMode(catalog, city.city_id, "?layer=real"), "real");
+    // Astra live proof permits this display-only source capability. It does
+    // not change historical G5-8 reports or claim the current session rendered.
+    assert.equal(city.cesium.connected, true);
+    assert.equal(city.cesium.data_class, "OFFICIAL_REMOTE_TILESET");
+    assert.equal(city.cesium.source_status, "VERIFIED_SOURCE");
+    assert.equal(city.cesium.session_status, "IDLE");
   }
-  const kiyomizu = catalog.cities.find((city) => city.city_id === "kyoto_kiyomizu");
-  assert.equal(kiyomizu.cesium.connected, false);
-  assert.equal(kiyomizu.cesium.data_class, "OFFICIAL_METADATA_ONLY");
 });
 
 test("[source_conformance] current authority docs preserve scoped three-city truth", () => {

@@ -14,13 +14,17 @@ for (const city of cities) {
   test(`[ui_regression] admin checklist ${city}: static rows, whole CSV and print`, async ({ page }, testInfo) => {
     const report = JSON.parse(await readFile(new URL(`../../reports/ADMIN_CHECKLIST_${city}.json`, import.meta.url), "utf8"));
     await page.goto(`/?city=${cities.find((other) => other !== city)}`);
+    await expect(page.getByRole("heading", { name: "AblePath", exact: true })).toBeVisible();
+    const controls = page.getByRole("button", { name: "地域・登録地点を選ぶ", exact: true });
+    if (await controls.isVisible()) await controls.click();
     await page.getByLabel("都市・回廊").selectOption(city);
     const panel = page.locator("section.admin-checklist");
     await expect(panel.locator(".admin-counts b")).toHaveText(String(report.items.length));
     await expect(panel.locator("tbody tr")).toHaveCount(report.items.length);
     // The generic table-button rule is white-on-dark; this transparent button
     // must use the existing dark ink token on the paper background instead.
-    await expect(panel.locator(".admin-row-button").first()).toHaveCSS("color", "rgb(16, 42, 50)");
+    // Astra changes the ink palette, not the dark-on-paper contrast contract.
+    await expect(panel.locator(".admin-row-button").first()).toHaveCSS("color", "rgb(34, 55, 80)");
     const first = report.items.find((item) => item.object_type === "edge" && item.status === "UNKNOWN" && item.verification_method === "FIELD_MEASUREMENT");
     expect(first).toBeTruthy();
     for (const [group, value] of [["object_type", first.object_type], ["status", first.status], ["verification_method", first.verification_method]]) {

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const HARNESS = "http://127.0.0.1:4175/tests/fixtures/verified-cesium.html";
+const HARNESS = `http://127.0.0.1:${process.env.ABLEPATH_E2E_FIXTURE_PORT ?? "4175"}/tests/fixtures/verified-cesium.html`;
 const TILESET = "https://assets.cms.plateau.reearth.io/test-fixture/tileset.json";
 
 

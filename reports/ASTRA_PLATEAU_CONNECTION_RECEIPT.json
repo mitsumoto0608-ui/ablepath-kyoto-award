@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "ABLEPATH-ASTRA-UI-AND-REAL-PLATEAU-3D-V1",
+  "scope": "OFFICIAL_REMOTE_VIEWING_ONLY_NO_INDIVIDUAL_RECORD_EXPORT",
+  "verified_date": "2026-09-14",
+  "catalog": {
+    "url": "https://api.plateauview.mlit.go.jp/datacatalog/plateau-datasets",
+    "accessed_at": "2026-09-14T08:37:43Z",
+    "etag": "W/\"8196c0dc6206e49b05e78509fa20d9ec\""
+  },
+  "provider_terms": {
+    "url": "https://www.mlit.go.jp/plateau/site-policy/",
+    "distribution_documentation": "https://docs.plateauview.mlit.go.jp/datasets/3d-tiles/",
+    "license_scope": "PDL1.0 / CC BY 4.0 compatible official remote viewing with attribution",
+    "municipal_rightsholders": [
+      "Kyoto City",
+      "Fujisawa City"
+    ],
+    "attribution_required": true,
+    "overlay_modification_notice_required": true,
+    "individual_building_record_redistribution": false,
+    "resource_page_recheck": "G-space resource pages returned HTTP 403; no bypass. Official MLIT catalog/distribution documentation and provider site policy were reviewed.",
+    "public_exclusions_restored": false
+  },
+  "root_observation": {
+    "accessed_at": "2026-09-14T08:39:20Z",
+    "http_status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "access_control_allow_origin": "*",
+    "asset_version": "1.0",
+    "bounding_volume": "region radians; no root transform",
+    "relative_content": "data/*.b3dm"
+  },
+  "validation_method": {
+    "harness": "viewer/tests/fixtures/plateau-live.html",
+    "browser": "Codex in-app browser / Chromium",
+    "root_response": "Actual browser fetch, exact SHA-256 and bytes; VerifiedRootResource preserves the same parsed JSON through Cesium clones. Relative child requests retain the official base URL. Revalidated in all three cities after the independent root-binding finding was fixed.",
+    "render_evidence": "Non-empty Cesium tileVisible content.trianglesLength followed by scene.postRender; direct screenshots and camera pan",
+    "mocks_used": false,
+    "child_batches_exported": false,
+    "terrain": "WGS84_ELLIPSOID_NO_DEM_MESH",
+    "route_height": "ELLIPSOID_H_ZERO_DISPLAY_ONLY_WITH_DEPTH_FAIL_OVERLAY",
+    "limitations": "Projection is not road-surface height and does not match building contact heights. LOD2 is partial coverage; not a safety, accessibility, currentness, or M7 claim."
+  },
+  "runtime_finding": {
+    "id": "ASTRA-RENDER-01",
+    "observed": "Fujisawa content disappeared after camera movement with requestRenderMode=true. With false and targetFrameRate=30, actual tiles remained visible after the same movement.",
+    "internal_engine_cause": "UNCONFIRMED",
+    "fix": "Continuous Cesium rendering capped at 30 fps; one active renderer per app; destroy on exit.",
+    "mock_pass_used": false
+  },
+  "screenshots": [
+    {
+      "internal_artifact": "screenshots/arashiyama-live-verification.png",
+      "sha256": "cebf2a535b1e5170c8478057be6fa16ff777a0038d6779171c8d748f18e89a99",
+      "public_binary_committed": false
+    },
+    {
+      "internal_artifact": "screenshots/fujisawa-live-verification.png",
+      "sha256": "e8a72c1e4486bcf9777a6d202e77633c1fd14d2756f3422157c0d79af8a5b156",
+      "public_binary_committed": false
+    },
+    {
+      "internal_artifact": "screenshots/kiyomizu-live-verification.png",
+      "sha256": "467897f569f22bf0765848159e53f816154df57f87660c731818147662b83efe",
+      "public_binary_committed": false
+    }
+  ],
+  "cities": [
+    {
+      "city_id": "kyoto_kiyomizu",
+      "catalog_id": "26105_bldg_lod2",
+      "tileset_url": "https://assets.cms.plateau.reearth.io/assets/25/dd4c50-5342-4a0b-ac51-05ffb138b8b5/26100_kyoto-shi_city_2025_citygml_1_op_bldg_3dtiles_26105_higashiyama-ku_lod2/tileset.json",
+      "root_sha256": "bb6cd0c34fa411673054c3525d74b09d1cb48fc662ca2b97fdbb136498cb61ae",
+      "root_bytes": 44801,
+      "year": 2025,
+      "lod": "LOD2",
+      "cors_observed": true,
+      "root_hash_verified": true,
+      "child_content_decoded": true,
+      "target_aoi_live_rendered": true,
+      "post_interaction_rendered": true,
+      "visible_tile_count": 5,
+      "visible_triangle_count": 7556,
+      "candidate_path_visible": true,
+      "full_corridor_building_coverage": false
+    },
+    {
+      "city_id": "kyoto_arashiyama",
+      "catalog_id": "26108_bldg_lod2",
+      "tileset_url": "https://assets.cms.plateau.reearth.io/assets/64/cf6354-e5ff-4ee4-84d6-1751734da17c/26100_kyoto-shi_city_2025_citygml_1_op_bldg_3dtiles_26108_ukyo-ku_lod2/tileset.json",
+      "root_sha256": "332400888a9a61cb75caab75af885b5a1e5cfa66b08d56081a0f954bd941298c",
+      "root_bytes": 120022,
+      "year": 2025,
+      "lod": "LOD2",
+      "cors_observed": true,
+      "root_hash_verified": true,
+      "child_content_decoded": true,
+      "target_aoi_live_rendered": true,
+      "post_interaction_rendered": true,
+      "visible_tile_count": 5,
+      "visible_triangle_count": 24392,
+      "candidate_path_visible": true,
+      "full_corridor_building_coverage": false
+    },
+    {
+      "city_id": "fujisawa_enoshima",
+      "catalog_id": "14205_bldg_lod2",
+      "tileset_url": "https://assets.cms.plateau.reearth.io/assets/22/a4cda2-f741-43fb-8d75-a51b941b7577/14205_fujisawa-shi_city_2025_citygml_1_op_bldg_3dtiles_lod2/tileset.json",
+      "root_sha256": "29999d4af44f834ddf021ca53f10d73c446c449a94b5a4497825debfabe5b3d0",
+      "root_bytes": 420436,
+      "year": 2025,
+      "lod": "LOD2",
+      "cors_observed": true,
+      "root_hash_verified": true,
+      "child_content_decoded": true,
+      "target_aoi_live_rendered": true,
+      "post_interaction_rendered": true,
+      "visible_tile_count": 6,
+      "visible_triangle_count": 22729,
+      "candidate_path_visible": true,
+      "full_corridor_building_coverage": false
+    }
+  ],
+  "M7_EVIDENCE_READY_COUNT": 0,
+  "M7_COMPUTED_COUNT": 0,
+  "FIELD_MEASUREMENT_DEFERRED": true,
+  "HISTORICAL_PUBLIC_REACHABILITY_STATUS": "UNRESOLVED_PREEXISTING_HISTORY_RETAINED"
+}

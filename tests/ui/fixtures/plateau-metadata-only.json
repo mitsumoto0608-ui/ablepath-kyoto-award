@@ -1,0 +1,19 @@
+{
+  "available": true,
+  "data_class": "OFFICIAL_METADATA_ONLY",
+  "source_id": "plateau_26100_bldg_maxlod2_latest_20260830",
+  "source_class": "OFFICIAL",
+  "accessed_at": "2026-08-30",
+  "valid_as_of": null,
+  "valid_as_of_reason": "Latest endpoint is dynamic; retained ETag response must be rechecked",
+  "lod": "LOD2",
+  "tileset_url": "https://assets.cms.plateau.reearth.io/assets/25/dd4c50-5342-4a0b-ac51-05ffb138b8b5/26100_kyoto-shi_city_2025_citygml_1_op_bldg_3dtiles_26105_higashiyama-ku_lod2/tileset.json",
+  "license": "Public Data License 1.0 (PDL1.0), CC BY 4.0 compatible",
+  "license_url": "https://www.mlit.go.jp/plateau/site-policy/",
+  "attribution": "出典：国土交通省 3D都市モデル（Project PLATEAU）京都市2025 / PDL1.0",
+  "connected": false,
+  "requires_commercial_token": false,
+  "metadata_sha256": "2a1e4c71370f58f0f40dc8b6eb9ae120b7f694b6caca1260a8a0efbbfeda78d3",
+  "retained_response_sha256": "ce58a92bb9da595d9251cd72b7b77af6da9a3748628a0e8370ffc6fbc6312242",
+  "query_sha256": "eb9400f69b5ee88b802e972f426b4ff624ab759fe372776f67ecd83978221e40"
+}

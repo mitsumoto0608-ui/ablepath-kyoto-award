@@ -6,7 +6,9 @@ import {
   serializeState,
 } from "./domain.mjs";
 import { CesiumPanel } from "./CesiumPanel.jsx";
-import { MapLibreMap } from "./MapLibreMap.jsx";
+import { MapLibreMap, loadGeoJson } from "./MapLibreMap.jsx";
+import { SegmentInspector } from "./SegmentInspector.jsx";
+import { DEFAULT_CONDITIONS, readWorkspaceSelection, serializeWorkspaceSelection } from "./workspaceSelection.mjs";
 import {
   loadMapCatalog,
   mapConfigForCity,
@@ -44,18 +46,19 @@ function formatOptional(value, reason) {
   return `${Number(value).toFixed(2)} m`;
 }
 
-function Header({ city, catalog }) {
+function Header({ city, catalog, realMode, onDetail, onNavigate }) {
   return (
     <header className="masthead">
       <div className="brand-lockup">
         <span className="brand-mark" aria-hidden="true">AP</span>
         <div>
-          <p className="eyebrow">MULTI-CITY EVIDENCE VIEWER</p>
+          <p className="eyebrow">候補経路と原典を確認する</p>
           <h1>AblePath</h1>
         </div>
       </div>
+      <nav className="app-nav" aria-label="アプリ内メニュー"><a href="#map-workspace" onClick={onNavigate}>地図</a><a href="#segment-title" onClick={onDetail}>区間詳細</a><a href="#admin-workspace" onClick={onNavigate}>行政確認</a><a href="#review-export" onClick={onNavigate}>書き出す</a></nav>
       <div className="status-cluster" aria-label="データ状態">
-        <span className={`status-badge status-${city.data_status.toLowerCase()}`}>{city.data_status}</span>
+        <span className={`status-badge status-${city.data_status.toLowerCase()}`}>{realMode ? "REAL / CANDIDATE" : city.data_status}</span>
         <span>確認日 {city.last_verified_at}</span>
         <span>viewer schema {catalog.viewer_data_schema_version}</span>
       </div>
@@ -63,7 +66,7 @@ function Header({ city, catalog }) {
   );
 }
 
-function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selectedStart, selectedEnd, onPathChange }) {
+function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selectedStart, selectedEnd, onPathChange, conditions, onConditions, showNetwork, onNetwork }) {
   const { city, scenario, evidenceMode, phase, view, mapMode } = state;
   function changeCity(cityId) {
     const nextCity = catalog.cities.find((candidate) => candidate.city_id === cityId);
@@ -90,27 +93,16 @@ function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selecte
             {catalog.cities.map((candidate) => <option key={candidate.city_id} value={candidate.city_id}>{candidate.display_name}</option>)}
           </select>
         </label>
-        <label>
-          ハザード・固定シナリオ（未接続）
-          <select aria-label="ハザード・固定シナリオ（未接続）" value={scenario.scenario_id} disabled>
-            <option value={scenario.scenario_id}>NOT_COMPUTED — scenario output未接続</option>
-          </select>
-        </label>
-        <label>
-          歩行profile
-          <select aria-label="歩行profile（未計算）" value="NOT_COMPUTED" disabled>
-            <option value="NOT_COMPUTED">NOT_COMPUTED — M6未実装</option>
-          </select>
-        </label>
-        <label>出発node（candidate fixture）<select aria-label="出発node（candidate fixture）" value={selectedStart ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(event.target.value, selectedEnd)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>{nodeId}</option>)}</select></label>
-        <label>目的node（candidate fixture）<select aria-label="目的node（candidate fixture）" value={selectedEnd ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(selectedStart, event.target.value)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>{nodeId}</option>)}</select></label>
-        <label>
-          比較断面（未接続）
-          <select aria-label="Before/After比較（未接続）" value={phase} disabled>
-            <option value="before">NOT_COMPUTED — Before/After output未接続</option>
-          </select>
-        </label>
+        <label>出発する登録地点<select aria-label="出発node（candidate fixture）" value={selectedStart ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(event.target.value, selectedEnd)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId, index) => <option key={nodeId} value={nodeId} disabled={!analysis?.path_matrix?.[`${nodeId}__${selectedEnd}`]}>地点{String.fromCharCode(65 + index)}（地図で確認）</option>)}</select></label>
+        <label>到着する登録地点<select aria-label="目的node（candidate fixture）" value={selectedEnd ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(selectedStart, event.target.value)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId, index) => <option key={nodeId} value={nodeId} disabled={!analysis?.path_matrix?.[`${selectedStart}__${nodeId}`]}>地点{String.fromCharCode(65 + index)}（地図で確認）</option>)}</select></label>
       </div>
+      <p className="small-note">登録地点間の事前計算済み候補です。任意住所の検索・災害時の自動迂回は行いません。</p>
+      <label className="network-toggle"><input type="checkbox" checked={showNetwork} onChange={(e) => onNetwork(e.target.checked)} />全候補ネットワークを表示</label>
+      {mapMode === "real" && <div className="source-controls"><h3>確認する資料</h3><label>DEM資料<select aria-label="地図・詳細のDEM資料" value={conditions.terrainProduct} onChange={(event) => onConditions((current) => ({ ...current, terrainProduct: event.target.value }))}><option value="ALL">両製品を区別して表示</option>{[...new Set((analysis?.official_evidence?.terrain?.products ?? []).map((row) => row.dem_class))].map((product) => <option key={product} value={product}>{product}</option>)}</select></label><label>ハザード資料<select aria-label="地図・詳細のsource scenario" value={conditions.scenario} onChange={(event) => onConditions((current) => ({ ...current, scenario: event.target.value }))}><option value="ALL">地図は非表示（一覧は全資料）</option>{[...new Set((analysis?.official_evidence?.hazard?.edge_exposures ?? []).map((row) => row.scenario_id))].map((id) => <option key={id} value={id}>{id}</option>)}</select></label><p className="small-note">資料切替は経路の再探索ではありません。</p></div>}
+      <details className="unconnected-controls"><summary>未接続の計算条件</summary>
+      <label>固定シナリオ<select aria-label="ハザード・固定シナリオ（未接続）" value={scenario.scenario_id} disabled><option value={scenario.scenario_id}>NOT_COMPUTED — scenario output未接続</option></select></label>
+      <label>歩行profile<select aria-label="歩行profile（未計算）" value="NOT_COMPUTED" disabled><option value="NOT_COMPUTED">NOT_COMPUTED — M6未実装</option></select></label>
+      <label>比較断面<select aria-label="Before/After比較（未接続）" value={phase} disabled><option value="before">NOT_COMPUTED — Before/After output未接続</option></select></label>
       <fieldset className="segmented-fieldset">
         <legend>UNKNOWNの証拠取扱い</legend>
         <div className="segmented">
@@ -119,6 +111,7 @@ function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selecte
         </div>
         <p>NOT_COMPUTED — evidence treatment別のprecomputed outputがないため切替できません。</p>
       </fieldset>
+      </details>
       <div className="view-tabs" role="group" aria-label="地図表示">
         <button type="button" aria-pressed={view === "2d"} onClick={() => onStateChange({ ...state, view: "2d" }, "2D表示へ切り替えました")}>2D</button>
         <button type="button" aria-pressed={view === "3d"} onClick={() => onStateChange({ ...state, view: "3d" }, "3D可用性情報を表示しました")}>3D</button>
@@ -375,8 +368,8 @@ function OfficialEvidencePanel({ evidence }) {
       {evidence.terrain.samples.some((sample) => sample.elevation_m === null) && <div className="table-scroll" tabIndex="0" aria-label="terrain unresolved native-cell records"><table><caption>unresolved native-cell records（record数と独立地点数を分離）</caption><thead><tr><th>sample</th><th>DEM</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.terrain.samples.filter((sample) => sample.elevation_m === null).map((sample) => <tr key={sample.sample_id}><td><code>{sample.sample_id}</code></td><td>{sample.product}</td><td>{sample.status}</td><td>{sample.reason}</td></tr>)}</tbody></table></div>}
       {evidence.hazard.layers.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Kyoto hazard layer status"><table><caption>Kyoto subarea hazard layers</caption><thead><tr><th>subarea</th><th>layer</th><th>artifact</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.layers.map((row) => <tr key={`${row.subarea}-${row.layer}`}><td>{row.subarea}</td><td>{row.layer}</td><td>{row.artifact_status}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       {evidence.hazard.scenarios.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="Fujisawa hazard scenario inventory"><table><caption>Fujisawa scenario inventory (AOI: enoshima_katase)</caption><thead><tr><th>dataset</th><th>scenario</th><th>layer</th><th>source</th><th>version</th><th>license/validation</th><th>CRS/bounds</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.hazard.scenarios.map((row) => <tr key={row.dataset_id}><td>{row.dataset_id}</td><td>{row.scenario}</td><td>{row.layer_kind}</td><td>{row.official_source} / {row.official_url}</td><td>{row.version_date}</td><td>{row.license_review} / {row.validation_result}</td><td>{row.crs} / {row.bounds_native}</td><td>{row.status}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
-      <p className="model-caveat">PLATEAU: {evidence.plateau.aoi_count} AOIs ({evidence.plateau.aoi_scope.join(" / ")}) / {evidence.plateau.fallback}。実tilesは接続していません。</p>
-      {evidence.plateau.inventory?.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="京都PLATEAU 2025 building evidence inventory"><table><caption>京都PLATEAU 2025 building evidence inventory（実3D未接続・既存candidate 2D fallback）</caption><thead><tr><th>AOI</th><th>package</th><th>CRS</th><th>building ID</th><th>footprint</th><th>height</th><th>coverage</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.plateau.inventory.map((row) => <tr key={row.subarea_id}><td>{row.subarea_id}</td><td>{row.package_verification_status}</td><td>{row.source_crs}</td><td>{row.stable_building_id_status}</td><td>{row.footprint_status}</td><td>{row.official_height_attribute_status}</td><td>{row.aoi_coverage_status}</td><td>{row.connection_mode} / {row.fallback}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
+      <p className="model-caveat">保存済み建物証拠inventory: {evidence.plateau.aoi_count} AOIs ({evidence.plateau.aoi_scope.join(" / ")}) / {evidence.plateau.fallback}。この解析snapshotは実tilesに未接続です。別途検証した公式remote 3Dのセッション状態は地図の3Dタブに表示します。remote描画は個別建物証拠の公開・M7接続ではありません。</p>
+      {evidence.plateau.inventory?.length > 0 && <div className="table-scroll" tabIndex="0" aria-label="京都PLATEAU 2025 building evidence inventory"><table><caption>京都PLATEAU 2025 building evidence inventory（保存済み解析snapshot・現在のremote 3Dセッションとは別）</caption><thead><tr><th>AOI</th><th>package</th><th>CRS</th><th>building ID</th><th>footprint</th><th>height</th><th>coverage</th><th>status</th><th>reason</th></tr></thead><tbody>{evidence.plateau.inventory.map((row) => <tr key={row.subarea_id}><td>{row.subarea_id}</td><td>{row.package_verification_status}</td><td>{row.source_crs}</td><td>{row.stable_building_id_status}</td><td>{row.footprint_status}</td><td>{row.official_height_attribute_status}</td><td>{row.aoi_coverage_status}</td><td>{row.connection_mode} / {row.fallback}</td><td>{row.reason}</td></tr>)}</tbody></table></div>}
       <p className="model-caveat">PLATEAU公開範囲: {evidence.plateau.inventory_scope}。{evidence.plateau.reason}</p>
       {evidence.facility.categories && <div className="table-scroll" tabIndex="0" aria-label="京都公式施設5カテゴリ接続状態"><table><caption>京都公式施設5カテゴリ（現在の公開件数 / 過去の原典件数、住所geocodingなし）</caption><thead><tr><th>category</th><th>status</th><th>public / historical records</th><th>map</th><th>reason / next</th></tr></thead><tbody>{Object.entries(evidence.facility.categories).map(([category, value]) => <tr key={category}><th scope="row">{category}</th><td>{value.status}</td><td>{value.public_record_count ?? value.record_count ?? "null"} / {value.historical_record_count ?? "null"}</td><td>{String(value.map_connected)}</td><td>{value.reason ?? "Source-provided longitude/latitude only; opening, entrance, accessibility, safety, and disaster usability remain UNKNOWN."} {value.next_acquisition_method ?? ""}</td></tr>)}</tbody></table></div>}
       {evidence.facility.marker_policy === "SOURCE_COORDINATES_ONLY_NO_GEOCODING" && <div className="table-scroll" tabIndex="0" aria-label="京都の公式座標施設一覧"><table><caption>京都公式施設 {evidence.facility.record_count}件（原本提供経緯度のみ、silent geocodingなし。原本記載値は現在の開設・入口・利用可能性を意味しません）</caption><thead><tr><th>ID</th><th>category</th><th>name</th><th>address</th><th>source/version/hash</th><th>coordinate method</th><th>原本記載属性</th><th>入口/施錠/現在運用/accessibility</th></tr></thead><tbody>{evidence.facility.records.map((record) => <tr key={record.facility_record_id}><th scope="row"><code>{record.facility_record_id}</code></th><td>{record.category}</td><td>{record.name}</td><td>{record.address}</td><td>{record.source_id} / {record.source_version_or_valid_as_of}<br /><code>{record.source_sha256}</code></td><td>{record.coordinate_method}</td><td>{Object.entries(record.source_attributes ?? {}).map(([key, value]) => <p key={key}><b>{key}</b>: {value ?? "null"}</p>)}</td><td>{record.entrance_status} / {record.unlock_status} / {record.current_operation_status} / {record.accessibility_status}</td></tr>)}</tbody></table></div>}
@@ -398,16 +391,10 @@ function downloadText(filename, type, content) {
   setTimeout(() => URL.revokeObjectURL(url), 1_000);
 }
 
-function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalog, hazardExposures, terrainSamples }) {
-  const [scenario, setScenario] = useState("ALL");
-  const [revision, setRevision] = useState("ALL");
-  const [coverage, setCoverage] = useState("ALL");
-  const [unknown, setUnknown] = useState("ALL");
-  const [owner, setOwner] = useState("ALL");
-  const [reasonQuery, setReasonQuery] = useState("");
-  const [sortBy, setSortBy] = useState("EDGE");
-  const [terrainProduct, setTerrainProduct] = useState("ALL");
-  useEffect(() => { setScenario("ALL"); setRevision("ALL"); setCoverage("ALL"); setUnknown("ALL"); setOwner("ALL"); setReasonQuery(""); setSortBy("EDGE"); setTerrainProduct("ALL"); }, [checklist?.checklist_id]);
+function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalog, hazardExposures, terrainSamples, conditions, onConditions }) {
+  const { scenario, revision, coverage, unknown, owner, reasonQuery, sortBy, terrainProduct } = conditions;
+  const change = (key) => (value) => onConditions((current) => ({ ...current, [key]: value }));
+  const [setScenario, setRevision, setCoverage, setUnknown, setOwner, setReasonQuery, setSortBy, setTerrainProduct] = ["scenario", "revision", "coverage", "unknown", "owner", "reasonQuery", "sortBy", "terrainProduct"].map(change);
   if (!checklist) return null;
   const sourceCatalog = checklist.source_catalog ?? {};
   const exposureByRef = new Map(hazardExposures.map((hazard) => [`${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`, { ...hazard, ...sourceCatalog[hazard.source_id] }]));
@@ -442,7 +429,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
   const exportedChecklist = { ...checklist, facility: { ...checklist.facility, records: exportFacilityRecords }, rows: visibleRows.map((row) => ({ ...row, hazard_refs: row.hazards.map((hazard) => `${hazard.edge_id}\0${hazard.scenario_id}\0${hazard.source_id}`) })), terrain_unresolved_records: terrainUnresolved.records, terrain_unresolved_summary: terrainUnresolved.summary, filters: { scenario, revision, coverage, terrain_product: terrainProduct, unknown, owner, reason: reasonQuery }, sort_by: sortBy };
   const filename = checklist.checklist_id.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/[. ]+$/g, "") || "ablepath-review";
   return (
-    <section className="review-checklist" aria-labelledby="review-checklist-title">
+    <section id="review-export" className="review-checklist" aria-labelledby="review-checklist-title">
       <div className="section-heading"><p className="eyebrow">SOURCE-BOUND REVIEW EXPORT</p><h2 id="review-checklist-title">地域・区間の確認リスト</h2></div>
       <p><code>{checklist.checklist_id}</code> — {checklist.status} / candidate path {checklist.path_status}</p>
       <p>候補道路と公式証拠の空間的な重なりを確認する資料です。安全性・アクセシビリティ・通行可能性・行政検証を示しません。</p>
@@ -454,7 +441,7 @@ function ReviewChecklistPanel({ checklist, facilityRecords, facilitySourceCatalo
       <label>担当候補の種別<select aria-label="担当候補の種別" value={owner} onChange={(event) => setOwner(event.target.value)}><option value="ALL">ALL</option>{owners.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label>reason/source検索<input aria-label="reason/source検索" value={reasonQuery} onChange={(event) => setReasonQuery(event.target.value)} /></label>
       <label>並び順<select aria-label="確認リストの並び順" value={sortBy} onChange={(event) => setSortBy(event.target.value)}><option value="EDGE">edge</option><option value="REVISION">source revision</option><option value="COVERAGE">coverage</option><option value="REASON">reason</option><option value="OWNER">owner candidate</option></select></label>
-      <p>Map overlayは接続済みの全official layerを表示します。このselectorは確認リストとexportだけを絞り込みます。</p>
+      <p>source scenario・版・DEMは地図・区間詳細と共通です。資料条件の切替で候補経路は変わりません。missing field等の絞り込みは表とexportの行集合を揃えます。</p>
       <dl className="checklist-summary">
         <div><dt>terrain</dt><dd>{checklist.terrain.status} — {checklist.terrain.reason}</dd></div>
         <div><dt>facility</dt><dd>{checklist.facility.status} / {checklist.facility.record_count} records — {checklist.facility.reason}</dd></div>
@@ -489,6 +476,13 @@ export function App() {
   const [adminChecklist, setAdminChecklist] = useState(null);
   const [adminNotice, setAdminNotice] = useState(null);
   const [selectedPathNodes, setSelectedPathNodes] = useState([null, null]);
+  const [conditions, setConditions] = useState({ ...DEFAULT_CONDITIONS });
+  const [geometry, setGeometry] = useState(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const [showNetwork, setShowNetwork] = useState(false);
+  const [cameraRequest, setCameraRequest] = useState(0);
+  const initialSearch = useMemo(() => window.location.search, []);
 
   useEffect(() => {
     let active = true;
@@ -515,7 +509,11 @@ export function App() {
     if (!state) return undefined;
     let active = true;
     setAnalysis(null);
-    loadDeliveryAnalysis(fetch, `./data/analysis/${state.city.city_id}.json`, state.city.city_id).then((data) => { if (!active) return; setAnalysis(data); setSelectedPathNodes([data.path_fixture.start_node_id, data.path_fixture.end_node_id]); }).catch((loadError) => active && setError(loadError.message));
+    loadDeliveryAnalysis(fetch, `./data/analysis/${state.city.city_id}.json`, state.city.city_id).then((data) => {
+      if (!active) return;
+      const restored = readWorkspaceSelection(data, new URLSearchParams(initialSearch).get("city") === data.city_id ? initialSearch : "");
+      setAnalysis(data); setSelectedPathNodes(restored.nodes); setConditions(restored.conditions);
+    }).catch((loadError) => active && setError(loadError.message));
     return () => { active = false; };
   }, [state?.city.city_id]);
 
@@ -532,14 +530,38 @@ export function App() {
 
   useEffect(() => {
     if (!state) return;
-    window.history.replaceState(null, "", serializeState(state));
+    window.history.replaceState(null, "", serializeWorkspaceSelection(serializeState(state), selectedPathNodes, conditions));
     document.title = `${state.city.display_name} / scenario output NOT_COMPUTED | AblePath`;
-  }, [state]);
+  }, [state, selectedPathNodes, conditions]);
+
+  useEffect(() => {
+    setGeometry(null);
+    if (!state || state.mapMode !== "real") return undefined;
+    const config = mapConfigForCity(mapCatalog, state.city.city_id)?.real_2d;
+    if (!config) return undefined;
+    let active = true;
+    loadGeoJson(config).then((data) => { if (active) setGeometry(data); }).catch((loadError) => active && setError(loadError.message));
+    return () => { active = false; };
+  }, [state?.city.city_id, state?.mapMode, mapCatalog]);
 
   const sourceCount = useMemo(() => state?.city.source_ids.length ?? 0, [state]);
-  const selectRealEdge = useCallback((edgeId) => {
+  const selectRealEdge = useCallback((edgeId, { automatic = false } = {}) => {
     setState((current) => current ? { ...current, selectedRealEdgeId: edgeId } : current);
+    if (!automatic) { setDetailOpen(true); setControlsOpen(false); }
   }, []);
+  useEffect(() => {
+    if (!geometry || analysis?.city_id !== state?.city.city_id) return;
+    if (geometry.features.some((feature) => feature.properties.edge_id === state.selectedRealEdgeId)) return;
+    const path = analysis.path_matrix[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`];
+    const nextId = path?.edge_ids[0] ?? null;
+    if (state.selectedRealEdgeId !== nextId) selectRealEdge(nextId, { automatic: true });
+  }, [geometry, analysis, selectedPathNodes, state?.city.city_id, state?.selectedRealEdgeId, selectRealEdge]);
+  useEffect(() => {
+    if (!detailOpen) return undefined;
+    const close = (event) => { if (event.key === "Escape") { setDetailOpen(false); document.querySelector(".mobile-detail-toggle")?.focus(); } };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [detailOpen]);
   const announce = useCallback((message) => setAnnouncement(message), []);
   const fallbackTo2d = useCallback((reason) => {
     setState((current) => current ? { ...current, view: "2d" } : current);
@@ -552,36 +574,45 @@ export function App() {
   const cityMapConfig = mapConfigForCity(mapCatalog, state.city.city_id);
   const realMode = state.mapMode === "real" && Boolean(cityMapConfig?.real_2d);
   const cityAnalysis = analysis?.city_id === state.city.city_id ? analysis : null;
-  const selectedPath = cityAnalysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? cityAnalysis?.path_fixture ?? null;
+  const selectedPath = cityAnalysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? null;
   const selectedChecklist = cityAnalysis?.review_checklists?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? null;
+  const selectedFeature = geometry?.features.find((feature) => feature.properties.edge_id === state.selectedRealEdgeId) ?? null;
 
   function updateState(nextState, message) {
     setState(nextState);
+    setFallbackNotice("");
+    if (nextState.view === "3d") setDetailOpen(false);
     setAnnouncement(message);
   }
   function selectEdge(edge) {
     updateState({ ...state, selectedEdge: edge }, `${edge.edge_id}の証拠を表示しました`);
   }
   return (
-    <div className="app-shell">
-      <Header city={state.city} catalog={catalog} />
-      <div className="disclaimer" role="note"><b>静的スナップショット比較</b><span>シナリオ結果であり、リアルタイムの安全保証・個別建物の倒壊予測・行政判断ではありません。</span></div>
+    <div className={`app-shell astra-shell ${realMode ? "real-mode" : ""} ${detailOpen ? "detail-open" : ""} ${controlsOpen ? "controls-open" : ""}`}>
+      <Header city={state.city} catalog={catalog} realMode={realMode} onDetail={() => { setDetailOpen(true); setControlsOpen(false); }} onNavigate={() => { setDetailOpen(false); setControlsOpen(false); }} />
+      <div className="disclaimer" role="note"><b>候補経路・確認用</b><span>安全・通行可能性・行政検証を示しません。現地測定は延期中です。</span></div>
       {fallbackNotice && <div className="map-fallback-notice" role="status"><b>3Dから2Dへfallback</b><span>{fallbackNotice}。2D表示と証拠情報を継続します。</span></div>}
       <main id="main-content" tabIndex="-1">
         <section className="corridor-intro" aria-labelledby="corridor-title">
-          <div><p className="eyebrow">{state.city.municipality} / SCENARIO OUTPUT NOT_COMPUTED</p><h2 id="corridor-title">{state.city.display_name}</h2><p>{state.city.corridor_name}</p></div>
+          <div><p className="eyebrow">候補経路を見て、不明な区間と確認事項を調べる</p><h2 id="corridor-title">{state.city.display_name}</h2><p>{state.city.corridor_name}</p></div>
           <dl><div><dt>公式metadata</dt><dd>{state.city.official_metadata_status}</dd></div><div><dt>表示geometry</dt><dd>{realMode ? cityMapConfig.real_2d.geometry_status : state.city.map.geometry_status}</dd></div><div><dt>layer</dt><dd>{realMode ? "REAL COORDINATES / CANDIDATE" : "SYNTHETIC_DEMO / SVG"}</dd></div><div><dt>{realMode ? "source ID" : "source IDs"}</dt><dd>{realMode ? <code>{cityMapConfig.real_2d.source_id}</code> : sourceCount}</dd></div></dl>
         </section>
-        <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={cityAnalysis} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => setSelectedPathNodes([start, end])} />
-        <KpiGrid city={state.city} />
-        <div className="workspace-grid">
+        <button className="mobile-controls-toggle" type="button" aria-expanded={controlsOpen} onClick={() => { setControlsOpen(!controlsOpen); setDetailOpen(false); }}>地域・登録地点を選ぶ</button>
+        <div className="workspace-grid" id="map-workspace">
+          <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={cityAnalysis} conditions={conditions} onConditions={setConditions} showNetwork={showNetwork} onNetwork={setShowNetwork} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => { const path = cityAnalysis?.path_matrix?.[`${start}__${end}`]; if (!path) return; setCameraRequest(0); setSelectedPathNodes([start, end]); setState((current) => ({ ...current, selectedRealEdgeId: path.edge_ids[0] ?? null })); }} />
           <section className="map-column" role="region" aria-label={state.view === "2d" ? "2D地図" : "3D可用性"}>
+            {realMode && <div className="route-purpose" role="status"><b>{state.city.display_name} · {selectedPath?.status === "CONNECTED" ? `登録地点間の候補 ${selectedPath.edge_ids.length}区間` : "登録地点間の接続なし"}</b><span>事前計算済み候補／資料切替で再探索しません</span></div>}
             {state.view === "2d" ? (
               realMode ? (
                 <MapLibreMap
-                  key={`${state.cityId}:${cityMapConfig.real_2d.data_path}`}
+                  key={`${state.city.city_id}:${cityMapConfig.real_2d.data_path}`}
                   config={cityMapConfig.real_2d}
-                  officialLayers={{ hazard: cityAnalysis?.official_evidence?.hazard?.display_layers ?? [], facility: cityAnalysis?.official_evidence?.facility?.display_layer ?? null }}
+                  geometry={geometry}
+                  conditions={conditions}
+                  showNetwork={showNetwork}
+                  selectedNodeIds={selectedPathNodes}
+                  registeredNodeIds={cityAnalysis?.selectable_node_ids ?? []}
+                  officialLayers={{ hazard: cityAnalysis?.official_evidence?.hazard?.display_layers ?? [], facility: cityAnalysis?.official_evidence?.facility?.display_layer ?? null, sourceCatalog: cityAnalysis?.official_evidence?.hazard?.source_catalog }}
                   selectedEdgeId={state.selectedRealEdgeId}
                   selectedPathEdgeIds={selectedPath?.edge_ids ?? []}
                   m7Readiness={cityAnalysis?.official_evidence?.m7?.kyoto_deep_pilot_edges?.length ? cityAnalysis.official_evidence.m7.kyoto_deep_pilot_edges : cityAnalysis?.m7?.readiness ?? []}
@@ -590,18 +621,21 @@ export function App() {
                 />
               ) : <Map2D city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />
             ) : (
-              <CesiumPanel config={cityMapConfig?.cesium ?? null} onFallback={fallbackTo2d} onAnnouncement={announce} />
+              <CesiumPanel key={`${state.city.city_id}:${state.mapMode}`} config={realMode ? cityMapConfig?.cesium ?? null : null} geometry={geometry} bounds={cityMapConfig?.real_2d?.bounds} selectedEdgeId={state.selectedRealEdgeId} selectedPathEdgeIds={selectedPath?.edge_ids ?? []} selectedNodeIds={selectedPathNodes} registeredNodeIds={cityAnalysis?.selectable_node_ids ?? []} conditions={conditions} hazardLayers={cityAnalysis?.official_evidence?.hazard?.display_layers} sourceCatalog={cityAnalysis?.official_evidence?.hazard?.source_catalog} showNetwork={showNetwork} cameraRequest={cameraRequest} onSelectEdge={selectRealEdge} onFallback={fallbackTo2d} onAnnouncement={announce} />
             )}
           </section>
-          {realMode ? <RealLayerPanel config={cityMapConfig.real_2d} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
+          {realMode ? <SegmentInspector feature={selectedFeature} evidence={cityAnalysis?.official_evidence} conditions={conditions} path={selectedPath} view={state.view} onSelectEdge={selectRealEdge} onView3d={() => { setCameraRequest((n) => n + 1); updateState({ ...state, view: "3d" }, "同じ区間の3Dへ切り替えました"); }} onAdmin={() => { document.getElementById("admin-workspace")?.scrollIntoView(); setDetailOpen(false); }} onClose={() => setDetailOpen(false)} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
         </div>
+        {realMode && <button type="button" className="mobile-detail-toggle" onClick={() => { setDetailOpen(true); setControlsOpen(false); }}>選択区間の詳細を開く · UNKNOWN</button>}
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
-        {realMode && cityAnalysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></section>}
-        {realMode && <ReviewChecklistPanel checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} terrainSamples={cityAnalysis?.official_evidence?.terrain?.samples ?? []} />}
-        <AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} />
+        {realMode && cityAnalysis && <details className="candidate-analysis" aria-label="candidate path analysis"><summary>候補経路の計算根拠・ID（事前計算済み）</summary><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></details>}
+        {realMode && <ReviewChecklistPanel conditions={conditions} onConditions={setConditions} checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} terrainSamples={cityAnalysis?.official_evidence?.terrain?.samples ?? []} />}
+        <AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} selectedEdgeId={state.selectedRealEdgeId} onSelectEdge={selectRealEdge} conditions={conditions} />
+        {realMode && <RealLayerPanel config={cityMapConfig.real_2d} />}
+        <KpiGrid city={state.city} />
         <OfficialEvidencePanel evidence={cityAnalysis?.official_evidence} />
         <EvidenceTables city={state.city} />
-        <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>
+        <section className="method-note" aria-labelledby="method-title"><p className="eyebrow">INTERPRETATION BOUNDARY</p><h2 id="method-title">この画面で計算していないこと</h2><p>資料の静的スナップショット比較です。リアルタイムの安全保証ではありません。</p><p>M6/profile評価、需要配分、施設容量、入口、開設・運用状態、時系列の避難成立性は未計算です。KPIは不足項目を0へ変換せず、理由付きnullとして表示します。都市間の順位比較は行いません。</p><p>Attribution: {realMode ? cityMapConfig.real_2d.attribution : <>source metadataは各city packの <code>sources/source_manifest.csv</code>、表示geometryは <code>SYNTHETIC_DEMO</code> fixture</>}。</p></section>
       </main>
       <footer><span>AblePath engineering demo</span><span>Human review required before main merge</span></footer>
       <p className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</p>
