@@ -2,13 +2,11 @@ import { useCallback, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 globalThis.CESIUM_BASE_URL = "/cesium/";
-const { CesiumPanel } = await import("../../src/CesiumPanel.jsx");
+const { default: CesiumScene } = await import("../../src/CesiumScene.jsx");
 
+// Test the renderer lifecycle directly. This synthetic fixture deliberately
+// does not satisfy the production source/receipt gate.
 const VERIFIED_FIXTURE = {
-  connected: true,
-  data_class: "OFFICIAL_REMOTE_TILESET",
-  source_class: "OFFICIAL",
-  connection_receipt_sha256: "a".repeat(64),
   tileset_url: "https://assets.cms.plateau.reearth.io/test-fixture/tileset.json",
   lod: "LOD2",
   accessed_at: "2099-01-01",
@@ -21,6 +19,8 @@ function VerifiedCesiumFixture() {
   const [announcement, setAnnouncement] = useState("");
   const onFallback = useCallback((reason) => setFallback(reason), []);
   const onAnnouncement = useCallback((message) => setAnnouncement(message), []);
+  const [rootLoaded, setRootLoaded] = useState(false);
+  const onConnected = useCallback(() => { setRootLoaded(true); setAnnouncement("PLATEAU root tileset metadata — TEST FIXTURE only"); }, []);
 
   if (fallback) {
     return (
@@ -34,11 +34,12 @@ function VerifiedCesiumFixture() {
   return (
     <>
       <p>TEST FIXTURE — verified-connection control path only</p>
-      <CesiumPanel
+      <CesiumScene
         config={VERIFIED_FIXTURE}
-        onFallback={onFallback}
-        onAnnouncement={onAnnouncement}
+        onFailure={onFallback}
+        onConnected={onConnected}
       />
+      {rootLoaded && <output>SESSION_ROOT_TILESET_LOADED</output>}
       <output aria-label="runtime announcement">{announcement}</output>
     </>
   );

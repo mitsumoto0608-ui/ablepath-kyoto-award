@@ -353,7 +353,8 @@ test("[source_conformance] the screen reads the generated artifact and reuses th
   assert.ok(panel.includes("./data/admin/${checklist.city_id}.checklist.json"), "JSON is the generated static file, not a new download mechanism");
   assert.ok(panel.includes("`./data/admin/${state.city.city_id}.checklist.json`") === false, "the panel does not fetch on its own");
   assert.ok(app.includes("loadAdminChecklist(fetch, `./data/admin/${state.city.city_id}.checklist.json`, state.city.city_id)"), "App fetches the per-city artifact with the city binding");
-  assert.ok(app.includes("<AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} />"), "App resets filters exactly on city changes, not on placeholder hydration");
+  // Astra adds shared selection props; the city-only React key is unchanged.
+  assert.match(app, /<AdminChecklistPanel key=\{state.city.city_id\} checklist=\{adminChecklist\} notice=\{adminNotice\}/, "App resets filters exactly on city changes, not on placeholder hydration");
   for (const option of ["OBJECT_TYPES", "STATUSES", "METHODS"]) assert.ok(panel.includes(option), `the panel offers the ${option} filter`);
   assert.ok(panel.includes("絞り込み後 / 全体"), "counts are always shown as filtered / total");
   assert.ok(panel.includes("internal_use_only === true"), "the loader fails closed on internal rows");

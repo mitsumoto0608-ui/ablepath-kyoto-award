@@ -89,7 +89,7 @@ function FilterGroup({ legend, options, selected, onChange }) {
   );
 }
 
-export function AdminChecklistPanel({ checklist, notice }) {
+export function AdminChecklistPanel({ checklist, notice, selectedEdgeId, onSelectEdge, conditions }) {
   const [objectTypes, setObjectTypes] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [methods, setMethods] = useState([]);
@@ -132,8 +132,10 @@ export function AdminChecklistPanel({ checklist, notice }) {
   }
 
   return (
-    <section className="admin-checklist" aria-labelledby="admin-checklist-title">
+    <section id="admin-workspace" className="admin-checklist" aria-labelledby="admin-checklist-title">
       <div className="section-heading"><p className="eyebrow">ADMIN CHECK WORKFLOW</p><h2 id="admin-checklist-title">行政確認ワークフロー</h2></div>
+      {selectedEdgeId && <p className="shared-selection">地図と共有する区間: <code>{selectedEdgeId}</code> <button type="button" onClick={() => { const row = checklist.items.find((item) => item.object_type === "edge" && item.object_id === selectedEdgeId); setSelectedItemId(row?.item_id ?? null); }}>この区間の確認行を選択</button></p>}
+      {conditions && <p className="shared-source-conditions">共有資料条件: DEM {conditions.terrainProduct} / scenario {conditions.scenario} / revision {conditions.revision}。行政確認票は都市の全原典項目です。この条件による絞込み結果のCSV・JSON・HTMLは「地域・区間の確認リスト」から保存します。</p>}
       <div className="admin-print-header">
         {headerLines.map((line) => <p key={line}>{line}</p>)}
       </div>
@@ -153,7 +155,7 @@ export function AdminChecklistPanel({ checklist, notice }) {
         <button type="button" onClick={saveCsv}>CSVを保存（全{checklist.counts.items}行）</button>
         <a href={`./data/admin/${checklist.city_id}.checklist.json`} download={`${checklist.city_id}.checklist.json`}>JSON manifest（生成済みファイル）</a>
       </div>
-      <AdminChecklistTable items={visible} selectedItemId={selectedItemId} onSelect={setSelectedItemId} />
+      <AdminChecklistTable items={visible} selectedItemId={selectedItemId} onSelect={(id) => { setSelectedItemId(id); const row = checklist.items.find((item) => item.item_id === id); if (row?.object_type === "edge") onSelectEdge?.(row.object_id, { automatic: true }); }} />
       <div className="admin-detail">
         <h3>行詳細</h3>
         <AdminChecklistDetail item={selected} />

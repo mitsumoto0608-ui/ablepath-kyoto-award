@@ -1,5 +1,13 @@
 # AblePath multi-city engineering kit — 観光×地震・火災・大雨 検証ツール
 
+## Astra UI / official remote 3D scope (2026-09-14)
+
+地図・区間詳細・行政確認・書き出しは同じ都市、登録地点間の事前計算済み候補経路、選択edge、DEM product、source scenarioを共有します。任意住所検索、自動迂回、通行可否の判定は実装していません。操作手順と表示の限界は `docs/operations/ASTRA_UI_3D_WORKFLOW.md` を参照してください。
+
+清水・祇園、嵐山、藤沢の2025年公式PLATEAU remote LOD2を実ブラウザで個別検証しました。正本は `reports/ASTRA_PLATEAU_CONNECTION_RECEIPT.json` です。これは **remote表示sourceの検証済みcapability** であり、ページを開いた瞬間の描画成功ではありません。各3DセッションでrootのSHA/bytesを検証し、非空tileが実際に描画されたときだけ `VISIBLE` と表示します。部分coverage・通信/WebGL失敗は残り、失敗時は同じ選択条件で2Dへ戻ります。過去のPhase 4/G8/DEM継続報告の「実3D未接続」はその時点のhistorical snapshotです。
+
+3Dは楕円体terrainと表示専用の候補線（ellipsoid h=0）です。DEM native-cell標高を道路面や3Dの高さへ転用しません。公式建物を画面上でremote表示することは、公開除外した個別建物行の再公開、M7入力、被害・閉塞・安全判定ではありません。公開施設28/0行、個別建物payload除外、M7 ready/computed 0/0、現地測定延期、既存UNKNOWNと未解決公開履歴を維持します。
+
 ## Current public snapshot scope (2026-09-13)
 
 `reports/PUBLIC_SAFE_SNAPSHOT_SCOPE.json` is the current public-row authority, not a provider permission grant. Kyoto source counts are historical 77 / current public 28 toilets (Kiyomizu–Gion 18, Arashiyama 10); 49 shelter rows are excluded pending provider redistribution binding. Fujisawa facility 57/339-row derivatives remain excluded. PLATEAU historical 347 candidate / 288 building counts remain aggregate metadata only; individual rows and field-form building examples are excluded. Excluded exposure is `null` with a reason, never zero observed exposure or evidence of no buildings.
@@ -8,7 +16,7 @@ Retained: three-city DEM1A/DEM5A native cells and exports, bound hazard overlaps
 
 Historical public reachability remains **UNRESOLVED_PREEXISTING_HISTORY_RETAINED**. Current-row exclusion does not remove old main/PR/branch history. No public Release, deployment or main merge is authorized by this snapshot task. Internal RC/bundles are not public attachments. On rollback, preserve these exclusions; a blanket revert to old main could restore unconfirmed payloads.
 
-**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesium runtimeは実装済みですが、実PLATEAU tilesetは未検証・未接続です。M6/profile、実edgeへのM7、KPI/model、行政PoCとpublic releaseは未完成です。公式hazardのglobal/operational接続は未完成ですが、source-side analysisは京都A31b・京都土砂・藤沢A40に加え、藤沢の検証済みEPSG:4612の液状化8 scenario、ゆれやすさ1 layer、液状化危険度1 layerを接続しています。GSI DEM1A/5Aは3都市でnative-cell値を別productとして接続しています。これらはCLOSED/FAIL・damage・debris・段差・勾配・通行可能性・安全性を生成しません。藤沢震度8 scenarioはaccepted T-BのCRS closureと県利用条件bindingに基づき接続済みです。現行の公開行範囲は`reports/PUBLIC_SAFE_SNAPSHOT_SCOPE.json`、震度接続根拠は`reports/FUJISAWA_INTENSITY_CRS_CLOSURE_RECEIPT.json`です。従来のPhase 4 gateおよび継続タスク報告は各時点のhistorical snapshotです。
+**現在地＝PARTIAL_COMPLETE**：安全契約・データ検査・KPI4区分・論文定数管理・再現性を備えたシナリオ計算エンジンv0.2、M7残存幅コア、清水・嵐山・藤沢（江の島）の3都市engineering UI shellを実装済みです。3都市のデフォルト表示は`SYNTHETIC_DEMO`模式図で、各都市とも明示操作時だけsource-traceable VGIの実座標`CANDIDATE` graphへ切り替えられ、MapLibre runtimeが候補edgeを表示します。全都市でroute continuityは`NOT_ESTABLISHED`であり、通行可能性・accessibility・安全性・運用状態を意味しません。Cesiumは上記Astra receiptで検証した3都市の公式remote PLATEAUを明示操作で表示し、セッションごとに非空描画と失敗時2D fallbackを区別します。これは部分coverageの表示接続であり、M7・model接続ではありません。M6/profile、実edgeへのM7、KPI/model、行政PoCとpublic releaseは未完成です。公式hazardのglobal/operational接続は未完成ですが、source-side analysisは京都A31b・京都土砂・藤沢A40に加え、藤沢の検証済みEPSG:4612の液状化8 scenario、ゆれやすさ1 layer、液状化危険度1 layerを接続しています。GSI DEM1A/5Aは3都市でnative-cell値を別productとして接続しています。これらはCLOSED/FAIL・damage・debris・段差・勾配・通行可能性・安全性を生成しません。藤沢震度8 scenarioはaccepted T-BのCRS closureと県利用条件bindingに基づき接続済みです。現行の公開行範囲は`reports/PUBLIC_SAFE_SNAPSHOT_SCOPE.json`、震度接続根拠は`reports/FUJISAWA_INTENSITY_CRS_CLOSURE_RECEIPT.json`です。従来のPhase 4 gateおよび継続タスク報告は各時点のhistorical snapshotです。
 
 中心説明：**観光地で、誰が、なぜ通れないかを証拠付きedgeで評価し、平時のアクセシブル観光と地震・地震火災・大雨の静的scenarioを同じ歩行グラフで検証するためのengineering kit。** 現段階は行政判断や安全を保証する製品ではありません。
 
@@ -49,9 +57,13 @@ KIYOMIZU_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
 ARASHIYAMA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
 FUJISAWA_REAL_2D_ARTIFACT_CONNECTED_IN_VIEWER=true
 CESIUM_RUNTIME_IMPLEMENTED=true
-CESIUM_CONNECTED=false
-PLATEAU_3D_CONNECTED=false
-THREE_D_IMPLEMENTATION=RUNTIME_IMPLEMENTED_MOCKED_GATE_REAL_TILESET_NOT_VALIDATED
+CESIUM_CONNECTED=true
+CESIUM_CONNECTED_SCOPE=REVIEWED_THREE_CITY_REMOTE_DISPLAY_CAPABILITY_NOT_CURRENT_SESSION_SUCCESS
+PLATEAU_3D_CONNECTED=true
+PLATEAU_3D_CONNECTED_SCOPE=OFFICIAL_2025_LOD2_REMOTE_DISPLAY_PARTIAL_COVERAGE_NOT_M7
+THREE_D_IMPLEMENTATION=VERIFIED_ROOT_AND_LIVE_TILE_RENDER_WITH_SESSION_GATE_AND_2D_FALLBACK
+THREE_D_TRUTH_AUTHORITY=reports/ASTRA_PLATEAU_CONNECTION_RECEIPT.json
+THREE_D_INITIAL_SESSION_STATUS=IDLE
 DEMO_COMPLETE=false
 PUBLIC_RELEASE_READY=false
 ```
@@ -163,7 +175,7 @@ Git cloneではGit blobを正本としてrelease archiveを作成し、tracked�
 2. 公式hazard geometryを取得し、edgeとの重なりを検証する
 3. 実/CANDIDATE edgeへM7のreviewed inputsを接続する
 4. M6/profile判定を実装し、`NOT_COMPUTED`を解消する
-5. 検証済み実PLATEAU tilesetをCesium runtimeへ接続する
+5. 実PLATEAU参照表示の部分カバレッジと継続セッション検証を拡充する
 6. ほこナビadapterとround-trip・情報損失検証を実装する
 7. 施設・入口・容量・運用・需要を検証しKPI/modelへ接続する
 8. 現地確認と行政レビューで妥当性を検証する

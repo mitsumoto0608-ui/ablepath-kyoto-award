@@ -1,0 +1,139 @@
+/* Owner-approved Astra references: map first; blue is selection, not safety. */
+:root { --ink: #223750; --paper: #f5f7fa; --paper-deep: #edf1f5; --accent: #2868b5; --teal: #365a7b; --line: #d7dfe8; --surface: #fff; }
+body { background: var(--paper); color: var(--ink); }
+button, select, input { border-radius: 6px; }
+button { padding: .5rem .75rem; border: 1px solid #b9c8d8; background: white; color: var(--ink); }
+button:hover:not(:disabled) { background: #edf4fc; border-color: #2868b5; }
+button:disabled { cursor: not-allowed; opacity: .65; }
+summary { cursor: pointer; padding: .55rem 0; font-weight: 600; }
+small { display: block; }
+.astra-shell main { max-width: none; padding: 0 22px 24px; }
+.astra-shell .masthead { min-height: 68px; padding: 12px 24px; color: var(--ink); background: white; border-bottom: 1px solid var(--line); gap: 20px; }
+.astra-shell .brand-mark { width: 36px; height: 36px; border: 0; border-radius: 9px; background: #2868b5; transform: none; font-size: 14px; letter-spacing: -.03em; }
+.astra-shell h1, .astra-shell h2, .astra-shell h3 { font-family: inherit; letter-spacing: normal; }
+.astra-shell h1 { font-size: 22px; }
+.astra-shell .eyebrow { letter-spacing: .08em; font-size: 10px; color: #60738b; }
+.app-nav { display: flex; gap: 26px; margin-left: auto; font-size: 13px; }
+.app-nav a, .segment-actions a { color: #234b7b; text-decoration: none; padding: 10px 0; }
+.app-nav a:hover { text-decoration: underline; }
+.astra-shell .status-cluster { font-size: 10px; gap: 8px; }
+.astra-shell .status-cluster > :not(:first-child) { display: none; }
+.astra-shell .status-badge { border-radius: 4px; font-size: 10px; font-weight: 600; background: #edf2f8; color: #334e71; }
+.astra-shell .disclaimer { position: static; background: #fff7e7; color: #795a28; box-shadow: none; padding: 8px 24px; font-size: 11px; }
+.astra-shell .corridor-intro { padding: 18px 0 14px; border: 0; align-items: center; }
+.astra-shell .corridor-intro h2 { font-size: 22px; margin: 3px 0; }
+.astra-shell .corridor-intro p:last-child { font-size: 11px; margin: 4px 0 0; color: #65768b; }
+.astra-shell .corridor-intro dl { display: none; }
+.astra-shell .workspace-grid { margin: 0; gap: 14px; grid-template-columns: 258px minmax(0, 1fr) 324px; align-items: start; }
+.astra-shell .controls { margin: 0; padding: 18px; box-shadow: none; background: white; border-radius: 9px; }
+.astra-shell .section-heading h2 { font-size: 17px; }
+.astra-shell .control-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+.astra-shell .control-grid label { font-size: 12px; font-weight: 600; }
+.astra-shell .unconnected-controls { margin: 10px 0; font-size: 12px; }
+.astra-shell .unconnected-controls label { display: block; margin-top: 10px; }
+.astra-shell .unconnected-controls summary { cursor: pointer; color: var(--muted); }
+.astra-shell .controls select { font-size: 12px; padding: 8px; border-color: #cbd5e0; }
+.astra-shell .view-tabs { margin: 14px 0 0; gap: 4px; justify-content: stretch; }
+.astra-shell .view-tabs button { flex: 1; min-width: 0; border-color: var(--line); font-size: 12px; padding: 8px 5px; }
+.astra-shell .view-tabs button[aria-pressed=true] { background: #2868b5; border-color: #2868b5; }
+.astra-shell .map-mode-fieldset { padding-top: 8px; margin-top: 12px; }
+.source-controls { border-top: 1px solid var(--line); padding-top: 10px; }
+.source-controls h3 { margin: 2px 0 10px; font-size: 13px; }
+.source-controls label { display: grid; gap: 5px; margin: 10px 0; font-size: 12px; }
+.small-note { font-size: 11px; line-height: 1.7; color: #65758a; }
+.astra-shell .map-shell, .astra-shell .real-map-shell, .astra-shell .cesium-shell { background: white; border-radius: 9px; overflow: hidden; }
+.astra-shell .map-toolbar { padding: 12px 14px; gap: 6px; align-items: center; }
+.astra-shell .map-toolbar h2 { font-size: 15px; }
+.astra-shell .map-toolbar > span { font-size: 9px; background: #edf2f8; border-radius: 4px; }
+.astra-shell .maplibre-canvas, .astra-shell .cesium-canvas { height: min(62vh, 660px); min-height: 480px; }
+.astra-shell .map-runtime-status { gap: 3px; padding: 6px 12px; font-size: 9px; flex-direction: row; }
+.astra-shell .map-runtime-status span { font-size: 9px; background: #f1f4f8; padding: 2px 4px; }
+.map-provenance { padding: 0 14px; font-size: 10px; }
+.map-provenance .layer-facts { padding: 4px 0; }
+.astra-shell .map-caption, .astra-shell .map-attribution { margin: 0; padding: 6px 14px; font-size: 10px; line-height: 1.6; }
+.map-table-disclosure { padding: 4px 14px; font-size: 11px; border-top: 1px solid var(--line); }
+.map-table-disclosure .table-scroll { max-height: 350px; overflow: auto; }
+.segment-inspector { background: white; border: 1px solid var(--line); border-radius: 9px; padding: 18px; font-size: 12px; max-height: calc(100vh - 150px); overflow: auto; scrollbar-width: thin; }
+.inspector-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.inspector-heading h2 { font-size: 17px; margin: 0; }
+.segment-inspector h3 { font-size: 13px; margin: 16px 0 8px; }
+.segment-inspector h4 { font-size: 12px; margin: 14px 0 6px; }
+.segment-id { color: #62738a; font-size: 10px; }
+.neutral-status { color: #526477; background: #f0f3f7; padding: 8px; border-radius: 5px; }
+.segment-actions { display: grid; gap: 2px; font-size: 12px; }
+.segment-actions button { background: #2868b5; color: white; border: 0; }
+.segment-actions button:hover:not(:disabled) { background: #1c508b; color: white; }
+.segment-inspector section { border-top: 1px solid var(--line); margin-top: 14px; }
+.compact-facts { margin: 0; }
+.compact-facts > div { display: grid; grid-template-columns: 95px 1fr; gap: 8px; padding: 7px 0; }
+.compact-facts dt { color: #68788b; }
+.compact-facts dd { margin: 0; }
+.inspector-samples { max-height: 155px; overflow: auto; border: 1px solid var(--line); border-radius: 5px; }
+.inspector-samples table { min-width: 0; font-size: 10px; }
+.inspector-samples th, .inspector-samples td { padding: 7px; overflow-wrap: anywhere; }
+.inspector-samples thead { color: var(--ink); background: #edf2f8; }
+.inspector-samples small { color: #68788b; margin-top: 4px; }
+.inspector-hazards { max-height: 190px; overflow: auto; overflow-wrap: anywhere; }
+.inspector-hazards summary { font-size: 10px; }
+.inspector-hazards summary small { font-weight: 400; color: #68788b; }
+.unknown-box { background: #fff8eb; border: 1px solid #efdfbd !important; border-radius: 6px; padding: 0 12px 8px; line-height: 1.7; }
+.source-disclosure { overflow-wrap: anywhere; margin-top: 12px; }
+.source-disclosure code { font-size: 9px; }
+.segment-pagination { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: center; border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; text-align: center; font-size: 10px; }
+.segment-pagination button { font-size: 11px; padding: 5px; }
+.astra-shell .candidate-analysis { margin: 14px 338px 18px 272px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: white; font-size: 11px; }
+.candidate-analysis h2 { font-size: 14px; margin: 0 0 6px; }
+.candidate-analysis p { margin: 4px 0; overflow-wrap: anywhere; }
+.astra-shell .review-checklist, .astra-shell .admin-checklist, .astra-shell .evidence-tables, .astra-shell .kpi-section, .astra-shell .evidence-panel, .astra-shell .method-note { background: white; border: 1px solid var(--line); border-radius: 9px; box-shadow: none; padding: 20px; margin: 20px 0; }
+.astra-shell .workspace-grid .evidence-panel { margin: 0; }
+.astra-shell .review-checklist > label { display: inline-grid; width: calc(25% - 14px); margin: 8px 14px 8px 0; vertical-align: top; font-size: 11px; }
+.astra-shell .review-checklist > p { font-size: 12px; }
+.astra-shell .table-scroll { scrollbar-width: thin; }
+.astra-shell thead { background: #edf2f8; color: #344c69; }
+.astra-shell .table-scroll table { font-size: 11px; }
+.astra-shell .active-row { background: #e9f2ff; }
+.astra-shell .shared-selection { background: #edf4fc; padding: 10px; border-radius: 6px; }
+.mobile-controls-toggle, .mobile-detail-toggle, .mobile-detail-close { display: none; }
+@media (max-width: 1150px) and (min-width: 761px) {
+  .astra-shell .workspace-grid { grid-template-columns: 210px minmax(0, 1fr) 280px; gap: 10px; }
+  .astra-shell main { padding-inline: 12px; }
+  .astra-shell .candidate-analysis { margin-left: 220px; margin-right: 290px; }
+  .astra-shell .controls, .segment-inspector { padding: 12px; }
+}
+@media (max-width: 760px) {
+  .astra-shell .masthead { flex-direction: row; align-items: center; padding: 10px 14px; min-height: 62px; gap: 10px; }
+  .astra-shell .masthead .eyebrow, .astra-shell .status-cluster { display: none; }
+  .astra-shell .app-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; margin: 0; justify-content: space-around; gap: 0; padding: 4px 6px max(4px, env(safe-area-inset-bottom)); background: white; border-top: 1px solid var(--line); font-size: 12px; }
+  .astra-shell .app-nav a { padding: 12px 8px; }
+  .astra-shell .disclaimer { padding: 6px 14px; flex-direction: row; gap: 8px; font-size: 9px; }
+  .astra-shell main { padding: 0 10px 65px; }
+  .astra-shell .corridor-intro { padding: 12px 4px; }
+  .astra-shell .corridor-intro h2 { font-size: 19px; }
+  .astra-shell .corridor-intro p:last-child { display: none; }
+  .astra-shell .workspace-grid { display: block; }
+  .mobile-controls-toggle, .mobile-detail-toggle { display: block; width: 100%; margin: 0 0 10px; font-size: 12px; }
+  .mobile-detail-toggle { margin-top: 10px; }
+  .astra-shell .controls { display: none; margin-bottom: 12px; }
+  .astra-shell.controls-open .controls { display: block; }
+  .astra-shell .control-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .astra-shell .control-grid > label:first-child { grid-column: 1 / -1; }
+  .astra-shell .map-toolbar { flex-direction: row; padding: 10px; }
+  .astra-shell .map-toolbar h2 { font-size: 12px; }
+  .astra-shell .map-toolbar .eyebrow { font-size: 8px; }
+  .astra-shell .maplibre-canvas, .astra-shell .cesium-canvas { height: 48svh; min-height: 300px; }
+  .astra-shell .map-runtime-status { padding: 4px 8px; }
+  .astra-shell .map-runtime-status span { font-size: 8px; }
+  .astra-shell .map-provenance { font-size: 9px; padding-inline: 10px; }
+  .astra-shell .map-caption, .astra-shell .map-attribution { padding: 5px 10px; font-size: 9px; }
+  .astra-shell .segment-inspector { display: none; }
+  .astra-shell.detail-open .segment-inspector { display: block; position: fixed; z-index: 40; bottom: 54px; left: 0; right: 0; max-height: 65svh; padding: 16px; border-radius: 18px 18px 0 0; box-shadow: 0 -5px 20px #22375020; }
+  .mobile-detail-close { display: block; font-size: 11px; }
+  .astra-shell .candidate-analysis { margin: 10px 0; }
+  .astra-shell .review-checklist, .astra-shell .admin-checklist, .astra-shell .evidence-tables, .astra-shell .kpi-section { padding: 14px; }
+  .astra-shell .review-checklist > label { width: 100%; margin-right: 0; }
+  .astra-shell .checklist-summary, .astra-shell .kpi-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .astra-shell .admin-checklist { border: none; }
+  .astra-shell .app-nav, .shared-selection, .mobile-detail-toggle { display: none !important; }
+}

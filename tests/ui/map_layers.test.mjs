@@ -150,10 +150,10 @@ test("[source_conformance] every city allowlist fails closed on an artifact hash
   }
 });
 
-test("[source_conformance] PLATEAU remains official metadata only and disconnected", () => {
-  const catalog = assertSupportedMapCatalog(
-    readJson(new URL("../../viewer/public/data/maps/map-layers.json", import.meta.url)),
-  );
+test("[source_conformance] historical PLATEAU metadata without a reviewed live receipt remains disconnected", () => {
+  const source = readJson(new URL("../../viewer/public/data/maps/map-layers.json", import.meta.url));
+  source.cities.find((city) => city.city_id === "kyoto_kiyomizu").cesium = readJson(new URL("./fixtures/plateau-metadata-only.json", import.meta.url));
+  const catalog = assertSupportedMapCatalog(source);
   const layer = catalog.cities.find((city) => city.city_id === "kyoto_kiyomizu");
   assert.equal(layer.cesium.data_class, "OFFICIAL_METADATA_ONLY");
   assert.equal(layer.cesium.lod, "LOD2");
@@ -171,7 +171,7 @@ test("[source_conformance] catalog validation rejects truth-status promotion and
   const mutations = [
     ["candidate topology promoted to verified", (city) => { city.real_2d.topology_status = "VERIFIED"; }],
     ["route continuity promoted to established", (city) => { city.real_2d.route_continuity = "ESTABLISHED"; }],
-    ["static PLATEAU connection promoted", (city) => { city.cesium.connected = true; }],
+    ["source capability promoted to a live session claim", (city) => { city.cesium.session_status = "VISIBLE"; }],
     ["copied artifact lineage changed", (city) => { city.real_2d.copied_sha256 = "0".repeat(64); }],
     ["topology artifact lineage changed", (city) => { city.real_2d.topology_sha256 = "0".repeat(64); }],
     ["PLATEAU metadata lineage changed", (city) => { city.cesium.metadata_sha256 = "0".repeat(64); }],

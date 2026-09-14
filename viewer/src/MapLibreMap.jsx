@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Map, NavigationControl } from "maplibre-gl";
+import { Map, NavigationControl, setWorkerUrl } from "maplibre-gl";
+import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { filterHazardDisplayFeatures, isHazardDisplayFeature } from "./workspaceSelection.mjs";
 
 const MAP_DATA_TIMEOUT_MS = 5_000;
+// MapLibre v6's worker imports its shared sibling; Vite must bundle both.
+// Plain ?url would copy only the entry and strand GeoJSON loads in production.
+setWorkerUrl(mapWorkerUrl);
 
 function validateRuntimeGeoJson(value, config) {
   if (value?.type !== "FeatureCollection" || !Array.isArray(value.features) || value.features.length !== config.feature_count) {
@@ -21,13 +26,16 @@ function validateRuntimeGeoJson(value, config) {
   return value;
 }
 
-async function loadGeoJson(config) {
+export async function loadGeoJson(config) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), MAP_DATA_TIMEOUT_MS);
   try {
     const response = await fetch(config.data_path, { signal: controller.signal });
     if (!response.ok) throw new Error(`実座標artifactの取得に失敗しました（HTTP ${response.status}）`);
-    return validateRuntimeGeoJson(await response.json(), config);
+    const bytes = await response.arrayBuffer();
+    const digest = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), (value) => value.toString(16).padStart(2, "0")).join("");
+    if (digest !== config.copied_sha256) throw new Error("実座標artifactのSHA-256がmanifestと一致しません");
+    return validateRuntimeGeoJson(JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)), config);
   } catch (error) {
     if (error?.name === "AbortError") throw new Error("実座標artifactの取得がタイムアウトしました");
     throw error;
@@ -43,12 +51,14 @@ async function loadOfficialOverlay(config, kind) {
   try {
     const response = await fetch(config.data_path, { signal: controller.signal });
     if (!response.ok) throw new Error(`${kind} artifactの取得に失敗しました（HTTP ${response.status}）`);
-    const value = await response.json();
+    const bytes = await response.arrayBuffer();
+    const digest = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), (value) => value.toString(16).padStart(2, "0")).join("");
+    if (digest !== config.copied_sha256) throw new Error(`${kind} display bytes differ from the source-bound receipt`);
+    const value = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
     if (value?.type !== "FeatureCollection" || !Array.isArray(value.features) || value.features.length !== config.feature_count) throw new Error(`${kind} artifactのfeature数がbuild receiptと一致しません`);
     for (const feature of value.features) {
       if (kind === "hazard") {
-        if (!["Polygon", "MultiPolygon"].includes(feature?.geometry?.type) || feature?.properties?._ablepath_display_only !== true) throw new Error("hazard display artifactがfail-closed契約を満たしません");
-        for (const forbidden of ["official_closure", "damage_state", "debris_present", "setback_m"]) if (Object.hasOwn(feature.properties, forbidden)) throw new Error(`hazard display artifact contains forbidden ${forbidden}`);
+        if (!isHazardDisplayFeature(feature, config)) throw new Error("hazard display artifactがfail-closed契約を満たしません");
       } else if (feature?.geometry?.type !== "Point" || feature?.properties?.coordinate_method !== "SOURCE_PROVIDED_LONGITUDE_LATITUDE" || feature?.properties?.silent_geocoding !== false) {
         throw new Error("facility display artifactがsource-coordinate契約を満たしません");
       }
@@ -86,7 +96,7 @@ function RealEdgeDetails({ feature, m7Readiness }) {
   );
 }
 
-export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selectedPathEdgeIds = [], m7Readiness = [], onSelectEdge, onAnnouncement }) {
+export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", revision: "ALL" }, officialLayers = {}, selectedEdgeId, selectedPathEdgeIds = [], m7Readiness = [], onSelectEdge, onAnnouncement }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const [geojson, setGeojson] = useState(null);
@@ -94,11 +104,15 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
   const [rendererError, setRendererError] = useState("");
   const [basemapState, setBasemapState] = useState("LOADING");
   const [overlayReady, setOverlayReady] = useState(false);
+  const [visibleCandidateFragments, setVisibleCandidateFragments] = useState(0);
   const [officialOverlays, setOfficialOverlays] = useState({ hazard: null, facility: null });
+  const selectionRef = useRef({ selectedEdgeId, selectedPathEdgeIds, conditions });
+  selectionRef.current = { selectedEdgeId, selectedPathEdgeIds, conditions };
 
   useEffect(() => {
     let active = true;
     setLoadError("");
+    if (geometry !== undefined) { setGeojson(geometry); return undefined; }
     loadGeoJson(config)
       .then((loaded) => {
         if (!active) return;
@@ -106,7 +120,7 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
       })
       .catch((error) => active && setLoadError(error.message));
     return () => { active = false; };
-  }, [config]);
+  }, [config, geometry]);
 
   useEffect(() => {
     let active = true;
@@ -119,13 +133,11 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
   }, [officialLayers.hazard, officialLayers.facility]);
 
   useEffect(() => {
-    if (geojson && !geojson.features.some((feature) => feature.properties.edge_id === selectedEdgeId)) {
-      onSelectEdge(geojson.features[0]?.properties.edge_id ?? null);
-    }
-  }, [geojson, onSelectEdge, selectedEdgeId]);
-
-  useEffect(() => {
     if (!geojson || !containerRef.current) return undefined;
+    setOverlayReady(false);
+    setVisibleCandidateFragments(0);
+    setRendererError("");
+    setBasemapState("LOADING");
     let map;
     try {
       map = new Map({
@@ -138,6 +150,7 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
         attributionControl: false,
         renderWorldCopies: false,
       });
+      if (!map.getCanvas().getContext("webgl2")) throw new Error("WebGL2 renderer unavailable; use the candidate table");
       mapRef.current = map;
       map.addControl(new NavigationControl({ showCompass: false }), "top-right");
       map.on("load", () => {
@@ -156,7 +169,8 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
           source: "candidate-edges",
           paint: { "line-color": "#ffb000", "line-width": 5, "line-opacity": 0.94 },
         });
-        map.addLayer({ id: "candidate-path-line", type: "line", source: "candidate-edges", filter: ["in", ["get", "edge_id"], ["literal", selectedPathEdgeIds]], paint: { "line-color": "#173f5f", "line-width": 8, "line-opacity": 0.94 } });
+        map.addLayer({ id: "candidate-path-line", type: "line", source: "candidate-edges", filter: ["in", ["get", "edge_id"], ["literal", selectionRef.current.selectedPathEdgeIds]], paint: { "line-color": "#2466bc", "line-width": 7, "line-opacity": 0.96 } });
+        map.addLayer({ id: "selected-edge-line", type: "line", source: "candidate-edges", filter: ["==", ["get", "edge_id"], selectionRef.current.selectedEdgeId ?? ""], paint: { "line-color": "#153964", "line-width": 10 } });
         map.addLayer({
           id: "candidate-edges-hit",
           type: "line",
@@ -164,7 +178,6 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
           paint: { "line-color": "#ffffff", "line-width": 18, "line-opacity": 0.01 },
         });
         map.fitBounds(config.bounds, { padding: 42, duration: 0, maxZoom: 17 });
-        setOverlayReady(true);
         map.addSource("osm-raster", {
           type: "raster",
           tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
@@ -173,7 +186,7 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
         });
         map.addLayer(
           { id: "osm-basemap", type: "raster", source: "osm-raster", minzoom: 0, maxzoom: 19 },
-          "candidate-edges-line",
+          officialOverlays.hazard ? "official-hazard-fill" : officialOverlays.facility ? "official-facility-points" : "candidate-edges-line",
         );
         map.on("click", "candidate-edges-hit", (event) => {
           const edgeId = event.features?.[0]?.properties?.edge_id;
@@ -185,22 +198,60 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
         map.on("mouseenter", "candidate-edges-hit", () => { map.getCanvas().style.cursor = "pointer"; });
         map.on("mouseleave", "candidate-edges-hit", () => { map.getCanvas().style.cursor = ""; });
       });
-      map.on("idle", () => setBasemapState((current) => current === "DEGRADED" ? current : "AVAILABLE"));
+      map.on("idle", () => {
+        setBasemapState((current) => current === "DEGRADED" ? current : "AVAILABLE");
+      });
+      // A failed raster can keep the whole map from becoming idle. Candidate
+      // proof belongs to its rendered frame, independently of the basemap.
+      map.on("render", () => {
+        if (map.getLayer("candidate-edges-line")) setVisibleCandidateFragments(map.queryRenderedFeatures({ layers: ["candidate-edges-line"] }).length);
+      });
+      map.on("sourcedata", (event) => {
+        if (event.sourceId === "candidate-edges" && event.isSourceLoaded) setOverlayReady(true);
+      });
       map.on("error", (event) => {
-        if (event?.sourceId === "osm-raster" || /tile|raster|network/i.test(event?.error?.message ?? "")) {
+        if (event?.sourceId === "osm-raster") {
           setBasemapState("DEGRADED");
           onAnnouncement("背景地図の通信に失敗しました。ローカル候補edgeと表は継続表示します");
+        } else {
+          setRendererError(event?.error?.message ?? "Map source rendering failed");
+          onAnnouncement("地図の描画に失敗しました。候補区間の表と証拠情報を利用してください");
         }
       });
     } catch (error) {
       setRendererError(error.message);
       onAnnouncement("MapLibreを開始できないため、実座標の表形式代替を表示します");
-    }
-    return () => {
+      // A failed WebGL constructor can return a partially initialized Map.
+      // Its resize/remove must not take down the evidence and export UI.
+      try { map?.remove(); } catch { containerRef.current?.replaceChildren(); }
       mapRef.current = null;
-      if (map && !map._removed) map.remove();
+      return undefined;
+    }
+    const resize = new ResizeObserver(() => {
+      try { map.resize(); } catch (error) { setRendererError(error.message); }
+    });
+    if (containerRef.current) resize.observe(containerRef.current);
+    return () => {
+      resize.disconnect();
+      mapRef.current = null;
+      if (map && !map._removed) { try { map.remove(); } catch { containerRef.current?.replaceChildren(); } }
     };
-  }, [config, geojson, officialOverlays, onAnnouncement, onSelectEdge, selectedPathEdgeIds]);
+  }, [config, geojson, officialOverlays, onAnnouncement, onSelectEdge]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return undefined;
+    const update = () => {
+      if (!map.getLayer("candidate-path-line")) return;
+      map.setFilter("candidate-path-line", ["in", ["get", "edge_id"], ["literal", selectedPathEdgeIds]]);
+      map.setFilter("selected-edge-line", ["==", ["get", "edge_id"], selectedEdgeId ?? ""]);
+      if (map.getLayer("official-hazard-fill")) {
+        map.getSource("official-hazard").setData({ ...officialOverlays.hazard, features: filterHazardDisplayFeatures(officialOverlays.hazard.features, conditions, officialLayers.sourceCatalog) });
+      }
+    };
+    update(); map.on("load", update);
+    return () => { if (!map._removed) map.off("load", update); };
+  }, [selectedEdgeId, selectedPathEdgeIds, conditions.scenario, conditions.revision, geojson, officialOverlays, officialLayers.sourceCatalog]);
 
   const selectedFeature = geojson?.features.find((feature) => feature.properties.edge_id === selectedEdgeId) ?? null;
   if (loadError) {
@@ -213,12 +264,13 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
         <div><p className="eyebrow">MAPLIBRE / SOURCE-TRACEABLE COORDINATES</p><h2 id="real-map-title">実座標候補graph</h2></div>
         <span className="status-badge status-real">REAL COORDINATES / CANDIDATE</span>
       </div>
-      <div className="layer-facts" aria-label="実座標layer provenance">
+      <details className="map-provenance"><summary>候補geometryの出典・通信状態</summary><div className="layer-facts" aria-label="実座標layer provenance">
         <span>source {config.source_class}</span><span>geometry {config.data_class}</span><span>{config.geometry_status}</span>
         <span>{config.topology_status}</span><span>continuity {config.route_continuity}</span><span>{config.snapshot_at}</span>
       </div>
-      <div className="map-runtime-status" role="status">
-        <span>background {basemapState}</span><span>candidate overlay {overlayReady ? "AVAILABLE" : "LOADING"}</span><span>official hazard {officialOverlays.hazard ? `AVAILABLE (${officialOverlays.hazard.features.length})` : "NOT_CONNECTED"}</span><span>official facilities {officialOverlays.facility ? `AVAILABLE (${officialOverlays.facility.features.length})` : "NOT_CONNECTED"}</span>
+      </details>
+      <div className="map-runtime-status" role="status" data-visible-candidate-fragments={visibleCandidateFragments}>
+        <span>background {basemapState}</span><span>candidate overlay {rendererError ? "DEGRADED_TABLE_AVAILABLE" : overlayReady ? "AVAILABLE" : "LOADING"}</span><span>official hazard {officialOverlays.hazard ? `AVAILABLE (${officialOverlays.hazard.features.length})` : "NOT_CONNECTED"}</span><span>official facilities {officialOverlays.facility ? `AVAILABLE (${officialOverlays.facility.features.length})` : "NOT_CONNECTED"}</span>
       </div>
       {rendererError && <div className="map-renderer-warning" role="alert">MapLibre renderer: {rendererError}。表形式代替は利用できます。</div>}
       <div ref={containerRef} className="maplibre-canvas" aria-label="MapLibre実座標地図。操作の代替として直後のedge表を利用できます" />
@@ -228,6 +280,7 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
         {" / Data available under "}
         <a href={config.license_url} target="_blank" rel="noreferrer">ODbL 1.0</a>
       </p>
+      <details className="map-table-disclosure"><summary>区間一覧・原典属性（地図の操作代替）</summary>
       <RealEdgeDetails feature={selectedFeature} m7Readiness={m7Readiness.find((row) => row.edge_id === selectedFeature?.properties?.edge_id)} />
       <div id="edge-table" className="table-scroll" tabIndex="-1" aria-label="実座標候補edgeの表形式代替">
         <table>
@@ -239,6 +292,8 @@ export function MapLibreMap({ config, officialLayers = {}, selectedEdgeId, selec
           })}</tbody>
         </table>
       </div>
+      <p className="map-caption">描画中の候補線fragment: {visibleCandidateFragments}（画面内の描画単位。独立edge数ではありません）</p>
+      </details>
     </section>
   );
 }

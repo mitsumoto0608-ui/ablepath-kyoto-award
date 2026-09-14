@@ -1,4 +1,5 @@
-const MAP_SCHEMA_VERSION = "2.0.0";
+import { assertVerifiedPlateauSource } from "./plateauConnection.mjs";
+const MAP_SCHEMA_VERSIONS = new Set(["2.0.0", "2.1.0"]);
 const CITY_IDS = new Set(["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]);
 const CITY_REAL_CONTRACTS = {
   kyoto_kiyomizu: {
@@ -117,6 +118,7 @@ function validateReal2d(layer, cityId) {
 }
 
 function validateCesium(layer, cityId) {
+  if (layer?.data_class === "OFFICIAL_REMOTE_TILESET") return assertVerifiedPlateauSource(layer, cityId);
   exactKeys(layer, CESIUM_FIELDS, `${cityId}.cesium`);
   if (typeof layer.available !== "boolean" || typeof layer.connected !== "boolean" || typeof layer.requires_commercial_token !== "boolean") {
     throw new Error(`${cityId}.cesium flags must be boolean`);
@@ -146,7 +148,7 @@ function validateCesium(layer, cityId) {
 
 export function assertSupportedMapCatalog(catalog) {
   exactKeys(catalog, ["viewer_map_schema_version", "generated_from", "cities"], "map catalog");
-  if (catalog.viewer_map_schema_version !== MAP_SCHEMA_VERSION) throw new Error(`unsupported viewer_map_schema_version: ${String(catalog.viewer_map_schema_version)}`);
+  if (!MAP_SCHEMA_VERSIONS.has(catalog.viewer_map_schema_version)) throw new Error(`unsupported viewer_map_schema_version: ${String(catalog.viewer_map_schema_version)}`);
   if (catalog.generated_from !== "HASH_VERIFIED_CITY_ARTIFACTS") throw new Error(`unsupported map catalog provenance: ${String(catalog.generated_from)}`);
   if (!Array.isArray(catalog.cities) || catalog.cities.length !== CITY_IDS.size) throw new Error("map catalog must contain exactly the three viewer cities");
   const seen = new Set();
@@ -184,12 +186,8 @@ export function mapConfigForCity(catalog, cityId) {
 // child availability, CORS, and the target AOI before the Cesium runtime may
 // request an official tileset.
 export function isVerifiedCesiumConnection(layer) {
-  return Boolean(
-    layer
-    && layer.connected === true
-    && layer.data_class === "OFFICIAL_REMOTE_TILESET"
-    && layer.connection_receipt_sha256,
-  );
+  try { return Boolean(assertVerifiedPlateauSource(layer, layer?.city_id)); }
+  catch { return false; }
 }
 
 export function selectInitialMapMode(catalog, cityId, search = "") {
