@@ -19,6 +19,12 @@ for (const city of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) 
     await expect(page.locator(".map-runtime-status")).toContainText("official hazard AVAILABLE");
     const toggle = page.getByRole("button", { name: "地域・登録地点を選ぶ", exact: true });
     if (await toggle.isVisible()) await toggle.click();
+    const origin = page.getByLabel("出発node（candidate fixture）");
+    const destination = page.getByLabel("目的node（candidate fixture）");
+    // Inspect the native option itself: the generic enabled-state matcher can
+    // retarget an option to its enabled select. Same-point choices stay disabled.
+    await expect(origin.locator(`option[value="${await destination.inputValue()}"]`)).toHaveJSProperty("disabled", true);
+    await expect(destination.locator(`option[value="${await origin.inputValue()}"]`)).toHaveJSProperty("disabled", true);
     await page.getByLabel("地図・詳細のDEM資料").selectOption("DEM5A");
     const scenarioSelect = page.getByLabel("地図・詳細のsource scenario");
     const scenario = await scenarioSelect.locator("option").nth(1).getAttribute("value");
@@ -28,6 +34,7 @@ for (const city of ["kyoto_kiyomizu", "kyoto_arashiyama", "fujisawa_enoshima"]) 
     const detailToggle = page.getByRole("button", { name: "選択区間の詳細を開く · UNKNOWN", exact: true });
     if (await detailToggle.isVisible()) await detailToggle.click();
     const inspector = page.locator(".segment-inspector");
+    await inspector.getByText("DEMセル標高 · DEM5A（原典値）", { exact: true }).click();
     await expect(inspector.getByLabel("選択区間のDEM標高")).toContainText("DEM5A");
     await expect(inspector.getByLabel("選択区間のDEM標高")).not.toContainText("DEM1A");
     await inspector.getByRole("button", { name: "次の区間", exact: true }).click();

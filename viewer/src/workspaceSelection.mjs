@@ -49,12 +49,18 @@ export function isHazardDisplayFeature(feature, config) {
     && !["official_closure", "damage_state", "debris_present", "setback_m"].some((field) => Object.hasOwn(p, field));
 }
 
-export function filterHazardDisplayFeatures(features, conditions, sourceCatalog) {
-  return features.filter(({ properties: p }) => {
+export function hazardDisplayIdentity({ properties: p }) {
     const a31b = ["kiyomizu_gion", "arashiyama"].includes(p._ablepath_aoi_id)
       && ["A31b-10", "A31b-20", "A31b-30", "A31b-41", "A31b-42"].includes(p._ablepath_layer_id);
     const sourceId = p.source_id ?? (a31b ? "nlni_a31b_2025_kyoto_flood" : null);
     const scenarioId = p.scenario_id ?? (a31b ? `A31B_FLOOD_2025_${p._ablepath_aoi_id}_${p._ablepath_layer_id}` : null);
+    const featureId = p.source_feature_id ?? (a31b ? `${p._ablepath_source_member}#${p._ablepath_source_feature_index}` : null);
+    return { sourceId, scenarioId, featureId, category: p.source_class ?? Object.entries(p).filter(([key]) => /^A31b_\d+$/.test(key)).map(([key, value]) => `${key}=${value}`).join("; ") };
+}
+
+export function filterHazardDisplayFeatures(features, conditions, sourceCatalog) {
+  return features.filter((feature) => {
+    const { sourceId, scenarioId } = hazardDisplayIdentity(feature);
     return (conditions.scenario === "ALL" || conditions.scenario === scenarioId)
       && (conditions.revision === "ALL" || conditions.revision === sourceCatalog?.[sourceId]?.source_revision);
   });

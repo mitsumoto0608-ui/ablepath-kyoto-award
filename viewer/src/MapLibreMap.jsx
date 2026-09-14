@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Map, NavigationControl, setWorkerUrl } from "maplibre-gl";
+import { Map, Marker, NavigationControl, setWorkerUrl } from "maplibre-gl";
 import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { filterHazardDisplayFeatures, isHazardDisplayFeature } from "./workspaceSelection.mjs";
+import { registeredPoints, selectDisplayEdges, cameraCoordinates } from "./displayScene.mjs";
 
 const MAP_DATA_TIMEOUT_MS = 5_000;
 // MapLibre v6's worker imports its shared sibling; Vite must bundle both.
@@ -69,7 +70,7 @@ async function loadOfficialOverlay(config, kind) {
   }
 }
 
-async function loadOfficialOverlays(configs, kind) {
+export async function loadOfficialOverlays(configs, kind) {
   const list = Array.isArray(configs) ? configs : configs ? [configs] : [];
   if (!list.length) return null;
   const loaded = await Promise.all(list.map((config) => loadOfficialOverlay(config, kind)));
@@ -96,7 +97,7 @@ function RealEdgeDetails({ feature, m7Readiness }) {
   );
 }
 
-export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", revision: "ALL" }, officialLayers = {}, selectedEdgeId, selectedPathEdgeIds = [], m7Readiness = [], onSelectEdge, onAnnouncement }) {
+export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", revision: "ALL" }, officialLayers = {}, selectedEdgeId, selectedPathEdgeIds = [], selectedNodeIds = [], registeredNodeIds = [], showNetwork = false, m7Readiness = [], onSelectEdge, onAnnouncement }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const [geojson, setGeojson] = useState(null);
@@ -108,6 +109,14 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
   const [officialOverlays, setOfficialOverlays] = useState({ hazard: null, facility: null });
   const selectionRef = useRef({ selectedEdgeId, selectedPathEdgeIds, conditions });
   selectionRef.current = { selectedEdgeId, selectedPathEdgeIds, conditions };
+
+  function fitMap(scope) {
+    const map = mapRef.current;
+    if (!map) return;
+    const points = cameraCoordinates(geojson, scope, selectedPathEdgeIds, selectedEdgeId, selectedNodeIds);
+    if (!points.length) return;
+    map.fitBounds([[Math.min(...points.map((p) => p[0])), Math.min(...points.map((p) => p[1]))], [Math.max(...points.map((p) => p[0])), Math.max(...points.map((p) => p[1]))]], { padding: 65, duration: 0, maxZoom: 18 });
+  }
 
   useEffect(() => {
     let active = true;
@@ -155,7 +164,7 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
       map.addControl(new NavigationControl({ showCompass: false }), "top-right");
       map.on("load", () => {
         if (officialOverlays.hazard) {
-          map.addSource("official-hazard", { type: "geojson", data: officialOverlays.hazard });
+          map.addSource("official-hazard", { type: "geojson", data: { ...officialOverlays.hazard, features: [] } });
           map.addLayer({ id: "official-hazard-fill", type: "fill", source: "official-hazard", paint: { "fill-color": "#3b82c4", "fill-opacity": 0.22, "fill-outline-color": "#235a87" } });
         }
         if (officialOverlays.facility) {
@@ -167,7 +176,7 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
           id: "candidate-edges-line",
           type: "line",
           source: "candidate-edges",
-          paint: { "line-color": "#ffb000", "line-width": 5, "line-opacity": 0.94 },
+          paint: { "line-color": "#8196ad", "line-width": 2, "line-opacity": 0.6 },
         });
         map.addLayer({ id: "candidate-path-line", type: "line", source: "candidate-edges", filter: ["in", ["get", "edge_id"], ["literal", selectionRef.current.selectedPathEdgeIds]], paint: { "line-color": "#2466bc", "line-width": 7, "line-opacity": 0.96 } });
         map.addLayer({ id: "selected-edge-line", type: "line", source: "candidate-edges", filter: ["==", ["get", "edge_id"], selectionRef.current.selectedEdgeId ?? ""], paint: { "line-color": "#153964", "line-width": 10 } });
@@ -178,6 +187,7 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
           paint: { "line-color": "#ffffff", "line-width": 18, "line-opacity": 0.01 },
         });
         map.fitBounds(config.bounds, { padding: 42, duration: 0, maxZoom: 17 });
+        fitMap("path");
         map.addSource("osm-raster", {
           type: "raster",
           tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
@@ -245,13 +255,29 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
       if (!map.getLayer("candidate-path-line")) return;
       map.setFilter("candidate-path-line", ["in", ["get", "edge_id"], ["literal", selectedPathEdgeIds]]);
       map.setFilter("selected-edge-line", ["==", ["get", "edge_id"], selectedEdgeId ?? ""]);
+      const shown = selectDisplayEdges(geojson, selectedPathEdgeIds, selectedEdgeId, showNetwork).map((f) => f.properties.edge_id);
+      map.setFilter("candidate-edges-line", ["in", ["get", "edge_id"], ["literal", shown]]);
+      map.setFilter("candidate-edges-hit", ["in", ["get", "edge_id"], ["literal", shown]]);
       if (map.getLayer("official-hazard-fill")) {
-        map.getSource("official-hazard").setData({ ...officialOverlays.hazard, features: filterHazardDisplayFeatures(officialOverlays.hazard.features, conditions, officialLayers.sourceCatalog) });
+        map.getSource("official-hazard").setData({ ...officialOverlays.hazard, features: conditions.scenario === "ALL" ? [] : filterHazardDisplayFeatures(officialOverlays.hazard.features, conditions, officialLayers.sourceCatalog) });
       }
     };
     update(); map.on("load", update);
     return () => { if (!map._removed) map.off("load", update); };
-  }, [selectedEdgeId, selectedPathEdgeIds, conditions.scenario, conditions.revision, geojson, officialOverlays, officialLayers.sourceCatalog]);
+  }, [selectedEdgeId, selectedPathEdgeIds, showNetwork, conditions.scenario, conditions.revision, geojson, officialOverlays, officialLayers.sourceCatalog]);
+
+  useEffect(() => { fitMap("path"); }, [selectedPathEdgeIds, selectedNodeIds]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !geojson) return undefined;
+    const markers = registeredPoints(geojson, selectedNodeIds, registeredNodeIds).map((point, index) => {
+      const element = document.createElement("span"); element.className = "registered-marker";
+      element.textContent = `${index === 0 ? "出発" : "到着"} ${point.label}`;
+      return new Marker({ element }).setLngLat(point.coordinates).addTo(map);
+    });
+    return () => markers.forEach((marker) => marker.remove());
+  }, [geojson, officialOverlays, selectedNodeIds, registeredNodeIds]);
 
   const selectedFeature = geojson?.features.find((feature) => feature.properties.edge_id === selectedEdgeId) ?? null;
   if (loadError) {
@@ -269,6 +295,7 @@ export function MapLibreMap({ config, geometry, conditions = { scenario: "ALL", 
         <span>{config.topology_status}</span><span>continuity {config.route_continuity}</span><span>{config.snapshot_at}</span>
       </div>
       </details>
+      <div className="scene-tools" aria-label="2D視点操作"><button onClick={() => fitMap("all")}>全体</button><button onClick={() => fitMap("path")}>経路</button><button onClick={() => fitMap("segment")}>選択区間</button><span>ハザード: {conditions.scenario === "ALL" ? "非表示 — 資料を1つ選択" : conditions.scenario}</span></div>
       <div className="map-runtime-status" role="status" data-visible-candidate-fragments={visibleCandidateFragments}>
         <span>background {basemapState}</span><span>candidate overlay {rendererError ? "DEGRADED_TABLE_AVAILABLE" : overlayReady ? "AVAILABLE" : "LOADING"}</span><span>official hazard {officialOverlays.hazard ? `AVAILABLE (${officialOverlays.hazard.features.length})` : "NOT_CONNECTED"}</span><span>official facilities {officialOverlays.facility ? `AVAILABLE (${officialOverlays.facility.features.length})` : "NOT_CONNECTED"}</span>
       </div>

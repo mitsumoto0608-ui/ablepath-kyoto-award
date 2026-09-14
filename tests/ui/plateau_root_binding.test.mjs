@@ -2,7 +2,35 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { Resource } from "../../viewer/node_modules/cesium/Source/Cesium.js";
-import { loadTilesetForSession } from "../../viewer/src/plateauResource.mjs";
+import { loadTilesetForSession, loadTerrainForSession } from "../../viewer/src/plateauResource.mjs";
+
+// Exact reviewed service metadata, not a road-height fixture or raw DEM.
+const TERRAIN_ROOT = { attribution: '<a href="https://www.mlit.go.jp/plateau/" target="_blank">PLATEAU</a> | <a href="https://mapterhorn.com/" target="_blank">Mapterhorn</a> | <a href="https://www.gsi.go.jp/" target="_blank">国土地理院</a>', bounds: [-180, -90, 180, 90], description: "", extensions: ["metadata", "octvertexnormals"], format: "quantized-mesh-1.0", maxzoom: 18, metadataAvailability: 10, minzoom: 0, name: "", projection: "EPSG:4326", scheme: "tms", tiles: ["{z}/{x}/{y}.terrain"], version: "1.11265.0" };
+
+test("[source_conformance] terrain metadata is pinned through clones and never accepts a changed root or dead session", async () => {
+  const bytes = new TextEncoder().encode(JSON.stringify(TERRAIN_ROOT));
+  const fetchImpl = async () => ({ ok: true, url: "https://tile.plateauview.mlit.go.jp/terrain/layer.json", arrayBuffer: async () => bytes.buffer });
+  let calls = 0;
+  const createTerrain = async (resource) => {
+    calls += 1;
+    const layer = Resource.createIfNeeded(resource).getDerivedResource({ url: "layer.json" });
+    assert.deepEqual(await Resource.createIfNeeded(layer).fetchJson(), TERRAIN_ROOT);
+    return { fixture: true };
+  };
+  assert.deepEqual(await loadTerrainForSession({ isActive: () => true, fetchImpl, createTerrain }), { fixture: true });
+  await assert.rejects(loadTerrainForSession({ isActive: () => false, fetchImpl, createTerrain }), /session/);
+  await assert.rejects(loadTerrainForSession({ isActive: () => true, fetchImpl: async () => ({ ...(await fetchImpl()), arrayBuffer: async () => new TextEncoder().encode("{}").buffer }), createTerrain }), /metadata/);
+  assert.equal(calls, 1);
+  let active = true;
+  let started;
+  let finish;
+  const creationStarted = new Promise((resolve) => { started = resolve; });
+  const pending = loadTerrainForSession({ isActive: () => active, fetchImpl, createTerrain: () => { started(); return new Promise((resolve) => { finish = resolve; }); } });
+  await creationStarted;
+  active = false;
+  finish({ fixture: true });
+  await assert.rejects(pending, /session/);
+});
 
 // Additional provenance/lifecycle tests close the independent review's root
 // re-fetch and late-disposal findings; these are not scientific calculations.

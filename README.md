@@ -6,7 +6,7 @@
 
 清水・祇園、嵐山、藤沢の2025年公式PLATEAU remote LOD2を実ブラウザで個別検証しました。正本は `reports/ASTRA_PLATEAU_CONNECTION_RECEIPT.json` です。これは **remote表示sourceの検証済みcapability** であり、ページを開いた瞬間の描画成功ではありません。各3DセッションでrootのSHA/bytesを検証し、非空tileが実際に描画されたときだけ `VISIBLE` と表示します。部分coverage・通信/WebGL失敗は残り、失敗時は同じ選択条件で2Dへ戻ります。過去のPhase 4/G8/DEM継続報告の「実3D未接続」はその時点のhistorical snapshotです。
 
-3Dは楕円体terrainと表示専用の候補線（ellipsoid h=0）です。DEM native-cell標高を道路面や3Dの高さへ転用しません。公式建物を画面上でremote表示することは、公開除外した個別建物行の再公開、M7入力、被害・閉塞・安全判定ではありません。公開施設28/0行、個別建物payload除外、M7 ready/computed 0/0、現地測定延期、既存UNKNOWNと未解決公開履歴を維持します。
+3Dは公式PLATEAU表示terrainをSHA検証して読み込み、既存候補線と選択した原典hazard図形を地形だけに投影します。根拠は `reports/ASTRA_DISPLAY_TERRAIN_RECEIPT.json`。生成時固定のジオイド補正済み楕円体高で、既存DEM native-cell標高・道路面実測とは別です。橋・高架・トンネル等は高さUNKNOWNの図式破線で2Dを併用し、屋根への吸着や建物の任意上下移動を行いません。表示用高さを解析・export・M6/M7へ転用しません。公式建物のremote表示は、公開除外した個別建物行の再公開や被害・閉塞・安全判定ではありません。公開施設28/0行、個別建物payload除外、M7 ready/computed 0/0、現地測定延期、既存UNKNOWNと未解決公開履歴を維持します。視覚・使いやすさの人間受入れは `PRODUCT_VISUAL_ACCEPTANCE=PENDING_USER_REVIEW` です。
 
 ## Current public snapshot scope (2026-09-13)
 

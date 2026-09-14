@@ -137,3 +137,72 @@ small { display: block; }
   .astra-shell .admin-checklist { border: none; }
   .astra-shell .app-nav, .shared-selection, .mobile-detail-toggle { display: none !important; }
 }
+
+/* PR17 improvement: map first, one shared condition bar, details on demand. */
+.astra-shell .masthead { min-height: 58px; padding-block: 8px; }
+.astra-shell .corridor-intro { padding: 8px 0; }
+.astra-shell .corridor-intro .eyebrow { display: none; }
+.astra-shell.real-mode .corridor-intro { display: none; }
+.astra-shell .workspace-grid { padding-top: 10px; }
+.astra-shell .workspace-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.astra-shell.detail-open .workspace-grid { grid-template-columns: minmax(0, 1fr) 320px; }
+.astra-shell .controls { grid-column: 1 / -1; padding: 10px 14px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.5fr 1fr; gap: 8px 12px; align-items: center; }
+.astra-shell .controls .section-heading, .astra-shell .source-controls h3, .astra-shell .controls > .small-note, .astra-shell .source-controls .small-note { display: none; }
+.astra-shell .control-grid, .astra-shell .source-controls { display: contents; }
+.astra-shell .controls label { min-width: 0; display: grid; font-size: 11px; gap: 4px; margin: 0; }
+.astra-shell .controls select { width: 100%; min-height: 36px; }
+.astra-shell .controls .control-grid > label:nth-child(1) { grid-column: 1; grid-row: 1; }
+.astra-shell .controls .control-grid > label:nth-child(2) { grid-column: 2; grid-row: 1; }
+.astra-shell .controls .control-grid > label:nth-child(3) { grid-column: 3; grid-row: 1; }
+.astra-shell .source-controls > label:nth-of-type(1) { grid-column: 4; grid-row: 1; }
+.astra-shell .source-controls > label:nth-of-type(2) { grid-column: 5; grid-row: 1; }
+.astra-shell .controls .network-toggle { display: flex; align-items: center; grid-column: 1 / 3; }
+.astra-shell .network-toggle input { width: 16px; height: 16px; }
+.astra-shell .controls .unconnected-controls { margin: 0; grid-column: 3 / 4; }
+.astra-shell .controls .network-toggle, .astra-shell .controls .unconnected-controls { grid-row: 2; }
+.astra-shell .controls .view-tabs { margin: 0; grid-column: 5; grid-row: 2; }
+.astra-shell .map-mode-fieldset { grid-column: 4; grid-row: 2; margin: 0; padding: 0; border: 0; }
+.astra-shell .map-mode-fieldset legend { display: none; }
+.astra-shell .map-mode-fieldset .view-tabs { display: flex; }
+.astra-shell .map-column { grid-column: 1; min-width: 0; }
+.astra-shell .map-column .map-toolbar .eyebrow { display: none; }
+.astra-shell .map-column .map-toolbar { padding-block: 8px; }
+.astra-shell .map-column .map-toolbar h2 { margin: 0; }
+.astra-shell .map-column .scene-tools { min-height: 0; padding-block: 5px; }
+.astra-shell .map-column .map-caption { padding-block: 4px; }
+.astra-shell .segment-inspector { display: none; grid-column: 2; grid-row: 2; max-height: 660px; }
+.astra-shell.detail-open .segment-inspector { display: block; }
+.astra-shell .mobile-detail-close { display: block; }
+.astra-shell .maplibre-canvas, .astra-shell .cesium-canvas { height: max(450px, calc(100svh - 360px)); min-height: 450px; }
+.astra-shell .terrain-loading { visibility: hidden; }
+.astra-shell .map-caption { font-size: 11px; }
+.scene-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; padding: 8px 12px; border-block: 1px solid var(--line); background: #f7f9fc; }
+.scene-tools button { min-height: 34px; font-size: 11px; }
+.scene-tools label { display: flex; align-items: center; gap: 5px; margin-left: auto; font-size: 11px; }
+.scene-tools select { width: 100px; padding: 5px; }
+.camera-pan { position: relative; font-size: 11px; }
+.camera-pan summary { cursor: pointer; padding: 8px; }
+.route-purpose { display: flex; gap: 6px 16px; flex-wrap: wrap; padding: 7px 12px; background: #eaf1fa; color: #243e60; font-size: 11px; }
+.scene-tools span { font-size: 11px; max-width: 100%; overflow-wrap: anywhere; }
+.scene-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 8px 12px; font-size: 10px; background: #f7f9fc; overflow-wrap: anywhere; }
+.registered-marker { color: #164d88; background: white; padding: 5px 8px; border: 2px solid #166ac7; border-radius: 5px; font-size: 12px; font-weight: 700; }
+.astra-shell .candidate-analysis { margin: 10px 0; }
+.astra-shell .map-runtime-status { font-size: 9px; }
+.astra-shell .mobile-detail-toggle { display: block; width: auto; margin-top: 10px; }
+@media (max-width: 760px) {
+  .astra-shell .workspace-grid, .astra-shell.detail-open .workspace-grid { display: block; }
+  .astra-shell .mobile-controls-toggle { margin-top: 8px; }
+  .astra-shell .controls { display: none; }
+  .astra-shell.controls-open .controls { display: grid; grid-template-columns: 1fr 1fr; }
+  .astra-shell .controls .control-grid > label:first-child { grid-column: 1 / -1; }
+  .astra-shell .controls .control-grid > label, .astra-shell .source-controls > label { grid-column: auto; grid-row: auto; }
+  .astra-shell .controls .network-toggle, .astra-shell .controls .unconnected-controls, .astra-shell .controls .view-tabs, .astra-shell .map-mode-fieldset { grid-column: auto; grid-row: auto; }
+  .astra-shell .controls .network-toggle { grid-column: 1 / -1; }
+  .astra-shell .maplibre-canvas, .astra-shell .cesium-canvas { height: 54svh; min-height: 340px; }
+  .astra-shell .map-toolbar { padding: 7px 10px; }
+  .astra-shell .map-toolbar .eyebrow { display: none; }
+  .scene-tools { padding: 6px; gap: 4px; }
+  .scene-tools button { min-height: 36px; padding: 5px 7px; font-size: 10px; }
+  .scene-tools label { margin-left: 0; }
+  .astra-shell .mobile-detail-toggle { width: 100%; }
+}

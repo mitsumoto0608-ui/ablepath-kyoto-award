@@ -66,7 +66,7 @@ function Header({ city, catalog, realMode, onDetail, onNavigate }) {
   );
 }
 
-function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selectedStart, selectedEnd, onPathChange, conditions, onConditions }) {
+function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selectedStart, selectedEnd, onPathChange, conditions, onConditions, showNetwork, onNetwork }) {
   const { city, scenario, evidenceMode, phase, view, mapMode } = state;
   function changeCity(cityId) {
     const nextCity = catalog.cities.find((candidate) => candidate.city_id === cityId);
@@ -93,11 +93,12 @@ function Controls({ catalog, mapCatalog, state, onStateChange, analysis, selecte
             {catalog.cities.map((candidate) => <option key={candidate.city_id} value={candidate.city_id}>{candidate.display_name}</option>)}
           </select>
         </label>
-        <label>出発する登録地点<select aria-label="出発node（candidate fixture）" value={selectedStart ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(event.target.value, selectedEnd)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>登録地点 · {nodeId.replace(/^.*-N/, "N")}</option>)}</select></label>
-        <label>到着する登録地点<select aria-label="目的node（candidate fixture）" value={selectedEnd ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(selectedStart, event.target.value)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId) => <option key={nodeId} value={nodeId}>登録地点 · {nodeId.replace(/^.*-N/, "N")}</option>)}</select></label>
+        <label>出発する登録地点<select aria-label="出発node（candidate fixture）" value={selectedStart ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(event.target.value, selectedEnd)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId, index) => <option key={nodeId} value={nodeId} disabled={!analysis?.path_matrix?.[`${nodeId}__${selectedEnd}`]}>地点{String.fromCharCode(65 + index)}（地図で確認）</option>)}</select></label>
+        <label>到着する登録地点<select aria-label="目的node（candidate fixture）" value={selectedEnd ?? "NOT_AVAILABLE"} onChange={(event) => onPathChange(selectedStart, event.target.value)}>{(analysis?.selectable_node_ids ?? ["NOT_AVAILABLE"]).map((nodeId, index) => <option key={nodeId} value={nodeId} disabled={!analysis?.path_matrix?.[`${selectedStart}__${nodeId}`]}>地点{String.fromCharCode(65 + index)}（地図で確認）</option>)}</select></label>
       </div>
       <p className="small-note">登録地点間の事前計算済み候補です。任意住所の検索・災害時の自動迂回は行いません。</p>
-      {mapMode === "real" && <div className="source-controls"><h3>確認する資料</h3><label>DEM資料<select aria-label="地図・詳細のDEM資料" value={conditions.terrainProduct} onChange={(event) => onConditions((current) => ({ ...current, terrainProduct: event.target.value }))}><option value="ALL">両製品を区別して表示</option>{[...new Set((analysis?.official_evidence?.terrain?.products ?? []).map((row) => row.dem_class))].map((product) => <option key={product} value={product}>{product}</option>)}</select></label><label>ハザード資料<select aria-label="地図・詳細のsource scenario" value={conditions.scenario} onChange={(event) => onConditions((current) => ({ ...current, scenario: event.target.value }))}><option value="ALL">全資料（相互unionなし）</option>{[...new Set((analysis?.official_evidence?.hazard?.edge_exposures ?? []).map((row) => row.scenario_id))].map((id) => <option key={id} value={id}>{id}</option>)}</select></label><p className="small-note">資料切替は経路の再探索ではありません。</p></div>}
+      <label className="network-toggle"><input type="checkbox" checked={showNetwork} onChange={(e) => onNetwork(e.target.checked)} />全候補ネットワークを表示</label>
+      {mapMode === "real" && <div className="source-controls"><h3>確認する資料</h3><label>DEM資料<select aria-label="地図・詳細のDEM資料" value={conditions.terrainProduct} onChange={(event) => onConditions((current) => ({ ...current, terrainProduct: event.target.value }))}><option value="ALL">両製品を区別して表示</option>{[...new Set((analysis?.official_evidence?.terrain?.products ?? []).map((row) => row.dem_class))].map((product) => <option key={product} value={product}>{product}</option>)}</select></label><label>ハザード資料<select aria-label="地図・詳細のsource scenario" value={conditions.scenario} onChange={(event) => onConditions((current) => ({ ...current, scenario: event.target.value }))}><option value="ALL">地図は非表示（一覧は全資料）</option>{[...new Set((analysis?.official_evidence?.hazard?.edge_exposures ?? []).map((row) => row.scenario_id))].map((id) => <option key={id} value={id}>{id}</option>)}</select></label><p className="small-note">資料切替は経路の再探索ではありません。</p></div>}
       <details className="unconnected-controls"><summary>未接続の計算条件</summary>
       <label>固定シナリオ<select aria-label="ハザード・固定シナリオ（未接続）" value={scenario.scenario_id} disabled><option value={scenario.scenario_id}>NOT_COMPUTED — scenario output未接続</option></select></label>
       <label>歩行profile<select aria-label="歩行profile（未計算）" value="NOT_COMPUTED" disabled><option value="NOT_COMPUTED">NOT_COMPUTED — M6未実装</option></select></label>
@@ -479,6 +480,8 @@ export function App() {
   const [geometry, setGeometry] = useState(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [controlsOpen, setControlsOpen] = useState(false);
+  const [showNetwork, setShowNetwork] = useState(false);
+  const [cameraRequest, setCameraRequest] = useState(0);
   const initialSearch = useMemo(() => window.location.search, []);
 
   useEffect(() => {
@@ -549,8 +552,9 @@ export function App() {
   useEffect(() => {
     if (!geometry || analysis?.city_id !== state?.city.city_id) return;
     if (geometry.features.some((feature) => feature.properties.edge_id === state.selectedRealEdgeId)) return;
-    const path = analysis.path_matrix[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? analysis.path_fixture;
-    selectRealEdge(path.edge_ids[0] ?? geometry.features[0]?.properties.edge_id, { automatic: true });
+    const path = analysis.path_matrix[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`];
+    const nextId = path?.edge_ids[0] ?? null;
+    if (state.selectedRealEdgeId !== nextId) selectRealEdge(nextId, { automatic: true });
   }, [geometry, analysis, selectedPathNodes, state?.city.city_id, state?.selectedRealEdgeId, selectRealEdge]);
   useEffect(() => {
     if (!detailOpen) return undefined;
@@ -570,7 +574,7 @@ export function App() {
   const cityMapConfig = mapConfigForCity(mapCatalog, state.city.city_id);
   const realMode = state.mapMode === "real" && Boolean(cityMapConfig?.real_2d);
   const cityAnalysis = analysis?.city_id === state.city.city_id ? analysis : null;
-  const selectedPath = cityAnalysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? cityAnalysis?.path_fixture ?? null;
+  const selectedPath = cityAnalysis?.path_matrix?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? null;
   const selectedChecklist = cityAnalysis?.review_checklists?.[`${selectedPathNodes[0]}__${selectedPathNodes[1]}`] ?? null;
   const selectedFeature = geometry?.features.find((feature) => feature.properties.edge_id === state.selectedRealEdgeId) ?? null;
 
@@ -584,7 +588,7 @@ export function App() {
     updateState({ ...state, selectedEdge: edge }, `${edge.edge_id}の証拠を表示しました`);
   }
   return (
-    <div className={`app-shell astra-shell ${detailOpen ? "detail-open" : ""} ${controlsOpen ? "controls-open" : ""}`}>
+    <div className={`app-shell astra-shell ${realMode ? "real-mode" : ""} ${detailOpen ? "detail-open" : ""} ${controlsOpen ? "controls-open" : ""}`}>
       <Header city={state.city} catalog={catalog} realMode={realMode} onDetail={() => { setDetailOpen(true); setControlsOpen(false); }} onNavigate={() => { setDetailOpen(false); setControlsOpen(false); }} />
       <div className="disclaimer" role="note"><b>候補経路・確認用</b><span>安全・通行可能性・行政検証を示しません。現地測定は延期中です。</span></div>
       {fallbackNotice && <div className="map-fallback-notice" role="status"><b>3Dから2Dへfallback</b><span>{fallbackNotice}。2D表示と証拠情報を継続します。</span></div>}
@@ -595,8 +599,9 @@ export function App() {
         </section>
         <button className="mobile-controls-toggle" type="button" aria-expanded={controlsOpen} onClick={() => { setControlsOpen(!controlsOpen); setDetailOpen(false); }}>地域・登録地点を選ぶ</button>
         <div className="workspace-grid" id="map-workspace">
-          <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={cityAnalysis} conditions={conditions} onConditions={setConditions} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => { setSelectedPathNodes([start, end]); const path = cityAnalysis?.path_matrix?.[`${start}__${end}`]; if (path?.edge_ids.length) setState((current) => ({ ...current, selectedRealEdgeId: path.edge_ids[0] })); }} />
+          <Controls catalog={catalog} mapCatalog={mapCatalog} state={state} onStateChange={updateState} analysis={cityAnalysis} conditions={conditions} onConditions={setConditions} showNetwork={showNetwork} onNetwork={setShowNetwork} selectedStart={selectedPathNodes[0]} selectedEnd={selectedPathNodes[1]} onPathChange={(start, end) => { const path = cityAnalysis?.path_matrix?.[`${start}__${end}`]; if (!path) return; setCameraRequest(0); setSelectedPathNodes([start, end]); setState((current) => ({ ...current, selectedRealEdgeId: path.edge_ids[0] ?? null })); }} />
           <section className="map-column" role="region" aria-label={state.view === "2d" ? "2D地図" : "3D可用性"}>
+            {realMode && <div className="route-purpose" role="status"><b>{state.city.display_name} · {selectedPath?.status === "CONNECTED" ? `登録地点間の候補 ${selectedPath.edge_ids.length}区間` : "登録地点間の接続なし"}</b><span>事前計算済み候補／資料切替で再探索しません</span></div>}
             {state.view === "2d" ? (
               realMode ? (
                 <MapLibreMap
@@ -604,6 +609,9 @@ export function App() {
                   config={cityMapConfig.real_2d}
                   geometry={geometry}
                   conditions={conditions}
+                  showNetwork={showNetwork}
+                  selectedNodeIds={selectedPathNodes}
+                  registeredNodeIds={cityAnalysis?.selectable_node_ids ?? []}
                   officialLayers={{ hazard: cityAnalysis?.official_evidence?.hazard?.display_layers ?? [], facility: cityAnalysis?.official_evidence?.facility?.display_layer ?? null, sourceCatalog: cityAnalysis?.official_evidence?.hazard?.source_catalog }}
                   selectedEdgeId={state.selectedRealEdgeId}
                   selectedPathEdgeIds={selectedPath?.edge_ids ?? []}
@@ -613,14 +621,14 @@ export function App() {
                 />
               ) : <Map2D city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />
             ) : (
-              <CesiumPanel key={`${state.city.city_id}:${state.mapMode}`} config={realMode ? cityMapConfig?.cesium ?? null : null} geometry={geometry} bounds={cityMapConfig?.real_2d?.bounds} selectedEdgeId={state.selectedRealEdgeId} selectedPathEdgeIds={selectedPath?.edge_ids ?? []} onSelectEdge={selectRealEdge} onFallback={fallbackTo2d} onAnnouncement={announce} />
+              <CesiumPanel key={`${state.city.city_id}:${state.mapMode}`} config={realMode ? cityMapConfig?.cesium ?? null : null} geometry={geometry} bounds={cityMapConfig?.real_2d?.bounds} selectedEdgeId={state.selectedRealEdgeId} selectedPathEdgeIds={selectedPath?.edge_ids ?? []} selectedNodeIds={selectedPathNodes} registeredNodeIds={cityAnalysis?.selectable_node_ids ?? []} conditions={conditions} hazardLayers={cityAnalysis?.official_evidence?.hazard?.display_layers} sourceCatalog={cityAnalysis?.official_evidence?.hazard?.source_catalog} showNetwork={showNetwork} cameraRequest={cameraRequest} onSelectEdge={selectRealEdge} onFallback={fallbackTo2d} onAnnouncement={announce} />
             )}
           </section>
-          {realMode ? <SegmentInspector feature={selectedFeature} evidence={cityAnalysis?.official_evidence} conditions={conditions} path={selectedPath} onSelectEdge={selectRealEdge} onView3d={() => updateState({ ...state, view: "3d" }, "同じ区間の3Dへ切り替えました")} onAdmin={() => { document.getElementById("admin-workspace")?.scrollIntoView(); setDetailOpen(false); }} onClose={() => setDetailOpen(false)} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
+          {realMode ? <SegmentInspector feature={selectedFeature} evidence={cityAnalysis?.official_evidence} conditions={conditions} path={selectedPath} view={state.view} onSelectEdge={selectRealEdge} onView3d={() => { setCameraRequest((n) => n + 1); updateState({ ...state, view: "3d" }, "同じ区間の3Dへ切り替えました"); }} onAdmin={() => { document.getElementById("admin-workspace")?.scrollIntoView(); setDetailOpen(false); }} onClose={() => setDetailOpen(false)} /> : <EvidencePanel city={state.city} selectedEdge={state.selectedEdge} />}
         </div>
         {realMode && <button type="button" className="mobile-detail-toggle" onClick={() => { setDetailOpen(true); setControlsOpen(false); }}>選択区間の詳細を開く · UNKNOWN</button>}
         {!realMode && <EdgeTable city={state.city} selectedEdge={state.selectedEdge} onSelectEdge={selectEdge} />}
-        {realMode && cityAnalysis && <section className="candidate-analysis" aria-label="candidate path analysis"><h2>candidate path fixture</h2><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></section>}
+        {realMode && cityAnalysis && <details className="candidate-analysis" aria-label="candidate path analysis"><summary>候補経路の計算根拠・ID（事前計算済み）</summary><p>{selectedPath?.status} / {selectedPath?.unit}</p><p>coordinate-degree distance: {selectedPath?.geometric_length ?? "—"}</p><p>この coordinate_degree は地理距離・メートル距離ではありません。</p><p>{selectedPath?.reason}</p><p>ordered edge IDs: {selectedPath?.edge_ids.join(", ") || "—"}</p><p>hazard: {cityAnalysis.hazard_overlap.status} — {cityAnalysis.hazard_overlap.reason}</p><p>M7 {cityAnalysis.m7.status}; ready {cityAnalysis.m7.ready_edge_count}; computed {cityAnalysis.m7.computed_edge_count}; M6 {cityAnalysis.m6.status}</p></details>}
         {realMode && <ReviewChecklistPanel conditions={conditions} onConditions={setConditions} checklist={selectedChecklist ? { ...selectedChecklist, source_catalog: cityAnalysis?.official_evidence?.hazard?.source_catalog ?? {} } : null} facilityRecords={cityAnalysis?.official_evidence?.facility?.records ?? []} facilitySourceCatalog={cityAnalysis?.official_evidence?.facility?.source_catalog ?? {}} hazardExposures={cityAnalysis?.official_evidence?.hazard?.edge_exposures ?? []} terrainSamples={cityAnalysis?.official_evidence?.terrain?.samples ?? []} />}
         <AdminChecklistPanel key={state.city.city_id} checklist={adminChecklist} notice={adminNotice} selectedEdgeId={state.selectedRealEdgeId} onSelectEdge={selectRealEdge} conditions={conditions} />
         {realMode && <RealLayerPanel config={cityMapConfig.real_2d} />}

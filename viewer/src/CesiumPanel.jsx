@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { isVerifiedCesiumConnection } from "./mapDomain.mjs";
 
-export function CesiumPanel({ config, geometry, bounds, selectedEdgeId, selectedPathEdgeIds, onSelectEdge, onFallback, onAnnouncement }) {
+export function CesiumPanel({ config, geometry, bounds, selectedEdgeId, selectedPathEdgeIds, selectedNodeIds, registeredNodeIds, conditions, hazardLayers, sourceCatalog, showNetwork, cameraRequest, onSelectEdge, onFallback, onAnnouncement }) {
   const [Scene, setScene] = useState(null);
   const [runtimeStatus, setRuntimeStatus] = useState("LAZY_LOADING_RUNTIME");
   const verifiedConnection = isVerifiedCesiumConnection(config);
@@ -56,10 +56,7 @@ export function CesiumPanel({ config, geometry, bounds, selectedEdgeId, selected
         <div><p className="eyebrow">OFFICIAL PLATEAU / DISPLAY ONLY</p><h2 id="cesium-title">{config.city_id === "kyoto_arashiyama" ? "嵐山・右京区" : config.city_id === "fujisawa_enoshima" ? "藤沢" : "清水・東山区"} · PLATEAU {config.year ?? ""} {config.lod}</h2></div>
         <span className="status-badge status-metadata_only">{runtimeStatus}</span>
       </div>
-      <div className="layer-facts">
-        <span>{config.data_class}</span><span>{config.source_class}</span><span>{config.lod}</span><span>accessed {config.accessed_at}</span>
-      </div>
-      <p className="map-caption">source: VERIFIED_SOURCE / session: {runtimeStatus}。{config.coverage_limitations} M7 ready / computed = 0 / 0。</p>
+      <p className="map-caption">公式LOD2・部分coverage。候補線は表示用投影、道路面高さは未確認です。</p>
       {Scene ? (
         <Scene
           config={config}
@@ -67,6 +64,13 @@ export function CesiumPanel({ config, geometry, bounds, selectedEdgeId, selected
           bounds={bounds}
           selectedEdgeId={selectedEdgeId}
           selectedPathEdgeIds={selectedPathEdgeIds}
+          selectedNodeIds={selectedNodeIds}
+          registeredNodeIds={registeredNodeIds}
+          conditions={conditions}
+          hazardLayers={hazardLayers}
+          sourceCatalog={sourceCatalog}
+          showNetwork={showNetwork}
+          cameraRequest={cameraRequest}
           onSelectEdge={onSelectEdge}
           onConnected={handleConnected}
           onVisible={handleVisible}
@@ -74,7 +78,7 @@ export function CesiumPanel({ config, geometry, bounds, selectedEdgeId, selected
         />
       ) : <div className="cesium-loading" role="status">Cesium runtimeを3Dタブでのみ読み込んでいます</div>}
       <p className="map-attribution"><a href={config.license_url} target="_blank" rel="noreferrer">{config.attribution}</a></p>
-      <details className="map-provenance"><summary>公式配信URL・検証receipt</summary><a href={config.tileset_url} target="_blank" rel="noreferrer">公式tileset.json</a><p>root SHA-256: <code>{config.root_sha256}</code></p><p>receipt SHA-256: <code>{config.connection_receipt_sha256}</code></p></details>
+      <details className="map-provenance"><summary>公式配信URL・検証receipt</summary><p>source: VERIFIED_SOURCE / session: {runtimeStatus}。{config.coverage_limitations} M7 ready / computed = 0 / 0。</p><a href={config.tileset_url} target="_blank" rel="noreferrer">公式tileset.json</a><p>root SHA-256: <code>{config.root_sha256}</code></p><p>receipt SHA-256: <code>{config.connection_receipt_sha256}</code></p></details>
       <button type="button" onClick={() => onFallback("2Dへ戻りました")}>2Dへ戻る</button>
     </section>
   );

@@ -1,8 +1,9 @@
-import { Cesium3DTileset, Resource } from "cesium";
+import { Cesium3DTileset, CesiumTerrainProvider, Resource } from "cesium";
+import { DISPLAY_TERRAIN } from "./displayScene.mjs";
 
 // Resource.createIfNeeded clones its input, including on nested loads. Keep
 // the reviewed root through those clones without changing global Cesium APIs.
-class VerifiedRootResource extends Resource {
+export class VerifiedRootResource extends Resource {
   constructor(url, rootUrl, root) { super({ url }); this.rootUrl = rootUrl; this.verifiedRoot = root; }
   clone(result) {
     const target = result instanceof VerifiedRootResource ? result : new VerifiedRootResource(this.url, this.rootUrl, this.verifiedRoot);
@@ -33,4 +34,18 @@ export async function loadTilesetForSession(config, { signal, isActive, fetchImp
     throw new Error("PLATEAU request no longer active");
   }
   return tileset;
+}
+
+export async function loadTerrainForSession({ signal, isActive, fetchImpl = fetch, createTerrain = CesiumTerrainProvider.fromUrl }) {
+  const rootUrl = `${DISPLAY_TERRAIN.url}/layer.json`;
+  const response = await fetchImpl(rootUrl, { signal });
+  if (!response.ok || response.url !== rootUrl) throw new Error("表示terrain metadata HTTP/final URL不一致");
+  const bytes = await response.arrayBuffer();
+  const hash = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), (v) => v.toString(16).padStart(2, "0")).join("");
+  if (hash !== DISPLAY_TERRAIN.metadata_sha256 || bytes.byteLength !== DISPLAY_TERRAIN.metadata_bytes) throw new Error("表示terrain metadata更新を検出: 再検証まで2Dを使用します");
+  if (!isActive()) throw new Error("表示terrain session終了済み");
+  const root = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+  const provider = await createTerrain(new VerifiedRootResource(`${DISPLAY_TERRAIN.url}/`, rootUrl, root), { requestVertexNormals: true, credit: DISPLAY_TERRAIN.credit });
+  if (!isActive()) throw new Error("表示terrain session終了済み");
+  return provider;
 }
