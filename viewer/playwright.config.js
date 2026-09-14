@@ -8,6 +8,10 @@ export default defineConfig({
   timeout: 30_000,
   expect: { timeout: 5_000 },
   fullyParallel: false,
+  // Hosted runners share a small CPU budget. Keep the same one-worker condition
+  // as local full acceptance; retain every case, assertion, timeout and retry=0.
+  // https://playwright.dev/docs/ci#workers
+  workers: process.env.CI ? 1 : undefined,
   retries: 0,
   reporter: [["list"], ["html", { outputFolder: "playwright-report", open: "never" }]],
   use: {
